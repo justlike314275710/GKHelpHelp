@@ -341,16 +341,16 @@
 		3EEEC686209985B6003B35B3 /* PSLaunchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EEEC685209985B6003B35B3 /* PSLaunchViewController.m */; };
 		557859BA218994140080437D /* RemittanceRecode.m in Sources */ = {isa = PBXBuildFile; fileRef = 557859B9218994140080437D /* RemittanceRecode.m */; };
 		557859BD2189A3D80080437D /* PSRemittanceBusinessRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 557859BC2189A3D80080437D /* PSRemittanceBusinessRequest.m */; };
-		557859C02189A4340080437D /* PSRemittanceResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 557859BF2189A4340080437D /* PSRemittanceResponse.m */; };
 		55C9EDC42188528300A11D60 /* PSFamilyRemittanceViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 55C9EDC32188528300A11D60 /* PSFamilyRemittanceViewModel.m */; };
-		55DA4BB82189EC2F00212A23 /* PSRemittanceRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 55DA4BB72189EC2F00212A23 /* PSRemittanceRequest.m */; };
-		55DA4BBB2189EC5F00212A23 /* PSRemitanceResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 55DA4BBA2189EC5F00212A23 /* PSRemitanceResponse.m */; };
 		55DA4BBE2189F09900212A23 /* PSRemittanceRecodeViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 55DA4BBD2189F09900212A23 /* PSRemittanceRecodeViewModel.m */; };
-		55E9A8BC2186B02F003A5918 /* PSFamilyRemittanceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 55E9A8BB2186B02F003A5918 /* PSFamilyRemittanceViewController.m */; };
 		55E9A8C12186EB33003A5918 /* PSREmittanceRecodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 55E9A8C02186EB33003A5918 /* PSREmittanceRecodeViewController.m */; };
 		55E9A8C42186EDC6003A5918 /* PSRemittanceRecordCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 55E9A8C32186EDC6003A5918 /* PSRemittanceRecordCell.m */; };
 		55E9A8CA2186F982003A5918 /* PSRemittancePayStateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 55E9A8C92186F982003A5918 /* PSRemittancePayStateViewController.m */; };
-		55E9A8CD21870E10003A5918 /* PSSeleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 55E9A8CC21870E10003A5918 /* PSSeleView.m */; };
+		55F2A53621904B7B0048D93B /* PSFamilyRemittanceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 55F2A53521904B7B0048D93B /* PSFamilyRemittanceViewController.m */; };
+		55F2A54121904D280048D93B /* PSRemittanceRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 55F2A53D21904D270048D93B /* PSRemittanceRequest.m */; };
+		55F2A54221904D280048D93B /* PSRemitanceResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 55F2A53E21904D270048D93B /* PSRemitanceResponse.m */; };
+		55F9C6FF2190759C00E15FDD /* PSRemittanceResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 55F9C6FE2190759C00E15FDD /* PSRemittanceResponse.m */; };
+		55F9C7022190761900E15FDD /* PSSeleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 55F9C7002190761800E15FDD /* PSSeleView.m */; };
 		CA5EA014E08B9BBB9092821F /* Pods_PrisonService.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DC5524D296D19D66ABDD409 /* Pods_PrisonService.framework */; };
 		EA0B02EA20CE57200091B9A0 /* MZGuidePages.m in Sources */ = {isa = PBXBuildFile; fileRef = EA0B02E920CE57200091B9A0 /* MZGuidePages.m */; };
 		EA0B02ED20CE58BA0091B9A0 /* MemberGuideVC.m in Sources */ = {isa = PBXBuildFile; fileRef = EA0B02EC20CE58BA0091B9A0 /* MemberGuideVC.m */; };
@@ -1285,26 +1285,26 @@
 		557859B9218994140080437D /* RemittanceRecode.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RemittanceRecode.m; sourceTree = "<group>"; };
 		557859BB2189A3D80080437D /* PSRemittanceBusinessRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PSRemittanceBusinessRequest.h; sourceTree = "<group>"; };
 		557859BC2189A3D80080437D /* PSRemittanceBusinessRequest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PSRemittanceBusinessRequest.m; sourceTree = "<group>"; };
-		557859BE2189A4340080437D /* PSRemittanceResponse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PSRemittanceResponse.h; sourceTree = "<group>"; };
-		557859BF2189A4340080437D /* PSRemittanceResponse.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PSRemittanceResponse.m; sourceTree = "<group>"; };
 		55C9EDC22188528300A11D60 /* PSFamilyRemittanceViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PSFamilyRemittanceViewModel.h; sourceTree = "<group>"; };
 		55C9EDC32188528300A11D60 /* PSFamilyRemittanceViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PSFamilyRemittanceViewModel.m; sourceTree = "<group>"; };
-		55DA4BB62189EC2F00212A23 /* PSRemittanceRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PSRemittanceRequest.h; sourceTree = "<group>"; };
-		55DA4BB72189EC2F00212A23 /* PSRemittanceRequest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PSRemittanceRequest.m; sourceTree = "<group>"; };
-		55DA4BB92189EC5F00212A23 /* PSRemitanceResponse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PSRemitanceResponse.h; sourceTree = "<group>"; };
-		55DA4BBA2189EC5F00212A23 /* PSRemitanceResponse.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PSRemitanceResponse.m; sourceTree = "<group>"; };
 		55DA4BBC2189F09900212A23 /* PSRemittanceRecodeViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PSRemittanceRecodeViewModel.h; sourceTree = "<group>"; };
 		55DA4BBD2189F09900212A23 /* PSRemittanceRecodeViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PSRemittanceRecodeViewModel.m; sourceTree = "<group>"; };
 		55E9A8BA2186B02F003A5918 /* PSFamilyRemittanceViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PSFamilyRemittanceViewController.h; sourceTree = "<group>"; };
-		55E9A8BB2186B02F003A5918 /* PSFamilyRemittanceViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PSFamilyRemittanceViewController.m; sourceTree = "<group>"; };
 		55E9A8BF2186EB33003A5918 /* PSREmittanceRecodeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PSREmittanceRecodeViewController.h; sourceTree = "<group>"; };
 		55E9A8C02186EB33003A5918 /* PSREmittanceRecodeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PSREmittanceRecodeViewController.m; sourceTree = "<group>"; };
 		55E9A8C22186EDC6003A5918 /* PSRemittanceRecordCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PSRemittanceRecordCell.h; sourceTree = "<group>"; };
 		55E9A8C32186EDC6003A5918 /* PSRemittanceRecordCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PSRemittanceRecordCell.m; sourceTree = "<group>"; };
 		55E9A8C82186F982003A5918 /* PSRemittancePayStateViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PSRemittancePayStateViewController.h; sourceTree = "<group>"; };
 		55E9A8C92186F982003A5918 /* PSRemittancePayStateViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PSRemittancePayStateViewController.m; sourceTree = "<group>"; };
-		55E9A8CB21870E10003A5918 /* PSSeleView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PSSeleView.h; sourceTree = "<group>"; };
-		55E9A8CC21870E10003A5918 /* PSSeleView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PSSeleView.m; sourceTree = "<group>"; };
+		55F2A53521904B7B0048D93B /* PSFamilyRemittanceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSFamilyRemittanceViewController.m; sourceTree = "<group>"; };
+		55F2A53D21904D270048D93B /* PSRemittanceRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PSRemittanceRequest.m; path = ../../../../../../../.Trash/remittance/PSRemittanceRequest.m; sourceTree = "<group>"; };
+		55F2A53E21904D270048D93B /* PSRemitanceResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PSRemitanceResponse.m; path = ../../../../../../../.Trash/remittance/PSRemitanceResponse.m; sourceTree = "<group>"; };
+		55F2A53F21904D270048D93B /* PSRemittanceRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PSRemittanceRequest.h; path = ../../../../../../../.Trash/remittance/PSRemittanceRequest.h; sourceTree = "<group>"; };
+		55F2A54021904D280048D93B /* PSRemitanceResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PSRemitanceResponse.h; path = ../../../../../../../.Trash/remittance/PSRemitanceResponse.h; sourceTree = "<group>"; };
+		55F9C6FD2190759B00E15FDD /* PSRemittanceResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSRemittanceResponse.h; sourceTree = "<group>"; };
+		55F9C6FE2190759C00E15FDD /* PSRemittanceResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSRemittanceResponse.m; sourceTree = "<group>"; };
+		55F9C7002190761800E15FDD /* PSSeleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSSeleView.m; sourceTree = "<group>"; };
+		55F9C7012190761800E15FDD /* PSSeleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSSeleView.h; sourceTree = "<group>"; };
 		5DC5524D296D19D66ABDD409 /* Pods_PrisonService.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PrisonService.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EA0B02E820CE57200091B9A0 /* MZGuidePages.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MZGuidePages.h; sourceTree = "<group>"; };
 		EA0B02E920CE57200091B9A0 /* MZGuidePages.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MZGuidePages.m; sourceTree = "<group>"; };
@@ -2000,6 +2000,7 @@
 				3E5D146A2071C93D000FC779 /* Products */,
 				866634C6EFF283EEF23DA051 /* Pods */,
 				F5E0A8A650A532AF5CC60F14 /* Frameworks */,
+				55F2A52D219046FC0048D93B /* Recovered References */,
 			);
 			sourceTree = "<group>";
 		};
@@ -2422,11 +2423,8 @@
 		3E5D15BF20746DFB000FC779 /* BusinessRequests */ = {
 			isa = PBXGroup;
 			children = (
-<<<<<<< HEAD
+				55F2A52E21904A660048D93B /* remittance */,
 				EAA0CA8D218845A200240724 /* Consultation */,
-=======
-				55DA4BB52189EBF300212A23 /* remittance */,
->>>>>>> ea064ae4415599fccb7c2500f7d14b5723b6e964
 				EA87F57F21084B2200D7A1E4 /* Pinmoney */,
 				EA33783820FC45400081B907 /* MeetHistory */,
 				3EDA51AE20AD2B9900D8D019 /* LocalMeeting */,
@@ -2676,6 +2674,8 @@
 		3E78B774208D8F60007DF162 /* Pay */ = {
 			isa = PBXGroup;
 			children = (
+				55F9C6FD2190759B00E15FDD /* PSRemittanceResponse.h */,
+				55F9C6FE2190759C00E15FDD /* PSRemittanceResponse.m */,
 				3E78B775208D8F7B007DF162 /* PSWechatPayRequest.h */,
 				3E78B776208D8F7B007DF162 /* PSWechatPayRequest.m */,
 				3E78B778208D8F8E007DF162 /* PSWechatPayResponse.h */,
@@ -2686,8 +2686,6 @@
 				3E78B77F208D8FAE007DF162 /* PSAlipayResponse.m */,
 				557859BB2189A3D80080437D /* PSRemittanceBusinessRequest.h */,
 				557859BC2189A3D80080437D /* PSRemittanceBusinessRequest.m */,
-				557859BE2189A4340080437D /* PSRemittanceResponse.h */,
-				557859BF2189A4340080437D /* PSRemittanceResponse.m */,
 			);
 			path = Pay;
 			sourceTree = "<group>";
@@ -3393,7 +3391,7 @@
 				EAFB4A742153D94A00CDFE11 /* PSDemoPrisonIntoduceViewController.h */,
 				EAFB4A752153D94A00CDFE11 /* PSDemoPrisonIntoduceViewController.m */,
 				55E9A8BA2186B02F003A5918 /* PSFamilyRemittanceViewController.h */,
-				55E9A8BB2186B02F003A5918 /* PSFamilyRemittanceViewController.m */,
+				55F2A53521904B7B0048D93B /* PSFamilyRemittanceViewController.m */,
 				55E9A8BF2186EB33003A5918 /* PSREmittanceRecodeViewController.h */,
 				55E9A8C02186EB33003A5918 /* PSREmittanceRecodeViewController.m */,
 				55E9A8C82186F982003A5918 /* PSRemittancePayStateViewController.h */,
@@ -3453,8 +3451,8 @@
 				3EE8623720B54B1500B69B39 /* PSCancelReasonView.m */,
 				55E9A8C22186EDC6003A5918 /* PSRemittanceRecordCell.h */,
 				55E9A8C32186EDC6003A5918 /* PSRemittanceRecordCell.m */,
-				55E9A8CB21870E10003A5918 /* PSSeleView.h */,
-				55E9A8CC21870E10003A5918 /* PSSeleView.m */,
+				55F9C7012190761800E15FDD /* PSSeleView.h */,
+				55F9C7002190761800E15FDD /* PSSeleView.m */,
 			);
 			path = ServiceHall;
 			sourceTree = "<group>";
@@ -3636,15 +3634,23 @@
 			path = Launch;
 			sourceTree = "<group>";
 		};
-		55DA4BB52189EBF300212A23 /* remittance */ = {
+		55F2A52D219046FC0048D93B /* Recovered References */ = {
 			isa = PBXGroup;
 			children = (
-				55DA4BB62189EC2F00212A23 /* PSRemittanceRequest.h */,
-				55DA4BB72189EC2F00212A23 /* PSRemittanceRequest.m */,
-				55DA4BB92189EC5F00212A23 /* PSRemitanceResponse.h */,
-				55DA4BBA2189EC5F00212A23 /* PSRemitanceResponse.m */,
 			);
-			path = remittance;
+			name = "Recovered References";
+			sourceTree = "<group>";
+		};
+		55F2A52E21904A660048D93B /* remittance */ = {
+			isa = PBXGroup;
+			children = (
+				55F2A54021904D280048D93B /* PSRemitanceResponse.h */,
+				55F2A53E21904D270048D93B /* PSRemitanceResponse.m */,
+				55F2A53F21904D270048D93B /* PSRemittanceRequest.h */,
+				55F2A53D21904D270048D93B /* PSRemittanceRequest.m */,
+			);
+			name = remittance;
+			path = ../../../../../work/PrisonService/PrisonService/Business/BusinessRequests/remittance;
 			sourceTree = "<group>";
 		};
 		866634C6EFF283EEF23DA051 /* Pods */ = {
@@ -3854,7 +3860,6 @@
 		EA49247C218303C100D94F1A /* View */ = {
 			isa = PBXGroup;
 			children = (
-<<<<<<< HEAD
 				EA492480218303C100D94F1A /* serciceIiem.h */,
 				EA49247E218303C100D94F1A /* serciceIiem.m */,
 				EA49247F218303C100D94F1A /* MoreRoloCell.h */,
@@ -3863,12 +3868,6 @@
 				EAD67A3F218C2338009E54C2 /* PSLawyerView.m */,
 				EAD67A42218FDA09009E54C2 /* PSEvaluateTableViewCell.h */,
 				EAD67A43218FDA09009E54C2 /* PSEvaluateTableViewCell.m */,
-=======
-				EA49247F218303C100D94F1A /* MoreRoloCell.h */,
-				EA49247D218303C100D94F1A /* MoreRoloCell.m */,
-				EA49247E218303C100D94F1A /* serciceIiem.m */,
-				EA492480218303C100D94F1A /* serciceIiem.h */,
->>>>>>> ea064ae4415599fccb7c2500f7d14b5723b6e964
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -4629,8 +4628,8 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/../Pods/Target Support Files/Pods-PrisonService/Pods-PrisonService-resources.sh",
 				"${PODS_ROOT}/NIMSDK/NIMAVChat/Resources/NMCVideoFilter.bundle",
+				"${SRCROOT}/../Pods/Target Support Files/Pods-PrisonService/Pods-PrisonService-resources.sh",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
@@ -4696,6 +4695,7 @@
 				3EDF0D9220873F89002D98BD /* PSSendCodeRequest.m in Sources */,
 				EA33784520FC4C600081B907 /* PSMeetingHistoryViewModel.m in Sources */,
 				3EEEC66F20945E31003B35B3 /* PSPrisonerManageViewController.m in Sources */,
+				55F2A54221904D280048D93B /* PSRemitanceResponse.m in Sources */,
 				3E5D159C20736C15000FC779 /* PSBusinessViewController.m in Sources */,
 				3E5D16022074D3CA000FC779 /* UIView+anchorPoint.m in Sources */,
 				EAB45367214B854E007A7627 /* PSPrisonerFamiliesRequest.m in Sources */,
@@ -4720,6 +4720,7 @@
 				3EC7B6D8207C64A500DFBA65 /* PSIDCardViewController.m in Sources */,
 				3E5D1587207322D4000FC779 /* PSWeakTimer.m in Sources */,
 				EACBC1B52148E5F8004C0EAB /* PSUploadRelationRequest.m in Sources */,
+				55F2A54121904D280048D93B /* PSRemittanceRequest.m in Sources */,
 				EAA0C9EC218831F800240724 /* LLImagePickerView.m in Sources */,
 				EA492485218303C100D94F1A /* MoreRoloCell.m in Sources */,
 				3EEE777A20807C9800CAD179 /* PSFamilyServiceView.m in Sources */,
@@ -4790,6 +4791,7 @@
 				EAA0CA612188321000240724 /* MWPhotoBrowser.m in Sources */,
 				3EEE778D2080A23A00CAD179 /* PSFamilyServiceItem.m in Sources */,
 				EAD18F4E20D02A770053F82B /* NSObject+MJKeyValue.m in Sources */,
+				55F2A53621904B7B0048D93B /* PSFamilyRemittanceViewController.m in Sources */,
 				EAA0CA1C2188320500240724 /* TZPhotoPreviewController.m in Sources */,
 				3EC7B6CA207C477000DFBA65 /* PSRegisterProgressView.m in Sources */,
 				EAEE396F20C52973005F7530 /* PSTransactionRecordViewModel.m in Sources */,
@@ -4797,12 +4799,7 @@
 				EA0B02F620CE63860091B9A0 /* MessageGuideVC.m in Sources */,
 				3E5D163C207B0AC3000FC779 /* PSVisitorBusinessViewController.m in Sources */,
 				3E171A1F209092A300B7D807 /* IFlyFaceResultKeys.m in Sources */,
-<<<<<<< HEAD
 				EA78E1E12174874100BBEE58 /* PSHomePageViewController.m in Sources */,
-=======
-				EA78E1E12174874100BBEE58 /* PSAuthenticationHomePageViewController.m in Sources */,
-				557859C02189A4340080437D /* PSRemittanceResponse.m in Sources */,
->>>>>>> ea064ae4415599fccb7c2500f7d14b5723b6e964
 				EAD18F5320D02A780053F82B /* NSObject+MJClass.m in Sources */,
 				3E1738052085F5670068CCEB /* PSBuyCardStepCell.m in Sources */,
 				EA78E20121772AB100BBEE58 /* PSSettingCell.m in Sources */,
@@ -4828,7 +4825,6 @@
 				3E78B7A7208DB696007DF162 /* PSPayOngoingViewController.m in Sources */,
 				3EEEC6132093285E003B35B3 /* PSFeedbackResponse.m in Sources */,
 				3E5D1589207322D4000FC779 /* PSObserverVector.mm in Sources */,
-				55DA4BBB2189EC5F00212A23 /* PSRemitanceResponse.m in Sources */,
 				3E78B73020897916007DF162 /* PSFamily.m in Sources */,
 				EA87F5692105BBA200D7A1E4 /* PSAccountEmailViewController.m in Sources */,
 				3E78B73620898EF7007DF162 /* PSPrisonerCell.m in Sources */,
@@ -4921,7 +4917,6 @@
 				EAA0CA1A2188320500240724 /* NSBundle+TZImagePicker.m in Sources */,
 				3EEE776D2080581D00CAD179 /* PSCommerceViewController.m in Sources */,
 				3E0044F4207B55D80036CBC5 /* PSLoginTopView.m in Sources */,
-				55E9A8BC2186B02F003A5918 /* PSFamilyRemittanceViewController.m in Sources */,
 				3E5D14C320721E71000FC779 /* CAGradientLayer+Gradient.m in Sources */,
 				EACBC18C212FB064004C0EAB /* LXFileManager.m in Sources */,
 				EA428612211A9FC700418685 /* VIRegisterRequest.m in Sources */,
@@ -5001,6 +4996,7 @@
 				3E171ACD20930B1300B7D807 /* PSWriteSuggestionRequest.m in Sources */,
 				3EEE77A9208447E300CAD179 /* PSComplaintViewController.m in Sources */,
 				EAB45364214A3C3A007A7627 /* PSAddFamiliesViewController.m in Sources */,
+				55F9C6FF2190759C00E15FDD /* PSRemittanceResponse.m in Sources */,
 				EA492484218303C100D94F1A /* PSMoreModel.m in Sources */,
 				EACBC19C2133F66F004C0EAB /* PSPerfectResponse.m in Sources */,
 				EA428615211A9FF000418685 /* VIRegisterResponse.m in Sources */,
@@ -5048,11 +5044,7 @@
 				EA4285FE2119877800418685 /* VIMemberViewController.m in Sources */,
 				3E78B7A1208DAE57007DF162 /* PSPayment.m in Sources */,
 				3EDF0DA620882871002D98BD /* PSUploadAvatarResponse.m in Sources */,
-<<<<<<< HEAD
 				EAA0CA172188320500240724 /* TZAssetCell.m in Sources */,
-=======
-				55E9A8CD21870E10003A5918 /* PSSeleView.m in Sources */,
->>>>>>> ea064ae4415599fccb7c2500f7d14b5723b6e964
 				3E5D15E620747DD0000FC779 /* PSProvince.m in Sources */,
 				3E91DDF7208EBB2B00AADE3C /* PSWechatInfo.m in Sources */,
 				EA42860D211A93BC00418685 /* VIRegisterViewModel.m in Sources */,
@@ -5099,7 +5091,6 @@
 				EAD67A40218C2338009E54C2 /* PSLawyerView.m in Sources */,
 				3EEEC677209470EF003B35B3 /* PSStartupAdvViewController.m in Sources */,
 				EAD18F5520D02A780053F82B /* MJPropertyKey.m in Sources */,
-				55DA4BB82189EC2F00212A23 /* PSRemittanceRequest.m in Sources */,
 				3EDA518F20AA81AD00D8D019 /* PSBasePrisonerViewModel.m in Sources */,
 				3E5D15DB2074734B000FC779 /* PSVisitorJailsResponse.m in Sources */,
 				EAFB4A672150EF8300CDFE11 /* PSMeetingMembersResponse.m in Sources */,
@@ -5180,6 +5171,7 @@
 				EAD8DE552179BC320035E22F /* PSProfileRequest.m in Sources */,
 				3EEE7749207F0EC500CAD179 /* PSMessage.m in Sources */,
 				3E5D16152079B20F000FC779 /* PSRegionsBaseRequest.m in Sources */,
+				55F9C7022190761900E15FDD /* PSSeleView.m in Sources */,
 				3E78B770208D8504007DF162 /* PSPhoneCard.m in Sources */,
 				EAA0CA672188321000240724 /* MWTapDetectingView.m in Sources */,
 			);

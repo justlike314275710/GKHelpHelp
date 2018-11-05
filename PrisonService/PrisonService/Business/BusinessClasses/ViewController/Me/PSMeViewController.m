@@ -30,13 +30,10 @@
 #import "PSPurchaseViewModel.h"
 #import "PSAccountViewController.h"
 #import "PSAccountViewModel.h"
-<<<<<<< HEAD
 #import "PSMyAdviceViewController.h"
 #import "PSConsultationViewModel.h"
-=======
 #import "PSFamilyRemittanceViewController.h"
 #import "PSFamilyRemittanceViewModel.h"
->>>>>>> ea064ae4415599fccb7c2500f7d14b5723b6e964
 
 @interface PSMeViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic , strong) UITableView *settingTableview;
