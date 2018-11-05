@@ -121,7 +121,7 @@
 - (void)loginCompleted:(RequestDataCompleted)completedCallback failed:(RequestDataFailed)failedCallback {
     manager=[AFHTTPSessionManager manager];
     NSString*token=[NSString stringWithFormat:@"Bearer %@",[LXFileManager readUserDataForKey:@"access_token"]];
-    NSLog(@"%@",token);
+
     [manager.requestSerializer setValue:token forHTTPHeaderField:@"Authorization"];
     NSString*url=[NSString stringWithFormat:@"%@/families/validTourist",ServerUrl];
     [manager POST:url parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
@@ -136,6 +136,7 @@
         if (completedCallback) {
             completedCallback(responseObject);
         }
+        NSLog(@"***%@",responseObject);
 
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         if (failedCallback) {

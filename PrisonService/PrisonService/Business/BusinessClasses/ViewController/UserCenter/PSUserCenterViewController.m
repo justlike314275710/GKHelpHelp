@@ -127,7 +127,6 @@
             make.width.mas_equalTo(maxLeftDrawerWidth);
         }];
         self.topView = [PSUserCenterTopView new];
-        //[self.topView.avatarImageView sd_setImageWithURL:[NSURL URLWithString:PICURL([PSSessionManager sharedInstance].session.families.avatarUrl)] placeholderImage:[UIImage imageNamed:@"userCenterDefaultAvatar"]];
         self.topView.avatarView.thumbnailUrls = @[PICURL([PSSessionManager sharedInstance].session.families.avatarUrl)];
         self.topView.avatarView.originalUrls = @[PICURL([PSSessionManager sharedInstance].session.families.avatarUrl)];
         [self.contentView addSubview:self.topView];

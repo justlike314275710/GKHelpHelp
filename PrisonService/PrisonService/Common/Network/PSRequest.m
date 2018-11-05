@@ -71,6 +71,8 @@
 }
 
 - (void)networkCompleted:(NSData *)responseData; {
+    NSString *str  = [[NSString alloc] initWithBytes:responseData.bytes length:responseData.length encoding:NSUTF8StringEncoding];
+    //NSLog(@"%@",str);
     Class responseClass = [self responseClass];
     if(![responseClass isSubclassOfClass:[PSResponse class]]){
         @throw [NSException exceptionWithName:@"类型错误" reason:@"responseClass必须为PSResponse的子类" userInfo:nil];
@@ -78,6 +80,7 @@
     NSError *error = nil;
     //PSLog(@">>>%@:%@",NSStringFromClass(responseClass),[[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding]);
     PSResponse *response = [[responseClass alloc] initWithString:[[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding] error:&error];
+    NSLog(@"response%@",response);
     if ([NSThread isMainThread]) {
         [self requestCompleted:response];
     }

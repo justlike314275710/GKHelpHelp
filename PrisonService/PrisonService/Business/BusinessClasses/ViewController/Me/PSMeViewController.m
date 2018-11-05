@@ -30,6 +30,8 @@
 #import "PSPurchaseViewModel.h"
 #import "PSAccountViewController.h"
 #import "PSAccountViewModel.h"
+#import "PSMyAdviceViewController.h"
+#import "PSConsultationViewModel.h"
 
 @interface PSMeViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic , strong) UITableView *settingTableview;
@@ -116,7 +118,7 @@
     NSLocalizedString(@"recharge_record", @"充值记录");
     NSString*userCenterAccreditation=
     NSLocalizedString(@"userCenterAccreditation", @"家属认证");
-    //NSString*my_advice=NSLocalizedString(@"my_advice", @"我的咨询");
+    NSString*my_advice=NSLocalizedString(@"my_advice", @"我的咨询");
     NSString*add_relatives=NSLocalizedString(@"add_relatives", @"添加亲属");
     NSString*family_server=NSLocalizedString(@"family_server", @"家属服务");
     NSString*userCenterSetting=NSLocalizedString(@"userCenterSetting", @"设置");
@@ -145,6 +147,10 @@
     }
     else if ([itemModel.funcName isEqualToString:userCenterSetting]){
         [self.navigationController pushViewController:[[PSSettingViewController alloc] initWithViewModel:[[PSSettingViewModel alloc] init]] animated:YES];
+        
+    }
+    else if ([itemModel.funcName isEqualToString:my_advice]){
+        [self.navigationController pushViewController:[[PSMyAdviceViewController alloc] initWithViewModel:[[PSConsultationViewModel alloc] init]] animated:YES];
         
     }
     else{
@@ -253,7 +259,7 @@
 
     
     if ([[LXFileManager readUserDataForKey:@"isVistor"]isEqualToString:@"YES"]) {
-        UIButton*loginButton=[[UIButton alloc]initWithFrame:CGRectMake(135, 37, 180, 42)];
+        UIButton*loginButton=[[UIButton alloc]initWithFrame:CGRectMake(130, 37, 180, 42)];
         [headerView addSubview:loginButton];
         NSString*click_login=NSLocalizedString(@"click_login", @"点击登录");
         [loginButton setTitle:click_login forState:0];

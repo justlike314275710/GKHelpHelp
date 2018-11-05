@@ -80,13 +80,8 @@
 
 
 -(void)initButton:(UIButton*)btn{
-    //使图片和文字水平居中显示
     btn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
-    
-    //文字距离上边框的距离增加imageView的高度，距离左边框减少imageView的宽度，距离下边框和右边框距离不变
     [btn setTitleEdgeInsets:UIEdgeInsetsMake(btn.imageView.frame.size.height + 20 ,-btn.imageView.frame.size.width, 0.0,0.0)];
-    
-    //图片距离右边框距离减少图片的宽度，其它不边
     [btn setImageEdgeInsets:UIEdgeInsetsMake(0.0, 0.0,10, -btn.titleLabel.bounds.size.width)];
 }
 

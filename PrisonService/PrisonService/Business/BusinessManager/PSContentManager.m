@@ -5,7 +5,7 @@
 //  Created by calvin on 2018/4/3.
 //  Copyright © 2018年 calvin. All rights reserved.
 //
-#import "PSAuthenticationHomePageViewController.h"
+#import "PSHomePageViewController.h"
 #import "PSServiceCentreViewController.h"
 #import "PSContentManager.h"
 #import "PSMainViewController.h"

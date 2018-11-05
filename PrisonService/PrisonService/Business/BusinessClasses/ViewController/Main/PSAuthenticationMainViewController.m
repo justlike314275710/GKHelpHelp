@@ -7,11 +7,12 @@
 //
 
 
-#import "PSAuthenticationHomePageViewController.h"
+
 #import "PSAuthenticationMainViewController.h"
 #import "PSAuthenticationHomeViewController.h"
 #import "PSServiceCentreViewController.h"
 #import "PSUserCenterViewController.h"
+#import "PSHomePageViewController.h"
 #import "PSNavigationController.h"
 #import "PSHomeViewController.h"
 #import "PSMeViewController.h"
@@ -26,8 +27,8 @@
 
 - (id)init {
    PSHomeViewModel *homeViewModel = [[PSHomeViewModel alloc]init];;
-    PSAuthenticationHomePageViewController*homeViewController=
-        [[PSAuthenticationHomePageViewController alloc]initWithViewModel:homeViewModel];
+    PSHomePageViewController*homeViewController=
+        [[PSHomePageViewController alloc]initWithViewModel:homeViewModel];
     PSServiceCentreViewController*ServiceCentreViewController=
     [[PSServiceCentreViewController alloc]initWithViewModel:homeViewModel];
     PSMeViewController*meViewController=[[PSMeViewController alloc]initWithViewModel:homeViewModel];

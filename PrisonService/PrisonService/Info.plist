@@ -77,6 +77,12 @@
 	<string>您的麦克风将用于视频通话</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
 	<string>狱务通想要向您的相册添加多媒体文件</string>
+	<key>NSHumanReadableCopyright</key>
+	<string></string>
+	<key>CFBundleGetInfoString</key>
+	<string></string>
+	<key>LSApplicationCategoryType</key>
+	<string></string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>狱务通想要访问您的媒体照片库</string>
 	<key>UIRequiredDeviceCapabilities</key>

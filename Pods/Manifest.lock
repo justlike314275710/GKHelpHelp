@@ -31,6 +31,7 @@ PODS:
     - BlocksKit/Core
     - BlocksKit/DynamicDelegate
   - Bugly (2.4.8)
+  - CDZStarsControl (1.0.1)
   - DACircularProgress (2.3.1)
   - DGActivityIndicatorView (2.1.1)
   - DZNEmptyDataSet (1.8.1)
@@ -130,6 +131,7 @@ DEPENDENCIES:
   - AvoidCrash (~> 2.3.0-beta)
   - BlocksKit (~> 2.2.5)
   - Bugly (~> 2.4.8)
+  - CDZStarsControl
   - DGActivityIndicatorView
   - DZNEmptyDataSet
   - EBBannerView
@@ -167,6 +169,7 @@ SPEC REPOS:
     - AvoidCrash
     - BlocksKit
     - Bugly
+    - CDZStarsControl
     - DACircularProgress
     - DGActivityIndicatorView
     - DZNEmptyDataSet
@@ -206,6 +209,7 @@ SPEC CHECKSUMS:
   AvoidCrash: 8f0cbad0ba03fa2c9b439cc9647e5ca54b3680a7
   BlocksKit: 7f422b971407001178d181a43b99014ea2591fe6
   Bugly: da3c02408c14838d498429320545a8e439392978
+  CDZStarsControl: c2c9a9fae443924cdbadca93db96b3c433d0479d
   DACircularProgress: 4dd437c0fc3da5161cb289e07ac449493d41db71
   DGActivityIndicatorView: ff2c76073d79692f724863c8dd38685866a03cb6
   DZNEmptyDataSet: 9525833b9e68ac21c30253e1d3d7076cc828eaa7
@@ -240,6 +244,6 @@ SPEC CHECKSUMS:
   YYText: 5c461d709e24d55a182d1441c41dc639a18a4849
   ZYCornerRadius: f0af817be7805b5c63d793042ca7a03f81e14069
 
-PODFILE CHECKSUM: 480d2075ac65883998d8c6a2c74f6d745fc8f733
+PODFILE CHECKSUM: 19c6889d02eba5afc309c9e62e7c307b0f0e2bd5
 
 COCOAPODS: 1.5.2

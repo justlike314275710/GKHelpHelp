@@ -34,6 +34,7 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self reachability];
+    self.tabBarController.tabBar.hidden=NO;
 }
 
 - (void)viewDidLoad {

@@ -42,6 +42,7 @@ def shared_pods
     pod 'DZNEmptyDataSet'
     pod 'UITableView+FDTemplateLayoutCell', '~> 1.6'
     pod 'EBBannerView'
+    pod 'CDZStarsControl'
 end
 
 target 'PrisonService' do

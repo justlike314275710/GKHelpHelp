@@ -57,6 +57,7 @@
         NSHTTPURLResponse* httpResponse = (NSHTTPURLResponse*)response;
         NSInteger responseStatusCode = [httpResponse statusCode];
         self.statusCode=responseStatusCode;
+        NSLog(@"%@",responseObject);
         if (error) {
             if (failedCallback) {
                 failedCallback(error);

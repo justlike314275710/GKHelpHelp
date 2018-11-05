@@ -165,7 +165,9 @@
     } failed:^(NSError *error) {
         @strongify(self)
         NSData *data = error.userInfo[AFNetworkingOperationFailingURLResponseDataErrorKey];
-        id body = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+  
+         id body = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+       
         NSString*code=body[@"code"];
         if ([code isEqualToString:@"user.Existed"]) {
             [self EcommerceOfLogin];

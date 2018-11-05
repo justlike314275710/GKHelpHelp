@@ -234,7 +234,6 @@
 }
 -(void)requestDefaultJailConfigurations:(RequestDataCompleted)completed failed:(RequestDataFailed)failed{
     [self.jailRequest send:^(PSRequest *request, PSResponse *response) {
-        NSLog(@"%@",response);
         if (response.code == 200) {
             PSDefaultJailResponse *jailResponse = (PSDefaultJailResponse *)response;
             self.defaultJailId = jailResponse.jailId;
