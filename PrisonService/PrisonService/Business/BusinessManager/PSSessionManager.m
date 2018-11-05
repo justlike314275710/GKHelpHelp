@@ -293,6 +293,7 @@
 
 
 - (void)autoLogin:(SessionCompletion)completion {
+    
     manager=[AFHTTPSessionManager manager];
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
@@ -311,7 +312,6 @@
         if (completion) {
             completion(YES);
         }
-        
         
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         if (completion) {

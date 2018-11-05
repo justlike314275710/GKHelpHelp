@@ -218,7 +218,6 @@
     return html;
 }
 
-
 #pragma mark  - Delegate
 
 - (BOOL)showAdv {

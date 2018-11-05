@@ -6,16 +6,27 @@
 //  Copyright © 2018年 calvin. All rights reserved.
 //
 //开发环境
+<<<<<<< HEAD
 #define ServerDomain @"http://120.78.190.101:8086"
+=======
+//#define ServerDomain @"http://120.78.190.101:8086"
+
+//#define ServerDomain @"http://192.168.0.121:8086" //杨波
+>>>>>>> ea064ae4415599fccb7c2500f7d14b5723b6e964
 //测试环境
 //#define ServerDomain @"http://120.78.190.101:8084"
 //生产环境
 //#define ServerDomain @"https://www.yuwugongkai.com"
+<<<<<<< HEAD
 //H5 生产Server
 //#define H5ServerDomain @"http://39.108.185.51:8081"
+=======
+
+>>>>>>> ea064ae4415599fccb7c2500f7d14b5723b6e964
 //H5 开发Server
 #define H5ServerDomain @"http://120.78.190.101:8085"
 //H5 测试Server
+<<<<<<< HEAD
 //#define H5ServerDomain @"http://120.78.190.101:8083"
 //电子商务Server
 #define CommerceServerDomain @"http://39.108.185.51:8088"
@@ -25,6 +36,20 @@
 
 //测试环境接口地址
 //#define ServerUrl [NSString stringWithFormat:@"%@/ywgk-app-demo",ServerDomain]
+=======
+#define H5ServerDomain @"http://120.78.190.101:8083"
+//H5 生产Server
+//#define H5ServerDomain @"http://39.108.185.51:8081"
+//电子商务Server
+#define CommerceServerDomain @"http://39.108.185.51:8088"
+//其他环境接口地址
+//#define ServerUrl [NSString stringWithFormat:@"%@/ywgk-app",ServerDomain] //生产
+//#define ServerUrl [NSString stringWithFormat:@"%@/ywgk-app-auth",ServerDomain] //开发
+//#define ServerUrl [NSString stringWithFormat:@"%@",ServerDomain] //杨
+//测试环境接口地址
+#define ServerUrl [NSString stringWithFormat:@"%@/ywgk-app-demo",ServerDomain]
+
+>>>>>>> ea064ae4415599fccb7c2500f7d14b5723b6e964
 //图片上传地址
 //#define UploadServerUrl [NSString stringWithFormat:@"%@/image-server",ServerDomain]
 #define UploadServerUrl @"http://120.78.190.101:1339/image-server"
@@ -36,7 +61,6 @@
 //电子商务敬请期待
 #define ProCommerceUrl [NSString stringWithFormat:@"%@/ywt-ec/index.html",CommerceServerDomain]
 
-
 //授权认证平台开发地址
 #define EmallHostUrl @"http://10.10.10.17:8081"
 #define EmallUrl @"http://10.10.10.17:805"
@@ -44,8 +68,6 @@
 //授权认证平台测试地址
 //#define EmallHostUrl @"http://10.10.10.16:8081"
 //#define EmallUrl @"http://10.10.10.16:805"
-
-
 
 //授权认证平台生产地址
 //#define EmallUrl @"http://m.trade.prisonpublic.com" //电子商城

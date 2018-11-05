@@ -9,14 +9,17 @@
 #import <Foundation/Foundation.h>
 #import "PSPayHandler.h"
 #import "PSPayInfo.h"
-
+typedef NS_ENUM(NSInteger,PayType) {
+    PayTypeBuy = 0,  //购买
+    PayTypeRem = 1,  //汇款
+};
 @interface PSPayCenter : NSObject
 
 + (PSPayCenter *)payCenter;
 
 @property (nonatomic, copy) PSPayCallback payCallback;
 
-- (void)goPayWithPayInfo:(PSPayInfo *)payInfo callback:(PSPayCallback)callback;
+- (void)goPayWithPayInfo:(PSPayInfo *)payInfo type:(PayType)type callback:(PSPayCallback)callback;
 - (void)handleWeChatURL:(NSURL *)url;
 - (void)handleAliURL:(NSURL *)url;
 

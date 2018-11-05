@@ -339,6 +339,18 @@
 		3EEEC67E209475A5003B35B3 /* PSGuideViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EEEC67D209475A5003B35B3 /* PSGuideViewController.m */; };
 		3EEEC68220947657003B35B3 /* PSGuideManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EEEC68120947657003B35B3 /* PSGuideManager.m */; };
 		3EEEC686209985B6003B35B3 /* PSLaunchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EEEC685209985B6003B35B3 /* PSLaunchViewController.m */; };
+		557859BA218994140080437D /* RemittanceRecode.m in Sources */ = {isa = PBXBuildFile; fileRef = 557859B9218994140080437D /* RemittanceRecode.m */; };
+		557859BD2189A3D80080437D /* PSRemittanceBusinessRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 557859BC2189A3D80080437D /* PSRemittanceBusinessRequest.m */; };
+		557859C02189A4340080437D /* PSRemittanceResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 557859BF2189A4340080437D /* PSRemittanceResponse.m */; };
+		55C9EDC42188528300A11D60 /* PSFamilyRemittanceViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 55C9EDC32188528300A11D60 /* PSFamilyRemittanceViewModel.m */; };
+		55DA4BB82189EC2F00212A23 /* PSRemittanceRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 55DA4BB72189EC2F00212A23 /* PSRemittanceRequest.m */; };
+		55DA4BBB2189EC5F00212A23 /* PSRemitanceResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 55DA4BBA2189EC5F00212A23 /* PSRemitanceResponse.m */; };
+		55DA4BBE2189F09900212A23 /* PSRemittanceRecodeViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 55DA4BBD2189F09900212A23 /* PSRemittanceRecodeViewModel.m */; };
+		55E9A8BC2186B02F003A5918 /* PSFamilyRemittanceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 55E9A8BB2186B02F003A5918 /* PSFamilyRemittanceViewController.m */; };
+		55E9A8C12186EB33003A5918 /* PSREmittanceRecodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 55E9A8C02186EB33003A5918 /* PSREmittanceRecodeViewController.m */; };
+		55E9A8C42186EDC6003A5918 /* PSRemittanceRecordCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 55E9A8C32186EDC6003A5918 /* PSRemittanceRecordCell.m */; };
+		55E9A8CA2186F982003A5918 /* PSRemittancePayStateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 55E9A8C92186F982003A5918 /* PSRemittancePayStateViewController.m */; };
+		55E9A8CD21870E10003A5918 /* PSSeleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 55E9A8CC21870E10003A5918 /* PSSeleView.m */; };
 		CA5EA014E08B9BBB9092821F /* Pods_PrisonService.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DC5524D296D19D66ABDD409 /* Pods_PrisonService.framework */; };
 		EA0B02EA20CE57200091B9A0 /* MZGuidePages.m in Sources */ = {isa = PBXBuildFile; fileRef = EA0B02E920CE57200091B9A0 /* MZGuidePages.m */; };
 		EA0B02ED20CE58BA0091B9A0 /* MemberGuideVC.m in Sources */ = {isa = PBXBuildFile; fileRef = EA0B02EC20CE58BA0091B9A0 /* MemberGuideVC.m */; };
@@ -1269,6 +1281,30 @@
 		3EEEC68120947657003B35B3 /* PSGuideManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PSGuideManager.m; sourceTree = "<group>"; };
 		3EEEC684209985B6003B35B3 /* PSLaunchViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PSLaunchViewController.h; sourceTree = "<group>"; };
 		3EEEC685209985B6003B35B3 /* PSLaunchViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PSLaunchViewController.m; sourceTree = "<group>"; };
+		557859B8218994140080437D /* RemittanceRecode.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RemittanceRecode.h; sourceTree = "<group>"; };
+		557859B9218994140080437D /* RemittanceRecode.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RemittanceRecode.m; sourceTree = "<group>"; };
+		557859BB2189A3D80080437D /* PSRemittanceBusinessRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PSRemittanceBusinessRequest.h; sourceTree = "<group>"; };
+		557859BC2189A3D80080437D /* PSRemittanceBusinessRequest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PSRemittanceBusinessRequest.m; sourceTree = "<group>"; };
+		557859BE2189A4340080437D /* PSRemittanceResponse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PSRemittanceResponse.h; sourceTree = "<group>"; };
+		557859BF2189A4340080437D /* PSRemittanceResponse.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PSRemittanceResponse.m; sourceTree = "<group>"; };
+		55C9EDC22188528300A11D60 /* PSFamilyRemittanceViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PSFamilyRemittanceViewModel.h; sourceTree = "<group>"; };
+		55C9EDC32188528300A11D60 /* PSFamilyRemittanceViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PSFamilyRemittanceViewModel.m; sourceTree = "<group>"; };
+		55DA4BB62189EC2F00212A23 /* PSRemittanceRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PSRemittanceRequest.h; sourceTree = "<group>"; };
+		55DA4BB72189EC2F00212A23 /* PSRemittanceRequest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PSRemittanceRequest.m; sourceTree = "<group>"; };
+		55DA4BB92189EC5F00212A23 /* PSRemitanceResponse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PSRemitanceResponse.h; sourceTree = "<group>"; };
+		55DA4BBA2189EC5F00212A23 /* PSRemitanceResponse.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PSRemitanceResponse.m; sourceTree = "<group>"; };
+		55DA4BBC2189F09900212A23 /* PSRemittanceRecodeViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PSRemittanceRecodeViewModel.h; sourceTree = "<group>"; };
+		55DA4BBD2189F09900212A23 /* PSRemittanceRecodeViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PSRemittanceRecodeViewModel.m; sourceTree = "<group>"; };
+		55E9A8BA2186B02F003A5918 /* PSFamilyRemittanceViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PSFamilyRemittanceViewController.h; sourceTree = "<group>"; };
+		55E9A8BB2186B02F003A5918 /* PSFamilyRemittanceViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PSFamilyRemittanceViewController.m; sourceTree = "<group>"; };
+		55E9A8BF2186EB33003A5918 /* PSREmittanceRecodeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PSREmittanceRecodeViewController.h; sourceTree = "<group>"; };
+		55E9A8C02186EB33003A5918 /* PSREmittanceRecodeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PSREmittanceRecodeViewController.m; sourceTree = "<group>"; };
+		55E9A8C22186EDC6003A5918 /* PSRemittanceRecordCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PSRemittanceRecordCell.h; sourceTree = "<group>"; };
+		55E9A8C32186EDC6003A5918 /* PSRemittanceRecordCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PSRemittanceRecordCell.m; sourceTree = "<group>"; };
+		55E9A8C82186F982003A5918 /* PSRemittancePayStateViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PSRemittancePayStateViewController.h; sourceTree = "<group>"; };
+		55E9A8C92186F982003A5918 /* PSRemittancePayStateViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PSRemittancePayStateViewController.m; sourceTree = "<group>"; };
+		55E9A8CB21870E10003A5918 /* PSSeleView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PSSeleView.h; sourceTree = "<group>"; };
+		55E9A8CC21870E10003A5918 /* PSSeleView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PSSeleView.m; sourceTree = "<group>"; };
 		5DC5524D296D19D66ABDD409 /* Pods_PrisonService.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PrisonService.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EA0B02E820CE57200091B9A0 /* MZGuidePages.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MZGuidePages.h; sourceTree = "<group>"; };
 		EA0B02E920CE57200091B9A0 /* MZGuidePages.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MZGuidePages.m; sourceTree = "<group>"; };
@@ -2386,7 +2422,11 @@
 		3E5D15BF20746DFB000FC779 /* BusinessRequests */ = {
 			isa = PBXGroup;
 			children = (
+<<<<<<< HEAD
 				EAA0CA8D218845A200240724 /* Consultation */,
+=======
+				55DA4BB52189EBF300212A23 /* remittance */,
+>>>>>>> ea064ae4415599fccb7c2500f7d14b5723b6e964
 				EA87F57F21084B2200D7A1E4 /* Pinmoney */,
 				EA33783820FC45400081B907 /* MeetHistory */,
 				3EDA51AE20AD2B9900D8D019 /* LocalMeeting */,
@@ -2644,6 +2684,10 @@
 				3E78B77C208D8FA1007DF162 /* PSAlipayRequest.m */,
 				3E78B77E208D8FAE007DF162 /* PSAlipayResponse.h */,
 				3E78B77F208D8FAE007DF162 /* PSAlipayResponse.m */,
+				557859BB2189A3D80080437D /* PSRemittanceBusinessRequest.h */,
+				557859BC2189A3D80080437D /* PSRemittanceBusinessRequest.m */,
+				557859BE2189A4340080437D /* PSRemittanceResponse.h */,
+				557859BF2189A4340080437D /* PSRemittanceResponse.m */,
 			);
 			path = Pay;
 			sourceTree = "<group>";
@@ -3348,6 +3392,12 @@
 				EA3378722101D1150081B907 /* XXEmallViewController.m */,
 				EAFB4A742153D94A00CDFE11 /* PSDemoPrisonIntoduceViewController.h */,
 				EAFB4A752153D94A00CDFE11 /* PSDemoPrisonIntoduceViewController.m */,
+				55E9A8BA2186B02F003A5918 /* PSFamilyRemittanceViewController.h */,
+				55E9A8BB2186B02F003A5918 /* PSFamilyRemittanceViewController.m */,
+				55E9A8BF2186EB33003A5918 /* PSREmittanceRecodeViewController.h */,
+				55E9A8C02186EB33003A5918 /* PSREmittanceRecodeViewController.m */,
+				55E9A8C82186F982003A5918 /* PSRemittancePayStateViewController.h */,
+				55E9A8C92186F982003A5918 /* PSRemittancePayStateViewController.m */,
 			);
 			path = ServiceHall;
 			sourceTree = "<group>";
@@ -3401,6 +3451,10 @@
 				3EDA51B920AD4D9800D8D019 /* PSLocalMeetingCalendarView.m */,
 				3EE8623620B54B1500B69B39 /* PSCancelReasonView.h */,
 				3EE8623720B54B1500B69B39 /* PSCancelReasonView.m */,
+				55E9A8C22186EDC6003A5918 /* PSRemittanceRecordCell.h */,
+				55E9A8C32186EDC6003A5918 /* PSRemittanceRecordCell.m */,
+				55E9A8CB21870E10003A5918 /* PSSeleView.h */,
+				55E9A8CC21870E10003A5918 /* PSSeleView.m */,
 			);
 			path = ServiceHall;
 			sourceTree = "<group>";
@@ -3430,6 +3484,8 @@
 				EA87F57A210848E900D7A1E4 /* PSPinmoney.m */,
 				EA87F57C210849E200D7A1E4 /* PSPocketMoney.h */,
 				EA87F57D210849E200D7A1E4 /* PSPocketMoney.m */,
+				557859B8218994140080437D /* RemittanceRecode.h */,
+				557859B9218994140080437D /* RemittanceRecode.m */,
 			);
 			path = ServiceHall;
 			sourceTree = "<group>";
@@ -3455,6 +3511,10 @@
 				3EEEC5FC20931942003B35B3 /* PSCommentsViewModel.m */,
 				3EDA519320AAE69A00D8D019 /* PSLocalMeetingViewModel.h */,
 				3EDA519420AAE69A00D8D019 /* PSLocalMeetingViewModel.m */,
+				55C9EDC22188528300A11D60 /* PSFamilyRemittanceViewModel.h */,
+				55C9EDC32188528300A11D60 /* PSFamilyRemittanceViewModel.m */,
+				55DA4BBC2189F09900212A23 /* PSRemittanceRecodeViewModel.h */,
+				55DA4BBD2189F09900212A23 /* PSRemittanceRecodeViewModel.m */,
 			);
 			path = ServiceHall;
 			sourceTree = "<group>";
@@ -3574,6 +3634,17 @@
 				3EEEC685209985B6003B35B3 /* PSLaunchViewController.m */,
 			);
 			path = Launch;
+			sourceTree = "<group>";
+		};
+		55DA4BB52189EBF300212A23 /* remittance */ = {
+			isa = PBXGroup;
+			children = (
+				55DA4BB62189EC2F00212A23 /* PSRemittanceRequest.h */,
+				55DA4BB72189EC2F00212A23 /* PSRemittanceRequest.m */,
+				55DA4BB92189EC5F00212A23 /* PSRemitanceResponse.h */,
+				55DA4BBA2189EC5F00212A23 /* PSRemitanceResponse.m */,
+			);
+			path = remittance;
 			sourceTree = "<group>";
 		};
 		866634C6EFF283EEF23DA051 /* Pods */ = {
@@ -3783,6 +3854,7 @@
 		EA49247C218303C100D94F1A /* View */ = {
 			isa = PBXGroup;
 			children = (
+<<<<<<< HEAD
 				EA492480218303C100D94F1A /* serciceIiem.h */,
 				EA49247E218303C100D94F1A /* serciceIiem.m */,
 				EA49247F218303C100D94F1A /* MoreRoloCell.h */,
@@ -3791,6 +3863,12 @@
 				EAD67A3F218C2338009E54C2 /* PSLawyerView.m */,
 				EAD67A42218FDA09009E54C2 /* PSEvaluateTableViewCell.h */,
 				EAD67A43218FDA09009E54C2 /* PSEvaluateTableViewCell.m */,
+=======
+				EA49247F218303C100D94F1A /* MoreRoloCell.h */,
+				EA49247D218303C100D94F1A /* MoreRoloCell.m */,
+				EA49247E218303C100D94F1A /* serciceIiem.m */,
+				EA492480218303C100D94F1A /* serciceIiem.h */,
+>>>>>>> ea064ae4415599fccb7c2500f7d14b5723b6e964
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -4600,6 +4678,7 @@
 				3EEE7754207F48DD00CAD179 /* PSAppointmentCell.m in Sources */,
 				EA33785E20FF9B490081B907 /* MeetJails.m in Sources */,
 				3E171AB02092C7E700B7D807 /* PSBaseServiceViewModel.m in Sources */,
+				55E9A8CA2186F982003A5918 /* PSRemittancePayStateViewController.m in Sources */,
 				3E78B7412089BE9A007DF162 /* PSPrisonerDetail.m in Sources */,
 				EA9E60092178769E0009F7F9 /* PSLegalServiceTableViewCell.m in Sources */,
 				EA0CE0E620D3BF0300FFFE23 /* Expression.m in Sources */,
@@ -4609,6 +4688,7 @@
 				EAEE396920C52784005F7530 /* PSTransactionRecordRequest.m in Sources */,
 				3E78B773208D8586007DF162 /* PSPhoneCardViewModel.m in Sources */,
 				3E5D150620731B04000FC779 /* PSPhonePassport.m in Sources */,
+				55E9A8C42186EDC6003A5918 /* PSRemittanceRecordCell.m in Sources */,
 				3E5D162E2079EA54000FC779 /* PSProvinceDisplayViewController.m in Sources */,
 				EAB45373214B9564007A7627 /* PSPrisonerFamilesViewController.m in Sources */,
 				3EEEC5FA209318AF003B35B3 /* PSCommentsViewController.m in Sources */,
@@ -4717,7 +4797,12 @@
 				EA0B02F620CE63860091B9A0 /* MessageGuideVC.m in Sources */,
 				3E5D163C207B0AC3000FC779 /* PSVisitorBusinessViewController.m in Sources */,
 				3E171A1F209092A300B7D807 /* IFlyFaceResultKeys.m in Sources */,
+<<<<<<< HEAD
 				EA78E1E12174874100BBEE58 /* PSHomePageViewController.m in Sources */,
+=======
+				EA78E1E12174874100BBEE58 /* PSAuthenticationHomePageViewController.m in Sources */,
+				557859C02189A4340080437D /* PSRemittanceResponse.m in Sources */,
+>>>>>>> ea064ae4415599fccb7c2500f7d14b5723b6e964
 				EAD18F5320D02A780053F82B /* NSObject+MJClass.m in Sources */,
 				3E1738052085F5670068CCEB /* PSBuyCardStepCell.m in Sources */,
 				EA78E20121772AB100BBEE58 /* PSSettingCell.m in Sources */,
@@ -4743,12 +4828,14 @@
 				3E78B7A7208DB696007DF162 /* PSPayOngoingViewController.m in Sources */,
 				3EEEC6132093285E003B35B3 /* PSFeedbackResponse.m in Sources */,
 				3E5D1589207322D4000FC779 /* PSObserverVector.mm in Sources */,
+				55DA4BBB2189EC5F00212A23 /* PSRemitanceResponse.m in Sources */,
 				3E78B73020897916007DF162 /* PSFamily.m in Sources */,
 				EA87F5692105BBA200D7A1E4 /* PSAccountEmailViewController.m in Sources */,
 				3E78B73620898EF7007DF162 /* PSPrisonerCell.m in Sources */,
 				3EEE778320808F4A00CAD179 /* PSServiceLinkView.m in Sources */,
 				3EEE77CA208499D600CAD179 /* PSWriteComplaintViewController.m in Sources */,
 				EACBC1A821420573004C0EAB /* PSSessionPassedViewController.m in Sources */,
+				55E9A8C12186EB33003A5918 /* PSREmittanceRecodeViewController.m in Sources */,
 				3EEEC6162093291F003B35B3 /* PSFeedbackViewModel.m in Sources */,
 				3E78B780208D8FAE007DF162 /* PSAlipayResponse.m in Sources */,
 				3E5D160A2074D4A4000FC779 /* XWInteractiveTransition.m in Sources */,
@@ -4834,6 +4921,7 @@
 				EAA0CA1A2188320500240724 /* NSBundle+TZImagePicker.m in Sources */,
 				3EEE776D2080581D00CAD179 /* PSCommerceViewController.m in Sources */,
 				3E0044F4207B55D80036CBC5 /* PSLoginTopView.m in Sources */,
+				55E9A8BC2186B02F003A5918 /* PSFamilyRemittanceViewController.m in Sources */,
 				3E5D14C320721E71000FC779 /* CAGradientLayer+Gradient.m in Sources */,
 				EACBC18C212FB064004C0EAB /* LXFileManager.m in Sources */,
 				EA428612211A9FC700418685 /* VIRegisterRequest.m in Sources */,
@@ -4844,6 +4932,7 @@
 				EAEE396220C50BF2005F7530 /* PSRefundViewController.m in Sources */,
 				3E78B73D2089BE1F007DF162 /* PSPrisonerDetailResponse.m in Sources */,
 				EAD18F6A20D238380053F82B /* PSchangPhoneViewController.m in Sources */,
+				55C9EDC42188528300A11D60 /* PSFamilyRemittanceViewModel.m in Sources */,
 				3EEE779D2080B35900CAD179 /* PSDynamicWork.m in Sources */,
 				3E5D14FF20731B04000FC779 /* PSResponse.m in Sources */,
 				3E171AC42093019200B7D807 /* PSMailBoxesResponse.m in Sources */,
@@ -4901,6 +4990,7 @@
 				3EC7B6C7207C46FC00DFBA65 /* PSRegisterViewModel.m in Sources */,
 				EA87F57B210848E900D7A1E4 /* PSPinmoney.m in Sources */,
 				EAEE396C20C5279A005F7530 /* PSTransactionRecordResponse.m in Sources */,
+				55DA4BBE2189F09900212A23 /* PSRemittanceRecodeViewModel.m in Sources */,
 				3E5D15BA20738C4C000FC779 /* PSVisitorManager.m in Sources */,
 				EA87F57E210849E200D7A1E4 /* PSPocketMoney.m in Sources */,
 				3EEEC67E209475A5003B35B3 /* PSGuideViewController.m in Sources */,
@@ -4958,7 +5048,11 @@
 				EA4285FE2119877800418685 /* VIMemberViewController.m in Sources */,
 				3E78B7A1208DAE57007DF162 /* PSPayment.m in Sources */,
 				3EDF0DA620882871002D98BD /* PSUploadAvatarResponse.m in Sources */,
+<<<<<<< HEAD
 				EAA0CA172188320500240724 /* TZAssetCell.m in Sources */,
+=======
+				55E9A8CD21870E10003A5918 /* PSSeleView.m in Sources */,
+>>>>>>> ea064ae4415599fccb7c2500f7d14b5723b6e964
 				3E5D15E620747DD0000FC779 /* PSProvince.m in Sources */,
 				3E91DDF7208EBB2B00AADE3C /* PSWechatInfo.m in Sources */,
 				EA42860D211A93BC00418685 /* VIRegisterViewModel.m in Sources */,
@@ -4967,11 +5061,13 @@
 				3E78B77A208D8F8E007DF162 /* PSWechatPayResponse.m in Sources */,
 				EA0B02F320CE635B0091B9A0 /* RelationGuideVC.m in Sources */,
 				3E78B75B208B0F95007DF162 /* NSString+Date.m in Sources */,
+				557859BD2189A3D80080437D /* PSRemittanceBusinessRequest.m in Sources */,
 				3E78B79C208DA934007DF162 /* PSPayCenter.m in Sources */,
 				EAD18F5220D02A780053F82B /* NSObject+MJProperty.m in Sources */,
 				3E5D16092074D4A4000FC779 /* XWPresentOneTransition.m in Sources */,
 				3E171AA02092B2CC00B7D807 /* PSRewardAndPunishmentResponse.m in Sources */,
 				3E5D150320731B04000FC779 /* PSParameters.m in Sources */,
+				557859BA218994140080437D /* RemittanceRecode.m in Sources */,
 				3E5D15E520747DD0000FC779 /* PSJail.m in Sources */,
 				3E0044DF207B346A0036CBC5 /* PSSessionManager.m in Sources */,
 				3EEEC67320946EA8003B35B3 /* PSStartupAdvManager.m in Sources */,
@@ -5003,6 +5099,7 @@
 				EAD67A40218C2338009E54C2 /* PSLawyerView.m in Sources */,
 				3EEEC677209470EF003B35B3 /* PSStartupAdvViewController.m in Sources */,
 				EAD18F5520D02A780053F82B /* MJPropertyKey.m in Sources */,
+				55DA4BB82189EC2F00212A23 /* PSRemittanceRequest.m in Sources */,
 				3EDA518F20AA81AD00D8D019 /* PSBasePrisonerViewModel.m in Sources */,
 				3E5D15DB2074734B000FC779 /* PSVisitorJailsResponse.m in Sources */,
 				EAFB4A672150EF8300CDFE11 /* PSMeetingMembersResponse.m in Sources */,
@@ -5256,6 +5353,7 @@
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = NO;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = NO;
 				CLANG_WARN_STRICT_PROTOTYPES = NO;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = 35NTC834XG;
 				ENABLE_BITCODE = NO;
@@ -5295,7 +5393,7 @@
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = NO;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = NO;
 				CLANG_WARN_STRICT_PROTOTYPES = NO;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = 35NTC834XG;
 				ENABLE_BITCODE = NO;
@@ -5321,7 +5419,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.sinog2c.Yuwu;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "19f90a1f-f4e7-4f0e-85a1-63b69a4d0f2d";
-				PROVISIONING_PROFILE_SPECIFIER = YuWuDistribution;
+				PROVISIONING_PROFILE_SPECIFIER = YuWuDevelopment;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
@@ -5331,6 +5429,7 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = E37PXLHGPX;
 				INFOPLIST_FILE = PrisonServiceTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.sinog2c.Yuwu.PrisonServiceTests;
@@ -5345,6 +5444,7 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = E37PXLHGPX;
 				INFOPLIST_FILE = PrisonServiceTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.sinog2c.Yuwu.PrisonServiceTests;

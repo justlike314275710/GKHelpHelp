@@ -42,7 +42,6 @@
     self.dataStatus = PSDataInitial;
     [self requestPinmoneyCompleted:completedCallback failed:failedCallback];
     
-    
 }
 
 - (void)loadMorePinmoneyCompleted:(RequestDataCompleted)completedCallback failed:(RequestDataFailed)failedCallback {

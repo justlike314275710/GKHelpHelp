@@ -179,7 +179,6 @@
         }
         else if ([code isEqualToString:@"sms.verification-code.NotMatched"]){
             [PSTipsView showTips:@"验证码错误"];
-
         }
         else {
             [self showNetError];

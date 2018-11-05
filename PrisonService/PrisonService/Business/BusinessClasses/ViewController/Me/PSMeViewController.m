@@ -30,8 +30,13 @@
 #import "PSPurchaseViewModel.h"
 #import "PSAccountViewController.h"
 #import "PSAccountViewModel.h"
+<<<<<<< HEAD
 #import "PSMyAdviceViewController.h"
 #import "PSConsultationViewModel.h"
+=======
+#import "PSFamilyRemittanceViewController.h"
+#import "PSFamilyRemittanceViewModel.h"
+>>>>>>> ea064ae4415599fccb7c2500f7d14b5723b6e964
 
 @interface PSMeViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic , strong) UITableView *settingTableview;
@@ -121,6 +126,7 @@
     NSString*my_advice=NSLocalizedString(@"my_advice", @"我的咨询");
     NSString*add_relatives=NSLocalizedString(@"add_relatives", @"添加亲属");
     NSString*family_server=NSLocalizedString(@"family_server", @"家属服务");
+    NSString*family_remittance = NSLocalizedString(@"family_remittance", @"家属汇款");
     NSString*userCenterSetting=NSLocalizedString(@"userCenterSetting", @"设置");
     if ([itemModel.funcName isEqualToString:VI_member]) {
         [self managePrisoner];
@@ -145,6 +151,10 @@
         PSFamilyServiceViewController *serviceViewController = [[PSFamilyServiceViewController alloc] initWithViewModel:[PSFamilyServiceViewModel new]];
         [self.navigationController pushViewController:serviceViewController animated:YES];
     }
+    else if ([itemModel.funcName isEqualToString:family_remittance]){
+        PSFamilyRemittanceViewController *remittanceViewController = [[PSFamilyRemittanceViewController alloc] initWithViewModel:[PSFamilyRemittanceViewModel new]];
+        [self.navigationController pushViewController:remittanceViewController animated:YES];
+    }
     else if ([itemModel.funcName isEqualToString:userCenterSetting]){
         [self.navigationController pushViewController:[[PSSettingViewController alloc] initWithViewModel:[[PSSettingViewModel alloc] init]] animated:YES];
         
@@ -161,6 +171,7 @@
 }
 
 - (void)managePrisoner {
+    
     PSPrisonerManageViewController *manageViewController = [[PSPrisonerManageViewController alloc] initWithViewModel:self.viewModel];
     [manageViewController setDidManaged:^{
         [self updateContent];
@@ -212,7 +223,7 @@
             if ([[LXFileManager readUserDataForKey:@"isVistor"]isEqualToString:@"YES"]) {
                 [[PSSessionManager sharedInstance]doLogout];
             } else {
-                if (indexPath.row==8) {
+                if (indexPath.row==9) {
                     [self.navigationController pushViewController:[[PSSettingViewController alloc] initWithViewModel:[[PSSettingViewModel alloc] init]] animated:YES];
                 } else {
                     self.hidesBottomBarWhenPushed=YES;
@@ -220,8 +231,6 @@
                     [self.navigationController pushViewController:[[PSSessionNoneViewController alloc]initWithViewModel:viewModel] animated:YES];
                     self.hidesBottomBarWhenPushed=NO;
                 }
-                
-              
             }
             break;
     }
@@ -360,12 +369,21 @@
     familyServiceItem .img = [UIImage imageNamed:@"家属服务"];
     familyServiceItem .accessoryType = PSSettingAccessoryTypeDisclosureIndicator;
     
+    PSSettingItemModel *familyRemittanceItem = [[PSSettingItemModel alloc] init];
+    NSString *family_remittance = NSLocalizedString(@"family_remittance", @"家属汇款");
+    familyRemittanceItem.funcName = family_remittance;
+    familyRemittanceItem.img = [UIImage imageNamed:@"家属汇款"];
+    familyRemittanceItem.accessoryType = PSSettingAccessoryTypeDisclosureIndicator;
+    
+    
+    
+    
     PSSettingItemModel *settingItem = [[PSSettingItemModel alloc]init];
     NSString*userCenterSetting=NSLocalizedString(@"userCenterSetting", @"设置");
     settingItem .funcName = userCenterSetting;
     settingItem .img = [UIImage imageNamed:@"设置"];
     settingItem .accessoryType = PSSettingAccessoryTypeDisclosureIndicator;
-    _modelArray = @[nameItem,balanceItem,historyItem,RechargeItem,ConsultationItem,AuthenticationItem,addFamilyItem,familyServiceItem,settingItem];
+    _modelArray = @[nameItem,balanceItem,historyItem,RechargeItem,ConsultationItem,AuthenticationItem,addFamilyItem,familyServiceItem,familyRemittanceItem,settingItem];
 
 }
 

@@ -66,6 +66,8 @@
 "e_mall"="Thương mại điện tử";
 "complain_advice"="Khiếu nại khiếu nại";
 "more_server"="Các dịch vụ khác";
+"family_remittance"="kiều hối gia đình";  
+
 
 
 ///亲情电话
@@ -305,6 +307,30 @@
 "face_familes_tips"="*Ben lần gặp phải tất cả qua gương mặt nhận diện；\n Làm ơn theo thứ tự chọn gương mặt bà con thực hiện nhận dạng";
 "meet_end"="Nhà tù Terminal đã cúp máy.";
 
+//家属汇款
+"family_remittance"="Các gia đình kiều hối";
+"remittance_record"="Hồ sơ gửi tiền";
+"remittance_amount"="Thanh toán số tiền";
+"please_enter_amount"="Hãy nhập vào số tiền";
+"alipay_payment"="Trả tiền bảo";
+"weChat_payment"="Vi tin trả";
+"immediate_remittance"="Tiến hành ngay lập tức.";
+"payment_in"="Trả tiền cho các";
+"payment_success"="Trả thành công.";
+"payment_failure"="Trả tiền cho thất bại.";
+"payment_cancel"="Hủy bỏ tiền";
+"remittance_number"="Chuyển khoản số điện thoại luôn";
+"payment_method"="Phương thức thanh toán";
+"pemittance to prisoners"="Chuyển tiền đến số tù nhân";
+"completed"="Hoàn thành.";
+"please_input_the_correct_amount"="Hãy nhập vào đúng số tiền";
+"please choose prisoners"="Hãy chọn số tù nhân";
+"Alipay"="Trả tiền bảo";
+"WeChat"="Vi thư";
+"weChat not installed"="Vi tin chưa được cài đặt";
+//"determine"="确定";
+
+
 
 "details"="ChiTiết.";
 "common_function"="Chức năng thông thường";
@@ -334,6 +360,9 @@
 "H"="Khi";
 "M"="Điểm";
 "S"="Giây";
+
+
+
 
 
 

@@ -53,7 +53,6 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     PSHomeViewModel *homeViewModel = (PSHomeViewModel *)self.viewModel;
     return homeViewModel.passedPrisonerDetails.count + 1;
-   
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {

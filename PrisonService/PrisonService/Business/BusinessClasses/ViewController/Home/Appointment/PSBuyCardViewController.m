@@ -45,7 +45,7 @@
         payInfo.payment = paymentInfo.payment;
         [[PSLoadingView sharedInstance] show];
         @weakify(self)
-        [[PSPayCenter payCenter] goPayWithPayInfo:payInfo callback:^(BOOL result, NSError *error) {
+        [[PSPayCenter payCenter] goPayWithPayInfo:payInfo type:PayTypeBuy callback:^(BOOL result, NSError *error) {
             @strongify(self)
             [[PSLoadingView sharedInstance] dismiss];
             [[PSSessionManager sharedInstance] synchronizeUserBalance];

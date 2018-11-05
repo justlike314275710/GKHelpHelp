@@ -42,9 +42,21 @@
     return self;
 }
 
-- (void)goPayWithPayInfo:(PSPayInfo *)payInfo callback:(PSPayCallback)callback {
+- (void)goPayWithPayInfo:(PSPayInfo *)payInfo type:(PayType)type  callback:(PSPayCallback)callback {
     self.payCallback = callback;
     self.payInfo = payInfo;
+    //判断微信是否安装
+    if ([self.payInfo.payment isEqualToString:@"WEIXIN"]) {
+        BOOL Installed = [WXApi isWXAppInstalled];
+        if (!Installed) {
+            if (self.payCallback) {
+                NSString *error_msg = NSLocalizedString(@"weChat not installed", @"微信未安装");
+                NSError *error = [NSError errorWithDomain:error_msg code:102 userInfo:nil];
+                self.payCallback(NO,error);
+                return;
+            }
+        }
+    }
     self.payHandler = [self buildPayHandlerWith:payInfo];
     if (self.payHandler) {
         @weakify(self)
@@ -55,7 +67,11 @@
                 self.payCallback(result,error);
             }
         }];
-        [self.payHandler goPayWithPayInfo:payInfo];
+        if (type == PayTypeRem) { //汇款
+            [self.payHandler goRemittanceWithPayInfo:payInfo];
+        } else {
+            [self.payHandler goPayWithPayInfo:payInfo];
+        }
     }else{
         if (self.payCallback) {
             NSError *error = [NSError errorWithDomain:@"不支持的支付方式！" code:101 userInfo:nil];
@@ -63,6 +79,8 @@
         }
     }
 }
+
+
 
 - (id<PSPayHandler>)buildPayHandlerWith:(PSPayInfo *)payInfo {
     id<PSPayHandler> handler = nil;
@@ -175,6 +193,7 @@
 #pragma mark - WXApiDelegate
 - (void)onResp:(BaseResp*)resp{
     [self removeEnterForegroundNotification];
+    
     if ([resp isKindOfClass:[PayResp class]]) {
         PayResp *response = (PayResp *)resp;
         NSLog(@"**微信支付结果***%d",response.errCode);
@@ -205,6 +224,7 @@
                 break;
         }
     }
+    
 }
 
 

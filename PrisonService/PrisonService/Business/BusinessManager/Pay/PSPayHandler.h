@@ -15,4 +15,7 @@ typedef void (^PSPayCallback)(BOOL result, NSError *error);
 
 - (void)goPayWithPayInfo:(PSPayInfo *)payInfo;
 
+- (void)goRemittanceWithPayInfo:(PSPayInfo *)payInfo;
+
+
 @end

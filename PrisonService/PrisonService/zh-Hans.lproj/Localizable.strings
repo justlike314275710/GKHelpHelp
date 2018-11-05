@@ -67,6 +67,8 @@
 "more_server"="更多服务";
 
 
+
+
 ///亲情电话
 "apply_success"="会见申请成功";
 "family_phone"="亲情电话";
@@ -135,6 +137,7 @@
 "userCenterLogout"="退出账号";
 "userCenterAddFamily"="增加家属";
 "userCenterAccreditation"="家属认证";
+
 
 
 //注册
@@ -328,6 +331,40 @@
 "recharge_record"="充值记录";
 "my_advice"="我的咨询";
 "add_relatives"="添加亲属";
+
+//家属汇款
+"family_remittance"="家属汇款";
+"remittance_record"="汇款记录";
+"remittance_amount"="汇款金额";
+"please_enter_amount"="请输入金额";
+"alipay_payment"="支付宝支付";
+"weChat_payment"="微信支付";
+"immediate_remittance"="立即汇款";
+"payment_in"="支付中";
+"payment_success"="支付成功";
+"payment_failure"="支付失败";
+"payment_cancel"="支付取消";
+"remittance_number"="汇款单号";
+"payment_method"="付款方式";
+"pemittance to prisoners"="汇款至服刑人员";
+"completed"="完成";
+"please_input_the_correct_amount"="请输入正确的金额";
+"please choose prisoners"="请选择服刑人员";
+"Alipay"="支付宝";
+"WeChat"="微信";
+"determine"="确定";
+"weChat not installed"="微信未安装";
+
+
+
+
+
+
+
+
+
+
+
 
 
 "home_page"="首页";

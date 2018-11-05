@@ -58,7 +58,6 @@
                 NSLog(@"WIFI");
             break; } }];
     [mgr startMonitoring];
-    
 }
 
 

@@ -38,5 +38,15 @@
  * familyId
  */
 @property (nonatomic, strong) NSString *familyId;
+/**
+ * prisonerId
+ */
+@property (nonatomic, strong) NSString *prisonerId; 
+/**
+ * 汇款金额
+ */
+@property (nonatomic, strong) NSString *money;
+
+
 
 @end

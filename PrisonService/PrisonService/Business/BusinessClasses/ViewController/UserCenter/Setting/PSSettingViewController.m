@@ -68,9 +68,7 @@
 
 - (void)renderContents {
     
-    
- 
-    
+
     
     YYLabel *extraLabel = [YYLabel new];
     extraLabel.backgroundColor = [UIColor clearColor];
