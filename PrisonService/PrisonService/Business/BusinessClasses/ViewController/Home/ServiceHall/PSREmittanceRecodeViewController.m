@@ -91,13 +91,17 @@
     [[PSLoadingView sharedInstance]show];
     @weakify(self)
     [RemittanceRecodeViewModel refreshPinmoneyCompleted:^(PSResponse *response) {
-        @strongify(self)
-        [[PSLoadingView sharedInstance] dismiss];
-        [self p_reloadContents];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            @strongify(self)
+            [[PSLoadingView sharedInstance] dismiss];
+            [self p_reloadContents];
+        });
     } failed:^(NSError *error) {
+        dispatch_async(dispatch_get_main_queue(), ^{
         @strongify(self)
         [[PSLoadingView sharedInstance] dismiss];
         [self p_reloadContents];
+        });
     }];
 }
 
@@ -105,11 +109,15 @@
     PSRemittanceRecodeViewModel *RemittanceRecodeViewModel  =(PSRemittanceRecodeViewModel *)self.viewModel;
     @weakify(self)
     [RemittanceRecodeViewModel loadMorePinmoneyCompleted:^(PSResponse *response) {
-        @strongify(self)
-        [self p_reloadContents];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            @strongify(self)
+            [self p_reloadContents];
+        });
     } failed:^(NSError *error) {
-        @strongify(self)
-        [self p_reloadContents];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            @strongify(self)
+            [self p_reloadContents];
+        });
     }];
 }
 
@@ -191,7 +199,6 @@
         _myTableview.delegate = self;
         _myTableview.emptyDataSetDelegate=self;
         _myTableview.emptyDataSetSource=self;
-        
     }
     return _myTableview;
 }

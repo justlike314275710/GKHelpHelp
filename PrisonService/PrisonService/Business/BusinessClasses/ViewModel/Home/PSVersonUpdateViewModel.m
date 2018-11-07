@@ -22,7 +22,7 @@
         if (data) {
             //data是有关于App所有的信息
             NSDictionary *receiveDic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:nil];
-         
+            
             
             if ([[receiveDic valueForKey:@"resultCount"] intValue]>0)
             { [receiveStatusDic setValue:@"1" forKey:@"status"];
@@ -35,38 +35,61 @@
     
 }
 
--(void)receiveData:(id)sender { //获取APP自身版本号
+-(void)receiveData:(id)sender { //获取APP自身版本号CFBundleShortVersionString
     NSString *localVersion = [[[NSBundle mainBundle]infoDictionary]objectForKey:@"CFBundleShortVersionString"];
     //NSString*AppstoreVersion=sender[@"version"];
-    
     NSArray *localArray = [localVersion componentsSeparatedByString:@"."];
     NSArray *versionArray = [sender[@"version"] componentsSeparatedByString:@"."];
-    if ((versionArray.count == 3) && (localArray.count == versionArray.count))
-    {
-        if ([localArray[0] intValue] > [versionArray[0] intValue]){
-        [self updateVersion];
+    NSInteger minArrayLength = MIN(localArray.count, versionArray.count);
+    BOOL needUpdate = NO;
+    for (int i = 0; i<minArrayLength; i++) {
+        NSString *localElement = localArray[i];
+        NSString *appElement = versionArray[i];
+        NSInteger localValue = localElement.integerValue;
+        NSInteger appValue = appElement.integerValue;
+        if (localValue<appValue) {
+            needUpdate = YES;
+            break;
+        } else {
+            needUpdate = NO;
         }
-       else if ([localArray[0] intValue] == [versionArray[0] intValue]) {
-            if ([localArray[1] intValue] > [versionArray[1] intValue]) {
-                [self updateVersion];
-            }
-            else if ([localArray[1] intValue] == [versionArray[1] intValue]) {
-                if ([localArray[2] intValue] > [versionArray[2] intValue]) {
-                    [self updateVersion];
-                }
-            }
-       }
     }
+    
+    if (needUpdate) {
+        [self updateVersion];
+    }
+    
+    //    if ((versionArray.count == 3) && (localArray.count == versionArray.count))
+    //    {
+    //        if ([localArray[0] intValue] > [versionArray[0] intValue]){
+    //        [self updateVersion];
+    //        }
+    //       else if ([localArray[0] intValue] == [versionArray[0] intValue]) {
+    //            if ([localArray[1] intValue] > [versionArray[1] intValue]) {
+    //                [self updateVersion];
+    //            }
+    //            else if ([localArray[1] intValue] == [versionArray[1] intValue]) {
+    //                if ([localArray[2] intValue] > [versionArray[2] intValue]) {
+    //                    [self updateVersion];
+    //                }
+    //            }
+    //       }
+    //    }
 }
-
 
 -(void)updateVersion{
     NSString *msg = [NSString stringWithFormat:@"更新最新版本，优惠信息提前知"];
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"升级提示" message:msg preferredStyle:UIAlertControllerStyleAlert];
-    UIAlertAction *otherAction = [UIAlertAction actionWithTitle:@"现在升级"style:UIAlertActionStyleDestructive handler:^(UIAlertAction*action) { NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://itunes.apple.com/cn/app/狱务通/id1102307635?mt=8"]];
-        [[UIApplication sharedApplication]openURL:url]; }];
+    UIAlertAction *otherAction = [UIAlertAction actionWithTitle:@"现在升级"style:UIAlertActionStyleDestructive handler:^(UIAlertAction*action) {
+        NSString *urlString = @"https://itunes.apple.com/cn/app/狱务通/id1102307635?mt=8";
+        urlString = [urlString stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
+        NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@",urlString]];
+        [[UIApplication sharedApplication]openURL:url];
+        
+    }];
     [alertController addAction:otherAction];
-//    [self.window.rootViewController presentViewController:alertController animated:YES completion:nil];
+    UIWindow *window = [UIApplication sharedApplication].keyWindow;
+    [window.rootViewController presentViewController:alertController animated:YES completion:nil];
     
 }
 

@@ -26,7 +26,7 @@
 @implementation PSAuthenticationMainViewController
 
 - (id)init {
-   PSHomeViewModel *homeViewModel = [[PSHomeViewModel alloc]init];;
+    PSHomeViewModel *homeViewModel = [[PSHomeViewModel alloc]init];;
     PSHomePageViewController*homeViewController=
         [[PSHomePageViewController alloc]initWithViewModel:homeViewModel];
     PSServiceCentreViewController*ServiceCentreViewController=

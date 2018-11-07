@@ -7,33 +7,27 @@
 //
 
 //开发环境
-//#define ServerDomain @"http://120.78.190.101:8086"
+#define ServerDomain @"http://120.78.190.101:8086"
 //#define ServerDomain @"http://192.168.0.121:8086" //杨波
 //测试环境
 //#define ServerDomain @"http://120.78.190.101:8084"
 //生产环境
-#define ServerDomain @"https://www.yuwugongkai.com"
+//#define ServerDomain @"https://www.yuwugongkai.com"
 
 //H5 生产Server
-#define H5ServerDomain @"http://39.108.185.51:8081"
+//#define H5ServerDomain @"http://39.108.185.51:8081"
 
 //H5 开发Server
-//#define H5ServerDomain @"http://120.78.190.101:8085"
+#define H5ServerDomain @"http://120.78.190.101:8085"
 
 //H5 测试Server
 //#define H5ServerDomain @"http://120.78.190.101:8083"
 
 //电子商务Server
 #define CommerceServerDomain @"http://39.108.185.51:8088"
-
-//#define H5ServerDomain @"http://120.78.190.101:8083"
-//H5 生产Server
-//#define H5ServerDomain @"http://39.108.185.51:8081"
-//电子商务Server
-#define CommerceServerDomain @"http://39.108.185.51:8088"
 //其他环境接口地址
-#define ServerUrl [NSString stringWithFormat:@"%@/ywgk-app",ServerDomain] //生产
-//#define ServerUrl [NSString stringWithFormat:@"%@/ywgk-app-auth",ServerDomain] //开发
+//#define ServerUrl [NSString stringWithFormat:@"%@/ywgk-app",ServerDomain] //生产
+#define ServerUrl [NSString stringWithFormat:@"%@/ywgk-app-auth",ServerDomain] //开发
 //#define ServerUrl [NSString stringWithFormat:@"%@",ServerDomain] //杨
 //测试环境接口地址
 //#define ServerUrl [NSString stringWithFormat:@"%@/ywgk-app-demo",ServerDomain]
@@ -50,16 +44,16 @@
 #define ProCommerceUrl [NSString stringWithFormat:@"%@/ywt-ec/index.html",CommerceServerDomain]
 
 //授权认证平台开发地址
-//#define EmallHostUrl @"http://10.10.10.17:8081"
-//#define EmallUrl @"http://10.10.10.17:805"
+#define EmallHostUrl @"http://10.10.10.17:8081"
+#define EmallUrl @"http://10.10.10.17:805"
 #define ConsultationHostUrl @"http://10.10.10.17:8086"
 //授权认证平台测试地址
 //#define EmallHostUrl @"http://10.10.10.16:8081"
 //#define EmallUrl @"http://10.10.10.16:805"
 
 //授权认证平台生产地址
-#define EmallUrl @"http://m.trade.prisonpublic.com" //电子商城
-#define EmallHostUrl @"http://api.auth.prisonpublic.com"
+//#define EmallUrl @"http://m.trade.prisonpublic.com" //电子商城
+//#define EmallHostUrl @"http://api.auth.prisonpublic.com"
 
 //监狱详情地址 后面接jailId
 #define PrisonDetailUrl [NSString stringWithFormat:@"%@/h5/#/prison/detail/",H5ServerDomain]
@@ -69,7 +63,6 @@
 #define NewsUrl [NSString stringWithFormat:@"%@/h5/#/news/detail/",H5ServerDomain]
 
 #define AppToken @"523b87c4419da5f9186dbe8aa90f37a3876b95e448fe2a"
-
 
 #define AppUserSessionCacheKey @"AppUserSessionCacheKey"
 

@@ -308,21 +308,24 @@
         if (successful) {
             @weakify(self)
             [regiestViewModel requestCodeCompleted:^(PSResponse *response) {
-                _loginMiddleView.codeButton.enabled=YES;
                 if (regiestViewModel.messageCode==201) {
                     [PSTipsView showTips:@"已发送"];
                     self.seconds=60;
                 }else{
                     [PSTipsView showTips:@"获取验证码失败"];
+                    _loginMiddleView.codeButton.enabled=YES;
                 }
             } failed:^(NSError *error) {
                 @strongify(self)
                 [self showNetError];
+                 _loginMiddleView.codeButton.enabled=YES;
             }];
         } else {
             [PSTipsView showTips:tips];
+            _loginMiddleView.codeButton.enabled = YES;
         }
     }];
+
 }
 
 
@@ -518,10 +521,10 @@
 
 #pragma mark - PSCountdownObserver
 - (void)countdown {
-    _loginMiddleView.codeButton.enabled = _seconds == 0;
     if (_seconds > 0) {
         [_loginMiddleView.codeButton setTitle:[NSString stringWithFormat:@"重发(%ld)",(long)_seconds] forState:UIControlStateDisabled];
         _seconds --;
+         if (self.seconds==0) _loginMiddleView.codeButton.enabled = YES;
     }
 }
 

@@ -320,8 +320,10 @@
     @weakify(self)
     [[PSPayCenter payCenter] goPayWithPayInfo:payInfo type:PayTypeRem callback:^(BOOL result, NSError *error) {
         @strongify(self)
-        [[PSLoadingView sharedInstance] dismiss];
-        [[PSSessionManager sharedInstance] synchronizeUserBalance];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [[PSLoadingView sharedInstance] dismiss];
+            [[PSSessionManager sharedInstance] synchronizeUserBalance];
+        });
         if (error) {
             if (error.code != 106 && error.code != 206) {
                 if (error.code == 202 ||error.code == 205||error.code == 102) { //输入金额不正确 (202)  系统错误(支付宝返回205)   未安装微信（202）

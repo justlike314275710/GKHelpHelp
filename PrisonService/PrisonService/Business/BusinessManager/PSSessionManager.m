@@ -136,10 +136,6 @@
     }
 }
 
-
-
-
-
 - (void)synchronizePrisonerDetailsCompletion:(SynchronizePrisonerDetailsCompletion)completion {
     //刷新用户绑定的罪犯列表，目前只能使用登录接口刷新，比较尴尬
     @weakify(self)
@@ -314,6 +310,7 @@
         }
         
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        
         if (completion) {
             completion(YES);
         }

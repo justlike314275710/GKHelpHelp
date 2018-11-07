@@ -88,7 +88,9 @@
         }
    
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-      
+        if (failedCallback) {
+            failedCallback(error);
+        }
     }];
 }
 

@@ -29,8 +29,7 @@
 #import "PSHomeViewModel.h"
 #import "JXButton.h"
 #import "PSCache.h"
-
-
+#import "PSVersonUpdateViewModel.h"
 
 
 @interface PSHomePageViewController ()
@@ -42,6 +41,7 @@
 @property (nonatomic , strong) UIButton*messageButton ;
 @property (nonatomic , strong) UILabel *dotLable;
 @property (nonatomic, strong) PSUserSession *session;
+@property (nonatomic, strong) UIScrollView *myScrollview;
 @end
 
 @implementation PSHomePageViewController
@@ -55,11 +55,24 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    //更新
+    PSVersonUpdateViewModel *UpdateViewModel = [PSVersonUpdateViewModel new];
+    [UpdateViewModel VersonUpdate];
     [self refreshDataFromLoginStatus];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showDot) name:AppDotChange object:nil];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(refreshData) name:JailChange object:nil];
 
+}
+
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:AppDotChange object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:JailChange object:nil];
+    
+}
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
 }
 
 #pragma mark  - notification
@@ -90,8 +103,10 @@
             @weakify(self)
             [homeViewModel requestHomeDataCompleted:^(id data) {
                 @strongify(self)
-                [[PSLoadingView sharedInstance] dismiss];
-            
+                //回到主线程刷新界面
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [[PSLoadingView sharedInstance] dismiss];
+                });
                 NSInteger index = homeViewModel.selectedPrisonerIndex;
                 PSPrisonerDetail *prisonerDetail = nil;
                 if (index >= 0 && index < homeViewModel.passedPrisonerDetails.count) {
@@ -218,8 +233,6 @@
     return html;
 }
 
-#pragma mark  - Delegate
-
 - (BOOL)showAdv {
     return YES;
 }
@@ -227,9 +240,10 @@
 - (BOOL)hiddenNavigationBar{
     return YES;
 }
-
 #pragma mark  - UI
 -(void)renderContents:(BOOL)isShow{
+    
+    [self.view addSubview:self.myScrollview];
     
     CGFloat sidePadding=19;
     CGFloat spacing=10;
@@ -238,6 +252,12 @@
     _advView.placeholderImage = [UIImage imageNamed:@"广告图"];
     _advView.bannerImageViewContentMode = UIViewContentModeScaleAspectFill;
     [self.view addSubview:_advView];
+    [_advView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.mas_equalTo(0);
+        make.width.mas_equalTo(SCREEN_WIDTH);
+        make.height.mas_equalTo(244);
+    }];
+    
     
     UIImageView*bgAdvBgView=[[UIImageView alloc]init];
     [bgAdvBgView setImage:[UIImage imageNamed:@"水波"]];
@@ -263,7 +283,6 @@
         [self selectJails];
     }];
     
-    
     _messageButton=[[UIButton alloc]initWithFrame:CGRectMake(SCREEN_WIDTH-30, 35, 15, 15)];
     [_messageButton setImage:[UIImage imageNamed:@"消息"] forState:0];
     [self.view addSubview:_messageButton];
@@ -285,9 +304,7 @@
     if ([dot isEqualToString:@"0"]) {
         self.dotLable.hidden = NO;
     }
-    
-    
-    
+
     UIView*prisonIntroduceView=[UIView new];
     prisonIntroduceView.backgroundColor=[UIColor whiteColor];
     [self.view addSubview:prisonIntroduceView];
@@ -394,7 +411,6 @@
     }];
     
     
-    
     UIView *verDashLine = [[UIView alloc]initWithFrame:CGRectMake(SCREEN_WIDTH/2-sidePadding+1, 100, SCREEN_WIDTH/2-sidePadding-2, 1)];
     [homeHallView addSubview:verDashLine];
     verDashLine.backgroundColor=AppBaseLineColor;
@@ -422,21 +438,6 @@
     
 }
 
-
-
-#pragma mark  - setter & getter
-
-- (void)dealloc
-{
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:AppDotChange object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:JailChange object:nil];
-    
-}
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
 #pragma mark -- 网络检测
 - (void)reachability {
     AFNetworkReachabilityManager *mgr = [AFNetworkReachabilityManager sharedManager];
@@ -460,14 +461,5 @@
     
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end
