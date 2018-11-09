@@ -9,7 +9,7 @@
 #import "PSBusinessViewController.h"
 
 @interface PSHomePageViewController : PSBusinessViewController
-@property (nonatomic, strong, readonly) SDCycleScrollView *advView;
+@property (nonatomic, strong) SDCycleScrollView *advView;
 //是否显示广告
 - (BOOL)showAdv;
 @end

@@ -20,6 +20,8 @@
         manager=[AFHTTPSessionManager manager];
         manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
         manager.requestSerializer = [AFJSONRequestSerializer serializer];
+        manager.requestSerializer.timeoutInterval = 10.f;
+
         manager.responseSerializer = [AFJSONResponseSerializer serializer];
         [manager.requestSerializer setValue:@"application/x-www-form-urlencode" forHTTPHeaderField:@"Content-Type"];
          [manager.requestSerializer setAuthorizationHeaderFieldWithUsername:@"prison.trade.m" password:@"1688c4f69fc6404285aadbc996f5e429"];

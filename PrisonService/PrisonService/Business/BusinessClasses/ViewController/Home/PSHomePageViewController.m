@@ -36,12 +36,14 @@
 @property (nonatomic, strong) PSDefaultJailRequest*jailRequest;
 @property (nonatomic, strong) NSString *defaultJailId;
 @property (nonatomic, strong) NSString *defaultJailName;
-@property (nonatomic , strong) UIButton*addressButton;
-@property (nonatomic , strong) UILabel*prisonIntroduceContentLable;
-@property (nonatomic , strong) UIButton*messageButton ;
-@property (nonatomic , strong) UILabel *dotLable;
+@property (nonatomic, strong) UIButton*addressButton;
+@property (nonatomic, strong) UILabel*prisonIntroduceContentLable;
+@property (nonatomic, strong) UIButton*messageButton ;
+@property (nonatomic, strong) UILabel *dotLable;
 @property (nonatomic, strong) PSUserSession *session;
 @property (nonatomic, strong) UIScrollView *myScrollview;
+@property (nonatomic, strong) UIImageView *bgAdvBgView;
+
 @end
 
 @implementation PSHomePageViewController
@@ -58,6 +60,9 @@
     //更新
     PSVersonUpdateViewModel *UpdateViewModel = [PSVersonUpdateViewModel new];
     [UpdateViewModel VersonUpdate];
+    //没有网络下不能为空白
+    [self.view addSubview:self.myScrollview];
+    [self renderContents:NO];
     [self refreshDataFromLoginStatus];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showDot) name:AppDotChange object:nil];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(refreshData) name:JailChange object:nil];
@@ -138,7 +143,6 @@
             self.defaultJailId = jailResponse.jailId;
             self.defaultJailName =[NSString stringWithFormat:@"%@▼", jailResponse.jailName];
             [self requestjailsDetailsWithJailId:self.defaultJailId isShow:YES];
-           
         }
         else{
             [self showNetError];
@@ -189,24 +193,26 @@
     [vistorViewModel requestJailsProfileWithCompletion:^(PSResponse *response) {
         @strongify(self)
         if (response.code==200) {
-            [self renderContents:isShow];
-            NSString*profileSting= vistorViewModel.profile;
-            NSMutableAttributedString * attrStr = [[NSMutableAttributedString alloc]initWithData:[profileSting dataUsingEncoding:NSUnicodeStringEncoding]options:@{
-                                                                                                                                                                   NSDocumentTypeDocumentAttribute:
-                                                                                                                                                                       NSHTMLTextDocumentType
-                                                                                                                                                                   }documentAttributes:nil error:nil];
-            if ([[attrStr string]containsString:@"您的浏览器不支持Video标签。"]) {
-                _prisonIntroduceContentLable.text = [[attrStr string] substringFromIndex:16];
-            } else {
-                _prisonIntroduceContentLable.text = [attrStr string];
-            }
-        
-            [[PSLoadingView sharedInstance]dismiss];
-
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self renderContents:isShow];
+                NSString*profileSting= vistorViewModel.profile;
+                NSMutableAttributedString * attrStr = [[NSMutableAttributedString alloc]initWithData:[profileSting dataUsingEncoding:NSUnicodeStringEncoding]options:@{
+                                                                                                                                NSDocumentTypeDocumentAttribute:
+                                                                                                                                                                           NSHTMLTextDocumentType
+                                                                                                                                                                       }documentAttributes:nil error:nil];
+                if ([[attrStr string]containsString:@"您的浏览器不支持Video标签。"]) {
+                    _prisonIntroduceContentLable.text = [[attrStr string] substringFromIndex:16];
+                } else {
+                    _prisonIntroduceContentLable.text = [attrStr string];
+                }
+                [[PSLoadingView sharedInstance]dismiss];
+            });
         } else {
-            [PSTipsView showTips:response.msg];
-            [self renderContents:isShow];
-            [[PSLoadingView sharedInstance]dismiss];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [PSTipsView showTips:response.msg];
+                [self renderContents:isShow];
+                [[PSLoadingView sharedInstance]dismiss];
+            });
         }
        
 
@@ -244,60 +250,43 @@
 -(void)renderContents:(BOOL)isShow{
     
     [self.view addSubview:self.myScrollview];
+    [self.myScrollview mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.top.mas_equalTo(0);
+        make.width.mas_equalTo(SCREEN_WIDTH);
+        make.height.mas_equalTo(SCREEN_HEIGHT);
+    }];
+    self.myScrollview.contentSize = CGSizeMake(SCREEN_WIDTH,603);
     
     CGFloat sidePadding=19;
     CGFloat spacing=10;
-    self.view.backgroundColor=UIColorFromRGBA(248, 247, 254, 1);
-    _advView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 244) imageURLStringsGroup:nil];
-    _advView.placeholderImage = [UIImage imageNamed:@"广告图"];
-    _advView.bannerImageViewContentMode = UIViewContentModeScaleAspectFill;
-    [self.view addSubview:_advView];
-    [_advView mas_makeConstraints:^(MASConstraintMaker *make) {
+    //广告图
+    [self.myScrollview addSubview:self.advView];
+    [self.advView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.mas_equalTo(0);
         make.width.mas_equalTo(SCREEN_WIDTH);
         make.height.mas_equalTo(244);
     }];
     
-    
-    UIImageView*bgAdvBgView=[[UIImageView alloc]init];
-    [bgAdvBgView setImage:[UIImage imageNamed:@"水波"]];
-    [self.view addSubview:bgAdvBgView];
-    [bgAdvBgView mas_makeConstraints:^(MASConstraintMaker *make) {
+    //背景水波
+    [self.myScrollview addSubview:self.bgAdvBgView];
+    [self.bgAdvBgView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(_advView.mas_bottom).offset(-44);
         make.left.mas_equalTo(0);
         make.height.mas_equalTo(44);
         make.width.mas_equalTo(SCREEN_WIDTH);
     } ];
     
-    _addressButton=[[UIButton alloc]initWithFrame:CGRectMake(15, 35, 150, 14)];
-    [_addressButton setImage:[UIImage imageNamed:@"定位"] forState:0];
-    [_addressButton setTitle:self.defaultJailName forState:0];
-    _addressButton.titleLabel.font=FontOfSize(12);
-    [self.view addSubview:_addressButton];
-    _addressButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-    _addressButton.titleEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 0);
-    @weakify(self)
-      _addressButton.userInteractionEnabled=isShow;
-    [_addressButton bk_whenTapped:^{
-        @strongify(self)
-        [self selectJails];
-    }];
-    
-    _messageButton=[[UIButton alloc]initWithFrame:CGRectMake(SCREEN_WIDTH-30, 35, 15, 15)];
-    [_messageButton setImage:[UIImage imageNamed:@"消息"] forState:0];
-    [self.view addSubview:_messageButton];
-    [_messageButton bk_whenTapped:^{
-        @strongify(self)
-        [self messageAction];
-    }];
-    _messageButton.hidden=isShow;
+ 
+    [self.myScrollview addSubview:self.addressButton];
+    [self.addressButton setTitle:self.defaultJailName forState:0];
+     self.addressButton.userInteractionEnabled=isShow;
 
-    self.dotLable = [[UILabel alloc] initWithFrame:CGRectMake(SCREEN_WIDTH-15, 30, 6, 6)];
-    self.dotLable.backgroundColor = [UIColor redColor];
-    self.dotLable.layer.cornerRadius = 3;
-    self.dotLable.clipsToBounds = YES;
-    self.dotLable.hidden=YES;
-    [self.view addSubview:self.dotLable];
+
+    [self.myScrollview addSubview:self.messageButton];
+    self.messageButton.hidden=isShow;
+
+    //消息红点
+    [self.myScrollview addSubview:self.dotLable];
     
     self.session = [PSCache queryCache:AppUserSessionCacheKey];
     NSString *dot = self.session.families.isNoticed;
@@ -307,9 +296,10 @@
 
     UIView*prisonIntroduceView=[UIView new];
     prisonIntroduceView.backgroundColor=[UIColor whiteColor];
-    [self.view addSubview:prisonIntroduceView];
+    [self.myScrollview addSubview:prisonIntroduceView];
+    
     [prisonIntroduceView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(bgAdvBgView.mas_bottom).offset(spacing);
+        make.top.mas_equalTo(self.bgAdvBgView.mas_bottom).offset(spacing);
         make.left.mas_equalTo(sidePadding);
         make.height.mas_equalTo(107);
         make.width.mas_equalTo(SCREEN_WIDTH-2*sidePadding);
@@ -365,7 +355,7 @@
     
     UIView*homeHallView=[UIView new];
     homeHallView.backgroundColor=[UIColor whiteColor];
-    [self.view addSubview:homeHallView];
+    [self.myScrollview addSubview:homeHallView];
     [homeHallView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(prisonIntroduceView.mas_bottom).offset(spacing);
         make.left.mas_equalTo(sidePadding);
@@ -387,9 +377,13 @@
         PSPublicViewController *publicViewController = [[PSPublicViewController alloc] initWithViewModel:viewModel];
         publicViewController.jailId=self.defaultJailId;
         publicViewController.jailName=self.defaultJailName;
-        publicViewController.hidesBottomBarWhenPushed=YES;
-        [self.navigationController pushViewController:publicViewController animated:YES];
-        publicViewController.hidesBottomBarWhenPushed=NO;
+        if (self.defaultJailId==nil||self.defaultJailName==nil) {
+            [PSTipsView showTips:@"当前网络不支持"];
+        } else {
+            publicViewController.hidesBottomBarWhenPushed=YES;
+            [self.navigationController pushViewController:publicViewController animated:YES];
+            publicViewController.hidesBottomBarWhenPushed=NO;
+        }
     }];
     
     UIView *dashLine = [[UIView alloc]initWithFrame:CGRectMake(SCREEN_WIDTH/2-sidePadding+1, 0, 1, 200)];
@@ -406,7 +400,6 @@
     [lawButton setImageEdgeInsets:UIEdgeInsetsMake(0.0, -20, 0.0, 0.0)];//间距
     [lawButton bk_whenTapped:^{
         PSLawViewController *lawViewController = [[PSLawViewController alloc] init];
-        //lawViewController.hidesBottomBarWhenPushed=YES;
         [self.navigationController pushViewController:lawViewController animated:YES];
     }];
     
@@ -428,8 +421,11 @@
         PSDynamicViewController *dynamicViewController = [[PSDynamicViewController alloc] initWithViewModel:viewModel];
         dynamicViewController.jailId=self.defaultJailId;
         dynamicViewController.jailName=self.defaultJailName;
-       // dynamicViewController.hidesBottomBarWhenPushed=YES;
-        [self.navigationController pushViewController:dynamicViewController animated:YES];
+        if (self.defaultJailName==nil||self.defaultJailId==nil) {
+            [PSTipsView showTips:@"当前网络不支持"];
+        } else {
+            [self.navigationController pushViewController:dynamicViewController animated:YES];
+        }
     }];
     
     if ([[LXFileManager readUserDataForKey:@"isVistor"]isEqualToString:@"YES"]){
@@ -437,6 +433,80 @@
     }
     
 }
+
+#pragma mark - setting&getting
+- (UIScrollView *)myScrollview {
+    if (!_myScrollview) {
+        _myScrollview = [[UIScrollView alloc] initWithFrame:CGRectZero];
+        _myScrollview.showsVerticalScrollIndicator = NO;
+        _myScrollview.showsHorizontalScrollIndicator = NO;
+        _myScrollview.scrollEnabled = YES;
+    }
+    return _myScrollview;
+}
+
+//广告图
+- (SDCycleScrollView *)advView {
+    if (!_advView) {
+        self.view.backgroundColor=UIColorFromRGBA(248, 247, 254, 1);
+        _advView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 244) imageURLStringsGroup:nil];
+        _advView.placeholderImage = [UIImage imageNamed:@"广告图"];
+        _advView.bannerImageViewContentMode = UIViewContentModeScaleAspectFill;
+    }
+    return _advView;
+}
+- (UIImageView *)bgAdvBgView {
+    if (!_bgAdvBgView) {
+        _bgAdvBgView=[[UIImageView alloc]init];
+        [_bgAdvBgView setImage:[UIImage imageNamed:@"水波"]];
+    }
+    return _bgAdvBgView;
+}
+- (UILabel *)dotLable {
+    if (!_dotLable) {
+        _dotLable = [[UILabel alloc] initWithFrame:CGRectMake(SCREEN_WIDTH-15, 30, 6, 6)];
+        _dotLable.backgroundColor = [UIColor redColor];
+        _dotLable.layer.cornerRadius = 3;
+        _dotLable.clipsToBounds = YES;
+        _dotLable.hidden=YES;
+    }
+    return _dotLable;
+}
+
+- (UIButton *)addressButton {
+    if (!_addressButton) {
+        _addressButton=[[UIButton alloc]initWithFrame:CGRectMake(15, 35, 150, 14)];
+        [_addressButton setImage:[UIImage imageNamed:@"定位"] forState:0];
+        _addressButton.titleLabel.font=FontOfSize(12);
+        _addressButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+        _addressButton.titleEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 0);
+        @weakify(self)
+        [_addressButton bk_whenTapped:^{
+            @strongify(self)
+            [self selectJails];
+        }];
+    }
+    return _addressButton;
+}
+
+- (UIButton *)messageButton {
+    if (!_messageButton) {
+        _messageButton=[[UIButton alloc]initWithFrame:CGRectMake(SCREEN_WIDTH-30, 35, 15, 15)];
+        [_messageButton setImage:[UIImage imageNamed:@"消息"] forState:0];
+        @weakify(self)
+        [_messageButton bk_whenTapped:^{
+            @strongify(self)
+            [self messageAction];
+        }];
+    }
+    return _messageButton;
+}
+
+
+
+
+
+
 
 #pragma mark -- 网络检测
 - (void)reachability {
@@ -449,7 +519,6 @@
             case AFNetworkReachabilityStatusNotReachable:
                 //[self showInternetError];
                 [KGStatusBar showWithStatus:@"当前网络不可用,请检查你的网络设置"];
-                [self renderContents:YES];
                 break;
             case AFNetworkReachabilityStatusReachableViaWWAN:
                 [KGStatusBar dismiss];

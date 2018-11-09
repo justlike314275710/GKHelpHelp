@@ -36,21 +36,26 @@
 }
 
 -(void)receiveData:(id)sender { //获取APP自身版本号CFBundleShortVersionString
+    //服务器 -->2.1.9     本地->2.2.0
     NSString *localVersion = [[[NSBundle mainBundle]infoDictionary]objectForKey:@"CFBundleShortVersionString"];
     //NSString*AppstoreVersion=sender[@"version"];
     NSArray *localArray = [localVersion componentsSeparatedByString:@"."];
     NSArray *versionArray = [sender[@"version"] componentsSeparatedByString:@"."];
     NSInteger minArrayLength = MIN(localArray.count, versionArray.count);
     BOOL needUpdate = NO;
-    for (int i = 0; i<minArrayLength; i++) {
+    for (int i = 0; i<minArrayLength; i++) {      //没一个位置比较
         NSString *localElement = localArray[i];
         NSString *appElement = versionArray[i];
         NSInteger localValue = localElement.integerValue;
         NSInteger appValue = appElement.integerValue;
-        if (localValue<appValue) {
+        if (localValue<appValue) {     //9>0 需要更新
             needUpdate = YES;
             break;
         } else {
+            if (i<minArrayLength-1&&localValue>appValue) {
+                needUpdate = NO;
+                break;
+            }
             needUpdate = NO;
         }
     }
@@ -93,4 +98,7 @@
     
 }
 
+- (void)p_VersonUpdate {
+    
+}
 @end

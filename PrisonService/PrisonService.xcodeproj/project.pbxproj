@@ -339,6 +339,7 @@
 		3EEEC67E209475A5003B35B3 /* PSGuideViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EEEC67D209475A5003B35B3 /* PSGuideViewController.m */; };
 		3EEEC68220947657003B35B3 /* PSGuideManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EEEC68120947657003B35B3 /* PSGuideManager.m */; };
 		3EEEC686209985B6003B35B3 /* PSLaunchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EEEC685209985B6003B35B3 /* PSLaunchViewController.m */; };
+		555B5CB721952B8B00B64DF3 /* AppDelegate+other.m in Sources */ = {isa = PBXBuildFile; fileRef = 555B5CB621952B8B00B64DF3 /* AppDelegate+other.m */; };
 		557859BA218994140080437D /* RemittanceRecode.m in Sources */ = {isa = PBXBuildFile; fileRef = 557859B9218994140080437D /* RemittanceRecode.m */; };
 		557859BD2189A3D80080437D /* PSRemittanceBusinessRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 557859BC2189A3D80080437D /* PSRemittanceBusinessRequest.m */; };
 		55C9EDC42188528300A11D60 /* PSFamilyRemittanceViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 55C9EDC32188528300A11D60 /* PSFamilyRemittanceViewModel.m */; };
@@ -1281,6 +1282,8 @@
 		3EEEC68120947657003B35B3 /* PSGuideManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PSGuideManager.m; sourceTree = "<group>"; };
 		3EEEC684209985B6003B35B3 /* PSLaunchViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PSLaunchViewController.h; sourceTree = "<group>"; };
 		3EEEC685209985B6003B35B3 /* PSLaunchViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PSLaunchViewController.m; sourceTree = "<group>"; };
+		555B5CB521952B8B00B64DF3 /* AppDelegate+other.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "AppDelegate+other.h"; sourceTree = "<group>"; };
+		555B5CB621952B8B00B64DF3 /* AppDelegate+other.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "AppDelegate+other.m"; sourceTree = "<group>"; };
 		557859B8218994140080437D /* RemittanceRecode.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RemittanceRecode.h; sourceTree = "<group>"; };
 		557859B9218994140080437D /* RemittanceRecode.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RemittanceRecode.m; sourceTree = "<group>"; };
 		557859BB2189A3D80080437D /* PSRemittanceBusinessRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PSRemittanceBusinessRequest.h; sourceTree = "<group>"; };
@@ -2025,6 +2028,8 @@
 				3E5D14A42071DE6D000FC779 /* Common */,
 				3E5D146C2071C93D000FC779 /* AppDelegate.h */,
 				3E5D146D2071C93D000FC779 /* AppDelegate.m */,
+				555B5CB521952B8B00B64DF3 /* AppDelegate+other.h */,
+				555B5CB621952B8B00B64DF3 /* AppDelegate+other.m */,
 				3E5D14752071C93D000FC779 /* Assets.xcassets */,
 				3E5D15B620738192000FC779 /* Media.xcassets */,
 				3E5D147A2071C93D000FC779 /* Info.plist */,
@@ -4880,6 +4885,7 @@
 				3E5D15B02073752F000FC779 /* PSUserCenterViewController.m in Sources */,
 				3EC7B747207EF04000DFBA65 /* PSSwitch.m in Sources */,
 				3E5D14C420721E72000FC779 /* UIImage+Crop.m in Sources */,
+				555B5CB721952B8B00B64DF3 /* AppDelegate+other.m in Sources */,
 				3E5D16312079EA65000FC779 /* PSCityDisplayViewController.m in Sources */,
 				EAB4536A214B8569007A7627 /* PSPrisonerFamiliesResponse.m in Sources */,
 				EAFB4A7921548CD100CDFE11 /* ZQLocalNotification.m in Sources */,

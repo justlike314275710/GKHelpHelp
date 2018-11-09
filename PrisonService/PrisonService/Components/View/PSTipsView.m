@@ -66,7 +66,13 @@
 }
 
 + (void)showTips:(NSString *)tips {
-    [self showTips:tips dismissAfterDelay:DISMISSTIME];
+    if ([NSThread isMainThread]) {
+        [self showTips:tips dismissAfterDelay:DISMISSTIME];
+    } else {
+        dispatch_async(dispatch_get_main_queue(), ^{
+             [self showTips:tips dismissAfterDelay:DISMISSTIME];
+        });
+    }
 }
 
 + (void)showTips:(NSString *)tips dismissAfterDelay:(NSTimeInterval)interval {

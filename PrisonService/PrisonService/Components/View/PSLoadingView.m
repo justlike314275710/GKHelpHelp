@@ -49,7 +49,13 @@
 }
 
 - (void)show {
-    [self showOnView:[[UIApplication sharedApplication] keyWindow]];
+    if ([NSThread mainThread]) {
+         [self showOnView:[[UIApplication sharedApplication] keyWindow]];
+    } else {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self showOnView:[[UIApplication sharedApplication] keyWindow]];
+        });
+    }
 }
 
 - (void)showOnView:(UIView *)view {
@@ -61,8 +67,15 @@
 }
 
 - (void)dismiss {
-    [self.indicatorView stopAnimating];
-    [self removeFromSuperview];
+    if ([NSThread mainThread]) {
+        [self.indicatorView stopAnimating];
+        [self removeFromSuperview];
+    } else {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.indicatorView stopAnimating];
+            [self removeFromSuperview];
+        });
+    }
 }
 
 /* 

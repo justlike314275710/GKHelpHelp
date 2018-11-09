@@ -57,6 +57,9 @@
 //获取下一个视图的Y坐标
 #define GETBOTTOMORIGIN_Y(view) view.frame.origin.y + CGRectGetHeight(view.frame)
 
+//*******----通知
+#define NotificationNoNetwork @"NotificationNoNetwork"
+
 #ifdef DEBUG
 #define PSLog(...) NSLog(__VA_ARGS__);
 #else

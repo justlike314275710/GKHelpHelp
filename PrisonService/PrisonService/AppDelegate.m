@@ -16,6 +16,7 @@
 #import "iflyMSC/IFlyFaceSDK.h"
 #import <AFNetworking/AFNetworking.h>
 #import "KGStatusBar.h"
+#import "AppDelegate+other.h"
 
 @interface AppDelegate ()
 
@@ -47,6 +48,9 @@
     [IFlySpeechUtility createUtility:[NSString stringWithFormat:@"appid=%@",KEDAXUNFEI_APPID]];
     //微信
     [WXApi registerApp:WECHAT_APPID];
+    //监测网络变化
+    [self detection_network];
+    
 }
 
 

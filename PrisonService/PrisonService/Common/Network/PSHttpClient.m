@@ -33,7 +33,7 @@
         _postParameters = [[PSMutableParameters alloc] init];
         _fileParameters = [[PSMutableParameters alloc] init];
         _headers = [[PSMutableParameters alloc] init];
-        _timeOut = 15;
+        _timeOut = 10;
         _taskType = PSTaskData;
         _method = PSHttpMethodPost;
         _httpSessionManager = [AFHTTPSessionManager manager];

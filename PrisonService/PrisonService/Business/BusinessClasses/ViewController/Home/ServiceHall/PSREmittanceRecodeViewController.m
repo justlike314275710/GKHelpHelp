@@ -40,7 +40,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self p_setUI];
-    [self reachability];
     [self p_refreshData];
     
 }
@@ -51,27 +50,6 @@
 }
 
 #pragma mark - PrivateMethods
-
-
-- (void)reachability {
-    AFNetworkReachabilityManager *mgr = [AFNetworkReachabilityManager sharedManager];
-    [mgr setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
-        switch (status) {
-            case AFNetworkReachabilityStatusUnknown:
-                NSLog(@"未知网络");
-                break;
-            case AFNetworkReachabilityStatusNotReachable:
-                self.view.ly_emptyView = [XXEmptyView emptyViewWithImageStr:@"universalNetErrorIcon" titleStr:NET_ERROR detailStr:nil];
-                break;
-            case AFNetworkReachabilityStatusReachableViaWWAN:
-                NSLog(@"手机自带网络");
-                break;
-            case AFNetworkReachabilityStatusReachableViaWiFi:
-                NSLog(@"WIFI");
-            break; } }];
-    [mgr startMonitoring];
-    
-}
 - (void)p_setUI {
     
     [self.view addSubview:self.myTableview];

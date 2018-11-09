@@ -41,6 +41,8 @@
     manager=[AFHTTPSessionManager manager];
     NSString*token=[NSString stringWithFormat:@"Bearer %@",[LXFileManager readUserDataForKey:@"access_token"]];
     NSString *url = @"http://10.10.10.17:8086/customer/lawyers";
+    manager.requestSerializer.timeoutInterval = 10.f;
+
     [manager.requestSerializer setValue:token forHTTPHeaderField:@"Authorization"];
     NSDictionary*parmeters=@{
                              @"page":[NSString stringWithFormat:@"%ld",(long)self.page],

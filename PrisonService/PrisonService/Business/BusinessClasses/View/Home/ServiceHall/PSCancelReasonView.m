@@ -156,7 +156,13 @@
 }
 
 - (void)dismiss {
-    [self dismissAnimated:YES];
+    if ([NSThread isMainThread]) {
+        [self dismissAnimated:YES];
+    } else {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self dismissAnimated:YES];
+        });
+    }
 }
 
 - (void)dismissAnimated:(BOOL)animated {

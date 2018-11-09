@@ -22,7 +22,10 @@
         manager=[AFHTTPSessionManager manager];
         manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
         manager.requestSerializer = [AFJSONRequestSerializer serializer];
+        manager.requestSerializer.timeoutInterval = 10.f;
+
         manager.responseSerializer = [AFJSONResponseSerializer serializer];
+        
         [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
     }
     return self;

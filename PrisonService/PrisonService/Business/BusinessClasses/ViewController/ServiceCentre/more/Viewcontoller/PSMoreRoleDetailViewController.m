@@ -60,12 +60,16 @@
     @weakify(self)
     [viewModel refreshLawyerCompleted:^(PSResponse *response) {
         @strongify(self)
-        [[PSLoadingView sharedInstance] dismiss];
-        [self reloadContents];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [[PSLoadingView sharedInstance] dismiss];
+            [self reloadContents];
+        });
     } failed:^(NSError *error) {
         @strongify(self)
-        [[PSLoadingView sharedInstance] dismiss];
-        [self reloadContents];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [[PSLoadingView sharedInstance] dismiss];
+            [self reloadContents];
+        });
     }];
     
   
