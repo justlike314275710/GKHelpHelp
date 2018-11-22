@@ -11,6 +11,6 @@
 
 @interface PSBasePrisonerViewModel : PSViewModel
 
-@property (nonatomic, strong, readonly) PSPrisonerDetail *prisonerDetail;
+@property (nonatomic, strong) PSPrisonerDetail *prisonerDetail;
 
 @end

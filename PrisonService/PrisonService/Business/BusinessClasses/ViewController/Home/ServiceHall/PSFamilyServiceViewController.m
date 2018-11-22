@@ -16,11 +16,16 @@
 #import "PSPinmoneyViewModel.h"
 #import "PSMeetJailsnnmeViewModel.h"
 #import "PSServicePrisonsCell.h"
+#import "PSSessionManager.h"
+#import "PSPrisonerDetail.h"
+#import "MeetJails.h"
+#import "PSBusinessConstants.h"
+#import "PSBindPrisonerViewController.h"
 
 @interface PSFamilyServiceViewController ()<UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout>
 
 @property (nonatomic, strong) UICollectionView *serviceCollectionView;
-@property (nonatomic, strong) UIScrollView *myScrollview;
+
 
 @end
 
@@ -71,11 +76,28 @@
 
 - (void)getData {
     
+    PSFamilyServiceViewModel *serviceViewModel = (PSFamilyServiceViewModel *)self.viewModel;
+    
     [[PSLoadingView sharedInstance] show];
     PSMeetJailsnnmeViewModel *model = [[PSMeetJailsnnmeViewModel alloc] init];
+    @weakify(self);
     [model requestMeetJailsterCompleted:^(PSResponse *response) {
+        @strongify(self);
         dispatch_async(dispatch_get_main_queue(), ^{
             [[PSLoadingView sharedInstance] dismiss];
+            //把绑定的罪犯放到最前面老
+            if (model.prisons.count > 1) {
+                [model.prisons enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                    MeetJails *meetJails = obj;
+                    if ([meetJails.prisonerId isEqualToString:serviceViewModel.prisonerDetail.prisonerId]) {
+                        [self.prisons insertObject:meetJails atIndex:0];
+                    } else {
+                        [self.prisons addObject:obj];
+                    }
+                }];
+            } else {
+                self.prisons = model.prisons;
+            }
             [self.serviceCollectionView reloadData];
         });
     } failed:^(NSError *error) {
@@ -94,7 +116,7 @@
 
 #pragma mark -
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
-    return 4;
+    return  self.prisons.count>0?4:3;
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
@@ -109,7 +131,8 @@
         itemSIze = CGSizeMake(SCREEN_WIDTH, 58);
     }
     if (indexPath.section == 3) {
-        itemSIze = CGSizeMake(SCREEN_WIDTH,300);
+        NSInteger height = self.prisons.count>0?(self.prisons.count+1)*40+30:0;
+        itemSIze = CGSizeMake(SCREEN_WIDTH,height);
     }
     return itemSIze;
 }
@@ -173,18 +196,28 @@
     }
     if (indexPath.section == 3) {
         
-        cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"PSServicePrisonsCell" forIndexPath:indexPath];
-//        PSFamilyServiceViewModel *serviceViewModel = (PSFamilyServiceViewModel *)self.viewModel;
-//        NSInteger index = indexPath.section - 1;
-//        if (index >= 0 && index < serviceViewModel.otherServiceItems.count) {
-//            PSFamilyServiceItem *serviceItem = serviceViewModel.otherServiceItems[index];
-//            ((PSServiceOtherCell *)cell).iconImageView.image = [UIImage imageNamed:serviceItem.itemIconName];
-//            ((PSServiceOtherCell *)cell).nameLabel.text = serviceItem.itemName;
-//        }
+       PSServicePrisonsCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"PSServicePrisonsCell" forIndexPath:indexPath];
+        cell.Prisons = self.prisons;
+        //切换服刑人员
+        @weakify(self);
+        if (self.prisons.count>1) {
+            cell.changeBlock = ^(MeetJails *meetjails) {
+                @strongify(self);
+                [self changePrison:meetjails];
+            };
+        }
+        //绑定服刑人员
+        cell.bingBlock = ^{
+            @strongify(self);
+            [self bingdingPrison];
+        };
+    
+      return cell;
     }
     
     return cell;
 }
+
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 1) {
@@ -199,12 +232,38 @@
     // Dispose of any resources that can be recreated.
 }
 
+-(void)changePrison:(MeetJails *)meetJails{
+    NSArray *PrisonerDetails  = [PSSessionManager sharedInstance].passedPrisonerDetails;
+    [PrisonerDetails enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        PSPrisonerDetail *prisonerDetail = obj;
+        if ([prisonerDetail.prisonerId isEqualToString:meetJails.prisonerId]) {
+            [PSSessionManager sharedInstance].selectedPrisonerIndex = idx;
+            PSFamilyServiceViewModel *serviceViewModel = (PSFamilyServiceViewModel *)self.viewModel;
+            serviceViewModel.prisonerDetail = (idx >= 0 && idx < PrisonerDetails.count) ? PrisonerDetails[idx] : nil;
+            [self.serviceCollectionView reloadSections:[NSIndexSet indexSetWithIndex:0]];
+            
+            if (self.didManaged) {
+                self.didManaged();
+            }
+            [[NSNotificationCenter defaultCenter]postNotificationName:JailChange object:nil];
+            
+            *stop = YES;
+        }
+    }];
+}
+
+
+-(void)bingdingPrison {
+    PSBindPrisonerViewController *bindViewController = [[PSBindPrisonerViewController alloc] initWithViewModel:[[PSBindPrisonerViewModel alloc] init]];
+    [self.navigationController pushViewController:bindViewController animated:YES];
+}
+
 #pragma mark - Setting*Getting
-- (UIScrollView *)myScrollview {
-    if (!_myScrollview) {
-        _myScrollview = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
+- (NSMutableArray *)prisons {
+    if (!_prisons) {
+        _prisons = [NSMutableArray array];
     }
-    return _myScrollview;
+    return _prisons;
 }
 
 /*

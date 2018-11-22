@@ -12,5 +12,6 @@
 @property (nonatomic, strong) PSUserSession *session;
 @property (nonatomic , strong) NSString *jailsSting;
 @property (nonatomic , strong) NSMutableArray *array;
+@property (nonatomic, strong) NSMutableArray *prisons;
 - (void)requestMeetJailsterCompleted:(RequestDataCompleted)completedCallback failed:(RequestDataFailed)failedCallback;
 @end

@@ -7,12 +7,17 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MeetJails.h"
 
-NS_ASSUME_NONNULL_BEGIN
+typedef void (^BindingBlock)();
+typedef void (^ChangeBlock)(MeetJails *meetjails);
 
 @interface PSServicePrisonsCell : UICollectionViewCell
-@property (nonatomic,strong) NSArray *Prisons;
+
+@property (nonatomic,strong)NSArray *Prisons;
+@property (nonatomic,copy)BindingBlock bingBlock;
+@property (nonatomic,copy)ChangeBlock changeBlock;
 
 @end
 
-NS_ASSUME_NONNULL_END
+

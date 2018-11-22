@@ -159,6 +159,9 @@
     }
     else if ([itemModel.funcName isEqualToString:family_server]){
         PSFamilyServiceViewController *serviceViewController = [[PSFamilyServiceViewController alloc] initWithViewModel:[PSFamilyServiceViewModel new]];
+        serviceViewController.didManaged = ^{
+            [self updateContent];
+        };
         [self.navigationController pushViewController:serviceViewController animated:YES];
     }
     else if ([itemModel.funcName isEqualToString:family_remittance]){
@@ -202,7 +205,6 @@
     self.prisonerDetail = prisonerDetail;
     [self setupModelArray];
     [self.settingTableview reloadData];
-
     
 }
 #pragma mark  - UITableViewDelegate

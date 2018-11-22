@@ -8,8 +8,12 @@
 
 #import "PSBusinessViewController.h"
 #import "PSFamilyServiceViewModel.h"
+typedef void(^PrisonerDidManaged)();
 
 @interface PSFamilyServiceViewController : PSBusinessViewController
 
+@property (nonatomic,strong) NSMutableArray *prisons;
+
+@property (nonatomic, copy) PrisonerDidManaged didManaged;
 
 @end

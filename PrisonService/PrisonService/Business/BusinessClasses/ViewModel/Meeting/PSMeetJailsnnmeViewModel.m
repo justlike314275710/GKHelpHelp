@@ -22,6 +22,7 @@
     self=[super init];
     if (self) {
          _array=[NSMutableArray array];
+        _prisons = [NSMutableArray array];
         manager=[AFHTTPSessionManager manager];
         manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
         manager.requestSerializer = [AFJSONRequestSerializer serializer];
@@ -61,6 +62,7 @@
             for (int i=0; i<jailsArray.count; i++) {
                 MeetJails*model=jailsArray[i];
                  [_array addObject:model.name];
+                [_prisons addObject:model];
             }
         self.jailsSting = [_array componentsJoinedByString:@"、"];
         if (completedCallback) {

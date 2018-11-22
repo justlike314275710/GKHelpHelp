@@ -8,6 +8,12 @@
 
 #import "PSServicePrisonsCell.h"
 
+
+@interface PSServicePrisonsCell ()
+@property (nonatomic,strong)UIView *bgView;
+
+@end
+
 @implementation PSServicePrisonsCell
 
 - (id)initWithFrame:(CGRect)frame {
@@ -15,50 +21,100 @@
     self = [super initWithFrame:frame];
     if (self) {
         self.backgroundColor = [UIColor clearColor];
-        UIView *bgview = [[UIView alloc] initWithFrame:CGRectMake(15,15,SCREEN_WIDTH-30,self.height-30)];
-        [self addBorderToLayer:bgview];
-        [self addSubview:bgview];
-        
-        for (int i = 0; self.Prisons.count+1<3;i++ ) {
-            UIButton *prisonBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-            [bgview addSubview:prisonBtn];
-            prisonBtn.frame = CGRectMake(0,40*i, bgview.width, 40);
-            
-            //虚线
-            if (i!=0) {
-                UIImageView *lineImg = [[UIImageView alloc] initWithFrame:CGRectMake(15, 40*i,bgview.width-30,2)];
-                [self drawLineByImageView:lineImg];
-                [bgview addSubview:lineImg];
-            }
-            
-            UIImageView *iconImage = [[UIImageView alloc] initWithFrame:CGRectMake(16,12+40*i,16, 16)];
-            iconImage.image = [UIImage imageNamed:@"已勾选"];
-            [bgview addSubview:iconImage];
-            
-    
-            UILabel *keyLabel = [[UILabel alloc] initWithFrame:CGRectMake(iconImage.right+5,40*i,100, 40)];
-            keyLabel.text = @"服刑人员";
-            keyLabel.textColor = UIColorFromRGB(102, 102, 102);
-            keyLabel.font = FontOfSize(12);
-            keyLabel.textAlignment  = NSTextAlignmentLeft;
-            [bgview addSubview:keyLabel];
-            if (i==self.Prisons.count) {
-                keyLabel.textColor = UIColorFromRGB(4, 47, 136);
-                keyLabel.font = FontOfSize(14);
-                keyLabel.text = @"绑定服刑人员";
-            }
-            
-            UILabel *valueLab = [[UILabel alloc] initWithFrame:CGRectMake(bgview.width-220, 40*i, 200,40)];
-            valueLab.text = @"李天一";
-            valueLab.font = FontOfSize(12);
-            valueLab.textColor = UIColorFromRGB(102, 102, 102);
-            valueLab.textAlignment = NSTextAlignmentRight;
-            [bgview addSubview:valueLab];
-            
-        }
-
     }
     return self;
+}
+
+
+- (void)setPrisons:(NSArray *)Prisons {
+    _Prisons = Prisons;
+    if (_bgView){
+        [_bgView removeFromSuperview];
+        _bgView = nil;
+    }
+    _bgView = [[UIView alloc] initWithFrame:CGRectMake(15,15,SCREEN_WIDTH-30,self.height-30)];
+    [self addBorderToLayer:_bgView];
+    [self addSubview:_bgView];
+    
+    for (int i = 0; i<_Prisons.count+1;i++ ) {
+        
+        UIButton *prisonBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        if (i==_Prisons.count) {
+            @weakify(self);
+            [prisonBtn bk_whenTapped:^{
+                @strongify(self);
+                //绑定囚犯
+                if(self.bingBlock) {
+                    self.bingBlock();
+                }
+            }];
+        } else {
+            prisonBtn.tag = 10+i;
+            [prisonBtn addTarget:self action:@selector(changAction:) forControlEvents:UIControlEventTouchUpInside];
+        }
+        [_bgView addSubview:prisonBtn];
+        prisonBtn.frame = CGRectMake(0,40*i,_bgView.width, 40);
+        //虚线
+        if (i!=0) {
+            UIImageView *lineImg = [[UIImageView alloc] initWithFrame:CGRectMake(15, 40*i,_bgView.width-30,2)];
+            [self drawLineByImageView:lineImg];
+            [_bgView addSubview:lineImg];
+        }
+        
+        UIImageView *iconImage = [[UIImageView alloc] initWithFrame:CGRectMake(16,12+40*i,16, 16)];
+        iconImage.tag = 100+i;
+        iconImage.image = [UIImage imageNamed:@"已勾选"];
+        [_bgView addSubview:iconImage];
+        if (i==0) {
+             iconImage.image = [UIImage imageNamed:@"已勾选"];
+        } else if(i<_Prisons.count) {
+             iconImage.image = [UIImage imageNamed:@"未选"];
+        } else {
+             iconImage.image = [UIImage imageNamed:@"添加按钮"];
+        }
+        
+        UILabel *keyLabel = [[UILabel alloc] initWithFrame:CGRectMake(iconImage.right+5,40*i,100, 40)];
+        keyLabel.text = @"服刑人员";
+        keyLabel.textColor = UIColorFromRGB(102, 102, 102);
+        keyLabel.font = FontOfSize(12);
+        keyLabel.textAlignment  = NSTextAlignmentLeft;
+        [_bgView addSubview:keyLabel];
+        if (i==self.Prisons.count) {
+            keyLabel.textColor = UIColorFromRGB(4, 47, 136);
+            keyLabel.font = FontOfSize(14);
+            keyLabel.text = @"绑定服刑人员";
+        }
+        UILabel *valueLab = [[UILabel alloc] initWithFrame:CGRectMake(_bgView.width-220, 40*i, 200,40)];
+        valueLab.font = FontOfSize(12);
+        valueLab.textColor = UIColorFromRGB(102, 102, 102);
+        valueLab.textAlignment = NSTextAlignmentRight;
+        [_bgView addSubview:valueLab];
+        if (i<_Prisons.count) {
+            MeetJails *meetJails = _Prisons[i];
+            valueLab.text = meetJails.name;
+        } else {
+            valueLab.text = @"";
+        }
+    }
+    
+}
+
+- (void)changAction:(UIButton *)sender {
+    [self changALLIconImg];
+    NSInteger tag = sender.tag;
+    MeetJails *meetjails = _Prisons[tag-10];
+    UIImageView *iconImg = [self viewWithTag:tag-10+100];
+    [iconImg setImage:[UIImage imageNamed:@"已勾选"]];
+    if (self.changeBlock) {
+        self.changeBlock(meetjails);
+    }
+}
+
+- (void)changALLIconImg {
+    for (int i = 0;i<_Prisons.count; i++) {
+        UIImageView *iconImg = [self viewWithTag:i+100];
+        [iconImg setImage:[UIImage imageNamed:@"未选"]];
+    }
 }
 
 - (void)addBorderToLayer:(UIView *)view
