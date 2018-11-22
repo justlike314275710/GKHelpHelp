@@ -15,6 +15,7 @@ typedef void(^AppointDate)(NSDate *date);
 @property (nonatomic, copy) AppointDate appoint;
 
 - (void)show;
+- (void)show1;
 - (void)dismissAnimated:(BOOL)animated;
 
 @end

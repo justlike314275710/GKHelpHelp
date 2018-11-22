@@ -13,8 +13,14 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         self.selectionStyle = UITableViewCellSeparatorStyleNone;
-        self.textLabel.font = AppBaseTextFont2;
-        self.textLabel.textColor = AppBaseTextColor2;
+//        self.textLabel.font = AppBaseTextFont2;
+//        self.textLabel.textColor = AppBaseTextColor2;
+        _titleLab = [[UILabel alloc] initWithFrame:CGRectMake(13,23, self.mj_w, 20)];
+        _titleLab.font = AppBaseTextFont2;
+        _titleLab.textColor = AppBaseTextColor2;
+        [self addSubview:_titleLab];
+        
+        
     }
     return self;
 }
@@ -22,6 +28,7 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
+    
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

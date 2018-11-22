@@ -14,5 +14,6 @@ typedef void(^PrisonerDidManaged)();
 @interface PSPrisonerManageViewController : PSBusinessViewController
 
 @property (nonatomic, copy) PrisonerDidManaged didManaged;
+@property (nonatomic ,strong) PSPrisonerDetail *prisonerDetail;
 
 @end

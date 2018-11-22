@@ -14,6 +14,7 @@
 #import "PSContentManager.h"
 #import "UIScrollView+EmptyDataSet.h"
 #import "PSTipsConstants.h"
+#import "UIViewController+Tool.h"
 
 @interface PSWorkViewController ()<DZNEmptyDataSetSource,DZNEmptyDataSetDelegate>
 
@@ -122,11 +123,11 @@
     [self.workTableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.mas_equalTo(UIEdgeInsetsZero);
     }];
-    UIButton *backButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [backButton addTarget:self action:@selector(back:) forControlEvents:UIControlEventTouchUpInside];
-    [backButton setImage:[UIImage imageNamed:@"userCenterAccountBack"] forState:UIControlStateNormal];
-    [self.view addSubview:backButton];
-    [backButton mas_makeConstraints:^(MASConstraintMaker *make) {
+    _backButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [_backButton addTarget:self action:@selector(back:) forControlEvents:UIControlEventTouchUpInside];
+    [_backButton setImage:[UIImage imageNamed:@"userCenterAccountBack"] forState:UIControlStateNormal];
+    [self.view addSubview:_backButton];
+    [_backButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(0);
         make.size.mas_equalTo(CGSizeMake(44, 44));
         make.top.mas_equalTo(10);
@@ -138,8 +139,8 @@
     titleLabel.textColor = [UIColor whiteColor];
     [self.view addSubview:titleLabel];
     [titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(backButton.mas_top);
-        make.bottom.mas_equalTo(backButton.mas_bottom);
+        make.top.mas_equalTo(_backButton.mas_top);
+        make.bottom.mas_equalTo(_backButton.mas_bottom);
         make.centerX.mas_equalTo(self.view);
         make.width.mas_equalTo(100);
     }];
@@ -167,6 +168,10 @@
     [self renderContents];
     [self refreshData];
 }
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    self.tabBarController.tabBar.hidden = YES;
+}
 
 #pragma mark - UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -179,13 +184,28 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
     PSWorkCell *cell = [tableView dequeueReusableCellWithIdentifier:@"PSWorkCell"];
     PSWorkViewModel *workViewModel = (PSWorkViewModel *)self.viewModel;
     PSNews *news = workViewModel.newsData[indexPath.row];
-    cell.dateLabel.text = [news.createdAt timestampToMonthDayString];
+    cell.dateLabel.text = [news.createdAt timestampToDateString];
     cell.titleLabel.text = news.title;
     cell.detailLabel.text = news.summary;
     cell.prisonLabel.text = self.jailName;
+    if (cell.prisonLabel.text.length<=0) {
+        NSInteger index = workViewModel.selectedPrisonerIndex;
+        PSPrisonerDetail *prisonerDetail = nil;
+        if (index >= 0 && index < workViewModel.passedPrisonerDetails.count) {
+            prisonerDetail = workViewModel.passedPrisonerDetails[index];
+            cell.prisonLabel.text = prisonerDetail.jailName;
+        }
+    }
+    if ([cell.prisonLabel.text hasSuffix:@"▼"]&&cell.prisonLabel.text.length > 1) {
+        cell.prisonLabel.text = [cell.prisonLabel.text substringToIndex:cell.prisonLabel.text.length-1];
+    }
+  
+
+    
     
     return cell;
 }
@@ -203,15 +223,23 @@
         newsDetailViewController.title=@"工作动态";
     }
     else {
-         newsDetailViewController.title = @"新闻详情";
+//         newsDetailViewController.title = @"新闻详情";
+        newsDetailViewController.title = @"公示信息";
     }
-   
-    newsDetailViewController.hidesBottomBarWhenPushed=YES;
-    [self.navigationController pushViewController:newsDetailViewController animated:YES];
-    newsDetailViewController.hidesBottomBarWhenPushed=NO;
+    
+    if (workViewModel.newsType == 3) {
+        //获取当前显示的控制器
+        UIViewController *VC = [UIViewController jsd_getCurrentViewController];
+        [VC.navigationController pushViewController:newsDetailViewController animated:YES];
+    } else {
+        newsDetailViewController.hidesBottomBarWhenPushed=YES;
+        [self.navigationController pushViewController:newsDetailViewController animated:YES];
+        newsDetailViewController.hidesBottomBarWhenPushed=NO;
+    }
 
 
 }
+
 
 #pragma mark - DZNEmptyDataSetSource and DZNEmptyDataSetDelegate
 - (UIImage *)imageForEmptyDataSet:(UIScrollView *)scrollView {

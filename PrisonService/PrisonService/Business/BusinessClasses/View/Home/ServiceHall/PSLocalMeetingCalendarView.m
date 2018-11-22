@@ -71,9 +71,11 @@
     _contentView.clipsToBounds = YES;
     [self addSubview:_contentView];
     [_contentView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.center.mas_equalTo(self);
-        make.width.mas_equalTo(250);
-        make.height.mas_equalTo(240);
+//        make.center.mas_equalTo(self);
+        make.left.mas_equalTo(0);
+        make.bottom.mas_equalTo(0);
+        make.width.mas_equalTo(SCREEN_WIDTH);
+        make.height.mas_equalTo(326);
     }];
     
     UIColor *topColor = UIColorFromHexadecimalRGB(0x264c90);
@@ -182,6 +184,17 @@
     [self updateTitle];
 }
 
+- (void)show1 {
+    self.frame = CGRectMake(self.mj_origin.x, self.mj_origin.y+326, self.mj_w, self.mj_h);
+    [UIView animateWithDuration:.35 animations:^{
+        UIWindow *window = [UIApplication sharedApplication].keyWindow;
+        self.frame = window.bounds;
+        [window addSubview:self];
+    } completion:^(BOOL finished) {
+        self.frame = CGRectMake(self.mj_origin.x, self.mj_origin.y, self.mj_w, self.mj_h);
+    }];
+}
+
 - (void)show {
     UIWindow *window = [UIApplication sharedApplication].keyWindow;
     self.frame = window.bounds;
@@ -215,6 +228,8 @@
     
     [self.contentView.layer addAnimation:animation forKey:@"popup"];
 }
+
+
 
 - (void)dismiss {
     [self dismissAnimated:YES];

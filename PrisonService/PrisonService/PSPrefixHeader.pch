@@ -23,5 +23,7 @@
 #import "LXFileManager.h"
 #import "PSJSONTool.h"
 #import "KGStatusBar.h"
+#import "UIView+Frame.h"
+
 #endif /* PSPrefixHeader_pch */
 #endif

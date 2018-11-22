@@ -11,6 +11,8 @@
 //#define ServerDomain @"http://192.168.0.121:8086" //杨波
 //测试环境
 #define ServerDomain @"http://120.78.190.101:8084"
+
+
 //生产环境
 //#define ServerDomain @"https://www.yuwugongkai.com"
 
@@ -47,8 +49,10 @@
 //#define EmallUrl @"http://10.10.10.17:805"
 #define ConsultationHostUrl @"http://10.10.10.17:8086"
 //授权认证平台测试地址
-#define EmallHostUrl @"http://10.10.10.16:8081"
+//#define EmallHostUrl @"http://10.10.10.16:8081"
 #define EmallUrl @"http://10.10.10.16:805"
+//外网授权认证平台测试地址
+#define EmallHostUrl @"http://123.57.7.159:8081" //123.57.7.159
 
 //授权认证平台生产地址
 //#define EmallUrl @"https://m.trade.prisonpublic.com" //电子商城

@@ -37,7 +37,18 @@
 }
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:YES];
-    [self reachability];
+    //注册检测网络通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(nonetWork) name:NotificationNoNetwork object:nil];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:NotificationNoNetwork object:nil];
+}
+
+#pragma mark - Notification
+-(void)nonetWork {
+    [self showInternetError];
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -45,29 +56,6 @@
     [self renderContents];
     // Do any additional setup after loading the view.
 }
-- (void)reachability {
-    AFNetworkReachabilityManager *mgr = [AFNetworkReachabilityManager sharedManager];
-    [mgr setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
-        switch (status) {
-            case AFNetworkReachabilityStatusUnknown:
-                 NSLog(@"未知网络");
-                break;
-            case AFNetworkReachabilityStatusNotReachable:
-                [self showInternetError];
-                break;
-            case AFNetworkReachabilityStatusReachableViaWWAN:
-                NSLog(@"手机自带网络");
-                break;
-            case AFNetworkReachabilityStatusReachableViaWiFi:
-                NSLog(@"WIFI");
-            break; } }];
-    [mgr startMonitoring];
-    
-}
-    
-    
-
-
 
 -(void)renderContents{
    
@@ -207,7 +195,7 @@
         if (successful) {
             @weakify(self)
             [regiestViewModel requestCodeCompleted:^(PSResponse *response) {
-                if (regiestViewModel.messageCode==201) {
+                if (regiestViewModel.messageCode==201||regiestViewModel.messageCode==204) {
                     [PSTipsView showTips:@"已发送"];
                     self.seconds=60;
                 }else{

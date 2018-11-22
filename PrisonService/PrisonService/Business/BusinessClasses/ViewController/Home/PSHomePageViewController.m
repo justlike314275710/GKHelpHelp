@@ -52,7 +52,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [self reachability];
+    self.tabBarController.tabBar.hidden = NO;
 }
 
 - (void)viewDidLoad {
@@ -249,14 +249,15 @@
 #pragma mark  - UI
 -(void)renderContents:(BOOL)isShow{
     
-    [self.view addSubview:self.myScrollview];
+//    [self.view addSubview:self.myScrollview];
     [self.myScrollview mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.top.mas_equalTo(0);
         make.width.mas_equalTo(SCREEN_WIDTH);
         make.height.mas_equalTo(SCREEN_HEIGHT);
     }];
-    self.myScrollview.contentSize = CGSizeMake(SCREEN_WIDTH,603);
-    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self.myScrollview.contentSize = CGSizeMake(SCREEN_WIDTH,603);
+    });
     CGFloat sidePadding=19;
     CGFloat spacing=10;
     //广告图
@@ -320,12 +321,24 @@
         make.height.mas_equalTo(15);
         make.width.mas_equalTo(100);
     }];
+    //详情背景,增大点击事件范围
+    UIButton *prisonIntroduceButtonBg = [UIButton new];
+    prisonIntroduceButtonBg.backgroundColor = [UIColor clearColor];
+    [prisonIntroduceView addSubview:prisonIntroduceButtonBg];
+    [prisonIntroduceButtonBg mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(prisonIntroduceView.mas_top).offset(0);
+        make.right.mas_equalTo(0);
+        make.height.mas_equalTo(35);
+        make.width.mas_equalTo(60);
+    }];
     
     UIButton*prisonIntroduceButton=[UIButton new];
     NSString*details=NSLocalizedString(@"details", @"详情");
     [prisonIntroduceButton setTitle:details forState:0];
     prisonIntroduceButton.titleLabel.font=FontOfSize(12);
     [prisonIntroduceButton setTitleColor:AppBaseTextColor3 forState:0];
+    prisonIntroduceButton.enabled = NO;
+    prisonIntroduceButton.userInteractionEnabled = NO;
     prisonIntroduceButton.contentHorizontalAlignment
     =UIControlContentHorizontalAlignmentRight;
     [prisonIntroduceView addSubview:prisonIntroduceButton];
@@ -335,10 +348,16 @@
         make.height.mas_equalTo(13);
         make.width.mas_equalTo(50);
     }];
-    [prisonIntroduceButton bk_whenTapped:^{
+    
+
+    [prisonIntroduceButtonBg bk_whenTapped:^{
         PSPrisonIntroduceViewController *prisonViewController = [[PSPrisonIntroduceViewController alloc] initWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",PrisonDetailUrl,self.defaultJailId]]];
         [self.navigationController pushViewController:prisonViewController animated:YES];
     }];
+    
+//    [prisonIntroduceButton bk_whenTapped:^{
+//
+//    }];
     _prisonIntroduceContentLable=[UILabel new];
     _prisonIntroduceContentLable.font=FontOfSize(10);
     _prisonIntroduceContentLable.textColor=AppBaseTextColor1;
@@ -491,8 +510,12 @@
 
 - (UIButton *)messageButton {
     if (!_messageButton) {
-        _messageButton=[[UIButton alloc]initWithFrame:CGRectMake(SCREEN_WIDTH-30, 35, 15, 15)];
-        [_messageButton setImage:[UIImage imageNamed:@"消息"] forState:0];
+        
+        UIImageView *messageImg = [[UIImageView alloc] initWithFrame:CGRectMake(20, 15, 15, 15)];
+        messageImg.image = [UIImage imageNamed:@"消息"];
+        _messageButton=[[UIButton alloc]initWithFrame:CGRectMake(SCREEN_WIDTH-50,20,50,50)];
+        [_messageButton addSubview:messageImg];
+//        [_messageButton setImage:[UIImage imageNamed:@"消息"] forState:0];
         @weakify(self)
         [_messageButton bk_whenTapped:^{
             @strongify(self)
@@ -504,31 +527,6 @@
 
 
 
-
-
-
-
-#pragma mark -- 网络检测
-- (void)reachability {
-    AFNetworkReachabilityManager *mgr = [AFNetworkReachabilityManager sharedManager];
-    [mgr setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
-        switch (status) {
-            case AFNetworkReachabilityStatusUnknown:
-                [KGStatusBar dismiss];
-                break;
-            case AFNetworkReachabilityStatusNotReachable:
-                //[self showInternetError];
-                [KGStatusBar showWithStatus:@"当前网络不可用,请检查你的网络设置"];
-                break;
-            case AFNetworkReachabilityStatusReachableViaWWAN:
-                [KGStatusBar dismiss];
-                break;
-            case AFNetworkReachabilityStatusReachableViaWiFi:
-                [KGStatusBar dismiss];
-            break; } }];
-    [mgr startMonitoring];
-    
-}
 
 
 @end

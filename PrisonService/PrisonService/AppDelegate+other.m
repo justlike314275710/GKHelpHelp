@@ -22,19 +22,34 @@
     [netManager setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
         switch (status) {
             case AFNetworkReachabilityStatusUnknown:
+            {
                 NSLog(@"未知网络");
+                [KGStatusBar dismiss];
+                self.IS_NetWork = YES;
+            }
                 break;
             case AFNetworkReachabilityStatusNotReachable:
+            {
                 NSLog(@"无网络");
                 // 没有网络的时候发送通知
                 [[NSNotificationCenter defaultCenter] postNotificationName:NotificationNoNetwork object:nil];
-                
+                 [KGStatusBar showWithStatus:@"当前网络不可用,请检查你的网络设置"];
+                self.IS_NetWork = NO;
+            }
                 break;
             case AFNetworkReachabilityStatusReachableViaWWAN:
+            {
+                [KGStatusBar dismiss];
                 NSLog(@"网络数据连接");
+                self.IS_NetWork = YES;
+            }
                 break;
             case AFNetworkReachabilityStatusReachableViaWiFi:
+            {
                 NSLog(@"wifi连接");
+                [KGStatusBar dismiss];
+                self.IS_NetWork = YES;
+            }
                 break;
             default:
                 break;

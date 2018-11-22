@@ -13,6 +13,7 @@
 #import "PSPayView.h"
 #import "PSAlertView.h"
 #import "PSMeetJailsnnmeViewModel.h"
+#import "PSBusinessConstants.h"
 @interface PSCartViewController ()<UITableViewDataSource,UITableViewDelegate>
 
 @property (nonatomic, strong) UITableView *cartTableView;
@@ -84,6 +85,7 @@
 
 }
 - (IBAction)settlementAction:(id)sender {
+    
     PSCartViewModel *cartViewModel = (PSCartViewModel *)self.viewModel;
     if (cartViewModel.quantity > 0 &&cartViewModel.amount>0) {
         [self buyCardAction];
@@ -176,6 +178,7 @@
                     }else{
                         [self.navigationController popViewControllerAnimated:NO];
                         self.payView.status = PSPaySuccessful;
+                        [[NSNotificationCenter defaultCenter]postNotificationName:JailChange object:nil];
                     }
                 }];
             }

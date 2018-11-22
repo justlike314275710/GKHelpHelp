@@ -13,5 +13,9 @@
 
 @property (nonatomic, strong, readonly) NSArray *familyServiceItems;
 @property (nonatomic, strong, readonly) NSArray *otherServiceItems;
+@property (nonatomic,strong)NSMutableArray *array;
+
+
+- (void)requestCommentsCompleted:(RequestDataCompleted)completedCallback failed:(RequestDataFailed)failedCallback;
 
 @end

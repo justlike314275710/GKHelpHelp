@@ -24,6 +24,7 @@
 "notice_agreed"="同意";
 "notice_disagreed"="不同意";
 "InternetError"="无法连接到服务器，请检查网络";
+"No network connection"="无网络连接";
 
 "login_error"="手机号码或验证码错误";
 "goHome"="回到主页";
@@ -118,14 +119,15 @@
 "Please_enter_title"="请输入标题";
 "Please_enter_your_complaint"="请输入您的投诉意见，我们将不断为您改进。";
 "prison_reply"="提交成功,请耐心等待监狱回复";
-"feedback"="提交成功,感谢您的反馈";
+"Thank you for your feedback"="提交成功,感谢您的反馈";
 //会见状态
 "meet_PENDING"="审核中";
 "meet_PASSED"="待会见";
-"meet_DENIED"="已取消";
+"meet_DENIED"="已拒绝/\n已取消";
 "meet_CACELED"="已取消";
 "meet_FINISHED"="已完成";
 "meet_EXPIRED"="已过期";
+"meet_DENIED_HISTORY"="已拒绝";
 
 
 //个人中心
@@ -354,6 +356,16 @@
 "WeChat"="微信";
 "determine"="确定";
 "weChat not installed"="微信未安装";
+
+"Family card purchase"="亲情卡购买";
+"Purchase immediately"="立即购买";
+"family members:"="家属:";
+"Inmates:"="服刑人员:";
+"Prison name:"="监狱名称:";
+"Purchase quantity:"="购买数量:";
+"Amount of money:"="金额:";
+"piece"="张";
+"Input purchase quantity"="输入购买数量";
 
 
 

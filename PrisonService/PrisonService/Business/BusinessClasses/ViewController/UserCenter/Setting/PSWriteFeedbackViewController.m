@@ -31,7 +31,7 @@
     [feedbackViewModel sendFeedbackCompleted:^(PSResponse *response) {
         @strongify(self)
         if (response.code == 200) {
-            NSString*feedback=NSLocalizedString(@"feedback", @"提交成功,感谢您的反馈");
+            NSString*feedback=NSLocalizedString(@"Thank you for your feedback", @"提交成功,感谢您的反馈");
             [PSTipsView showTips:feedback];
             [self.navigationController popViewControllerAnimated:YES];
         }else{

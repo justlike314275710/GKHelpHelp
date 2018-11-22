@@ -142,7 +142,7 @@
     NSString*meet_PASSED=NSLocalizedString(@"meet_PASSED", nil);
     NSString*meet_FINISHED=NSLocalizedString(@"meet_FINISHED", nil);
     NSString*meet_EXPIRED=NSLocalizedString(@"meet_EXPIRED", nil);
-    NSString*meet_DENIED=NSLocalizedString(@"meet_DENIED", nil);
+    NSString*meet_DENIED=NSLocalizedString(@"meet_DENIED_HISTORY", nil);
     NSString*meet_CACELED=NSLocalizedString(@"meet_CACELED", nil);
     NSString*apply_data=NSLocalizedString(@"apply_data", @"申请日期");
     NSString*meet_data=NSLocalizedString(@"meet_data", @"会见日期");

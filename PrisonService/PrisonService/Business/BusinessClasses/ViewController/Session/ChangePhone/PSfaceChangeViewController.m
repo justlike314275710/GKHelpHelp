@@ -28,7 +28,8 @@
 @implementation PSfaceChangeViewController
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:YES];
-    [self reachability];
+    //注册检测网络通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(nonetWork) name:NotificationNoNetwork object:nil];
 }
 
 - (void)viewDidLoad {
@@ -38,28 +39,17 @@
     // Do any additional setup after loading the view.
 }
 
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:NotificationNoNetwork object:nil];
+}
 
-- (void)reachability {
-    AFNetworkReachabilityManager *mgr = [AFNetworkReachabilityManager sharedManager];
-    [mgr setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
-        switch (status) {
-            case AFNetworkReachabilityStatusUnknown:
-              NSLog(@"未知网络");
-                break;
-            case AFNetworkReachabilityStatusNotReachable:
-                [PSAlertView showWithTitle:@"提示" message:@"请检查网络设置" messageAlignment:NSTextAlignmentCenter image:nil handler:^(PSAlertView *alertView, NSInteger buttonIndex) {
-                    if (buttonIndex==1) {
-                    }
-                } buttonTitles:@"取消",@"确认", nil];
-                break;
-            case AFNetworkReachabilityStatusReachableViaWWAN:
-                NSLog(@"手机自带网络");
-                break;
-            case AFNetworkReachabilityStatusReachableViaWiFi:
-               NSLog(@"face  WIFI");
-            break; } }];
-    [mgr startMonitoring];
-    
+#pragma mark - Notification
+-(void)nonetWork {
+    [PSAlertView showWithTitle:@"提示" message:@"请检查网络设置" messageAlignment:NSTextAlignmentCenter image:nil handler:^(PSAlertView *alertView, NSInteger buttonIndex) {
+        if (buttonIndex==1) {
+        }
+    } buttonTitles:@"取消",@"确认", nil];
 }
 
 -(void)renderContents{

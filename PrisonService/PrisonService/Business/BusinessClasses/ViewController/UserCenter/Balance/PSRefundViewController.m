@@ -26,6 +26,7 @@
     self = [super initWithViewModel:viewModel];
     if (self) {
         NSString*Transaction_details=NSLocalizedString(@"Transaction_details", @"交易明细");
+        Transaction_details = NSLocalizedString(@"Account_details", @"账号明细");
         self.title = Transaction_details;
     }
     return self;
@@ -59,7 +60,7 @@
 }
 
 - (void)reloadContents {
-    PSTransactionRecordViewModel *rewardViewModel =[[PSTransactionRecordViewModel alloc]init];
+    PSTransactionRecordViewModel *rewardViewModel =(PSTransactionRecordViewModel *)self.viewModel;
     //(PSTransactionRecordViewModel *)self.viewModel;
     if (rewardViewModel.hasNextPage) {
         @weakify(self)

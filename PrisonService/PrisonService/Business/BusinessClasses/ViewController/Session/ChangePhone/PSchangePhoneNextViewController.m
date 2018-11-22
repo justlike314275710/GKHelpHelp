@@ -137,7 +137,7 @@
 }
 
 -(void)checkPhoneData{
-
+    
     if ([Expression validatePhoneId:self.phoneTextField.text]&&[Expression validateVetifyCode:self.codeTextField.text]) {
         [self sureChangePhoneAcition];
         return;
@@ -235,7 +235,7 @@
         if (successful) {
             @weakify(self)
             [regiestViewModel requestCodeCompleted:^(PSResponse *response) {
-                if (regiestViewModel.messageCode==201) {
+                if (regiestViewModel.messageCode==201||regiestViewModel.messageCode==204) {
                     [PSTipsView showTips:@"已发送"];
                     self.seconds=60;
                 }else{

@@ -17,6 +17,7 @@
 @property (nonatomic , strong) NSString *jailId;
 @property (nonatomic , strong) NSString *jailName;
 @property (nonatomic, strong) UILabel *titleLabel;
+@property (nonatomic, strong) UIButton *backButton;
 //是否显示广告
 - (BOOL)showAdv;
 

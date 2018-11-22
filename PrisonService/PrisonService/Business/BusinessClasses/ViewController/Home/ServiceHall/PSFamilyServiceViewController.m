@@ -14,9 +14,13 @@
 #import "PSHonorViewController.h"
 #import "PSPinmoneyViewController.h"
 #import "PSPinmoneyViewModel.h"
+#import "PSMeetJailsnnmeViewModel.h"
+#import "PSServicePrisonsCell.h"
+
 @interface PSFamilyServiceViewController ()<UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout>
 
 @property (nonatomic, strong) UICollectionView *serviceCollectionView;
+@property (nonatomic, strong) UIScrollView *myScrollview;
 
 @end
 
@@ -49,6 +53,7 @@
     self.serviceCollectionView.delegate = self;
     [self.serviceCollectionView registerClass:[PSServiceInfoCell class] forCellWithReuseIdentifier:@"PSServiceInfoCell"];
     [self.serviceCollectionView registerClass:[PSServiceOtherCell class] forCellWithReuseIdentifier:@"PSServiceOtherCell"];
+    [self.serviceCollectionView registerClass:[PSServicePrisonsCell class] forCellWithReuseIdentifier:@"PSServicePrisonsCell"];
     [self.serviceCollectionView registerClass:[PSServiceLinkView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"PSServiceLinkView"];
     [self.view addSubview:self.serviceCollectionView];
     [self.serviceCollectionView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -61,11 +66,35 @@
     // Do any additional setup after loading the view.
     self.view.backgroundColor = AppBaseBackgroundColor2;
     [self renderContents];
+    [self getData];
+}
+
+- (void)getData {
+    
+    [[PSLoadingView sharedInstance] show];
+    PSMeetJailsnnmeViewModel *model = [[PSMeetJailsnnmeViewModel alloc] init];
+    [model requestMeetJailsterCompleted:^(PSResponse *response) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [[PSLoadingView sharedInstance] dismiss];
+            [self.serviceCollectionView reloadData];
+        });
+    } failed:^(NSError *error) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [[PSLoadingView sharedInstance] dismiss];
+        });
+    }];
+    
+    
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    self.tabBarController.tabBar.hidden = YES;
 }
 
 #pragma mark -
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
-    return 3;
+    return 4;
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
@@ -79,12 +108,15 @@
     }else{
         itemSIze = CGSizeMake(SCREEN_WIDTH, 58);
     }
+    if (indexPath.section == 3) {
+        itemSIze = CGSizeMake(SCREEN_WIDTH,300);
+    }
     return itemSIze;
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section {
     CGSize sectionSize = CGSizeZero;
-    if (section != 0) {
+    if (section != 0&&section != 3) {
         sectionSize = CGSizeMake(SCREEN_WIDTH, 5);
     }
     return sectionSize;
@@ -139,6 +171,18 @@
             ((PSServiceOtherCell *)cell).nameLabel.text = serviceItem.itemName;
         }
     }
+    if (indexPath.section == 3) {
+        
+        cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"PSServicePrisonsCell" forIndexPath:indexPath];
+//        PSFamilyServiceViewModel *serviceViewModel = (PSFamilyServiceViewModel *)self.viewModel;
+//        NSInteger index = indexPath.section - 1;
+//        if (index >= 0 && index < serviceViewModel.otherServiceItems.count) {
+//            PSFamilyServiceItem *serviceItem = serviceViewModel.otherServiceItems[index];
+//            ((PSServiceOtherCell *)cell).iconImageView.image = [UIImage imageNamed:serviceItem.itemIconName];
+//            ((PSServiceOtherCell *)cell).nameLabel.text = serviceItem.itemName;
+//        }
+    }
+    
     return cell;
 }
 
@@ -153,6 +197,14 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+#pragma mark - Setting*Getting
+- (UIScrollView *)myScrollview {
+    if (!_myScrollview) {
+        _myScrollview = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
+    }
+    return _myScrollview;
 }
 
 /*

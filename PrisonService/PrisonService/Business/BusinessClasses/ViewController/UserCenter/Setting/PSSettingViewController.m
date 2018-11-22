@@ -13,9 +13,9 @@
 #import "PSProtocolViewController.h"
 #import "PSAlertView.h"
 #import "PSWriteFeedbackViewController.h"
-#import "PSWriteFeedbackViewController.h"
 #import "PSSessionManager.h"
-
+#import "PSLoginViewModel.h"
+#import "PSSessionNoneViewController.h"
 @interface PSSettingViewController ()<UITableViewDataSource,UITableViewDelegate>
 
 @property (nonatomic, strong) UITableView *settingTableView;
@@ -34,7 +34,8 @@
 
 - (void)openProtocol {
     PSProtocolViewController *protocolViewController = [[PSProtocolViewController alloc] init];
-    [self.navigationController pushViewController:protocolViewController animated:YES];
+    [self presentViewController:protocolViewController animated:YES completion:nil];
+//    [self.navigationController pushViewController:protocolViewController animated:YES];
 }
 
 - (void)contactUs {
@@ -51,8 +52,20 @@
 }
 
 - (void)writeFeedback {
-    PSWriteFeedbackViewController *feedbackViewController = [[PSWriteFeedbackViewController alloc] initWithViewModel:[[PSFeedbackViewModel alloc] init]];
-    [self.navigationController pushViewController:feedbackViewController animated:YES];
+
+    switch ([PSSessionManager sharedInstance].loginStatus) {
+        case PSLoginPassed:{
+            PSWriteFeedbackViewController *feedbackViewController = [[PSWriteFeedbackViewController alloc] initWithViewModel:[[PSFeedbackViewModel alloc] init]];
+            [self.navigationController pushViewController:feedbackViewController animated:YES];
+        }
+            break;
+        default:
+        {
+            PSLoginViewModel*viewModel=[[PSLoginViewModel alloc]init];
+            [self.navigationController pushViewController:[[PSSessionNoneViewController alloc]initWithViewModel:viewModel] animated:YES];
+        }
+        break;
+    }
 }
 
 - (void)logout {
@@ -139,6 +152,11 @@
     // Do any additional setup after loading the view.
     self.view.backgroundColor = AppBaseBackgroundColor2;
     [self renderContents];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    self.tabBarController.tabBar.hidden = YES;
 }
 
 #pragma mark - UITableViewDataSource

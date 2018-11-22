@@ -9,6 +9,10 @@
 #import "PSPrisonerManageViewController.h"
 #import "PSBindPrisonerViewController.h"
 #import "PSBusinessConstants.h"
+#import <AFNetworking/AFNetworking.h>
+#import "PSUserSession.h"
+#import "PSCache.h"
+#import "PSSessionManager.h"
 @interface PSPrisonerManageViewController ()<UITableViewDataSource,UITableViewDelegate>
 
 @property (nonatomic, strong) UITableView *manageTableView;
@@ -37,17 +41,43 @@
     self.manageTableView.tableFooterView = [UIView new];
     self.manageTableView.separatorInset = UIEdgeInsetsMake(0, 15, 0, 15);
     [self.view addSubview:self.manageTableView];
+    @weakify(self);
+    self.manageTableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        @strongify(self);
+        [self refreshData];
+    }];
     [self.manageTableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.mas_equalTo(UIEdgeInsetsZero);
     }];
 }
-
+- (void)refreshData {
+    //app 登陆流程
+    [[PSLoadingView sharedInstance] show];
+    @weakify(self);
+    [[PSSessionManager sharedInstance] synchronizePrisonerDetailsCompletion:^() {
+        @strongify(self);
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [[PSLoadingView sharedInstance] dismiss];
+            [self.manageTableView .mj_header endRefreshing];
+            [self.manageTableView .mj_footer endRefreshing];
+            [self.manageTableView reloadData];
+        });
+    }];
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.view.backgroundColor = AppBaseBackgroundColor2;
     [self renderContents];
+    [self refreshData];
+   
 }
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    self.tabBarController.tabBar.hidden = YES;
+}
+
 
 #pragma mark - UITableViewDataSource,UITableViewDelegate
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -66,14 +96,20 @@
         NSString*add_inmates=NSLocalizedString(@"add_inmates", @"添加绑定服刑人员");
         cell.textLabel.text = add_inmates;
     }else{
-        if (indexPath.row == homeViewModel.selectedPrisonerIndex) {
-            cell.imageView.image = [UIImage imageNamed:@"homeManageSelected"];
-        }else{
-            cell.imageView.image = [UIImage imageNamed:@"homeManageNormal"];
-        }
+//        if (indexPath.row == homeViewModel.selectedPrisonerIndex) {
+//            cell.imageView.image = [UIImage imageNamed:@"homeManageSelected"];
+//        }else{
+//            cell.imageView.image = [UIImage imageNamed:@"homeManageNormal"];
+//        }
         cell.textLabel.textColor = AppBaseTextColor1;
         PSPrisonerDetail *prisonerDetail = homeViewModel.passedPrisonerDetails[indexPath.row];
         cell.textLabel.text = prisonerDetail.name;
+        if ([prisonerDetail.prisonerId isEqualToString:self.prisonerDetail.prisonerId]) {
+            cell.imageView.image = [UIImage imageNamed:@"homeManageSelected"];
+        } else {
+            cell.imageView.image = [UIImage imageNamed:@"homeManageNormal"];
+        }
+            
     }
     return cell;
 }
@@ -84,16 +120,29 @@
         PSBindPrisonerViewController *bindViewController = [[PSBindPrisonerViewController alloc] initWithViewModel:[[PSBindPrisonerViewModel alloc] init]];
         [self.navigationController pushViewController:bindViewController animated:YES];
     }else{
-        if (indexPath.row != homeViewModel.selectedPrisonerIndex) {
+        
+        PSPrisonerDetail *prisonerDetail = homeViewModel.passedPrisonerDetails[indexPath.row];
+        if (![prisonerDetail.prisonerId isEqualToString:self.prisonerDetail.prisonerId]) {
+
             homeViewModel.selectedPrisonerIndex = indexPath.row;
-          
             [tableView reloadData];
             if (self.didManaged) {
                 self.didManaged();
             }
             [self.navigationController popViewControllerAnimated:YES];
             [[NSNotificationCenter defaultCenter]postNotificationName:JailChange object:nil];
+
         }
+//        if (indexPath.row != homeViewModel.selectedPrisonerIndex) {
+//            homeViewModel.selectedPrisonerIndex = indexPath.row;
+//
+//            [tableView reloadData];
+//            if (self.didManaged) {
+//                self.didManaged();
+//            }
+//            [self.navigationController popViewControllerAnimated:YES];
+//            [[NSNotificationCenter defaultCenter]postNotificationName:JailChange object:nil];
+//        }
     }
 }
 

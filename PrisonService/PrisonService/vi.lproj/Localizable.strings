@@ -117,7 +117,7 @@
 "Please_enter_title"="Vui lòng nhập tiêu đề";
 "Please_enter_your_complaint"="Vui lòng nhập khiếu nại của bạn và chúng tôi sẽ tiếp tục cải thiện cho bạn.";
 "prison_reply"="Đã gửi thành công, hãy kiên nhẫn và đợi nhà tù trả lời";
-"feedback"="Đã gửi thành công, cảm ơn bạn đã phản hồi";
+"Thank you for your feedback"="Đã gửi thành công, cảm ơn bạn đã phản hồi";
 
 //会见状态
 "meet_PENDING"="Đang xem xét";
@@ -126,6 +126,7 @@
 "meet_CACELED"="Đã hủy";
 "meet_FINISHED"="Đã hoàn thành";
 "meet_EXPIRED"="Đã hết hạn";
+"meet_DENIED_HISTORY"="Đã từ chối";
 
 //个人中心
 "userCenterAccount"="Thông tin tài khoản";
@@ -329,6 +330,18 @@
 "WeChat"="Vi thư";
 "weChat not installed"="Vi tin chưa được cài đặt";
 //"determine"="确定";
+"No network connection"="Không có kết nối Internet";
+
+"Family card purchase"="Thẻ mua hàng";
+"Purchase immediately"="Ngay lập tức mua";
+"family members:"="Gia đình:";
+"Inmates:"="Số tù nhân:";
+"Prison name:"="Tên tù.:";
+"Purchase quantity:"="Mua số lượng:";
+"Amount of money:"="Số tiền:";
+"piece"="Tấm";
+"Input purchase quantity"="Mua số lượng nhập";
+
 
 
 

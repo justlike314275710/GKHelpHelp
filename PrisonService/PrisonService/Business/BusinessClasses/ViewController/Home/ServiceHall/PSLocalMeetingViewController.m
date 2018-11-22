@@ -8,6 +8,7 @@
 
 #import "PSLocalMeetingViewController.h"
 #import "PSLocalMeetingStatusView.h"
+#import "PSLocalMeetingAppointmentStatusView.h"
 #import "PSLocalMeetingCountdownCell.h"
 #import "PSLocalMeetingIntroduceCell.h"
 #import "PSLocalMeetingCancelCell.h"
@@ -19,11 +20,13 @@
 #import "NSString+Date.h"
 #import "PSIMMessageManager.h"
 #import "PSCancelReasonView.h"
+#import "PSBusinessConstants.h"
 
 @interface PSLocalMeetingViewController ()<UITableViewDataSource,UITableViewDelegate,PSIMMessageObserver>
 
 @property (nonatomic, strong) UITableView *meetingTableView;
-@property (nonatomic, strong) PSLocalMeetingStatusView *statusView;
+//@property (nonatomic, strong) PSLocalMeetingStatusView *statusView;
+@property (nonatomic, strong) PSLocalMeetingAppointmentStatusView *statusView;
 @property (nonatomic, strong) UIView *contentView;
 
 @end
@@ -104,6 +107,7 @@
             [self requestLocalMeeting];
             NSString*apply_success=NSLocalizedString(@"apply_success", @"申请会见成功");
             [PSTipsView showTips:apply_success];
+            [[NSNotificationCenter defaultCenter]postNotificationName:JailChange object:nil];
         }else{
             [PSTipsView showTips:response.msg];
         }
@@ -131,7 +135,8 @@
     [calendarView setAppoint:^(NSDate *date) {
         [self appointDate:date];
     }];
-    [calendarView show];
+//    [calendarView show];
+    [calendarView show1];
 }
 
 - (void)renderContents {
@@ -148,8 +153,21 @@
     [self.contentView addSubview:_meetingTableView];
     [_meetingTableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.mas_equalTo(UIEdgeInsetsZero);
+        
     }];
-    _statusView = [[PSLocalMeetingStatusView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.frame), 260 + CGRectGetMinY(self.navigationController.navigationBar.frame))];
+    int height = IS_iPhone_5?210:260;
+    _statusView = [[PSLocalMeetingAppointmentStatusView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.frame), CGRectGetHeight(self.view.frame))];
+    @weakify(self);
+    _statusView.actionBlock = ^(PSLocalMeetingStatus status) {
+        @strongify(self);
+        if (status == PSLocalMeetingWithoutAppointment) {
+            [self appointMeeting];
+        } else if(status == PSLocalMeetingPending) {
+            [self cancelMeeting];
+        }
+    };
+    
+    
     PSLocalMeetingViewModel *meetingViewModel = (PSLocalMeetingViewModel *)self.viewModel;
     PSLocalMeeting *localMeeting = meetingViewModel.localMeeting;
     if (localMeeting) {
@@ -186,13 +204,14 @@
     [self.contentView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.mas_equalTo(UIEdgeInsetsZero);
     }];
+    
 
     [self requestLocalMeeting];
 }
 
 #pragma mark - UITableViewDataSource and UITableViewDelegate
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 3;
+    return 0;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -268,7 +287,8 @@
                     cell = cancell;
                 }else if ([localMeeting.status isEqualToString:@"PASSED"]) {
                     PSLocalMeetingRouteCell *routeCell = [tableView dequeueReusableCellWithIdentifier:@"PSLocalMeetingRouteCell"];
-                    routeCell.routeLabel.text = localMeeting.visitAddress;
+                   
+                    routeCell.routeLabel.text = localMeeting.visitAddress.length>0?localMeeting.visitAddress:@"";               
                     routeCell.prisonLabel.text = meetingViewModel.prisonerDetail.jailName;
                     routeCell.locateLabel.text = localMeeting.address;
                     [routeCell updateRouteString:meetingViewModel.routeString];

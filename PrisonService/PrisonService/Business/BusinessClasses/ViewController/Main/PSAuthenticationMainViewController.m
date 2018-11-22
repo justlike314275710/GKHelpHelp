@@ -64,9 +64,7 @@
 - (void)setChildViewController:(UIViewController *)Vc Image:(NSString *)image selectedImage:(NSString *)selectedImage title:(NSString *)title
 {
     
-    PSNavigationController *NA_VC = [[PSNavigationController alloc] initWithRootViewController:Vc];
-
-    
+    PSNavigationController *NA_VC = [[PSNavigationController alloc] initWithRootViewController:Vc];    
     UIImage *myImage = [UIImage imageNamed:image];
     myImage = [myImage imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     Vc.tabBarItem.image = myImage;

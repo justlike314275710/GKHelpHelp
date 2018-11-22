@@ -11,4 +11,5 @@
 
 @interface PSTransactionRecordResponse : PSResponse
 @property(nonatomic,strong)  NSArray<PSTransactionRecord,Optional> *details;
+@property(nonatomic,strong)  NSString<Optional> *total;
 @end

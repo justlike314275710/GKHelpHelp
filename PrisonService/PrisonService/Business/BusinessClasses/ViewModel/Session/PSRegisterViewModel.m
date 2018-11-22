@@ -16,6 +16,7 @@
 #import "PSSessionManager.h"
 #import "PSHomeViewModel.h"
 #import "PSUploadRelationRequest.h"
+#import "AppDelegate.h"
 @interface PSRegisterViewModel ()
 
 @property (nonatomic, strong) PSSendCodeRequest *sendCodeRequest;
@@ -38,6 +39,14 @@
 }
 
 - (void)checkPersonalDataWithCallback:(CheckDataCallback)callback {
+    AppDelegate *appdelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+    if (appdelegate.IS_NetWork == NO) {
+        if (callback) {
+            NSString*No_network_connection=NSLocalizedString(@"No network connection", @"无网络连接");
+            callback(NO,No_network_connection);
+        }
+        return;
+    }
     if (self.phoneNumber.length == 0) {
         if (callback) {
             callback(NO,@"请输入手机号码");

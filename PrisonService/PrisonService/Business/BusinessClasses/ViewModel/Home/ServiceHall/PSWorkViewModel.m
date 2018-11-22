@@ -10,6 +10,7 @@
 #import "PSAdvertisementRequest.h"
 #import "PSBusinessConstants.h"
 #import "PSLocateManager.h"
+#import "PSSessionManager.h"
 
 @interface PSWorkViewModel ()
 
@@ -149,6 +150,15 @@
             }
         }];
     }];
+}
+
+- (NSArray *)passedPrisonerDetails {
+    return [PSSessionManager sharedInstance].passedPrisonerDetails;
+}
+
+- (NSInteger)selectedPrisonerIndex {
+    return [PSSessionManager sharedInstance].selectedPrisonerIndex;
+    
 }
 
 @end

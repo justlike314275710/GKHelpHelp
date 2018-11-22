@@ -35,6 +35,7 @@
     return self;
 }
 
+
 - (IBAction)back:(id)sender {
     [self.navigationController popViewControllerAnimated:YES];
 }
@@ -51,15 +52,17 @@
         make.left.top.right.mas_equalTo(0);
         make.height.mas_equalTo(topHeight);
     }];
-    UINavigationBar *navBar = self.navigationController.navigationBar;
+//    UINavigationBar *navBar = self.navigationController.navigationBar;
     UIButton *backButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [backButton addTarget:self action:@selector(back:) forControlEvents:UIControlEventTouchUpInside];
     [backButton setImage:[UIImage imageNamed:@"userCenterAccountBack"] forState:UIControlStateNormal];
     [self.view addSubview:backButton];
     [backButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(0);
-        make.size.mas_equalTo(CGSizeMake(44, CGRectGetHeight(navBar.frame)));
-        make.top.mas_equalTo(CGRectGetMinY(navBar.frame));
+//        make.size.mas_equalTo(CGSizeMake(44, CGRectGetHeight(navBar.frame)));
+        make.width.mas_equalTo(40);
+        make.height.mas_equalTo(44);
+        make.top.mas_equalTo(StatusHeight);
     }];
     
     UILabel *titleLabel = [UILabel new];
@@ -116,6 +119,7 @@
 }
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    self.tabBarController.tabBar.hidden = YES;
     [self refreshData];
 }
 - (void)viewDidLoad {

@@ -36,7 +36,7 @@
     //[cell addSubview:view];
     [self addSubview:view];
     UIButton * onebutton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    onebutton.frame = CGRectMake(0.f, 0.f, 10.f, 10.f);
+    onebutton.frame = CGRectMake(0.f, 5.f, 10.f, 10.f);
     onebutton.layer.cornerRadius = 5;
     onebutton.layer.masksToBounds = YES;
     onebutton.backgroundColor=UIColorFromRGB(255, 138, 7);
@@ -51,7 +51,7 @@
     [view addSubview:twobutton];
     
     UIButton * threebutton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    threebutton.frame = CGRectMake(SCREEN_WIDTH/5, 0.f, 10.f, 10.f);
+    threebutton.frame = CGRectMake(SCREEN_WIDTH/5, 5.f, 10.f, 10.f);
     threebutton.layer.cornerRadius = 5;
     threebutton.layer.masksToBounds = YES;
     threebutton.backgroundColor=UIColorFromRGB(0, 142, 60);
@@ -66,7 +66,7 @@
     [view addSubview:fourbutton];
 
     UIButton * fivebutton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    fivebutton.frame = CGRectMake(SCREEN_WIDTH*0.4, 0.f, 10.f, 10.f);
+    fivebutton.frame = CGRectMake(SCREEN_WIDTH*0.4, 5.f, 10.f, 10.f);
     fivebutton.layer.cornerRadius = 5;
     fivebutton.layer.masksToBounds = YES;
     fivebutton.backgroundColor=[UIColor redColor];
@@ -83,7 +83,7 @@
     [view addSubview:sixbutton];
     
     UIButton * sevenbutton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    sevenbutton.frame = CGRectMake(SCREEN_WIDTH*0.6, 0.f, 10.f, 10.f);
+    sevenbutton.frame = CGRectMake(SCREEN_WIDTH*0.6, 5.f, 10.f, 10.f);
     sevenbutton.layer.cornerRadius = 5;
     sevenbutton.layer.masksToBounds = YES;
     sevenbutton.backgroundColor=UIColorFromRGB(153, 153, 153);
@@ -98,7 +98,7 @@
     [view addSubview:eightbutton];
     
     UIButton * ninebutton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    ninebutton.frame = CGRectMake(SCREEN_WIDTH*0.8-10, 0.f, 10.f, 10.f);
+    ninebutton.frame = CGRectMake(SCREEN_WIDTH*0.8-10, 5.f, 10.f, 10.f);
     ninebutton.layer.cornerRadius = 5;
     ninebutton.layer.masksToBounds = YES;
     ninebutton.backgroundColor=UIColorFromRGB(83, 119, 185);

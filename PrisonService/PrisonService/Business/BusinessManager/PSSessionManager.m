@@ -359,10 +359,15 @@
 
 
 - (void)clearAllUserDefaultsData{
+    //版本号
+    NSString *localVersion = [[[NSBundle mainBundle]infoDictionary]objectForKey:@"CFBundleShortVersionString"];
     NSUserDefaults*userDefaults = [NSUserDefaults  standardUserDefaults];
     NSDictionary*dic = [userDefaults  dictionaryRepresentation];
     for(id key in dic) {
-        [userDefaults  removeObjectForKey:key];
+        //版本更新的不去掉
+        if (![key isEqualToString:localVersion]) {
+            [userDefaults  removeObjectForKey:key];
+        }
     }
     [userDefaults  synchronize];
 }

@@ -40,6 +40,7 @@
 @property (nonatomic,strong) NSArray *modelArray;
 @property (nonatomic, strong, readonly) PYPhotosView *avatarView;
 @property (nonatomic , strong) NSString *PrisonerDetailName;
+@property (nonatomic ,strong) PSPrisonerDetail *prisonerDetail;
 @property (nonatomic , strong) NSString *balanceSting;
 @end
 
@@ -52,12 +53,22 @@
     [self refreshData];
     // Do any additional setup after loading the view.
 }
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    self.tabBarController.tabBar.hidden = NO;
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+}
+
 #pragma mark  - notification
 
 #pragma mark  - action
 -(void)refreshData{
-    NSString*home_me=NSLocalizedString(@"home_me", @"我的");
-    self.title=home_me;
+//    NSString*home_me=NSLocalizedString(@"home_me", @"我的");
+//    self.title=home_me;
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(requestBalance) name:JailChange object:nil];
     self.view.backgroundColor=UIColorFromRGBA(248, 247, 254, 1);
     self.settingTableview.backgroundColor = [UIColor whiteColor];
@@ -77,6 +88,7 @@
     }
 
 }
+
 
 
 -(void)requestBalance{
@@ -110,6 +122,7 @@
 
 
 - (void)selectHallFunctionAtIndex:(NSInteger)index {
+    
     PSSettingItemModel*itemModel=self.modelArray[index];
     NSString*VI_member=NSLocalizedString(@"VI_member", @"服刑人员");
     NSString*telephone_balance=
@@ -157,6 +170,9 @@
         
     }
     else if ([itemModel.funcName isEqualToString:my_advice]){
+        NSString*coming_soon=NSLocalizedString(@"coming_soon", @"敬请期待");
+        [PSTipsView showTips:coming_soon];
+        return;
         [self.navigationController pushViewController:[[PSMyAdviceViewController alloc] initWithViewModel:[[PSConsultationViewModel alloc] init]] animated:YES];
         
     }
@@ -170,6 +186,8 @@
 - (void)managePrisoner {
     
     PSPrisonerManageViewController *manageViewController = [[PSPrisonerManageViewController alloc] initWithViewModel:self.viewModel];
+    manageViewController.prisonerDetail = self.prisonerDetail;
+    
     [manageViewController setDidManaged:^{
         [self updateContent];
     }];
@@ -181,13 +199,16 @@
     NSInteger selectedIndex = homeViewModel.selectedPrisonerIndex;
     PSPrisonerDetail *prisonerDetail = homeViewModel.passedPrisonerDetails.count > selectedIndex ? homeViewModel.passedPrisonerDetails[selectedIndex] : nil;
     self.PrisonerDetailName=prisonerDetail.name;
+    self.prisonerDetail = prisonerDetail;
     [self setupModelArray];
     [self.settingTableview reloadData];
 
     
 }
 #pragma mark  - UITableViewDelegate
-
+- (BOOL)hiddenNavigationBar{
+    return YES;
+}
 
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -220,7 +241,7 @@
             if ([[LXFileManager readUserDataForKey:@"isVistor"]isEqualToString:@"YES"]) {
                 [[PSSessionManager sharedInstance]doLogout];
             } else {
-                if (indexPath.row==9) {
+                if (indexPath.row==7) {
                     [self.navigationController pushViewController:[[PSSettingViewController alloc] initWithViewModel:[[PSSettingViewModel alloc] init]] animated:YES];
                 } else {
                     self.hidesBottomBarWhenPushed=YES;
@@ -237,15 +258,15 @@
 #pragma mark  - UI
 - (void)renderContents {
     
-    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 130)];
+    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, StatusHeight, SCREEN_WIDTH, 130)];
      [self.view addSubview:headerView];
     //headerView.backgroundColor =UIColorFromRGBA(234, 234, 234, 1);
     UIImageView *headerBgImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 130)];
     headerBgImageView.image = [UIImage imageNamed:@"我的顶部背景"];
     [headerView addSubview:headerBgImageView];
     
-      UITapGestureRecognizer *tapGesturRecognizer=[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(headerViewTapAction:)];
-        [headerView addGestureRecognizer:tapGesturRecognizer];
+     UITapGestureRecognizer *tapGesturRecognizer=[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(headerViewTapAction:)];
+       [headerView addGestureRecognizer:tapGesturRecognizer];
 
     
     
@@ -279,17 +300,51 @@
         
     } else {
     
-    UILabel*nameLable=[[UILabel alloc]initWithFrame:CGRectMake(105, 37, 180, 22)];
-    nameLable.text=[PSSessionManager sharedInstance].session.families.name?[PSSessionManager sharedInstance].session.families.name:[LXFileManager readUserDataForKey:@"phoneNumber"];
-    [nameLable setTextColor:[UIColor whiteColor]];
-    [nameLable setFont:FontOfSize(18)];
-    [headerView addSubview:nameLable];
+        UILabel*nameLable=[[UILabel alloc]initWithFrame:CGRectMake(105, 37, 180, 22)];
+        nameLable.text=[PSSessionManager sharedInstance].session.families.name?[PSSessionManager sharedInstance].session.families.name:[LXFileManager readUserDataForKey:@"phoneNumber"];
+        [nameLable setTextColor:[UIColor whiteColor]];
+        [nameLable setFont:FontOfSize(18)];
+        [headerView addSubview:nameLable];
+        
+        UILabel*phoneLable=[[UILabel alloc]initWithFrame:CGRectMake(105, 60, 180, 40)];
+        phoneLable.text= [[PSSessionManager sharedInstance].session.families.phone stringByReplacingCharactersInRange:NSMakeRange(3, 4) withString:@"****"];
+        [phoneLable setTextColor:[UIColor whiteColor]];
+        [phoneLable setFont:FontOfSize(14)];
+        [headerView addSubview:phoneLable];
+        
+        UIButton *AuthenticaBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        AuthenticaBtn.frame = CGRectMake(SCREEN_WIDTH-90,nameLable.y, 65, 25);
+        AuthenticaBtn.layer.masksToBounds = YES;
+        AuthenticaBtn.layer.borderWidth = 1;
+        AuthenticaBtn.layer.borderColor = [UIColor whiteColor].CGColor;
+        AuthenticaBtn.layer.cornerRadius = 4.0;
+        [headerView addSubview:AuthenticaBtn];
+        
+        UIImageView *iconImage = [[UIImageView alloc] initWithFrame:CGRectMake(7,5, 12, 14)];
+        iconImage.image = [UIImage imageNamed:@"已认证icon"];
+        [AuthenticaBtn addSubview:iconImage];
+        
+        UILabel *authLab = [[UILabel alloc] initWithFrame:CGRectMake(iconImage.right+4,2, 35, 20)];
+        authLab.text = @"已认证";
+        authLab.font = FontOfSize(10);
+        authLab.textColor = [UIColor whiteColor];
+        [AuthenticaBtn addSubview:authLab];
+        //已认证
+        if ([PSSessionManager sharedInstance].loginStatus == PSLoginPassed) {
+            iconImage.image = [UIImage imageNamed:@"已认证icon"];
+            authLab.text = @"已认证";
+            [AuthenticaBtn bk_whenTapped:^{
+                [self.navigationController pushViewController:[[PSAccountViewController alloc] initWithViewModel:[[PSAccountViewModel alloc] init]] animated:YES];
+            }];
+        } else {
+            iconImage.image = [UIImage imageNamed:@"未认证icon"];
+            authLab.text = @"未认证";
+            [AuthenticaBtn bk_whenTapped:^{
+                PSLoginViewModel*viewModel=[[PSLoginViewModel alloc]init];
+                [self.navigationController pushViewController:[[PSSessionNoneViewController alloc]initWithViewModel:viewModel] animated:YES];
+            }];
+        }
     
-    UILabel*phoneLable=[[UILabel alloc]initWithFrame:CGRectMake(105, 60, 180, 40)];
-    phoneLable.text= [[PSSessionManager sharedInstance].session.families.phone stringByReplacingCharactersInRange:NSMakeRange(3, 4) withString:@"****"];
-    [phoneLable setTextColor:[UIColor whiteColor]];
-    [phoneLable setFont:FontOfSize(14)];
-    [headerView addSubview:phoneLable];
     }
     
     self.settingTableview = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
@@ -303,9 +358,12 @@
     [self.settingTableview mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(12);
         make.right.mas_equalTo(-12);
-        make.top.mas_equalTo(140);
+        make.top.mas_equalTo(140+StatusHeight);
         make.bottom.mas_equalTo(-60);
     }];
+    
+    
+    
 }
 #pragma mark  - setter & getter
 
@@ -365,6 +423,7 @@
     familyServiceItem .funcName = family_server;
     familyServiceItem .img = [UIImage imageNamed:@"家属服务"];
     familyServiceItem .accessoryType = PSSettingAccessoryTypeDisclosureIndicator;
+    familyServiceItem.detailText = self.PrisonerDetailName;
     
     PSSettingItemModel *familyRemittanceItem = [[PSSettingItemModel alloc] init];
     NSString *family_remittance = NSLocalizedString(@"family_remittance", @"家属汇款");
@@ -380,7 +439,7 @@
     settingItem .funcName = userCenterSetting;
     settingItem .img = [UIImage imageNamed:@"设置"];
     settingItem .accessoryType = PSSettingAccessoryTypeDisclosureIndicator;
-    _modelArray = @[nameItem,balanceItem,historyItem,RechargeItem,ConsultationItem,AuthenticationItem,addFamilyItem,familyServiceItem,familyRemittanceItem,settingItem];
+    _modelArray = @[familyServiceItem,balanceItem,historyItem,RechargeItem,ConsultationItem,addFamilyItem,familyRemittanceItem,settingItem];
 
 }
 

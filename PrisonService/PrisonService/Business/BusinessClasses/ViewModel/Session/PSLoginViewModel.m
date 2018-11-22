@@ -17,6 +17,7 @@
 #import "MJExtension.h"
 #import "PSBusinessConstants.h"
 #import "PSSessionManager.h"
+#import "AppDelegate.h"
 @interface PSLoginViewModel ()
 
 @property (nonatomic, strong) PSSendCodeRequest *sendCodeRequest;
@@ -39,6 +40,14 @@
     return self;
 }
 - (void)checkDataWithCallback:(CheckDataCallback)callback {
+    AppDelegate *appdelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+    if (appdelegate.IS_NetWork == NO) {
+        if (callback) {
+            NSString*No_network_connection=NSLocalizedString(@"No network connection", @"无网络连接");
+            callback(NO,No_network_connection);
+        }
+        return;
+    }
     if (self.phoneNumber.length == 0) {
         if (callback) {
             NSString*please_enter_phone_number=NSLocalizedString(@"please_enter_phone_number", @"请输入手机号码");

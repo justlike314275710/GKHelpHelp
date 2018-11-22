@@ -15,6 +15,7 @@
 #import "PSRefundViewController.h"
 #import "PSRefundViewModel.h"
 #import "PSTransactionRecordViewModel.h"
+#import "PSBusinessConstants.h"
 
 @interface PSBalanceViewController ()
 
@@ -55,6 +56,11 @@
     }];
 }
 
+//- (BOOL)hiddenNavigationBar{
+//    return YES;
+//}
+
+
 - (void)refundAction {
 
     [PSAlertView showWithTitle:nil message:[NSString stringWithFormat:@"确定退款%.2f元",[self.balanceSting floatValue]] messageAlignment:NSTextAlignmentCenter image:[UIImage imageNamed:@"userCenterBalanceRefund"] handler:^(PSAlertView *alertView, NSInteger buttonIndex) {
@@ -69,6 +75,7 @@
 
 -(void)requestBalance{
     [[PSLoadingView sharedInstance]show];
+    [[NSNotificationCenter defaultCenter]postNotificationName:JailChange object:nil];
     AccountsViewModel*accountsModel=[[AccountsViewModel alloc]init];
     [accountsModel requestAccountsCompleted:^(PSResponse *response) {
         self.balanceTopView.balanceLabel.text = [NSString stringWithFormat:@"¥%.2f",[accountsModel.blance floatValue]];
@@ -119,8 +126,8 @@
     [self.view addSubview:backButton];
     [backButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(0);
-        make.size.mas_equalTo(CGSizeMake(44, CGRectGetHeight(navBar.frame)));
-        make.top.mas_equalTo(CGRectGetMinY(navBar.frame));
+        make.size.mas_equalTo(CGSizeMake(44,40));
+        make.top.mas_equalTo(StatusHeight);
     }];
     
     
@@ -133,8 +140,8 @@
     [self.view addSubview:balanceButton];
     [balanceButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.mas_equalTo(-5);
-        make.size.mas_equalTo(CGSizeMake(60, CGRectGetHeight(navBar.frame)));
-        make.top.mas_equalTo(CGRectGetMinY(navBar.frame));
+        make.size.mas_equalTo(CGSizeMake(60,40));
+        make.top.mas_equalTo(StatusHeight);
     }];
     
     UILabel *titleLabel = [UILabel new];
@@ -152,17 +159,12 @@
     }];
 }
 
-- (BOOL)hiddenNavigationBar {
-    return YES;
-}
 
 -(void)AccountDetails{
     
     PSRefundViewController *refundViewController = [[PSRefundViewController alloc] initWithViewModel:[PSTransactionRecordViewModel new]];
     [self.navigationController pushViewController:refundViewController  animated:YES];
 }
-
-
 
 
 - (void)viewDidLoad {
@@ -173,6 +175,15 @@
     [self requestBalance];
     [self renderContents];
  
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    self.tabBarController.tabBar.hidden = YES;
+}
+
+-(BOOL)hiddenNavigationBar {
+    return YES;
 }
 
 - (void)didReceiveMemoryWarning {

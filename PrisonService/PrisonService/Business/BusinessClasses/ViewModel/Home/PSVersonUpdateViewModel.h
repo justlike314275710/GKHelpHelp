@@ -8,7 +8,10 @@
 
 #import "PSViewModel.h"
 
+
 @interface PSVersonUpdateViewModel : PSViewModel
 //版本更新
 -(void)VersonUpdate;
 @end
+
+

@@ -33,7 +33,6 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [self reachability];
     self.tabBarController.tabBar.hidden=NO;
 }
 
@@ -138,10 +137,14 @@
          PSLegalServiceTableViewCell*cell= [tableView dequeueReusableCellWithIdentifier:@"PSLegalServiceTableViewCell"];
 
         [cell.moreButton bk_whenTapped:^{
+            NSString*coming_soon=
+            NSLocalizedString(@"coming_soon", @"敬请期待");
+            [PSTipsView showTips:coming_soon];
+            return ;
              [self p_insertMoreServiceVC];
         }];
         [cell.FinanceButton bk_whenTapped:^{
-             NSString*coming_soon=
+            NSString*coming_soon=
             NSLocalizedString(@"coming_soon", @"敬请期待");
             [PSTipsView showTips:coming_soon];
         }];
@@ -227,26 +230,7 @@
 }
 
 
-- (void)reachability {
-    AFNetworkReachabilityManager *mgr = [AFNetworkReachabilityManager sharedManager];
-    [mgr setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
-        switch (status) {
-            case AFNetworkReachabilityStatusUnknown:
-                [KGStatusBar dismiss];
-                break;
-            case AFNetworkReachabilityStatusNotReachable:
-                //[self showInternetError];
-                [KGStatusBar showWithStatus:@"当前网络不可用,请检查你的网络设置"];
-                break;
-            case AFNetworkReachabilityStatusReachableViaWWAN:
-                [KGStatusBar dismiss];
-                break;
-            case AFNetworkReachabilityStatusReachableViaWiFi:
-                [KGStatusBar dismiss];
-            break; } }];
-    [mgr startMonitoring];
-    
-}
+
 
 /*
 #pragma mark - Navigation

@@ -40,18 +40,18 @@
         make.right.mas_equalTo(bgImageView.mas_right).offset(-15);
     }];
     _prisonLabel = [UILabel new];
-    _prisonLabel.textAlignment = NSTextAlignmentCenter;
+    _prisonLabel.textAlignment = NSTextAlignmentLeft;
     _prisonLabel.font = AppBaseTextFont2;
     _prisonLabel.textColor = AppBaseTextColor3;
     [contentView addSubview:_prisonLabel];
     [_prisonLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(0);
-        make.width.mas_equalTo(80);
+        make.width.mas_equalTo(120);
         make.bottom.mas_equalTo(contentView.mas_centerY).offset(-5);
         make.height.mas_equalTo(15);
     }];
     _dateLabel = [UILabel new];
-    _dateLabel.textAlignment = NSTextAlignmentCenter;
+    _dateLabel.textAlignment = NSTextAlignmentLeft;
     _dateLabel.font = FontOfSize(10);
     _dateLabel.textColor = AppBaseTextColor2;
     [contentView addSubview:_dateLabel];
@@ -67,7 +67,7 @@
     _titleLabel.textColor = AppBaseTextColor1;
     [contentView addSubview:_titleLabel];
     [_titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(_prisonLabel.mas_right).offset(10);
+        make.left.mas_equalTo(_prisonLabel.mas_right).offset(0);
         make.right.mas_equalTo(0);
         make.top.mas_equalTo(15);
         make.height.mas_equalTo(13);

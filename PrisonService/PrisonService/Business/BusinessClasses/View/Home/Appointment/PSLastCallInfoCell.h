@@ -10,4 +10,6 @@
 
 @interface PSLastCallInfoCell : UITableViewCell
 
+@property(nonatomic,strong) UILabel *titleLab;
+
 @end

@@ -25,6 +25,14 @@
 #import "PSPrisonerFamilesViewController.h"
 #import "PSPrisonerFamliesViewModel.h"
 #import "PSPrisonerFamily.h"
+#import "PSBusinessConstants.h"
+#import "PSBuyCardView.h"
+#import "PSMeetJailsnnmeViewModel.h"
+#import "PSPayView.h"
+#import "PSPayInfo.h"
+#import "PSPayCenter.h"
+
+
 
 @interface PSAppointmentViewController ()<FSCalendarDataSource,FSCalendarDelegate,UITableViewDataSource,UITableViewDelegate,PSIMMessageObserver,PSSessionObserver>
 
@@ -35,7 +43,14 @@
 @property (nonatomic,assign) CGFloat Balance;
 @property (nonatomic , strong) NSArray *selectArray;
 @property (nonatomic , strong) NSMutableArray *meetingMembersArray;
-@property (nonatomic , strong) PSPrisonerFamily*familyModel ;
+@property (nonatomic , strong) PSPrisonerFamily*familyModel;
+@property (nonatomic , strong) PSBuyCardView *buyCardView;
+@property (nonatomic, strong) PSCartViewModel *cartViewModel;
+@property (nonatomic, strong) PSPrisonerDetail *prisonerDetail;
+@property (nonatomic, strong) PSBuyModel *buyModel;
+@property (nonatomic, strong) PSPayView *payView;
+
+
 
 
 @end
@@ -56,6 +71,11 @@
     [[PSIMMessageManager sharedInstance] removeObserver:self];
     [[PSSessionManager sharedInstance] removeObserver:self];
     self.selectArray=nil;
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    self.tabBarController.tabBar.hidden = YES;
 }
 
 - (void)appointmentAction {
@@ -183,10 +203,145 @@
         
     } buttonTitles:determine, nil];
 }
-
+//购买亲情卡
 - (void)buyCardAction {
-    PSCartViewController *cartViewController = [[PSCartViewController alloc] initWithViewModel:[PSCartViewModel new]];
-    [self.navigationController pushViewController:cartViewController animated:YES];
+//    PSCartViewController *cartViewController = [[PSCartViewController alloc] initWithViewModel:[PSCartViewModel new]];
+//    [self.navigationController pushViewController:cartViewController animated:YES];
+    
+  [self requestInfoPhoneCard];
+
+}
+
+- (void)requestInfoPhoneCard {
+    
+    self.cartViewModel = [PSCartViewModel new];
+    [[PSLoadingView sharedInstance] show];
+    @weakify(self)
+    [self.cartViewModel requestPhoneCardCompleted:^(PSResponse *response) {
+        @strongify(self)
+        [[PSLoadingView sharedInstance] dismiss];
+        [self payTips];
+//        [self renderContents];
+    } failed:^(NSError *error) {
+        [[PSLoadingView sharedInstance] dismiss];
+//        [self renderContents];
+    }];
+}
+
+-(void)payTips{
+    _prisonerDetail = nil;
+    NSInteger index = [PSSessionManager sharedInstance].selectedPrisonerIndex;
+    NSArray *details = [PSSessionManager sharedInstance].passedPrisonerDetails;
+    if (index >= 0 && index < details.count) {
+        _prisonerDetail = details[index];
+    }
+    PSMeetJailsnnmeViewModel*meetJailsnnmeViewModel=[[PSMeetJailsnnmeViewModel alloc]init];
+    [meetJailsnnmeViewModel requestMeetJailsterCompleted:^(PSResponse *response) {
+        NSString*notice_title=NSLocalizedString(@"notice_title", @"提请注意");
+        NSString*notice_content=NSLocalizedString(@"notice_content", @"您购买的亲情电话卡将用于与%@的视频会见");
+        NSString*notice_agreed=NSLocalizedString(@"notice_agreed", @"确定");
+        NSString*notice_disagreed=NSLocalizedString(@"notice_disagreed", @"取消");
+        [PSAlertView showWithTitle:notice_title message:[NSString stringWithFormat:notice_content,meetJailsnnmeViewModel.jailsSting] messageAlignment:NSTextAlignmentCenter image:nil handler:^(PSAlertView *alertView, NSInteger buttonIndex) {
+            if (buttonIndex == 1) {
+                [self settlementAction];
+            }
+        } buttonTitles:notice_disagreed,notice_agreed, nil];
+    } failed:^(NSError *error) {
+        
+        if (error.code>=500) {
+            [self showNetError];
+        } else {
+            [PSTipsView showTips:@"无法连接到服务器,请检查网络设置"];
+        }
+    }];
+}
+
+- (void)buyCard:(NSInteger)index {
+    
+    PSCartViewModel *cartViewModel = self.cartViewModel;
+    PSPayView *payView = [PSPayView new];
+    [payView setGetAmount:^CGFloat{
+        return index*_buyModel.Amount_of_money;
+    }];
+    [payView setGetRows:^NSInteger{
+        return cartViewModel.payments.count;
+    }];
+    [payView setGetSelectedIndex:^NSInteger{
+        return cartViewModel.selectedPaymentIndex;
+    }];
+    [payView setGetIcon:^UIImage *(NSInteger index) {
+        PSPayment *payment = cartViewModel.payments.count > index ? cartViewModel.payments[index] : nil;
+        return payment ? [UIImage imageNamed:payment.iconName] : nil;
+    }];
+    [payView setGetName:^NSString *(NSInteger index) {
+        PSPayment *payment = cartViewModel.payments.count > index ? cartViewModel.payments[index] : nil;
+        return payment ? payment.name : nil;
+    }];
+    [payView setSeletedPayment:^(NSInteger index) {
+        cartViewModel.selectedPaymentIndex = index;
+    }];
+    @weakify(self)
+    [payView setGoPay:^{
+        @strongify(self)
+        [self goPay];
+    }];
+    [payView showAnimated:YES];
+    _payView = payView;
+}
+
+- (void)goPay {
+    PSCartViewModel *cartViewModel = self.cartViewModel;
+    NSInteger selectedIndex = cartViewModel.selectedPaymentIndex;
+    if (selectedIndex >= 0 && selectedIndex < cartViewModel.payments.count) {
+        if (cartViewModel.products.count > 0) {
+            PSProduct *product = cartViewModel.products[0];
+            if (product.selected) {
+                PSPayment *paymentInfo = cartViewModel.payments[selectedIndex];
+                PSPayInfo *payInfo = [PSPayInfo new];
+                payInfo.familyId = [PSSessionManager sharedInstance].session.families.id;
+                payInfo.jailId = cartViewModel.prisonerDetail.jailId;
+                payInfo.productID = product.id;
+                payInfo.amount = cartViewModel.amount;
+                payInfo.productName = product.title;
+                payInfo.quantity = cartViewModel.quantity;
+                payInfo.payment = paymentInfo.payment;
+                [[PSLoadingView sharedInstance] show];
+                @weakify(self)
+                [[PSPayCenter payCenter] goPayWithPayInfo:payInfo type:PayTypeBuy callback:^(BOOL result, NSError *error) {
+                    @strongify(self)
+                    [[PSLoadingView sharedInstance] dismiss];
+                    [[PSSessionManager sharedInstance] synchronizeUserBalance];
+                    if (error) {
+                        if (error.code != 106 && error.code != 206) {
+                            [PSTipsView showTips:error.domain];
+                        }
+                    }else{
+//                        [self.navigationController popViewControllerAnimated:NO];
+                        self.payView.status = PSPaySuccessful;
+                        [[NSNotificationCenter defaultCenter]postNotificationName:JailChange object:nil];
+                    }
+                }];
+            }
+        }
+    }
+}
+
+- (void)settlementAction {
+    if (self.cartViewModel.quantity > 0 &&self.cartViewModel.amount>0) {
+        _buyModel = [[PSBuyModel alloc] init];
+        _buyModel.family_members = [PSSessionManager sharedInstance].session.families.name;
+        _buyModel.Amount_of_money = self.cartViewModel.amount;
+        _buyModel.Inmates = _prisonerDetail.name;
+        _buyModel.Prison_name = _prisonerDetail.jailName;
+        [self.buyCardView showView:self];
+        
+    }else{
+        if (self.cartViewModel.amount==0) {
+            [PSTipsView showTips:@"该监狱为免费会见监狱,无需购买"];
+        } else {
+            [PSTipsView showTips:@"请选中您要购买的商品"];
+        }
+    }
 }
 
 - (void)handleMeetingStatusMessage:(PSMeetingMessage *)message {
@@ -242,12 +397,16 @@
     self.calendar.appearance.weekdayTextColor = [UIColor whiteColor];
     self.calendar.appearance.weekdayFont = FontOfSize(13);
     self.calendar.appearance.titleFont = FontOfSize(13);
-    self.calendar.appearance.subtitleFont = FontOfSize(8);
     self.calendar.appearance.titleTodayColor = [UIColor whiteColor];
     self.calendar.appearance.titlePlaceholderColor =AppBaseTextColor2;
     self.calendar.appearance.todayColor = topColor;
     self.calendar.appearance.selectionColor = AppBaseTextColor1;
     self.calendar.calendarWeekdayView.backgroundColor = topColor;
+    if (IS_iPhone_5) {
+       self.calendar.appearance.subtitleFont = FontOfSize(7);
+    } else {
+       self.calendar.appearance.subtitleFont = FontOfSize(8);
+    }
     [self.view insertSubview:self.calendar belowSubview:self.dateView];
     [self.calendar mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.mas_equalTo(0);
@@ -361,19 +520,22 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+ 
     UITableViewCell *cell = nil;
     switch (indexPath.row) {
         case 0:
         {
-            cell = [tableView dequeueReusableCellWithIdentifier:@"PSLastCallInfoCell"];
+            PSLastCallInfoCell *cell1 = nil;
+            cell1 = (PSLastCallInfoCell *)[tableView dequeueReusableCellWithIdentifier:@"PSLastCallInfoCell"];
             PSInstructionsDataView*instructionsDataView=[[PSInstructionsDataView alloc]init];
-            [cell addSubview:instructionsDataView];
-
+            [cell1 addSubview:instructionsDataView];
             PSAppointmentViewModel *appointmentViewModel = (PSAppointmentViewModel *)self.viewModel;
             PSMeeting *latestFinishedMeeting = [appointmentViewModel latestFinishedMeetingOfDate:self.calendar.currentPage];
             NSString*Last_call_time=NSLocalizedString(@"Last_call_time", @"上次通话时间：暂无通话");
-            cell.textLabel.text = latestFinishedMeeting ? [NSString stringWithFormat:@"上次通话时间：%@",latestFinishedMeeting.meetingTime] : Last_call_time;
-           
+//            cell1.textLabel.text = latestFinishedMeeting ? [NSString stringWithFormat:@"上次通话时间：%@",latestFinishedMeeting.meetingTime] : Last_call_time;
+            cell1.titleLab.text = latestFinishedMeeting ? [NSString stringWithFormat:@"上次通话时间：%@",latestFinishedMeeting.meetingTime] : Last_call_time;
+            return cell1;
+
             
         }
             break;
@@ -623,6 +785,7 @@
         case PSMeetingStatus:
         {
             [self handleMeetingStatusMessage:message];
+            [[NSNotificationCenter defaultCenter]postNotificationName:JailChange object:nil];
         }
             break;
         default:
@@ -638,6 +801,21 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+#pragma mark - Setting&Getting
+- (PSBuyCardView *)buyCardView {
+    if (!_buyCardView) {
+        
+        _buyCardView = [[PSBuyCardView alloc] initWithFrame:CGRectZero buyModel:_buyModel index:1];
+        @weakify(self);
+        _buyCardView.buyBlock = ^(NSInteger index) {
+            @strongify(self);
+            [self buyCard:index];
+            
+        };
+    }
+    return _buyCardView;
 }
 
 

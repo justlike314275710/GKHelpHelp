@@ -11,6 +11,7 @@
 #import "PSPayView.h"
 #import "PSPayCenter.h"
 #import "PSSessionManager.h"
+#import "PSBusinessConstants.h"
 
 @interface PSBuyCardViewController ()<UITableViewDataSource,UITableViewDelegate>
 
@@ -55,6 +56,7 @@
                 }
             }else{
                 self.payView.status = PSPaySuccessful;
+                [[NSNotificationCenter defaultCenter]postNotificationName:JailChange object:nil];
             }
         }];
     }

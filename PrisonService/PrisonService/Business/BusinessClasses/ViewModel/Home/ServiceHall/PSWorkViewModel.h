@@ -17,6 +17,8 @@
 @property (nonatomic, strong, readonly) NSArray *advUrls;
 @property (nonatomic, assign) PSNewsType newsType;
 @property (nonatomic , strong) NSString *jailId;
+@property (nonatomic, strong, readonly) NSArray *passedPrisonerDetails;
+@property (nonatomic, assign) NSInteger selectedPrisonerIndex;
 
 - (void)refreshNewsCompleted:(RequestDataCompleted)completedCallback failed:(RequestDataFailed)failedCallback;
 - (void)loadMoreNewsCompleted:(RequestDataCompleted)completedCallback failed:(RequestDataFailed)failedCallback;

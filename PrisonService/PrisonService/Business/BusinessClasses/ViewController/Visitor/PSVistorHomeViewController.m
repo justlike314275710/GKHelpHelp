@@ -40,10 +40,19 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [self reachability];
-    
+    //注册检测网络通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(nonetWork) name:NotificationNoNetwork object:nil];
 }
 
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:NotificationNoNetwork object:nil];
+}
+
+#pragma mark - Notification
+-(void)nonetWork {
+    [self showInternetError];
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -80,23 +89,6 @@
     
    
 }
-- (void)reachability {
-    AFNetworkReachabilityManager *mgr = [AFNetworkReachabilityManager sharedManager];
-    [mgr setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
-        switch (status) {
-            case AFNetworkReachabilityStatusUnknown:
-                break;
-            case AFNetworkReachabilityStatusNotReachable:
-                [self showInternetError];
-                break;
-            case AFNetworkReachabilityStatusReachableViaWWAN:
-                break;
-            case AFNetworkReachabilityStatusReachableViaWiFi:
-            break; } }];
-    [mgr startMonitoring];
-    
-}
-
 
 - (UIImage *)leftItemImage {
     return [UIImage imageNamed:@"homeDrawerIcon"];

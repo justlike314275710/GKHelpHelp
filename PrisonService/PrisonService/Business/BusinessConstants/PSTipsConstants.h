@@ -7,9 +7,9 @@
 //
 typedef NS_ENUM(NSUInteger, PSLoginStatus) {
     PSLoginNone=0,
-    PSLoginDenied=1,
-    PSLoginPending=2,
-    PSLoginPassed=3
+    PSLoginDenied=1,  //未认证
+    PSLoginPending=2, //待审核
+    PSLoginPassed=3   //已认证
 };
 #define CopyRight @"国科政信科技（北京）股份有限公司\ncopyright@2006-2015.All right reserved"
 

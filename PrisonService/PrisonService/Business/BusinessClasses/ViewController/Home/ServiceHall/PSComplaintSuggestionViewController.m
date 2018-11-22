@@ -28,6 +28,11 @@
     return self;
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    self.tabBarController.tabBar.hidden = YES;
+}
+
 - (void)writeComplaintAndSuggestion {
     PSWriteComplaintViewController *complaintViewController = [[PSWriteComplaintViewController alloc] initWithViewModel:[PSWriteSuggestionViewModel new]];
     @weakify(self)

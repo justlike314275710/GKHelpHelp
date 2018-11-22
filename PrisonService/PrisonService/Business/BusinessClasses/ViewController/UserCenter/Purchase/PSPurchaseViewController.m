@@ -24,6 +24,7 @@
     self = [super initWithViewModel:viewModel];
     if (self) {
         NSString*userCenterCart=NSLocalizedString(@"userCenterCart", @"购物记录");
+         userCenterCart = NSLocalizedString(@"recharge_record", @"充值记录");
         self.title = userCenterCart;
     }
     return self;
@@ -104,6 +105,10 @@
     self.view.backgroundColor = AppBaseBackgroundColor2;
     [self renderContents];
     [self refreshData];
+}
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    self.tabBarController.tabBar.hidden = YES;
 }
 
 #pragma mark - UITableViewDataSource

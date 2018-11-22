@@ -339,9 +339,18 @@
 		3EEEC67E209475A5003B35B3 /* PSGuideViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EEEC67D209475A5003B35B3 /* PSGuideViewController.m */; };
 		3EEEC68220947657003B35B3 /* PSGuideManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EEEC68120947657003B35B3 /* PSGuideManager.m */; };
 		3EEEC686209985B6003B35B3 /* PSLaunchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EEEC685209985B6003B35B3 /* PSLaunchViewController.m */; };
+		552CBA0E219AA449008CCC03 /* UIViewController+Tool.m in Sources */ = {isa = PBXBuildFile; fileRef = 552CBA0D219AA449008CCC03 /* UIViewController+Tool.m */; };
+		552E617321A4FE5E00FA31FD /* PSBuyCardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 552E617221A4FE5E00FA31FD /* PSBuyCardView.m */; };
+		552E617621A59C7000FA31FD /* PSLocalMeetingAppointmentStatusView.m in Sources */ = {isa = PBXBuildFile; fileRef = 552E617521A59C7000FA31FD /* PSLocalMeetingAppointmentStatusView.m */; };
+		552E617921A5A53100FA31FD /* UIView+Frame.m in Sources */ = {isa = PBXBuildFile; fileRef = 552E617821A5A53100FA31FD /* UIView+Frame.m */; };
+		552E617C21A653A300FA31FD /* PSGetPrisonersRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 552E617B21A653A300FA31FD /* PSGetPrisonersRequest.m */; };
+		552E617F21A6541900FA31FD /* PSGetPrisonerResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 552E617E21A6541900FA31FD /* PSGetPrisonerResponse.m */; };
+		552E618221A65F4100FA31FD /* PSServicePrisonsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 552E618121A65F4100FA31FD /* PSServicePrisonsCell.m */; };
 		555B5CB721952B8B00B64DF3 /* AppDelegate+other.m in Sources */ = {isa = PBXBuildFile; fileRef = 555B5CB621952B8B00B64DF3 /* AppDelegate+other.m */; };
 		557859BA218994140080437D /* RemittanceRecode.m in Sources */ = {isa = PBXBuildFile; fileRef = 557859B9218994140080437D /* RemittanceRecode.m */; };
 		557859BD2189A3D80080437D /* PSRemittanceBusinessRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 557859BC2189A3D80080437D /* PSRemittanceBusinessRequest.m */; };
+		55B544B2219E891000B0D757 /* CustomTabbar.m in Sources */ = {isa = PBXBuildFile; fileRef = 55B544B1219E891000B0D757 /* CustomTabbar.m */; };
+		55B544B5219EA24C00B0D757 /* UpDateModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 55B544B4219EA24C00B0D757 /* UpDateModel.m */; };
 		55C9EDC42188528300A11D60 /* PSFamilyRemittanceViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 55C9EDC32188528300A11D60 /* PSFamilyRemittanceViewModel.m */; };
 		55DA4BBE2189F09900212A23 /* PSRemittanceRecodeViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 55DA4BBD2189F09900212A23 /* PSRemittanceRecodeViewModel.m */; };
 		55E9A8C12186EB33003A5918 /* PSREmittanceRecodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 55E9A8C02186EB33003A5918 /* PSREmittanceRecodeViewController.m */; };
@@ -1282,6 +1291,20 @@
 		3EEEC68120947657003B35B3 /* PSGuideManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PSGuideManager.m; sourceTree = "<group>"; };
 		3EEEC684209985B6003B35B3 /* PSLaunchViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PSLaunchViewController.h; sourceTree = "<group>"; };
 		3EEEC685209985B6003B35B3 /* PSLaunchViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PSLaunchViewController.m; sourceTree = "<group>"; };
+		552CBA0C219AA449008CCC03 /* UIViewController+Tool.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIViewController+Tool.h"; sourceTree = "<group>"; };
+		552CBA0D219AA449008CCC03 /* UIViewController+Tool.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+Tool.m"; sourceTree = "<group>"; };
+		552E617121A4FE5E00FA31FD /* PSBuyCardView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PSBuyCardView.h; sourceTree = "<group>"; };
+		552E617221A4FE5E00FA31FD /* PSBuyCardView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PSBuyCardView.m; sourceTree = "<group>"; };
+		552E617421A59C7000FA31FD /* PSLocalMeetingAppointmentStatusView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PSLocalMeetingAppointmentStatusView.h; sourceTree = "<group>"; };
+		552E617521A59C7000FA31FD /* PSLocalMeetingAppointmentStatusView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PSLocalMeetingAppointmentStatusView.m; sourceTree = "<group>"; };
+		552E617721A5A53000FA31FD /* UIView+Frame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Frame.h"; sourceTree = "<group>"; };
+		552E617821A5A53100FA31FD /* UIView+Frame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Frame.m"; sourceTree = "<group>"; };
+		552E617A21A653A300FA31FD /* PSGetPrisonersRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PSGetPrisonersRequest.h; sourceTree = "<group>"; };
+		552E617B21A653A300FA31FD /* PSGetPrisonersRequest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PSGetPrisonersRequest.m; sourceTree = "<group>"; };
+		552E617D21A6541900FA31FD /* PSGetPrisonerResponse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PSGetPrisonerResponse.h; sourceTree = "<group>"; };
+		552E617E21A6541900FA31FD /* PSGetPrisonerResponse.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PSGetPrisonerResponse.m; sourceTree = "<group>"; };
+		552E618021A65F4100FA31FD /* PSServicePrisonsCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PSServicePrisonsCell.h; sourceTree = "<group>"; };
+		552E618121A65F4100FA31FD /* PSServicePrisonsCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PSServicePrisonsCell.m; sourceTree = "<group>"; };
 		555B5CB521952B8B00B64DF3 /* AppDelegate+other.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "AppDelegate+other.h"; sourceTree = "<group>"; };
 		555B5CB621952B8B00B64DF3 /* AppDelegate+other.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "AppDelegate+other.m"; sourceTree = "<group>"; };
 		557859B8218994140080437D /* RemittanceRecode.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RemittanceRecode.h; sourceTree = "<group>"; };
@@ -1289,6 +1312,10 @@
 		557859BB2189A3D80080437D /* PSRemittanceBusinessRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PSRemittanceBusinessRequest.h; sourceTree = "<group>"; };
 		557859BC2189A3D80080437D /* PSRemittanceBusinessRequest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PSRemittanceBusinessRequest.m; sourceTree = "<group>"; };
 		557DFE9821917DEB001A09FC /* PrisonService.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PrisonService.entitlements; sourceTree = "<group>"; };
+		55B544B0219E891000B0D757 /* CustomTabbar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CustomTabbar.h; sourceTree = "<group>"; };
+		55B544B1219E891000B0D757 /* CustomTabbar.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CustomTabbar.m; sourceTree = "<group>"; };
+		55B544B3219EA24C00B0D757 /* UpDateModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UpDateModel.h; sourceTree = "<group>"; };
+		55B544B4219EA24C00B0D757 /* UpDateModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UpDateModel.m; sourceTree = "<group>"; };
 		55C9EDC22188528300A11D60 /* PSFamilyRemittanceViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PSFamilyRemittanceViewModel.h; sourceTree = "<group>"; };
 		55C9EDC32188528300A11D60 /* PSFamilyRemittanceViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PSFamilyRemittanceViewModel.m; sourceTree = "<group>"; };
 		55DA4BBC2189F09900212A23 /* PSRemittanceRecodeViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PSRemittanceRecodeViewModel.h; sourceTree = "<group>"; };
@@ -2095,6 +2122,8 @@
 		3E5D14BA20721E71000FC779 /* Category */ = {
 			isa = PBXGroup;
 			children = (
+				552E617721A5A53000FA31FD /* UIView+Frame.h */,
+				552E617821A5A53100FA31FD /* UIView+Frame.m */,
 				3EE8623420AE9E7500B69B39 /* UIAlertController+supportedInterfaceOrientations.h */,
 				3EE8623320AE9E7400B69B39 /* UIAlertController+supportedInterfaceOrientations.m */,
 				3E5D16002074D3CA000FC779 /* UIView+FrameChange.h */,
@@ -2119,6 +2148,8 @@
 				3E1737F52085D29C0068CCEB /* NSDate+Components.m */,
 				3E78B759208B0F95007DF162 /* NSString+Date.h */,
 				3E78B75A208B0F95007DF162 /* NSString+Date.m */,
+				552CBA0C219AA449008CCC03 /* UIViewController+Tool.h */,
+				552CBA0D219AA449008CCC03 /* UIViewController+Tool.m */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -2232,6 +2263,8 @@
 				3E5D1584207322D4000FC779 /* PSWeakTimer.h */,
 				3E5D157E207322D4000FC779 /* PSWeakTimer.m */,
 				3E5D1580207322D4000FC779 /* GTMDefines.h */,
+				55B544B0219E891000B0D757 /* CustomTabbar.h */,
+				55B544B1219E891000B0D757 /* CustomTabbar.m */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -2599,6 +2632,10 @@
 				EAB45366214B854E007A7627 /* PSPrisonerFamiliesRequest.m */,
 				EAB45368214B8569007A7627 /* PSPrisonerFamiliesResponse.h */,
 				EAB45369214B8569007A7627 /* PSPrisonerFamiliesResponse.m */,
+				552E617A21A653A300FA31FD /* PSGetPrisonersRequest.h */,
+				552E617B21A653A300FA31FD /* PSGetPrisonersRequest.m */,
+				552E617D21A6541900FA31FD /* PSGetPrisonerResponse.h */,
+				552E617E21A6541900FA31FD /* PSGetPrisonerResponse.m */,
 			);
 			path = Prisoner;
 			sourceTree = "<group>";
@@ -3317,6 +3354,8 @@
 			children = (
 				3EEE7747207F0EC500CAD179 /* PSMessage.h */,
 				3EEE7748207F0EC500CAD179 /* PSMessage.m */,
+				55B544B3219EA24C00B0D757 /* UpDateModel.h */,
+				55B544B4219EA24C00B0D757 /* UpDateModel.m */,
 			);
 			path = Message;
 			sourceTree = "<group>";
@@ -3416,6 +3455,8 @@
 				3EEE777C208085F400CAD179 /* PSServiceInfoCell.m */,
 				3EEE777E20808E9100CAD179 /* PSServiceOtherCell.h */,
 				3EEE777F20808E9100CAD179 /* PSServiceOtherCell.m */,
+				552E618021A65F4100FA31FD /* PSServicePrisonsCell.h */,
+				552E618121A65F4100FA31FD /* PSServicePrisonsCell.m */,
 				3EEE778120808F4A00CAD179 /* PSServiceLinkView.h */,
 				3EEE778220808F4A00CAD179 /* PSServiceLinkView.m */,
 				3EEE77842080977400CAD179 /* PSFamilyServiceInfoView.h */,
@@ -3460,6 +3501,10 @@
 				55E9A8C32186EDC6003A5918 /* PSRemittanceRecordCell.m */,
 				55F9C7012190761800E15FDD /* PSSeleView.h */,
 				55F9C7002190761800E15FDD /* PSSeleView.m */,
+				552E617121A4FE5E00FA31FD /* PSBuyCardView.h */,
+				552E617221A4FE5E00FA31FD /* PSBuyCardView.m */,
+				552E617421A59C7000FA31FD /* PSLocalMeetingAppointmentStatusView.h */,
+				552E617521A59C7000FA31FD /* PSLocalMeetingAppointmentStatusView.m */,
 			);
 			path = ServiceHall;
 			sourceTree = "<group>";
@@ -4378,7 +4423,6 @@
 				6FF58B3953CA1802E59432C3 /* [CP] Embed Pods Frameworks */,
 				758B909762950FF43706B876 /* [CP] Copy Pods Resources */,
 				3E1738142086EDD60068CCEB /* Embed Frameworks */,
-				55C7E94521912C5B0095750D /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -4552,25 +4596,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		55C7E94521912C5B0095750D /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "
-
-";
-		};
 		6FF58B3953CA1802E59432C3 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -4718,6 +4743,7 @@
 				EA0CE0E620D3BF0300FFFE23 /* Expression.m in Sources */,
 				3E91DE68208F20A500AADE3C /* PSJailConfiguration.m in Sources */,
 				EAD18F5120D02A780053F82B /* MJExtensionConst.m in Sources */,
+				55B544B5219EA24C00B0D757 /* UpDateModel.m in Sources */,
 				3EDF0DA920882894002D98BD /* PSUploadCardRequest.m in Sources */,
 				EAEE396920C52784005F7530 /* PSTransactionRecordRequest.m in Sources */,
 				3E78B773208D8586007DF162 /* PSPhoneCardViewModel.m in Sources */,
@@ -4825,6 +4851,7 @@
 				EADDC8A720BE8AD60068D3AB /* PSPrisonerAccounts.m in Sources */,
 				EAA0CA612188321000240724 /* MWPhotoBrowser.m in Sources */,
 				3EEE778D2080A23A00CAD179 /* PSFamilyServiceItem.m in Sources */,
+				552E617C21A653A300FA31FD /* PSGetPrisonersRequest.m in Sources */,
 				EAD18F4E20D02A770053F82B /* NSObject+MJKeyValue.m in Sources */,
 				55F2A53621904B7B0048D93B /* PSFamilyRemittanceViewController.m in Sources */,
 				EAA0CA1C2188320500240724 /* TZPhotoPreviewController.m in Sources */,
@@ -4841,6 +4868,7 @@
 				3E5D16012074D3CA000FC779 /* UIView+ FrameChange.m in Sources */,
 				EAA0CA932188490000240724 /* PSUploadConsultaionRequest.m in Sources */,
 				3E171ABE209300F400B7D807 /* PSBaseMailBoxRequest.m in Sources */,
+				552E617321A4FE5E00FA31FD /* PSBuyCardView.m in Sources */,
 				3E5D16242079B90D000FC779 /* PSJailsRequest.m in Sources */,
 				3EC7B734207E130300DFBA65 /* PSAccountInfoCell.m in Sources */,
 				EA33786F21003D160081B907 /* XXEmptyView.m in Sources */,
@@ -4901,6 +4929,7 @@
 				3EEE7766207F5E1000CAD179 /* PSHomeViewModel.m in Sources */,
 				EAA0CA9921884DFC00240724 /* PSUploadConsultaionResponse.m in Sources */,
 				3E171AAA2092C4DD00B7D807 /* PSNewsResponse.m in Sources */,
+				552E617F21A6541900FA31FD /* PSGetPrisonerResponse.m in Sources */,
 				3EEEC68220947657003B35B3 /* PSGuideManager.m in Sources */,
 				EA87F56F2105BC2B00D7A1E4 /* PSAccountAddressViewController.m in Sources */,
 				3E4C249320A1A075009AC107 /* PSCartRequest.m in Sources */,
@@ -4926,6 +4955,7 @@
 				3E171A272090C2F700B7D807 /* PSMeetingViewController.m in Sources */,
 				3E78B79D208DA934007DF162 /* PSWechatHandler.m in Sources */,
 				3E5D15ED2074C343000FC779 /* PSPrisonContentViewController.m in Sources */,
+				552E617921A5A53100FA31FD /* UIView+Frame.m in Sources */,
 				3EC7B74B207EFA5D00DFBA65 /* PSBalanceTopView.m in Sources */,
 				3EC7B701207DA61700DFBA65 /* PSBaseWebViewController.m in Sources */,
 				3EEEC5FD20931942003B35B3 /* PSCommentsViewModel.m in Sources */,
@@ -4981,6 +5011,7 @@
 				3EC7B738207E18B800DFBA65 /* PSSettingItem.m in Sources */,
 				3EEEC686209985B6003B35B3 /* PSLaunchViewController.m in Sources */,
 				3E5D15E420747DD0000FC779 /* PSCity.m in Sources */,
+				552E618221A65F4100FA31FD /* PSServicePrisonsCell.m in Sources */,
 				3E5D150520731B04000FC779 /* PSPassport.m in Sources */,
 				3E5D150120731B04000FC779 /* PSOperationQueue.m in Sources */,
 				3EEE77BB20846DD900CAD179 /* PSPeriodChangeCell.m in Sources */,
@@ -5043,6 +5074,7 @@
 				3E5D16112079A6E2000FC779 /* PSPrisonSelectViewController.m in Sources */,
 				3EC7B72D207E0E2300DFBA65 /* PSAccountInfoItem.m in Sources */,
 				3EEE77862080977400CAD179 /* PSFamilyServiceInfoView.m in Sources */,
+				552E617621A59C7000FA31FD /* PSLocalMeetingAppointmentStatusView.m in Sources */,
 				EAA0C9C82186BC7D00240724 /* PSConsultationOtherTableViewCell.m in Sources */,
 				EA4285FB211986D700418685 /* VIRegisterPageController.m in Sources */,
 				3EA8F87C20904FC400BA23B2 /* PSMeetingViewModel.m in Sources */,
@@ -5068,6 +5100,7 @@
 				3E78B79B208DA934007DF162 /* PSPayInfo.m in Sources */,
 				3EC7B702207DA61700DFBA65 /* PSWebViewController.m in Sources */,
 				EA33786921003C1D0081B907 /* LYEmptyBaseView.m in Sources */,
+				55B544B2219E891000B0D757 /* CustomTabbar.m in Sources */,
 				3E171A1220908EFF00B7D807 /* UIImage+Extensions.m in Sources */,
 				EA87F5A3210EFC7E00D7A1E4 /* JSInterface.m in Sources */,
 				3E171AC7209302A800B7D807 /* PSSuggestionViewModel.m in Sources */,
@@ -5150,6 +5183,7 @@
 				EA33783B20FC45700081B907 /* PSMeetHistoryRequest.m in Sources */,
 				EAD18F4D20D02A770053F82B /* MJPropertyType.m in Sources */,
 				3E5D150020731B04000FC779 /* PSApiSign.m in Sources */,
+				552CBA0E219AA449008CCC03 /* UIViewController+Tool.m in Sources */,
 				EADDC8C120BF9AE00068D3AB /* PSRelationViewController.m in Sources */,
 				3E4C24AE20A1A74C009AC107 /* PSPurchaseCell.m in Sources */,
 				3E171AA72092C4CD00B7D807 /* PSNewsRequest.m in Sources */,
@@ -5299,6 +5333,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = NMR83889V8;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -5315,7 +5350,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -5355,6 +5390,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = NMR83889V8;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -5365,7 +5401,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;

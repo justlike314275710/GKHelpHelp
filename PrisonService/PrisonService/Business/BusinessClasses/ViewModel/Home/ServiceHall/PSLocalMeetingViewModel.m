@@ -39,7 +39,9 @@
     [paragraphStyle setAlignment:NSTextAlignmentLeft];
     UIImage *addressIcon = [UIImage imageNamed:@"localMeetingAddressIcon"];
     NSMutableAttributedString *addressString = [NSMutableAttributedString yy_attachmentStringWithContent:addressIcon contentMode:UIViewContentModeCenter attachmentSize:addressIcon.size alignToFont:font alignment:YYTextVerticalAlignmentCenter];
-    [addressString appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"  %@",localMeeting.visitAddress] attributes:@{NSFontAttributeName:font,NSParagraphStyleAttributeName:paragraphStyle}]];
+    if (localMeeting.visitAddress.length > 0) {
+       [addressString appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"  %@",localMeeting.visitAddress] attributes:@{NSFontAttributeName:font,NSParagraphStyleAttributeName:paragraphStyle}]];
+    }
     _routeString = addressString;
 }
 

@@ -41,16 +41,20 @@
    
 }
 
-
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    self.tabBarController.tabBar.hidden = YES;
+}
 
 - (void)requestLoginStatus {
     
     PSLoginViewModel *loginViewModel =[[PSLoginViewModel alloc]init];
     [loginViewModel loginCompleted:^(PSResponse *response) {
         
-        //self.RegistrationModel=loginViewModel.session.registrations[0];
+        self.RegistrationModel=loginViewModel.session.registrations[0];
         
         NSString*repalyTime=[self.RegistrationModel.createdAt timestampToDateString]?[self.RegistrationModel.createdAt timestampToDateString]:[[PSSessionManager sharedInstance].session.families.createdAt timestampToDateString];
+        
         if ([loginViewModel.session.status isEqualToString:@"PENDING"]) {
             NSString*session_PENDING=NSLocalizedString(@"session_PENDING", @"待审核");
             NSString*session_PENDING_title=NSLocalizedString(@"session_PENDING_title", @"您于%@提交的认证申请正在审核,请耐心等待");
@@ -83,7 +87,9 @@
             _subTitle = session_NONE_title;
             _btnTitle=session_NONE_btntitle;
         }
-        [self renderContents];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self renderContents];
+        });
     } failed:^(NSError *error) {
         [self showNetError];
     }];
@@ -163,6 +169,11 @@
     _operationButton.titleLabel.font = AppBaseTextFont1;
     [_operationButton setTitleColor:AppBaseTextColor1 forState:UIControlStateNormal];
     [_operationButton setTitle:_btnTitle forState:UIControlStateNormal];
+    if ([_btnTitle isEqualToString:@""]||!_btnTitle) {
+        _operationButton.hidden = YES;
+    } else {
+        _operationButton.hidden = NO;
+    }
 
     @weakify(self)
     [_operationButton bk_whenTapped:^{

@@ -10,11 +10,37 @@
 #import "NSString+Date.h"
 #import "NSDate+Components.h"
 #import "PSSessionManager.h"
+#import "PSGetPrisonersRequest.h"
+#import "PSCache.h"
+#import "PSBusinessConstants.h"
+#import "PSUserSession.h"
+#import <AFNetworking/AFNetworking.h>
+#import "MeetJails.h"
+#import "MJExtension.h"
+@interface PSFamilyServiceViewModel(){
+        AFHTTPSessionManager *manager;
+}
+
+@property (nonatomic,strong) PSGetPrisonersRequest *getPrisonersRequest;
+@property (nonatomic,strong) PSGetPrisonerResponse *getPrisonerResponse;
+
+@end
 
 @implementation PSFamilyServiceViewModel
 - (id)init {
     self = [super init];
     if (self) {
+        
+        _array = [NSMutableArray array];
+        manager=[AFHTTPSessionManager manager];
+        manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
+        manager.requestSerializer = [AFJSONRequestSerializer serializer];
+        manager.requestSerializer.timeoutInterval = 10.f;
+        manager.responseSerializer = [AFJSONResponseSerializer serializer];
+        [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+        // [manager.requestSerializer setAuthorizationHeaderFieldWithUsername:@"" password:@""];
+        NSString*token=[NSString stringWithFormat:@"Bearer %@",[LXFileManager readUserDataForKey:@"access_token"]];
+        [manager.requestSerializer setValue:token forHTTPHeaderField:@"Authorization"];
         
 //        PSPrisonerDetail *prisonerDetail = nil;
 //        NSInteger index = [PSSessionManager sharedInstance].selectedPrisonerIndex;
@@ -97,5 +123,48 @@
     }
     return self;
 }
+
+- (void)requestCommentsCompleted:(RequestDataCompleted)completedCallback failed:(RequestDataFailed)failedCallback;
+{
+    NSString*url=[NSString stringWithFormat:@"%@/prisoners/getPrisoners",ServerUrl];
+    
+    PSPrisonerDetail *prisonerDetail = nil;
+    NSInteger index = [PSSessionManager sharedInstance].selectedPrisonerIndex;
+    NSArray *details = [PSSessionManager sharedInstance].passedPrisonerDetails;
+    if (index >= 0 && index < details.count) {
+        prisonerDetail = details[index];
+    }
+    
+    NSString*jailId=prisonerDetail.jailId;
+    PSUserSession*session = [PSCache queryCache:AppUserSessionCacheKey];
+    NSString*familiesId= session.families.id;
+    NSDictionary*parmeters=@{
+                             @"familyId":familiesId,
+                             @"jailId":jailId
+                             };
+    NSString*token=[NSString stringWithFormat:@"Bearer %@",[LXFileManager readUserDataForKey:@"access_token"]];
+    [manager.requestSerializer setValue:token forHTTPHeaderField:@"Authorization"];
+    [manager GET:url parameters:parmeters progress:^(NSProgress * _Nonnull downloadProgress) {
+        
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        NSArray*jailsArray=[MeetJails mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"prisoners"]];
+        for (int i=0; i<jailsArray.count; i++) {
+            MeetJails*model=jailsArray[i];
+            [_array addObject:model];
+        }
+        if (completedCallback) {
+            completedCallback(responseObject);
+        }
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        if (failedCallback) {
+            failedCallback(error);
+        }
+    }];
+}
+
+
+
+
+
 
 @end

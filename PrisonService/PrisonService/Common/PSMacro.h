@@ -44,6 +44,10 @@
 
 #define RELATIVE_WIDTH_VALUE(value) SCREEN_WIDTH * value / 375.0
 
+#define IS_iPhone_5 ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(640, 1136), [[UIScreen mainScreen] currentMode].size) : NO)
+
+
+
 //获取视图的高
 #define GETHEIGHT(view) CGRectGetHeight(view.frame)
 //获取视图的宽
@@ -56,6 +60,8 @@
 #define GETRIGHTORIGIN_X(view) view.frame.origin.x + CGRectGetWidth(view.frame)
 //获取下一个视图的Y坐标
 #define GETBOTTOMORIGIN_Y(view) view.frame.origin.y + CGRectGetHeight(view.frame)
+
+#define StatusHeight  [[UIApplication sharedApplication] statusBarFrame].size.height
 
 //*******----通知
 #define NotificationNoNetwork @"NotificationNoNetwork"

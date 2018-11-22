@@ -308,7 +308,7 @@
         if (successful) {
             @weakify(self)
             [regiestViewModel requestCodeCompleted:^(PSResponse *response) {
-                if (regiestViewModel.messageCode==201) {
+                if (regiestViewModel.messageCode==201||regiestViewModel.messageCode==204) {
                     [PSTipsView showTips:@"已发送"];
                     self.seconds=60;
                 }else{
@@ -478,27 +478,6 @@
 - (void)initialize {
     
 }
-#pragma mark -- 网络检测
-- (void)reachability {
-    AFNetworkReachabilityManager *mgr = [AFNetworkReachabilityManager sharedManager];
-    [mgr setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
-        switch (status) {
-            case AFNetworkReachabilityStatusUnknown:
-                [KGStatusBar dismiss];
-                break;
-            case AFNetworkReachabilityStatusNotReachable:
-                //[self showInternetError];
-                [KGStatusBar showWithStatus:@"当前网络不可用,请检查你的网络设置"];
-                break;
-            case AFNetworkReachabilityStatusReachableViaWWAN:
-                [KGStatusBar dismiss];
-                break;
-            case AFNetworkReachabilityStatusReachableViaWiFi:
-                [KGStatusBar dismiss];
-            break; } }];
-    [mgr startMonitoring];
-    
-}
 
 - (BOOL)hiddenNavigationBar {
     return YES;
@@ -507,7 +486,6 @@
 #pragma mark  - life cycle
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [self reachability];
 }
 
 - (void)viewDidLoad {
