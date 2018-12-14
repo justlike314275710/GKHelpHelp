@@ -71,7 +71,11 @@
 }
 
 - (void)networkCompleted:(NSData *)responseData; {
+    
+   
+    
     NSString *str  = [[NSString alloc] initWithBytes:responseData.bytes length:responseData.length encoding:NSUTF8StringEncoding];
+    
     //NSLog(@"%@",str);
     Class responseClass = [self responseClass];
     if(![responseClass isSubclassOfClass:[PSResponse class]]){

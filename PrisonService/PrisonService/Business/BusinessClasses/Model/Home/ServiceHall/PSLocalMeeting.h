@@ -16,5 +16,7 @@
 @property (nonatomic, strong) NSString<Optional> *visitAddress;
 @property (nonatomic, strong) NSString<Optional> *address;
 @property (nonatomic, strong) NSString<Optional> *status;
+@property (nonatomic, strong) NSString<Optional> *remarks;
+@property (nonatomic, strong) NSString<Optional> *batch;
 
 @end

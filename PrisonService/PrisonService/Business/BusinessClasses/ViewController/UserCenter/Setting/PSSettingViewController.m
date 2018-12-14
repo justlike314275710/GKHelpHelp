@@ -100,7 +100,7 @@
         make.bottom.mas_equalTo(-20);
         make.left.mas_equalTo(20);
         make.right.mas_equalTo(-20);
-        make.height.mas_equalTo(60);
+        make.height.mas_equalTo([NSObject judegeIsVietnamVersion]?100:60);
     }];
     @weakify(self)
     [extraLabel setTextTapAction:^(UIView * _Nonnull containerView, NSAttributedString * _Nonnull text, NSRange range, CGRect rect) {

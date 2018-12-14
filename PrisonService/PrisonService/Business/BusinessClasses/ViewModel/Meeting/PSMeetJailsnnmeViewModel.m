@@ -36,6 +36,7 @@
     }
     return self;
 }
+//获取单个监狱绑定的罪犯
 - (void)requestMeetJailsterCompleted:(RequestDataCompleted)completedCallback failed:(RequestDataFailed)failedCallback{
     NSString*url=[NSString stringWithFormat:@"%@/prisoners/getPrisoners",ServerUrl];
     
@@ -73,6 +74,36 @@
             failedCallback(error);
         }
     }];
+}
+
+- (void)requestMeetAllJailsterCompleted:(RequestDataCompleted)completedCallback failed:(RequestDataFailed)failedCallback {
+    
+    NSString*url=[NSString stringWithFormat:@"%@/api/families/bindPrisonersList",ServerUrl];
+
+    self.session = [PSCache queryCache:AppUserSessionCacheKey];
+    NSString*familiesId=self.session.families.id;
+    NSDictionary*parmeters=@{
+                             @"familyId":familiesId,
+                             };
+    NSString*token=[NSString stringWithFormat:@"Bearer %@",[LXFileManager readUserDataForKey:@"access_token"]];
+    [manager.requestSerializer setValue:token forHTTPHeaderField:@"Authorization"];
+    [manager GET:url parameters:parmeters progress:^(NSProgress * _Nonnull downloadProgress) {
+        
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        NSArray*jailsArray=[MeetPrisonserModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"bindList"]];
+        for (int i=0; i<jailsArray.count; i++) {
+            MeetPrisonserModel*model=jailsArray[i];
+            [_prisons addObject:model];
+        }
+        if (completedCallback) {
+            completedCallback(responseObject);
+        }
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        if (failedCallback) {
+            failedCallback(error);
+        }
+    }];
+    
 }
 
 

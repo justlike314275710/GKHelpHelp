@@ -79,7 +79,8 @@
         if (error.code>=500) {
             [self showNetError];
         } else {
-             [PSTipsView showTips:@"无法连接到服务器,请检查网络设置"];
+            NSString *tips = NSLocalizedString(@"Unable to connect to server, please check network settings",@"无法连接到服务器,请检查网络设置");
+            [PSTipsView showTips:tips];
         }
     }];
 
@@ -91,9 +92,12 @@
         [self buyCardAction];
     }else{
         if (cartViewModel.amount==0) {
-            [PSTipsView showTips:@"该监狱为免费会见监狱,无需购买"];
+            NSString *msg = NSLocalizedString(@"The prison is a free meeting with the prison, no need to buy", @"该监狱为免费会见监狱,无需购买");
+            [PSTipsView showTips:msg];
         } else {
-            [PSTipsView showTips:@"请选中您要购买的商品"];
+
+            NSString *msg = NSLocalizedString(@"Please select the item you want to buy", @"请选中您要购买的商品");
+            [PSTipsView showTips:msg];
         }
      
     }

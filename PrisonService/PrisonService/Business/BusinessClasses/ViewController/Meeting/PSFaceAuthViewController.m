@@ -192,6 +192,8 @@ typedef UIImage *(^ImageBlock)(UIImageView *showImageView);
                     NSString *verf = [dic objectForKey:KCIFlyFaceResultVerf];
                     if([verf boolValue]){
                          NSString*face_success=NSLocalizedString(@"face_success", @"人脸识别成功");
+                        [SDTrackTool logEvent:FACE_RECOGNITION attributes:@{STATUS:MobSUCCESS}];
+                        
                          _statusTipsLable.text=face_success;
                         //验证成功
                         PSMeetingViewModel *viewModel = (PSMeetingViewModel*)self.viewModel;
@@ -230,6 +232,7 @@ typedef UIImage *(^ImageBlock)(UIImageView *showImageView);
 //                        NSString*face_fail=NSLocalizedString(@"face_fail", @"人脸识别失败");
 //                         _statusTipsLable.text=face_fail;
                         [WXZTipView showBottomWithText:@"人脸识别失败" duration:1.0f];
+                        [SDTrackTool logEvent:FACE_RECOGNITION attributes:@{STATUS:MobFAILURE}];
                         @strongify(self)
                         if (self.completion) {
                             self.completion(NO);

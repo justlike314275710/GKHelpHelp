@@ -100,7 +100,6 @@
         [self setupModelArray];
         [self.settingTableview reloadData];
     } failed:^(NSError *error) {
-       // [PSTipsView showTips:@"获取余额失败"];
         [[PSLoadingView sharedInstance]dismiss];
     }];
     
@@ -155,6 +154,7 @@
         [self.navigationController pushViewController:[[PSSessionNoneViewController alloc] init] animated:YES];
     }
     else if ([itemModel.funcName isEqualToString:add_relatives ]){
+        [SDTrackTool logEvent:CLICK_ADD_FAMILY];
         [self.navigationController pushViewController:[[PSAddFamiliesViewController alloc] initWithViewModel:[[PSRegisterViewModel alloc]init]] animated:YES];
     }
     else if ([itemModel.funcName isEqualToString:family_server]){
@@ -218,7 +218,6 @@
 }
 
 
-
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     static NSString *identifier = @"PSSettingCell";
     PSSettingItemModel*itemModel=self.modelArray[indexPath.row];
@@ -267,10 +266,9 @@
     headerBgImageView.image = [UIImage imageNamed:@"我的顶部背景"];
     [headerView addSubview:headerBgImageView];
     
-     UITapGestureRecognizer *tapGesturRecognizer=[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(headerViewTapAction:)];
-       [headerView addGestureRecognizer:tapGesturRecognizer];
+    UITapGestureRecognizer *tapGesturRecognizer=[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(headerViewTapAction:)];
+     [headerView addGestureRecognizer:tapGesturRecognizer];
 
-    
     
     CGFloat radius = 34;
     _avatarView = [PYPhotosView photosView];
@@ -284,8 +282,10 @@
       [headerView addSubview:_avatarView];
     _avatarView.thumbnailUrls = @[PICURL([PSSessionManager sharedInstance].session.families.avatarUrl)];
     _avatarView.originalUrls = @[PICURL([PSSessionManager sharedInstance].session.families.avatarUrl)];
+    _avatarView.userInteractionEnabled = NO;
+ 
     
-
+    
     
     if ([[LXFileManager readUserDataForKey:@"isVistor"]isEqualToString:@"YES"]) {
         UIButton*loginButton=[[UIButton alloc]initWithFrame:CGRectMake(130, 37, 180, 42)];
@@ -309,7 +309,8 @@
         [headerView addSubview:nameLable];
         
         UILabel*phoneLable=[[UILabel alloc]initWithFrame:CGRectMake(105, 60, 180, 40)];
-        phoneLable.text= [[PSSessionManager sharedInstance].session.families.phone stringByReplacingCharactersInRange:NSMakeRange(3, 4) withString:@"****"];
+    
+        phoneLable.text= [PSSessionManager sharedInstance].session.families.phone.length<10?[PSSessionManager sharedInstance].session.families.phone:[[PSSessionManager sharedInstance].session.families.phone stringByReplacingCharactersInRange:NSMakeRange(3, 4) withString:@"****"];
         [phoneLable setTextColor:[UIColor whiteColor]];
         [phoneLable setFont:FontOfSize(14)];
         [headerView addSubview:phoneLable];
@@ -326,21 +327,28 @@
         iconImage.image = [UIImage imageNamed:@"已认证icon"];
         [AuthenticaBtn addSubview:iconImage];
         
-        UILabel *authLab = [[UILabel alloc] initWithFrame:CGRectMake(iconImage.right+4,2, 35, 20)];
-        authLab.text = @"已认证";
+        float authLabWidth = [NSObject judegeIsVietnamVersion]?50:35;
+        UILabel *authLab = [[UILabel alloc] initWithFrame:CGRectMake(iconImage.right+4,0,authLabWidth, 25)];
+        
+
+        NSString*session_PASSED=NSLocalizedString(@"session_PASSED", @"已认证");
+        NSString*session_NONE=NSLocalizedString(@"session_NONE", @"未认证");
+        
+        authLab.text = session_PASSED;
         authLab.font = FontOfSize(10);
         authLab.textColor = [UIColor whiteColor];
+        authLab.numberOfLines = 0;
         [AuthenticaBtn addSubview:authLab];
         //已认证
         if ([PSSessionManager sharedInstance].loginStatus == PSLoginPassed) {
             iconImage.image = [UIImage imageNamed:@"已认证icon"];
-            authLab.text = @"已认证";
+            authLab.text = session_PASSED;
             [AuthenticaBtn bk_whenTapped:^{
                 [self.navigationController pushViewController:[[PSAccountViewController alloc] initWithViewModel:[[PSAccountViewModel alloc] init]] animated:YES];
             }];
         } else {
             iconImage.image = [UIImage imageNamed:@"未认证icon"];
-            authLab.text = @"未认证";
+            authLab.text = session_NONE;
             [AuthenticaBtn bk_whenTapped:^{
                 PSLoginViewModel*viewModel=[[PSLoginViewModel alloc]init];
                 [self.navigationController pushViewController:[[PSSessionNoneViewController alloc]initWithViewModel:viewModel] animated:YES];
@@ -441,7 +449,7 @@
     settingItem .funcName = userCenterSetting;
     settingItem .img = [UIImage imageNamed:@"设置"];
     settingItem .accessoryType = PSSettingAccessoryTypeDisclosureIndicator;
-    _modelArray = @[familyServiceItem,balanceItem,historyItem,RechargeItem,ConsultationItem,addFamilyItem,familyRemittanceItem,settingItem];
+    _modelArray = @[familyServiceItem,addFamilyItem,balanceItem,RechargeItem,familyRemittanceItem,ConsultationItem,historyItem,settingItem];
 
 }
 

@@ -56,13 +56,16 @@
     NSString*refuse=NSLocalizedString(@"refuse", @"拒绝");
     [refuseButton setTitle:refuse forState:UIControlStateNormal];
     [self.view addSubview:refuseButton];
+    [refuseButton addTarget:self action:@selector(refuseAction:) forControlEvents:UIControlEventTouchUpInside];
     [refuseButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.mas_equalTo(-20);
         make.right.mas_equalTo(self.view.mas_centerX);
         make.width.mas_equalTo(btWidth);
         make.height.mas_equalTo(btHeight);
     }];
+    
     UIButton *acceptButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [acceptButton addTarget:self action:@selector(acceptAction:) forControlEvents:UIControlEventTouchUpInside];
     [acceptButton bk_whenTapped:^{
         @strongify(self)
         [self stopRinging];
@@ -86,6 +89,14 @@
     }];
 }
 
+#pragma mark - TouchEvent
+//埋点不做任何操作
+- (void)refuseAction:(UIButton *)sender {
+    
+}
+- (void)acceptAction:(UIButton *)sender {
+    
+}
 - (BOOL)hiddenNavigationBar {
     return YES;
 }

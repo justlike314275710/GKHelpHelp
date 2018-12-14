@@ -17,6 +17,7 @@
 @property (nonatomic, assign) NSInteger page;
 @property (nonatomic, assign) NSInteger pageSize;
 @property (nonatomic, assign) BOOL hasNextPage;
+@property (nonatomic, strong) NSString *type; //type = 3 实地会见
 
 - (void)refreshMessagesCompleted:(RequestDataCompleted)completedCallback failed:(RequestDataFailed)failedCallback;
 - (void)loadMoreMessagesCompleted:(RequestDataCompleted)completedCallback failed:(RequestDataFailed)failedCallback;

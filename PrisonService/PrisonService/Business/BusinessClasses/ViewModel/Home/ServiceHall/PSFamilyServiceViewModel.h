@@ -12,6 +12,7 @@
 @interface PSFamilyServiceViewModel : PSBasePrisonerViewModel
 
 @property (nonatomic, strong, readonly) NSArray *familyServiceItems;
+@property (nonatomic, strong, readonly) NSArray *newfamilyServiceItems;
 @property (nonatomic, strong, readonly) NSArray *otherServiceItems;
 @property (nonatomic,strong)NSMutableArray *array;
 

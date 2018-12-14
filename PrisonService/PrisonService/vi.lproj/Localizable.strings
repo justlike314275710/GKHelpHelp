@@ -28,6 +28,14 @@
 "NetError"="Ngoại lệ máy chủ";
 "goHome"="Quay lại trang chủ";
 "NoContents"="Chưa có nội dung";
+"Unable to connect to server, please check network settings"="Không thể kết nối với máy chủ, vui lòng kiểm tra cài đặt mạng";
+"The purchase quantity cannot be 0"="Số lượng mua không thể 0";
+"The number of purchases cannot exceed 100 sheets"="Số lượng mua không thể vượt quá 100 tờ";
+"Yunxin login failed"="Đăng nhập Yunxin không thành công";
+
+"To apply for this meeting, you need %.2f yuan. If your balance is insufficient, please recharge."="Để đăng ký cuộc họp này, bạn cần% .2f nhân dân tệ. Nếu số dư của bạn không đủ, vui lòng nạp lại.";
+
+
 
 "login_error"="Số điện thoại di động hoặc mật khẩu sai";
 ///登陆
@@ -309,7 +317,7 @@
 "meet_end"="Nhà tù Terminal đã cúp máy.";
 
 //家属汇款
-"family_remittance"="Các gia đình kiều hối";
+//"family_remittance"="Các gia đình kiều hối";
 "remittance_record"="Hồ sơ gửi tiền";
 "remittance_amount"="Thanh toán số tiền";
 "please_enter_amount"="Hãy nhập vào số tiền";
@@ -340,7 +348,53 @@
 "Purchase quantity:"="Mua số lượng:";
 "Amount of money:"="Số tiền:";
 "piece"="Tấm";
-"Input purchase quantity"="Mua số lượng nhập";
+"Input purchase quantity"="Số lượng mua";
+"Please enter the purchase quantity"="Hãy nhập vào mua số lượng";
+"Historical record"="Lịch sử";
+"You have made an appointment to meet in the field at%@"="Bạn đã hẹn gặp của%@ thực địa";
+"Please wait patiently for the audit results during the booking audit"="Hẹn xét duyệt, hãy kiên nhẫn chờ kết quả xét duyệt";
+"Audit failed"="Chưa qua chỉnh sửa";
+"Re appointment"="Hẹn gặp lại.";
+"Audit is approved. Please attend the meeting of%@on time."="Xét duyệt qua, xin hãy đến đúng giờ tham gia%@ gặp";
+"Family card service"="Dịch vụ thẻ.";
+"Family card"="Thẻ.";
+"purchase"="Mua";
+"refund"="Trả lại";
+"Save money and save trouble. Family Card Mobile Phone Long-distance Meeting Bridge"="Thẻ tiết kiệm giảm bớt thủ tục, gặp cầu từ điện thoại.";
+"Family card recharge"="Thẻ nạp tiền.";
+"This month"="Tháng này.";
+"Recharge"="Sạc pin thôi.";
+"consumption"="Người tiêu dùng";
+"UnknownPayment"="Thanh toán không xác định";
+
+"Add relatives"="Thêm người thân";
+"Prisoner information"="Thông tin tù nhân";
+"Family information"="Thông tin gia đình";
+"Click to upload the side with the avatar"="Nhấn vào đây để tải lên bên với hình đại diện";
+"Click to upload the side with the national emblem"="Nhấn vào đây để tải lên bên với biểu tượng quốc gia";
+"Upload relationship certificate"="Tải lên giấy chứng nhận mối quan hệ";
+"Click to upload proof of relationship"="Nhấn vào đây để tải lên bằng chứng về mối quan hệ";
+"(Non-required, you can continue to the next step)"="(Không bắt buộc, bạn có thể tiếp tục bước tiếp theo)";
+"Add it now"="Thêm bây giờ";
+"Successful avatar upload"="Tải lên avatar thành công";
+"Avatar upload failed"="Tải lên hình đại diện không thành công";
+"ID card identification error"="Lỗi nhận dạng chứng minh nhân dân";
+"Current device has no camera function"="Thiết bị hiện tại không có chức năng camera";
+"Please upload an avatar"="Vui lòng tải lên một hình đại diện";
+"Please upload a photo of your ID with a avatar"="Vui lòng tải lên một hình ảnh ID của bạn với một hình đại diện";
+"Please upload a photo of the ID card with the national emblem"="Vui lòng tải lên một hình ảnh của thẻ ID với quốc huy";
+"Choose from album"="Chọn từ album";
+"Take a photo"="Chụp ảnh";
+
+"Order number"="Số thứ tự";
+"buy again"="Mua lại";
+"total"="Tổng cộng";
+"payment method"="Phương thức thanh toán";
+"Total %ld items"="Tổng số %ld mục";
+"No camera permissions"="Không có quyền camera";
+"The binding application you submitted is under review, please be patient~"="Ứng dụng đóng sách đang được xem xét, vui lòng đợi ~";
+"The prison is a free meeting with the prison, no need to buy"="Nhà tù là một cuộc họp miễn phí với nhà tù, không cần phải mua";
+"Please select the item you want to buy"="Vui lòng chọn mục bạn muốn mua";
 
 
 

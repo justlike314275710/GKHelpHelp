@@ -14,10 +14,11 @@
 @property (nonatomic, strong) NSString<Optional> *name;
 @property (nonatomic, strong) NSString<Optional> *phone;
 @property (nonatomic, strong) NSString<Optional> *uuid;
+@property (nonatomic, strong) NSString<Optional> *openId;
 @property (nonatomic, strong) NSString<Optional> *avatarUrl;
 @property (nonatomic, strong) NSString<Optional> *idCardFront;
 @property (nonatomic, strong) NSString<Optional> *idCardBack;
 @property (nonatomic, assign) CGFloat balance;
 @property (nonatomic, strong) NSString<Optional> *isNoticed;
-@property (nonatomic , strong) NSString *createdAt;
+@property (nonatomic ,strong) NSString *createdAt;
 @end

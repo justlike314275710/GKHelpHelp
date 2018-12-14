@@ -8,6 +8,11 @@
 
 #import "AppDelegate+other.h"
 #import <AFNetworking/AFNetworking.h>
+#import <Bugly/Bugly.h>
+#import "SDTrackTool.h"
+#define BuglyAppID @"21f609a887"
+#define BuglyAppIDKey @"1456f3ed-eb99-458b-9ac8-227261185610"
+
 
 @interface AppDelegate()
 
@@ -58,5 +63,14 @@
     [netManager startMonitoring];
     
 }
+
+- (void)registerBugly {
+    [Bugly startWithAppId:BuglyAppID];
+}
+
+- (void)registerUMMob {
+    [SDTrackTool configure];
+}
+
 
 @end

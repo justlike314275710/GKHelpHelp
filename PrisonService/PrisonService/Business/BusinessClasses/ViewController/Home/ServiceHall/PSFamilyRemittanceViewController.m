@@ -261,7 +261,7 @@
     
     UIImageView *bgImg = [UIImageView new];
     [bgView addSubview:bgImg];
-    bgImg.image = [UIImage imageNamed:@"敬请期待图"];
+    bgImg.image = [UIImage R_imageNamed:@"敬请期待图"];
     bgImg.contentMode = UIViewContentModeScaleAspectFit;
     [bgImg mas_makeConstraints:^(MASConstraintMaker *make) {
         make.center.centerY.mas_equalTo(bgView);

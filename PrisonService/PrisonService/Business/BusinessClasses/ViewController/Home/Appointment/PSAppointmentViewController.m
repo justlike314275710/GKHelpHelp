@@ -111,12 +111,20 @@
             NSString*apply_success=NSLocalizedString(@"apply_success", @"会见申请成功");
             [PSTipsView showTips:apply_success];
             [self refreshData:YES];
-           
+            //埋点...
+            [SDTrackTool logEvent:APPLY_FAMILY_CALL attributes:@{STATUS:MobSUCCESS}];
+            
         }else{
+            
+            NSString*determine=NSLocalizedString(@"determine", @"确定");
+            NSString*cancel=NSLocalizedString(@"cancel", @"取消");
             [PSAlertView showWithTitle:nil message:response.msg messageAlignment:NSTextAlignmentCenter image:nil handler:^(PSAlertView *alertView, NSInteger buttonIndex) {
                 
-            } buttonTitles:@"取消",@"确定", nil];
+            } buttonTitles:cancel,determine, nil];
             //[PSTipsView showTips:response.msg ? response.msg : @"预约失败"];
+            //埋点...
+            NSString *mobError = response.msg?response.msg:@"预约失败";
+            [SDTrackTool logEvent:APPLY_FAMILY_CALL attributes:@{STATUS:MobFAILURE,ERROR_STR:mobError}];
         }
     } failed:^(NSError *error) {
         @strongify(self)
@@ -153,7 +161,7 @@
     self.selectArray=nil;
      PSAppointmentViewModel *appointmentViewModel = (PSAppointmentViewModel *)self.viewModel;
     PSPrisonerFamliesViewModel *prisonerFamliesViewModel = [[PSPrisonerFamliesViewModel alloc]init];
- prisonerFamliesViewModel.face_recognition=appointmentViewModel.jailConfiguration.face_recognition;
+   prisonerFamliesViewModel.face_recognition=appointmentViewModel.jailConfiguration.face_recognition;
     PSPrisonerFamilesViewController*familesViewController=[[PSPrisonerFamilesViewController alloc]initWithViewModel:prisonerFamliesViewModel];
     familesViewController.returnValueBlock = ^(NSArray *arrayValue) {
         self.selectArray=arrayValue;
@@ -176,11 +184,15 @@
     PSAppointmentViewModel *appointmentViewModel = (PSAppointmentViewModel *)self.viewModel;
     CGFloat price = appointmentViewModel.phoneCard.price;
     if (price-self.Balance>0.0000001) {
-        [PSAlertView showWithTitle:nil message:[NSString stringWithFormat:@"申请本次会见需要%.2f元，您的余额不足请充值",price] messageAlignment:NSTextAlignmentCenter image:nil handler:^(PSAlertView *alertView, NSInteger buttonIndex) {
+        NSString*determine=NSLocalizedString(@"determine", @"确定");
+        NSString*cancel=NSLocalizedString(@"cancel", @"取消");
+        NSString*msg = NSLocalizedString(@"To apply for this meeting, you need %.2f yuan. If your balance is insufficient, please recharge.", @"申请本次会见需要%.2f元，您的余额不足请充值");
+        
+        [PSAlertView showWithTitle:nil message:[NSString stringWithFormat:msg,price] messageAlignment:NSTextAlignmentCenter image:nil handler:^(PSAlertView *alertView, NSInteger buttonIndex) {
             if (buttonIndex == 1) {
                 [self buyCardAction];
             }
-        } buttonTitles:@"取消",@"确定", nil];
+        } buttonTitles:cancel,determine, nil];
     }else{
          NSString*notice_title=NSLocalizedString(@"notice_title", @"提请注意");
         NSString*notice_agreed=NSLocalizedString(@"notice_agreed", @"同意");
@@ -243,7 +255,7 @@
         NSString*notice_disagreed=NSLocalizedString(@"notice_disagreed", @"取消");
         [PSAlertView showWithTitle:notice_title message:[NSString stringWithFormat:notice_content,meetJailsnnmeViewModel.jailsSting] messageAlignment:NSTextAlignmentCenter image:nil handler:^(PSAlertView *alertView, NSInteger buttonIndex) {
             if (buttonIndex == 1) {
-                [self settlementAction];
+                [self settlementAction:meetJailsnnmeViewModel.jailsSting];
             }
         } buttonTitles:notice_disagreed,notice_agreed, nil];
     } failed:^(NSError *error) {
@@ -251,7 +263,8 @@
         if (error.code>=500) {
             [self showNetError];
         } else {
-            [PSTipsView showTips:@"无法连接到服务器,请检查网络设置"];
+            NSString *tips = NSLocalizedString(@"Unable to connect to server, please check network settings",@"无法连接到服务器,请检查网络设置");
+            [PSTipsView showTips:tips];
         }
     }];
 }
@@ -259,6 +272,8 @@
 - (void)buyCard:(NSInteger)index {
     
     PSCartViewModel *cartViewModel = self.cartViewModel;
+    cartViewModel.amount = index*_buyModel.Amount_of_money;
+    cartViewModel.totalQuantity = index;
     PSPayView *payView = [PSPayView new];
     [payView setGetAmount:^CGFloat{
         return index*_buyModel.Amount_of_money;
@@ -314,11 +329,13 @@
                     if (error) {
                         if (error.code != 106 && error.code != 206) {
                             [PSTipsView showTips:error.domain];
+                            [SDTrackTool logEvent:BUY_FAMILY_CARD attributes:@{STATUS:MobFAILURE,ERROR_STR:error.domain,PAY_TYPE:payInfo.payment}];
                         }
                     }else{
 //                        [self.navigationController popViewControllerAnimated:NO];
                         self.payView.status = PSPaySuccessful;
                         [[NSNotificationCenter defaultCenter]postNotificationName:JailChange object:nil];
+                        [SDTrackTool logEvent:BUY_FAMILY_CARD attributes:@{STATUS:MobSUCCESS,PAY_TYPE:payInfo.payment}];
                     }
                 }];
             }
@@ -326,20 +343,22 @@
     }
 }
 
-- (void)settlementAction {
+- (void)settlementAction:(NSString *)prison_names {
     if (self.cartViewModel.quantity > 0 &&self.cartViewModel.amount>0) {
         _buyModel = [[PSBuyModel alloc] init];
         _buyModel.family_members = [PSSessionManager sharedInstance].session.families.name;
         _buyModel.Amount_of_money = self.cartViewModel.amount;
-        _buyModel.Inmates = _prisonerDetail.name;
+        _buyModel.Inmates = prison_names;
         _buyModel.Prison_name = _prisonerDetail.jailName;
         [self.buyCardView showView:self];
         
     }else{
         if (self.cartViewModel.amount==0) {
-            [PSTipsView showTips:@"该监狱为免费会见监狱,无需购买"];
+            NSString *msg = NSLocalizedString(@"The prison is a free meeting with the prison, no need to buy", @"该监狱为免费会见监狱,无需购买");
+            [PSTipsView showTips:msg];
         } else {
-            [PSTipsView showTips:@"请选中您要购买的商品"];
+            NSString *msg = NSLocalizedString(@"Please select the item you want to buy", @"请选中您要购买的商品");
+            [PSTipsView showTips:msg];
         }
     }
 }

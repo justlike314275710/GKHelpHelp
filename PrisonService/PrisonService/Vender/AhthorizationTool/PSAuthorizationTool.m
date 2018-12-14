@@ -125,7 +125,7 @@
             [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alertController animated:YES completion:nil];
         }
     }else {
-        [PSTipsView showTips:@"当前设备无相机功能"];
+        [PSTipsView showTips:NSLocalizedString(@"Current device has no camera function", @"当前设备无相机功能")];
     }
     if (block) {
         block(videoResult && audioResult);
@@ -179,7 +179,7 @@
             [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alertController animated:YES completion:nil];
         }
     }else {
-        [PSTipsView showTips:@"当前设备无相机功能"];
+        [PSTipsView showTips:NSLocalizedString(@"Current device has no camera function", @"当前设备无相机功能")];
     }
     if (block) {
         block(videoResult);

@@ -18,7 +18,7 @@
     // Do any additional setup after loading the view.
     NSString*work_dynamic=NSLocalizedString(@"work_dynamic", @"工作动态");
    // self.title = work_dynamic;
-    self.titleLabel.text=work_dynamic;
+    self.title =work_dynamic;
 }
 
 - (void)didReceiveMemoryWarning {

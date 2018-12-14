@@ -11,6 +11,7 @@
 #import "PSUserSession.h"
 @interface PSTransactionRecordViewModel : PSBaseServiceViewModel
 @property (nonatomic, strong) NSArray *transactionRecords;
+@property (nonatomic, strong) NSArray *transMonths;
 @property (nonatomic, strong) PSUserSession *session;
 
 - (void)refreshRefundCompleted:(RequestDataCompleted)completedCallback failed:(RequestDataFailed)failedCallback;

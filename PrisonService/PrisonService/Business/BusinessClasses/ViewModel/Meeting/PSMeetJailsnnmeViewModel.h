@@ -14,4 +14,6 @@
 @property (nonatomic , strong) NSMutableArray *array;
 @property (nonatomic, strong) NSMutableArray *prisons;
 - (void)requestMeetJailsterCompleted:(RequestDataCompleted)completedCallback failed:(RequestDataFailed)failedCallback;
+- (void)requestMeetAllJailsterCompleted:(RequestDataCompleted)completedCallback failed:(RequestDataFailed)failedCallback;
+
 @end

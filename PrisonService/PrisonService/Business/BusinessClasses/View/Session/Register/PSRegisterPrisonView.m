@@ -19,7 +19,7 @@
 
 - (void)renderContents {
     
-    UIFont *textFont = AppBaseTextFont2;
+    UIFont *textFont =  [NSObject judegeIsVietnamVersion]?FontOfSize(12):AppBaseTextFont2;
     UIColor *titleColor = AppBaseTextColor3;
     UIColor *commonColor = AppBaseTextColor2;
     UIColor *borderColor = AppBaseLineColor;
@@ -63,6 +63,7 @@
     _proviceLabel.backgroundColor = [UIColor clearColor];
     _proviceLabel.font = textFont;
     _proviceLabel.textColor = commonColor;
+    _prisonLabel.numberOfLines = 0;
     NSString*Select_province=NSLocalizedString(@"Select_province", @"请选择省");
     _proviceLabel.text = Select_province;
     [self addSubview:_proviceLabel];
@@ -94,6 +95,7 @@
     _cityLabel.textColor = commonColor;
     NSString*Select_city=NSLocalizedString(@"Select_city", @"请选择市");
     _cityLabel.text = Select_city;
+    _cityLabel.numberOfLines = 0;
     [self addSubview:_cityLabel];
     [_cityLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(_cityButton.mas_left).offset(textLeftMargin);

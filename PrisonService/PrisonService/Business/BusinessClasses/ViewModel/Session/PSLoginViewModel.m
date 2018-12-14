@@ -142,6 +142,14 @@
                 //[PSSessionManager sharedInstance].session=self.session;
             }
         }
+        if ([responseObject[@"code"]integerValue] == 400) {
+            if (responseObject[@"data"]) {
+                self.session =[[PSUserSession alloc]initWithDictionary:responseObject[@"data"] error:nil];
+                //[PSSessionManager sharedInstance].session=self.session;
+            }
+        }
+        
+        //13875136862
         if (completedCallback) {
             completedCallback(responseObject);
         }

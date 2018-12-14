@@ -15,7 +15,7 @@
 #import "PSTransactionRecordViewModel.h"
 #import "PSTransactionRecord.h"
 #import "PSRefundCell.h"
-
+#import "NSDate+Components.h"
 @interface PSRefundViewController ()<UITableViewDataSource,UITableViewDelegate,DZNEmptyDataSetSource,DZNEmptyDataSetDelegate>
 @property (nonatomic, strong) UITableView *honorTableView;
 @end
@@ -77,13 +77,14 @@
 }
 
 - (void)renderContents {
-    _honorTableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
+    _honorTableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
     self.honorTableView.dataSource = self;
     self.honorTableView.delegate = self;
     self.honorTableView.emptyDataSetSource = self;
     self.honorTableView.emptyDataSetDelegate = self;
-    self.honorTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    self.honorTableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
     self.honorTableView.backgroundColor = [UIColor clearColor];
+    self.honorTableView.tableFooterView = [UIView new];
     @weakify(self)
     self.honorTableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
         @strongify(self)
@@ -105,9 +106,73 @@
 }
 
 #pragma mark - UITableViewDataSource
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    PSTransactionRecordViewModel *rewardViewModel =(PSTransactionRecordViewModel *)self.viewModel;
+    return rewardViewModel.transMonths.count;
+
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    return 40;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+    return 1;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.width, 1)];
+    return view;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    
+    PSTransactionRecordViewModel *rewardViewModel =(PSTransactionRecordViewModel *)self.viewModel;
+    PSTransactionRecord *model = rewardViewModel.transMonths[section][0];
+    NSString *createdMonth = model.createdMonth;
+    NSString *refundTotal = model.refundTotal; //退款
+    NSString *rechargeTotal = model.rechargeTotal; //充值
+    NSString *consumeTotal = model.consumeTotal; //消费
+    
+    NSDate *date = [NSDate date];
+    NSString *nowMonth= [date dateStringWithFormat:@"yyyy-MM"];
+    if ([nowMonth isEqualToString:model.createdMonth]) {
+        NSString *this_month = NSLocalizedString(@"This month", @"本月");
+        createdMonth = this_month;
+    }
+    UIView *headView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.width, 60)];
+    headView.backgroundColor = UIColorFromRGB(249, 248, 254);
+    UILabel *monthLab = [[UILabel alloc] initWithFrame:CGRectMake(15,0, 200, 20)];
+    monthLab.textAlignment = NSTextAlignmentLeft;
+    monthLab.font = FontOfSize(12);
+    monthLab.textColor = UIColorFromRGB(51,51,51);
+    monthLab.text = createdMonth;
+    [headView addSubview:monthLab];
+    
+    
+    NSString *Recharge = NSLocalizedString(@"Recharge", @"充值");
+    NSString *refund = NSLocalizedString(@"refund", @"退款");
+    NSString *consumption = NSLocalizedString(@"consumption", @"消费");
+    
+    NSString *text = [NSString stringWithFormat:@"%@%.2f元 %@%.2f元 %@%.2f元",Recharge,[rechargeTotal floatValue],refund,[refundTotal floatValue],consumption,[consumeTotal floatValue]];
+    if ([NSObject judegeIsVietnamVersion]) {
+        text = [NSString stringWithFormat:@"%@%.2f %@%.2f %@%.2f",Recharge,[rechargeTotal floatValue],refund,[refundTotal floatValue],consumption,[consumeTotal floatValue]];
+    }
+    UILabel *czLab = [[UILabel alloc] initWithFrame:CGRectMake(15, monthLab.bottom,headView.width-15,20)];
+    czLab.text = text;
+    czLab.textAlignment = NSTextAlignmentLeft;
+    czLab.font = FontOfSize(10);
+    czLab.textColor = UIColorFromRGB(153, 153, 153);
+    [headView addSubview:czLab];
+
+    return headView;
+}
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     PSTransactionRecordViewModel *rewardViewModel =(PSTransactionRecordViewModel *)self.viewModel;
-    return rewardViewModel.transactionRecords.count;
+    NSArray *month = rewardViewModel.transMonths;
+    NSArray *monthItem = month[section];
+    return monthItem.count;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -117,16 +182,25 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     PSRefundCell*cell = [tableView dequeueReusableCellWithIdentifier:@"PSRefundCell"];
     PSTransactionRecordViewModel *recordViewModel =(PSTransactionRecordViewModel *)self.viewModel;
-    PSTransactionRecord *recordModel = recordViewModel.transactionRecords[indexPath.row];
-    cell.dateLabel.text=[recordModel.createdAt timestampToDateString];
+    NSArray *month = recordViewModel.transMonths;
+    NSArray *monthItem = month[indexPath.section];
+    PSTransactionRecord *recordModel = monthItem[indexPath.row];
+    cell.dateLabel.text=[recordModel.createdAt timestampToDateDetailString];
     cell.titleLabel.text=recordModel.reason;
     cell.contentLabel.text=recordModel.money;
+    if ([recordModel.money containsString:@"+"]) {
+        cell.contentLabel.textColor =  [UIColor redColor];
+    } else {
+        cell.contentLabel.textColor =  UIColorFromRGB(51, 51, 51);
+    }
+    
     
     return cell;
 }
 
 #pragma mark - DZNEmptyDataSetSource and DZNEmptyDataSetDelegate
 - (UIImage *)imageForEmptyDataSet:(UIScrollView *)scrollView {
+    
     PSTransactionRecordViewModel *rewardViewModel =(PSTransactionRecordViewModel *)self.viewModel;
     UIImage *emptyImage = rewardViewModel.dataStatus == PSDataEmpty ? [UIImage imageNamed:@"universalNoneIcon"] : [UIImage imageNamed:@"universalNetErrorIcon"];
     return rewardViewModel.dataStatus == PSDataInitial ? nil : emptyImage;
@@ -141,7 +215,7 @@
 
 - (NSAttributedString *)buttonTitleForEmptyDataSet:(UIScrollView *)scrollView forState:(UIControlState)state {
     PSTransactionRecordViewModel *rewardViewModel =(PSTransactionRecordViewModel *)self.viewModel;
-    return rewardViewModel.dataStatus == PSDataError ? [[NSAttributedString alloc] initWithString:@"点击加载" attributes:@{NSFontAttributeName:AppBaseTextFont1,NSForegroundColorAttributeName:AppBaseTextColor1}] : nil;
+    return rewardViewModel.dataStatus == PSDataError ? [[NSAttributedString alloc] initWithString:CLICK_ADD attributes:@{NSFontAttributeName:AppBaseTextFont1,NSForegroundColorAttributeName:AppBaseTextColor1}] : nil;
 }
 
 - (void)emptyDataSet:(UIScrollView *)scrollView didTapView:(UIView *)view {

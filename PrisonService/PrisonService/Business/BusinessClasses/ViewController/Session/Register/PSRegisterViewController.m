@@ -191,11 +191,13 @@
                 self.callback(YES,registerViewModel.session);
             }
             [PSTipsView showTips:response.msg ? response.msg : @"认证成功"];
-
+            [SDTrackTool logEvent:YUWUTONG_AUTH attributes:@{STATUS:MobSUCCESS}];
          
             [self.navigationController pushViewController:[[PSSessionNoneViewController alloc]init] animated:YES];
         }else{
             [PSTipsView showTips:response.msg ? response.msg : @"认证失败"];
+            NSString *MobMsg = response.msg?response.msg:@"认证失败";
+            [SDTrackTool logEvent:YUWUTONG_AUTH attributes:@{STATUS:MobFAILURE,ERROR_STR:MobMsg}];
         }
     } failed:^(NSError *error) {
         @strongify(self)

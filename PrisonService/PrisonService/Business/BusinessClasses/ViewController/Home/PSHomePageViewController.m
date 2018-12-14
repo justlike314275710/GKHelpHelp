@@ -30,6 +30,8 @@
 #import "JXButton.h"
 #import "PSCache.h"
 #import "PSVersonUpdateViewModel.h"
+#import "PSEcomLoginViewmodel.h"
+#import "NSObject+version.h"
 
 
 @interface PSHomePageViewController ()
@@ -43,6 +45,8 @@
 @property (nonatomic, strong) PSUserSession *session;
 @property (nonatomic, strong) UIScrollView *myScrollview;
 @property (nonatomic, strong) UIImageView *bgAdvBgView;
+@property (nonatomic, assign) NSInteger getTokenCount;
+
 
 @end
 
@@ -53,10 +57,17 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     self.tabBarController.tabBar.hidden = NO;
+    _getTokenCount = 0;
+
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    //判断是否2.1.13 版本是否需要强制退出一次
+//    if ([NSObject judgeIsforceLogout]&&![[LXFileManager readUserDataForKey:@"isVistor"] isEqualToString:@"YES"]) {
+//        NSLog(@"退出重新登录");
+//        [[PSSessionManager sharedInstance] doLogout];
+//    } 
     //更新
     PSVersonUpdateViewModel *UpdateViewModel = [PSVersonUpdateViewModel new];
     [UpdateViewModel VersonUpdate];
@@ -68,6 +79,19 @@
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(refreshData) name:JailChange object:nil];
 
 }
+
+//重新获取TOKEN
+-(void)requestOfRefreshToken{
+    
+    PSEcomLoginViewmodel*ecomViewmodel=[[PSEcomLoginViewmodel alloc]init];
+    [ecomViewmodel postRefreshEcomLogin:^(PSResponse *response) {
+        //重新登陆
+        [self refreshDataFromLoginStatus];
+    } failed:^(NSError *error) {
+        [self showNetError];
+    }];
+}
+
 
 - (void)dealloc
 {
@@ -218,7 +242,16 @@
 
        
     } failed:^(NSError *error) {
-        [self showNetError];
+        //TOKEN 失效
+        if ([error.userInfo[@"NSLocalizedDescription"] isEqualToString:@"Request failed: unauthorized (401)"]) {
+            NSLog(@"token 失效");
+            _getTokenCount ++;
+            if (_getTokenCount<2) {
+                [self requestOfRefreshToken];
+            }
+        } else {
+            [self showNetError];
+        }
     }];
 }
 
@@ -348,12 +381,13 @@
         make.height.mas_equalTo(13);
         make.width.mas_equalTo(50);
     }];
+    //写成这样方便埋点
+    [prisonIntroduceButtonBg addTarget:self action:@selector(p_InsertPrisonIntroduce:) forControlEvents:UIControlEventTouchUpInside];
     
-
-    [prisonIntroduceButtonBg bk_whenTapped:^{
-        PSPrisonIntroduceViewController *prisonViewController = [[PSPrisonIntroduceViewController alloc] initWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",PrisonDetailUrl,self.defaultJailId]]];
-        [self.navigationController pushViewController:prisonViewController animated:YES];
-    }];
+//    [prisonIntroduceButtonBg bk_whenTapped:^{
+//        PSPrisonIntroduceViewController *prisonViewController = [[PSPrisonIntroduceViewController alloc] initWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@?t=%@",PrisonDetailUrl,self.defaultJailId,[NSDate getNowTimeTimestamp]]]];
+//        [self.navigationController pushViewController:prisonViewController animated:YES];
+//    }];
     
 //    [prisonIntroduceButton bk_whenTapped:^{
 //
@@ -390,20 +424,22 @@
     [publicButton setTitle:prison_opening forState:0];
     [publicButton setTitleColor:[UIColor blackColor] forState:0];
     [publicButton setImage:[UIImage imageNamed:@"狱务公开"] forState:0];
-    [publicButton bk_whenTapped:^{
-        PSWorkViewModel *viewModel = [PSWorkViewModel new];
-        viewModel.newsType = PSNewsPrisonPublic;
-        PSPublicViewController *publicViewController = [[PSPublicViewController alloc] initWithViewModel:viewModel];
-        publicViewController.jailId=self.defaultJailId;
-        publicViewController.jailName=self.defaultJailName;
-        if (self.defaultJailId==nil||self.defaultJailName==nil) {
-            [PSTipsView showTips:@"当前网络不支持"];
-        } else {
-            publicViewController.hidesBottomBarWhenPushed=YES;
-            [self.navigationController pushViewController:publicViewController animated:YES];
-            publicViewController.hidesBottomBarWhenPushed=NO;
-        }
-    }];
+    [publicButton addTarget:self action:@selector(p_InsertPrisonPublic:) forControlEvents:UIControlEventTouchUpInside];
+    
+//    [publicButton bk_whenTapped:^{
+//        PSWorkViewModel *viewModel = [PSWorkViewModel new];
+//        viewModel.newsType = PSNewsPrisonPublic;
+//        PSPublicViewController *publicViewController = [[PSPublicViewController alloc] initWithViewModel:viewModel];
+//        publicViewController.jailId=self.defaultJailId;
+//        publicViewController.jailName=self.defaultJailName;
+//        if (self.defaultJailId==nil||self.defaultJailName==nil) {
+//            [PSTipsView showTips:@"当前网络不支持"];
+//        } else {
+//            publicViewController.hidesBottomBarWhenPushed=YES;
+//            [self.navigationController pushViewController:publicViewController animated:YES];
+//            publicViewController.hidesBottomBarWhenPushed=NO;
+//        }
+//    }];
     
     UIView *dashLine = [[UIView alloc]initWithFrame:CGRectMake(SCREEN_WIDTH/2-sidePadding+1, 0, 1, 200)];
     dashLine.backgroundColor=AppBaseLineColor;
@@ -414,13 +450,15 @@
      NSString*laws_regulations=NSLocalizedString(@"laws_regulations", @"法律法规");
     [lawButton setTitle:laws_regulations forState:0];
     [lawButton setTitleColor:[UIColor blackColor] forState:0];
-    lawButton .titleLabel.font=FontOfSize(12);
+    lawButton .titleLabel.font=  [NSObject judegeIsVietnamVersion]?FontOfSize(10):FontOfSize(12);
+    lawButton.titleLabel.numberOfLines = 0;
     [lawButton setImage:[UIImage imageNamed:@"法律法规"] forState:0];
     [lawButton setImageEdgeInsets:UIEdgeInsetsMake(0.0, -20, 0.0, 0.0)];//间距
-    [lawButton bk_whenTapped:^{
-        PSLawViewController *lawViewController = [[PSLawViewController alloc] init];
-        [self.navigationController pushViewController:lawViewController animated:YES];
-    }];
+    [lawButton addTarget:self action:@selector(p_insertLaw:) forControlEvents:UIControlEventTouchUpInside];
+//    [lawButton bk_whenTapped:^{
+//        PSLawViewController *lawViewController = [[PSLawViewController alloc] init];
+//        [self.navigationController pushViewController:lawViewController animated:YES];
+//    }];
     
     
     UIView *verDashLine = [[UIView alloc]initWithFrame:CGRectMake(SCREEN_WIDTH/2-sidePadding+1, 100, SCREEN_WIDTH/2-sidePadding-2, 1)];
@@ -429,28 +467,72 @@
     UIButton*workButton=[[UIButton alloc]initWithFrame:CGRectMake(SCREEN_WIDTH/2-sidePadding+2, 100, SCREEN_WIDTH/2-sidePadding, 100)];
     [homeHallView addSubview:workButton];
     NSString*work_dynamic=NSLocalizedString(@"work_dynamic", @"工作动态");
+    workButton.titleLabel.numberOfLines = 0;
     [workButton setTitle:work_dynamic forState:0];
     [workButton setTitleColor:[UIColor blackColor] forState:0];
-    workButton .titleLabel.font=FontOfSize(12);
+    workButton .titleLabel.font=  [NSObject judegeIsVietnamVersion]?FontOfSize(10):FontOfSize(12);
     [workButton setImage:[UIImage imageNamed:@"工作动态"] forState:0];
     [workButton setImageEdgeInsets:UIEdgeInsetsMake(0.0, -20, 0.0, 0.0)];
-    [workButton bk_whenTapped:^{
-        PSWorkViewModel *viewModel = [PSWorkViewModel new];
-        viewModel.newsType = PSNewsWorkDynamic;
-        PSDynamicViewController *dynamicViewController = [[PSDynamicViewController alloc] initWithViewModel:viewModel];
-        dynamicViewController.jailId=self.defaultJailId;
-        dynamicViewController.jailName=self.defaultJailName;
-        if (self.defaultJailName==nil||self.defaultJailId==nil) {
-            [PSTipsView showTips:@"当前网络不支持"];
-        } else {
-            [self.navigationController pushViewController:dynamicViewController animated:YES];
-        }
-    }];
+    [workButton addTarget:self action:@selector(p_inserDynamic:) forControlEvents:UIControlEventTouchUpInside];
+//    [workButton bk_whenTapped:^{
+//        PSWorkViewModel *viewModel = [PSWorkViewModel new];
+//        viewModel.newsType = PSNewsWorkDynamic;
+//        PSDynamicViewController *dynamicViewController = [[PSDynamicViewController alloc] initWithViewModel:viewModel];
+//        dynamicViewController.jailId=self.defaultJailId;
+//        dynamicViewController.jailName=self.defaultJailName;
+//        if (self.defaultJailName==nil||self.defaultJailId==nil) {
+//            [PSTipsView showTips:@"当前网络不支持"];
+//        } else {
+//            [self.navigationController pushViewController:dynamicViewController animated:YES];
+//        }
+//    }];
     
     if ([[LXFileManager readUserDataForKey:@"isVistor"]isEqualToString:@"YES"]){
         _messageButton.hidden=YES;
     }
     
+}
+
+#pragma mark - TouchEvent
+//监狱简介
+-(void)p_InsertPrisonIntroduce:(UIButton *)sender {
+    PSPrisonIntroduceViewController *prisonViewController = [[PSPrisonIntroduceViewController alloc] initWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@?t=%@",PrisonDetailUrl,self.defaultJailId,[NSDate getNowTimeTimestamp]]]];
+    [self.navigationController pushViewController:prisonViewController animated:YES];
+}
+//狱务公开
+-(void)p_InsertPrisonPublic:(UIButton *)sender {
+    
+    PSWorkViewModel *viewModel = [PSWorkViewModel new];
+    viewModel.newsType = PSNewsPrisonPublic;
+    PSPublicViewController *publicViewController = [[PSPublicViewController alloc] initWithViewModel:viewModel];
+    publicViewController.jailId=self.defaultJailId;
+    publicViewController.jailName=self.defaultJailName;
+    if (self.defaultJailId==nil||self.defaultJailName==nil) {
+        [PSTipsView showTips:@"当前网络不支持"];
+    } else {
+        publicViewController.hidesBottomBarWhenPushed=YES;
+        [self.navigationController pushViewController:publicViewController animated:YES];
+        publicViewController.hidesBottomBarWhenPushed=NO;
+    }
+}
+//法律法规
+-(void)p_insertLaw:(UIButton *)senser {
+    PSLawViewController *lawViewController = [[PSLawViewController alloc] init];
+    [self.navigationController pushViewController:lawViewController animated:YES];
+}
+//工作动态
+-(void)p_inserDynamic:(UIButton *)sender {
+    
+    PSWorkViewModel *viewModel = [PSWorkViewModel new];
+    viewModel.newsType = PSNewsWorkDynamic;
+    PSDynamicViewController *dynamicViewController = [[PSDynamicViewController alloc] initWithViewModel:viewModel];
+    dynamicViewController.jailId=self.defaultJailId;
+    dynamicViewController.jailName=self.defaultJailName;
+    if (self.defaultJailName==nil||self.defaultJailId==nil) {
+        [PSTipsView showTips:@"当前网络不支持"];
+    } else {
+        [self.navigationController pushViewController:dynamicViewController animated:YES];
+    }
 }
 
 #pragma mark - setting&getting
@@ -469,7 +551,8 @@
     if (!_advView) {
         self.view.backgroundColor=UIColorFromRGBA(248, 247, 254, 1);
         _advView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 244) imageURLStringsGroup:nil];
-        _advView.placeholderImage = [UIImage imageNamed:@"广告图"];
+        NSString *imageName = [NSObject judegeIsVietnamVersion]?@"v广告图":@"广告图";
+        _advView.placeholderImage = [UIImage imageNamed:imageName];
         _advView.bannerImageViewContentMode = UIViewContentModeScaleAspectFill;
     }
     return _advView;

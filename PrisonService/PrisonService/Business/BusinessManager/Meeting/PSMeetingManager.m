@@ -96,6 +96,9 @@
 
 //响铃并显示接听界面
 - (void)ringAndShowMeeting {
+    //埋点...
+    [SDTrackTool logEvent:RECEIVE_REMOTE_CALL];
+    
     PSMeetingViewModel *viewModel = [PSMeetingViewModel new];
     viewModel.jailConfiguration = self.jailConfiguration;
     viewModel.jailName = self.jailName;
@@ -210,10 +213,14 @@
 
 - (void)handleMeetingStatusMessage:(PSMeetingMessage *)message {
 
-    
         NSString *token = [[PSSessionManager sharedInstance].session.token copy];
         [ZQLocalNotification NotificationType:CountdownNotification Identifier:token activityId:1900000 alertBody:message.msg alertTitle:@"狱务通" alertString:@"确定" withTimeDay:0 hour:0 minute:0 second:1];
-        [EBBannerView showWithContent:message.msg];
+//        [EBBannerView showWithContent:message.msg];
+        EBBannerView *banner = [EBBannerView bannerWithBlock:^(EBBannerViewMaker *make) {
+            make.style = 11;
+            make.content = message.msg;
+        }];
+        [banner show];
  
 }
 
@@ -255,6 +262,8 @@
             NSString*meet_end=NSLocalizedString(@"meet_end", @"监狱终端已挂断");
             [WXZTipView showBottomWithText:meet_end];
             [self clearMeeting];
+            //埋点....
+            [SDTrackTool logEvent:VIDEO_MEETING_COMPLETE];
 
             
         }

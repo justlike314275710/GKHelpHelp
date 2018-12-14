@@ -28,9 +28,9 @@
     NSString*prierid=prisonerDetail.prisonerId;
     NSString*newLawUrl=[[NSString alloc]init];
     if (prierid) {
-        newLawUrl=[NSString stringWithFormat:@"%@?prisonerId=%@",LawUrl,prierid];
+        newLawUrl=[NSString stringWithFormat:@"%@&prisonerId=%@",LawUrl,prierid];
     } else {
-         newLawUrl=[NSString stringWithFormat:@"%@?prisonerId=0",LawUrl];
+         newLawUrl=[NSString stringWithFormat:@"%@&prisonerId=0",LawUrl];
     }
     NSLog(@"%@",newLawUrl);
     self = [super initWithURL:[NSURL URLWithString:newLawUrl]];

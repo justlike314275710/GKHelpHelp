@@ -53,12 +53,13 @@
     [titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(titleIconView.mas_right).offset(10);
         make.top.bottom.mas_equalTo(0);
-        make.width.mas_equalTo(60);
+        make.width.mas_equalTo(140);
     }];
     _orderNOLabel = [UILabel new];
     _orderNOLabel.font = FontOfSize(10);
     _orderNOLabel.textColor = AppBaseTextColor1;
     _orderNOLabel.textAlignment = NSTextAlignmentRight;
+    _orderNOLabel.numberOfLines = 0;
     [titleView addSubview:_orderNOLabel];
     [_orderNOLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(titleLabel.mas_right).offset(10);
@@ -159,7 +160,11 @@
         make.right.mas_equalTo(-horSideSpace);
         make.top.mas_equalTo(line.mas_bottom);
         make.bottom.mas_equalTo(0);
+    
     }];
+
+    NSString *buyAgain = NSLocalizedString(@"buy again", @"再次购买");
+    
     CGSize bSize = CGSizeMake(54, 22);
     _buyButton = [UIButton buttonWithType:UIButtonTypeCustom];
     _buyButton.layer.cornerRadius = bSize.height / 2;
@@ -167,7 +172,7 @@
     _buyButton.layer.borderColor = AppBaseTextColor3.CGColor;
     _buyButton.titleLabel.font = FontOfSize(10);
     [_buyButton setTitleColor:AppBaseTextColor3 forState:UIControlStateNormal];
-    [_buyButton setTitle:@"再次购买" forState:UIControlStateNormal];
+    [_buyButton setTitle:buyAgain forState:UIControlStateNormal];
     [footerView addSubview:_buyButton];
     [_buyButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.mas_equalTo(0);

@@ -10,7 +10,7 @@
 #import "MeetJails.h"
 
 typedef void (^BindingBlock)();
-typedef void (^ChangeBlock)(MeetJails *meetjails);
+typedef void (^ChangeBlock)(MeetPrisonserModel *meetjails);
 
 @interface PSServicePrisonsCell : UICollectionViewCell
 

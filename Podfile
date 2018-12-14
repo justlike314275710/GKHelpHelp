@@ -43,6 +43,8 @@ def shared_pods
     pod 'UITableView+FDTemplateLayoutCell', '~> 1.6'
     pod 'EBBannerView'
     pod 'CDZStarsControl'
+    pod 'UMengAnalytics-NO-IDFA'
+
 end
 
 target 'PrisonService' do

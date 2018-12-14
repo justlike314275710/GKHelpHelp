@@ -73,13 +73,15 @@
 - (void)checkMemberDataWithCallback:(CheckDataCallback)callback {
     if (self.relationShip.length == 0) {
         if (callback) {
-            callback(NO,@"请输入与服刑人员关系");
+            NSString*enter_Relationship=NSLocalizedString(@"enter_Relationship", @"请输入与服刑人员关系");
+            callback(NO,enter_Relationship);
         }
         return;
     }
     if (self.prisonerNumber.length == 0) {
         if (callback) {
-            callback(NO,@"请输入囚号");
+            NSString*enter_PrisonerNumber=NSLocalizedString(@"enter_PrisonerNumber", @"请输入囚号");
+            callback(NO,enter_PrisonerNumber);
         }
         return;
     }
@@ -97,20 +99,20 @@
 - (void)checkIDCardDataWithCallback:(CheckDataCallback)callback {
     if (!self.avatarImage) {
         if (callback) {
-            callback(NO,@"请上传头像");
+            callback(NO,NSLocalizedString(@"Please upload an avatar", @"请上传头像"));
         }
         return;
     }
     
     if (self.frontCardUrl.length == 0) {
         if (callback) {
-            callback(NO,@"请上传带头像一面的身份证照片");
+            callback(NO,NSLocalizedString(@"Please upload a photo of your ID with a avatar", @"请上传带头像一面的身份证照片"));
         }
         return;
     }
     if (self.backCardUrl.length == 0) {
         if (callback) {
-            callback(NO,@"请上传带国徽一面的身份证照片");
+            callback(NO,NSLocalizedString(@"Please upload a photo of the ID card with the national emblem", @"请上传带国徽一面的身份证照片"));
         }
         return;
     }
@@ -123,27 +125,28 @@
 - (void)checkAddFamilesDataWithCallback:(CheckDataCallback)callback {
     if (self.relationShip.length==0) {
         if (callback) {
-            callback(NO,@"请输入与服刑人员关系");
+            NSString*enter_Relationship=NSLocalizedString(@"enter_Relationship", @"请输入与服刑人员关系");
+            callback(NO,enter_Relationship);
         }
         return;
     }
     
     if (!self.avatarImage) {
         if (callback) {
-            callback(NO,@"请上传头像");
+            callback(NO,NSLocalizedString(@"Please upload an avatar", @"请上传头像"));
         }
         return;
     }
     
     if (self.frontCardUrl.length == 0) {
         if (callback) {
-            callback(NO,@"请上传带头像一面的身份证照片");
+            callback(NO,NSLocalizedString(@"Please upload a photo of your ID with a avatar", @"请上传带头像一面的身份证照片"));
         }
         return;
     }
     if (self.backCardUrl.length == 0) {
         if (callback) {
-            callback(NO,@"请上传带国徽一面的身份证照片");
+            callback(NO,NSLocalizedString(@"Please upload a photo of the ID card with the national emblem", @"请上传带国徽一面的身份证照片"));
         }
         return;
     }

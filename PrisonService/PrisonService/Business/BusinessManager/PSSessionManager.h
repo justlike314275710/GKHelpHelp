@@ -31,8 +31,8 @@ typedef void(^SynchronizePrisonerDetailsCompletion)();
 
 @property (nonatomic, assign) PSLoginStatus loginStatus;
 @property (nonatomic, strong) PSUserSession *session;
-@property (nonatomic, strong, readonly) NSArray *passedPrisoners;
-@property (nonatomic, strong, readonly) NSArray *passedPrisonerDetails;
+@property (nonatomic, strong) NSArray *passedPrisoners;
+@property (nonatomic, strong) NSArray *passedPrisonerDetails;
 @property (nonatomic, strong, readonly) PSRegistration *currentRegistration;
 @property (nonatomic, assign) NSInteger selectedPrisonerIndex;
 

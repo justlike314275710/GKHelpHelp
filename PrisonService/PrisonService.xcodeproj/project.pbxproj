@@ -339,6 +339,8 @@
 		3EEEC67E209475A5003B35B3 /* PSGuideViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EEEC67D209475A5003B35B3 /* PSGuideViewController.m */; };
 		3EEEC68220947657003B35B3 /* PSGuideManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EEEC68120947657003B35B3 /* PSGuideManager.m */; };
 		3EEEC686209985B6003B35B3 /* PSLaunchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EEEC685209985B6003B35B3 /* PSLaunchViewController.m */; };
+		5511D6D721ACC511003644AD /* PSAccountrefundViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5511D6D621ACC511003644AD /* PSAccountrefundViewController.m */; };
+		5511D6DA21AEE895003644AD /* NSObject+version.m in Sources */ = {isa = PBXBuildFile; fileRef = 5511D6D921AEE895003644AD /* NSObject+version.m */; };
 		552CBA0E219AA449008CCC03 /* UIViewController+Tool.m in Sources */ = {isa = PBXBuildFile; fileRef = 552CBA0D219AA449008CCC03 /* UIViewController+Tool.m */; };
 		552E617321A4FE5E00FA31FD /* PSBuyCardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 552E617221A4FE5E00FA31FD /* PSBuyCardView.m */; };
 		552E617621A59C7000FA31FD /* PSLocalMeetingAppointmentStatusView.m in Sources */ = {isa = PBXBuildFile; fileRef = 552E617521A59C7000FA31FD /* PSLocalMeetingAppointmentStatusView.m */; };
@@ -346,12 +348,18 @@
 		552E617C21A653A300FA31FD /* PSGetPrisonersRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 552E617B21A653A300FA31FD /* PSGetPrisonersRequest.m */; };
 		552E617F21A6541900FA31FD /* PSGetPrisonerResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 552E617E21A6541900FA31FD /* PSGetPrisonerResponse.m */; };
 		552E618221A65F4100FA31FD /* PSServicePrisonsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 552E618121A65F4100FA31FD /* PSServicePrisonsCell.m */; };
+		55573F9521BE03870053391C /* UIControl+SDTrackTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 55573F8F21BE03870053391C /* UIControl+SDTrackTool.m */; };
+		55573F9621BE03870053391C /* SDTrackEvents.plist in Resources */ = {isa = PBXBuildFile; fileRef = 55573F9021BE03870053391C /* SDTrackEvents.plist */; };
+		55573F9721BE03870053391C /* UIViewController+ SDTrackTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 55573F9121BE03870053391C /* UIViewController+ SDTrackTool.m */; };
+		55573F9821BE03870053391C /* SDTrackTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 55573F9421BE03870053391C /* SDTrackTool.m */; };
+		55573F9B21BE64FB0053391C /* UIImage+Rename.m in Sources */ = {isa = PBXBuildFile; fileRef = 55573F9A21BE64FB0053391C /* UIImage+Rename.m */; };
 		555B5CB721952B8B00B64DF3 /* AppDelegate+other.m in Sources */ = {isa = PBXBuildFile; fileRef = 555B5CB621952B8B00B64DF3 /* AppDelegate+other.m */; };
 		557859BA218994140080437D /* RemittanceRecode.m in Sources */ = {isa = PBXBuildFile; fileRef = 557859B9218994140080437D /* RemittanceRecode.m */; };
 		557859BD2189A3D80080437D /* PSRemittanceBusinessRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 557859BC2189A3D80080437D /* PSRemittanceBusinessRequest.m */; };
 		55B544B2219E891000B0D757 /* CustomTabbar.m in Sources */ = {isa = PBXBuildFile; fileRef = 55B544B1219E891000B0D757 /* CustomTabbar.m */; };
 		55B544B5219EA24C00B0D757 /* UpDateModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 55B544B4219EA24C00B0D757 /* UpDateModel.m */; };
 		55C9EDC42188528300A11D60 /* PSFamilyRemittanceViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 55C9EDC32188528300A11D60 /* PSFamilyRemittanceViewModel.m */; };
+		55CFFF7021C0AA3C00F946E6 /* UMMobEventConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = 55CFFF6F21C0AA3C00F946E6 /* UMMobEventConfig.plist */; };
 		55DA4BBE2189F09900212A23 /* PSRemittanceRecodeViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 55DA4BBD2189F09900212A23 /* PSRemittanceRecodeViewModel.m */; };
 		55E9A8C12186EB33003A5918 /* PSREmittanceRecodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 55E9A8C02186EB33003A5918 /* PSREmittanceRecodeViewController.m */; };
 		55E9A8C42186EDC6003A5918 /* PSRemittanceRecordCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 55E9A8C32186EDC6003A5918 /* PSRemittanceRecordCell.m */; };
@@ -1291,6 +1299,10 @@
 		3EEEC68120947657003B35B3 /* PSGuideManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PSGuideManager.m; sourceTree = "<group>"; };
 		3EEEC684209985B6003B35B3 /* PSLaunchViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PSLaunchViewController.h; sourceTree = "<group>"; };
 		3EEEC685209985B6003B35B3 /* PSLaunchViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PSLaunchViewController.m; sourceTree = "<group>"; };
+		5511D6D521ACC511003644AD /* PSAccountrefundViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PSAccountrefundViewController.h; sourceTree = "<group>"; };
+		5511D6D621ACC511003644AD /* PSAccountrefundViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PSAccountrefundViewController.m; sourceTree = "<group>"; };
+		5511D6D821AEE895003644AD /* NSObject+version.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSObject+version.h"; sourceTree = "<group>"; };
+		5511D6D921AEE895003644AD /* NSObject+version.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSObject+version.m"; sourceTree = "<group>"; };
 		552CBA0C219AA449008CCC03 /* UIViewController+Tool.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIViewController+Tool.h"; sourceTree = "<group>"; };
 		552CBA0D219AA449008CCC03 /* UIViewController+Tool.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+Tool.m"; sourceTree = "<group>"; };
 		552E617121A4FE5E00FA31FD /* PSBuyCardView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PSBuyCardView.h; sourceTree = "<group>"; };
@@ -1305,6 +1317,15 @@
 		552E617E21A6541900FA31FD /* PSGetPrisonerResponse.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PSGetPrisonerResponse.m; sourceTree = "<group>"; };
 		552E618021A65F4100FA31FD /* PSServicePrisonsCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PSServicePrisonsCell.h; sourceTree = "<group>"; };
 		552E618121A65F4100FA31FD /* PSServicePrisonsCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PSServicePrisonsCell.m; sourceTree = "<group>"; };
+		55573F8E21BE03870053391C /* UIViewController+SDTrackTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+SDTrackTool.h"; sourceTree = "<group>"; };
+		55573F8F21BE03870053391C /* UIControl+SDTrackTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIControl+SDTrackTool.m"; sourceTree = "<group>"; };
+		55573F9021BE03870053391C /* SDTrackEvents.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = SDTrackEvents.plist; sourceTree = "<group>"; };
+		55573F9121BE03870053391C /* UIViewController+ SDTrackTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+ SDTrackTool.m"; sourceTree = "<group>"; };
+		55573F9221BE03870053391C /* SDTrackTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDTrackTool.h; sourceTree = "<group>"; };
+		55573F9321BE03870053391C /* UIControl+SDTrackTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIControl+SDTrackTool.h"; sourceTree = "<group>"; };
+		55573F9421BE03870053391C /* SDTrackTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDTrackTool.m; sourceTree = "<group>"; };
+		55573F9921BE64FB0053391C /* UIImage+Rename.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIImage+Rename.h"; sourceTree = "<group>"; };
+		55573F9A21BE64FB0053391C /* UIImage+Rename.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Rename.m"; sourceTree = "<group>"; };
 		555B5CB521952B8B00B64DF3 /* AppDelegate+other.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "AppDelegate+other.h"; sourceTree = "<group>"; };
 		555B5CB621952B8B00B64DF3 /* AppDelegate+other.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "AppDelegate+other.m"; sourceTree = "<group>"; };
 		557859B8218994140080437D /* RemittanceRecode.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RemittanceRecode.h; sourceTree = "<group>"; };
@@ -1318,6 +1339,8 @@
 		55B544B4219EA24C00B0D757 /* UpDateModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UpDateModel.m; sourceTree = "<group>"; };
 		55C9EDC22188528300A11D60 /* PSFamilyRemittanceViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PSFamilyRemittanceViewModel.h; sourceTree = "<group>"; };
 		55C9EDC32188528300A11D60 /* PSFamilyRemittanceViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PSFamilyRemittanceViewModel.m; sourceTree = "<group>"; };
+		55CFFF6F21C0AA3C00F946E6 /* UMMobEventConfig.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = UMMobEventConfig.plist; sourceTree = "<group>"; };
+		55CFFF7121C0ABC600F946E6 /* MobEventConfig.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MobEventConfig.h; sourceTree = "<group>"; };
 		55DA4BBC2189F09900212A23 /* PSRemittanceRecodeViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PSRemittanceRecodeViewModel.h; sourceTree = "<group>"; };
 		55DA4BBD2189F09900212A23 /* PSRemittanceRecodeViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PSRemittanceRecodeViewModel.m; sourceTree = "<group>"; };
 		55E9A8BA2186B02F003A5918 /* PSFamilyRemittanceViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PSFamilyRemittanceViewController.h; sourceTree = "<group>"; };
@@ -2150,6 +2173,10 @@
 				3E78B75A208B0F95007DF162 /* NSString+Date.m */,
 				552CBA0C219AA449008CCC03 /* UIViewController+Tool.h */,
 				552CBA0D219AA449008CCC03 /* UIViewController+Tool.m */,
+				5511D6D821AEE895003644AD /* NSObject+version.h */,
+				5511D6D921AEE895003644AD /* NSObject+version.m */,
+				55573F9921BE64FB0053391C /* UIImage+Rename.h */,
+				55573F9A21BE64FB0053391C /* UIImage+Rename.m */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -2562,6 +2589,7 @@
 		3E5D16032074D4A4000FC779 /* Vender */ = {
 			isa = PBXGroup;
 			children = (
+				55573F8D21BE03870053391C /* SDTrackTool */,
 				EA33785F21003C1C0081B907 /* LYEmptyView */,
 				EAD18F3420D02A770053F82B /* MJExtension */,
 				3EA8F868209026AB00BA23B2 /* ZJSDK */,
@@ -3032,6 +3060,8 @@
 				EA87F5682105BBA200D7A1E4 /* PSAccountEmailViewController.m */,
 				EA87F56D2105BC2B00D7A1E4 /* PSAccountAddressViewController.h */,
 				EA87F56E2105BC2B00D7A1E4 /* PSAccountAddressViewController.m */,
+				5511D6D521ACC511003644AD /* PSAccountrefundViewController.h */,
+				5511D6D621ACC511003644AD /* PSAccountrefundViewController.m */,
 			);
 			path = Account;
 			sourceTree = "<group>";
@@ -3684,6 +3714,22 @@
 				3EEEC685209985B6003B35B3 /* PSLaunchViewController.m */,
 			);
 			path = Launch;
+			sourceTree = "<group>";
+		};
+		55573F8D21BE03870053391C /* SDTrackTool */ = {
+			isa = PBXGroup;
+			children = (
+				55573F8E21BE03870053391C /* UIViewController+SDTrackTool.h */,
+				55573F9121BE03870053391C /* UIViewController+ SDTrackTool.m */,
+				55573F8F21BE03870053391C /* UIControl+SDTrackTool.m */,
+				55573F9021BE03870053391C /* SDTrackEvents.plist */,
+				55573F9221BE03870053391C /* SDTrackTool.h */,
+				55573F9421BE03870053391C /* SDTrackTool.m */,
+				55573F9321BE03870053391C /* UIControl+SDTrackTool.h */,
+				55CFFF6F21C0AA3C00F946E6 /* UMMobEventConfig.plist */,
+				55CFFF7121C0ABC600F946E6 /* MobEventConfig.h */,
+			);
+			path = SDTrackTool;
 			sourceTree = "<group>";
 		};
 		55F2A52D219046FC0048D93B /* Recovered References */ = {
@@ -4423,6 +4469,7 @@
 				6FF58B3953CA1802E59432C3 /* [CP] Embed Pods Frameworks */,
 				758B909762950FF43706B876 /* [CP] Copy Pods Resources */,
 				3E1738142086EDD60068CCEB /* Embed Frameworks */,
+				55B7286121B1357300CDE38F /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -4548,6 +4595,7 @@
 				EAA0CA7D2188321000240724 /* PlayButtonOverlayLarge@2x.png in Resources */,
 				EAA0CA772188321000240724 /* PlayButtonOverlayLargeTap@3x.png in Resources */,
 				EAA0CA6E2188321000240724 /* UIBarButtonItemGrid@2x.png in Resources */,
+				55CFFF7021C0AA3C00F946E6 /* UMMobEventConfig.plist in Resources */,
 				EAA0CA152188320500240724 /* LICENSE in Resources */,
 				EAA0CA7C2188321000240724 /* ImageSelectedOn.png in Resources */,
 				EAA0CA7F2188321000240724 /* UIBarButtonItemArrowLeft@2x.png in Resources */,
@@ -4569,6 +4617,7 @@
 				EAA0CA7A2188321000240724 /* ImageError.png in Resources */,
 				EAA0CA6D2188321000240724 /* UIBarButtonItemGrid.png in Resources */,
 				EAA0CA6C2188321000240724 /* ImageSelectedSmallOn.png in Resources */,
+				55573F9621BE03870053391C /* SDTrackEvents.plist in Resources */,
 				3E78B75F208D82C3007DF162 /* AlipaySDK.bundle in Resources */,
 				EAA0CA852188321000240724 /* UIBarButtonItemArrowRight@2x.png in Resources */,
 				3E5D14762071C93D000FC779 /* Assets.xcassets in Resources */,
@@ -4596,6 +4645,24 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		55B7286121B1357300CDE38F /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "
+";
+		};
 		6FF58B3953CA1802E59432C3 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -4688,8 +4755,8 @@
 			files = (
 			);
 			inputPaths = (
-				"${PODS_ROOT}/NIMSDK/NIMAVChat/Resources/NMCVideoFilter.bundle",
 				"${SRCROOT}/../Pods/Target Support Files/Pods-PrisonService/Pods-PrisonService-resources.sh",
+				"${PODS_ROOT}/NIMSDK/NIMAVChat/Resources/NMCVideoFilter.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
@@ -4786,6 +4853,7 @@
 				EA492485218303C100D94F1A /* MoreRoloCell.m in Sources */,
 				3EEE777A20807C9800CAD179 /* PSFamilyServiceView.m in Sources */,
 				EAD18F7020D255020053F82B /* PSchangePhoneNextViewController.m in Sources */,
+				55573F9B21BE64FB0053391C /* UIImage+Rename.m in Sources */,
 				3E78B7452089CB76007DF162 /* PSMeetingsBaseRequest.m in Sources */,
 				EA87F589210851C900D7A1E4 /* PSPinmoneyViewModel.m in Sources */,
 				3EC7B6DB207C64C800DFBA65 /* PSPhoneMessageViewController.m in Sources */,
@@ -4834,6 +4902,7 @@
 				3E1737F92085DAB40068CCEB /* PSAppointmentDetailCell.m in Sources */,
 				3E171A962092115F00B7D807 /* PSPeriodChange.m in Sources */,
 				3E4C24B220A299A8009AC107 /* PSLocateManager.m in Sources */,
+				5511D6DA21AEE895003644AD /* NSObject+version.m in Sources */,
 				EAA0C9C12186AA5C00240724 /* PSConsultationViewController.m in Sources */,
 				3E78B7542089F44B007DF162 /* PSMeetingAddResponse.m in Sources */,
 				EAA0CA96218849DA00240724 /* PSBaseConsultaionRequest.m in Sources */,
@@ -4910,9 +4979,11 @@
 				3EC7B6D5207C648E00DFBA65 /* PSMemberViewController.m in Sources */,
 				EA87F5752106C9E000D7A1E4 /* PSAccountEditAddressViewModel.m in Sources */,
 				3EEE7751207F325700CAD179 /* PSAppointmentView.m in Sources */,
+				55573F9521BE03870053391C /* UIControl+SDTrackTool.m in Sources */,
 				3E5D15B02073752F000FC779 /* PSUserCenterViewController.m in Sources */,
 				3EC7B747207EF04000DFBA65 /* PSSwitch.m in Sources */,
 				3E5D14C420721E72000FC779 /* UIImage+Crop.m in Sources */,
+				55573F9821BE03870053391C /* SDTrackTool.m in Sources */,
 				555B5CB721952B8B00B64DF3 /* AppDelegate+other.m in Sources */,
 				3E5D16312079EA65000FC779 /* PSCityDisplayViewController.m in Sources */,
 				EAB4536A214B8569007A7627 /* PSPrisonerFamiliesResponse.m in Sources */,
@@ -5179,6 +5250,7 @@
 				3ED6A0B920A92C7700D2223A /* PSCartProductCell.m in Sources */,
 				3E5D1638207A0E75000FC779 /* PSPrisonSelectView.m in Sources */,
 				EA33786C21003C1D0081B907 /* LYEmptyView.m in Sources */,
+				55573F9721BE03870053391C /* UIViewController+ SDTrackTool.m in Sources */,
 				3EC7B6DE207C6E7B00DFBA65 /* PSUnderlineTextField.m in Sources */,
 				EA33783B20FC45700081B907 /* PSMeetHistoryRequest.m in Sources */,
 				EAD18F4D20D02A770053F82B /* MJPropertyType.m in Sources */,
@@ -5226,6 +5298,7 @@
 				EA9E600C217881CE0009F7F9 /* PSPsychologicalCounselingTableViewCell.m in Sources */,
 				3E91DE7A208F5D5100AADE3C /* PSBindPrisonerResponse.m in Sources */,
 				EA33785820FF4A500081B907 /* WXZTipView.m in Sources */,
+				5511D6D721ACC511003644AD /* PSAccountrefundViewController.m in Sources */,
 				EAD18F6420D0E9C90053F82B /* ZJBLStoreShopTypeAlert.m in Sources */,
 				EAA0CA662188321000240724 /* MWPhoto.m in Sources */,
 				3E171AC12093018100B7D807 /* PSMailBoxesRequest.m in Sources */,

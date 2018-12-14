@@ -87,4 +87,14 @@
     return [myDateString isEqualToString:otherDateString];
 }
 
++(NSString *)getNowTimeTimestamp{
+    NSDate* dat = [NSDate dateWithTimeIntervalSinceNow:0];
+    NSTimeInterval a=[dat timeIntervalSince1970];
+    NSString*timeString = [NSString stringWithFormat:@"%.0f", a];//转为字符型
+    ;
+    return timeString;
+    
+}
+
+
 @end

@@ -8,11 +8,26 @@
 
 #import "AppDelegate.h"
 
+
+@interface AppDelegate()
+
+@end
+
 @interface AppDelegate (other)
 /**
  检测网络
  **/
 - (void)detection_network;
+
+/**
+ bug 日志收集
+ **/
+-(void)registerBugly;
+
+/**
+ 友盟数据统计
+ **/
+- (void)registerUMMob;
 
 @end
 

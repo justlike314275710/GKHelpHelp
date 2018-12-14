@@ -63,6 +63,9 @@
 
 #define StatusHeight  [[UIApplication sharedApplication] statusBarFrame].size.height
 
+//头文件
+#import "NSObject+version.h"
+
 //*******----通知
 #define NotificationNoNetwork @"NotificationNoNetwork"
 

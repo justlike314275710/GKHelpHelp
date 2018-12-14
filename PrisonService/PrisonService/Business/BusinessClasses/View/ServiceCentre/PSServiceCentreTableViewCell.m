@@ -62,8 +62,8 @@
         UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(i * btnW, CGRectGetMaxY(_serviceTitleLabel.frame) + 35, btnW, 60)];
         [button setTitleColor:AppBaseTextColor1 forState:UIControlStateNormal];
         [button setTitle:arr[i] forState:UIControlStateNormal];
-        [button setImage:[UIImage imageNamed:imgArr[i]] forState:UIControlStateNormal];
-        button.titleLabel.textAlignment =NSTextAlignmentLeft;
+        [button setImage:[UIImage R_imageNamed:imgArr[i]] forState:UIControlStateNormal];
+        button.titleLabel.textAlignment =NSTextAlignmentCenter;
         //NSTextAlignmentCenter;
         button.titleLabel.font = FontOfSize(12);
         button.titleLabel.numberOfLines=0;
@@ -83,10 +83,10 @@
     btn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
     [btn setTitleEdgeInsets:UIEdgeInsetsMake(btn.imageView.frame.size.height + 20 ,-btn.imageView.frame.size.width, 0.0,0.0)];
     [btn setImageEdgeInsets:UIEdgeInsetsMake(0.0, 0.0,10, -btn.titleLabel.bounds.size.width)];
+    if ([NSObject judegeIsVietnamVersion]) {
+        [btn setImageEdgeInsets:UIEdgeInsetsMake(0.0,(btn.width- btn.imageView.width)/2,10, -btn.titleLabel.bounds.size.width)];
+    }
 }
-
-
-
 
 - (void)checkAction:(UIButton *)sender {
     [_delegate choseTerm:sender.tag];

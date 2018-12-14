@@ -27,6 +27,9 @@
     self = [super init];
     if (self) {
         _introduceTexts = @[LocalMeetingIntroduceOne,LocalMeetingIntroduceTwo,LocalMeetingIntroduceThree];
+        if ([NSObject judegeIsVietnamVersion]) {
+            _introduceTexts =  @[VLocalMeetingIntroduceOne,VLocalMeetingIntroduceTwo,VLocalMeetingIntroduceThree];
+        }
     }
     return self;
 }

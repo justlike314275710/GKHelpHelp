@@ -22,10 +22,15 @@
 @implementation PSPersonalViewController
 
 - (IBAction)cameraAction:(id)sender {
+    
+    NSString *cancel = NSLocalizedString(@"cancel", @"取消");
+    NSString *Choose_from_album = NSLocalizedString(@"Choose from album", @"从相册选择");
+    NSString *Take_a_photo = NSLocalizedString(@"Take a photo", @"拍照");
+    
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
-    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:cancel style:UIAlertActionStyleCancel handler:nil];
     @weakify(self)
-    UIAlertAction *takePhotoAction = [UIAlertAction actionWithTitle:@"拍照" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+    UIAlertAction *takePhotoAction = [UIAlertAction actionWithTitle:Take_a_photo style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
         [PSAuthorizationTool checkAndRedirectCameraAuthorizationWithBlock:^(BOOL result) {
             PSImagePickerController *picker = [[PSImagePickerController alloc] initWithCropHeaderImageCallback:^(UIImage *cropImage) {
                 @strongify(self)
@@ -36,7 +41,7 @@
             [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:picker animated:YES completion:nil];
         }];
     }];
-    UIAlertAction *albumAction = [UIAlertAction actionWithTitle:@"从相册选择" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+    UIAlertAction *albumAction = [UIAlertAction actionWithTitle:Choose_from_album style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         [PSAuthorizationTool checkAndRedirectPhotoAuthorizationWithBlock:^(BOOL result) {
             PSImagePickerController *picker = [[PSImagePickerController alloc] initWithCropHeaderImageCallback:^(UIImage *cropImage) {
                 @strongify(self)
@@ -64,7 +69,7 @@
         if (response.code == 200) {
             [self.cameraButton setImage:image forState:UIControlStateNormal];
         }else{
-            [PSTipsView showTips:@"头像上传失败"];
+            [PSTipsView showTips:NSLocalizedString(@"Avatar upload failed", @"头像上传失败")];
         }
     } failed:^(NSError *error) {
         @strongify(self)

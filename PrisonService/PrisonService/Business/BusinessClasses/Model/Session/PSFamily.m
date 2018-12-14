@@ -19,6 +19,7 @@
         self.idCardBack = [aDecoder decodeObjectForKey:@"idCardBack"];
         self.balance = [aDecoder decodeFloatForKey:@"balance"];
         self.isNoticed=[aDecoder decodeObjectForKey:@"isNoticed"];
+        self.openId=[aDecoder decodeObjectForKey:@"openId"];
     }
     return self;
 }
@@ -32,6 +33,7 @@
     [aCoder encodeObject:self.idCardBack forKey:@"idCardBack"];
     [aCoder encodeObject:self.isNoticed forKey:@"isNoticed"];
     [aCoder encodeFloat:self.balance forKey:@"balance"];
+    [aCoder encodeObject:self.openId forKey:@"openId"];
 
 }
 

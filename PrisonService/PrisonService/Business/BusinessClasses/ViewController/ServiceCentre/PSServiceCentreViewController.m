@@ -53,7 +53,7 @@
                 [self appointmentPrisoner];
             }
             else if (tag==1){
-            [self requestLocalMeeting];
+              [self requestLocalMeeting];
             }
             else if (tag==2){
                 NSString*coming_soon=
@@ -216,7 +216,7 @@
     }];
     
     _advView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_WIDTH * 0.55467) imageURLStringsGroup:nil];
-    NSString*serviceHallAdvDefault=@"服务中心广告图";
+    NSString*serviceHallAdvDefault= [NSObject judegeIsVietnamVersion]?@"v_服务中心广告图":@"服务中心广告图";
     _advView.placeholderImage = [UIImage imageNamed:serviceHallAdvDefault];
     _advView.bannerImageViewContentMode = UIViewContentModeScaleAspectFill;
     self.serviceCentreTableView.tableHeaderView = _advView;

@@ -173,6 +173,7 @@
                     NSString *verf = [dic objectForKey:KCIFlyFaceResultVerf];
                     if([verf boolValue]){
                     NSString*face_success=NSLocalizedString(@"face_success", @"人脸识别成功");
+                    [SDTrackTool logEvent:FACE_RECOGNITION attributes:@{STATUS:MobSUCCESS}];
                     _statusTipsLable.text=face_success;
                     PSMeetingViewModel *viewModel = (PSMeetingViewModel*)self.viewModel;
                     @weakify(self)

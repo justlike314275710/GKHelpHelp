@@ -86,7 +86,8 @@
         PSFamilyServiceItem *reduceItem = [PSFamilyServiceItem new];
         reduceItem.itemIconName = @"serviceHallReduceIcon";
         reduceItem.itemName = Reduced_number;
-        reduceItem.content = [NSString stringWithFormat:@"%ld次",(long)self.prisonerDetail.times];
+        NSString*one=NSLocalizedString(@"one", @"次");
+        reduceItem.content = [NSString stringWithFormat:@"%ld%@",(long)self.prisonerDetail.times,one];
         [items addObject:reduceItem];
         
         NSString*Current_term=NSLocalizedString(@"Current_term", @"现刑期止日");
@@ -101,7 +102,7 @@
              termFinishString=[self.prisonerDetail.endedAt timestampToDateString];;
         }
        
-       // lastReduceItem.content =[[self.prisonerDetail.termFinish stringToDateWithFormat:@"yyyy-MM-dd HH:mm:ss.SSS"] dateStringWithFormat:@"yyyy-MM-dd"];
+       // lastReduceItem.content =[[self.prisonerDetail.termFinish stringToDateWithFormat:@"yyyy-MM-dd HH:mm:ss.SSS"] dateStringWithFormat:@"yyyy-MM-dd"];x
         lastReduceItem.content=termFinishString;
         [items addObject:lastReduceItem];
         _familyServiceItems = items;
@@ -160,6 +161,65 @@
             failedCallback(error);
         }
     }];
+}
+
+- (NSArray *)newfamilyServiceItems {
+    
+
+    NSString*sentence=NSLocalizedString(@"sentence", @"原判刑期");
+    NSMutableArray *items = [NSMutableArray array];
+    PSFamilyServiceItem *periodItem = [PSFamilyServiceItem new];
+    periodItem.itemIconName = @"serviceHallPeriodIcon";
+    periodItem.itemName = sentence;
+    periodItem.content = self.prisonerDetail.originalSentence;
+    [items addObject:periodItem];
+    
+    NSString*sentence_start=NSLocalizedString(@"sentence_start", @"原判刑期起日");
+    PSFamilyServiceItem *startItem = [PSFamilyServiceItem new];
+    startItem.itemIconName = @"serviceHallStartIcon";
+    startItem.itemName =sentence_start;
+    startItem.content = [self.prisonerDetail.startedAt timestampToDateString];
+    [items addObject:startItem];
+    
+    NSString*sentence_end=NSLocalizedString(@"sentence_end", @"原判刑期止日");
+    PSFamilyServiceItem *endItem = [PSFamilyServiceItem new];
+    endItem.itemIconName = @"serviceHallEndIcon";
+    endItem.itemName = sentence_end;
+    endItem.content = [self.prisonerDetail.endedAt timestampToDateString];
+    [items addObject:endItem];
+    
+    //        PSFamilyServiceItem *extraItem = [PSFamilyServiceItem new];
+    //        extraItem.itemIconName = @"serviceHallExtraIcon";
+    //        extraItem.itemName = @"附加刑";
+    //        extraItem.content = self.prisonerDetail.additionalPunishment ? self.prisonerDetail.additionalPunishment : @"无";
+    //        [items addObject:extraItem];
+    
+    NSString*Reduced_number=NSLocalizedString(@"Reduced_number", @"累计减刑次数");
+    PSFamilyServiceItem *reduceItem = [PSFamilyServiceItem new];
+    reduceItem.itemIconName = @"serviceHallReduceIcon";
+    reduceItem.itemName = Reduced_number;
+    NSString*one=NSLocalizedString(@"one", @"次");
+    reduceItem.content = [NSString stringWithFormat:@"%ld%@",(long)self.prisonerDetail.times,one];
+    [items addObject:reduceItem];
+    
+    NSString*Current_term=NSLocalizedString(@"Current_term", @"现刑期止日");
+    PSFamilyServiceItem *lastReduceItem = [PSFamilyServiceItem new];
+    lastReduceItem.itemIconName = @"serviceHallLastReduceIcon";
+    lastReduceItem.itemName = Current_term;
+    NSString * ALLtermFinishString= self.prisonerDetail.termFinish;
+    NSString *termFinishString;
+    if (ALLtermFinishString.length!=0) {
+        termFinishString = [self.prisonerDetail.termFinish substringToIndex:10];
+    } else {
+        termFinishString=[self.prisonerDetail.endedAt timestampToDateString];;
+    }
+    
+    // lastReduceItem.content =[[self.prisonerDetail.termFinish stringToDateWithFormat:@"yyyy-MM-dd HH:mm:ss.SSS"] dateStringWithFormat:@"yyyy-MM-dd"];x
+    lastReduceItem.content=termFinishString;
+    [items addObject:lastReduceItem];
+    
+//    _familyServiceItems = items;
+    return items;
 }
 
 

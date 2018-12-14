@@ -250,7 +250,7 @@
 
 - (NSAttributedString *)buttonTitleForEmptyDataSet:(UIScrollView *)scrollView forState:(UIControlState)state {
     PSMeetingHistoryViewModel *historyViewModel = (PSMeetingHistoryViewModel *)self.viewModel;
-    return historyViewModel.dataStatus == PSDataError ? [[NSAttributedString alloc] initWithString:@"点击加载" attributes:@{NSFontAttributeName:AppBaseTextFont1,NSForegroundColorAttributeName:AppBaseTextColor1}] : nil;
+    return historyViewModel.dataStatus == PSDataError ? [[NSAttributedString alloc] initWithString:CLICK_ADD attributes:@{NSFontAttributeName:AppBaseTextFont1,NSForegroundColorAttributeName:AppBaseTextColor1}] : nil;
 }
 
 - (void)emptyDataSet:(UIScrollView *)scrollView didTapView:(UIView *)view {
@@ -279,6 +279,9 @@
                     [self refreshData];
                     NSString*cancel_apply=NSLocalizedString(@"cancel_success", @"取消会见成功");
                     [PSTipsView showTips:cancel_apply];
+                    //埋点...
+                    [SDTrackTool logEvent:CANCEL_FAMILY_CALL];
+                    
                 } failed:^(NSError *error) {
                     [self showNetError];
                 }];

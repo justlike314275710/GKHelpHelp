@@ -22,22 +22,37 @@
 @property (nonatomic, strong) UIButton *cameraButton;
 @property (nonatomic ,strong) UIButton *relationButton;
 @end
+//"Add relatives"="添加亲属";
+//"Prisoner information"="服刑人员信息";
+//"Family information"="家属信息";
+//"Click to upload the side with the avatar"="点击上传带头像一面";
+//"Click to upload the side with the national emblem"="点击上传带国徽一面";
+//"Upload relationship certificate"="上传关系证明";
+//"Click to upload proof of relationship"="点击上传关系证明图";
+//"Non-required, you can continue to the next step"="非必填项,可继续下一步";
 
 @implementation PSAddFamiliesViewController
 - (instancetype)initWithViewModel:(PSViewModel *)viewModel {
     self = [super initWithViewModel:viewModel];
     if (self) {
-        self.title = @"添加亲属";
+        NSString *title = NSLocalizedString(@"Add relatives", @"添加亲属");
+        self.title = title;
     }
     return self;
 }
 
 #pragma mark -- 头像上传
 - (IBAction)cameraAction:(id)sender {
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"注意" message:@"请上传本人真实.清晰头像!否则注册无法通过!" preferredStyle:UIAlertControllerStyleAlert];
-    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+    
+    NSString*determine=NSLocalizedString(@"determine", @"确定");
+    NSString*cancel=NSLocalizedString(@"cancel", @"取消");
+    NSString*be_careful=NSLocalizedString(@"be_careful", @"注意");
+    NSString*upload_head=NSLocalizedString(@"upload_head", @"请上传本人真实.清晰头像!否则注册无法通过!");
+    
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:be_careful message:upload_head preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:cancel style:UIAlertActionStyleCancel handler:nil];
     @weakify(self)
-    UIAlertAction *takePhotoAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+    UIAlertAction *takePhotoAction = [UIAlertAction actionWithTitle:determine style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
         
         [PSAuthorizationTool checkAndRedirectCameraAuthorizationWithBlock:^(BOOL result) {
             PSImagePickerController *picker = [[PSImagePickerController alloc] initWithCropHeaderImageCallback:^(UIImage *cropImage) {
@@ -66,7 +81,8 @@
         [self handlePickerImage:faceImage];
     }else{
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [PSTipsView showTips:@"您上传的头像未能通过人脸识别,请重新上传"];
+            NSString *faceError = NSLocalizedString(@"faceError", @"您上传的头像未能通过人脸识别,请重新上传");
+            [PSTipsView showTips:faceError];
         });
         
     }
@@ -81,10 +97,10 @@
         @strongify(self)
         [[PSLoadingView sharedInstance] dismiss];
         if (response.code == 200) {
-            [PSTipsView showTips:@"头像上传成功"];
+            [PSTipsView showTips:NSLocalizedString(@"Successful avatar upload", @"头像上传成功")];
             [self.cameraButton setImage:image forState:UIControlStateNormal];
         }else{
-            [PSTipsView showTips:@"头像上传失败"];
+            [PSTipsView showTips:NSLocalizedString(@"Avatar upload failed", @"头像上传失败")];
         }
     } failed:^(NSError *error) {
         @strongify(self)
@@ -107,7 +123,7 @@
                 } failHandler:^(NSError *err) {
                     dispatch_async(dispatch_get_main_queue(), ^{
                         [self closeCamera:nil];
-                        [PSTipsView showTips:@"身份证识别错误"];
+                        [PSTipsView showTips:NSLocalizedString(@"ID card identification error", @"身份证识别错误")];
                     });
                 }];
             }];
@@ -132,7 +148,7 @@
                 } failHandler:^(NSError *err) {
                     dispatch_async(dispatch_get_main_queue(), ^{
                         [self closeCamera:nil];
-                        [PSTipsView showTips:@"身份证识别错误"];
+                        [PSTipsView showTips:NSLocalizedString(@"ID card identification error", @"身份证识别错误")];
                     });
                 }];
             }];
@@ -225,10 +241,15 @@
 
 #pragma mark -- 家属关系图上传
 - (IBAction)relationCameraAction:(id)sender {
+    
+    NSString *cancel = NSLocalizedString(@"cancel", @"取消");
+    NSString *Choose_from_album = NSLocalizedString(@"Choose from album", @"从相册选择");
+    NSString *Take_a_photo = NSLocalizedString(@"Take a photo", @"拍照");
+    
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
-    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:cancel style:UIAlertActionStyleCancel handler:nil];
     @weakify(self)
-    UIAlertAction *takePhotoAction = [UIAlertAction actionWithTitle:@"拍照" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+    UIAlertAction *takePhotoAction = [UIAlertAction actionWithTitle:Take_a_photo style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
         [PSAuthorizationTool checkAndRedirectCameraAuthorizationWithBlock:^(BOOL result) {
             PSImagePickerController *picker = [[PSImagePickerController alloc] initWithCropHeaderImageCallback:^(UIImage *cropImage) {
                 @strongify(self)
@@ -239,7 +260,7 @@
             [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:picker animated:YES completion:nil];
         }];
     }];
-    UIAlertAction *albumAction = [UIAlertAction actionWithTitle:@"从相册选择" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+    UIAlertAction *albumAction = [UIAlertAction actionWithTitle:Choose_from_album style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         [PSAuthorizationTool checkAndRedirectPhotoAuthorizationWithBlock:^(BOOL result) {
             PSImagePickerController *picker = [[PSImagePickerController alloc] initWithCropHeaderImageCallback:^(UIImage *cropImage) {
                 @strongify(self)
@@ -296,6 +317,8 @@
     [registerViewModel addFamilesCompleted:^(PSResponse *response) {
         [[PSLoadingView sharedInstance] dismiss];
         if (response.code == 200) {
+            
+            [SDTrackTool logEvent:ADD_FAMILY attributes:@{STATUS:MobSUCCESS}];
             //[PSTipsView showTips:response.msg ? response.msg : @"添加家属提交成功"];
             [PSAlertView showWithTitle:nil message:@"已完成添加，需监狱审批后方可会见" messageAlignment:NSTextAlignmentCenter image:nil handler:^(PSAlertView *alertView, NSInteger buttonIndex) {
                 if (buttonIndex==0) {
@@ -304,6 +327,7 @@
             } buttonTitles:@"确定", nil];
         }else{
             [PSTipsView showTips:response.msg ? response.msg : @"添加家属提交失败"];
+            [SDTrackTool logEvent:ADD_FAMILY attributes:@{STATUS:MobFAILURE,ERROR_STR:response.msg}];
         }
        
     } failed:^(NSError *error) {
@@ -328,11 +352,14 @@
     _addScrollView=[[UIScrollView alloc]initWithFrame:self.view.bounds];
     _addScrollView.delegate=self;
     _addScrollView.contentSize=CGSizeMake(SCREEN_WIDTH, SCREEN_HEIGHT*1.5);
+    if (IS_iPhone_5) _addScrollView.contentSize=CGSizeMake(SCREEN_WIDTH, SCREEN_HEIGHT*1.7);
+    
     _addScrollView.scrollEnabled=YES;
     _addScrollView.userInteractionEnabled=YES;
     _addScrollView.showsVerticalScrollIndicator=NO;
     [self.view addSubview:_addScrollView];
-
+    
+    CGFloat labelH = [NSObject judegeIsVietnamVersion]?35:24;
     CGFloat sidePadding = 15;
     CGFloat vHeight = 88;
     CGFloat verticalPadding = RELATIVE_HEIGHT_VALUE(25);
@@ -357,7 +384,9 @@
     titleOneLabel.frame=CGRectMake(verticalPadding, sidePadding, SCREEN_WIDTH-2*verticalPadding, 13);
     titleOneLabel.font = textFont;
     titleOneLabel.textColor = titleColor;
-    NSString*titleName=[NSString stringWithFormat:@"■ 服刑人员信息(%@)",name];
+    //"Prisoner information"="服刑人员信息";
+    NSString *vtitle = NSLocalizedString(@"Prisoner information", @"服刑人员信息");
+    NSString*titleName=[NSString stringWithFormat:@"■ %@(%@)",vtitle,name];
     titleOneLabel.text = titleName;
     [_addScrollView addSubview:titleOneLabel];
 
@@ -380,7 +409,9 @@
     titleTwoLabel.frame=CGRectMake(verticalPadding, CGRectGetMaxY(relationTextField.frame)+sidePadding, SCREEN_WIDTH-2*verticalPadding, 13);
     titleTwoLabel.font = textFont;
     titleTwoLabel.textColor = titleColor;
-    titleTwoLabel.text = @"■ 家属信息";
+    //"Family information"="家属信息";
+    NSString *title = NSLocalizedString(@"Family information", @"家属信息");
+    titleTwoLabel.text = [NSString stringWithFormat:@"■ %@",title];
     [_addScrollView addSubview:titleTwoLabel];
     
     self.cameraButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -401,11 +432,12 @@
     [_addScrollView addSubview:self.frontCardButton];
   
     UILabel *frontLabel = [UILabel new];
-    frontLabel.frame=CGRectMake(CenterX, CGRectGetMaxY(_frontCardButton.frame)+5, BUTTON_SCREEN_WIDTH, 13);
-    frontLabel.font = AppBaseTextFont2;
+    frontLabel.frame=CGRectMake(CenterX, CGRectGetMaxY(_frontCardButton.frame)+5, BUTTON_SCREEN_WIDTH,labelH);
+    frontLabel.font = textFont;
     frontLabel.textColor = AppBaseTextColor1;
     frontLabel.textAlignment = NSTextAlignmentCenter;
-    frontLabel.text = @"点击上传带头像一面";
+    frontLabel.numberOfLines = 0;
+    frontLabel.text = NSLocalizedString(@"Click to upload the side with the avatar", @"点击上传带头像一面");
     [_addScrollView addSubview:frontLabel];
 
     
@@ -413,36 +445,40 @@
     self.backCardButton = [UIButton buttonWithType:UIButtonTypeCustom];
     self.backCardButton.frame=CGRectMake(CenterX, CGRectGetMaxY(frontLabel.frame)+sidePadding, BUTTON_SCREEN_WIDTH, BUTTON_SCREEN_HEIGHT);
     [self.backCardButton addTarget:self action:@selector(backCardCameraAction:) forControlEvents:UIControlEventTouchUpInside];
-    [self.backCardButton setBackgroundImage:[UIImage imageNamed:@"sessionIDCardFrontBg"] forState:UIControlStateNormal];
+    NSString *backImageName = [NSObject judegeIsVietnamVersion]?@"v_sessionIDCardBackBg":@"sessionIDCardBackBg";
+    [self.backCardButton setBackgroundImage:[UIImage imageNamed:backImageName] forState:UIControlStateNormal];
     [self.backCardButton setImage:[UIImage imageNamed:@"sessionIDCardCameraIcon"] forState:UIControlStateNormal];
     [_addScrollView addSubview:self.backCardButton];
 
     UILabel *backLabel = [UILabel new];
-    backLabel.font = AppBaseTextFont2;
+    backLabel.font = textFont;
     backLabel.textColor = AppBaseTextColor1;
     backLabel.textAlignment = NSTextAlignmentCenter;
-    backLabel.text = @"点击上传带国徽一面";
+    backLabel.text = NSLocalizedString(@"Click to upload the side with the national emblem", @"点击上传带国徽一面");
     [_addScrollView addSubview:backLabel];
-    backLabel.frame=CGRectMake(CenterX, CGRectGetMaxY(_backCardButton.frame)+5, BUTTON_SCREEN_WIDTH, 13);
+    backLabel.numberOfLines = 0;
+    backLabel.frame=CGRectMake(CenterX, CGRectGetMaxY(_backCardButton.frame)+5, BUTTON_SCREEN_WIDTH,labelH);
     
     UILabel *titleThreeLabel = [UILabel new];
     titleThreeLabel.frame=CGRectMake(verticalPadding, CGRectGetMaxY(backLabel.frame)+sidePadding, SCREEN_WIDTH-2*verticalPadding, 13);
     titleThreeLabel.font = textFont;
     titleThreeLabel.textColor = titleColor;
-    titleThreeLabel.text = @"■ 上传关系证明";
+    titleThreeLabel.text = [NSString stringWithFormat:@"■ %@",NSLocalizedString(@"Upload relationship certificate", @"上传关系证明")];
     [_addScrollView addSubview:titleThreeLabel];
     
     self.relationButton = [UIButton buttonWithType:UIButtonTypeCustom];
     self.relationButton.frame=CGRectMake(CenterX, CGRectGetMaxY(titleThreeLabel.frame)+sidePadding, BUTTON_SCREEN_WIDTH, BUTTON_SCREEN_HEIGHT);
     [self.relationButton addTarget:self action:@selector(relationCameraAction:) forControlEvents:UIControlEventTouchUpInside];
-    [self.relationButton setBackgroundImage:[UIImage imageNamed:@"sessionRelationBackgroud"] forState:UIControlStateNormal];
+    NSString *relationImageName = [NSObject judegeIsVietnamVersion]?@"v_sessionRelationBackgroud":@"sessionRelationBackgroud";
+    [self.relationButton setBackgroundImage:[UIImage imageNamed:relationImageName] forState:UIControlStateNormal];
     [self.relationButton setImage:[UIImage imageNamed:@"sessionIDCardCameraIcon"] forState:UIControlStateNormal];
     [_addScrollView addSubview:self.relationButton];
     
     UIButton*OptionalButton=[UIButton buttonWithType:UIButtonTypeCustom];
     OptionalButton.frame=CGRectMake(CGRectGetMaxX(self.relationButton.frame)-40, CGRectGetMinY(self.relationButton.frame), 40, 32);
     [_addScrollView addSubview:OptionalButton];
-    [OptionalButton setBackgroundImage:[UIImage imageNamed:@"OptionalBg"] forState:UIControlStateNormal];
+     NSString *OptionalBg = [NSObject judegeIsVietnamVersion]?@"vi_OptionalBg":@"OptionalBg";
+    [OptionalButton setBackgroundImage:[UIImage imageNamed:OptionalBg] forState:UIControlStateNormal];
     [OptionalButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(self.relationButton.mas_top);
         make.right.mas_equalTo(self.relationButton.mas_right);
@@ -450,19 +486,21 @@
     }];
     
     UILabel *relationButtonLabel = [UILabel new];
-    relationButtonLabel.frame=CGRectMake(CenterX, CGRectGetMaxY(_relationButton.frame)+5, BUTTON_SCREEN_WIDTH, 13);
-    relationButtonLabel.font = AppBaseTextFont2;
+    relationButtonLabel.frame=CGRectMake(CenterX, CGRectGetMaxY(_relationButton.frame)+5, BUTTON_SCREEN_WIDTH,labelH);
+    relationButtonLabel.font = textFont;
     relationButtonLabel.textColor = AppBaseTextColor1;
+    relationButtonLabel.numberOfLines = 0;
     relationButtonLabel.textAlignment = NSTextAlignmentCenter;
-    relationButtonLabel.text = @"点击上传关系证明图";
+    relationButtonLabel.text = NSLocalizedString(@"Click to upload proof of relationship", @"点击上传关系证明图");
     [_addScrollView addSubview:relationButtonLabel];
  
     UILabel *nextLabel = [UILabel new];
-    nextLabel.frame=CGRectMake(CenterX, CGRectGetMaxY(relationButtonLabel.frame)+5, BUTTON_SCREEN_WIDTH, 13);
-    nextLabel.font = AppBaseTextFont2;
-    nextLabel.textColor = [UIColor redColor];;
+    nextLabel.frame=CGRectMake(CenterX, CGRectGetMaxY(relationButtonLabel.frame)+5, BUTTON_SCREEN_WIDTH,labelH);
+    nextLabel.font = textFont;
+    nextLabel.textColor = [UIColor redColor];
+    nextLabel.numberOfLines = 0;
     nextLabel.textAlignment = NSTextAlignmentCenter;
-    nextLabel.text = @"(非必填项,可继续下一步)";
+    nextLabel.text = NSLocalizedString(@"(Non-required, you can continue to the next step)", @"(非必填项,可继续下一步)");
     [_addScrollView addSubview:nextLabel];
 
     
@@ -471,7 +509,8 @@
     [bindButton addTarget:self action:@selector(checkFamilesDataAction) forControlEvents:UIControlEventTouchUpInside];
     bindButton.titleLabel.font = AppBaseTextFont1;
     [bindButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [bindButton setTitle:@"立即添加" forState:UIControlStateNormal];
+    [bindButton setTitle:NSLocalizedString(@"Add it now", @"立即添加") forState:UIControlStateNormal];
+    bindButton.titleLabel.numberOfLines = 0;
     [bindButton setBackgroundImage:[[UIImage imageNamed:@"universalBtBg"] stretchImage] forState:UIControlStateNormal];
     [_addScrollView addSubview:bindButton];
 

@@ -120,6 +120,7 @@ PODS:
   - TZImagePickerController (1.9.8)
   - "UITableView+FDTemplateLayoutCell (1.6)"
   - "UITextView+Placeholder (1.2.0)"
+  - UMengAnalytics-NO-IDFA (4.2.5)
   - WebViewJavascriptBridge (6.0.3)
   - WechatOpenSDK (1.8.1)
   - WMPageController (2.5.1)
@@ -157,6 +158,7 @@ DEPENDENCIES:
   - TZImagePickerController (~> 1.9.8)
   - "UITableView+FDTemplateLayoutCell (~> 1.6)"
   - "UITextView+Placeholder (~> 1.2.0)"
+  - UMengAnalytics-NO-IDFA
   - WebViewJavascriptBridge (~> 6.0.3)
   - WechatOpenSDK
   - WMPageController (~> 2.5.1)
@@ -198,6 +200,7 @@ SPEC REPOS:
     - TZImagePickerController
     - "UITableView+FDTemplateLayoutCell"
     - "UITextView+Placeholder"
+    - UMengAnalytics-NO-IDFA
     - WebViewJavascriptBridge
     - WechatOpenSDK
     - WMPageController
@@ -238,12 +241,13 @@ SPEC CHECKSUMS:
   TZImagePickerController: 3b9413ae5d049b1fdc5b0c720ad283f35b679a50
   "UITableView+FDTemplateLayoutCell": 5c949b4a5059c404b442926c0e80f81d10a2d66f
   "UITextView+Placeholder": 77680995fcdd07c3f52ec92fe1150874a2ac89ff
+  UMengAnalytics-NO-IDFA: 16666e32edce5be44ae5b14aaaa7f3582e09d6ab
   WebViewJavascriptBridge: 7f5bc4d3581e672e8f32bd0f812d54bc69bb8e29
   WechatOpenSDK: 491d965d79335070328571d3e79f714549e79a5e
   WMPageController: 43ceb03a2d90ee036bfc4d246c50d91753020bb5
   YYText: 5c461d709e24d55a182d1441c41dc639a18a4849
   ZYCornerRadius: f0af817be7805b5c63d793042ca7a03f81e14069
 
-PODFILE CHECKSUM: 19c6889d02eba5afc309c9e62e7c307b0f0e2bd5
+PODFILE CHECKSUM: 1f46090b0c497df786bf7cf569cfb750076b002e
 
-COCOAPODS: 1.5.2
+COCOAPODS: 1.5.3

@@ -13,7 +13,8 @@ typedef NS_ENUM(NSInteger, PSRefundType) {
     PSRefundMeeting = 1,//会见扣款
     PSRefundRefund = 2,//退款申请
     PSRefundSuccess=3,//退款成功
-    PSRefundFail=4//退款失败
+    PSRefundFail=4,//退款失败
+    PSRefundCardRecharge=5,//亲情卡充值
 };
 
 
@@ -22,9 +23,6 @@ typedef NS_ENUM(NSInteger, PSRefundType) {
 
 @interface PSTransactionRecord : JSONModel
 
-
-
-
 @property (nonatomic, strong)  NSString<Optional>* familyId;
 @property (nonatomic, strong)  NSString<Optional>* reason;
 @property (nonatomic, strong)  NSString<Optional>* createdAt;
@@ -32,5 +30,24 @@ typedef NS_ENUM(NSInteger, PSRefundType) {
 @property (nonatomic, strong)  NSString<Optional>* id;
 @property (nonatomic, strong)  NSString<Optional>* jailId;
 @property (nonatomic, assign)  PSRefundType type;
+@property (nonatomic, strong)  NSString<Optional>* rechargeTotal;
+@property (nonatomic, strong)  NSString<Optional>* refundTotal;
+@property (nonatomic, strong)  NSString<Optional>* createdMonth;
+@property (nonatomic, strong)  NSString<Optional>* consumeTotal;
+
 
 @end
+
+
+@interface PSTransactionSuperRecord : JSONModel
+
+@property (nonatomic, strong)  NSString<Optional>* rechargeTotal;
+@property (nonatomic, strong)  NSString<Optional>* refundTotal;
+@property (nonatomic, strong)  NSArray<PSTransactionRecord,Optional> *details;
+@property (nonatomic, strong)  NSString<Optional>* createdMonth;
+@property (nonatomic, strong)  NSString<Optional>* consumeTotal;
+
+
+@end
+
+

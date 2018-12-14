@@ -11,3 +11,14 @@
 @implementation PSTransactionRecord
 
 @end
+
+
+
+
+
+@implementation PSTransactionSuperRecord
+
+
+
+@end
+

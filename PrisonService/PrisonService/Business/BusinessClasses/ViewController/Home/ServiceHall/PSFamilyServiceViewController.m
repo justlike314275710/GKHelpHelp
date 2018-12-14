@@ -21,10 +21,14 @@
 #import "MeetJails.h"
 #import "PSBusinessConstants.h"
 #import "PSBindPrisonerViewController.h"
+#import "PSPrisonerDetailRequest.h"
+
 
 @interface PSFamilyServiceViewController ()<UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout>
 
 @property (nonatomic, strong) UICollectionView *serviceCollectionView;
+@property (nonatomic, strong) NSMutableArray *detailRequests;
+@property (nonatomic, strong) NSMutableArray *details;
 
 
 @end
@@ -70,9 +74,11 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.view.backgroundColor = AppBaseBackgroundColor2;
-    [self renderContents];
     [self getData];
+    [self renderContents];
 }
+
+
 
 - (void)getData {
     
@@ -81,14 +87,14 @@
     [[PSLoadingView sharedInstance] show];
     PSMeetJailsnnmeViewModel *model = [[PSMeetJailsnnmeViewModel alloc] init];
     @weakify(self);
-    [model requestMeetJailsterCompleted:^(PSResponse *response) {
+    [model requestMeetAllJailsterCompleted:^(PSResponse *response) {
         @strongify(self);
         dispatch_async(dispatch_get_main_queue(), ^{
             [[PSLoadingView sharedInstance] dismiss];
-            //把绑定的罪犯放到最前面老
+            //把绑定的罪犯放到最前面
             if (model.prisons.count > 1) {
                 [model.prisons enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                    MeetJails *meetJails = obj;
+                    MeetPrisonserModel *meetJails = obj;
                     if ([meetJails.prisonerId isEqualToString:serviceViewModel.prisonerDetail.prisonerId]) {
                         [self.prisons insertObject:meetJails atIndex:0];
                     } else {
@@ -98,7 +104,13 @@
             } else {
                 self.prisons = model.prisons;
             }
-            [self.serviceCollectionView reloadData];
+            
+            //有新绑定的罪犯-----重新刷新用户绑定的罪犯详细信息
+            if (self.prisons.count > [PSSessionManager sharedInstance].passedPrisonerDetails.count) {
+                [self reloadBingPrisonserDetails:self.prisons];
+            } else {
+                [self.serviceCollectionView reloadData];
+            }
         });
     } failed:^(NSError *error) {
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -106,7 +118,53 @@
         });
     }];
     
+}
+//当前绑定的所有犯人
+- (void)reloadBingPrisonserDetails:(NSArray *)prisonsers {
     
+    [self.detailRequests removeAllObjects];
+    [self.details removeAllObjects];
+    
+    for (MeetPrisonserModel *registration in prisonsers) {
+        PSPrisonerDetailRequest *detailRequest = [PSPrisonerDetailRequest new];
+        detailRequest.prisonerId = registration.prisonerId;
+        @weakify(self)
+        @weakify(detailRequest)
+        [detailRequest send:^(PSRequest *request, PSResponse *response) {
+            @strongify(self)
+            @strongify(detailRequest)
+            PSPrisonerDetailResponse *detailResponse = (PSPrisonerDetailResponse *)response;
+            if (detailResponse.code == 200) {
+                if (detailResponse.prisonerDetail) {
+                    [self.details addObject:detailResponse.prisonerDetail];
+                }
+            }
+            [self.detailRequests removeObject:detailRequest];
+            if (self.detailRequests.count == 0) {
+//                self.passedPrisonerDetails = self.details;
+            }
+        } errorCallback:^(PSRequest *request, NSError *error) {
+            @strongify(self)
+            [self.detailRequests removeObject:detailRequest];
+            if (self.detailRequests.count == 0) {
+//                self.passedPrisonerDetails = self.details;
+            }
+        }];
+        [self.detailRequests addObject:detailRequest];
+        //最后一个 刷新
+        if ([registration isEqual:prisonsers[prisonsers.count-1]]) {
+            PSFamilyServiceViewModel *serviceViewModel = (PSFamilyServiceViewModel *)self.viewModel;
+            [PSSessionManager sharedInstance].passedPrisonerDetails = self.details;
+            [self.details enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                PSPrisonerDetail *meetJails = obj;
+                if ([meetJails.prisonerId isEqualToString:serviceViewModel.prisonerDetail.prisonerId]) {
+                    [PSSessionManager sharedInstance].selectedPrisonerIndex = idx;
+                    *stop = YES;
+                }
+            }];
+            [self.serviceCollectionView reloadData];
+        }
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -160,26 +218,28 @@
         PSFamilyServiceViewModel *serviceViewModel = (PSFamilyServiceViewModel *)self.viewModel;
         PSFamilyServiceInfoView *infoView = ((PSServiceInfoCell *)cell).infoView;
         infoView.prisonerLabel.text = serviceViewModel.prisonerDetail.name;
+        infoView.prisonerName = serviceViewModel.prisonerDetail.name;
+        
         [infoView setInfoRows:^NSInteger{
-            return serviceViewModel.familyServiceItems.count;
+            return serviceViewModel.newfamilyServiceItems.count;
         }];
         [infoView setIconNameOfRow:^NSString *(NSInteger index) {
             if (index >= 0 && index < serviceViewModel.familyServiceItems.count) {
-                PSFamilyServiceItem *serviceItem = serviceViewModel.familyServiceItems[index];
+                PSFamilyServiceItem *serviceItem = serviceViewModel.newfamilyServiceItems[index];
                 return serviceItem.itemIconName;
             }
             return nil;
         }];
         [infoView setTitleTextOfRow:^NSString *(NSInteger index) {
             if (index >= 0 && index < serviceViewModel.familyServiceItems.count) {
-                PSFamilyServiceItem *serviceItem = serviceViewModel.familyServiceItems[index];
+                PSFamilyServiceItem *serviceItem = serviceViewModel.newfamilyServiceItems[index];
                 return serviceItem.itemName;
             }
             return nil;
         }];
         [infoView setDetailTextOfRow:^NSString *(NSInteger index) {
-            if (index >= 0 && index < serviceViewModel.familyServiceItems.count) {
-                PSFamilyServiceItem *serviceItem = serviceViewModel.familyServiceItems[index];
+            if (index >= 0 && index < serviceViewModel.newfamilyServiceItems.count) {
+                PSFamilyServiceItem *serviceItem = serviceViewModel.newfamilyServiceItems[index];
                 return serviceItem.content;
             }
             return nil;
@@ -201,7 +261,7 @@
         //切换服刑人员
         @weakify(self);
         if (self.prisons.count>1) {
-            cell.changeBlock = ^(MeetJails *meetjails) {
+            cell.changeBlock = ^(MeetPrisonserModel *meetjails) {
                 @strongify(self);
                 [self changePrison:meetjails];
             };
@@ -210,6 +270,9 @@
         cell.bingBlock = ^{
             @strongify(self);
             [self bingdingPrison];
+            //直接埋点....
+            [SDTrackTool logEvent:CLICK_GO_BIND_PRISONER];
+            
         };
     
       return cell;
@@ -232,7 +295,7 @@
     // Dispose of any resources that can be recreated.
 }
 
--(void)changePrison:(MeetJails *)meetJails{
+-(void)changePrison:(MeetPrisonserModel *)meetJails{
     NSArray *PrisonerDetails  = [PSSessionManager sharedInstance].passedPrisonerDetails;
     [PrisonerDetails enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         PSPrisonerDetail *prisonerDetail = obj;
@@ -264,6 +327,19 @@
         _prisons = [NSMutableArray array];
     }
     return _prisons;
+}
+
+- (NSMutableArray *)detailRequests {
+    if (!_detailRequests) {
+        _detailRequests = [NSMutableArray array];
+    }
+    return _detailRequests;
+}
+- (NSMutableArray *)details {
+    if (!_details) {
+        _details = [NSMutableArray array];
+    }
+    return _details;
 }
 
 /*

@@ -10,7 +10,7 @@
 
 @implementation PSTransactionRecordResponse
 + (JSONKeyMapper *)keyMapper {
-    return [[JSONKeyMapper alloc] initWithModelToJSONDictionary:@{@"details":@"data.details",@"total":@"data.total"}];
+    return [[JSONKeyMapper alloc] initWithModelToJSONDictionary:@{@"details":@"data.accounts.details",@"total":@"data.total",@"accounts":@"data.accounts",@"data":@"data"}];
 }
 
 

@@ -17,6 +17,7 @@
 #import <AFNetworking/AFNetworking.h>
 #import "KGStatusBar.h"
 #import "AppDelegate+other.h"
+#import <UserNotifications/UserNotifications.h>
 
 @interface AppDelegate ()
 
@@ -32,7 +33,12 @@
     [self.window makeKeyAndVisible];
     [[PSLaunchManager sharedInstance] launchApplication];
     
+    if ([UIApplication instancesRespondToSelector:@selector(registerUserNotificationSettings:)])
+    {
+        [application registerUserNotificationSettings:[UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert|UIUserNotificationTypeBadge|UIUserNotificationTypeSound categories:nil]];
+    }
     
+
     return YES;
 }
 
@@ -50,6 +56,10 @@
     [WXApi registerApp:WECHAT_APPID];
     //监测网络变化
     [self detection_network];
+    //Bugly崩溃日志
+    [self registerBugly];
+    //友盟数据统计
+    [self registerUMMob];
     
 }
 
@@ -66,7 +76,6 @@
 }
 
 
-
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
     return [self handleURL:url];
 }
@@ -78,6 +87,7 @@
 - (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url {
     return [self handleURL:url];
 }
+
 
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.

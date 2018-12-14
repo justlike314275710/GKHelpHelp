@@ -11,7 +11,7 @@
 #import "PSUnderlineTextField.h"
 #import "PSAccountEditEmailViewModel.h"
 #import "PSLoadingView.h"
-@interface PSAccountEmailViewController ()
+@interface PSAccountEmailViewController ()<UITextFieldDelegate>
 @property (nonatomic , strong) PSUnderlineTextField *accountEmailTextfield;
 @end
 
@@ -36,6 +36,8 @@
     NSString*enter_Zipcode=NSLocalizedString(@"enter_Zipcode", @"请输入邮编");
     self.accountEmailTextfield.placeholder=enter_Zipcode;
     self.accountEmailTextfield.borderStyle=UITextBorderStyleRoundedRect;
+    self.accountEmailTextfield.keyboardType = UIKeyboardTypeNumberPad;
+    self.accountEmailTextfield.delegate = self;
     self.accountEmailTextfield.font=AppBaseTextFont3;
     
     [self.view addSubview:self.accountEmailTextfield];
@@ -47,13 +49,41 @@
     
 }
 
+#pragma mark - UITextFieldDelegate
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+    NSString *toString = [textField.text stringByReplacingCharactersInRange:range withString:string];
+    if (toString.length) {
+        NSString *stringRegex;
+        if (textField == self.accountEmailTextfield) {
+            stringRegex = @"[0-9]\\d{0,5}?";
+        }
+        NSPredicate *phoneTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", stringRegex];
+        BOOL flag = [phoneTest evaluateWithObject:toString];
+        if (flag==NO) {
+            [PSTipsView showTips:@"请输入正确不超过6位数的邮编！"];
+        }
+        return flag;
+    }
+    return YES;
+}
+
+- (BOOL)p_judge:(NSString *)emailStr {
+    
+    BOOL flag = false;
+    NSString *stringRegex = @"[0-9]\\d{0,5}?";
+    NSPredicate *phoneTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", stringRegex];
+    flag = [phoneTest evaluateWithObject:emailStr];
+    return flag;
+}
+
 - (void)SaveEmailAction {
     [self.view endEditing:YES];
     [[PSLoadingView sharedInstance]show];
     PSAccountEditEmailViewModel*accountEditViewModel=(PSAccountEditEmailViewModel *)self.viewModel;
     if (accountEditViewModel.email.length==0) {
          [[PSLoadingView sharedInstance]dismiss];
-        [PSTipsView showTips:@"请输入邮编"];
+        NSString*enter_Zipcode=NSLocalizedString(@"enter_Zipcode", @"请输入邮编");
+        [PSTipsView showTips:enter_Zipcode];
     } else {
         [accountEditViewModel requestAccountEmailCompleted:^(PSResponse *response) {
             [[PSLoadingView sharedInstance]dismiss];

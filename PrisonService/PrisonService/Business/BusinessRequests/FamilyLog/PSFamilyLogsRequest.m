@@ -26,6 +26,9 @@
 - (void)buildParameters:(PSMutableParameters *)parameters {
     [parameters addParameter:[NSString stringWithFormat:@"%ld",(long)self.page] forKey:@"page"];
     [parameters addParameter:[NSString stringWithFormat:@"%ld",(long)self.rows] forKey:@"rows"];
+    if (self.type&&self.type.length > 0) {
+        [parameters addParameter:[NSString stringWithFormat:@"%@",self.type] forKey:@"type"];
+    }
     [parameters addParameter:self.prisonerId forKey:@"prisonerId"];
     [parameters addParameter:self.familyId forKey:@"familyId"];
     [super buildParameters:parameters];

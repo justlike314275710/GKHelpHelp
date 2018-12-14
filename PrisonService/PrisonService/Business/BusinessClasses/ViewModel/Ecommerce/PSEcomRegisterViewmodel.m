@@ -24,9 +24,7 @@
         manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
         manager.requestSerializer = [AFJSONRequestSerializer serializer];
         manager.requestSerializer.timeoutInterval = 10.f;
-
         manager.responseSerializer = [AFJSONResponseSerializer serializer];
-        
         [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
     }
     return self;
@@ -83,7 +81,8 @@
 
 
 -(void)requestCodeCompleted:(RequestDataCompleted)completedCallback failed:(RequestDataFailed)failedCallback{
-    NSString*url=[NSString stringWithFormat:@"%@/users/%@/verification-codes/login",EmallHostUrl,self.phoneNumber];
+    NSString*url=[NSString stringWithFormat:@"%@/sms/verification-codes/%@",EmallHostUrl,self.phoneNumber];
+//    NSString*url=[NSString stringWithFormat:@"%@/users/%@/verification-codes/login",EmallHostUrl,self.phoneNumber];
     [manager POST:url parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         NSHTTPURLResponse * responses = (NSHTTPURLResponse *)task.response;
         self.messageCode=responses.statusCode;

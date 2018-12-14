@@ -38,6 +38,7 @@
 #import "PSProtocolViewController.h"
 #import "PSAuthenticationMainViewController.h"
 #import "PSContentManager.h"
+#import "NSObject+version.h"
 @interface PSLoginViewController ()<PSCountdownObserver,UIAlertViewDelegate>
 
 @property (nonatomic, strong) PSLoginMiddleView *loginMiddleView;
@@ -107,9 +108,9 @@
         }
        else if (loginViewModel.code==400) {
             [[PSLoadingView sharedInstance]dismiss];
-//          if (self.callback) {
-//              self.callback(YES,loginViewModel.session);
-//          }
+          if (self.callback) {
+              self.callback(YES,loginViewModel.session);
+          }
            [[PSContentManager sharedInstance]launchContent];
 
         }

@@ -27,5 +27,6 @@ typedef NSString *(^FamilyServiceInfoRowDetailText)(NSInteger index);
 @property (nonatomic, copy) FamilyServiceInfoRowIconName iconNameOfRow;
 @property (nonatomic, copy) FamilyServiceInfoRowTitleText titleTextOfRow;
 @property (nonatomic, copy) FamilyServiceInfoRowDetailText detailTextOfRow;
+@property (nonatomic, copy) NSString *prisonerName;
 
 @end

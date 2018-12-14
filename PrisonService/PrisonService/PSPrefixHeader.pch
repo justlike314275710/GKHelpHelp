@@ -24,6 +24,8 @@
 #import "PSJSONTool.h"
 #import "KGStatusBar.h"
 #import "UIView+Frame.h"
+#import "UIImage+Rename.h"
+#import "SDTrackTool.h"
 
 #endif /* PSPrefixHeader_pch */
 #endif

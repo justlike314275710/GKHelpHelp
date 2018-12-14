@@ -428,7 +428,9 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
 #pragma mark - UI
 
 -(void)showAlert:(NSString*)info{
-    UIAlertView * alert = [[UIAlertView alloc] initWithTitle:@"提示" message:info delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+    NSString*Tips=NSLocalizedString(@"Tips", @"提示");
+     NSString*determine=NSLocalizedString(@"determine", @"确定");
+    UIAlertView * alert = [[UIAlertView alloc] initWithTitle:Tips message:info delegate:self cancelButtonTitle:determine otherButtonTitles:nil, nil];
     [alert show];
     alert=nil;
 }
@@ -440,7 +442,8 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
     }
     else{
         dispatch_async(dispatch_get_main_queue(), ^{
-            NSString* info=@"没有相机权限";
+            
+            NSString* info= NSLocalizedString(@"No camera permissions", @"没有相机权限");
             [self showAlert:info];
             [self setDeviceAuthorized:NO];
         });

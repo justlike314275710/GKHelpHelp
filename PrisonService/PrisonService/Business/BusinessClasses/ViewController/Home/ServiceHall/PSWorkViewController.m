@@ -213,7 +213,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     PSWorkViewModel *workViewModel = (PSWorkViewModel *)self.viewModel;
     PSNews *news = workViewModel.newsData[indexPath.row];
-    NSString *url = [NSString stringWithFormat:@"%@%@",NewsUrl,news.id];
+    NSString *url = [NSString stringWithFormat:@"%@/%@?t=%@",NewsUrl,news.id,[NSDate getNowTimeTimestamp]];
     PSWebViewController *newsDetailViewController = [[PSWebViewController alloc] initWithURL:[NSURL URLWithString:url]];
     newsDetailViewController.enableUpdateTitle = NO;
     if (workViewModel.newsType==1) {
@@ -257,7 +257,7 @@
 
 - (NSAttributedString *)buttonTitleForEmptyDataSet:(UIScrollView *)scrollView forState:(UIControlState)state {
     PSWorkViewModel *workViewModel = (PSWorkViewModel *)self.viewModel;
-    return workViewModel.dataStatus == PSDataError ? [[NSAttributedString alloc] initWithString:@"点击加载" attributes:@{NSFontAttributeName:AppBaseTextFont1,NSForegroundColorAttributeName:AppBaseTextColor1}] : nil;
+    return workViewModel.dataStatus == PSDataError ? [[NSAttributedString alloc] initWithString:CLICK_ADD attributes:@{NSFontAttributeName:AppBaseTextFont1,NSForegroundColorAttributeName:AppBaseTextColor1}] : nil;
 }
 
 - (void)emptyDataSet:(UIScrollView *)scrollView didTapView:(UIView *)view {

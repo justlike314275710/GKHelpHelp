@@ -16,5 +16,6 @@
 @property (nonatomic, strong) PSFamily<Optional> *families;
 @property (nonatomic, strong) NSString<Optional> *token;
 @property (nonatomic ,strong) NSString <Optional> *status;
+@property (nonatomic ,strong) NSString <Optional> *account;
 
 @end

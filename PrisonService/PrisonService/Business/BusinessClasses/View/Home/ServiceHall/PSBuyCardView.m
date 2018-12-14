@@ -98,19 +98,19 @@
     
     
     NSString *family_members_value = _buyModel.family_members;
-    
-    if (family_members_value.length>2) {
-        NSInteger length = family_members_value.length-2;
-        NSString *repreceString = @"*";
-        for (int i = 1;i<length ;i++) {
-            repreceString = [repreceString stringByAppendingString:repreceString];
-        }
-        family_members_value = [family_members_value stringByReplacingCharactersInRange:NSMakeRange(1, length) withString:repreceString];
-    } else {
-        if (family_members_value.length>0) {
-            family_members_value = [family_members_value stringByReplacingCharactersInRange:NSMakeRange(family_members_value.length-1, 1) withString:@"*"];
-        }
-    }
+    //名字加密
+//    if (family_members_value.length>2) {
+//        NSInteger length = family_members_value.length-2;
+//        NSString *repreceString = @"*";
+//        for (int i = 1;i<length ;i++) {
+//            repreceString = [repreceString stringByAppendingString:repreceString];
+//        }
+//        family_members_value = [family_members_value stringByReplacingCharactersInRange:NSMakeRange(1, length) withString:repreceString];
+//    } else {
+//        if (family_members_value.length>0) {
+//            family_members_value = [family_members_value stringByReplacingCharactersInRange:NSMakeRange(family_members_value.length-1, 1) withString:@"*"];
+//        }
+//    }
     NSString *allmoney = [NSString stringWithFormat:@"%.2lf元",_buyModel.Amount_of_money];
     NSArray *valuetexts = @[family_members_value,_buyModel.Inmates,_buyModel.Prison_name];
     
@@ -120,6 +120,7 @@
         keylabel.text = keytitles[i];
         keylabel.font = FontOfSize(14);
         keylabel.textAlignment = NSTextAlignmentRight;
+        keylabel.numberOfLines = 0;
         keylabel.textColor = UIColorFromRGB(51,51,51);
         [self addSubview:keylabel];
         
@@ -130,13 +131,15 @@
             valueLabel.textAlignment = NSTextAlignmentLeft;
             valueLabel.textColor = UIColorFromRGB(51,51,51);
             valueLabel.text = valuetexts[i];
+            valueLabel.numberOfLines = 0;
             [self addSubview:valueLabel];
         }
         if (i==4) {
             self.totalLabel.frame = CGRectMake(90,50+40*i,250, 40);
             NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc]initWithString:allmoney];
-            [attrStr addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:NSMakeRange(allmoney.length-1,1)];
+            [attrStr addAttribute:NSForegroundColorAttributeName value:UIColorFromRGB(51,51,51) range:NSMakeRange(allmoney.length-1,1)];
             self.totalLabel.attributedText = attrStr;
+            if ([NSObject judegeIsVietnamVersion]) self.totalLabel.text = [allmoney substringToIndex:allmoney.length-1];
             [self addSubview:self.totalLabel];
         }
     }
@@ -191,6 +194,7 @@
     NSString * sureBtnText=NSLocalizedString(@"Purchase immediately", @"立即购买");
     [sureBtn setTitle:sureBtnText forState:UIControlStateNormal];
     sureBtn.titleLabel.font = FontOfSize(10);
+    sureBtn.titleLabel.numberOfLines = 0;
     [sureBtn setTitleColor:UIColorFromRGB(38, 76, 144) forState:UIControlStateNormal];
     sureBtn.layer.masksToBounds = YES;
     sureBtn.layer.cornerRadius = 14;
@@ -205,7 +209,8 @@
     }];
     [sureBtn bk_whenTapped:^{
         if (_seletIndex==0) {
-            [PSTipsView showTips:@"请输入购买数量"];
+            NSString * message =NSLocalizedString(@"Please enter the purchase quantity", @"请输入购买数量");
+            [PSTipsView showTips:message];
             return ;
         }
         @strongify(self)
@@ -242,9 +247,10 @@
         allmoney = [NSString stringWithFormat:@"%.2lf元",_buyModel.Amount_of_money*6];
     }
     NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc]initWithString:allmoney];
-    [attrStr addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:NSMakeRange(allmoney.length-1,1)];
+    [attrStr addAttribute:NSForegroundColorAttributeName value:UIColorFromRGB(51, 51, 51) range:NSMakeRange(allmoney.length-1,1)];
     self.totalLabel.attributedText = attrStr;
     
+    if ([NSObject judegeIsVietnamVersion]) self.totalLabel.text = [allmoney substringToIndex:allmoney.length-1];
     
 }
 
@@ -265,9 +271,11 @@
         BOOL flag = [phoneTest evaluateWithObject:toString];
         if (flag==NO) {
             if ([toString isEqualToString:@"0"]) {
-                [PSTipsView showTips:@"购买数量不能为0"];
+                NSString *tips = NSLocalizedString(@"The purchase quantity cannot be 0", @"购买数量不能为0");
+                [PSTipsView showTips:tips];
             } else {
-                [PSTipsView showTips:@"购买数量不能超过100张"];
+                NSString *tips = NSLocalizedString(@"The number of purchases cannot exceed 100 sheets", @"购买数量不能超过100张");
+                [PSTipsView showTips:tips];
             }
         }
         return flag;
@@ -281,6 +289,9 @@
     [attrStr addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:NSMakeRange(allmoney.length-1,1)];
     self.totalLabel.attributedText = attrStr;
     _seletIndex = [textField.text integerValue];
+    if ([NSObject judegeIsVietnamVersion]) self.totalLabel.text = [allmoney substringToIndex:allmoney.length-1];
+    
+
 }
 
 
@@ -291,7 +302,7 @@
         _totalLabel = [[UILabel alloc] init];
         _totalLabel.font = FontOfSize(14);
         _totalLabel.textAlignment = NSTextAlignmentLeft;
-        _totalLabel.textColor = UIColorFromRGB(51,51,51);
+        _totalLabel.textColor = [UIColor redColor];
     }
     return _totalLabel;
 }

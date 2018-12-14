@@ -19,9 +19,9 @@
 @implementation PSDemoPrisonIntoduceViewController
 
 - (id)init {
-
+    
     NSString*vistorid= [LXFileManager readUserDataForKey:@"vistorId"]?[LXFileManager readUserDataForKey:@"vistorId"]:@"72";
-    NSString*newLawUrl=[NSString stringWithFormat:@"%@%@",PrisonDetailUrl,vistorid];
+    NSString*newLawUrl=[NSString stringWithFormat:@"%@%@t=%@",PrisonDetailUrl,vistorid,[NSDate getNowTimeTimestamp]];
     self = [super initWithURL:[NSURL URLWithString:newLawUrl]];
     if (self) {
         self.enableUpdateTitle = NO;

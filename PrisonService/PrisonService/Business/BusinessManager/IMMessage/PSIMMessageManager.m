@@ -14,6 +14,8 @@
 #import "PSBusinessConstants.h"
 #import "PSAlertView.h"
 #import "XXAlertView.h"
+#import "ZQLocalNotification.h"
+#import <EBBannerView/EBBannerView.h>
 @interface PSIMMessageManager ()<NIMLoginManagerDelegate,NIMSystemNotificationManagerDelegate,UIAlertViewDelegate>
 
 @property (nonatomic, strong) PSObserverVector *observerVector;
@@ -71,7 +73,7 @@
  */
 - (void)doLoginIM:(LaunchTaskCompletion)completion {
     //登录云信
-    NSString *account = [[PSSessionManager sharedInstance].session.token copy];
+    NSString *account = [[PSSessionManager sharedInstance].session.account copy];
     NSString *token = [[PSSessionManager sharedInstance].session.token copy];
     if ([account length] > 0 && [token length] > 0) {
         //自动登录
@@ -106,8 +108,6 @@
     
 }
 
-
-
 - (void)onLogin:(NIMLoginStep)step {
     if (step == NIMLoginStepSyncOK) {
         
@@ -121,7 +121,8 @@
         //已有一端登录导致自动登录失败（error code 417）
         NSLog(@"云信登陆错误||%@",error);
         //[self doLogout];
-        [PSTipsView showTips:@"云信登陆失败"];
+        NSString *msg = NSLocalizedString(@"Yunxin login failed", @"云信登录失败");
+        [PSTipsView showTips:msg];
     }
 }
 
@@ -144,6 +145,15 @@
         PSMeetingMessage *message = [[PSMeetingMessage alloc] initWithString:content error:&error];
         if (!error) {
             if (message.code == PSMeetingLocal) {
+                NSString *token = [[PSSessionManager sharedInstance].session.token copy];
+                [ZQLocalNotification NotificationType:CountdownNotification Identifier:token activityId:190000 alertBody:message.msg alertTitle:@"狱务通" alertString:@"确定" withTimeDay:0 hour:0 minute:0 second:1];
+//                [EBBannerView showWithContent:message.msg];
+                EBBannerView *banner = [EBBannerView bannerWithBlock:^(EBBannerViewMaker *make) {
+                    make.style = 11;
+                    make.content = message.msg;
+                }];
+                [banner show];
+                
                 [self.observerVector notifyObserver:@selector(receivedLocalMeetingMessage:) object:message];
             }else{
                 [self.observerVector notifyObserver:@selector(receivedMeetingMessage:) object:message];

@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "PSLocalMeetingStatusView.h"
 #import "PSClockView.h"
-
+#import "PSLocalMeetingViewModel.h"
 //typedef NS_ENUM(NSInteger, PSLocalMeetingStatus) {
 //    PSLocalMeetingWithoutAppointment, //未预约
 //    PSLocalMeetingPending,//审核中
@@ -23,6 +23,8 @@ typedef void (^ActionBlock) (PSLocalMeetingStatus status);
 @property (nonatomic, strong, readonly) PSClockView *clock;
 @property (nonatomic, assign) PSLocalMeetingStatus status;
 @property (nonatomic, copy) ActionBlock actionBlock;
+@property (nonatomic, copy) PSLocalMeetingViewModel *messageViewModel;
+
 
 @end
 

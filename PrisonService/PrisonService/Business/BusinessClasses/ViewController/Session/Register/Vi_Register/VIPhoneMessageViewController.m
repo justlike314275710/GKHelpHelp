@@ -116,7 +116,7 @@
         if (response.code == 200) {
             [self.cameraButton setImage:image forState:UIControlStateNormal];
         }else{
-            [PSTipsView showTips:@"头像上传失败"];
+            [PSTipsView showTips:NSLocalizedString(@"Avatar upload failed", @"头像上传失败")];
         }
     } failed:^(NSError *error) {
         @strongify(self)

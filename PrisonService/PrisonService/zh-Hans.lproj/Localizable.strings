@@ -29,6 +29,13 @@
 "login_error"="手机号码或验证码错误";
 "goHome"="回到主页";
 "NoContents"="暂没有内容";
+"Unable to connect to server, please check network settings"="无法连接到服务器,请检查网络设置";
+"The purchase quantity cannot be 0"="购买数量不能为0";
+"The number of purchases cannot exceed 100 sheets"="购买数量不能超过100张";
+"Yunxin login failed"="云信登录失败";
+
+
+
 //登陆
 
 "account_error"="账号密码不匹配";
@@ -87,6 +94,7 @@
 "day"="天";
 "hour"="小时";
 "min"="分钟";
+
 
 "Directions_for_use"="使用说明";
 "Application_familyPhone"="申请亲情电话";
@@ -202,7 +210,7 @@
 
 
 //我的余额
-"Account_details"="账号明细";
+"Account_details"="亲情卡明细";
 "apply_refund"="申请退款";
 "Available_balance"="%@可用余额";
 
@@ -224,11 +232,12 @@
 
 
 //添加绑定服刑人员
-"add_inmates"="增加绑定服刑人员";
+"add_inmates"="添加绑定服刑人员";
 "Bind_prisoners"="绑定服刑人员";
 "Prisoner_number"="囚号&关系";
 "enter_PrisonerNumber"="请输入囚号";
 "enter_Relationship"="请输入与服刑人员关系";
+"Please upload an avatar"="请上传头像";
 "enter_jail"="请选择服刑人员所在监狱";
 "province"="省份";
 "city"="市/县";
@@ -263,7 +272,7 @@
 "Appointment_countdowm"="预约倒计-%ld天";
 "reservation"="立即预约";
 "Confirm_appointment"="确定预约";
-"sure_meetting"="您确定选择%@会见?";
+"sure_meetting"="您确定选择%@进行预约会见吗?";
 "apply_success"="申请会见成功";
 "cancel_success"="取消会见成功";
 "cancel_meeting"="取消预约";
@@ -306,6 +315,8 @@
 "add_max"="最多可选择三位亲属";
 "add_notice_content"="会见预约当天，本次会见选择的所有家属需通过人脸识别，方可进行视频会见";
 "me"="我";
+"To apply for this meeting, you need %.2f yuan. If your balance is insufficient, please recharge."="申请本次会见需要%.2f元，您的余额不足请充值";
+
 
 //会见人脸识别
 "meet_face"="会见人脸识别";
@@ -356,6 +367,7 @@
 "WeChat"="微信";
 "determine"="确定";
 "weChat not installed"="微信未安装";
+"UnknownPayment"="未知支付";
 
 "Family card purchase"="亲情卡购买";
 "Purchase immediately"="立即购买";
@@ -366,6 +378,58 @@
 "Amount of money:"="金额:";
 "piece"="张";
 "Input purchase quantity"="输入购买数量";
+"Please enter the purchase quantity"="请输入购买数量";
+"Historical record"="历史记录";
+"You have made an appointment to meet in the field at%@"="您已预约%@的实地会见";
+"Please wait patiently for the audit results during the booking audit"="预约审核中，请耐心等待审核结果";
+"Audit failed"="审核未通过";
+"Re appointment"="重新预约";
+"Audit is approved. Please attend the meeting of%@on time."="审核通过,请准时参加%@的会见";
+"Family card service"="亲情卡服务";
+"Family card"="亲情卡";
+"purchase"="购买";
+"refund"="退款";
+"Save money and save trouble. Family Card Mobile Phone Long-distance Meeting Bridge"="省钱省事,亲情卡手机远程会见桥梁";
+"Family card recharge"="亲情卡充值";
+"This month"="本月";
+"Recharge"="充值";
+"consumption"="消费";
+
+"Add relatives"="添加亲属";
+"Prisoner information"="服刑人员信息";
+"Family information"="家属信息";
+"Click to upload the side with the avatar"="点击上传带头像一面";
+"Click to upload the side with the national emblem"="点击上传带国徽一面";
+"Upload relationship certificate"="上传关系证明";
+"Click to upload proof of relationship"="点击上传关系证明图";
+"(Non-required, you can continue to the next step)"="(非必填项,可继续下一步)";
+"Add it now"="立即添加";
+
+"Successful avatar upload"="头像上传成功";
+"Avatar upload failed"="头像上传失败";
+"ID card identification error"="身份证识别错误";
+"Current device has no camera function"="当前设备无相机功能";
+"Please upload a photo of your ID with a avatar"="请上传带头像一面的身份证照片";
+"Please upload a photo of the ID card with the national emblem"="请上传带国徽一面的身份证照片";
+"Choose from album"="从相册选择";
+"Take a photo"="拍照";
+
+"Order number"="订单编号";
+"buy again"="再次购买";
+"total"="合计";
+"payment method"="支付方式";
+"Total %ld items"="共%ld件商品";
+"No camera permissions"="没有相机权限";
+"The binding application you submitted is under review, please be patient~"="您提交的绑定申请正在审核中，请耐心等待～";
+"The prison is a free meeting with the prison, no need to buy"="该监狱为免费会见监狱,无需购买";
+"Please select the item you want to buy"="请选中您要购买的商品";
+
+
+
+
+
+
+
 
 
 
@@ -393,6 +457,8 @@
 "H"="时";
 "M"="分";
 "S"="秒";
+
+
 
 
 

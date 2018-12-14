@@ -32,7 +32,8 @@ typedef NS_ENUM(NSUInteger, PSLoginStatus) {
 
 #define BuyCardStep3 @"第3步\n   提交会见申请 - 等待审核"
 
-#define NET_ERROR @"哇哦，您的网络异常了"
+#define NET_ERROR [NSObject judegeIsVietnamVersion]?@"Mạng của bạn không bình thường":@"哇哦，您的网络异常了"
+#define CLICK_ADD [NSObject judegeIsVietnamVersion]?@"Nhấn vào đây để tải":@"点击加载"
 
 #define EMPTY_CONTENT NSLocalizedString(@"NoContents", nil)
 //@"暂没有内容"
@@ -42,7 +43,11 @@ typedef NS_ENUM(NSUInteger, PSLoginStatus) {
 #define VerifyFaceFailed @"人脸识别失败，是否退出？"
 
 #define LocalMeetingIntroduceOne @"1.服刑人员在服刑期间，除法定节假日外，按照规定均可会见亲属、监护人，家属可通过“预约”功能，选择预约日期后进行实地会见申请。"
+#define VLocalMeetingIntroduceOne @"1. Trong thời gian thụ án, ngoài các ngày lễ theo luật định, tù nhân có thể gặp người thân và người giám hộ theo quy định. Các thành viên trong gia đình có thể sử dụng chức năng đặt phòng trên đường sắt để chọn ngày nộp đơn sau ngày hẹn."
 
 #define LocalMeetingIntroduceTwo @"2.服刑人员会见一般每月1次，每次半小时至一小时。"
+#define VLocalMeetingIntroduceTwo @"2. Người tù sẽ gặp gỡ chung một lần, nửa giờ đến một giờ mỗi lần."
 
 #define LocalMeetingIntroduceThree @"3.实地会见时，必须携带身份证及其它能证明自己与罪犯关系的有效证明(户口簿、公安派出所证明、单位介绍信等)，并经过监狱负责会见的干警审查后方可会见。"
+
+#define VLocalMeetingIntroduceThree @"3. Khi bạn gặp tại chỗ, bạn phải mang theo chứng minh nhân dân và các chứng chỉ hợp lệ khác (sổ hukou, chứng chỉ đồn cảnh sát, thư giới thiệu đơn vị, v.v.) có thể chứng minh mối quan hệ của bạn với bọn tội phạm và bạn có thể gặp cảnh sát phụ trách cuộc họp."

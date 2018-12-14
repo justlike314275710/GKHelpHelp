@@ -20,4 +20,10 @@
  */
 - (UIImage *)stretchAtPoint:(CGPoint)point;
 
+
+
+
+
+
+
 @end

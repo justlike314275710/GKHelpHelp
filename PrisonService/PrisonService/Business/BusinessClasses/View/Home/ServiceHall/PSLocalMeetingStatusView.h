@@ -12,6 +12,7 @@
 typedef NS_ENUM(NSInteger, PSLocalMeetingStatus) {
     PSLocalMeetingWithoutAppointment, //未预约
     PSLocalMeetingPending,//审核中
+    PSLocalMeetingPendingFail,//审核未通过
     PSLocalMeetingCountdown,//预约倒计时
     PSLocalMeetingOntime,//预约时间到
 };

@@ -25,7 +25,8 @@
     NSLog(@"%@",url);
     if (self) {
         self.enableUpdateTitle = NO;
-        self.title = @"监狱简介";
+         NSString*prison_introduction=NSLocalizedString(@"prison_introduction", @"监狱简介");
+        self.title = prison_introduction;
     }
     return self;
 }

@@ -54,6 +54,11 @@
     return self;
 }
 
+- (void)setPrisonerName:(NSString *)prisonerName {
+    [self.infoTableView reloadData];
+}
+
+
 #pragma mark - UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     NSInteger rows = 0;

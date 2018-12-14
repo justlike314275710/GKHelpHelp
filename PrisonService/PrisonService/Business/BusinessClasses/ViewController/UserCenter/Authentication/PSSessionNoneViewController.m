@@ -211,6 +211,7 @@
         [self.navigationController pushViewController:registerViewController animated:YES];
     }
     else{
+        [SDTrackTool logEvent:CLICK_GO_AUTH];
         PSRegisterViewController *registerViewController = [[PSRegisterViewController alloc] initWithViewModel:[[PSRegisterViewModel alloc] init]];
         [registerViewController setCallback:^(BOOL successful, id session) {
             if (self.callback) {

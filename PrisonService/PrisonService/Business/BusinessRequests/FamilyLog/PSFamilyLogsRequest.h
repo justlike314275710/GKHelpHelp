@@ -15,5 +15,6 @@
 @property (nonatomic, assign) NSInteger rows;
 @property (nonatomic, strong) NSString *prisonerId;
 @property (nonatomic, strong) NSString *familyId;
+@property (nonatomic, strong) NSString *type;
 
 @end

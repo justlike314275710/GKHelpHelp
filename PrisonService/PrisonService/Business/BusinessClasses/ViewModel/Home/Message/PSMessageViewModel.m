@@ -132,6 +132,9 @@
     self.familyLogsRequest = [PSFamilyLogsRequest new];
     self.familyLogsRequest.page = self.page;
     self.familyLogsRequest.rows = self.pageSize;
+    if (self.type&&self.type.length>0) {
+        self.familyLogsRequest.type = self.type;
+    }
     self.familyLogsRequest.familyId = [PSSessionManager sharedInstance].session.families.id;
     @weakify(self)
     [self.familyLogsRequest send:^(PSRequest *request, PSResponse *response) {

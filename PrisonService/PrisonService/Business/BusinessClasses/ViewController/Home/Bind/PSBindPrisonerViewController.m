@@ -52,8 +52,14 @@
         [[PSLoadingView sharedInstance] dismiss];
         if (response.code == 200) {
             [self bindSuccessful];
+            //埋点
+            NSDictionary *MobinforDic = @{STATUS:MobSUCCESS};
+            [SDTrackTool logEvent:BIND_PRISONER attributes:MobinforDic];
         }else{
             [PSTipsView showTips:response.msg ? response.msg : @"绑定失败"];
+            //埋点
+            NSDictionary *MobinforDic = @{STATUS:MobFAILURE,ERROR_STR:response.msg ? response.msg : @"绑定失败"};
+            [SDTrackTool logEvent:BIND_PRISONER attributes:MobinforDic];
         }
     } failed:^(NSError *error) {
         @strongify(self)
@@ -63,6 +69,7 @@
 }
 
 - (void)bindSuccessful {
+
     PSBindPrisonerViewModel *bindViewModel = (PSBindPrisonerViewModel *)self.viewModel;
     PSPendingViewController *pendingViewController = [[PSPendingViewController alloc] init];
     pendingViewController.title = @"绑定服刑人员";
@@ -241,10 +248,16 @@
 
 #pragma mark -- 家属关系图上传
 - (IBAction)relationCameraAction:(id)sender {
+    
+    NSString *cancel = NSLocalizedString(@"cancel", @"取消");
+    NSString *Choose_from_album = NSLocalizedString(@"Choose from album", @"从相册选择");
+    NSString *Take_a_photo = NSLocalizedString(@"Take a photo", @"拍照");
+    
+    
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
-    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:cancel style:UIAlertActionStyleCancel handler:nil];
     @weakify(self)
-    UIAlertAction *takePhotoAction = [UIAlertAction actionWithTitle:@"拍照" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+    UIAlertAction *takePhotoAction = [UIAlertAction actionWithTitle:Take_a_photo style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
         [PSAuthorizationTool checkAndRedirectCameraAuthorizationWithBlock:^(BOOL result) {
             PSImagePickerController *picker = [[PSImagePickerController alloc] initWithCropHeaderImageCallback:^(UIImage *cropImage) {
                 @strongify(self)
@@ -255,7 +268,7 @@
             [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:picker animated:YES completion:nil];
         }];
     }];
-    UIAlertAction *albumAction = [UIAlertAction actionWithTitle:@"从相册选择" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+    UIAlertAction *albumAction = [UIAlertAction actionWithTitle:Choose_from_album style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         [PSAuthorizationTool checkAndRedirectPhotoAuthorizationWithBlock:^(BOOL result) {
             PSImagePickerController *picker = [[PSImagePickerController alloc] initWithCropHeaderImageCallback:^(UIImage *cropImage) {
                 @strongify(self)
@@ -307,7 +320,8 @@
 
 - (NSString *)subTitleForPendingView {
     NSString*Please_wait_review=NSLocalizedString(@"Please_wait_review", @"请等待监狱审核,通过后即可登入系统");
-    return @"您提交的绑定申请正在审核中，请耐心等待～";
+    NSString*Please_wait = NSLocalizedString(@"The binding application you submitted is under review, please be patient~", @"您提交的绑定申请正在审核中，请耐心等待～");
+    return Please_wait;
 }
 
 //- (NSString *)titleForOperationButton {

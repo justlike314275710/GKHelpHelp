@@ -14,6 +14,7 @@
 @property (nonatomic, strong) UIControl *backgroundView;
 @property (nonatomic, strong) UITableView *reasonTableView;
 @property (nonatomic, strong) NSArray *reasons;
+@property (nonatomic, strong) NSArray *backreasons; //返回后台的原因只能是中文
 @property (nonatomic, assign) NSInteger selectedIndex;
 
 @end
@@ -28,6 +29,7 @@
         NSString*plan_change=NSLocalizedString(@"plan_change", @"计划有变");
         NSString*other_reason=NSLocalizedString(@"other_reason", @"其他个人原因");
         self.reasons = @[application_examined,agenda_conflict,plan_change,other_reason];
+        self.backreasons = @[@"会见申请迟迟未审核",@"日程冲突",@"计划有变",@"其他个人原因"];
         [self renderContents];
     }
     return self;
@@ -209,7 +211,8 @@
     if (sender.tag == 2) {
         [self dismiss];
         if (self.didCancel) {
-            self.didCancel(self.reasons[self.selectedIndex]);
+//            self.didCancel(self.reasons[self.selectedIndex]);
+            self.didCancel(self.backreasons[self.selectedIndex]);
         }
         if (self.clickIndex) {
             self.clickIndex(sender.tag);

@@ -11,8 +11,8 @@
 @interface PSCartViewModel : PSPhoneCardViewModel
 
 @property (nonatomic, strong, readonly) NSArray *products;
-@property (nonatomic, assign, readonly) CGFloat amount;
-@property (nonatomic, assign, readonly) NSInteger totalQuantity;
+@property (nonatomic, assign,) CGFloat amount;
+@property (nonatomic, assign,) NSInteger totalQuantity;
 @property (nonatomic, assign, readonly) BOOL totalSelected;
 
 - (void)selectedAllProducts:(BOOL)selected;

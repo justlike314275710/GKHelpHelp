@@ -20,5 +20,6 @@
 - (NSString *)dateStringWithFormat:(NSString *)format;
 - (NSInteger)dayIntervalSinceDate:(NSDate *)date;
 - (BOOL)equalToDate:(NSDate *)otherDate;
++ (NSString *)getNowTimeTimestamp;
 
 @end

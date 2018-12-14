@@ -40,10 +40,17 @@
 
 
 - (IBAction)cameraAction:(id)sender {
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"注意" message:@"请上传本人真实.清晰头像!否则注册无法通过!" preferredStyle:UIAlertControllerStyleAlert];
-    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+    
+    
+    NSString*determine=NSLocalizedString(@"determine", @"确定");
+    NSString*cancel=NSLocalizedString(@"cancel", @"取消");
+    NSString*be_careful=NSLocalizedString(@"be_careful", @"注意");
+    NSString*upload_head=NSLocalizedString(@"upload_head", @"请上传本人真实.清晰头像!否则注册无法通过!");
+    
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:be_careful message:upload_head preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:cancel style:UIAlertActionStyleCancel handler:nil];
     @weakify(self)
-    UIAlertAction *takePhotoAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+    UIAlertAction *takePhotoAction = [UIAlertAction actionWithTitle:determine style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
         [PSAuthorizationTool checkAndRedirectCameraAuthorizationWithBlock:^(BOOL result) {
             PSImagePickerController *picker = [[PSImagePickerController alloc] initWithCropHeaderImageCallback:^(UIImage *cropImage) {
                 @strongify(self)
@@ -91,7 +98,8 @@
         [self handlePickerImage:faceImage];
     }else{
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [PSTipsView showTips:@"您上传的头像未能通过人脸识别,请重新上传"];
+            NSString *faceError = NSLocalizedString(@"faceError", @"您上传的头像未能通过人脸识别,请重新上传");
+            [PSTipsView showTips:faceError];
         });
         
     }
@@ -108,7 +116,7 @@
         if (response.code == 200) {
             [self.cameraButton setImage:image forState:UIControlStateNormal];
         }else{
-            [PSTipsView showTips:@"头像上传失败"];
+            [PSTipsView showTips:NSLocalizedString(@"Avatar upload failed", @"头像上传失败")];
         }
     } failed:^(NSError *error) {
         @strongify(self)

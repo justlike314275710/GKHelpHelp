@@ -18,6 +18,7 @@
 
 @property (nonatomic, strong) PSTransactionRecordRequest *recordsRequest;
 @property (nonatomic, strong) NSMutableArray *items;
+@property (nonatomic, strong) NSMutableArray *monthitems;
 
 @end
 
@@ -26,6 +27,48 @@
 - (NSArray *)transactionRecords {
     return _items;
 }
+
+-(NSArray *)transMonths {
+    NSMutableArray *ary = [self distinguishArrayWithArray:self.items];
+    return ary;
+}
+
+-(NSMutableArray *)distinguishArrayWithArray:(NSArray *)dataSource
+{
+    //初始化一个空数组 用于return
+    NSMutableArray *array = [NSMutableArray arrayWithArray:dataSource];
+    
+    NSMutableArray *dateMutablearray = [@[] mutableCopy];
+    for (int i = 0; i < array.count; i ++) {
+        
+        PSTransactionRecord *mo = array[i];
+        
+        NSMutableArray *tempArray = [@[] mutableCopy];
+        
+        [tempArray addObject:mo];
+        
+        for (int j = i+1; j < array.count; j ++) {
+            
+            PSTransactionRecord *tmpmo = array[j];
+            
+            if([mo.createdMonth isEqualToString:tmpmo.createdMonth]){
+                
+                [tempArray addObject:tmpmo];
+                
+                [array removeObjectAtIndex:j];
+                j -= 1;
+                
+            }
+        }
+        
+        [dateMutablearray addObject:tempArray];
+        
+    }
+    
+    return dateMutablearray;
+}
+
+
 
 
 - (NSArray *)buildTransactionRecords:(NSArray *)transactionRecords {
@@ -66,6 +109,12 @@
                 balance=[NSString stringWithFormat:@"¥%@",records.money];
             }
                 break;
+            case PSRefundCardRecharge:{
+                 title = NSLocalizedString(@"Family card recharge", @"亲情卡充值");
+
+                balance=[NSString stringWithFormat:@"+¥%@",records.money];
+            }
+                break;
             default:
             {
                 title=records.reason;
@@ -82,6 +131,7 @@
 - (void)refreshRefundCompleted:(RequestDataCompleted)completedCallback failed:(RequestDataFailed)failedCallback {
     self.page = 1;
     self.items = nil;
+    self.monthitems = nil;
     self.hasNextPage = NO;
     self.dataStatus = PSDataInitial;
     [self requestRefundCompleted:completedCallback failed:failedCallback];
@@ -116,6 +166,7 @@
             if (self.page == 1) {
                 self.items = [NSMutableArray array];
             }
+            self.transMonths = [NSMutableArray array];
             if (recordsResponse.details.count == 0) {
                 self.dataStatus = PSDataEmpty;
             }else{
@@ -123,7 +174,24 @@
             }
             self.hasNextPage = recordsResponse.details.count >= self.pageSize;
            // [self.items addObjectsFromArray:recordsResponse.details];
-            [self.items addObjectsFromArray:[self buildTransactionRecords:recordsResponse.details]];
+            NSMutableArray *ary = [NSMutableArray array];
+            for (NSDictionary *dic in recordsResponse.accounts) {
+                
+                PSTransactionSuperRecord *model =  [[PSTransactionSuperRecord alloc] initWithDictionary:dic error:nil];
+                NSArray *PSTransactionRecords = model.details;
+                for (PSTransactionRecord *recordModel in PSTransactionRecords) {
+                    recordModel.rechargeTotal = model.rechargeTotal;
+                    recordModel.refundTotal = model.refundTotal;
+                    recordModel.createdMonth = model.createdMonth;
+                    recordModel.consumeTotal = model.consumeTotal;
+                    [ary addObject:recordModel];
+                }
+                
+            }
+            
+//            [self.items addObjectsFromArray:[self buildTransactionRecords:recordsResponse.details]];
+            [self.items addObjectsFromArray:[self buildTransactionRecords:ary]];
+//            [self.monthitems addObjectsFromArray:recordsResponse.accounts];
         }else{
             if (self.page > 1) {
                 self.page --;

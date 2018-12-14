@@ -24,8 +24,8 @@
         CGFloat verPadding = VerSidePadding;
         CGFloat labelHeight = DefaultLabelHeight;
         _contentLabel = [UILabel new];
-        _contentLabel.font = AppBaseTextFont1;
-        _contentLabel.textColor =  [UIColor colorWithRed:255/255.0 green:96.0039/255.0 blue:0.00389105/255.0 alpha:1];
+        _contentLabel.font = AppBaseTextFont3;
+        _contentLabel.textColor =  UIColorFromRGB(51, 51, 51);
         _contentLabel.textAlignment = NSTextAlignmentRight;
         [self.contentView addSubview: _contentLabel];
         [_contentLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -34,17 +34,7 @@
             make.top.mas_equalTo(verPadding);
             make.height.mas_equalTo(labelHeight);
         }];
-        
-        UIView*lineView=[UIView new];
-        lineView.backgroundColor=[UIColor colorWithRed:229/255.0 green:229/255.0 blue:229/255.0 alpha:1];
-        [self.contentView addSubview:lineView];
-        [lineView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.right.mas_equalTo(-sidePadding);
-            //make.width.mas_equalTo(self.frame.size.width-30);
-            make.left.mas_equalTo(sidePadding);
-            make.bottom.mas_equalTo(2);
-            make.height.mas_equalTo(1);
-        }];
+    
         
         _titleLabel = [UILabel new];
         _titleLabel.font = AppBaseTextFont3;
@@ -60,8 +50,8 @@
         }];
       
          _dateLabel = [UILabel new];
-         _dateLabel.font = AppBaseTextFont2;
-         _dateLabel.textColor = AppBaseTextColor1;
+         _dateLabel.font = FontOfSize(10);
+        _dateLabel.textColor = UIColorFromRGB(153, 153, 153);
          _dateLabel.textAlignment = NSTextAlignmentLeft;
         [self.contentView addSubview:_dateLabel];
         [ _dateLabel mas_makeConstraints:^(MASConstraintMaker *make) {

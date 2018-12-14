@@ -166,6 +166,7 @@
                     NSString *verf = [dic objectForKey:KCIFlyFaceResultVerf];
                     if([verf boolValue]){
                     NSString*face_success=NSLocalizedString(@"face_success", @"人脸识别成功");
+                    [SDTrackTool logEvent:FACE_RECOGNITION attributes:@{STATUS:MobSUCCESS}];
                     _statusTipsLable.text=face_success;
                         @weakify(self)
                         if (self.completion) {
@@ -177,6 +178,7 @@
                     }
                     else{
                         NSString*face_fail=NSLocalizedString(@"face_fail", @"人脸识别失败");
+                        [SDTrackTool logEvent:FACE_RECOGNITION attributes:@{STATUS:MobFAILURE}];
                          _statusTipsLable.text=face_fail;
                     }
                 }

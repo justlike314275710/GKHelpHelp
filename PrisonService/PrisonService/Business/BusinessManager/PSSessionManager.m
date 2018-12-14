@@ -25,6 +25,8 @@
 #import "PSLoginViewModel.h"
 #import "PSDefaultJailResponse.h"
 #import "PSDefaultJailRequest.h"
+#import "NSObject+version.h"
+
 //typedef void(^SessionCompletion)(BOOL completed);
 
 @interface PSSessionManager ()
@@ -364,8 +366,8 @@
     NSUserDefaults*userDefaults = [NSUserDefaults  standardUserDefaults];
     NSDictionary*dic = [userDefaults  dictionaryRepresentation];
     for(id key in dic) {
-        //版本更新的不去掉
-        if (![key isEqualToString:localVersion]) {
+        //版本更新的不去掉 // //1.2.13版本强制退出标志不去掉
+        if (![key isEqualToString:localVersion]||![key isEqualToString:forceLogoutKey]) {
             [userDefaults  removeObjectForKey:key];
         }
     }
