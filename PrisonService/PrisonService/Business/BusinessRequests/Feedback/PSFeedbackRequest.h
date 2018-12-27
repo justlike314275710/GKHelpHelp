@@ -13,5 +13,7 @@
 
 @property (nonatomic, strong) NSString *familyId;
 @property (nonatomic, strong) NSString *content;
+@property (nonatomic, strong) NSString *type;
+@property (nonatomic, strong) NSString *imageUrls;
 
 @end

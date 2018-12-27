@@ -24,6 +24,8 @@
     [parameters addParameter:self.contents forKey:@"contents"];
     [parameters addParameter:self.jailId forKey:@"jailId"];
     [parameters addParameter:self.familyId forKey:@"familyId"];
+    [parameters addParameter:self.type forKey:@"type"];
+    [parameters addParameter:self.imageUrls forKey:@"imageUrls"];
     [super buildPostParameters:parameters];
 }
 

@@ -8,9 +8,10 @@
 
 #import "PSResponse.h"
 #import "PSSuggestion.h"
+#import "FeedbackTypeModel.h"
 
 @interface PSMailBoxesResponse : PSResponse
 
-@property (nonatomic, strong) NSArray<PSSuggestion,Optional> *mailBoxes;
+@property (nonatomic, strong) NSArray<FeedbackTypeModel,Optional> *mailBoxes;
 
 @end

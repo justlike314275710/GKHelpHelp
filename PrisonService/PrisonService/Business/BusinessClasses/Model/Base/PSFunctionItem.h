@@ -12,5 +12,6 @@
 
 @property (nonatomic, strong) NSString *itemName;
 @property (nonatomic, strong) NSString *itemIconName;
+@property (nonatomic, strong) NSString *itemValue;
 
 @end

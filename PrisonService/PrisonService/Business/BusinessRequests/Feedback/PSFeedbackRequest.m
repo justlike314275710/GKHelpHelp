@@ -26,6 +26,8 @@
 - (void)buildPostParameters:(PSMutableParameters *)parameters {
     [parameters addParameter:self.content forKey:@"content"];
     [parameters addParameter:self.familyId forKey:@"familyId"];
+    [parameters addParameter:self.imageUrls forKey:@"imageUrls"];
+    [parameters addParameter:self.type forKey:@"type"];
     [super buildPostParameters:parameters];
 }
 

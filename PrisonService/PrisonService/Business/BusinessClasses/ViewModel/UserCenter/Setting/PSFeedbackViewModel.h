@@ -10,8 +10,14 @@
 
 @interface PSFeedbackViewModel : PSViewModel
 
-@property (nonatomic, strong) NSString *content;
+@property (nonatomic, copy) NSString *content;
+@property (nonatomic, copy) NSString *type;
+@property (nonatomic, copy) NSString *imageUrls;
+@property (nonatomic, strong) NSArray *reasons;
+@property (nonatomic, assign)WritefeedType writefeedType;
 
 - (void)sendFeedbackCompleted:(RequestDataCompleted)completedCallback failed:(RequestDataFailed)failedCallback;
+
+- (void)sendFeedbackTypesCompleted:(RequestDataCompleted)completedCallback failed:(RequestDataFailed)failedCallback;
 
 @end

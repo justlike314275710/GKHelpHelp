@@ -2,16 +2,17 @@
   "images" : [
     {
       "idiom" : "universal",
+      "filename" : "userCenterPurchaseIcon.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "充值记录列表图@2x.png",
+      "filename" : "userCenterPurchaseIcon@2x.png",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "filename" : "充值记录列表图@3x.png",
+      "filename" : "userCenterPurchaseIcon@3x.png",
       "scale" : "3x"
     }
   ],

@@ -32,7 +32,7 @@
             make.right.mas_equalTo(-sidePadding);
             make.width.mas_equalTo(80);
             make.top.mas_equalTo(verPadding);
-            make.height.mas_equalTo(labelHeight);
+            make.height.mas_equalTo(15);
         }];
     
         
@@ -46,7 +46,8 @@
             make.left.mas_equalTo(sidePadding);
             make.right.mas_equalTo(_contentLabel.mas_left).offset(20);
             make.top.mas_equalTo( _contentLabel.mas_top);
-           // make.bottom.mas_equalTo( _contentLabel.mas_bottom);
+            make.bottom.mas_equalTo( _contentLabel.mas_bottom);
+            
         }];
       
          _dateLabel = [UILabel new];
@@ -55,11 +56,38 @@
          _dateLabel.textAlignment = NSTextAlignmentLeft;
         [self.contentView addSubview:_dateLabel];
         [ _dateLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.mas_equalTo(sidePadding);
+            make.left.mas_equalTo(17);
             make.right.mas_equalTo(-sidePadding);
-            make.bottom.mas_equalTo(-verPadding);
-            make.top.mas_equalTo(_contentLabel.mas_bottom).offset(verPadding);
+            make.height.mas_equalTo(15);
+            make.top.mas_equalTo(_titleLabel.mas_bottom).offset(0);
         }];
+        
+        _payWayLab = [UILabel new];
+        _payWayLab.font = FontOfSize(10);
+        _payWayLab.textColor = UIColorFromRGB(153, 153, 153);
+        _payWayLab.textAlignment = NSTextAlignmentLeft;
+        [self.contentView addSubview:_payWayLab];
+        [ _payWayLab mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.mas_equalTo(17);
+            make.right.mas_equalTo(-sidePadding);
+            make.height.mas_equalTo(15);
+            make.top.mas_equalTo(_dateLabel.mas_bottom).offset(0);
+        }];
+        
+        _orderNoLab = [UILabel new];
+        _orderNoLab.font = FontOfSize(10);
+        _orderNoLab.textColor = UIColorFromRGB(153, 153, 153);
+        _orderNoLab.textAlignment = NSTextAlignmentLeft;
+        [self.contentView addSubview:_orderNoLab];
+        [ _orderNoLab mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.mas_equalTo(17);
+            make.right.mas_equalTo(-sidePadding);
+            make.height.mas_equalTo(15);
+            make.top.mas_equalTo(_payWayLab.mas_bottom).offset(0);
+        }];
+        
+        
+        
     }
     return self;
 }

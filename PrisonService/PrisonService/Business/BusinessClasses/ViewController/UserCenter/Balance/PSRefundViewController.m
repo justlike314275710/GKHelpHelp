@@ -26,7 +26,8 @@
     self = [super initWithViewModel:viewModel];
     if (self) {
         NSString*Transaction_details=NSLocalizedString(@"Transaction_details", @"交易明细");
-        Transaction_details = NSLocalizedString(@"Account_details", @"账号明细");
+        Transaction_details = NSLocalizedString(@"Account_details", @"亲情卡明细");
+//        Transaction_details = NSLocalizedString(@"Bill", @"账单");
         self.title = Transaction_details;
     }
     return self;
@@ -188,6 +189,29 @@
     cell.dateLabel.text=[recordModel.createdAt timestampToDateDetailString];
     cell.titleLabel.text=recordModel.reason;
     cell.contentLabel.text=recordModel.money;
+    if (recordModel.paymentType.length&&recordModel.paymentType.length>0) {
+        NSString *payway = NSLocalizedString(@"payment method", @"支付方式");
+        NSString *wxStr = NSLocalizedString(@"WeChat", @"微信");
+        NSString *aliPay = NSLocalizedString(@"Alipay", @"支付宝");
+        if ([recordModel.paymentType isEqualToString:@"weixin"]) {
+            NSString *payString = [NSString stringWithFormat:@"%@: %@",payway,wxStr];
+            cell.payWayLab.text = payString;
+        } else {
+            NSString *payString = [NSString stringWithFormat:@"%@: %@",payway,aliPay];
+            cell.payWayLab.text = payString;
+        }
+    } else {
+        cell.payWayLab.text = @"";
+        cell.dateLabel.text = @"";
+        cell.payWayLab.text=[recordModel.createdAt timestampToDateDetailString];
+    }
+    if (recordModel.orderNo&&recordModel.orderNo.length>0) {
+        NSString *orderStr = NSLocalizedString(@"Order number", @"订单编号");
+        NSString *orderNO = [NSString stringWithFormat:@"%@: %@",orderStr,recordModel.orderNo];
+        cell.orderNoLab.text = orderNO;
+    } else {
+        cell.orderNoLab.text = @"";
+    }
     if ([recordModel.money containsString:@"+"]) {
         cell.contentLabel.textColor =  [UIColor redColor];
     } else {

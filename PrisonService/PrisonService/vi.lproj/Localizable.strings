@@ -395,8 +395,9 @@
 "The binding application you submitted is under review, please be patient~"="Ứng dụng đóng sách đang được xem xét, vui lòng đợi ~";
 "The prison is a free meeting with the prison, no need to buy"="Nhà tù là một cuộc họp miễn phí với nhà tù, không cần phải mua";
 "Please select the item you want to buy"="Vui lòng chọn mục bạn muốn mua";
-
-
+"storage"="Không gian lưu trữ";
+"current_version"="Phiên bản hiện tại";
+"Bill"="Hóa đơn";
 
 
 "details"="ChiTiết.";

@@ -18,8 +18,8 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     NSString*prison_opening=NSLocalizedString(@"prison_opening", @"狱务公开");
-    //self.title =prison_opening;
-    self.titleLabel.text=prison_opening;
+    self.title =prison_opening;
+//    self.titleLabel.text=prison_opening;
 }
 
 - (void)didReceiveMemoryWarning {

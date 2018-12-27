@@ -127,6 +127,7 @@
     [_backButton addTarget:self action:@selector(back:) forControlEvents:UIControlEventTouchUpInside];
     [_backButton setImage:[UIImage imageNamed:@"userCenterAccountBack"] forState:UIControlStateNormal];
     [self.view addSubview:_backButton];
+    _backButton.hidden = YES;
     [_backButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(0);
         make.size.mas_equalTo(CGSizeMake(44, 44));
@@ -145,7 +146,7 @@
         make.width.mas_equalTo(100);
     }];
     _titleLabel = titleLabel;
-     
+    _titleLabel.hidden = YES;
 }
 
 //- (void)setTitimeNSString *)title {
@@ -157,9 +158,9 @@
     return YES;
 }
 
-- (BOOL)hiddenNavigationBar {
-    return YES;
-}
+//- (BOOL)hiddenNavigationBar {
+//    return YES;
+//}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -188,7 +189,9 @@
     PSWorkCell *cell = [tableView dequeueReusableCellWithIdentifier:@"PSWorkCell"];
     PSWorkViewModel *workViewModel = (PSWorkViewModel *)self.viewModel;
     PSNews *news = workViewModel.newsData[indexPath.row];
-    cell.dateLabel.text = [news.createdAt timestampToDateString];
+    NSString *format = [NSObject judegeIsVietnamVersion]?@"MM-dd":@"MM月dd号";
+    cell.dateLabel.text = [news.createdAt timestampToDateString:format];
+    
     cell.titleLabel.text = news.title;
     cell.detailLabel.text = news.summary;
     cell.prisonLabel.text = self.jailName;
@@ -268,19 +271,5 @@
     [self refreshData];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

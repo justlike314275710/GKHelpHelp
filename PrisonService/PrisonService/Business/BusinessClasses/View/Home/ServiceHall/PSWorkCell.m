@@ -39,49 +39,52 @@
         make.bottom.mas_equalTo(bgImageView.mas_bottom).offset(-5);
         make.right.mas_equalTo(bgImageView.mas_right).offset(-15);
     }];
-    _prisonLabel = [UILabel new];
-    _prisonLabel.textAlignment = NSTextAlignmentLeft;
-    _prisonLabel.font = AppBaseTextFont2;
-    _prisonLabel.textColor = AppBaseTextColor3;
-    [contentView addSubview:_prisonLabel];
-    [_prisonLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+//    _prisonLabel = [UILabel new];
+//    _prisonLabel.textAlignment = NSTextAlignmentLeft;
+//    _prisonLabel.font = AppBaseTextFont2;
+//    _prisonLabel.textColor = AppBaseTextColor3;
+//    [contentView addSubview:_prisonLabel];
+//    [_prisonLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.left.mas_equalTo(0);
+//        make.width.mas_equalTo(120);
+//        make.bottom.mas_equalTo(contentView.mas_centerY).offset(-5);
+//        make.height.mas_equalTo(15);
+//    }];
+    //新闻标题
+    _titleLabel = [UILabel new];
+    _titleLabel.textAlignment = NSTextAlignmentLeft;
+    _titleLabel.font = FontOfSize(12);
+    _titleLabel.textColor = UIColorFromRGB(51, 51, 51);
+    [contentView addSubview:_titleLabel];
+    [_titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(0);
-        make.width.mas_equalTo(120);
-        make.bottom.mas_equalTo(contentView.mas_centerY).offset(-5);
+        make.top.mas_equalTo(5);
         make.height.mas_equalTo(15);
+        make.width.mas_equalTo(200);
     }];
+    //日期
     _dateLabel = [UILabel new];
-    _dateLabel.textAlignment = NSTextAlignmentLeft;
+    _dateLabel.textAlignment = NSTextAlignmentRight;
     _dateLabel.font = FontOfSize(10);
     _dateLabel.textColor = AppBaseTextColor2;
     [contentView addSubview:_dateLabel];
     [_dateLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(_prisonLabel.mas_left);
-        make.right.mas_equalTo(_prisonLabel.mas_right);
-        make.top.mas_equalTo(contentView.mas_centerY).offset(5);
+        make.left.mas_equalTo(_titleLabel.mas_right).offset(0);
+        make.right.mas_equalTo(-5);
+        make.top.mas_equalTo(5);
         make.height.mas_equalTo(15);
     }];
-    _titleLabel = [UILabel new];
-    _titleLabel.textAlignment = NSTextAlignmentLeft;
-    _titleLabel.font = FontOfSize(12);
-    _titleLabel.textColor = AppBaseTextColor1;
-    [contentView addSubview:_titleLabel];
-    [_titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(_prisonLabel.mas_right).offset(0);
-        make.right.mas_equalTo(0);
-        make.top.mas_equalTo(15);
-        make.height.mas_equalTo(13);
-    }];
+    
     _detailLabel = [UILabel new];
-    _dateLabel.numberOfLines = 0;
+    _detailLabel.numberOfLines = 0;
     _detailLabel.textAlignment = NSTextAlignmentLeft;
     _detailLabel.font = FontOfSize(10);
     _detailLabel.textColor = AppBaseTextColor2;
     [contentView addSubview:_detailLabel];
     [_detailLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(_titleLabel.mas_left);
-        make.right.mas_equalTo(_titleLabel.mas_right);
-        make.bottom.mas_equalTo(-10);
+        make.right.mas_equalTo(_dateLabel.mas_right);
+        make.bottom.mas_equalTo(-2);
         make.top.mas_equalTo(_titleLabel.mas_bottom).offset(14);
     }];
 }

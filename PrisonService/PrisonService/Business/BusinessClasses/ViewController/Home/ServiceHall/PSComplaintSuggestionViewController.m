@@ -11,6 +11,9 @@
 #import "PSPublicityViewController.h"
 #import "PSComplaintViewController.h"
 #import "PSWriteComplaintViewController.h"
+#import "PSWriteFeedbackListViewController.h"
+#import "PSFeedbackListViewModel.h"
+#import "PSWriteFeedbackViewController.h"
 
 @interface PSComplaintSuggestionViewController ()<WMPageControllerDataSource>
 
@@ -31,9 +34,13 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     self.tabBarController.tabBar.hidden = YES;
+//    UIBarButtonItem *rightBtn =[self.navigationItem.rightBarButtonItems objectAtIndex:0];
+//    rightBtn.customView.hidden = NO;
 }
 
 - (void)writeComplaintAndSuggestion {
+//    PSWriteSuggestionViewModel
+    /*
     PSWriteComplaintViewController *complaintViewController = [[PSWriteComplaintViewController alloc] initWithViewModel:[PSWriteSuggestionViewModel new]];
     @weakify(self)
     [complaintViewController setSendCompleted:^{
@@ -42,6 +49,11 @@
         self.contentViewController.selectIndex = 1;
     }];
     [self.navigationController pushViewController:complaintViewController animated:YES];
+     */
+    PSFeedbackViewModel *viewModel = [PSFeedbackViewModel new];
+    viewModel.writefeedType = PSPrisonfeedBack;
+    PSWriteFeedbackViewController *feedbackViewController = [[PSWriteFeedbackViewController alloc] initWithViewModel:viewModel];
+    [self.navigationController pushViewController:feedbackViewController animated:YES];
 }
 
 - (void)renderContents {
@@ -62,6 +74,7 @@
     [_contentViewController.view mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.mas_equalTo(UIEdgeInsetsZero);
     }];
+    
 }
 
 - (void)viewDidLoad {
@@ -69,6 +82,13 @@
     // Do any additional setup after loading the view.
     [self renderContents];
 }
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+//    UIBarButtonItem *rightBtn =[self.navigationItem.rightBarButtonItems objectAtIndex:0];
+//    rightBtn.customView.hidden = YES;;
+}
+
 
 - (BOOL)hiddenNavigationBar {
     return NO;
@@ -82,7 +102,7 @@
 
 - (NSString *)pageController:(WMPageController *)pageController titleAtIndex:(NSInteger)index {
     NSString*public_information=NSLocalizedString(@"public_information", @"公示信息");
-    NSString*complaint_feedback=NSLocalizedString(@"complaint_feedback", @"投诉反馈");
+    NSString*complaint_feedback=NSLocalizedString(@"complain_advice", @"投诉建议");
     return index == 0 ? public_information : complaint_feedback;
 }
 
@@ -91,7 +111,11 @@
     if (index == 0) {
         viewController = [[PSPublicityViewController alloc] initWithViewModel:self.viewModel];
     }else{
-        viewController = [[PSComplaintViewController alloc] initWithViewModel:[PSSuggestionViewModel new]];
+//        viewController = [[PSComplaintViewController alloc] initWithViewModel:[PSSuggestionViewModel new]];
+//
+        PSFeedbackListViewModel *viewModel = [PSFeedbackListViewModel new];
+        viewModel.writefeedType = PSPrisonfeedBack;
+        viewController = [[PSWriteFeedbackListViewController alloc] initWithViewModel:viewModel];
     }
     return viewController;
 }

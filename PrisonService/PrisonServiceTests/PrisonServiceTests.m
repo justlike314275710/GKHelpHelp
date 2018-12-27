@@ -40,9 +40,11 @@
 
 //验证邮箱
 - (void)testVerification_Postalcode{
-    UIImage *image = [UIImage R_imageNamed:@"广告图1111"];
-    //使用断言测试
-    XCTAssertNotNil(image,@"图片为nil不通过");
+//    UIImage *image = [UIImage R_imageNamed:@"广告图1111"];
+//    //使用断言测试
+//    XCTAssertNotNil(image,@"图片为nil不通过");
 }
+
+
 
 @end

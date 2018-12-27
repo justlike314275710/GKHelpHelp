@@ -6,34 +6,51 @@
 //  Copyright © 2018年 calvin. All rights reserved.
 //
 
-#import "NSDate+Components.h"
+#define DEVELOP  1     //开发
+//#define UAT 1        //测试
+//#define PRODUCE 1    //生产
 
-//开发环境
+#ifdef DEBUG
+
+#else
+#define PRODUCE 1    //生产
+#endif
+
+#ifdef DEVELOP       //开发
 #define ServerDomain @"http://120.78.190.101:8086"
-//#define ServerDomain @"http://192.168.0.121:8086" //杨波
-//测试环境
-//#define ServerDomain @"http://120.78.190.101:8084"
+#define H5ServerDomain @"http://120.78.190.101:8085"          //H5 Server
+#define ServerUrl [NSString stringWithFormat:@"%@/ywgk-app-auth",ServerDomain] //其他环境接口地址
+#define EmallUrl @"http://10.10.10.17:805"               //电子商城
+#define EmallHostUrl @"http://192.168.0.230:8081"        //认证授权平台
 
-//生产环境
-//#define ServerDomain @"https://www.yuwugongkai.com"
+#elif UAT            //测试
+#define ServerDomain @"http://120.78.190.101:8084"
+#define H5ServerDomain @"http://120.78.190.101:8083"
+#define ServerUrl [NSString stringWithFormat:@"%@/ywgk-app-demo",ServerDomain]
+#define EmallHostUrl @"http://10.10.10.16:8081"
+#define EmallUrl @"http://10.10.10.16:805"
+
+#elif PRODUCE        //生产
+#define ServerDomain @"https://www.yuwugongkai.com"
+#define H5ServerDomain @"http://39.108.185.51:8081"
+#define ServerUrl [NSString stringWithFormat:@"%@/ywgk-app",ServerDomain] //生产
+#define EmallUrl @"https://m.trade.prisonpublic.com" //电子商城
+#define EmallHostUrl @"https://api.auth.prisonpublic.com"
 
 
-//H5 开发Server
-#define H5ServerDomain @"http://120.78.190.101:8085"
+#else               //生产（防止没有定义的时候没有域名)
 
-//H5 测试Server
-//#define H5ServerDomain @"http://120.78.190.101:8083"
+#define ServerDomain @"https://www.yuwugongkai.com"
+#define H5ServerDomain @"http://39.108.185.51:8081"
+#define ServerUrl [NSString stringWithFormat:@"%@/ywgk-app",ServerDomain] //生产
+#define EmallUrl @"https://m.trade.prisonpublic.com" //电子商城
+#define EmallHostUrl @"https://api.auth.prisonpublic.com"
 
-//H5 生产Server
-//#define H5ServerDomain @"http://39.108.185.51:8081"
+#endif
+
 
 //电子商务Server
 #define CommerceServerDomain @"http://39.108.185.51:8088"
-//其他环境接口地址
-#define ServerUrl [NSString stringWithFormat:@"%@/ywgk-app-auth",ServerDomain] //开发
-//#define ServerUrl [NSString stringWithFormat:@"%@",ServerDomain] //杨
-//#define ServerUrl [NSString stringWithFormat:@"%@/ywgk-app-demo",ServerDomain] //测试
-//#define ServerUrl [NSString stringWithFormat:@"%@/ywgk-app",ServerDomain] //生产
 
 //图片上传地址
 //#define UploadServerUrl [NSString stringWithFormat:@"%@/image-server",ServerDomain]
@@ -46,24 +63,12 @@
 //电子商务敬请期待
 #define ProCommerceUrl [NSString stringWithFormat:@"%@/ywt-ec/index.html",CommerceServerDomain]
 
-//授权认证平台开发地址
-//#define EmallHostUrl @"http://10.10.10.17:8081"
-#define EmallUrl @"http://10.10.10.17:805"
-#define EmallHostUrl @"http://192.168.0.230:8081"
-
-
 #define ConsultationHostUrl @"http://192.168.0.230:8086"
-
 //#define ConsultationHostUrl @"http://10.10.10.17:8086"
-//授权认证平台测试地址
-//#define EmallHostUrl @"http://10.10.10.16:8081"
-//#define EmallUrl @"http://10.10.10.16:805"
+
 //外网授权认证平台测试地址
 //#define EmallHostUrl @"http://123.57.7.159:8081" //123.57.7.159
 
-//授权认证平台生产地址
-//#define EmallUrl @"https://m.trade.prisonpublic.com" //电子商城
-//#define EmallHostUrl @"https://api.auth.prisonpublic.com"
 
 //监狱详情地址 后面接jailId
 #define PrisonDetailUrl [NSString stringWithFormat:@"%@/h5/#/prison/detail/",H5ServerDomain]

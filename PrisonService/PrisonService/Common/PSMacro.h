@@ -63,8 +63,15 @@
 
 #define StatusHeight  [[UIApplication sharedApplication] statusBarFrame].size.height
 
+//枚举---
+typedef NS_ENUM(NSInteger,WritefeedType) {
+    PSWritefeedBack,   //app投诉反馈
+    PSPrisonfeedBack,  //监狱投诉建议
+};
+
 //头文件
 #import "NSObject+version.h"
+#import "NSDate+Components.h"
 
 //*******----通知
 #define NotificationNoNetwork @"NotificationNoNetwork"

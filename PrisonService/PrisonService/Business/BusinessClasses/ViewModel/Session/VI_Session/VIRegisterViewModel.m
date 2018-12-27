@@ -232,6 +232,7 @@
             completedCallback(response);
         }
     } errorCallback:^(PSRequest *request, NSError *error) {
+        
         if (failedCallback) {
             failedCallback(error);
         }

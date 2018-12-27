@@ -28,6 +28,7 @@
     if (self) {
         NSString *title = NSLocalizedString(@"legal_service", @"法律服务");
         self.title = title;
+
     }
     return self;
 }

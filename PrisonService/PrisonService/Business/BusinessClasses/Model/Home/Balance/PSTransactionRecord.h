@@ -34,6 +34,8 @@ typedef NS_ENUM(NSInteger, PSRefundType) {
 @property (nonatomic, strong)  NSString<Optional>* refundTotal;
 @property (nonatomic, strong)  NSString<Optional>* createdMonth;
 @property (nonatomic, strong)  NSString<Optional>* consumeTotal;
+@property (nonatomic, strong)  NSString<Optional>* orderNo;
+@property (nonatomic, strong)  NSString<Optional>* paymentType;
 
 
 @end

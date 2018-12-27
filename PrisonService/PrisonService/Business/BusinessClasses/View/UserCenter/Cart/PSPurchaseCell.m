@@ -53,7 +53,7 @@
     [titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(titleIconView.mas_right).offset(10);
         make.top.bottom.mas_equalTo(0);
-        make.width.mas_equalTo(140);
+        make.width.mas_equalTo(100);
     }];
     _orderNOLabel = [UILabel new];
     _orderNOLabel.font = FontOfSize(10);
@@ -62,7 +62,7 @@
     _orderNOLabel.numberOfLines = 0;
     [titleView addSubview:_orderNOLabel];
     [_orderNOLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(titleLabel.mas_right).offset(10);
+        make.left.mas_equalTo(titleLabel.mas_right).offset(0);
         make.top.bottom.mas_equalTo(0);
         make.right.mas_equalTo(0);
     }];

@@ -65,6 +65,8 @@
 
 }
 
+
+
 -(void)checkDataIsEmpty{
     PSConsultationViewModel *viewModel=(PSConsultationViewModel *)self.viewModel;
      @weakify(self)
@@ -149,7 +151,6 @@
         
         ((PSConsultationTableViewCell *)cell).contentTextView.delegate=self;
 
-      
      
     }else{
         cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"PSConsultationOtherTableViewCell" forIndexPath:indexPath];

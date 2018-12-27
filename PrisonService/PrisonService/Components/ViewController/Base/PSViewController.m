@@ -50,7 +50,8 @@
 }
 
 - (UIColor *)titleColor {
-    return AppBaseTextColor1;
+//    return AppBaseTextColor1;
+    return UIColorFromRGB(51, 51, 51);
 }
 
 - (UIColor *)rightItemTitleColor {
@@ -136,7 +137,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.navigationController.navigationBar.titleTextAttributes = @{NSFontAttributeName:[UIFont systemFontOfSize:TITLEFONT],NSForegroundColorAttributeName:[self titleColor]};
+    self.navigationController.navigationBar.titleTextAttributes = @{NSFontAttributeName: [UIFont boldSystemFontOfSize:TITLEFONT],NSForegroundColorAttributeName:[self titleColor]};
     UIButton *lButton = [UIButton buttonWithType:UIButtonTypeCustom];
     CGRect leftFrame = CGRectMake(0, 0, DEFAULT_ITEM_SIZE.width, DEFAULT_ITEM_SIZE.height);
     UIImage *leftImage = [self leftItemImage];

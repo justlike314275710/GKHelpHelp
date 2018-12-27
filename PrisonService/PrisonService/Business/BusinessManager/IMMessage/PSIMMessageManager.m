@@ -73,7 +73,7 @@
  */
 - (void)doLoginIM:(LaunchTaskCompletion)completion {
     //登录云信
-    NSString *account = [[PSSessionManager sharedInstance].session.account copy];
+    NSString *account = [PSSessionManager sharedInstance].session.account?[[PSSessionManager sharedInstance].session.account copy]:[[PSSessionManager sharedInstance].session.families.openId copy];
     NSString *token = [[PSSessionManager sharedInstance].session.token copy];
     if ([account length] > 0 && [token length] > 0) {
         //自动登录

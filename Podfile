@@ -44,6 +44,8 @@ def shared_pods
     pod 'EBBannerView'
     pod 'CDZStarsControl'
     pod 'UMengAnalytics-NO-IDFA'
+    pod 'HUPhotoBrowser'
+    pod 'ReactiveObjC'
 
 end
 

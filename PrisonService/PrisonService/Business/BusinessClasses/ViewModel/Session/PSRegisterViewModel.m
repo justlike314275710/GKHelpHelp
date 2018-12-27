@@ -204,15 +204,16 @@
     self.uploadAvatarRequest.avatarData = UIImageJPEGRepresentation(self.avatarImage, 0.3);
     @weakify(self)
     [self.uploadAvatarRequest send:^(PSRequest *request, PSResponse *response) {
+        
         @strongify(self)
         PSUploadAvatarResponse *avatarResponse = (PSUploadAvatarResponse *)response;
         self.avatarUrl = avatarResponse.url;
-        
-
+    
         if (completedCallback) {
             completedCallback(response);
         }
     } errorCallback:^(PSRequest *request, NSError *error) {
+        
         if (failedCallback) {
             failedCallback(error);
         }

@@ -46,14 +46,15 @@
     if (index >= 0 && index < details.count) {
         prisonerDetail = details[index];
     }
-  
-    NSString*jailId=prisonerDetail.jailId;
+    
+    NSString*jailId=prisonerDetail.jailId?prisonerDetail.jailId:@"";
     self.session = [PSCache queryCache:AppUserSessionCacheKey];
     NSString*familiesId=self.session.families.id;
     NSDictionary*parmeters=@{
                              @"familyId":familiesId,
                              @"jailId":jailId
                              };
+    
     NSString*token=[NSString stringWithFormat:@"Bearer %@",[LXFileManager readUserDataForKey:@"access_token"]];
     [manager.requestSerializer setValue:token forHTTPHeaderField:@"Authorization"];
     [manager GET:url parameters:parmeters progress:^(NSProgress * _Nonnull downloadProgress) {

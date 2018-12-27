@@ -42,6 +42,8 @@ PODS:
     - FMDB/standard (= 2.6.2)
   - FMDB/standard (2.6.2)
   - FSCalendar (2.7.9)
+  - HUPhotoBrowser (1.4.5):
+    - SVProgressHUD
   - IQKeyboardManager (4.0.13)
   - JSONModel (1.7.0)
   - KVOController (1.2.0)
@@ -108,6 +110,7 @@ PODS:
     - DACircularProgress
     - MBProgressHUD
     - SDWebImage/GIF (~> 4.2.1)
+  - ReactiveObjC (3.1.0)
   - RegexKitLite (4.0)
   - SDCycleScrollView (1.75):
     - SDWebImage (>= 4.0.0)
@@ -117,6 +120,7 @@ PODS:
   - SDWebImage/GIF (4.2.3):
     - FLAnimatedImage (~> 1.0)
     - SDWebImage/Core
+  - SVProgressHUD (2.2.5)
   - TZImagePickerController (1.9.8)
   - "UITableView+FDTemplateLayoutCell (1.6)"
   - "UITextView+Placeholder (1.2.0)"
@@ -139,6 +143,7 @@ DEPENDENCIES:
   - FDFullscreenPopGesture (~> 1.1)
   - FMDB (~> 2.6.2)
   - FSCalendar
+  - HUPhotoBrowser
   - IQKeyboardManager (~> 4.0.10)
   - JSONModel (~> 1.7.0)
   - KVOController
@@ -152,6 +157,7 @@ DEPENDENCIES:
   - OpenUDID (~> 1.0.0)
   - pop (~> 1.0.10)
   - PYPhotoBrowser
+  - ReactiveObjC
   - RegexKitLite (~> 4.0)
   - SDCycleScrollView (~> 1.75)
   - SDWebImage (~> 4.2.3)
@@ -180,6 +186,7 @@ SPEC REPOS:
     - FLAnimatedImage
     - FMDB
     - FSCalendar
+    - HUPhotoBrowser
     - IQKeyboardManager
     - JSONModel
     - KVOController
@@ -194,9 +201,11 @@ SPEC REPOS:
     - OpenUDID
     - pop
     - PYPhotoBrowser
+    - ReactiveObjC
     - RegexKitLite
     - SDCycleScrollView
     - SDWebImage
+    - SVProgressHUD
     - TZImagePickerController
     - "UITableView+FDTemplateLayoutCell"
     - "UITextView+Placeholder"
@@ -221,6 +230,7 @@ SPEC CHECKSUMS:
   FLAnimatedImage: 4a0b56255d9b05f18b6dd7ee06871be5d3b89e31
   FMDB: 854a0341b4726e53276f2a8996f06f1b80f9259a
   FSCalendar: a04b09f16f811bc92e82f3cf852a15225233b9d5
+  HUPhotoBrowser: 87a8333c111a4e71ebf5400bf66d0eeb522c0098
   IQKeyboardManager: 8eab4d8111418414619d1df8e4779ce5d0f8d7e2
   JSONModel: 840bc0fcffb24b8454d2c026bf26fea454b8e98d
   KVOController: d72ace34afea42468329623b3379ab3cd1d286b6
@@ -235,9 +245,11 @@ SPEC CHECKSUMS:
   OpenUDID: e7cb6984c7304906ad20f3a36bf087b025896b6b
   pop: 82ca6b068ce9278fd350fd9dd09482a0ce9492e6
   PYPhotoBrowser: 74f6526b290069a55943ed92e5a21f84c6d90ecf
+  ReactiveObjC: 2a38ea15335de4119d8b17caf1db1484f61db902
   RegexKitLite: c0e4c12e6e7de0769f3a3ed679f0f61604170661
   SDCycleScrollView: 884b88f0266dd4708a0e1934975c69cb971707b1
   SDWebImage: 791bb72962b3492327ddcac4b1880bd1b5458431
+  SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
   TZImagePickerController: 3b9413ae5d049b1fdc5b0c720ad283f35b679a50
   "UITableView+FDTemplateLayoutCell": 5c949b4a5059c404b442926c0e80f81d10a2d66f
   "UITextView+Placeholder": 77680995fcdd07c3f52ec92fe1150874a2ac89ff
@@ -248,6 +260,6 @@ SPEC CHECKSUMS:
   YYText: 5c461d709e24d55a182d1441c41dc639a18a4849
   ZYCornerRadius: f0af817be7805b5c63d793042ca7a03f81e14069
 
-PODFILE CHECKSUM: 1f46090b0c497df786bf7cf569cfb750076b002e
+PODFILE CHECKSUM: 6f1fa24630e29f45037eddeba08f11e71fad7ca1
 
 COCOAPODS: 1.5.3

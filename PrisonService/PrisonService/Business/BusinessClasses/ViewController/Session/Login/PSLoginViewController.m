@@ -108,7 +108,7 @@
         }
        else if (loginViewModel.code==400) {
             [[PSLoadingView sharedInstance]dismiss];
-          if (self.callback) {
+          if (self.callback&&loginViewModel.session.account) {
               self.callback(YES,loginViewModel.session);
           }
            [[PSContentManager sharedInstance]launchContent];

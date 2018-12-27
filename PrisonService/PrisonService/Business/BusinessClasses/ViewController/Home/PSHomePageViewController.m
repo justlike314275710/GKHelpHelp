@@ -507,13 +507,13 @@
     PSPublicViewController *publicViewController = [[PSPublicViewController alloc] initWithViewModel:viewModel];
     publicViewController.jailId=self.defaultJailId;
     publicViewController.jailName=self.defaultJailName;
-    if (self.defaultJailId==nil||self.defaultJailName==nil) {
-        [PSTipsView showTips:@"当前网络不支持"];
-    } else {
+//    if (self.defaultJailId==nil||self.defaultJailName==nil) {
+//        [PSTipsView showTips:@"当前网络不支持"];
+//    } else {
         publicViewController.hidesBottomBarWhenPushed=YES;
         [self.navigationController pushViewController:publicViewController animated:YES];
         publicViewController.hidesBottomBarWhenPushed=NO;
-    }
+//    }
 }
 //法律法规
 -(void)p_insertLaw:(UIButton *)senser {
@@ -528,11 +528,11 @@
     PSDynamicViewController *dynamicViewController = [[PSDynamicViewController alloc] initWithViewModel:viewModel];
     dynamicViewController.jailId=self.defaultJailId;
     dynamicViewController.jailName=self.defaultJailName;
-    if (self.defaultJailName==nil||self.defaultJailId==nil) {
-        [PSTipsView showTips:@"当前网络不支持"];
-    } else {
+//    if (self.defaultJailName==nil||self.defaultJailId==nil) {
+//        [PSTipsView showTips:@"当前网络不支持"];
+//    } else {
         [self.navigationController pushViewController:dynamicViewController animated:YES];
-    }
+//    }
 }
 
 #pragma mark - setting&getting

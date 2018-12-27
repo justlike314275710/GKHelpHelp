@@ -16,6 +16,10 @@
 #import "PSSessionManager.h"
 #import "PSLoginViewModel.h"
 #import "PSSessionNoneViewController.h"
+#import "PSStorageViewController.h"
+#import "PSSorageViewModel.h"
+#import "PSWriteFeedbackListViewController.h"
+#import "PSFeedbackListViewModel.h"
 @interface PSSettingViewController ()<UITableViewDataSource,UITableViewDelegate>
 
 @property (nonatomic, strong) UITableView *settingTableView;
@@ -55,8 +59,11 @@
 
     switch ([PSSessionManager sharedInstance].loginStatus) {
         case PSLoginPassed:{
-            PSWriteFeedbackViewController *feedbackViewController = [[PSWriteFeedbackViewController alloc] initWithViewModel:[[PSFeedbackViewModel alloc] init]];
-            [self.navigationController pushViewController:feedbackViewController animated:YES];
+            PSFeedbackListViewModel *viewModel = [PSFeedbackListViewModel new];
+            viewModel.writefeedType = PSWritefeedBack;
+            PSWriteFeedbackListViewController *feedbackListVC = [[PSWriteFeedbackListViewController alloc] initWithViewModel:viewModel];
+            [self.navigationController pushViewController:feedbackListVC animated:YES];
+            
         }
             break;
         default:
@@ -65,6 +72,23 @@
             [self.navigationController pushViewController:[[PSSessionNoneViewController alloc]initWithViewModel:viewModel] animated:YES];
         }
         break;
+    }
+}
+
+- (void)insert_storage {
+    
+    switch ([PSSessionManager sharedInstance].loginStatus) {
+        case PSLoginPassed:{
+            PSStorageViewController *storageViewController = [[PSStorageViewController alloc] initWithViewModel:[[PSSorageViewModel alloc] init]];
+            [self.navigationController pushViewController:storageViewController animated:YES];
+        }
+            break;
+        default:
+        {
+            PSLoginViewModel*viewModel=[[PSLoginViewModel alloc]init];
+            [self.navigationController pushViewController:[[PSSessionNoneViewController alloc]initWithViewModel:viewModel] animated:YES];
+        }
+            break;
     }
 }
 
@@ -118,18 +142,20 @@
             }
         }
     }];
-    self.settingTableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
+    self.settingTableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
     self.settingTableView.backgroundColor = AppBaseBackgroundColor2;
+    self.settingTableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
     self.settingTableView.dataSource = self;
     self.settingTableView.delegate = self;
     self.settingTableView.separatorInset =UIEdgeInsetsMake(0, 15, 0, 15);
+    self.settingTableView.tableFooterView = [UIView new];
     [self.settingTableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cellIdentifier"];
     [self.view addSubview:self.settingTableView];
     [self.settingTableView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.top.right.mas_equalTo(0);
+        make.left.right.mas_equalTo(0);
+        make.top.mas_equalTo(20);
         make.bottom.mas_equalTo(extraLabel.mas_top).offset(-20);
     }];
-    
     
     UIButton*loginOutBtn =[[UIButton alloc]initWithFrame:CGRectMake(CGRectGetMidX(self.view.frame)-45, SCREEN_HEIGHT-240, 90, 35)];
     loginOutBtn.titleLabel.numberOfLines=0;
@@ -171,7 +197,7 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return 20;
+    return 0;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
@@ -201,6 +227,14 @@
     PSSettingItem *settingitem = settingViewModel.settingItems[indexPath.section][indexPath.row];
     cell.imageView.image = [UIImage imageNamed:settingitem.itemIconName];
     cell.textLabel.text = settingitem.itemName;
+    
+    UILabel *valueLab = [[UILabel alloc] initWithFrame:CGRectMake(cell.contentView.width-120,(cell.contentView.height-20)/2,100, 20)];
+    valueLab.textAlignment = NSTextAlignmentRight;
+    valueLab.text = settingitem.itemValue;
+    valueLab.textColor = UIColorFromRGB(153,153,153);
+    valueLab.font = FontOfSize(12);
+    [cell.contentView addSubview:valueLab];
+    
     if ([settingitem.itemName isEqualToString:@"闹钟提醒"]) {
         PSSwitch *mySwitch = [self statusSwitch];
         mySwitch.on = YES;
@@ -218,8 +252,12 @@
     PSSettingViewModel *settingViewModel = (PSSettingViewModel *)self.viewModel;
     PSSettingItem *settingitem = settingViewModel.settingItems[indexPath.section][indexPath.row];
     NSString*feedback=NSLocalizedString(@"feedback", @"意见反馈");
+    NSString*storage = NSLocalizedString(@"storage", @"存储空间");
     if ([settingitem.itemName isEqualToString:feedback]) {
         [self writeFeedback];
+    }
+    if ([settingitem.itemName isEqualToString:storage]) {
+        [self insert_storage];
     }
 }
 

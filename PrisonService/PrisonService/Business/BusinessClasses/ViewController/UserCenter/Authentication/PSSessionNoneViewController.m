@@ -51,8 +51,9 @@
     PSLoginViewModel *loginViewModel =[[PSLoginViewModel alloc]init];
     [loginViewModel loginCompleted:^(PSResponse *response) {
         
-        self.RegistrationModel=loginViewModel.session.registrations[0];
-        
+        if (loginViewModel.session.registrations.count>0) {
+          self.RegistrationModel=loginViewModel.session.registrations[0];
+        }
         NSString*repalyTime=[self.RegistrationModel.createdAt timestampToDateString]?[self.RegistrationModel.createdAt timestampToDateString]:[[PSSessionManager sharedInstance].session.families.createdAt timestampToDateString];
         
         if ([loginViewModel.session.status isEqualToString:@"PENDING"]) {

@@ -15,5 +15,6 @@
 @property (nonatomic, strong) NSString *contents;
 @property (nonatomic, strong) NSString *jailId;
 @property (nonatomic, strong) NSString *familyId;
-
+@property (nonatomic, strong) NSString *type;
+@property (nonatomic, strong) NSString *imageUrls;
 @end

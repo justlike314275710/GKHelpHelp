@@ -53,15 +53,15 @@
     self.newsRequest.page = self.page;
     self.newsRequest.rows = self.pageSize;
     self.newsRequest.type = self.newsType;
-//   if ([[LXFileManager readUserDataForKey:@"isVistor"]isEqualToString:@"YES"]) {
-//
-//        self.newsRequest.jailId =[LXFileManager readUserDataForKey:@"vistorId"];
-//
-//        //[[NSUserDefaults standardUserDefaults]objectForKey:@"vistorId"];
-//    } else {
-//        self.newsRequest.jailId = self.prisonerDetail.jailId;
-//    }
-    self.newsRequest.jailId=self.jailId;
+    
+    NSInteger index = [PSSessionManager sharedInstance].selectedPrisonerIndex;
+    NSArray *details = [PSSessionManager sharedInstance].passedPrisonerDetails;
+    PSPrisonerDetail *prisonerDetail = nil;
+    if (index >= 0 && index < details.count) {
+        prisonerDetail = details[index];
+    }
+    self.newsRequest.jailId=prisonerDetail.jailId?prisonerDetail.jailId:@"";
+    
     @weakify(self)
     [self.newsRequest send:^(PSRequest *request, PSResponse *response) {
         @strongify(self)

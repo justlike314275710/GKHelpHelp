@@ -101,8 +101,10 @@
     [self appendParameters];
     NSURL* requestURL = [self buildRequestURL];
     //PSLog(@"url:%@",requestURL.absoluteString);
-    __weak PSHttpClient *weakself = self;
+//    __weak PSHttpClient *weakself = self;
+    @weakify(self);
     if(_method == PSHttpMethodPost){
+        @strongify(self);
         [self postParameters];
         //处理参数
         if (self.parameterType == PSPostParameterFormData) {
@@ -122,27 +124,27 @@
             } progress:^(NSProgress * _Nonnull uploadProgress) {
                 
             } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-                [weakself networkCompleted:responseObject];
+                [self networkCompleted:responseObject];
             } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-                [weakself networkError:error];
+                [self networkError:error];
             }];
         }else{
             [_httpSessionManager POST:requestURL.absoluteString parameters:[_postParameters dictionary] progress:^(NSProgress * _Nonnull uploadProgress) {
                 
             } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-                [weakself networkCompleted:responseObject];
+                [self networkCompleted:responseObject];
     
             } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-                [weakself networkError:error];
+                [self networkError:error];
             }];
         }
     }else if(_method==PSHttpMethodGet){
         [_httpSessionManager GET:requestURL.absoluteString parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
             
         } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-            [weakself networkCompleted:responseObject];
+            [self networkCompleted:responseObject];
         } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-            [weakself networkError:error];
+            [self networkError:error];
         }];
     }
     return YES;
@@ -226,6 +228,7 @@
 }
 
 - (void)networkCompleted:(NSData *)responseData {
+    
 }
 
 - (void)networkError:(NSError *)error {
