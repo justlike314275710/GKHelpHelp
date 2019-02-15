@@ -15,6 +15,8 @@
 #import "PSMailBoxesTypesRequest.h"
 #import "PSWriteSuggestionRequest.h"
 #import "NSString+emoji.h"
+#import "PSDeleteRequest.h"
+#import "PSBusinessConstants.h"
 
 @interface PSFeedbackViewModel ()
 
@@ -31,31 +33,6 @@
  - (id)init {
     self = [super init];
     if (self) {
-//        FeedbackTypeModel *reason_one = [FeedbackTypeModel new];
-//        reason_one.name = @"功能异常";
-//        reason_one.id = @"1";
-//        reason_one.type = @"APP_FEEDBACK";
-//        reason_one.desc = @"功能故障或不可使用";
-//        
-//        FeedbackTypeModel *reason_two = [FeedbackTypeModel new];
-//        reason_two.name = @"产品建议";
-//        reason_two.id = @"2";
-//        reason_two.type = @"APP_FEEDBACK";
-//        reason_two.desc = @"功能故障或不可使用";
-//        
-//        FeedbackTypeModel *reason_three = [FeedbackTypeModel new];
-//        reason_three.name = @"安全问题";
-//        reason_three.id = @"3";
-//        reason_three.type = @"APP_FEEDBACK";
-//        reason_three.desc = @"功能故障或不可使用";
-//        
-//        FeedbackTypeModel *reason_four = [FeedbackTypeModel new];
-//        reason_four.name = @"其他问题";
-//        reason_four.id = @"4";
-//        reason_four.type = @"APP_FEEDBACK";
-//        reason_four.desc = @"功能故障或不可使用";
-//        NSMutableArray *items = [NSMutableArray arrayWithObjects:reason_one,reason_two,reason_three,reason_four, nil];
-//        self.reasons = [items copy];
     }
     return self;
 }
@@ -63,13 +40,15 @@
 - (void)checkDataWithCallback:(CheckDataCallback)callback {
     if (self.content.length <10) {
         if (callback) {
-            callback(NO,@"请输入不少于10个字的描述");
+            NSString *less_msg = NSLocalizedString(@"Please enter a description of no less than 10 words", @"请输入不少于10个字的描述");
+            callback(NO,less_msg);
         }
         return;
     }
     if ([NSString hasEmoji:self.content]||[NSString stringContainsEmoji:self.content]) {
         if (callback) {
-            callback(NO,@"输入的反馈详情不能包含表情,请重新输入");
+            NSString *msg = NSLocalizedString(@"The feedback details entered cannot contain emoticons, please re-enter", @"输入的反馈详情不能包含表情,请重新输入");
+            callback(NO,msg);
         }
         return;
     }
@@ -182,6 +161,19 @@
             break;
     }
 
+}
+
+//删除图片
+-(void)requestdeleteFinish:(void(^)(id responseObject))finish
+                   enError:(void(^)(NSError *error))enError {
+    //删除图片
+    NSArray *ary = [NSArray arrayWithArray:self.urls];
+    NSDictionary *deleDic = @{@"urls":ary};
+    [PSDeleteRequest requestPUTWithURLStr:ImageDeleteUrl paramDic:deleDic finish:^(id  _Nonnull responseObject) {
+        finish(responseObject);
+    } enError:^(NSError * _Nonnull error) {
+        enError(error);
+    }];
 }
 
 

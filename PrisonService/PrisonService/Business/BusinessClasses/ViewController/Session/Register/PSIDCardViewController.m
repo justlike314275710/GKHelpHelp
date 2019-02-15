@@ -85,7 +85,7 @@
     } failed:^(NSError *error) {
         @strongify(self)
         [[PSLoadingView sharedInstance] dismiss];
-        [self showNetError];
+        [self showNetError:error];
     }];
 }
 
@@ -180,7 +180,7 @@
         } failed:^(NSError *error) {
             @strongify(self)
             [[PSLoadingView sharedInstance] dismiss];
-            [self showNetError];
+            [self showNetError:error];
         } frontOrBack:YES];
     }else{
         [PSTipsView showTips:@"未能识别身份证"];
@@ -204,7 +204,7 @@
     } failed:^(NSError *error) {
         @strongify(self)
         [[PSLoadingView sharedInstance] dismiss];
-        [self showNetError];
+        [self showNetError:error];
     } frontOrBack:NO];
 }
 

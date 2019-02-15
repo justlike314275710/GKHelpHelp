@@ -26,7 +26,7 @@
     self = [super initWithViewModel:viewModel];
     if (self) {
         NSString*Transaction_details=NSLocalizedString(@"Transaction_details", @"交易明细");
-        Transaction_details = NSLocalizedString(@"Account_details", @"亲情卡明细");
+        Transaction_details = NSLocalizedString(@"Account_details", @"远程探视卡明细");
 //        Transaction_details = NSLocalizedString(@"Bill", @"账单");
         self.title = Transaction_details;
     }
@@ -177,7 +177,7 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 64;
+    return 80;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {

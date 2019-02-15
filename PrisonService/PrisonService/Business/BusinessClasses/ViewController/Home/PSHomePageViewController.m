@@ -63,11 +63,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    //判断是否2.1.13 版本是否需要强制退出一次
-//    if ([NSObject judgeIsforceLogout]&&![[LXFileManager readUserDataForKey:@"isVistor"] isEqualToString:@"YES"]) {
-//        NSLog(@"退出重新登录");
-//        [[PSSessionManager sharedInstance] doLogout];
-//    } 
     //更新
     PSVersonUpdateViewModel *UpdateViewModel = [PSVersonUpdateViewModel new];
     [UpdateViewModel VersonUpdate];
@@ -77,21 +72,27 @@
     [self refreshDataFromLoginStatus];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showDot) name:AppDotChange object:nil];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(refreshData) name:JailChange object:nil];
+    //重新获取token
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(requestOfRefreshToken) name:RefreshToken object:nil];
 
 }
 
 //重新获取TOKEN
 -(void)requestOfRefreshToken{
-    
-    PSEcomLoginViewmodel*ecomViewmodel=[[PSEcomLoginViewmodel alloc]init];
-    [ecomViewmodel postRefreshEcomLogin:^(PSResponse *response) {
-        //重新登陆
-        [self refreshDataFromLoginStatus];
-    } failed:^(NSError *error) {
-        [self showNetError];
-    }];
+    NSLog(@"token 失效");
+    _getTokenCount ++;
+    if (_getTokenCount<2) {
+        PSEcomLoginViewmodel*ecomViewmodel=[[PSEcomLoginViewmodel alloc]init];
+        [ecomViewmodel postRefreshEcomLogin:^(PSResponse *response) {
+            //重新登陆
+            [self refreshDataFromLoginStatus];
+        } failed:^(NSError *error) {
+            [self showNetError:error];
+        }];
+    } else {
+        [self showTokenError];
+    }
 }
-
 
 - (void)dealloc
 {
@@ -169,7 +170,7 @@
             [self requestjailsDetailsWithJailId:self.defaultJailId isShow:YES];
         }
         else{
-            [self showNetError];
+            [self showNetError:nil];
             [self renderContents:YES];
         }
     }];
@@ -244,13 +245,9 @@
     } failed:^(NSError *error) {
         //TOKEN 失效
         if ([error.userInfo[@"NSLocalizedDescription"] isEqualToString:@"Request failed: unauthorized (401)"]) {
-            NSLog(@"token 失效");
-            _getTokenCount ++;
-            if (_getTokenCount<2) {
-                [self requestOfRefreshToken];
-            }
+            [[NSNotificationCenter defaultCenter]postNotificationName:RefreshToken object:nil];
         } else {
-            [self showNetError];
+            [self showNetError:error];
         }
     }];
 }
@@ -296,7 +293,7 @@
     //广告图
     [self.myScrollview addSubview:self.advView];
     [self.advView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.mas_equalTo(0);
+        make.left.top.mas_equalTo(0);
         make.width.mas_equalTo(SCREEN_WIDTH);
         make.height.mas_equalTo(244);
     }];

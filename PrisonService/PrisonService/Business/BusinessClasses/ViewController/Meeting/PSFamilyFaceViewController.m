@@ -474,7 +474,7 @@
         }
     } failed:^(NSError *error) {
         // [[PSLoadingView sharedInstance] dismiss];
-        [self showNetError];
+        [self showNetError:error];
     }];
 }
 

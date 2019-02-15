@@ -9,6 +9,8 @@
 #import "FeedloadImgView.h"
 #import "FeedLoadItemView.h"
 #import <HUPhotoBrowser/HUPhotoBrowser.h>
+#import "PSDeleteRequest.h"
+#import "PSBusinessConstants.h"
 
 
 
@@ -44,9 +46,21 @@
         feedLoadItem.cancelBlock = ^(NSInteger tag) {
             NSInteger index = tag-10;
             if (self.dataString.count >index) {
+                
+                //删除图片
+                NSArray *ary = [NSArray arrayWithObject:self.dataUrlString];
+                NSDictionary *deleDic = @{@"urls":ary};
+                [PSDeleteRequest requestPUTWithURLStr:ImageDeleteUrl paramDic:deleDic finish:^(id  _Nonnull responseObject) {
+                    
+                } enError:^(NSError * _Nonnull error) {
+                    
+                }];
+                
                 [self.dataString removeObjectAtIndex:index];
                 [self.dataUrlString removeObjectAtIndex:index];
                 [self p_freshUI:count];
+
+                
                 if (self.feedloadResultBlock) {
                     self.feedloadResultBlock(self.dataUrlString);
                 }

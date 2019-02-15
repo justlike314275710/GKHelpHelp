@@ -41,12 +41,13 @@
             }
             [self.navigationController popViewControllerAnimated:YES];
         }else{
-            [PSTipsView showTips:response.msg ? response.msg : @"提交失败"];
+            NSString *msg = NSLocalizedString(@"submission Failed", @"提交失败");
+            [PSTipsView showTips:response.msg ? response.msg :msg];
         }
     } failed:^(NSError *error) {
         @strongify(self)
         [[PSLoadingView sharedInstance] dismiss];
-        [self showNetError];
+        [self showNetError:error];
     }];
 }
 

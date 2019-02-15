@@ -11,6 +11,8 @@
 #import "PSTipsView.h"
 #import "UIAlertView+BlocksKit.h"
 #import <Photos/Photos.h>
+#import "UIViewController+Tool.h"
+
 
 @implementation PSAuthorizationTool
 
@@ -102,15 +104,15 @@
         NSString *message;
         if (!videoResult) {
             title = @"相机未授权";
-            message = @"开启相机才能正常进行视频通话！";
+            message = @"开启相机才能正常进行远程探视功能！";
         }
         if (!audioResult) {
             title = @"麦克风未授权";
-            message = @"开启麦克风才能正常进行视频通话！";
+            message = @"开启麦克风才能正常进行远程探视功能！";
         }
         if (!videoResult && !audioResult) {
             title = @"相机和麦克风未授权";
-            message = @"开启相机和麦克风才能正常进行视频通话！";
+            message = @"开启相机和麦克风才能正常进行远程探视功能！";
         }
         if (!videoResult || !audioResult) {
             NSString *content = [NSString stringWithFormat:@"在“设置-%@”中%@",[[NSBundle mainBundle] infoDictionary][@"CFBundleDisplayName"],message];
@@ -122,7 +124,10 @@
                     [[UIApplication sharedApplication] openURL:videoAuthURL];
                 }
             }]];
-            [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alertController animated:YES completion:nil];
+//            [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alertController animated:YES completion:nil];
+            //获取当前显示的控制器
+            UIViewController *VC = [UIViewController jsd_getCurrentViewController];
+            [VC presentViewController:alertController animated:YES completion:nil];
         }
     }else {
         [PSTipsView showTips:NSLocalizedString(@"Current device has no camera function", @"当前设备无相机功能")];

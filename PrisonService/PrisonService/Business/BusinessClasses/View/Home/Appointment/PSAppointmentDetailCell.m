@@ -103,7 +103,8 @@
     balanceTxtLabel.textColor = textColor2;
     balanceTxtLabel.numberOfLines=0;
     NSString*Phone_card_balance=NSLocalizedString(@"Phone_card_balance", @"%@电话卡余额");
-    balanceTxtLabel.text =[NSString stringWithFormat:Phone_card_balance,prisonerDetail.name];
+//    balanceTxtLabel.text =[NSString stringWithFormat:Phone_card_balance,prisonerDetail.name];
+    balanceTxtLabel.text = @"监狱余额";
     [infoView addSubview:balanceTxtLabel];
     [balanceTxtLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(_balanceLabel.mas_bottom).offset(5);

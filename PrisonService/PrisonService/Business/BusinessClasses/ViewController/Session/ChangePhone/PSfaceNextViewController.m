@@ -153,7 +153,7 @@
                 }
             } failed:^(NSError *error) {
                 @strongify(self)
-                [self showNetError];
+                [self showNetError:error];
             }];
         }else{
             [PSTipsView showTips:tips];
@@ -192,7 +192,7 @@
               }
           } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
                [[PSLoadingView sharedInstance]dismiss];
-              [self showNetError];
+              [self showNetError:error];
           }];
 }
 

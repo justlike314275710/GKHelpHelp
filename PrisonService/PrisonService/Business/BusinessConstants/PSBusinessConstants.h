@@ -6,9 +6,9 @@
 //  Copyright © 2018年 calvin. All rights reserved.
 //
 
-#define DEVELOP  1     //开发
-//#define UAT 1        //测试
-//#define PRODUCE 1    //生产
+//#define DEVELOP  1     //开发
+#define UAT 1          //测试
+//#define PRODUCE 1      //生产
 
 #ifdef DEBUG
 
@@ -22,13 +22,16 @@
 #define ServerUrl [NSString stringWithFormat:@"%@/ywgk-app-auth",ServerDomain] //其他环境接口地址
 #define EmallUrl @"http://10.10.10.17:805"               //电子商城
 #define EmallHostUrl @"http://192.168.0.230:8081"        //认证授权平台
+#define ImageDeleteUrl @"http://120.78.190.101:1339/delete/resources"//删除图片接口
 
 #elif UAT            //测试
 #define ServerDomain @"http://120.78.190.101:8084"
 #define H5ServerDomain @"http://120.78.190.101:8083"
 #define ServerUrl [NSString stringWithFormat:@"%@/ywgk-app-demo",ServerDomain]
-#define EmallHostUrl @"http://10.10.10.16:8081"
+//#define EmallHostUrl @"http://10.10.10.16:8081"
+#define EmallHostUrl  @"http://qa.api.auth.prisonpublic.com"
 #define EmallUrl @"http://10.10.10.16:805"
+#define ImageDeleteUrl @"http://120.78.190.101:1339/delete/resources"//删除图片接口
 
 #elif PRODUCE        //生产
 #define ServerDomain @"https://www.yuwugongkai.com"
@@ -36,7 +39,7 @@
 #define ServerUrl [NSString stringWithFormat:@"%@/ywgk-app",ServerDomain] //生产
 #define EmallUrl @"https://m.trade.prisonpublic.com" //电子商城
 #define EmallHostUrl @"https://api.auth.prisonpublic.com"
-
+#define ImageDeleteUrl @"https://www.yuwugongkai.com/image-server/delete/resources"//删除图片接口
 
 #else               //生产（防止没有定义的时候没有域名)
 
@@ -84,6 +87,7 @@
 #define AppDotChange @"AppDotChange"
 #define JailChange @"JailChange"
 #define AppScheme @"YuWuService"
+#define RefreshToken @"RefreshToken" //刷新token
 //紫荆云视域名
 #define ZIJING_DOMAIN @"cs.zijingcloud.com"
 

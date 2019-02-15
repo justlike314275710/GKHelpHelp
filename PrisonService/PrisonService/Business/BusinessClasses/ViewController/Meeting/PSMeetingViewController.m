@@ -12,6 +12,7 @@
 #import "PSBusinessConstants.h"
 #import "PSMeetingManager.h"
 #import "PSCountdownManager.h"
+#import "PSAlertView.h"
 
 typedef NS_ENUM(NSInteger, PSMeettingType) {
     PSMeettingTypeFree=0,                   // don't show any accessory view
@@ -52,9 +53,20 @@ typedef NS_ENUM(NSInteger, PSMeettingType) {
     return YES;
 }
 
+- (void)showInternetError {
+    // [PSTipsView showTips:@"无法连接到服务器，请检查网络"];
+    NSString*Tips=NSLocalizedString(@"Tips", @"提示");
+    NSString*InternetError=NSLocalizedString(@"InternetError", @"无法连接到服务器，请检查网络");
+    NSString*determine=NSLocalizedString(@"determine", @"确定");
+    [PSAlertView showWithTitle:Tips message:InternetError messageAlignment:NSTextAlignmentCenter image:nil handler:^(PSAlertView *alertView, NSInteger buttonIndex) {
+        
+    } buttonTitles:determine, nil];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showInternetError) name:NotificationNoNetwork object:nil];
     self.view.backgroundColor = [UIColor whiteColor];
     [self changeOrientation:UIInterfaceOrientationLandscapeRight];
     PSMeetingViewModel *meetingViewModel = (PSMeetingViewModel *)self.viewModel;
@@ -86,7 +98,7 @@ typedef NS_ENUM(NSInteger, PSMeettingType) {
         [self.view addSubview:_timeDownLable];
         
         
-        UIButton*hangButton=[[UIButton alloc]initWithFrame:CGRectMake(SCREEN_HEIGHT-100, 30, 100, 60)];
+        UIButton*hangButton=[[UIButton alloc]initWithFrame:CGRectMake(SCREEN_HEIGHT-100, 20, 100,100)];
         [self.view addSubview:hangButton];
         [hangButton setBackgroundColor:[UIColor clearColor]];
 #endif

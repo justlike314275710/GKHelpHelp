@@ -23,6 +23,7 @@
 #import "PSPrisonerFamily.h"
 #import "PSFamilyFaceViewController.h"
 #import "PSMeetingManager.h"
+#import "PSAuthorizationTool.h"
 #define MAX_VERIFY_TIMES 5
 typedef void(^PhotoBlcok)();
 typedef UIImage *(^ImageBlock)(UIImageView *showImageView);
@@ -437,6 +438,9 @@ typedef UIImage *(^ImageBlock)(UIImageView *showImageView);
 //     [self requestFamilesMeeting];
 //     self.i=0;
 //    self.gid=nil;
+    
+    
+    
 }
 
 #pragma mark - IFlyFaceRequestDelegate
@@ -525,7 +529,7 @@ typedef UIImage *(^ImageBlock)(UIImageView *showImageView);
             }
         } failed:^(NSError *error) {
             // [[PSLoadingView sharedInstance] dismiss];
-            [self showNetError];
+            [self showNetError:error];
         }];
     }
 }

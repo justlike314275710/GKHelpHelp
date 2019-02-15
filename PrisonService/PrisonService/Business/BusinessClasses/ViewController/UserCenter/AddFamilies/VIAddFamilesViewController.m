@@ -91,7 +91,7 @@
     } failed:^(NSError *error) {
         @strongify(self)
         [[PSLoadingView sharedInstance] dismiss];
-        [self showNetError];
+        [self showNetError:error];
     }];
 }
 #pragma mark -- 身份证上传
@@ -187,7 +187,7 @@
     } failed:^(NSError *error) {
         @strongify(self)
         [[PSLoadingView sharedInstance] dismiss];
-        [self showNetError];
+        [self showNetError:error];
     } frontOrBack:YES];
     
 }
@@ -210,7 +210,7 @@
     } failed:^(NSError *error) {
         @strongify(self)
         [[PSLoadingView sharedInstance] dismiss];
-        [self showNetError];
+        [self showNetError:error];
     } frontOrBack:NO];
 }
 - (UIBarButtonItem *)cameraBackItem {
@@ -273,7 +273,7 @@
     } failed:^(NSError *error) {
         @strongify(self)
         [[PSLoadingView sharedInstance] dismiss];
-        [self showNetError];
+        [self showNetError:error];
     }];
 }
 
@@ -305,7 +305,7 @@
         
     } failed:^(NSError *error) {
         [[PSLoadingView sharedInstance] dismiss];
-        [self showNetError];
+        [self showNetError:error];
     }];
 }
 

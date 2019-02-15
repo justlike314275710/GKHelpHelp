@@ -19,6 +19,7 @@
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
+        
         self.selectionStyle = UITableViewCellSeparatorStyleNone;
         CGFloat sidePadding = 15;
         CGFloat verPadding = VerSidePadding;
@@ -30,30 +31,34 @@
         [self.contentView addSubview: _contentLabel];
         [_contentLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.right.mas_equalTo(-sidePadding);
-            make.width.mas_equalTo(80);
+            make.width.mas_equalTo(70);
             make.top.mas_equalTo(verPadding);
             make.height.mas_equalTo(15);
         }];
     
-        
         _titleLabel = [UILabel new];
         _titleLabel.font = AppBaseTextFont3;
         _titleLabel.textColor = [UIColor darkGrayColor];
         _titleLabel.textAlignment = NSTextAlignmentLeft;
         _titleLabel.numberOfLines=0;
         [self.contentView addSubview:_titleLabel];
+        
         [_titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.mas_equalTo(sidePadding);
-            make.right.mas_equalTo(_contentLabel.mas_left).offset(20);
-            make.top.mas_equalTo( _contentLabel.mas_top);
-            make.bottom.mas_equalTo( _contentLabel.mas_bottom);
-            
+            make.right.mas_equalTo(_contentLabel.mas_left).offset(0);
+            make.top.mas_equalTo(2);
+//            if ([NSObject judegeIsVietnamVersion]) {
+                make.height.mas_equalTo(35);
+                make.top.mas_equalTo(0);
+//            } else {
+//                make.height.mas_equalTo(10);
+//            }
         }];
       
-         _dateLabel = [UILabel new];
-         _dateLabel.font = FontOfSize(10);
+        _dateLabel = [UILabel new];
+        _dateLabel.font = FontOfSize(10);
         _dateLabel.textColor = UIColorFromRGB(153, 153, 153);
-         _dateLabel.textAlignment = NSTextAlignmentLeft;
+        _dateLabel.textAlignment = NSTextAlignmentLeft;
         [self.contentView addSubview:_dateLabel];
         [ _dateLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.mas_equalTo(17);

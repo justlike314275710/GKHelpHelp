@@ -34,11 +34,14 @@
     self = [super initWithViewModel:viewModel];
     if (self) {
         NSString*feedback=NSLocalizedString(@"feedback", @"意见反馈");
+        
         PSFeedbackListViewModel *listViewModel =  (PSFeedbackListViewModel *)self.viewModel;
         if (listViewModel.writefeedType==PSWritefeedBack) {
-              self.title = @"意见详情";
+            feedback=NSLocalizedString(@"Opinion details", @"意见详情");
+            self.title = feedback;
         } else {
-            self.title = @"建议详情";
+            feedback=NSLocalizedString(@"Suggestion details", @"建议详情");
+            self.title = feedback;
         }
     }
     return self;
@@ -106,6 +109,9 @@
     int width = (SCREEN_WIDTH-40)/2;
     
     if (model.imageUrls.length > 0) {
+        if ([model.imageUrls hasSuffix:@";"]) {
+            model.imageUrls = [model.imageUrls substringToIndex:model.imageUrls.length-1];
+        }
         imageUrls = [model.imageUrls componentsSeparatedByString:@";"];
         if (imageUrls.count<3) {
             firstView_h = firstView_h + (width+10)*1+10;
@@ -132,7 +138,9 @@
         [self.firstView addSubview:imageV];
     }
     if (model.reply.length>0) {
-        NSString *feedanswer = [NSString stringWithFormat:@"反馈回复: %@",model.reply];
+
+        NSString *feedback = NSLocalizedString(@"Feedback reply", @"反馈回复");
+        NSString *feedanswer = [NSString stringWithFormat:@"%@: %@",feedback,model.reply];
         self.feedbackLab.text = feedanswer;
         CGRect rect = [self.feedbackLab.text boundingRectWithSize:CGSizeMake(self.feedbackLab.width, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:self.feedbackLab.font} context:nil];
         int detailLab_H = rect.size.height>35?rect.size.height:35;

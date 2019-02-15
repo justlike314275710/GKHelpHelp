@@ -66,7 +66,7 @@
     PSMeetJailsnnmeViewModel*meetJailsnnmeViewModel=[[PSMeetJailsnnmeViewModel alloc]init];
     [meetJailsnnmeViewModel requestMeetJailsterCompleted:^(PSResponse *response) {
         NSString*notice_title=NSLocalizedString(@"notice_title", @"提请注意");
-        NSString*notice_content=NSLocalizedString(@"notice_content", @"您购买的亲情电话卡将用于与%@的视频会见");
+        NSString*notice_content=NSLocalizedString(@"notice_content", @"您购买的远程探视卡将用于与%@的视频会见");
         NSString*notice_agreed=NSLocalizedString(@"notice_agreed", @"确定");
         NSString*notice_disagreed=NSLocalizedString(@"notice_disagreed", @"取消");
         [PSAlertView showWithTitle:notice_title message:[NSString stringWithFormat:notice_content,meetJailsnnmeViewModel.jailsSting] messageAlignment:NSTextAlignmentCenter image:nil handler:^(PSAlertView *alertView, NSInteger buttonIndex) {
@@ -77,7 +77,7 @@
     } failed:^(NSError *error) {
         
         if (error.code>=500) {
-            [self showNetError];
+            [self showNetError:error];
         } else {
             NSString *tips = NSLocalizedString(@"Unable to connect to server, please check network settings",@"无法连接到服务器,请检查网络设置");
             [PSTipsView showTips:tips];

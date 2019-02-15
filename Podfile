@@ -17,7 +17,7 @@ def shared_pods
     pod 'JSONModel', '~> 1.7.0'
     pod 'IQKeyboardManager', '~> 4.0.10'
     pod 'FDFullscreenPopGesture', '~> 1.1'
-    pod 'AvoidCrash', '~> 2.3.0-beta'
+    pod 'AvoidCrash', '~> 2.5.2'
     pod 'MJRefresh', '~> 3.1.15.1'
     pod 'MMDrawerController', '~> 0.6.0'
     pod 'WMPageController', '~> 2.5.1'

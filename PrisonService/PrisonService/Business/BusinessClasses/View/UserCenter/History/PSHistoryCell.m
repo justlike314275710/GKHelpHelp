@@ -57,11 +57,15 @@
     _iconLable.font=AppBaseTextFont3;
     _iconLable.textColor=AppBaseTextColor1;
     _iconLable.text=@"王二(41000)";
+    _iconLable.numberOfLines = 0;
     [_iconLable mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(_iconView.mas_right).offset(sidePadding);
         make.top.mas_equalTo(verticalPadding);
-        make.height.mas_equalTo(22);
+        make.height.mas_equalTo(35);
         make.width.mas_equalTo(150);
+        if (IS_iPhone_5) {
+            make.width.mas_equalTo(130);
+        }
     }];
     
     NSArray *langArr = [[NSUserDefaults standardUserDefaults] valueForKey:@"AppleLanguages"];

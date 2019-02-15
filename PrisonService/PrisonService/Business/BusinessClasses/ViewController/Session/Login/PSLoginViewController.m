@@ -120,7 +120,7 @@
     } failed:^(NSError *error) {
         @strongify(self)
         [[PSLoadingView sharedInstance] dismiss];
-        [self showNetError];
+        [self showNetError:error];
     }];
 }
 
@@ -181,8 +181,17 @@
         else if ([code isEqualToString:@"sms.verification-code.NotMatched"]){
             [PSTipsView showTips:@"验证码错误"];
         }
+        else if ([code isEqualToString:@"unauthorized"]){
+            [PSTipsView showTips:@"账号不存在"];
+        }
+        else if ([code isEqualToString:@"user.group.NotMatched"]){
+            [PSTipsView showTips:@"账号不属于该群组"];
+        }
+        else if ([code isEqualToString:@"invalid_grant"]){
+            [PSTipsView showTips:@"账号已禁用"];
+        }
         else {
-            [self showNetError];
+            [self showNetError:error];
         }
     }];
 }
@@ -221,8 +230,17 @@
                  NSString*code_error=NSLocalizedString(@"code_error", nil);
                 [PSTipsView showTips:code_error];
             }
+            else if ([code isEqualToString:@"unauthorized"]){
+                [PSTipsView showTips:@"账号不存在"];
+            }
+            else if ([code isEqualToString:@"user.group.NotMatched"]){
+                [PSTipsView showTips:@"账号不属于该群组"];
+            }
+            else if ([code isEqualToString:@"invalid_grant"]){
+                [PSTipsView showTips:@"账号已禁用"];
+            }
             else {
-                [self showNetError];
+                [self showNetError:error];
             }
         }
         else{
@@ -318,7 +336,7 @@
                 }
             } failed:^(NSError *error) {
                 @strongify(self)
-                [self showNetError];
+                [self showNetError:error];
                  _loginMiddleView.codeButton.enabled=YES;
             }];
         } else {

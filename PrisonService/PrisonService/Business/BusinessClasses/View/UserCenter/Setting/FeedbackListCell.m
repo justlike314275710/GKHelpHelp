@@ -73,12 +73,14 @@
       
     }
     
-    
     int spaceWidth = (SCREEN_WIDTH-15*2-67*4)/3;
     NSMutableArray *imagesicon = [NSMutableArray array];
     
     NSArray *imageUrls = [NSArray array];
     if (model.imageUrls.length > 0) {
+        if ([model.imageUrls hasSuffix:@";"]) {
+            model.imageUrls = [model.imageUrls substringToIndex:model.imageUrls.length-1];
+        }
         imageUrls = [model.imageUrls componentsSeparatedByString:@";"];
         self.bgView.height = 180;
     } else {
@@ -86,17 +88,14 @@
     }
     for (int i = 0; i<imageUrls.count; i++) {
         UIImageView *imageV = [[UIImageView alloc] initWithFrame:CGRectMake(15+(67+spaceWidth)*i,self.detailLab.bottom+5, 67, 67)];
-//        imageV.image = [UIImage imageNamed:images[i]];
         NSString *url = imageUrls[i];
-        [imageV sd_setImageWithURL:[NSURL URLWithString:PICURL(url)] completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
-//            if (imageV.image)[imagesicon addObject:imageV.image];
-        }];
-        if (url)[imagesicon addObject:[NSURL URLWithString:PICURL(url)]];
+        [imageV sd_setImageWithURL:[NSURL URLWithString:PICURL(url)] placeholderImage:[UIImage R_imageNamed:@"DefalutImg"]];
+        
+        if (url)[imagesicon addObject:PICURL(url)];
         imageV.tag = i+100;
         imageV.userInteractionEnabled = YES;
         [imageV bk_whenTapped:^{
-            NSLog(@"-----sssssssssssssss%ld",(long)imageV.tag);
-            [PSPhotoBrowser showFromImageView:imageV withImages:imagesicon atIndex:imageV.tag-100];
+            [HUPhotoBrowser showFromImageView:imageV withURLStrings:imagesicon atIndex:i];
         }];
         [_bgView addSubview:imageV];
     }

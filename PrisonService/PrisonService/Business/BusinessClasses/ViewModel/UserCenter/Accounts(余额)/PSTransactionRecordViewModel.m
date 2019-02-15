@@ -110,7 +110,7 @@
             }
                 break;
             case PSRefundCardRecharge:{
-                 title = NSLocalizedString(@"Family card recharge", @"亲情卡充值");
+                 title = NSLocalizedString(@"Family card recharge", @"远程探视充值");
 
                 balance=[NSString stringWithFormat:@"+¥%@",records.money];
             }

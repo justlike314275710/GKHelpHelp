@@ -94,10 +94,21 @@
     self.navigationItem.rightBarButtonItems = @[flexSpacer,rightItem];
 }
 
-- (void)showNetError {
-    NSString*NetError=NSLocalizedString(@"NetError", @"服务器异常");
+- (void)showNetError:(NSError *)error {
+    if ([error.userInfo[@"NSLocalizedDescription"] isEqualToString:@"Request failed: unauthorized (401)"]) {
+        [self showTokenError];
+    } else {
+        NSString*NetError=NSLocalizedString(@"NetError", @"服务器异常");
+        [PSTipsView showTips:NetError];
+    }
+}
+
+-(void)showTokenError {
+    NSString*NetError=NSLocalizedString(@"Login status expired, please log in again", @"登录状态过期,请重新登录!");
     [PSTipsView showTips:NetError];
 }
+
+
 - (void)showInternetError {
    // [PSTipsView showTips:@"无法连接到服务器，请检查网络"];
      NSString*Tips=NSLocalizedString(@"Tips", @"提示");

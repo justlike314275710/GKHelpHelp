@@ -8,6 +8,7 @@
 
 #import "PSFWriteFeedSuccessViewController.h"
 #import "PSWriteFeedbackListViewController.h"
+#import "PSFeedbackViewModel.h"
 
 @interface PSFWriteFeedSuccessViewController ()
 
@@ -17,9 +18,16 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"意见反馈成功";
+    PSFeedbackViewModel *viewModel = (PSFeedbackViewModel *)self.viewModel;
+    NSString *title = NSLocalizedString(@"feedback", @"意见反馈");
+    if (viewModel.writefeedType == PSPrisonfeedBack) {
+         title=NSLocalizedString(@"complain_advice", @"投诉建议");
+    }
+
+    self.title = title;
     self.view.backgroundColor = UIColorFromRGBA(248, 247, 254, 1);
-    [self createRightBarButtonItemWithTarget:self action:@selector(rightAction) title:@"关闭"];
+    NSString*close=NSLocalizedString(@"close", @"关闭");
+    [self createRightBarButtonItemWithTarget:self action:@selector(rightAction) title:close];
     [self p_setUI];
 }
 
@@ -31,16 +39,18 @@
     UILabel *label = [[UILabel alloc] init];
     label.frame = CGRectMake((self.view.width-200)/2,imageV.bottom+30,200,25);
     label.numberOfLines = 0;
-    label.text = @"反馈成功";
+    NSString *title = NSLocalizedString(@"Feedback success", @"反馈成功");
+    label.text = title;
     label.font = [UIFont boldSystemFontOfSize:19];
     label.textAlignment = NSTextAlignmentCenter;
     label.textColor = UIColorFromRGB(38, 76, 144);
     [self.view addSubview:label];
     
     UILabel *msgLab = [[UILabel alloc] init];
-    msgLab.frame = CGRectMake((self.view.width-250)/2,label.bottom+5,250,40);
+    msgLab.frame = CGRectMake((self.view.width-250)/2,label.bottom+5,250,60);
     msgLab.numberOfLines = 0;
-    msgLab.text = @"您的反馈我们会认真查看，并尽快修复及完善 感谢您对狱务通一如既往的支持。";
+    NSString *msg = NSLocalizedString(@"Your feedback will be carefully reviewed and repaired and improved as soon as possible. Thank you for your continued support of Prison Service.", @"您的反馈我们会认真查看，并尽快修复及完善 感谢您对狱务通一如既往的支持。");
+    msgLab.text = msg;
     msgLab.font = FontOfSize(12);
     msgLab.textAlignment = NSTextAlignmentCenter;
     msgLab.textColor = UIColorFromRGB(102,102,102);

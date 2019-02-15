@@ -368,10 +368,12 @@
 		555FF47021D359BC00FF8D1D /* PSFeedbackListResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 555FF46F21D359BC00FF8D1D /* PSFeedbackListResponse.m */; };
 		555FF47321D3708A00FF8D1D /* PSFeedbackDetailRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 555FF47221D3708A00FF8D1D /* PSFeedbackDetailRequest.m */; };
 		555FF47621D370AD00FF8D1D /* PSFeedbackDetailResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 555FF47521D370AD00FF8D1D /* PSFeedbackDetailResponse.m */; };
+		5573E08B21E83ECC00AFE04D /* NSObjectSafe.m in Sources */ = {isa = PBXBuildFile; fileRef = 5573E08921E83ECC00AFE04D /* NSObjectSafe.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		557859BA218994140080437D /* RemittanceRecode.m in Sources */ = {isa = PBXBuildFile; fileRef = 557859B9218994140080437D /* RemittanceRecode.m */; };
 		557859BD2189A3D80080437D /* PSRemittanceBusinessRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 557859BC2189A3D80080437D /* PSRemittanceBusinessRequest.m */; };
 		557FF9C021C753A000F15F78 /* PSRemittanceRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 557FF9BC21C753A000F15F78 /* PSRemittanceRequest.m */; };
 		557FF9C121C753A000F15F78 /* PSRemitanceResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 557FF9BF21C753A000F15F78 /* PSRemitanceResponse.m */; };
+		558A67D321D727F400F19400 /* PSDeleteRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 558A67D221D727F400F19400 /* PSDeleteRequest.m */; };
 		55943DE421C9F483002F82B8 /* FeedloadImgView.m in Sources */ = {isa = PBXBuildFile; fileRef = 55943DE321C9F483002F82B8 /* FeedloadImgView.m */; };
 		55943DE721CA2E89002F82B8 /* FeedLoadItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 55943DE621CA2E89002F82B8 /* FeedLoadItemView.m */; };
 		55B1957C21D1BFC2000E0B28 /* PSPhotoBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = 55B1957B21D1BFC2000E0B28 /* PSPhotoBrowser.m */; };
@@ -1377,6 +1379,8 @@
 		555FF47221D3708A00FF8D1D /* PSFeedbackDetailRequest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PSFeedbackDetailRequest.m; sourceTree = "<group>"; };
 		555FF47421D370AD00FF8D1D /* PSFeedbackDetailResponse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PSFeedbackDetailResponse.h; sourceTree = "<group>"; };
 		555FF47521D370AD00FF8D1D /* PSFeedbackDetailResponse.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PSFeedbackDetailResponse.m; sourceTree = "<group>"; };
+		5573E08921E83ECC00AFE04D /* NSObjectSafe.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSObjectSafe.m; sourceTree = "<group>"; };
+		5573E08A21E83ECC00AFE04D /* NSObjectSafe.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSObjectSafe.h; sourceTree = "<group>"; };
 		557859B8218994140080437D /* RemittanceRecode.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RemittanceRecode.h; sourceTree = "<group>"; };
 		557859B9218994140080437D /* RemittanceRecode.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RemittanceRecode.m; sourceTree = "<group>"; };
 		557859BB2189A3D80080437D /* PSRemittanceBusinessRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PSRemittanceBusinessRequest.h; sourceTree = "<group>"; };
@@ -1386,6 +1390,8 @@
 		557FF9BD21C753A000F15F78 /* PSRemitanceResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSRemitanceResponse.h; sourceTree = "<group>"; };
 		557FF9BE21C753A000F15F78 /* PSRemittanceRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSRemittanceRequest.h; sourceTree = "<group>"; };
 		557FF9BF21C753A000F15F78 /* PSRemitanceResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSRemitanceResponse.m; sourceTree = "<group>"; };
+		558A67D121D727F400F19400 /* PSDeleteRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PSDeleteRequest.h; sourceTree = "<group>"; };
+		558A67D221D727F400F19400 /* PSDeleteRequest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PSDeleteRequest.m; sourceTree = "<group>"; };
 		55943DE221C9F483002F82B8 /* FeedloadImgView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FeedloadImgView.h; sourceTree = "<group>"; };
 		55943DE321C9F483002F82B8 /* FeedloadImgView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FeedloadImgView.m; sourceTree = "<group>"; };
 		55943DE521CA2E89002F82B8 /* FeedLoadItemView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FeedLoadItemView.h; sourceTree = "<group>"; };
@@ -2246,6 +2252,8 @@
 				55573F9A21BE64FB0053391C /* UIImage+Rename.m */,
 				554C007821D4B0ED00E6C6D2 /* NSString+emoji.h */,
 				554C007921D4B0ED00E6C6D2 /* NSString+emoji.m */,
+				5573E08A21E83ECC00AFE04D /* NSObjectSafe.h */,
+				5573E08921E83ECC00AFE04D /* NSObjectSafe.m */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -2559,6 +2567,7 @@
 		3E5D15BF20746DFB000FC779 /* BusinessRequests */ = {
 			isa = PBXGroup;
 			children = (
+				558A67D021D727C300F19400 /* delete */,
 				557FF9BB21C753A000F15F78 /* remittance */,
 				EAA0CA8D218845A200240724 /* Consultation */,
 				EA87F57F21084B2200D7A1E4 /* Pinmoney */,
@@ -3846,6 +3855,15 @@
 				557FF9BF21C753A000F15F78 /* PSRemitanceResponse.m */,
 			);
 			path = remittance;
+			sourceTree = "<group>";
+		};
+		558A67D021D727C300F19400 /* delete */ = {
+			isa = PBXGroup;
+			children = (
+				558A67D121D727F400F19400 /* PSDeleteRequest.h */,
+				558A67D221D727F400F19400 /* PSDeleteRequest.m */,
+			);
+			path = delete;
 			sourceTree = "<group>";
 		};
 		55F2A52D219046FC0048D93B /* Recovered References */ = {
@@ -5225,6 +5243,7 @@
 				EA78E1F92176E3E300BBEE58 /* PSMeViewController.m in Sources */,
 				EAD67A34218AEA38009E54C2 /* PSMyAdviceViewController.m in Sources */,
 				EAEE397E20C9125F005F7530 /* PSVersonUpdateViewModel.m in Sources */,
+				558A67D321D727F400F19400 /* PSDeleteRequest.m in Sources */,
 				3EEEC60C20931D98003B35B3 /* PSCommentHeaderView.m in Sources */,
 				3E171A8D20920B1E00B7D807 /* PSPrisonerTermsRequest.m in Sources */,
 				EACBC1B22146046D004C0EAB /* PSAuthenticationHomeViewController.m in Sources */,
@@ -5353,6 +5372,7 @@
 				3EEE77B2208449C700CAD179 /* PSPublicityViewController.m in Sources */,
 				EAEE395920C4CD2D005F7530 /* PSRefundBalanceRequest.m in Sources */,
 				3ED2BC6520AD717400359EF4 /* PSAddLocalMeetingRequest.m in Sources */,
+				5573E08B21E83ECC00AFE04D /* NSObjectSafe.m in Sources */,
 				55943DE421C9F483002F82B8 /* FeedloadImgView.m in Sources */,
 				EAD67A40218C2338009E54C2 /* PSLawyerView.m in Sources */,
 				3EEEC677209470EF003B35B3 /* PSStartupAdvViewController.m in Sources */,

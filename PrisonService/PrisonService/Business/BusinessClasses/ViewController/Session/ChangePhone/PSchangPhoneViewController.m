@@ -203,7 +203,7 @@
                 }
             } failed:^(NSError *error) {
                 @strongify(self)
-                [self showNetError];
+                [self showNetError:error];
             }];
         } else {
             [PSTipsView showTips:tips];

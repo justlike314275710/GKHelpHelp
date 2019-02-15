@@ -13,4 +13,6 @@
 
 @property (nonatomic, strong) NSArray *settingItems;
 
+@property (nonatomic, strong) NSString *allstorage;
+
 @end

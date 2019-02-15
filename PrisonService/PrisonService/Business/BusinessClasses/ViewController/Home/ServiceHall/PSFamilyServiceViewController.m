@@ -287,6 +287,8 @@
         [self periodChange];
     }else if (indexPath.section == 2) {
         //[self honorOfYear];
+        NSString*coming_soon=NSLocalizedString(@"coming_soon", @"敬请期待");
+        [PSTipsView showTips:coming_soon];
     }
 }
 

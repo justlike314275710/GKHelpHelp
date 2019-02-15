@@ -75,11 +75,19 @@
     }
 }
 
+- (void)refreshStorage {
+    PSSettingViewModel *settingViewModel = (PSSettingViewModel *)self.viewModel;
+    UILabel *valueLab = (UILabel *)[self.view viewWithTag:11];
+    if (valueLab) valueLab.text = [settingViewModel allstorage];
+}
 - (void)insert_storage {
     
     switch ([PSSessionManager sharedInstance].loginStatus) {
         case PSLoginPassed:{
             PSStorageViewController *storageViewController = [[PSStorageViewController alloc] initWithViewModel:[[PSSorageViewModel alloc] init]];
+            storageViewController.clearScuessBlock = ^{
+                [self refreshStorage];
+            };
             [self.navigationController pushViewController:storageViewController animated:YES];
         }
             break;
@@ -183,6 +191,7 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     self.tabBarController.tabBar.hidden = YES;
+    [self refreshStorage];
 }
 
 #pragma mark - UITableViewDataSource
@@ -228,11 +237,12 @@
     cell.imageView.image = [UIImage imageNamed:settingitem.itemIconName];
     cell.textLabel.text = settingitem.itemName;
     
-    UILabel *valueLab = [[UILabel alloc] initWithFrame:CGRectMake(cell.contentView.width-120,(cell.contentView.height-20)/2,100, 20)];
+    UILabel *valueLab = [[UILabel alloc] initWithFrame:CGRectMake(SCREEN_WIDTH-120,(cell.contentView.height-20)/2,100, 20)];
     valueLab.textAlignment = NSTextAlignmentRight;
     valueLab.text = settingitem.itemValue;
     valueLab.textColor = UIColorFromRGB(153,153,153);
     valueLab.font = FontOfSize(12);
+    valueLab.tag = indexPath.section+10;
     [cell.contentView addSubview:valueLab];
     
     if ([settingitem.itemName isEqualToString:@"闹钟提醒"]) {
@@ -264,17 +274,7 @@
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

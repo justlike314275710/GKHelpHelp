@@ -220,14 +220,17 @@
     PSWebViewController *newsDetailViewController = [[PSWebViewController alloc] initWithURL:[NSURL URLWithString:url]];
     newsDetailViewController.enableUpdateTitle = NO;
     if (workViewModel.newsType==1) {
-        newsDetailViewController.title = @"狱务公开";
+        NSString*prison_opening=NSLocalizedString(@"prison_opening", @"狱务公开");
+        newsDetailViewController.title = prison_opening;
     }
     else if (workViewModel.newsType==2){
-        newsDetailViewController.title=@"工作动态";
+        NSString*work_dynamic=NSLocalizedString(@"work_dynamic", @"工作动态");
+        newsDetailViewController.title=work_dynamic;
     }
     else {
 //         newsDetailViewController.title = @"新闻详情";
-        newsDetailViewController.title = @"公示信息";
+           NSString*public_information=NSLocalizedString(@"public_information", @"公示信息");
+        newsDetailViewController.title = public_information;
     }
     
     if (workViewModel.newsType == 3) {

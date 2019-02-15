@@ -29,5 +29,10 @@
  **/
 - (void)registerUMMob;
 
+/**
+ 防止崩溃（发布模式下才开启防奔溃功能 ~）
+ **/
+- (void)configAvoidCrash;
+
 @end
 

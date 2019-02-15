@@ -10,6 +10,7 @@
 #import "PSSorageViewModel.h"
 #import "PSAlertView.h"
 #import <SDWebImage/SDImageCache.h>
+#import "PSTipsView.h"
 
 @interface PSStorageViewController ()
 @property(nonatomic, strong) UIActivityIndicatorView *indicatorView;
@@ -47,11 +48,11 @@
         [self.indicatorView stopAnimating];
         self.indicatorView.hidden = YES;
         self.clearBtn.hidden = NO;
-        
         PSSorageViewModel *viewModel = (PSSorageViewModel *)self.viewModel;
         self.allStorage.hidden = NO;
         self.allStorage.text = viewModel.allStorage;
         self.calcuLab.text = viewModel.usedStorage;
+    
     });
     
 }
@@ -71,7 +72,8 @@
     hasUserLab.textAlignment = NSTextAlignmentCenter;
     hasUserLab.font = FontOfSize(10);
     hasUserLab.numberOfLines = 0;
-    [hasUserLab setText:@"狱务通已用空间"];
+    NSString *userLabStr =  NSLocalizedString(@"Prison service has used space", @"狱务通已用空间");
+    [hasUserLab setText:userLabStr];
     [bgView addSubview:hasUserLab];
     
     UILabel *line = [[UILabel alloc] initWithFrame:CGRectMake((bgView.width-24)/2,hasUserLab.bottom+2,24, 1)];
@@ -96,7 +98,7 @@
     
     NSString*determine=NSLocalizedString(@"determine", @"确定");
     NSString*cancel=NSLocalizedString(@"cancel", @"取消");
-    NSString *msg = @"清理狱务通缓存可能需要一点时间，清理过程请耐心等候";
+    NSString *msg = NSLocalizedString(@"It may take a little time to clean up the Prison Pass. Please wait patiently during the cleanup process.", @"清理狱务通缓存可能需要一点时间，清理过程请耐心等候");
     
     [PSAlertView showWithTitle:nil message:msg messageAlignment:NSTextAlignmentCenter image:nil handler:^(PSAlertView *alertView, NSInteger buttonIndex) {
         if (buttonIndex == 1) {
@@ -110,9 +112,16 @@
     self.indicatorView.hidden = NO;
     [self.indicatorView startAnimating];
     self.clearBtn.hidden = YES;
-    self.calcuLab.text = @"正在清理缓存....";
+    NSString *text = NSLocalizedString(@"Clearing cache....", @"正在清理缓存....");
+    self.calcuLab.text = text;
     [[SDImageCache sharedImageCache] clearDiskOnCompletion:^{
         [self p_refreshUI];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [PSTipsView showTips:NSLocalizedString(@"Cache cleanup succeeded", @"缓存清理成功")];
+        });
+        if (self.clearScuessBlock) {
+            self.clearScuessBlock();
+        }
     }];
 }
 
@@ -134,8 +143,9 @@
 
 - (UILabel *)calcuLab {
     if (!_calcuLab) {
+        NSString *text = NSLocalizedString(@"Calculating used space", @"正在计算已使用空间");
         _calcuLab = [UILabel new];
-        [_calcuLab setText:@"正在计算已使用空间"];
+        [_calcuLab setText:text];
         _calcuLab.textAlignment = NSTextAlignmentCenter;
         _calcuLab.textColor = UIColorFromRGB(102, 102, 102);
         _calcuLab.font = FontOfSize(10);
@@ -146,14 +156,16 @@
 
 - (UIButton *)clearBtn {
     if (!_clearBtn) {
+        NSString *title = NSLocalizedString(@"Clean up the Prison Cache", @"清理狱务通缓存");
         _clearBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_clearBtn setTitle:@"清理狱务通缓存" forState:UIControlStateNormal];
+        [_clearBtn setTitle:title forState:UIControlStateNormal];
         [_clearBtn setBackgroundColor:UIColorFromRGB(38, 76, 144)];
         [_clearBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         _clearBtn.layer.masksToBounds = YES;
         _clearBtn.layer.cornerRadius = 2.0;
         _clearBtn.titleLabel.font = FontOfSize(12);
         _clearBtn.hidden = YES;
+        _clearBtn.titleLabel.numberOfLines = 0;
         @weakify(self);
         [_clearBtn bk_whenTapped:^{
             @strongify(self);

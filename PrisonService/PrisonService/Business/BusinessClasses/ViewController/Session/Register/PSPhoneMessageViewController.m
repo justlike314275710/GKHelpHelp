@@ -121,7 +121,7 @@
     } failed:^(NSError *error) {
         @strongify(self)
         [[PSLoadingView sharedInstance] dismiss];
-        [self showNetError];
+        [self showNetError:error];
     }];
 }
 
@@ -141,7 +141,7 @@
         }
     } failed:^(NSError *error) {
         @strongify(self)
-        [self showNetError];
+        [self showNetError:error];
     }];
 }
 

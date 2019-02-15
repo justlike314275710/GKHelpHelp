@@ -10,6 +10,7 @@
 #import "PSSettingItemModel.h"
 #import "UIView+FrameChange.h"
 #import "PSBusinessConstants.h"
+
 //#import "XBConst.h"
 
 @interface PSSettingCell()
@@ -97,7 +98,11 @@
     self.detailLabel.text = self.item.detailText;
     self.detailLabel.textColor =UIColorFromRGBA(142, 142, 142, 1);
     self.detailLabel.font = AppBaseTextFont2;
+    self.detailLabel.numberOfLines = 0;
     self.detailLabel.size = [self sizeForTitle:self.item.detailText withFont:self.detailLabel.font];
+    self.detailLabel.width = 100;
+    self.detailLabel.height = 35;
+    self.detailLabel.textAlignment = NSTextAlignmentRight;
     self.detailLabel.centerY = self.contentView.centerY;
     switch (self.item.accessoryType) {
         case PSSettingAccessoryTypeNone:
@@ -112,7 +117,6 @@
         default:
             break;
     }
-    
     [self.contentView addSubview:self.detailLabel];
 }
 

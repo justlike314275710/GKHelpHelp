@@ -8,6 +8,7 @@
 
 #import "PSRingMeetingViewController.h"
 #import "PSGameMusicPlayer.h"
+#import "PSAuthorizationTool.h"
 
 @interface PSRingMeetingViewController ()
 
@@ -106,6 +107,10 @@
     // Do any additional setup after loading the view.
     [self renderContents];
     [self startRinging];
+    //检测权限
+    [PSAuthorizationTool checkAndRedirectAVAuthorizationWithBlock:^(BOOL result) {
+        
+    }];
 }
 
 - (void)didReceiveMemoryWarning {

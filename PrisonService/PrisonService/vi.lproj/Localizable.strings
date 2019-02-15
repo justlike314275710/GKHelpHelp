@@ -89,6 +89,7 @@
 "Last_call_time"="Thời gian gọi cuối cùng: Không có cuộc gọi nào";
 "family_appointment"="Cuộc hẹn gia đình";
 "Phone_card_balance"="%@ Số dư thẻ điện thoại";
+"Login status expired, please log in again"="Tình trạng đăng nhập đã hết hạn, vui lòng đăng nhập lại";
 "month_Times"="Tôi sẽ gặp bạn trong tháng này";
 "gobuy"="Mua";
 "one"="Thời đại";
@@ -398,6 +399,34 @@
 "storage"="Không gian lưu trữ";
 "current_version"="Phiên bản hiện tại";
 "Bill"="Hóa đơn";
+"Get feedback suggestion feedback category failed"="Nhận phản hồi đề nghị phản hồi thể loại không thành công";
+"submission Failed"="Đệ trình thất bại";
+"Please add detailed questions and comments"="Vui lòng thêm câu hỏi và ý kiến chi tiết";
+"Please provide screenshots or photos of related questions (up to 4)"="Vui lòng cung cấp ảnh chụp màn hình hoặc hình ảnh của các câu hỏi liên quan (tối đa 4)";
+"Can't enter expressions!"="Không thể nhập biểu thức!！";
+"(single choice) Please select the problem you want to feedback."="(lựa chọn duy nhất) Vui lòng chọn vấn đề bạn muốn phản hồi.";
+"Please enter a description of no less than 10 words"="Vui lòng nhập mô tả không dưới 10 từ";
+"Please enter a description of no more than 300 words"="Vui lòng nhập một mô tả không quá 300 từ";
+"The feedback details entered cannot contain emoticons, please re-enter"="Các chi tiết phản hồi được nhập không thể chứa biểu tượng cảm xúc, vui lòng nhập lại";
+"Feedback success"="Phản hồi thành công";
+"Your feedback will be carefully reviewed and repaired and improved as soon as possible. Thank you for your continued support of Prison Service."="Phản hồi của bạn sẽ được xem xét cẩn thận và sửa chữa và cải thiện sớm nhất có thể. Cảm ơn bạn đã tiếp tục hỗ trợ Dịch vụ Nhà tù.";
+"Prison service has used space"="Dịch vụ nhà tù đã sử dụng không gian";
+"Clean up the Prison Cache"="Dọn dẹp bộ nhớ cache của nhà tù";
+"Calculating used space"="Tính toán không gian sử dụng";
+"Clearing cache...."="Xóa bộ nhớ cache ....";
+"It may take a little time to clean up the Prison Pass. Please wait patiently during the cleanup process."="Có thể mất một chút thời gian để dọn sạch Nhà tù. Vui lòng kiên nhẫn chờ đợi trong quá trình dọn dẹp.";
+"Occupies mobile phone memory %.1f%@ storage space"="Chiếm bộ nhớ điện thoại di động% .1f% @ dung lượng lưu trữ";
+"Opinion details"="Ý kiến chi tiết";
+"Suggestion details"="Chi tiết đề xuất";
+"Feedback reply"="Phản hồi trả lời";
+"upload certificate"="Tải thông tin đăng nhập";
+"Network not available, check network settings"="Mạng không khả dụng, kiểm tra cài đặt mạng";
+"return"="Trở về";
+"Cache cleanup succeeded"="Dọn dẹp bộ nhớ cache đã thành công";
+"Feedback image upload failed"="Tải lên hình ảnh phản hồi không thành công";
+"Save the picture successfully"="Lưu ảnh thành công";
+"Failed to save image"="Không thể lưu hình ảnh";
+
 
 
 "details"="ChiTiết.";

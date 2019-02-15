@@ -105,7 +105,7 @@
             [self.navigationController pushViewController:meetingViewController animated:YES];
         }
     } failed:^(NSError *error) {
-        [self showNetError];
+        [self showNetError:error];
     }];
 }
 

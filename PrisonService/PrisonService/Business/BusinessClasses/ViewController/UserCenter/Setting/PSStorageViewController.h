@@ -8,8 +8,10 @@
 
 #import <UIKit/UIKit.h>
 #import "PSBusinessViewController.h"
+typedef void (^ClearScuessBlock)();
 
 @interface PSStorageViewController : PSBusinessViewController
+@property (nonatomic, copy)ClearScuessBlock clearScuessBlock;
 
 
 

@@ -92,7 +92,7 @@
             [self renderContents];
         });
     } failed:^(NSError *error) {
-        [self showNetError];
+        [self showNetError:error];
     }];
     
 }

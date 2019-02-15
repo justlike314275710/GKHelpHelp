@@ -125,7 +125,7 @@
             if (lImage) {
                 [backButton setImage:lImage forState:UIControlStateNormal];
             }else{
-                [backButton setTitle:@"返回" forState:UIControlStateNormal];
+                [backButton setTitle:NSLocalizedString(@"return", @"返回") forState:UIControlStateNormal];
             }
             [backButton setTitleColor:UIColorFromHexadecimalRGB(0x666666) forState:UIControlStateNormal];
             backButton.titleLabel.font = [UIFont systemFontOfSize:15];
@@ -150,7 +150,8 @@
             if (lImage) {
                 [backButton setImage:lImage forState:UIControlStateNormal];
             }else{
-                [backButton setTitle:@"返回" forState:UIControlStateNormal];
+                
+                [backButton setTitle:NSLocalizedString(@"return", @"返回") forState:UIControlStateNormal];
             }
             [backButton setTitleColor:UIColorFromHexadecimalRGB(0x666666) forState:UIControlStateNormal];
             backButton.titleLabel.font = [UIFont systemFontOfSize:15];

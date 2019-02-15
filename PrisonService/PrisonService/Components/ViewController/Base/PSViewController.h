@@ -39,11 +39,18 @@
 /**
  *  显示网络请求失败信息
  */
-- (void)showNetError;
+- (void)showNetError:(NSError *)error;
 /**
  *  显示无网络失败信息
  */
 -(void)showInternetError;
+
+/**
+ *  显示token失效失败信息
+ */
+-(void)showTokenError;
+
+
 /**
  *  导航栏图片
  *

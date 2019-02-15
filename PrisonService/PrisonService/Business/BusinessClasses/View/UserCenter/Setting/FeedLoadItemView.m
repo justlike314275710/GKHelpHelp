@@ -143,8 +143,9 @@
         _titleLab = [[UILabel alloc] init];
         _titleLab.frame = CGRectMake((self.width-60)/2,_loadiconImg.bottom+1, 60, 25);
         _titleLab.textAlignment  = NSTextAlignmentCenter;
-        _titleLab.text = @"上传凭证";
+        _titleLab.text = NSLocalizedString(@"upload certificate", @"上传凭证");
         _titleLab.font = FontOfSize(9);
+        _titleLab.numberOfLines = 0;
         _titleLab.textColor = UIColorFromRGB(153, 153, 153);
     }
     return _titleLab;
@@ -222,7 +223,7 @@
             }
         }else{
             self.loadImg.image = [UIImage imageNamed:@"bottomLoad"];
-            [PSTipsView showTips:NSLocalizedString(@"Avatar upload failed", @"反馈图片上传失败")];
+            [PSTipsView showTips:NSLocalizedString(@"Feedback image upload failed", @"反馈图片上传失败")];
         }
         
     } failed:^(NSError *error) {

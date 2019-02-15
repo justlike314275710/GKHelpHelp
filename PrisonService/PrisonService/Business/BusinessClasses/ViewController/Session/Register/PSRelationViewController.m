@@ -133,7 +133,7 @@
     } failed:^(NSError *error) {
         @strongify(self)
         [[PSLoadingView sharedInstance] dismiss];
-        [self showNetError];
+        [self showNetError:error];
     }];
 }
 - (void)didReceiveMemoryWarning {

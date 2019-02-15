@@ -24,6 +24,7 @@
 @property (nonatomic, strong) UILabel *countLab; //字数
 @property (nonatomic, assign) NSInteger selecldIndex;
 @property (nonatomic, strong) NSMutableArray *imageUrls;
+@property (nonatomic, assign) BOOL feedbackSucess;
 
 @end
 
@@ -31,7 +32,11 @@
 - (instancetype)initWithViewModel:(PSViewModel *)viewModel {
     self = [super initWithViewModel:viewModel];
     if (self) {
-        NSString*feedback=NSLocalizedString(@"feedback", @"意见反馈");
+        PSFeedbackViewModel *feedbackViewModel = (PSFeedbackViewModel *)self.viewModel;
+        NSString *feedback=NSLocalizedString(@"feedback", @"意见反馈");
+        if (feedbackViewModel.writefeedType == PSPrisonfeedBack) {
+                feedback=NSLocalizedString(@"complain_advice", @"投诉建议");
+        }
         self.title = feedback;
     }
     return self;
@@ -51,11 +56,12 @@
         if (response.code == 200) {
             [self.tableview reloadData];
         }else{
-           [PSTipsView showTips:response.msg ? response.msg : @"获取反馈建议反馈类别失败"];
+            NSString *msg = NSLocalizedString(@"Get feedback suggestion feedback category failed", @"获取反馈建议反馈类别失败");
+           [PSTipsView showTips:response.msg ? response.msg : msg];
         }
     } failed:^(NSError *error) {
         @strongify(self)
-        [self showNetError];
+        [self showNetError:error];
     }];
     
 }
@@ -65,17 +71,16 @@
     [feedbackViewModel sendFeedbackCompleted:^(PSResponse *response) {
         @strongify(self)
         if (response.code == 200) {
-//            NSString*feedback=NSLocalizedString(@"Thank you for your feedback", @"提交成功,感谢您的反馈");
-//            [PSTipsView showTips:feedback];
-            PSFWriteFeedSuccessViewController *storageViewController = [[PSFWriteFeedSuccessViewController alloc] initWithViewModel:[PSViewModel new]];
+            self.feedbackSucess = YES; //反馈成功
+            PSFWriteFeedSuccessViewController *storageViewController = [[PSFWriteFeedSuccessViewController alloc] initWithViewModel:self.viewModel];
             [self.navigationController pushViewController:storageViewController animated:YES];
-//            [self.navigationController popViewControllerAnimated:YES];
         }else{
-            [PSTipsView showTips:response.msg ? response.msg : @"提交失败"];
+            NSString *msg = NSLocalizedString(@"submission Failed", @"提交失败");
+            [PSTipsView showTips:response.msg ? response.msg :msg];
         }
     } failed:^(NSError *error) {
         @strongify(self)
-        [self showNetError];
+        [self showNetError:error];
     }];
 }
 
@@ -160,6 +165,7 @@
 //    [self renderContents];
     self.view.backgroundColor = AppBaseBackgroundColor2;
     self.selecldIndex = 0;
+    self.feedbackSucess = NO; //默认没有反馈
     [self getFeedbackTypes];
     [self p_setUI];
 }
@@ -168,6 +174,20 @@
     [super viewWillAppear:animated];
     self.tabBarController.tabBar.hidden=YES;
     
+}
+
+//复用返回-->如果没提交且图片书桌有内容上传图片
+- (IBAction)actionOfLeftItem:(id)sender {
+    if (self.imageUrls.count>0&&self.feedbackSucess==NO) {
+        PSFeedbackViewModel *viewModel = (PSFeedbackViewModel *)self.viewModel;
+        viewModel.urls = self.imageUrls;
+        [viewModel requestdeleteFinish:^(id responseObject) {
+            
+        } enError:^(NSError *error) {
+            
+        }];
+    }
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 #pragma mark - Private Methods
@@ -195,7 +215,8 @@
     secondeView.layer.shadowRadius = 4;
     
     UILabel *titleLab = [[UILabel alloc] initWithFrame:CGRectMake(18,8,secondeView.width-48, 30)];
-    titleLab.text = @"请补充详细问题和意见";
+    NSString *titleStr = NSLocalizedString(@"Please add detailed questions and comments", @"请补充详细问题和意见");
+    titleLab.text = titleStr;
     titleLab.numberOfLines = 0;
     titleLab.textAlignment = NSTextAlignmentLeft;
     titleLab.textColor = UIColorFromRGB(51, 51, 51);
@@ -221,7 +242,9 @@
     [self.scrollview addSubview:thirdView];
 
     UILabel *thirdTitleLab = [[UILabel alloc] initWithFrame:CGRectMake(18,8,secondeView.width-48, 30)];
-    thirdTitleLab.text = @"请提供相关问题的截图或照片（最多4张）";
+
+    NSString *thirdTitleStr = NSLocalizedString(@"Please provide screenshots or photos of related questions (up to 4)", @"请提供相关问题的截图或照片（最多4张）");
+    thirdTitleLab.text = thirdTitleStr;
     thirdTitleLab.numberOfLines = 0;
     thirdTitleLab.textAlignment = NSTextAlignmentLeft;
     thirdTitleLab.textColor = UIColorFromRGB(51, 51, 51);
@@ -241,7 +264,8 @@
     submitBtn.frame = CGRectMake(15,self.scrollview.bottom+13,self.view.width-30, 44);
     submitBtn.layer.masksToBounds = YES;
     submitBtn.layer.cornerRadius= 4;
-    [submitBtn setTitle:@"提交" forState:UIControlStateNormal];
+    NSString*submit=NSLocalizedString(@"submit", @"提交");
+    [submitBtn setTitle:submit forState:UIControlStateNormal];
     submitBtn.backgroundColor = UIColorFromRGB(83, 119, 185);
     [self.view addSubview:submitBtn];
     [submitBtn bk_whenTapped:^{
@@ -255,7 +279,8 @@
     PSFeedbackViewModel *feedbackViewModel = (PSFeedbackViewModel *)self.viewModel;
     feedbackViewModel.content = textView.text;
     if ([NSString hasEmoji:textView.text]||[NSString stringContainsEmoji:textView.text]) {
-        [PSTipsView showTips:@"不能输入表情！"];
+        NSString *msg = NSLocalizedString(@"Can't enter expressions!", @"不能输入表情！");
+        [PSTipsView showTips:msg];
     }
 }
 
@@ -263,7 +288,8 @@
     if ([textView isFirstResponder]) {
         
         if ([[[textView textInputMode] primaryLanguage] isEqualToString:@"emoji"] || ![[textView textInputMode] primaryLanguage]) {
-            [PSTipsView showTips:@"不能输入表情！"];
+            NSString *msg = NSLocalizedString(@"Can't enter expressions!", @"不能输入表情！");
+            [PSTipsView showTips:msg];
             return NO;
         }
         //判断键盘是不是九宫格键盘
@@ -271,7 +297,8 @@
             return YES;
         }else{
             if ([NSString hasEmoji:text] || [NSString stringContainsEmoji:text]){
-                [PSTipsView showTips:@"不能输入表情！"];
+                NSString *msg = NSLocalizedString(@"Can't enter expressions!", @"不能输入表情！");
+                [PSTipsView showTips:msg];
                 return NO;
             }
         }
@@ -317,7 +344,8 @@
     UIView *headView = [UIView new];
     headView.frame = CGRectMake(0, 0,tableView.width, 44);
     UILabel *titleLab = [[UILabel alloc] initWithFrame:CGRectMake(12, (headView.height-30)/2,headView.width-20, 30)];
-    titleLab.text = @"（单选）请选择您想反馈的问题点";
+    NSString *titleStr = NSLocalizedString(@"(single choice) Please select the problem you want to feedback.", @"（单选）请选择您想反馈的问题点");
+    titleLab.text = titleStr;
     titleLab.font = FontOfSize(12);
     titleLab.numberOfLines = 0;
     titleLab.textAlignment = NSTextAlignmentLeft;
@@ -353,15 +381,17 @@
 
 - (UITextView *)contentTextView {
     if (!_contentTextView) {
+        NSString *less_msg = NSLocalizedString(@"Please enter a description of no less than 10 words", @"请输入不少于10个字的描述");
+        NSString *more_msg = NSLocalizedString(@"Please enter a description of no more than 300 words", @"请输入不多于300个字的描述");
         _contentTextView = [[UITextView alloc] init];
-        _contentTextView.placeholder = @"请输入不少于10个字的描述";
+        _contentTextView.placeholder = less_msg;
         _contentTextView.delegate = self;
         @weakify(self);
         [_contentTextView.rac_textSignal subscribeNext:^(NSString * _Nullable x) {
             @strongify(self);
             if (x.length>300) {
                 _contentTextView.text = [x substringToIndex:299];
-                [PSTipsView showTips:@"请输入不多于300个字的描述"];
+                [PSTipsView showTips:more_msg];
             }
             self.countLab.text = [NSString stringWithFormat:@"%lu/300",_contentTextView.text.length];
         }];

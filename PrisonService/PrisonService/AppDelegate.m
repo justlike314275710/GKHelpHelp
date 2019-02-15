@@ -57,6 +57,8 @@
     [self detection_network];
     //Bugly崩溃日志
     [self registerBugly];
+    //配置防奔溃（发布模式下开启）
+    [self configAvoidCrash];
     //友盟数据统计
     [self registerUMMob];
     

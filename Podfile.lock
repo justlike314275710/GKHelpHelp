@@ -14,7 +14,7 @@ PODS:
   - AFNetworking/Serialization (3.1.0)
   - AFNetworking/UIKit (3.1.0):
     - AFNetworking/NSURLSession
-  - AvoidCrash (2.3.0-beta)
+  - AvoidCrash (2.5.2)
   - BlocksKit (2.2.5):
     - BlocksKit/All (= 2.2.5)
   - BlocksKit/All (2.2.5):
@@ -133,7 +133,7 @@ PODS:
 
 DEPENDENCIES:
   - AFNetworking (~> 3.0)
-  - AvoidCrash (~> 2.3.0-beta)
+  - AvoidCrash (~> 2.5.2)
   - BlocksKit (~> 2.2.5)
   - Bugly (~> 2.4.8)
   - CDZStarsControl
@@ -218,7 +218,7 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
-  AvoidCrash: 8f0cbad0ba03fa2c9b439cc9647e5ca54b3680a7
+  AvoidCrash: 28c6916fe19bd2b84126b8dec7cbe61c9a12741d
   BlocksKit: 7f422b971407001178d181a43b99014ea2591fe6
   Bugly: da3c02408c14838d498429320545a8e439392978
   CDZStarsControl: c2c9a9fae443924cdbadca93db96b3c433d0479d
@@ -260,6 +260,6 @@ SPEC CHECKSUMS:
   YYText: 5c461d709e24d55a182d1441c41dc639a18a4849
   ZYCornerRadius: f0af817be7805b5c63d793042ca7a03f81e14069
 
-PODFILE CHECKSUM: 6f1fa24630e29f45037eddeba08f11e71fad7ca1
+PODFILE CHECKSUM: c601596829f2674d439ab36f681a97aab4e5a56b
 
 COCOAPODS: 1.5.3

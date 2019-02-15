@@ -68,7 +68,7 @@
         [self disMissView];
     }];
     UILabel *titleLab = [UILabel new];
-    NSString * titleLabText=NSLocalizedString(@"Family card purchase", @"亲情卡购买");
+    NSString * titleLabText=NSLocalizedString(@"Family card purchase", @"远程探视卡购买");
     titleLab.text = titleLabText;
     titleLab.textColor = UIColorFromRGB(0,0,0);
     titleLab.font = FontOfSize(17);

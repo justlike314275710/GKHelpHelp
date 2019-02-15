@@ -53,7 +53,7 @@
             if (error) {
                 if (error.code != 106 && error.code != 206) {
                     [PSTipsView showTips:error.domain];
-                    [SDTrackTool logEvent:BUY_FAMILY_CARD attributes:@{STATUS:MobFAILURE,ERROR_STR:error.domain,PAY_TYPE:payInfo.payment}];
+                    [SDTrackTool logEvent:BUY_FAMILY_CARD attributes:@{STATUS:MobFAILURE,ERROR_STR:error.domain?error.domain:@"",PAY_TYPE:payInfo.payment}];
                 }
             }else{
                 self.payView.status = PSPaySuccessful;

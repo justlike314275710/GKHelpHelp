@@ -33,7 +33,8 @@
     if (AppDiskspace<0.1) {
         AppDiskspace = 0.1;
     }
-    return [NSString stringWithFormat:@"占据手机内存%.1f%@存储空间",AppDiskspace,@"%"];
+    NSString *msg = NSLocalizedString(@"Occupies mobile phone memory %.1f%@ storage space", @"占据手机内存%.1f%@存储空间");
+    return [NSString stringWithFormat:msg,AppDiskspace,@"%"];
 }
 
 //计算缓存大小

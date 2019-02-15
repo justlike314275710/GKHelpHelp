@@ -112,6 +112,7 @@
         self.balanceSting=accountsModel.blance;
         _totalLab.textColor = [UIColor whiteColor];
         _totalLab.font = FontOfSize(47);
+        _totalLab.text= [NSString stringWithFormat:@"¥%@元",self.balanceSting];
         NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc]initWithString:_totalLab.text];
         [attrStr addAttribute:NSFontAttributeName value:FontOfSize(12) range:NSMakeRange(_totalLab.text.length-1, 1)];
         _totalLab.attributedText = attrStr;
@@ -209,7 +210,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.view.backgroundColor = [UIColor whiteColor];
-    NSString *title = NSLocalizedString(@"Family card service", @"亲情卡服务");
+    NSString *title = NSLocalizedString(@"Family card service", @"远程探视卡服务");
     self.title = title;
     self.balanceSting = @"0";
     [self requestBalance];
@@ -226,7 +227,7 @@
     [self.cartViewModel requestPhoneCardCompleted:^(PSResponse *response) {
         @strongify(self)
         [[PSLoadingView sharedInstance] dismiss];
-        NSString *Family_card = NSLocalizedString(@"Family card", @"亲情卡");
+        NSString *Family_card = NSLocalizedString(@"Family card", @"远程探视卡");
         NSString *piece = NSLocalizedString(@"piece", @"张");
         _cardPriceLab.text = [NSString stringWithFormat:@"%@ %.2f/%@",Family_card,_cartViewModel.amount,piece];
 //        [self payTips];
@@ -246,7 +247,7 @@
     PSMeetJailsnnmeViewModel*meetJailsnnmeViewModel=[[PSMeetJailsnnmeViewModel alloc]init];
     [meetJailsnnmeViewModel requestMeetJailsterCompleted:^(PSResponse *response) {
         NSString*notice_title=NSLocalizedString(@"notice_title", @"提请注意");
-        NSString*notice_content=NSLocalizedString(@"notice_content", @"您购买的亲情电话卡将用于与%@的视频会见");
+        NSString*notice_content=NSLocalizedString(@"notice_content", @"您购买的远程探视卡将用于与%@的视频会见");
         NSString*notice_agreed=NSLocalizedString(@"notice_agreed", @"确定");
         NSString*notice_disagreed=NSLocalizedString(@"notice_disagreed", @"取消");
         [PSAlertView showWithTitle:notice_title message:[NSString stringWithFormat:notice_content,meetJailsnnmeViewModel.jailsSting] messageAlignment:NSTextAlignmentCenter image:nil handler:^(PSAlertView *alertView, NSInteger buttonIndex) {
@@ -257,7 +258,7 @@
     } failed:^(NSError *error) {
         
         if (error.code>=500) {
-            [self showNetError];
+            [self showNetError:error];
         } else {
             NSString *tips = NSLocalizedString(@"Unable to connect to server, please check network settings",@"无法连接到服务器,请检查网络设置");
             [PSTipsView showTips:tips];
@@ -288,7 +289,7 @@
 
 - (void)p_setUI {
     
-    NSString *Account_details = NSLocalizedString(@"Account_details", @"亲情卡明细");
+    NSString *Account_details = NSLocalizedString(@"Account_details", @"远程探视卡明细");
     [self createRightBarButtonItemWithTarget:self action:@selector(AccountDetails) title:Account_details];
     //banner
     UIImageView *imageLogo = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 170)];
@@ -315,14 +316,14 @@
     
     
     UIImageView *cardmoneyImg = [[UIImageView alloc] initWithFrame:CGRectMake(25, 36, 95, 17)];
-    cardmoneyImg.image = [UIImage R_imageNamed:@"亲情卡总金额"];
+    cardmoneyImg.image = [UIImage R_imageNamed:@"远程探视卡总金额"];
     
     [self.view addSubview:cardmoneyImg];
     //总金额
     _totalLab = [[UILabel alloc] initWithFrame:CGRectMake(24,cardmoneyImg.bottom+10,200,40)];
-    _totalLab.text= [NSString stringWithFormat:@"¥%@元",self.balanceSting];
     _totalLab.textColor = [UIColor whiteColor];
     _totalLab.font = FontOfSize(47);
+    _totalLab.text= [NSString stringWithFormat:@"¥%@元",self.balanceSting];
     NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc]initWithString:_totalLab.text];
     [attrStr addAttribute:NSFontAttributeName value:FontOfSize(12) range:NSMakeRange(_totalLab.text.length-1, 1)];
     _totalLab.attributedText = attrStr;
@@ -336,14 +337,14 @@
     [self.view addSubview:cardHeadImg];
     
     _cardPriceLab = [[UILabel alloc] initWithFrame:CGRectMake(cardHeadImg.right+5,imageLogo.bottom+20, 200, 20)];
-    _cardPriceLab.text = @"亲情卡 2.00/张";
+    _cardPriceLab.text = @"远程探视卡 2.00/张";
     _cardPriceLab.font = FontOfSize(14);
     _cardPriceLab.textColor = UIColorFromRGB(51, 51, 51);
     _cardPriceLab.textAlignment = NSTextAlignmentLeft;
     [self.view addSubview:_cardPriceLab];
 
     UILabel *cardMessageLab = [[UILabel alloc] initWithFrame:CGRectMake(cardHeadImg.right+5,_cardPriceLab.bottom, 200, 30)];
-    NSString *messageStr = NSLocalizedString(@"Save money and save trouble. Family Card Mobile Phone Long-distance Meeting Bridge", @"省钱省事,亲情卡手机远程会见桥梁");
+    NSString *messageStr = NSLocalizedString(@"Save money and save trouble. Family Card Mobile Phone Long-distance Meeting Bridge", @"省钱省事,远程探视手机远程会见桥梁");
     cardMessageLab.numberOfLines = 0;
     cardMessageLab.text = messageStr;
     cardMessageLab.font = FontOfSize(11);
@@ -373,7 +374,6 @@
     int btnWidth = (SCREEN_WIDTH-(15*3))/2;
     UIButton *buyBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     buyBtn.frame = CGRectMake(15,SCREEN_HEIGHT-64-64,btnWidth,44);
-//    [buyBtn setImage:[UIImage R_imageNamed:@"购买按钮底框"] forState:UIControlStateNormal];
     [buyBtn setBackgroundImage:[UIImage R_imageNamed:@"购买按钮底框"] forState:UIControlStateNormal];
     [buyBtn setTitle:buy forState:UIControlStateNormal];
     [buyBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
@@ -389,7 +389,6 @@
     UIButton *refundbBtn = [UIButton new];
     refundbBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     refundbBtn.frame = CGRectMake(SCREEN_WIDTH-btnWidth-15,SCREEN_HEIGHT-64-64,btnWidth, 44);
-//    [refundbBtn setImage:[UIImage R_imageNamed:@"购买按钮底框"] forState:UIControlStateNormal];
     [refundbBtn setBackgroundImage:[UIImage R_imageNamed:@"购买按钮底框"] forState:UIControlStateNormal];
     NSString *refun = NSLocalizedString(@"refund", @"退款");
     [refundbBtn setTitle:refun forState:UIControlStateNormal];
@@ -409,37 +408,40 @@
         }
     }];
     
-    
     UIScrollView *imageScrollview = [[UIScrollView alloc] initWithFrame:CGRectMake(15,cardHeadImg.bottom+12,SCREEN_WIDTH-30,SCREEN_HEIGHT-64-cardHeadImg.bottom-12-84)];
     imageScrollview.backgroundColor = UIColorFromRGB(235, 235, 235);
-    imageScrollview.contentSize = CGSizeMake(SCREEN_WIDTH-30,960);
+    
+    int width =  imageScrollview.width/2;
+    int height = imageScrollview.width/2*130/164;
+    int newHeight = imageScrollview.width*150/330;
+    
+    imageScrollview.contentSize = CGSizeMake(SCREEN_WIDTH-30,108+height*3+(newHeight+5)*3);
     imageScrollview.showsHorizontalScrollIndicator = YES;
     [self.view addSubview:imageScrollview];
-    
-    UIImageView *yqImg = [[UIImageView alloc] initWithFrame:CGRectMake((imageScrollview.width-54)/2,20,54,14)];
+
+    UIImageView *yqImg = [[UIImageView alloc] initWithFrame:CGRectMake((imageScrollview.width-34)/2,20,34,17)];
     yqImg.image = [UIImage R_imageNamed:@"以前"];
     [imageScrollview addSubview:yqImg];
     
     NSArray *iamgeNames = @[@"画面一－六点出门",@"画面二－七点等车",@"画面三－两点汽车",@"画面四－三点排队",@"画面五－6点取号",@"画面六－6点半会见"];
     
-    int width = imageScrollview.width/2;
     for (int i = 0; i<6; i++) {
-        UIImageView *yqImagLogo = [[UIImageView alloc] initWithFrame:CGRectMake((i%2)*width,(i/2)*130+yqImg.bottom+10,width-1,130-1)];
+        UIImageView *yqImagLogo = [[UIImageView alloc] initWithFrame:CGRectMake((i%2)*width,(i/2)*height+yqImg.bottom+10,width-1,height-1)];
         yqImagLogo.image = [UIImage R_imageNamed:iamgeNames[i]];
         [imageScrollview addSubview:yqImagLogo];
     }
     
-    UIImageView *LineImg = [[UIImageView alloc] initWithFrame:CGRectMake((imageScrollview.width-5)/2,20+17+17+130*3,5,23)];
+    UIImageView *LineImg = [[UIImageView alloc] initWithFrame:CGRectMake((imageScrollview.width-5)/2,20+17+17+height*3,5,23)];
     LineImg.image = [UIImage R_imageNamed:@"。。。"];
     [imageScrollview addSubview:LineImg];
     
-    UIImageView *nowImg = [[UIImageView alloc] initWithFrame:CGRectMake((imageScrollview.width-54)/2,LineImg.bottom+5,54,14)];
+    UIImageView *nowImg = [[UIImageView alloc] initWithFrame:CGRectMake((imageScrollview.width-34)/2,LineImg.bottom+5,34,17)];
     nowImg.image = [UIImage R_imageNamed:@"现在"];
     [imageScrollview addSubview:nowImg];
     
     NSArray *nowImages = @[@"现在－画面一－看手机对话",@"现在－画面二－界面展示",@"现在－画面三－视频通话"];
     for (int i = 0;i<3;i++) {
-        UIImageView *yqImagLogo = [[UIImageView alloc] initWithFrame:CGRectMake(0,i*155+nowImg.bottom+10,imageScrollview.width,150)];
+        UIImageView *yqImagLogo = [[UIImageView alloc] initWithFrame:CGRectMake(0,i*(newHeight+5)+nowImg.bottom+10,imageScrollview.width,newHeight)];
         yqImagLogo.image = [UIImage R_imageNamed:nowImages[i]];
         [imageScrollview addSubview:yqImagLogo];
     }
@@ -449,10 +451,6 @@
     [super viewWillAppear:animated];
     self.tabBarController.tabBar.hidden = YES;
 }
-
-//-(BOOL)hiddenNavigationBar {
-//    return YES;
-//}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -488,13 +486,14 @@
                     if (error) {
                         if (error.code != 106 && error.code != 206) {
                             [PSTipsView showTips:error.domain];
-                            [SDTrackTool logEvent:BUY_FAMILY_CARD attributes:@{STATUS:MobFAILURE,ERROR_STR:error.domain,PAY_TYPE:payInfo.payment}];
+                            [SDTrackTool logEvent:BUY_FAMILY_CARD attributes:@{STATUS:MobFAILURE,ERROR_STR:error.domain?error.domain:@"",PAY_TYPE:payInfo.payment}];
                         }
                     }else{
 //                        [self.navigationController popViewControllerAnimated:NO];
                         [self requestBalance];
                         self.payView.status = PSPaySuccessful;
-                        [SDTrackTool logEvent:BUY_FAMILY_CARD attributes:@{STATUS:MobSUCCESS,ERROR_STR:error.domain,PAY_TYPE:payInfo.payment}];
+                        NSString *msg = error.domain?error.domain:@"";
+                        [SDTrackTool logEvent:BUY_FAMILY_CARD attributes:@{STATUS:MobSUCCESS,ERROR_STR:msg,PAY_TYPE:payInfo.payment}];
                         [[NSNotificationCenter defaultCenter]postNotificationName:JailChange object:nil];
                     }
                 }];

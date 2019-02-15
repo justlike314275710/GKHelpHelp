@@ -72,6 +72,7 @@ typedef NS_ENUM(NSInteger,WritefeedType) {
 //头文件
 #import "NSObject+version.h"
 #import "NSDate+Components.h"
+#import "NSObjectSafe.h" //NSInvalidArgumentException 异常
 
 //*******----通知
 #define NotificationNoNetwork @"NotificationNoNetwork"

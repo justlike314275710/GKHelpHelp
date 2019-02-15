@@ -15,9 +15,15 @@
 @property (nonatomic, copy) NSString *imageUrls;
 @property (nonatomic, strong) NSArray *reasons;
 @property (nonatomic, assign)WritefeedType writefeedType;
+@property (nonatomic, assign)NSArray *urls; //要删除图片数组
 
 - (void)sendFeedbackCompleted:(RequestDataCompleted)completedCallback failed:(RequestDataFailed)failedCallback;
 
 - (void)sendFeedbackTypesCompleted:(RequestDataCompleted)completedCallback failed:(RequestDataFailed)failedCallback;
+
+-(void)requestdeleteFinish:(void(^)(id responseObject))finish
+                   enError:(void(^)(NSError *error))enError;
+
+
 
 @end

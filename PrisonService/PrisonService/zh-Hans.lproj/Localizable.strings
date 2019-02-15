@@ -11,16 +11,17 @@
 "vistorloginout"="登陆后即可使用该功能";
 "pushed_off_line"="您的账号已在其他设备登陆,已被挤下线";
 "Tips"="温馨提示";
-"apply_content"="您预约%@与%@进行远程视频会见,按约定,本次会见支付人民币%.2f元,系统将从亲情余额中自动扣除";
+"apply_content"="您预约%@与%@进行远程视频会见,按约定,本次会见支付人民币%.2f元,系统将从远程探视卡余额中自动扣除";
 "upload_head"="请上传本人真实.清晰头像!否则认证无法通过!";
 "be_careful"="注意";
 "faceError"="您上传的头像未能通过人脸识别,请重新上传";
 "NetError"="服务器异常";
+"Login status expired, please log in again"="登录状态过期,请重新登录";
 "determine"="确定";
 "cancel"="取消";
 "Confirm_logout"="确定注销账号?";
 "notice_title"="提请注意";
-"notice_content"="您购买的亲情电话卡将用于与%@的视频会见";
+"notice_content"="您购买的远程探视卡将用于与%@的视频会见";
 "notice_agreed"="同意";
 "notice_disagreed"="不同意";
 "InternetError"="无法连接到服务器，请检查网络";
@@ -79,14 +80,14 @@
 
 ///亲情电话
 "apply_success"="会见申请成功";
-"family_phone"="亲情电话";
+"family_phone"="远程探视";
 "today"="今天";
 "today_after"="%ld天后";
 "today_before"="%ld天前";
 "new_month"="%ld月";
 "year_month_day"="%ld年\n %ld日 %@ ";
 "Last_call_time"="上次通话时间：暂无通话";
-"family_appointment"="亲情预约";
+"family_appointment"="远程探视预约";
 "Phone_card_balance"="%@电话卡余额";
 "month_Times"="本月待会见";
 "gobuy"="购";
@@ -97,13 +98,13 @@
 
 
 "Directions_for_use"="使用说明";
-"Application_familyPhone"="申请亲情电话";
+"Application_familyPhone"="申请远程探视";
 
 "UseHelp"= "1、按监狱管理规定，只有部分服刑人员提供远程视频会见，具体情况请向关押监狱咨询。\n2、狱务通软件只提供直系亲属远程视频会见，会见频率遵循关押监狱规定。\n3、远程视频会见全程录音录像，会见过程中请自觉遵守法律法规要求，禁止传播负能量信息，若有违法行为，本司将向有关部门提供音视频证据。\n4、每次会见须缴纳一定服务费用，收费方为国科政信科技(北京)股份有限公司。";
 
 ///购物车
 "shopping_cart"="购物车";
-"Phone_CARDS"="亲情电话卡";
+"Phone_CARDS"="远程探视卡";
 "settlement"="结算(%ld)";
 "A_combined"="合计";
 "Future_generations"="  全选";
@@ -210,7 +211,7 @@
 
 
 //我的余额
-"Account_details"="亲情卡明细";
+"Account_details"="远程探视卡明细";
 "apply_refund"="申请退款";
 "Available_balance"="%@可用余额";
 
@@ -340,7 +341,7 @@
 "law_protect"="让法律守护你我他";
 "psychological_counseling"="心理咨询";
 "service_guarantee"="优质服务,咨询保证";
-"telephone_balance"="亲情电话余额";
+"telephone_balance"="远程探视卡余额";
 "recharge_record"="充值记录";
 "my_advice"="我的咨询";
 "add_relatives"="添加亲属";
@@ -369,7 +370,7 @@
 "weChat not installed"="微信未安装";
 "UnknownPayment"="未知支付";
 
-"Family card purchase"="亲情卡购买";
+"Family card purchase"="远程探视卡购买";
 "Purchase immediately"="立即购买";
 "family members:"="家属:";
 "Inmates:"="服刑人员:";
@@ -385,12 +386,12 @@
 "Audit failed"="审核未通过";
 "Re appointment"="重新预约";
 "Audit is approved. Please attend the meeting of%@on time."="审核通过,请准时参加%@的会见";
-"Family card service"="亲情卡服务";
-"Family card"="亲情卡";
+"Family card service"="远程探视卡服务";
+"Family card"="远程探视卡";
 "purchase"="购买";
 "refund"="退款";
-"Save money and save trouble. Family Card Mobile Phone Long-distance Meeting Bridge"="省钱省事,亲情卡手机远程会见桥梁";
-"Family card recharge"="亲情卡充值";
+"Save money and save trouble. Family Card Mobile Phone Long-distance Meeting Bridge"="省钱省事,远程探视卡远程会见桥梁";
+"Family card recharge"="远程探视卡充值";
 "This month"="本月";
 "Recharge"="充值";
 "consumption"="消费";
@@ -427,8 +428,33 @@
 "storage"="存储空间";
 "current_version"="当前版本";
 "Bill"="账单";
-
-
+"Get feedback suggestion feedback category failed"="获取反馈建议反馈类别失败";
+"submission Failed"="提交失败";
+"Please add detailed questions and comments"="请补充详细问题和意见";
+"Please provide screenshots or photos of related questions (up to 4)"="请提供相关问题的截图或照片（最多4张）";
+"Can't enter expressions!"="不能输入表情！";
+"(single choice) Please select the problem you want to feedback."="（单选）请选择您想反馈的问题点";
+"Please enter a description of no less than 10 words"="请输入不少于10个字的描述";
+"Please enter a description of no more than 300 words"="请输入不多于300个字的描述";
+"The feedback details entered cannot contain emoticons, please re-enter"="输入的反馈详情不能包含表情,请重新输入";
+"Feedback success"="反馈成功";
+"Your feedback will be carefully reviewed and repaired and improved as soon as possible. Thank you for your continued support of Prison Service."="您的反馈我们会认真查看，并尽快修复及完善 感谢您对狱务通一如既往的支持。";
+"Prison service has used space"="狱务通已用空间";
+"Clean up the Prison Cache"="清理狱务通缓存";
+"Calculating used space"="正在计算已使用空间";
+"Clearing cache...."="正在清理缓存....";
+"It may take a little time to clean up the Prison Pass. Please wait patiently during the cleanup process."="清理狱务通缓存可能需要一点时间，清理过程请耐心等候";
+"Occupies mobile phone memory %.1f%@ storage space"="占据手机内存%.1f%@存储空间";
+"Opinion details"="意见详情";
+"Suggestion details"="建议详情";
+"Feedback reply"="反馈回复";
+"upload certificate"="上传凭证";
+"Network not available, check network settings"="当前网络不可用,请检查你的网络设置";
+"return"="返回";
+"Cache cleanup succeeded"="缓存清理成功";
+"Feedback image upload failed"="反馈图片上传失败";
+"Save the picture successfully"="保存图片成功";
+"Failed to save image"="保存图片失败";
     
 
 

@@ -28,7 +28,7 @@
     PSPhoneCard *phoneCard = [[PSPhoneCard alloc] init];
     phoneCard.id = @"9999";
     phoneCard.price = price;
-    NSString*Phone_CARDS=NSLocalizedString(@"Phone_CARDS", @"亲情电话卡");
+    NSString*Phone_CARDS=NSLocalizedString(@"Phone_CARDS", @"远程探视卡");
     phoneCard.title = Phone_CARDS;
     return phoneCard;
 }

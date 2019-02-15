@@ -179,7 +179,7 @@
         }
       self.avatarUrl= responseObject[@"data"][@"family"][@"avatarUrl"];
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        [self showNetError];
+        [self showNetError:error];
     }];
     
 
