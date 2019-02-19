@@ -57,7 +57,7 @@
             }
             else if (tag==2){
                 NSString*coming_soon=
-                NSLocalizedString(@"coming_soon", @"敬请期待");
+                NSLocalizedString(@"coming_soon", @"该监狱暂未开通此功能");
                 [PSTipsView showTips:coming_soon];
             }
             else if (tag==3){
@@ -98,7 +98,9 @@
     [homeViewModel requestLocalMeetingDetailCompleted:^(PSResponse *response) {
         @strongify(self)
         if (response.code==-100) {
-            [PSTipsView showTips:@"该监狱未开通网上预约功能"];
+            NSString*coming_soon=
+            NSLocalizedString(@"coming_soon", @"该监狱暂未开通此功能");
+            [PSTipsView showTips:coming_soon];
         }
         else{
             PSLocalMeetingViewController *meetingViewController = [[PSLocalMeetingViewController alloc] initWithViewModel:[PSLocalMeetingViewModel new]];
@@ -138,19 +140,19 @@
 
         [cell.moreButton bk_whenTapped:^{
             NSString*coming_soon=
-            NSLocalizedString(@"coming_soon", @"敬请期待");
+            NSLocalizedString(@"coming_soon", @"该监狱暂未开通此功能");
             [PSTipsView showTips:coming_soon];
             return ;
              [self p_insertMoreServiceVC];
         }];
         [cell.FinanceButton bk_whenTapped:^{
             NSString*coming_soon=
-            NSLocalizedString(@"coming_soon", @"敬请期待");
+            NSLocalizedString(@"coming_soon", @"该监狱暂未开通此功能");
             [PSTipsView showTips:coming_soon];
         }];
         [cell.MarriageButton bk_whenTapped:^{
              NSString*coming_soon=
-            NSLocalizedString(@"coming_soon", @"敬请期待");
+            NSLocalizedString(@"coming_soon", @"该监狱暂未开通此功能");
             [PSTipsView showTips:coming_soon];
         }];
         

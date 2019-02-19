@@ -7,8 +7,8 @@
 //
 
 //#define DEVELOP  1     //开发
-#define UAT 1          //测试
-//#define PRODUCE 1      //生产
+//#define UAT 1          //测试
+#define PRODUCE 1      //生产
 
 #ifdef DEBUG
 

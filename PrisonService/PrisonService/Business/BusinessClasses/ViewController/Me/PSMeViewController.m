@@ -166,6 +166,9 @@
         [self.navigationController pushViewController:serviceViewController animated:YES];
     }
     else if ([itemModel.funcName isEqualToString:family_remittance]){
+        NSString*coming_soon=NSLocalizedString(@"coming_soon", @"该监狱暂未开通此功能");
+        [PSTipsView showTips:coming_soon];
+        return;
         PSFamilyRemittanceViewController *remittanceViewController = [[PSFamilyRemittanceViewController alloc] initWithViewModel:[PSFamilyRemittanceViewModel new]];
         [self.navigationController pushViewController:remittanceViewController animated:YES];
     }
@@ -174,14 +177,14 @@
         
     }
     else if ([itemModel.funcName isEqualToString:my_advice]){
-        NSString*coming_soon=NSLocalizedString(@"coming_soon", @"敬请期待");
+        NSString*coming_soon=NSLocalizedString(@"coming_soon", @"该监狱暂未开通此功能");
         [PSTipsView showTips:coming_soon];
         return;
         [self.navigationController pushViewController:[[PSMyAdviceViewController alloc] initWithViewModel:[[PSConsultationViewModel alloc] init]] animated:YES];
         
     }
     else{
-        NSString*coming_soon=NSLocalizedString(@"coming_soon", @"敬请期待");
+        NSString*coming_soon=NSLocalizedString(@"coming_soon", @"该监狱暂未开通此功能");
         [PSTipsView showTips:coming_soon];
     }
     
