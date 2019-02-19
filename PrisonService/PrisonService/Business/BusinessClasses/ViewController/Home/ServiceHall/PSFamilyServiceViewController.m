@@ -287,7 +287,7 @@
         [self periodChange];
     }else if (indexPath.section == 2) {
         //[self honorOfYear];
-        NSString*coming_soon=NSLocalizedString(@"coming_soon", @"敬请期待");
+        NSString*coming_soon=NSLocalizedString(@"coming_soon", @"该监狱暂未开通此功能");
         [PSTipsView showTips:coming_soon];
     }
 }

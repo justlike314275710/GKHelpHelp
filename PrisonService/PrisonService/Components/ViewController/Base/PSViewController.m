@@ -11,6 +11,7 @@
 #import "PSTipsView.h"
 #import "UIImage+Color.h"
 #import "PSAlertView.h"
+#import "AppDelegate.h"
 
 #define TITLEFONT 17 //导航栏标题文字大小
 #define DEFAULT_ITEM_SIZE CGSizeMake(40,44)
@@ -98,8 +99,14 @@
     if ([error.userInfo[@"NSLocalizedDescription"] isEqualToString:@"Request failed: unauthorized (401)"]) {
         [self showTokenError];
     } else {
-        NSString*NetError=NSLocalizedString(@"NetError", @"服务器异常");
-        [PSTipsView showTips:NetError];
+        AppDelegate *appdelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+        if (appdelegate.IS_NetWork == NO) {
+            NSString*InternetError=NSLocalizedString(@"InternetError", @"无法连接到服务器，请检查网络");
+            [PSTipsView showTips:InternetError];
+        } else {
+            NSString*NetError=NSLocalizedString(@"NetError", @"服务器异常");
+            [PSTipsView showTips:NetError];
+        }
     }
 }
 
