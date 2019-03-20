@@ -12,7 +12,11 @@
 typedef NS_ENUM(NSInteger, PSNewsType) {
     PSNewsPrisonPublic = 1,//狱务公开
     PSNewsWorkDynamic = 2, //工作动态
-    PSNewsPublicShow = 3   //公示信息
+    PSNewsPublicShow = 3,  //公示信息
+    PSNesJxJs = 4, //减刑假释
+    PSNesZyjwzx = 5, //暂予监外执行
+    PSNesShbj = 6, //社会帮教
+    
 };
 
 @interface PSNewsRequest : PSBusinessRequest

@@ -15,8 +15,10 @@
 #import "UIScrollView+EmptyDataSet.h"
 #import "PSTipsConstants.h"
 #import "UIViewController+Tool.h"
+#import "PSPrisonOpenCell.h"
 
 @interface PSWorkViewController ()<DZNEmptyDataSetSource,DZNEmptyDataSetDelegate>
+@property(nonatomic,strong)UIImageView *contentImg;
 
 
 
@@ -72,16 +74,47 @@
 - (void)updateUI {
     PSWorkViewModel *workViewModel = (PSWorkViewModel *)self.viewModel;
     if ([self showAdv]) {
-        _advView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_WIDTH * 0.55467) imageURLStringsGroup:workViewModel.advUrls];
-        NSString*serviceHallAdvDefault=NSLocalizedString(@"serviceHallAdvDefault", @"工作动态");
-        _advView.placeholderImage = [UIImage imageNamed:serviceHallAdvDefault];
-        _advView.bannerImageViewContentMode = UIViewContentModeScaleAspectFill;
-        self.workTableView.tableHeaderView = _advView;
+        if (workViewModel.newsType==1||workViewModel.newsType==2||workViewModel.newsType==3) {
+            _advView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_WIDTH * 0.55467) imageURLStringsGroup:nil];
+            NSString*serviceHallAdvDefault=NSLocalizedString(@"serviceHallAdvDefault", @"工作动态");
+            _advView.placeholderImage = [UIImage imageNamed:@"狱务公开头图1"];
+            _advView.bannerImageViewContentMode = UIViewContentModeScaleAspectFill;
+            self.contentImg.frame = CGRectMake((_advView.width-217)/2,(_advView.height-34)/2,217,34);
+            [self shakeToShow:self.contentImg];
+            self.contentImg.image = [UIImage imageNamed:@"为了公平正义"];
+            [_advView addSubview:self.contentImg];
+            
+            
+            self.workTableView.tableHeaderView = _advView;
+        }
     }else{
         self.workTableView.tableHeaderView = nil;
     }
     [self reloadContents];
 }
+
+- (void)shakeToShow:(UIView*)aView{
+    CAKeyframeAnimation* animation = [CAKeyframeAnimation animationWithKeyPath:@"transform"];
+    animation.duration = 4;// 动画时间
+    animation.repeatCount = 1000;
+    NSMutableArray *values = [NSMutableArray array];
+    [values addObject:[NSValue valueWithCATransform3D:CATransform3DMakeScale(0.5, 0.5, 1.0)]];// 这三个数字，我只研究了前两个，所以最后一个数字我还是按照它原来写1.0；前两个是控制view的大小的；
+    [values addObject:[NSValue valueWithCATransform3D:CATransform3DMakeScale(1.5, 1.5, 1.0)]];
+    [values addObject:[NSValue valueWithCATransform3D:CATransform3DMakeScale(0.9, 0.9, 1.0)]];
+    [values addObject:[NSValue valueWithCATransform3D:CATransform3DMakeScale(0.5, 0.5, 1.0)]];
+    animation.values = values;
+    [aView.layer addAnimation:animation forKey:nil];
+}
+
+
+
+-(UIImageView *)contentImg{
+    if (!_contentImg) {
+        _contentImg = [UIImageView new];
+    }
+    return _contentImg;
+}
+
 
 - (void)reloadContents {
     PSWorkViewModel *workViewModel = (PSWorkViewModel *)self.viewModel;
@@ -106,7 +139,7 @@
     self.workTableView.emptyDataSetSource = self;
     self.workTableView.emptyDataSetDelegate = self;
     self.workTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    self.workTableView.backgroundColor = [UIColor clearColor];
+    self.workTableView.backgroundColor = UIColorFromRGB(249, 248, 254);
     @weakify(self)
     self.workTableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
         @strongify(self)
@@ -172,6 +205,7 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     self.tabBarController.tabBar.hidden = YES;
+    [self shakeToShow:self.contentImg];
 }
 
 #pragma mark - UITableViewDataSource
@@ -186,8 +220,8 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    PSWorkCell *cell = [tableView dequeueReusableCellWithIdentifier:@"PSWorkCell"];
     PSWorkViewModel *workViewModel = (PSWorkViewModel *)self.viewModel;
+    PSWorkCell *cell = [tableView dequeueReusableCellWithIdentifier:@"PSWorkCell"];
     PSNews *news = workViewModel.newsData[indexPath.row];
     NSString *format = [NSObject judegeIsVietnamVersion]?@"MM-dd":@"MM月dd号";
     cell.dateLabel.text = [news.createdAt timestampToDateString:format];
@@ -206,11 +240,8 @@
     if ([cell.prisonLabel.text hasSuffix:@"▼"]&&cell.prisonLabel.text.length > 1) {
         cell.prisonLabel.text = [cell.prisonLabel.text substringToIndex:cell.prisonLabel.text.length-1];
     }
-  
-
-    
-    
     return cell;
+
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -227,11 +258,26 @@
         NSString*work_dynamic=NSLocalizedString(@"work_dynamic", @"工作动态");
         newsDetailViewController.title=work_dynamic;
     }
-    else {
+    else if (workViewModel.newsType==3) {
 //         newsDetailViewController.title = @"新闻详情";
            NSString*public_information=NSLocalizedString(@"public_information", @"公示信息");
         newsDetailViewController.title = public_information;
     }
+    else if (workViewModel.newsType==4) {
+        //         newsDetailViewController.title = @"新闻详情";
+        NSString*public_information=NSLocalizedString(@"public_information", @"公示信息");
+        newsDetailViewController.title = @"减刑假释";
+    }
+    else if (workViewModel.newsType==5) {
+        //         newsDetailViewController.title = @"新闻详情";
+        NSString*public_information=NSLocalizedString(@"public_information", @"公示信息");
+        newsDetailViewController.title = @"暂予监外执行";
+    }  else if  (workViewModel.newsType==6) {
+        //         newsDetailViewController.title = @"新闻详情";
+        NSString*public_information=NSLocalizedString(@"public_information", @"公示信息");
+        newsDetailViewController.title = @"社会帮教";
+    }
+    
     
     if (workViewModel.newsType == 3) {
         //获取当前显示的控制器

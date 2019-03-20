@@ -7,8 +7,8 @@
 //
 
 //#define DEVELOP  1     //开发
-//#define UAT 1          //测试
-#define PRODUCE 1      //生产
+#define UAT 1          //测试
+//#define PRODUCE 1      //生产
 
 #ifdef DEBUG
 
@@ -23,15 +23,16 @@
 #define EmallUrl @"http://10.10.10.17:805"               //电子商城
 #define EmallHostUrl @"http://192.168.0.230:8081"        //认证授权平台
 #define ImageDeleteUrl @"http://120.78.190.101:1339/delete/resources"//删除图片接口
+#define ConsultationHostUrl @"http://qa.api.legal.prisonpublic.com"
 
 #elif UAT            //测试
 #define ServerDomain @"http://120.78.190.101:8084"
 #define H5ServerDomain @"http://120.78.190.101:8083"
 #define ServerUrl [NSString stringWithFormat:@"%@/ywgk-app-demo",ServerDomain]
-//#define EmallHostUrl @"http://10.10.10.16:8081"
 #define EmallHostUrl  @"http://qa.api.auth.prisonpublic.com"
 #define EmallUrl @"http://10.10.10.16:805"
 #define ImageDeleteUrl @"http://120.78.190.101:1339/delete/resources"//删除图片接口
+#define ConsultationHostUrl @"http://qa.api.legal.prisonpublic.com"
 
 #elif PRODUCE        //生产
 #define ServerDomain @"https://www.yuwugongkai.com"
@@ -40,7 +41,7 @@
 #define EmallUrl @"https://m.trade.prisonpublic.com" //电子商城
 #define EmallHostUrl @"https://api.auth.prisonpublic.com"
 #define ImageDeleteUrl @"https://www.yuwugongkai.com/image-server/delete/resources"//删除图片接口
-
+#define ConsultationHostUrl @"http://qa.api.legal.prisonpublic.com"
 #else               //生产（防止没有定义的时候没有域名)
 
 #define ServerDomain @"https://www.yuwugongkai.com"
@@ -66,8 +67,9 @@
 //电子商务敬请期待
 #define ProCommerceUrl [NSString stringWithFormat:@"%@/ywt-ec/index.html",CommerceServerDomain]
 
-#define ConsultationHostUrl @"http://192.168.0.230:8086"
-//#define ConsultationHostUrl @"http://10.10.10.17:8086"
+//#define ConsultationHostUrl @"http://qa.api.legal.prisonpublic.com"
+//#define EmallHostUrl @"http://qa.api.auth.prisonpublic.com"
+
 
 //外网授权认证平台测试地址
 //#define EmallHostUrl @"http://123.57.7.159:8081" //123.57.7.159

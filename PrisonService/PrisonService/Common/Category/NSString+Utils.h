@@ -29,6 +29,7 @@ typedef NS_ENUM(NSInteger, STUserLevelType) {
 + (NSString*)base64encode:(NSString*)str;
 + (NSString *)dateWithTimeInterval:(NSTimeInterval)timeInterval formatter:(NSString *)formatter;
 + (NSString *)dateWithDate:(NSDate *)date formatter:(NSString *)formatter;
++(NSString *) timeChange:(NSString *)timeString;
 /**
  *  时间显示逻辑
  *

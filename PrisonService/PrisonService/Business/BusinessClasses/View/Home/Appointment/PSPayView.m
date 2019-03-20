@@ -103,6 +103,8 @@
         @strongify(self)
         [self dismissAnimated:YES];
     }];
+    
+    
     [ongoingViewController setGoPay:^{
         @strongify(self)
         if (self.goPay) {
@@ -122,10 +124,27 @@
         [self.contentController popViewControllerAnimated:NO];
     }else if (status == PSPaySuccessful) {
         PSPaySuccessViewController *paySuccessViewController = [[PSPaySuccessViewController alloc]  init];
+        paySuccessViewController.payType = self.payType;
         @weakify(self)
         [paySuccessViewController setCloseAction:^{
             @strongify(self)
             [self dismissAnimated:YES];
+        }];
+        
+        [paySuccessViewController setGoHomeAction:^{
+            @strongify(self)
+            [self dismissAnimated:YES];
+            if (self.goHomeAction) {
+                self.goHomeAction();
+            }
+        }];
+        
+        [paySuccessViewController setGozxAction:^{
+            @strongify(self)
+            [self dismissAnimated:YES];
+            if (self.goZxActcion) {
+                self.goZxActcion();
+            }
         }];
         [self.contentController pushViewController:paySuccessViewController animated:NO];
     }
@@ -156,11 +175,11 @@
 }
 
 /*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
-    // Drawing code
-}
-*/
+ // Only override drawRect: if you perform custom drawing.
+ // An empty implementation adversely affects performance during animation.
+ - (void)drawRect:(CGRect)rect {
+ // Drawing code
+ }
+ */
 
 @end

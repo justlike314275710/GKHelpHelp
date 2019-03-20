@@ -53,10 +53,11 @@
     NSString*family_phone=NSLocalizedString(@"family_phone", nil);
     NSString*local_meetting=NSLocalizedString(@"local_meetting", nil);
     NSString*e_mall=NSLocalizedString(@"e_mall", nil);
+    NSString*family_service= @"家属服务";
     NSString*complain_advice=NSLocalizedString(@"complain_advice", nil);
     
-    NSArray *arr = @[family_phone,local_meetting,e_mall,complain_advice];
-    NSArray *imgArr = @[@"亲情电话",@"实地会见",@"电子商务",@"投诉建议"];
+    NSArray *arr = @[family_phone,local_meetting,e_mall,family_service,complain_advice];
+    NSArray *imgArr = @[@"远程探视",@"实地会见",@"电子商务",@"家属服务icon",@"投诉建议"];
     CGFloat btnW = SCREEN_WIDTH / arr.count;
     for (int i = 0; i < arr.count; i ++) {
         UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(i * btnW, CGRectGetMaxY(_serviceTitleLabel.frame) + 35, btnW, 60)];
@@ -64,6 +65,7 @@
         [button setTitle:arr[i] forState:UIControlStateNormal];
         [button setImage:[UIImage R_imageNamed:imgArr[i]] forState:UIControlStateNormal];
         button.titleLabel.textAlignment =NSTextAlignmentCenter;
+        
         //NSTextAlignmentCenter;
         button.titleLabel.font = FontOfSize(12);
         button.titleLabel.numberOfLines=0;
@@ -82,7 +84,7 @@
 -(void)initButton:(UIButton*)btn{
     btn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
     [btn setTitleEdgeInsets:UIEdgeInsetsMake(btn.imageView.frame.size.height + 20 ,-btn.imageView.frame.size.width, 0.0,0.0)];
-    [btn setImageEdgeInsets:UIEdgeInsetsMake(0.0, 0.0,10, -btn.titleLabel.bounds.size.width)];
+    [btn setImageEdgeInsets:UIEdgeInsetsMake(0.0,btn.imageView.x,10, -btn.titleLabel.bounds.size.width)];
     if ([NSObject judegeIsVietnamVersion]) {
         [btn setImageEdgeInsets:UIEdgeInsetsMake(0.0,(btn.width- btn.imageView.width)/2,10, -btn.titleLabel.bounds.size.width)];
     }

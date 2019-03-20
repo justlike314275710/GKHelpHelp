@@ -67,8 +67,10 @@
                 self.payCallback(result,error);
             }
         }];
-        if (type == PayTypeRem) { //汇款
-            [self.payHandler goRemittanceWithPayInfo:payInfo];
+        #warning TODO 支付汇款
+        if (type == PayTypeOrd) { //汇款
+            [self.payHandler goOrderWithPayInfo:payInfo];
+            //[self.payHandler goRemittanceWithPayInfo:payInfo];
         } else {
             [self.payHandler goPayWithPayInfo:payInfo];
         }

@@ -77,7 +77,8 @@
     
     
     _FinanceButton=[[UIButton alloc]init];
-    [_FinanceButton setImage:[UIImage imageNamed:@"财务纠纷背景图"] forState:0];
+//    [_FinanceButton setImage: forState:0];
+    [_FinanceButton setBackgroundImage:[UIImage imageNamed:@"财务纠纷背景图"] forState:0];
     [mainView addSubview:_FinanceButton];
     [_FinanceButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(horSidePadding);
@@ -117,11 +118,12 @@
    
     
     _MarriageButton=[[UIButton alloc]init];
-    [_MarriageButton setImage:[UIImage imageNamed:@"婚姻家庭背景图"] forState:0];
+//    [_MarriageButton setImage:[UIImage imageNamed:@"婚姻家庭背景图"] forState:0];
+    [_MarriageButton setBackgroundImage:[UIImage imageNamed:@"婚姻家庭背景图"] forState:0];
     [mainView addSubview:_MarriageButton];
     [_MarriageButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo
-        (_FinanceButton.mas_rightMargin).offset(horSidePadding);
+        (_FinanceButton.mas_right).offset(horSidePadding);
         make.top.mas_equalTo
         (_legalServiceLable.mas_bottom).offset(horSidePadding);
         make.width.mas_equalTo(SCREEN_WIDTH/2-1.5*horSidePadding);

@@ -719,4 +719,25 @@ static const char encodingTable[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopq
     return numberString;
 }
 
++(NSString *) timeChange:(NSString *)timeString{
+    NSString*time=[timeString substringToIndex:18];
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    
+    [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss"];
+    NSDate *currentDate = [dateFormatter dateFromString:time];
+    NSTimeZone *zone = [NSTimeZone systemTimeZone];
+    NSInteger interval = [zone secondsFromGMTForDate: currentDate];
+    NSDate *localeDate = [currentDate dateByAddingTimeInterval: interval];
+    
+    
+    NSDateFormatter *outputFormatter = [[NSDateFormatter alloc]init];
+    [outputFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    
+    NSString *timeChanged = [outputFormatter stringFromDate:localeDate];
+    
+    NSLog(@"datestr = %@", timeChanged);
+    
+    return timeChanged;
+    
+}
 @end

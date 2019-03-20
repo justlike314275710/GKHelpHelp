@@ -20,6 +20,15 @@
     NSString*prison_opening=NSLocalizedString(@"prison_opening", @"狱务公开");
     self.title =prison_opening;
 //    self.titleLabel.text=prison_opening;
+    PSWorkViewModel *viewModel = (PSWorkViewModel *)self.viewModel;
+    if (viewModel.newsType==PSNesJxJs) {
+        prison_opening = @"减刑假释";
+    } else if (viewModel.newsType==PSNesZyjwzx) {
+        prison_opening = @"暂予监外执行";
+    }  else if (viewModel.newsType==PSNesShbj) {
+        prison_opening = @"社会帮教";
+    }
+       self.title =prison_opening;
 }
 
 - (void)didReceiveMemoryWarning {

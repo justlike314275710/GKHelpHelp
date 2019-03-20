@@ -19,6 +19,9 @@
 #import "MJExtension.h"
 #import "PSCustomer.h"
 #import "PSSessionManager.h"
+#import "PSAdviceDetailsViewController.h"
+#import "PSBusinessConstants.h"
+#import "PSLawerAdviceTableViewCell.h"
 
 @interface PSMyAdviceViewController ()<UITableViewDataSource,UITableViewDelegate,DZNEmptyDataSetSource,DZNEmptyDataSetDelegate>
 @property (nonatomic, strong) UITableView *honorTableView;
@@ -35,8 +38,8 @@
 }
 
 - (void)loadMore {
-      PSConsultationViewModel *viewModel =(PSConsultationViewModel *)self.viewModel;
-        @weakify(self)
+    PSConsultationViewModel *viewModel =(PSConsultationViewModel *)self.viewModel;
+    @weakify(self)
     [viewModel loadMyAdviceCompleted:^(PSResponse *response) {
         @strongify(self)
         [self reloadContents];
@@ -50,24 +53,19 @@
     PSConsultationViewModel *viewModel =(PSConsultationViewModel *)self.viewModel;
     [[PSLoadingView sharedInstance] show];
     @weakify(self)
-
     [viewModel refreshMyAdviceCompleted:^(PSResponse *response) {
         @strongify(self)
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [[PSLoadingView sharedInstance] dismiss];
-            [self reloadContents];
-        });
+        [[PSLoadingView sharedInstance] dismiss];
+        [self reloadContents];
     } failed:^(NSError *error) {
-         @strongify(self)
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [[PSLoadingView sharedInstance] dismiss];
-            [self reloadContents];
-        });
+        @strongify(self)
+        [[PSLoadingView sharedInstance] dismiss];
+        [self reloadContents];
     }];
 }
 
 - (void)reloadContents {
-     PSConsultationViewModel *viewModel =(PSConsultationViewModel *)self.viewModel;
+    PSConsultationViewModel *viewModel =(PSConsultationViewModel *)self.viewModel;
     //(PSTransactionRecordViewModel *)self.viewModel;
     if (viewModel.hasNextPage) {
         @weakify(self)
@@ -84,7 +82,7 @@
 }
 
 - (void)renderContents {
-     self.view.backgroundColor=UIColorFromRGBA(248, 247, 254, 1);
+    self.view.backgroundColor=UIColorFromRGBA(248, 247, 254, 1);
     _honorTableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
     self.honorTableView.dataSource = self;
     self.honorTableView.delegate = self;
@@ -96,54 +94,67 @@
     self.honorTableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
         @strongify(self)
         [self refreshData];
+        // [self loadMore];
     }];
     [self.honorTableView registerClass:[PSMyAdviceTableViewCell class] forCellReuseIdentifier:@"PSMyAdviceTableViewCell"];
+    [self.honorTableView registerClass:[PSLawerAdviceTableViewCell class] forCellReuseIdentifier:@"PSLawerAdviceTableViewCell"];
     self.honorTableView.tableFooterView = [UIView new];
     [self.view addSubview:self.honorTableView];
     [self.honorTableView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.edges.mas_equalTo(UIEdgeInsetsZero);
+        make.top.mas_equalTo(15);
+        make.bottom.mas_equalTo(0);
+        make.right.mas_equalTo(0);
+        make.left.mas_equalTo(0);
+        //make.edges.mas_equalTo(UIEdgeInsetsZero);
     }];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    self.tabBarController.tabBar.hidden=YES;
+    [self refreshData];
+    
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     [self renderContents];
-    [self refreshData];
+    // [self refreshData];
 }
 
 #pragma mark - UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-     PSConsultationViewModel *viewModel =(PSConsultationViewModel *)self.viewModel;
+    PSConsultationViewModel *viewModel =(PSConsultationViewModel *)self.viewModel;
     return viewModel.myAdviceArray.count;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 130;
+    return 98;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-   PSMyAdviceTableViewCell*cell = [tableView dequeueReusableCellWithIdentifier:@"PSMyAdviceTableViewCell"];
-   PSConsultationViewModel *viewModel =(PSConsultationViewModel *)self.viewModel;
-    PSConsultation*Model=viewModel.myAdviceArray[indexPath.row];
-    cell.moneyLab.text=[NSString stringWithFormat:@"¥%.2f",[Model.reward floatValue]];
-    cell.contentLab.text=Model.des;
-    cell.nameLab.text=[PSSessionManager sharedInstance].session.families.name?[PSSessionManager sharedInstance].session.families.name:[LXFileManager readUserDataForKey:@"phoneNumber"];;
-    if ([Model.status isEqualToString:@"PENDING_PAYMENT"]) {
-        [cell.statusButton setTitle:@"处理中" forState:0];
-    }
-    NSString*yearTime=[Model.createdTime substringToIndex:10];
-     NSRange range1 = NSMakeRange(11, 5);
-    NSString*minunteTime=[Model.createdTime substringWithRange:range1];
-    cell.timeLab.text=[NSString stringWithFormat:@"%@ %@",yearTime,minunteTime];
-
-    
+    PSConsultationViewModel *viewModel =(PSConsultationViewModel *)self.viewModel;
+    PSConsultation*model=viewModel.myAdviceArray[indexPath.row];
+    PSMyAdviceTableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:@"PSMyAdviceTableViewCell"];
+    [self builedModel:model];
+    [cell fillWithModel:model];
     return cell;
+    
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    PSConsultationViewModel *viewModel =(PSConsultationViewModel *)self.viewModel;
+    PSConsultation*Model=viewModel.myAdviceArray[indexPath.row];
+    viewModel.adviceId=Model.cid;
+    [self.navigationController pushViewController:[[PSAdviceDetailsViewController alloc]initWithViewModel:viewModel] animated:YES];
+    
+    
 }
 
 #pragma mark - DZNEmptyDataSetSource and DZNEmptyDataSetDelegate
 - (UIImage *)imageForEmptyDataSet:(UIScrollView *)scrollView {
-     PSConsultationViewModel *viewModel =(PSConsultationViewModel *)self.viewModel;
+    PSConsultationViewModel *viewModel =(PSConsultationViewModel *)self.viewModel;
     UIImage *emptyImage = viewModel.dataStatus == PSDataEmpty ? [UIImage imageNamed:@"universalNoneIcon"] : [UIImage imageNamed:@"universalNetErrorIcon"];
     return viewModel.dataStatus == PSDataInitial ? nil : emptyImage;
 }
@@ -156,8 +167,8 @@
 }
 
 - (NSAttributedString *)buttonTitleForEmptyDataSet:(UIScrollView *)scrollView forState:(UIControlState)state {
-     PSConsultationViewModel *viewModel =(PSConsultationViewModel *)self.viewModel;
-    return viewModel.dataStatus == PSDataError ? [[NSAttributedString alloc] initWithString:CLICK_ADD attributes:@{NSFontAttributeName:AppBaseTextFont1,NSForegroundColorAttributeName:AppBaseTextColor1}] : nil;
+    PSConsultationViewModel *viewModel =(PSConsultationViewModel *)self.viewModel;
+    return viewModel.dataStatus == PSDataError ? [[NSAttributedString alloc] initWithString:@"点击加载" attributes:@{NSFontAttributeName:AppBaseTextFont1,NSForegroundColorAttributeName:AppBaseTextColor1}] : nil;
 }
 
 - (void)emptyDataSet:(UIScrollView *)scrollView didTapView:(UIView *)view {
@@ -171,6 +182,38 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+#pragma mark -- set or get
+-(PSConsultation*)builedModel:(PSConsultation*)model{
+    
+    
+    if ([model.category isEqualToString:@"PROPERTY_DISPUTES"]) {
+        model.category=@"财产纠纷";
+    }
+    else if ([model.category isEqualToString:@"MARRIAGE_FAMILY"]){
+        model.category=@"婚姻家庭";
+    }
+    else if ([model.category isEqualToString:@"TRAFFIC_ACCIDENT"]){
+        model.category=@"交通事故";
+    }
+    else if ([model.category isEqualToString:@"WORK_COMPENSATION"]){
+        model.category=@"工伤赔偿";
+    }
+    else if ([model.category isEqualToString:@"CONTRACT_DISPUTE"]){
+        model.category=@"合同纠纷";
+    }
+    else if ([model.category isEqualToString:@"CRIMINAL_DEFENSE"]){
+        model.category=@"刑事辩护";
+    }
+    else if ([model.category isEqualToString:@"HOUSING_DISPUTES"]){
+        model.category=@"房产纠纷";
+    }
+    else if ([model.category isEqualToString:@"LABOR_EMPLOYMENT"]){
+        model.category=@"劳动就业";
+    }
+    
+    
+    return model;
 }
 
 

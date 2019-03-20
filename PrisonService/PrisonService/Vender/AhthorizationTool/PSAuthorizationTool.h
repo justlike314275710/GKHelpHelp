@@ -18,6 +18,9 @@ typedef void (^CheckAuthorizationBlock)(BOOL result);
  *  @param block 结果回调
  */
 + (void)checkAndRedirectAVAuthorizationWithBlock:(CheckAuthorizationBlock)block;
+
+//视屏通话检查权限
++ (void)viode_checkAndRedirectAVAuthorizationWithBlock:(CheckAuthorizationBlock)block;
 /**
  *  检测相机的使用权限
  *  @param block 结果回调

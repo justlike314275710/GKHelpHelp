@@ -177,9 +177,9 @@
         
     }
     else if ([itemModel.funcName isEqualToString:my_advice]){
-        NSString*coming_soon=NSLocalizedString(@"coming_soon", @"该监狱暂未开通此功能");
-        [PSTipsView showTips:coming_soon];
-        return;
+//        NSString*coming_soon=NSLocalizedString(@"coming_soon", @"该监狱暂未开通此功能");
+//        [PSTipsView showTips:coming_soon];
+//        return;
         [self.navigationController pushViewController:[[PSMyAdviceViewController alloc] initWithViewModel:[[PSConsultationViewModel alloc] init]] animated:YES];
         
     }

@@ -12,5 +12,7 @@
 @interface PSPaySuccessViewController : PSBusinessViewController
 
 @property (nonatomic, copy) PaymentClosed closeAction;
-
+@property (nonatomic, copy) PaymentGoHome goHomeAction;
+@property (nonatomic, copy) PaymentGozx   gozxAction;
+@property (nonatomic, copy) NSString *payType; //"law";
 @end

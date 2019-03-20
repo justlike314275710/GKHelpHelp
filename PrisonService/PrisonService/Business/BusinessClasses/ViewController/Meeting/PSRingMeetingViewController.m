@@ -9,6 +9,7 @@
 #import "PSRingMeetingViewController.h"
 #import "PSGameMusicPlayer.h"
 #import "PSAuthorizationTool.h"
+#import "UIViewController+Tool.h"
 
 @interface PSRingMeetingViewController ()
 
@@ -45,6 +46,7 @@
     [refuseButton bk_whenTapped:^{
         @strongify(self)
         [self stopRinging];
+        [self dismissViewControllerAnimated:YES completion:nil];
         if (self.userOperation) {
             self.userOperation(PSMeetingRefuse);
         }
@@ -108,8 +110,11 @@
     [self renderContents];
     [self startRinging];
     //检测权限
-    [PSAuthorizationTool checkAndRedirectAVAuthorizationWithBlock:^(BOOL result) {
-        
+    [PSAuthorizationTool viode_checkAndRedirectAVAuthorizationWithBlock:^(BOOL result) {
+        if (!result) {
+            //直接拒绝
+            self.userOperation(PSMeetingRefuse);
+        }
     }];
 }
 

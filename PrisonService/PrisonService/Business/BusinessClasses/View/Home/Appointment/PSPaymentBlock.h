@@ -9,6 +9,8 @@
 #import <Foundation/Foundation.h>
 
 typedef void(^PaymentClosed)();
+typedef void(^PaymentGoHome)();
+typedef void(^PaymentGozx)();
 typedef CGFloat(^PaymentAmount)();
 typedef UIImage *(^PaymentIconAtIndex)(NSInteger index);
 typedef NSString *(^PaymentNameAtIndex)(NSInteger index);

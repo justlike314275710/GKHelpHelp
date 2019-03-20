@@ -23,5 +23,6 @@
 - (void)refreshNewsCompleted:(RequestDataCompleted)completedCallback failed:(RequestDataFailed)failedCallback;
 - (void)loadMoreNewsCompleted:(RequestDataCompleted)completedCallback failed:(RequestDataFailed)failedCallback;
 - (void)refreshAllDataCompleted:(RequestDataCompleted)completedCallback failed:(RequestDataFailed)failedCallback;
+- (void)requestAdvsCompleted:(RequestDataCompleted)completedCallback failed:(RequestDataFailed)failedCallback;
 
 @end

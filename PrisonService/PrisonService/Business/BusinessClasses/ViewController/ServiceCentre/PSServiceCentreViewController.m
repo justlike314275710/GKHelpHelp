@@ -22,6 +22,9 @@
 #import <AFNetworking/AFNetworking.h>
 #import "PSMoreServiceViewController.h"
 #import "PSMoreServiceViewModel.h"
+#import "PSConsultationViewModel.h"
+#import "PSConsultationViewController.h"
+#import "PSFamilyServiceViewController.h"
 @interface PSServiceCentreViewController ()
 
 @end
@@ -45,7 +48,6 @@
 #pragma mark  - notification
 
 #pragma mark  - action
-
 - (void)choseTerm:(NSInteger)tag{
     switch ([PSSessionManager sharedInstance].loginStatus) {
         case PSLoginPassed:
@@ -53,7 +55,7 @@
                 [self appointmentPrisoner];
             }
             else if (tag==1){
-              [self requestLocalMeeting];
+                [self requestLocalMeeting];
             }
             else if (tag==2){
                 NSString*coming_soon=
@@ -61,6 +63,9 @@
                 [PSTipsView showTips:coming_soon];
             }
             else if (tag==3){
+                [self psFamilyService];
+            }
+            else if (tag==4){
                 PSWorkViewModel *viewModel = [PSWorkViewModel new];
                 viewModel.newsType = PSNewsPublicShow;
                 PSComplaintSuggestionViewController *compaintSuggestionViewController = [[PSComplaintSuggestionViewController alloc] initWithViewModel:viewModel];
@@ -82,7 +87,13 @@
             break;
     }
     
-   
+    
+}
+
+#pragma mark ——————— 家属服务
+-(void)psFamilyService {
+    PSFamilyServiceViewController *serviceViewController = [[PSFamilyServiceViewController alloc] initWithViewModel:[PSFamilyServiceViewModel new]];
+    [self.navigationController pushViewController:serviceViewController animated:YES];
 }
 
 
@@ -139,21 +150,23 @@
          PSLegalServiceTableViewCell*cell= [tableView dequeueReusableCellWithIdentifier:@"PSLegalServiceTableViewCell"];
 
         [cell.moreButton bk_whenTapped:^{
-            NSString*coming_soon=
-            NSLocalizedString(@"coming_soon", @"该监狱暂未开通此功能");
-            [PSTipsView showTips:coming_soon];
-            return ;
              [self p_insertMoreServiceVC];
         }];
         [cell.FinanceButton bk_whenTapped:^{
-            NSString*coming_soon=
-            NSLocalizedString(@"coming_soon", @"该监狱暂未开通此功能");
-            [PSTipsView showTips:coming_soon];
+            PSConsultationViewModel*viewModel=[[PSConsultationViewModel alloc]init];
+            PSConsultationViewController*consultationViewController
+            =[[PSConsultationViewController alloc]initWithViewModel:viewModel];
+            viewModel.category=@"财产纠纷";
+            consultationViewController.title=@"发布抢单";
+            [self.navigationController pushViewController:consultationViewController animated:YES];
         }];
         [cell.MarriageButton bk_whenTapped:^{
-             NSString*coming_soon=
-            NSLocalizedString(@"coming_soon", @"该监狱暂未开通此功能");
-            [PSTipsView showTips:coming_soon];
+            PSConsultationViewModel*viewModel=[[PSConsultationViewModel alloc]init];
+            PSConsultationViewController*consultationViewController
+            =[[PSConsultationViewController alloc]initWithViewModel:viewModel];
+            viewModel.category=@"婚姻家庭";
+            consultationViewController.title=@"发布抢单";
+            [self.navigationController pushViewController:consultationViewController animated:YES];
         }];
         
         return cell;
@@ -230,20 +243,6 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
-
-
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
-
 
 
 @end

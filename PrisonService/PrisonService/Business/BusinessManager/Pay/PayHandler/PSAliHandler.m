@@ -11,6 +11,7 @@
 #import "PSBusinessConstants.h"
 #import <AlipaySDK/AlipaySDK.h>
 #import "PSRemittanceBusinessRequest.h"
+#import <AFNetworking/AFNetworking.h>
 
 @interface PSAliHandler ()
 
@@ -21,7 +22,9 @@
 
 @end
 
-@implementation PSAliHandler
+@implementation PSAliHandler{
+    AFHTTPSessionManager *manager;
+}
 @synthesize payCallback;
 
 - (void)dealloc {
@@ -37,6 +40,47 @@
     self.payInfo = payInfo;
     [self goRemittance];
 }
+
+-(void)goOrderWithPayInfo:(PSPayInfo *)payInfo{
+    self.payInfo=payInfo;
+    [self goOrderPay];
+}
+
+-(void)goOrderPay{
+    NSLog(@"支付宝支付");
+    manager=[AFHTTPSessionManager manager];
+    NSString*token=[NSString stringWithFormat:@"Bearer %@",[LXFileManager readUserDataForKey:@"access_token"]];
+    NSString *url = [NSString stringWithFormat:@"%@/legal-advice/%@/alipay",ConsultationHostUrl,self.payInfo.productID];
+    [manager.requestSerializer setValue:token forHTTPHeaderField:@"Authorization"];
+    [manager GET:url parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        NSLog(@"***%@",responseObject);
+        NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)task.response;
+        if (httpResponse.statusCode==200) {
+            if (responseObject) {
+                self.alipayInfo=[PSAlipayInfo new];
+                self.alipayInfo.response = responseObject[@"body"];
+                NSLog(@"---%@",responseObject[@"body"]);
+                [self goAliPay];
+            }
+            else{
+                if (self.payCallback) {
+                    self.payCallback(NO, [NSError errorWithDomain:@"支付宝支付接口数据异常" code:101 userInfo:nil]);
+                }
+            }
+        } else {
+            if (self.payCallback) {
+                self.payCallback(NO, [NSError errorWithDomain: @"支付宝支付接口异常" code:102 userInfo:nil]);
+            }
+        }
+        
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        if (self.payCallback) {
+            self.payCallback(NO, [NSError errorWithDomain:@"支付宝支付接口超时" code:103 userInfo:nil]);
+        }
+    }];
+}
+
 
 - (void)goRemittance {
     

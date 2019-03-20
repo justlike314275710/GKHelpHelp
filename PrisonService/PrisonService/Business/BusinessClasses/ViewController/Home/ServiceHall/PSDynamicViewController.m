@@ -19,7 +19,7 @@
     NSString*work_dynamic=NSLocalizedString(@"work_dynamic", @"工作动态");
    // self.title = work_dynamic;
     self.title =work_dynamic;
-
+    
 }
 
 - (void)didReceiveMemoryWarning {

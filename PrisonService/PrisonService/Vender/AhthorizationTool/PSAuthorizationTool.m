@@ -16,6 +16,131 @@
 
 @implementation PSAuthorizationTool
 
++ (void)viode_checkAndRedirectAVAuthorizationWithBlock:(CheckAuthorizationBlock)block {
+    __block BOOL videoResult = NO;
+    __block BOOL audioResult = NO;
+    if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
+        AVAuthorizationStatus videoAuthStatus = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
+        AVAuthorizationStatus audioAuthStatus = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeAudio];
+        switch (videoAuthStatus) {
+            case AVAuthorizationStatusNotDetermined:
+                break;
+            case AVAuthorizationStatusRestricted:
+                break;
+            case AVAuthorizationStatusDenied:
+                break;
+            case AVAuthorizationStatusAuthorized:
+            {
+                videoResult = YES;
+            }
+                break;
+            default:
+                break;
+        }
+        switch (audioAuthStatus) {
+            case AVAuthorizationStatusNotDetermined:
+                break;
+            case AVAuthorizationStatusRestricted:
+                break;
+            case AVAuthorizationStatusDenied:
+                break;
+            case AVAuthorizationStatusAuthorized:
+            {
+                audioResult = YES;
+            }
+                break;
+            default:
+                break;
+        }
+        
+        if (videoAuthStatus == AVAuthorizationStatusNotDetermined) {
+            //没有询问相机开启权限
+            [AVCaptureDevice requestAccessForMediaType:AVMediaTypeVideo completionHandler:^(BOOL granted) {
+                videoResult = granted;
+                if (audioAuthStatus == AVAuthorizationStatusNotDetermined) {
+                    //没有询问麦克风开启权限
+                    [[AVAudioSession sharedInstance] requestRecordPermission:^(BOOL granted) {
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            if (granted) {
+                                if (videoResult) {
+                                    if (block) {
+                                        block(granted && videoResult);
+                                    }
+                                }else {
+                                    [self checkAndRedirectAVAuthorizationWithBlock:block];
+                                }
+                            }else {
+                                [self checkAndRedirectAVAuthorizationWithBlock:block];
+                            }
+                        });
+                    }];
+                    return;
+                }
+            }];
+            return;
+        }else {
+            if (audioAuthStatus == AVAuthorizationStatusNotDetermined) {
+                //没有询问麦克风开启权限
+                [[AVAudioSession sharedInstance] requestRecordPermission:^(BOOL granted) {
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        if (granted) {
+                            if (videoResult) {
+                                if (block) {
+                                    block(granted && videoResult);
+                                }
+                            }else {
+                                [self checkAndRedirectAVAuthorizationWithBlock:block];
+                            }
+                        }else {
+                            [self checkAndRedirectAVAuthorizationWithBlock:block];
+                        }
+                    });
+                }];
+                return;
+            }
+        }
+        
+        NSString *title;
+        NSString *message;
+        if (!videoResult) {
+            title = @"相机未授权";
+            message = @"开启相机才能正常进行远程探视功能！";
+        }
+        if (!audioResult) {
+            title = @"麦克风未授权";
+            message = @"开启麦克风才能正常进行远程探视功能！";
+        }
+        if (!videoResult && !audioResult) {
+            title = @"相机和麦克风未授权";
+            message = @"开启相机和麦克风才能正常进行远程探视功能！";
+        }
+        if (!videoResult || !audioResult) {
+            NSString *content = [NSString stringWithFormat:@"在“设置-%@”中%@",[[NSBundle mainBundle] infoDictionary][@"CFBundleDisplayName"],message];
+            UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title message:content preferredStyle:UIAlertControllerStyleAlert];
+            
+            [alertController addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+                UIViewController *VC = [UIViewController jsd_getCurrentViewController];
+                [VC dismissViewControllerAnimated:YES completion:nil];
+            }]];
+            
+            [alertController addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                NSURL *videoAuthURL = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
+                if ([[UIApplication sharedApplication] canOpenURL:videoAuthURL]) {
+                    [[UIApplication sharedApplication] openURL:videoAuthURL];
+                }
+            }]];
+            //获取当前显示的控制器
+            UIViewController *VC = [UIViewController jsd_getCurrentViewController];
+            [VC presentViewController:alertController animated:YES completion:nil];
+        }
+    }else {
+        [PSTipsView showTips:NSLocalizedString(@"Current device has no camera function", @"当前设备无相机功能")];
+    }
+    if (block) {
+        block(videoResult && audioResult);
+    }
+}
+
 + (void)checkAndRedirectAVAuthorizationWithBlock:(CheckAuthorizationBlock)block {
     __block BOOL videoResult = NO;
     __block BOOL audioResult = NO;

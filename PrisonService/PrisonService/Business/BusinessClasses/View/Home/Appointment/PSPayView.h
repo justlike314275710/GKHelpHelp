@@ -24,6 +24,9 @@ typedef NS_ENUM(NSUInteger, PSPayStatus) {
 @property (nonatomic, copy) PaymentNameAtIndex getName;
 @property (nonatomic, copy) PaymentSelectedAtIndex seletedPayment;
 @property (nonatomic, copy) PaymentGoPay goPay;
+@property (nonatomic, copy) NSString *payType; //"law"  //法律咨询
+@property (nonatomic, copy) PaymentGoHome goHomeAction;
+@property (nonatomic, copy) PaymentGozx goZxActcion;
 
 - (void)showAnimated:(BOOL)animated;
 - (void)dismissAnimated:(BOOL)animated;

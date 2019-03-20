@@ -5,12 +5,12 @@
 //  Created by calvin on 16/7/18.
 //  Copyright © 2016年 DingSNS. All rights reserved.
 //
-
+#import <AFNetworking/AFNetworking.h>
 #import "PSWechatHandler.h"
 #import "WXApi.h"
 #import "PSWechatPayRequest.h"
 #import "PSRemittanceBusinessRequest.h"
-
+#import "PSBusinessConstants.h"
 
 @interface PSWechatHandler ()
 
@@ -22,6 +22,10 @@
 @end
 
 @implementation PSWechatHandler
+{
+    AFHTTPSessionManager *manager;
+    
+}
 @synthesize payCallback;
 - (void)dealloc {
     
@@ -31,11 +35,56 @@
     self.payInfo = payInfo;
     [self goPay];
 }
-
+//法律咨询支付
+- (void)goOrderWithPayInfo:(PSPayInfo *)payInfo{
+    self.payInfo=payInfo;
+    [self goOrderPay];
+}
 //汇款
 - (void)goRemittanceWithPayInfo:(PSPayInfo *)payInfo {
     self.payInfo = payInfo;
     [self goRemittance];
+}
+
+
+-(void)goOrderPay{
+    manager=[AFHTTPSessionManager manager];
+    NSString*token=[NSString stringWithFormat:@"Bearer %@",[LXFileManager readUserDataForKey:@"access_token"]];
+    NSString *url = [NSString stringWithFormat:@"%@/legal-advice/%@/we-chat-pay",ConsultationHostUrl,self.payInfo.productID];
+    [manager.requestSerializer setValue:token forHTTPHeaderField:@"Authorization"];
+    [manager GET:url parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        
+        NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)task.response;
+        if (httpResponse.statusCode==200) {
+            if (responseObject) {
+                self.wechatInfo=[PSWechatInfo new];
+                self.wechatInfo.appid=responseObject[@"appId"];
+                self.wechatInfo.noncestr=responseObject[@"nonce"];
+                self.wechatInfo.prepayid=responseObject[@"prepayId"];
+                self.wechatInfo.sign=responseObject[@"sign"];
+                self.wechatInfo.timestamp=responseObject[@"timestamp"];
+                self.wechatInfo.packageName=responseObject[@"extension"];
+                self.wechatInfo.partnerid=responseObject[@"merchantId"];
+                [self wechatPay];
+            }
+            else{
+                if (self.payCallback) {
+                    self.payCallback(NO, [NSError errorWithDomain:@"微信支付接口数据异常" code:101 userInfo:nil]);
+                }
+            }
+        } else {
+            if (self.payCallback) {
+                self.payCallback(NO, [NSError errorWithDomain: @"微信支付接口异常" code:102 userInfo:nil]);
+            }
+        }
+        
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        if (self.payCallback) {
+            self.payCallback(NO, [NSError errorWithDomain:@"微信支付接口超时" code:103 userInfo:nil]);
+        }
+    }];
+    
 }
 
 - (void)goRemittance {

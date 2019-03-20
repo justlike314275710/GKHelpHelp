@@ -32,6 +32,11 @@
 #import "PSVersonUpdateViewModel.h"
 #import "PSEcomLoginViewmodel.h"
 #import "NSObject+version.h"
+#import "WWWaterWaveView.h"
+#import "PSAppointmentViewController.h"
+#import "PSLocalMeetingViewController.h"
+#import "PSFamilyServiceViewController.h"
+#import "PrisonOpenViewController.h"
 
 
 @interface PSHomePageViewController ()
@@ -44,8 +49,18 @@
 @property (nonatomic, strong) UILabel *dotLable;
 @property (nonatomic, strong) PSUserSession *session;
 @property (nonatomic, strong) UIScrollView *myScrollview;
-@property (nonatomic, strong) UIImageView *bgAdvBgView;
+//@property (nonatomic, strong) UIImageView *bgAdvBgView;
 @property (nonatomic, assign) NSInteger getTokenCount;
+
+@property (nonatomic,strong)UIView *prisonIntroduceView;
+@property (nonatomic,strong)UIView *itemView;
+@property (nonatomic,strong)JXButton *publicButton;
+@property (nonatomic,strong)UIView *homeHallView;
+@property (nonatomic,strong)UIButton *lawButton; //workButton
+@property (nonatomic,strong)UIButton *workButton;
+@property (nonatomic,strong)WWWaterWaveView *waterWaveView;
+
+
 
 
 @end
@@ -226,9 +241,9 @@
                                                                                                                                                                            NSHTMLTextDocumentType
                                                                                                                                                                        }documentAttributes:nil error:nil];
                 if ([[attrStr string]containsString:@"您的浏览器不支持Video标签。"]) {
-                    _prisonIntroduceContentLable.text = [[attrStr string] substringFromIndex:16];
+                    self.prisonIntroduceContentLable.text = [[attrStr string] substringFromIndex:16];
                 } else {
-                    _prisonIntroduceContentLable.text = [attrStr string];
+                    self.prisonIntroduceContentLable.text = [attrStr string];
                 }
                 [[PSLoadingView sharedInstance]dismiss];
             });
@@ -279,64 +294,43 @@
 #pragma mark  - UI
 -(void)renderContents:(BOOL)isShow{
     
-//    [self.view addSubview:self.myScrollview];
-    [self.myScrollview mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.top.mas_equalTo(0);
-        make.width.mas_equalTo(SCREEN_WIDTH);
-        make.height.mas_equalTo(SCREEN_HEIGHT);
-    }];
+    self.myScrollview.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
     dispatch_async(dispatch_get_main_queue(), ^{
-        self.myScrollview.contentSize = CGSizeMake(SCREEN_WIDTH,603);
+        self.myScrollview.contentSize = CGSizeMake(SCREEN_WIDTH,660);
     });
     CGFloat sidePadding=19;
     CGFloat spacing=10;
     //广告图
     [self.myScrollview addSubview:self.advView];
-    [self.advView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.top.mas_equalTo(0);
-        make.width.mas_equalTo(SCREEN_WIDTH);
-        make.height.mas_equalTo(244);
-    }];
-    
     //背景水波
-    [self.myScrollview addSubview:self.bgAdvBgView];
-    [self.bgAdvBgView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(_advView.mas_bottom).offset(-44);
-        make.left.mas_equalTo(0);
-        make.height.mas_equalTo(44);
-        make.width.mas_equalTo(SCREEN_WIDTH);
-    } ];
+    [self.myScrollview addSubview:self.waterWaveView];
+    self.waterWaveView.frame = CGRectMake(0,_advView.bottom-44, SCREEN_WIDTH, 44);
     
- 
     [self.myScrollview addSubview:self.addressButton];
     [self.addressButton setTitle:self.defaultJailName forState:0];
-     self.addressButton.userInteractionEnabled=isShow;
-
-
+    self.addressButton.userInteractionEnabled=isShow;
     [self.myScrollview addSubview:self.messageButton];
     self.messageButton.hidden=isShow;
-
     //消息红点
     [self.myScrollview addSubview:self.dotLable];
-    
     self.session = [PSCache queryCache:AppUserSessionCacheKey];
     NSString *dot = self.session.families.isNoticed;
     if ([dot isEqualToString:@"0"]) {
         self.dotLable.hidden = NO;
     }
-
-    UIView*prisonIntroduceView=[UIView new];
-    prisonIntroduceView.backgroundColor=[UIColor whiteColor];
-    [self.myScrollview addSubview:prisonIntroduceView];
     
-    [prisonIntroduceView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(self.bgAdvBgView.mas_bottom).offset(spacing);
+    [self.myScrollview addSubview:self.itemView];
+    self.prisonIntroduceView.backgroundColor=[UIColor whiteColor];
+    [self.myScrollview addSubview:_prisonIntroduceView];
+    
+    [_prisonIntroduceView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(_itemView.mas_bottom).offset(spacing);
         make.left.mas_equalTo(sidePadding);
         make.height.mas_equalTo(107);
         make.width.mas_equalTo(SCREEN_WIDTH-2*sidePadding);
     }];
-    prisonIntroduceView.layer.cornerRadius=4;
-    prisonIntroduceView.layer.masksToBounds=YES;
+    _prisonIntroduceView.layer.cornerRadius=4;
+    _prisonIntroduceView.layer.masksToBounds=YES;
     UILabel*prisonTitleLable=[UILabel new];
     NSString*prison_introduction=
     NSLocalizedString(@"prison_introduction", @"监狱简介");
@@ -344,9 +338,9 @@
     prisonTitleLable.font=AppBaseTextFont3;
     prisonTitleLable.textColor=[UIColor blackColor];
     prisonTitleLable.textAlignment=NSTextAlignmentLeft;
-    [prisonIntroduceView addSubview:prisonTitleLable];
+    [_prisonIntroduceView addSubview:prisonTitleLable];
     [prisonTitleLable mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(prisonIntroduceView.mas_top).offset(spacing);
+        make.top.mas_equalTo(_prisonIntroduceView.mas_top).offset(spacing);
         make.left.mas_equalTo(15);
         make.height.mas_equalTo(15);
         make.width.mas_equalTo(100);
@@ -354,9 +348,9 @@
     //详情背景,增大点击事件范围
     UIButton *prisonIntroduceButtonBg = [UIButton new];
     prisonIntroduceButtonBg.backgroundColor = [UIColor clearColor];
-    [prisonIntroduceView addSubview:prisonIntroduceButtonBg];
+    [_prisonIntroduceView addSubview:prisonIntroduceButtonBg];
     [prisonIntroduceButtonBg mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(prisonIntroduceView.mas_top).offset(0);
+        make.top.mas_equalTo(_prisonIntroduceView.mas_top).offset(0);
         make.right.mas_equalTo(0);
         make.height.mas_equalTo(35);
         make.width.mas_equalTo(60);
@@ -371,9 +365,9 @@
     prisonIntroduceButton.userInteractionEnabled = NO;
     prisonIntroduceButton.contentHorizontalAlignment
     =UIControlContentHorizontalAlignmentRight;
-    [prisonIntroduceView addSubview:prisonIntroduceButton];
+    [_prisonIntroduceView addSubview:prisonIntroduceButton];
     [prisonIntroduceButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(prisonIntroduceView.mas_top).offset(spacing);
+        make.top.mas_equalTo(_prisonIntroduceView.mas_top).offset(spacing);
         make.right.mas_equalTo(-15);
         make.height.mas_equalTo(13);
         make.width.mas_equalTo(50);
@@ -381,19 +375,11 @@
     //写成这样方便埋点
     [prisonIntroduceButtonBg addTarget:self action:@selector(p_InsertPrisonIntroduce:) forControlEvents:UIControlEventTouchUpInside];
     
-//    [prisonIntroduceButtonBg bk_whenTapped:^{
-//        PSPrisonIntroduceViewController *prisonViewController = [[PSPrisonIntroduceViewController alloc] initWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@?t=%@",PrisonDetailUrl,self.defaultJailId,[NSDate getNowTimeTimestamp]]]];
-//        [self.navigationController pushViewController:prisonViewController animated:YES];
-//    }];
     
-//    [prisonIntroduceButton bk_whenTapped:^{
-//
-//    }];
-    _prisonIntroduceContentLable=[UILabel new];
-    _prisonIntroduceContentLable.font=FontOfSize(10);
+    self.prisonIntroduceContentLable.font=FontOfSize(10);
     _prisonIntroduceContentLable.textColor=AppBaseTextColor1;
     _prisonIntroduceContentLable.textAlignment=NSTextAlignmentLeft;
-    [prisonIntroduceView addSubview:_prisonIntroduceContentLable];
+    [_prisonIntroduceView addSubview:_prisonIntroduceContentLable];
     [_prisonIntroduceContentLable mas_makeConstraints:^(MASConstraintMaker *make){
         make.top.mas_equalTo(prisonIntroduceButton.mas_bottom).offset(spacing);
         make.right.mas_equalTo(-15);
@@ -403,86 +389,57 @@
     _prisonIntroduceContentLable.numberOfLines=0;
     
     
-    UIView*homeHallView=[UIView new];
-    homeHallView.backgroundColor=[UIColor whiteColor];
-    [self.myScrollview addSubview:homeHallView];
-    [homeHallView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(prisonIntroduceView.mas_bottom).offset(spacing);
+
+    self.homeHallView.backgroundColor=[UIColor whiteColor];
+    [self.myScrollview addSubview:self.homeHallView];
+    [_homeHallView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(_prisonIntroduceView.mas_bottom).offset(spacing);
         make.left.mas_equalTo(sidePadding);
         make.height.mas_equalTo(200);
         make.width.mas_equalTo(SCREEN_WIDTH-2*sidePadding);
     }];
-    homeHallView.layer.cornerRadius=2;
-    homeHallView.layer.masksToBounds=YES;
+    _homeHallView.layer.cornerRadius=2;
+    _homeHallView.layer.masksToBounds=YES;
     
-    JXButton*publicButton=[[JXButton alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH/2-sidePadding, 200)];
-    [homeHallView addSubview:publicButton];
+    self.publicButton.frame =CGRectMake(0, 0, SCREEN_WIDTH/2-sidePadding, 200);
+    [_homeHallView addSubview:_publicButton];
     NSString*prison_opening=NSLocalizedString(@"prison_opening", @"狱务公开");
-    [publicButton setTitle:prison_opening forState:0];
-    [publicButton setTitleColor:[UIColor blackColor] forState:0];
-    [publicButton setImage:[UIImage imageNamed:@"狱务公开"] forState:0];
-    [publicButton addTarget:self action:@selector(p_InsertPrisonPublic:) forControlEvents:UIControlEventTouchUpInside];
+    [_publicButton setTitle:prison_opening forState:0];
+    [_publicButton setTitleColor:[UIColor blackColor] forState:0];
+    [_publicButton setImage:[UIImage imageNamed:@"狱务公开"] forState:0];
+    [_publicButton addTarget:self action:@selector(p_InsertPrisonPublic:) forControlEvents:UIControlEventTouchUpInside];
     
-//    [publicButton bk_whenTapped:^{
-//        PSWorkViewModel *viewModel = [PSWorkViewModel new];
-//        viewModel.newsType = PSNewsPrisonPublic;
-//        PSPublicViewController *publicViewController = [[PSPublicViewController alloc] initWithViewModel:viewModel];
-//        publicViewController.jailId=self.defaultJailId;
-//        publicViewController.jailName=self.defaultJailName;
-//        if (self.defaultJailId==nil||self.defaultJailName==nil) {
-//            [PSTipsView showTips:@"当前网络不支持"];
-//        } else {
-//            publicViewController.hidesBottomBarWhenPushed=YES;
-//            [self.navigationController pushViewController:publicViewController animated:YES];
-//            publicViewController.hidesBottomBarWhenPushed=NO;
-//        }
-//    }];
     
     UIView *dashLine = [[UIView alloc]initWithFrame:CGRectMake(SCREEN_WIDTH/2-sidePadding+1, 0, 1, 200)];
     dashLine.backgroundColor=AppBaseLineColor;
-    [homeHallView addSubview:dashLine];
-   
-    UIButton*lawButton=[[UIButton alloc]initWithFrame:CGRectMake(SCREEN_WIDTH/2-sidePadding+2, 0, SCREEN_WIDTH/2-sidePadding, 100)];
-    [homeHallView addSubview:lawButton];
-     NSString*laws_regulations=NSLocalizedString(@"laws_regulations", @"法律法规");
-    [lawButton setTitle:laws_regulations forState:0];
-    [lawButton setTitleColor:[UIColor blackColor] forState:0];
-    lawButton .titleLabel.font=  [NSObject judegeIsVietnamVersion]?FontOfSize(10):FontOfSize(12);
-    lawButton.titleLabel.numberOfLines = 0;
-    [lawButton setImage:[UIImage imageNamed:@"法律法规"] forState:0];
-    [lawButton setImageEdgeInsets:UIEdgeInsetsMake(0.0, -20, 0.0, 0.0)];//间距
-    [lawButton addTarget:self action:@selector(p_insertLaw:) forControlEvents:UIControlEventTouchUpInside];
-//    [lawButton bk_whenTapped:^{
-//        PSLawViewController *lawViewController = [[PSLawViewController alloc] init];
-//        [self.navigationController pushViewController:lawViewController animated:YES];
-//    }];
+    [_homeHallView addSubview:dashLine];
     
+   
+    _lawButton=[[UIButton alloc]initWithFrame:CGRectMake(SCREEN_WIDTH/2-sidePadding+2, 0, SCREEN_WIDTH/2-sidePadding, 100)];
+    [_homeHallView addSubview:_lawButton];
+     NSString*laws_regulations=NSLocalizedString(@"laws_regulations", @"全民普法");
+    [_lawButton setTitle:laws_regulations forState:0];
+    [_lawButton setTitleColor:[UIColor blackColor] forState:0];
+    _lawButton .titleLabel.font=  [NSObject judegeIsVietnamVersion]?FontOfSize(10):FontOfSize(12);
+    _lawButton.titleLabel.numberOfLines = 0;
+    [_lawButton setImage:[UIImage imageNamed:@"法律法规"] forState:0];
+    [_lawButton setImageEdgeInsets:UIEdgeInsetsMake(0.0, -20, 0.0, 0.0)];//间距
+    [_lawButton addTarget:self action:@selector(p_insertLaw:) forControlEvents:UIControlEventTouchUpInside];
     
     UIView *verDashLine = [[UIView alloc]initWithFrame:CGRectMake(SCREEN_WIDTH/2-sidePadding+1, 100, SCREEN_WIDTH/2-sidePadding-2, 1)];
-    [homeHallView addSubview:verDashLine];
+    [_homeHallView addSubview:verDashLine];
     verDashLine.backgroundColor=AppBaseLineColor;
-    UIButton*workButton=[[UIButton alloc]initWithFrame:CGRectMake(SCREEN_WIDTH/2-sidePadding+2, 100, SCREEN_WIDTH/2-sidePadding, 100)];
-    [homeHallView addSubview:workButton];
+    _workButton=[[UIButton alloc]initWithFrame:CGRectMake(SCREEN_WIDTH/2-sidePadding+2, 100, SCREEN_WIDTH/2-sidePadding, 100)];
+    [_homeHallView addSubview:_workButton];
     NSString*work_dynamic=NSLocalizedString(@"work_dynamic", @"工作动态");
-    workButton.titleLabel.numberOfLines = 0;
-    [workButton setTitle:work_dynamic forState:0];
-    [workButton setTitleColor:[UIColor blackColor] forState:0];
-    workButton .titleLabel.font=  [NSObject judegeIsVietnamVersion]?FontOfSize(10):FontOfSize(12);
-    [workButton setImage:[UIImage imageNamed:@"工作动态"] forState:0];
-    [workButton setImageEdgeInsets:UIEdgeInsetsMake(0.0, -20, 0.0, 0.0)];
-    [workButton addTarget:self action:@selector(p_inserDynamic:) forControlEvents:UIControlEventTouchUpInside];
-//    [workButton bk_whenTapped:^{
-//        PSWorkViewModel *viewModel = [PSWorkViewModel new];
-//        viewModel.newsType = PSNewsWorkDynamic;
-//        PSDynamicViewController *dynamicViewController = [[PSDynamicViewController alloc] initWithViewModel:viewModel];
-//        dynamicViewController.jailId=self.defaultJailId;
-//        dynamicViewController.jailName=self.defaultJailName;
-//        if (self.defaultJailName==nil||self.defaultJailId==nil) {
-//            [PSTipsView showTips:@"当前网络不支持"];
-//        } else {
-//            [self.navigationController pushViewController:dynamicViewController animated:YES];
-//        }
-//    }];
+    _workButton.titleLabel.numberOfLines = 0;
+    [_workButton setTitle:work_dynamic forState:0];
+    [_workButton setTitleColor:[UIColor blackColor] forState:0];
+    _workButton .titleLabel.font=  [NSObject judegeIsVietnamVersion]?FontOfSize(10):FontOfSize(12);
+    [_workButton setImage:[UIImage imageNamed:@"工作动态"] forState:0];
+    [_workButton setImageEdgeInsets:UIEdgeInsetsMake(0.0, -20, 0.0, 0.0)];
+    [_workButton addTarget:self action:@selector(p_inserDynamic:) forControlEvents:UIControlEventTouchUpInside];
+
     
     if ([[LXFileManager readUserDataForKey:@"isVistor"]isEqualToString:@"YES"]){
         _messageButton.hidden=YES;
@@ -498,7 +455,9 @@
 }
 //狱务公开
 -(void)p_InsertPrisonPublic:(UIButton *)sender {
-    
+    PrisonOpenViewController *prisonVC = [[PrisonOpenViewController alloc] init];
+    [self.navigationController pushViewController:prisonVC animated:YES];
+    /*
     PSWorkViewModel *viewModel = [PSWorkViewModel new];
     viewModel.newsType = PSNewsPrisonPublic;
     PSPublicViewController *publicViewController = [[PSPublicViewController alloc] initWithViewModel:viewModel];
@@ -511,6 +470,7 @@
         [self.navigationController pushViewController:publicViewController animated:YES];
         publicViewController.hidesBottomBarWhenPushed=NO;
 //    }
+     */
 }
 //法律法规
 -(void)p_insertLaw:(UIButton *)senser {
@@ -525,13 +485,48 @@
     PSDynamicViewController *dynamicViewController = [[PSDynamicViewController alloc] initWithViewModel:viewModel];
     dynamicViewController.jailId=self.defaultJailId;
     dynamicViewController.jailName=self.defaultJailName;
-//    if (self.defaultJailName==nil||self.defaultJailId==nil) {
-//        [PSTipsView showTips:@"当前网络不支持"];
-//    } else {
-        [self.navigationController pushViewController:dynamicViewController animated:YES];
-//    }
+    [self.navigationController pushViewController:dynamicViewController animated:YES];
+   
 }
 
+#pragma mark ——————— 远程探视
+- (void)appointmentPrisoner {
+    
+    PSAppointmentViewController *appointmentViewController = [[PSAppointmentViewController alloc] initWithViewModel:[PSAppointmentViewModel new]];
+    [self.navigationController pushViewController:appointmentViewController animated:YES];
+}
+#pragma mark ——————— 实地会见
+
+- (void)requestLocalMeeting {
+    PSHomeViewModel *homeViewModel = (PSHomeViewModel *)self.viewModel;
+    @weakify(self)
+    [homeViewModel requestLocalMeetingDetailCompleted:^(PSResponse *response) {
+        @strongify(self)
+        if (response.code==-100) {
+            NSString*coming_soon=
+            NSLocalizedString(@"coming_soon", @"该监狱暂未开通此功能");
+            [PSTipsView showTips:coming_soon];
+        }
+        else{
+            PSLocalMeetingViewController *meetingViewController = [[PSLocalMeetingViewController alloc] initWithViewModel:[PSLocalMeetingViewModel new]];
+            [self.navigationController pushViewController:meetingViewController animated:YES];
+        }
+    } failed:^(NSError *error) {
+        [self showNetError:error];
+    }];
+}
+#pragma mark ——————— 电子商务
+-(void)e_commerce {
+    NSString*coming_soon=
+    NSLocalizedString(@"coming_soon", @"该监狱暂未开通此功能");
+    [PSTipsView showTips:coming_soon];
+}
+
+#pragma mark ——————— 家属服务
+-(void)psFamilyService {
+    PSFamilyServiceViewController *serviceViewController = [[PSFamilyServiceViewController alloc] initWithViewModel:[PSFamilyServiceViewModel new]];
+    [self.navigationController pushViewController:serviceViewController animated:YES];
+}
 #pragma mark - setting&getting
 - (UIScrollView *)myScrollview {
     if (!_myScrollview) {
@@ -542,25 +537,49 @@
     }
     return _myScrollview;
 }
-
+//加载广告页
+-(void)loadAdvertisingPage{
+    PSWorkViewModel *workViewModel = [PSWorkViewModel new];
+    [workViewModel requestAdvsCompleted:^(PSResponse *response) {
+        _advView.imageURLStringsGroup = workViewModel.advUrls;
+    } failed:^(NSError *error) {
+        
+    }];
+}
 //广告图
 - (SDCycleScrollView *)advView {
     if (!_advView) {
         self.view.backgroundColor=UIColorFromRGBA(248, 247, 254, 1);
-        _advView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 244) imageURLStringsGroup:nil];
+        _advView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0,SCREEN_WIDTH,200) imageURLStringsGroup:nil];
         NSString *imageName = [NSObject judegeIsVietnamVersion]?@"v广告图":@"广告图";
         _advView.placeholderImage = [UIImage imageNamed:imageName];
-        _advView.bannerImageViewContentMode = UIViewContentModeScaleAspectFill;
+        _advView.bannerImageViewContentMode = UIViewContentModeScaleToFill;
+        [self loadAdvertisingPage];
     }
     return _advView;
 }
-- (UIImageView *)bgAdvBgView {
-    if (!_bgAdvBgView) {
-        _bgAdvBgView=[[UIImageView alloc]init];
-        [_bgAdvBgView setImage:[UIImage imageNamed:@"水波"]];
+- (WWWaterWaveView *)waterWaveView{
+    if (!_waterWaveView) {
+        _waterWaveView=[[WWWaterWaveView alloc] init];
+        _waterWaveView.firstWaveColor =AppBaseTextColor3;
+        //[UIColor colorWithRed:0.87 green:0.87 blue:0.87 alpha:0.30];
+        //第二个波浪颜色
+        _waterWaveView.secondWaveColor = [UIColor colorWithRed:0.92 green:0.92 blue:0.92 alpha:0.30];
+        // 百分比
+        _waterWaveView.percent = 0.5;
+        [_waterWaveView startWave];
     }
-    return _bgAdvBgView;
+    return _waterWaveView;
 }
+
+//- (UIImageView *)bgAdvBgView {
+//    if (!_bgAdvBgView) {
+//        _bgAdvBgView=[[UIImageView alloc]init];
+//        [_bgAdvBgView setImage:[UIImage imageNamed:@"水波"]];
+//
+//    }
+//    return _bgAdvBgView;
+//}
 - (UILabel *)dotLable {
     if (!_dotLable) {
         _dotLable = [[UILabel alloc] initWithFrame:CGRectMake(SCREEN_WIDTH-15, 30, 6, 6)];
@@ -603,6 +622,92 @@
         }];
     }
     return _messageButton;
+}
+
+-(UIView *)prisonIntroduceView {
+    if (!_prisonIntroduceView) {
+        _prisonIntroduceView = [UIView new];
+    }
+    return _prisonIntroduceView;
+}
+
+-(UIView *)itemView {
+    if (!_itemView) {
+        _itemView = [UIView new];
+        _itemView.layer.cornerRadius=4;
+        _itemView.layer.masksToBounds=YES;
+        _itemView.backgroundColor = [UIColor whiteColor];
+        _itemView.frame = CGRectMake(19,self.advView.bottom+15,SCREEN_WIDTH-2*19, 88);
+        NSArray *titles = @[@"远程探视",@"实地会见",@"电子商务",@"家属服务"];
+        NSArray *imgs = @[@"远程探视",@"实地会见icon",@"电子商务icon",@"家属服务icon"];
+        
+        for (int i=0; i<4; i++) {
+            CGFloat width = _itemView.width/4;
+            UIView *view = [UIView new];
+            view.frame = CGRectMake(width*i,0,width,88);
+            [_itemView addSubview:view];
+            UIImageView *iconImg = [UIImageView new];
+            iconImg.image = [UIImage imageNamed:imgs[i]];
+            iconImg.frame = CGRectMake((width-27)/2,20,27,27);
+            [view addSubview:iconImg];
+
+            UILabel *funLab = [UILabel new];
+            funLab.frame=CGRectMake(0,55,view.width,20);
+            funLab.text = titles[i];
+            funLab.textAlignment = NSTextAlignmentCenter;
+            funLab.textColor = UIColorFromRGB(102,102,102);
+            funLab.font = FontOfSize(12);
+            [view addSubview:funLab];
+            view.tag = 10088+i;
+            [view bk_whenTapped:^{
+                NSInteger tag = view.tag-10088;
+                switch (tag) {
+                    case 0:
+                    {
+                        [self appointmentPrisoner];
+                    }
+                        break;
+                    case 1:
+                    {
+                        [self requestLocalMeeting];
+                    }
+                        break;
+                    case 2:
+                    {
+                        [self e_commerce];
+                    }
+                        break;
+                    case 3:
+                    {
+                        [self psFamilyService];
+                    }
+                        break;
+                        
+                    default:
+                        break;
+                }
+            }];
+        }
+    }
+    return _itemView;
+}
+-(UIView *)homeHallView {
+    if (!_homeHallView) {
+        _homeHallView = [UIView new];
+    }
+    return _homeHallView;
+}
+- (JXButton *)publicButton {
+    if (!_publicButton) {
+        _publicButton = [JXButton new];
+    }
+    return _publicButton;
+}
+-(UILabel *)prisonIntroduceContentLable{
+    if (!_prisonIntroduceContentLable) {
+        _prisonIntroduceContentLable = [UILabel new];
+    }
+    return _prisonIntroduceContentLable;
 }
 
 

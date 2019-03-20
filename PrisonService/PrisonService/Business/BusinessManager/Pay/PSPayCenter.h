@@ -12,6 +12,7 @@
 typedef NS_ENUM(NSInteger,PayType) {
     PayTypeBuy = 0,  //购买
     PayTypeRem = 1,  //汇款
+    PayTypeOrd = 2,  //法律咨询订单
 };
 @interface PSPayCenter : NSObject
 
