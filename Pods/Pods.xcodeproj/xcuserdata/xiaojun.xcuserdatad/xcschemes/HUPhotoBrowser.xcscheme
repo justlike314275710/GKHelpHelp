@@ -14,10 +14,10 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "49484F464A7FBD1D66AF538624047F5C"
-               BlueprintName = "SDWebImage"
+               BlueprintIdentifier = "C4C2FBEBB1AC086D533B47B1964EEF1C"
+               BlueprintName = "HUPhotoBrowser"
                ReferencedContainer = "container:Pods.xcodeproj"
-               BuildableName = "SDWebImage.framework">
+               BuildableName = "HUPhotoBrowser.framework">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
