@@ -34,5 +34,8 @@
  **/
 - (void)configAvoidCrash;
 
+
+- (void)registerAPNs;
+
 @end
 

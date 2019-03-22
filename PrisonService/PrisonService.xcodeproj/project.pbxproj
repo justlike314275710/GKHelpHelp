@@ -5755,7 +5755,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.sinog2c.Yuwu;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "65bb2d7e-6fc8-4bd8-966c-29b636f1005f";
+				PROVISIONING_PROFILE = "cc5fe474-434e-44b8-bb68-f029add6c6b9";
 				PROVISIONING_PROFILE_SPECIFIER = YuWuDevelopment;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -5796,7 +5796,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.sinog2c.Yuwu;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "19f90a1f-f4e7-4f0e-85a1-63b69a4d0f2d";
+				PROVISIONING_PROFILE = "cc5fe474-434e-44b8-bb68-f029add6c6b9";
 				PROVISIONING_PROFILE_SPECIFIER = YuWuDevelopment;
 				TARGETED_DEVICE_FAMILY = 1;
 			};

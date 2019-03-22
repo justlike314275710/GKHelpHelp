@@ -41,12 +41,19 @@
     return YES;
 }
 
+
+- (void)application:(UIApplication *)app didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
+{
+    [[NIMSDK sharedSDK] updateApnsToken:deviceToken];
+}
+
+
 - (void)registerThirdParty {
     //键盘
     [IQKeyboardManager sharedManager].enableAutoToolbar = YES;
     [IQKeyboardManager sharedManager].shouldResignOnTouchOutside = YES;
     //云信
-    [[NIMSDK sharedSDK] registerWithAppID:NIMKEY cerName:nil];
+    [[NIMSDK sharedSDK] registerWithAppID:NIMKEY cerName:@"Yuwu"];
     //科大讯飞
     [IFlySetting setLogFile:LVL_NONE];
     [IFlySetting showLogcat:NO];
@@ -61,6 +68,8 @@
     [self configAvoidCrash];
     //友盟数据统计
     [self registerUMMob];
+    //网易云信apns推送
+    [self registerAPNs];
     
 }
 
