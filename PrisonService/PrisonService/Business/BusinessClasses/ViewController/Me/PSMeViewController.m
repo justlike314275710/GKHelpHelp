@@ -34,6 +34,7 @@
 #import "PSConsultationViewModel.h"
 #import "PSFamilyRemittanceViewController.h"
 #import "PSFamilyRemittanceViewModel.h"
+#import "MyConsultationViewController.h"
 
 @interface PSMeViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic , strong) UITableView *settingTableview;
@@ -166,9 +167,9 @@
         [self.navigationController pushViewController:serviceViewController animated:YES];
     }
     else if ([itemModel.funcName isEqualToString:family_remittance]){
-        NSString*coming_soon=NSLocalizedString(@"coming_soon", @"该监狱暂未开通此功能");
-        [PSTipsView showTips:coming_soon];
-        return;
+//        NSString*coming_soon=NSLocalizedString(@"coming_soon", @"该监狱暂未开通此功能");
+//        [PSTipsView showTips:coming_soon];
+//        return;
         PSFamilyRemittanceViewController *remittanceViewController = [[PSFamilyRemittanceViewController alloc] initWithViewModel:[PSFamilyRemittanceViewModel new]];
         [self.navigationController pushViewController:remittanceViewController animated:YES];
     }
@@ -180,7 +181,7 @@
 //        NSString*coming_soon=NSLocalizedString(@"coming_soon", @"该监狱暂未开通此功能");
 //        [PSTipsView showTips:coming_soon];
 //        return;
-        [self.navigationController pushViewController:[[PSMyAdviceViewController alloc] initWithViewModel:[[PSConsultationViewModel alloc] init]] animated:YES];
+        [self.navigationController pushViewController:[[MyConsultationViewController alloc] initWithViewModel:[[PSConsultationViewModel alloc] init]] animated:YES];
         
     }
     else{
