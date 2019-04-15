@@ -135,7 +135,6 @@
     self.hasNextPage = NO;
     self.dataStatus = PSDataInitial;
     [self requestRefundCompleted:completedCallback failed:failedCallback];
-    
 
 }
 

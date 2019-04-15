@@ -12,6 +12,8 @@
 #import "UIImage+Color.h"
 #import "PSAlertView.h"
 #import "AppDelegate.h"
+#import "XXAlertView.h"
+#import "PSSessionManager.h"
 
 #define TITLEFONT 17 //导航栏标题文字大小
 #define DEFAULT_ITEM_SIZE CGSizeMake(40,44)
@@ -112,7 +114,19 @@
 
 -(void)showTokenError {
     NSString*NetError=NSLocalizedString(@"Login status expired, please log in again", @"登录状态过期,请重新登录!");
-    [PSTipsView showTips:NetError];
+//    [PSTipsView showTips:NetError];
+    
+    NSString*determine=NSLocalizedString(@"determine", @"确定");
+    NSString*Tips=NSLocalizedString(@"Tips", @"提示");
+//    NSString*pushed_off_line=NSLocalizedString(@"pushed_off_line", @"您的账号已在其他设备登陆,已被挤下线");
+    XXAlertView*alert=[[XXAlertView alloc]initWithTitle:Tips message:NetError sureBtn:determine cancleBtn:nil];
+    alert.clickIndex = ^(NSInteger index) {
+        
+        if (index==2) {
+            [[PSSessionManager sharedInstance] doLogout];
+        }
+    };
+    [alert show];
 }
 
 

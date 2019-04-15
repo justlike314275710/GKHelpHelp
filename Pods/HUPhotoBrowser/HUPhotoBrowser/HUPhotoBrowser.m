@@ -70,7 +70,7 @@
 
 + (instancetype)showFromImageView:(UIImageView *)imageView withURLStrings:(NSArray *)URLStrings atIndex:(NSInteger)index {
 
-    return [self showFromImageView:imageView withURLStrings:URLStrings placeholderImage:[UIImage imageNamed:@"DefalutImg"] atIndex:index dismiss:nil];
+    return [self showFromImageView:imageView withURLStrings:URLStrings placeholderImage:nil atIndex:index dismiss:nil];
 }
 
 + (instancetype)showFromImageView:(UIImageView *)imageView withImages:(NSArray *)images atIndex:(NSInteger)index {
@@ -245,8 +245,7 @@
     saveBtn.frame = CGRectMake(_toolBar.frame.size.width-58, 1, 50, 28);
     saveBtn.layer.cornerRadius = 2;
     [saveBtn setBackgroundColor:[[UIColor blackColor]colorWithAlphaComponent:0.4]];
-    NSString*save=NSLocalizedString(@"save", @"保存");
-    [saveBtn setTitle:save forState:UIControlStateNormal];
+    [saveBtn setTitle:@"保存" forState:UIControlStateNormal];
     [saveBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     saveBtn.titleLabel.font = [UIFont systemFontOfSize:13];
     [saveBtn addTarget:self action:@selector(saveImae) forControlEvents:UIControlEventTouchUpInside];
@@ -379,11 +378,11 @@
   
     NSString *msg = nil ;
     if(error != nil){
-        NSString *msg = NSLocalizedString(@"Failed to save image", @"保存图片失败");
+        msg = @"保存图片失败";
         [SVProgressHUD showInfoWithStatus:msg];
     }
     else{
-        NSString *msg = NSLocalizedString(@"Save the picture successfully", @"保存图片成功");
+        msg = @"保存图片成功";
         [SVProgressHUD showSuccessWithStatus:msg];
     }
     

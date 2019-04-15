@@ -82,11 +82,8 @@
                 [self.navigationController pushViewController:[[PSSessionNoneViewController alloc]initWithViewModel:viewModel] animated:YES];
                 self.hidesBottomBarWhenPushed=NO;
             }
-            
-            
             break;
     }
-    
     
 }
 
@@ -153,6 +150,9 @@
              [self p_insertMoreServiceVC];
         }];
         [cell.FinanceButton bk_whenTapped:^{
+            NSString*coming_soon=NSLocalizedString(@"coming_soon", @"该监狱暂未开通此功能");
+            [PSTipsView showTips:coming_soon];
+            return;
             PSConsultationViewModel*viewModel=[[PSConsultationViewModel alloc]init];
             PSConsultationViewController*consultationViewController
             =[[PSConsultationViewController alloc]initWithViewModel:viewModel];
@@ -161,6 +161,11 @@
             [self.navigationController pushViewController:consultationViewController animated:YES];
         }];
         [cell.MarriageButton bk_whenTapped:^{
+            
+            NSString*coming_soon=NSLocalizedString(@"coming_soon", @"该监狱暂未开通此功能");
+            [PSTipsView showTips:coming_soon];
+            return;
+            
             PSConsultationViewModel*viewModel=[[PSConsultationViewModel alloc]init];
             PSConsultationViewController*consultationViewController
             =[[PSConsultationViewController alloc]initWithViewModel:viewModel];
@@ -189,6 +194,9 @@
 }
 
 - (void)p_insertMoreServiceVC {
+    NSString*coming_soon=NSLocalizedString(@"coming_soon", @"该监狱暂未开通此功能");
+    [PSTipsView showTips:coming_soon];
+    return;
     PSMoreServiceViewController *PSMoreServiceVC = [[PSMoreServiceViewController alloc] initWithViewModel:[PSMoreServiceViewModel new]];
     [self.navigationController pushViewController:PSMoreServiceVC animated:YES];
 }

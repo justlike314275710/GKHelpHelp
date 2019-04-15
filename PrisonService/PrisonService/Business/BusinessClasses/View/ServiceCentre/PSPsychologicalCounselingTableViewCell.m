@@ -59,7 +59,7 @@
     CGFloat qHeight = 15;
     
     UILabel* psychologicalLable = [UILabel new];
-    psychologicalLable.font = FontOfSize(12);
+    psychologicalLable.font = boldFontOfSize(15);
     psychologicalLable.textAlignment = NSTextAlignmentLeft;
     psychologicalLable.textColor =[UIColor blackColor];
     NSString*psychological_counseling=
@@ -74,7 +74,7 @@
     }];
     
     UILabel* psychologicalTitleLable = [UILabel new];
-    psychologicalTitleLable.font = FontOfSize(10);
+    psychologicalTitleLable.font = FontOfSize(12);
     psychologicalTitleLable.textAlignment = NSTextAlignmentLeft;
     psychologicalTitleLable.textColor =AppBaseTextColor1;
     NSString*service_guarantee=NSLocalizedString(@"service_guarantee", @"优质服务,咨询保证");

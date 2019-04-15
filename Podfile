@@ -46,7 +46,6 @@ def shared_pods
     pod 'UMengAnalytics-NO-IDFA'
     pod 'HUPhotoBrowser'
     pod 'ReactiveObjC'
-
 end
 
 target 'PrisonService' do

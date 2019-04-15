@@ -112,7 +112,6 @@
               self.callback(YES,loginViewModel.session);
           }
            [[PSContentManager sharedInstance]launchContent];
-
         }
        else{
             [PSTipsView showTips:loginViewModel.message? loginViewModel.message : @"登录失败"];
@@ -260,7 +259,12 @@
         @strongify(ecomViewmodel)
         @strongify(self)
         if (ecomViewmodel.statusCode==200) {
-            [self logInAction];
+            [ecomViewmodel loginGetImifnoComplete:^(PSResponse *response) {
+                [self logInAction];
+            } failed:^(NSError *error) {
+                NSString*account_code_error=NSLocalizedString(@"account_code_error", nil);
+                [PSTipsView showTips:account_code_error];
+            }];
         }
         else {
             NSString*account_code_error=NSLocalizedString(@"account_code_error", nil);

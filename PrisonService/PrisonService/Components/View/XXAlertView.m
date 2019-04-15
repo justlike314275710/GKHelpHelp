@@ -215,7 +215,8 @@
     
     //iOS8之后，[UIApplicationsharedApplication].windows有两个，第一个为UIWindow，是程序主要的keyWindow；第二个为UITextEffectsWindow，是键盘所在的window，当我们要覆盖住键盘时得在这个window上addSubview。
     
-    [[[UIApplication sharedApplication].windows lastObject] addSubview:self];
+//    [[[UIApplication sharedApplication].windows lastObject] addSubview:self];
+    [[UIApplication sharedApplication].keyWindow addSubview:self];
     [self showAnimation];
 }
 

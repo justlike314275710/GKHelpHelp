@@ -357,6 +357,7 @@
 		5542160C21C8A319003C0E4E /* PSStorageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5542160B21C8A319003C0E4E /* PSStorageViewController.m */; };
 		5542160F21C8D815003C0E4E /* PSSorageViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 5542160E21C8D815003C0E4E /* PSSorageViewModel.m */; };
 		5542161221C8F1CB003C0E4E /* FeedbackCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5542161121C8F1CA003C0E4E /* FeedbackCell.m */; };
+		5549EF13224C605800E3D009 /* PSPrisonConsumptionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 5549EF12224C605800E3D009 /* PSPrisonConsumptionModel.m */; };
 		554C007421D4783700E6C6D2 /* PSMailBoxesTypesRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 554C007321D4783700E6C6D2 /* PSMailBoxesTypesRequest.m */; };
 		554C007721D4824100E6C6D2 /* PSMailBoxesDetailRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 554C007621D4824100E6C6D2 /* PSMailBoxesDetailRequest.m */; };
 		554C007A21D4B0ED00E6C6D2 /* NSString+emoji.m in Sources */ = {isa = PBXBuildFile; fileRef = 554C007921D4B0ED00E6C6D2 /* NSString+emoji.m */; };
@@ -380,8 +381,24 @@
 		557FF9C021C753A000F15F78 /* PSRemittanceRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 557FF9BC21C753A000F15F78 /* PSRemittanceRequest.m */; };
 		557FF9C121C753A000F15F78 /* PSRemitanceResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 557FF9BF21C753A000F15F78 /* PSRemitanceResponse.m */; };
 		558A67D321D727F400F19400 /* PSDeleteRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 558A67D221D727F400F19400 /* PSDeleteRequest.m */; };
+		558EE5D122448A2A000E40DA /* MyConsultationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 558EE5D022448A2A000E40DA /* MyConsultationViewController.m */; };
+		558EE5D422448B99000E40DA /* LegaladviceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 558EE5D222448B99000E40DA /* LegaladviceViewController.m */; };
+		558EE5DA22448C12000E40DA /* ZWTopSelectButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 558EE5D622448C11000E40DA /* ZWTopSelectButton.m */; };
+		558EE5DB22448C12000E40DA /* ZWTopSelectVcView.m in Sources */ = {isa = PBXBuildFile; fileRef = 558EE5D922448C12000E40DA /* ZWTopSelectVcView.m */; };
+		558EE5DE22448C43000E40DA /* LawyerAdviceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 558EE5DD22448C43000E40DA /* LawyerAdviceViewController.m */; };
+		558EE5E122448CB0000E40DA /* LegalAdviceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 558EE5E022448CB0000E40DA /* LegalAdviceCell.m */; };
+		558EE5E422448D27000E40DA /* lawyerGrab_Logic.m in Sources */ = {isa = PBXBuildFile; fileRef = 558EE5E322448D27000E40DA /* lawyerGrab_Logic.m */; };
+		558EE5E922448D53000E40DA /* Grab_customer.m in Sources */ = {isa = PBXBuildFile; fileRef = 558EE5E522448D53000E40DA /* Grab_customer.m */; };
+		558EE5EA22448D53000E40DA /* lawyerGrab.m in Sources */ = {isa = PBXBuildFile; fileRef = 558EE5E622448D53000E40DA /* lawyerGrab.m */; };
+		558EE5ED22448D9F000E40DA /* LawyerAdviceTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 558EE5EB22448D9E000E40DA /* LawyerAdviceTableViewCell.m */; };
+		558EE5F022449541000E40DA /* LawyerAdviceDetalisVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 558EE5EE22449541000E40DA /* LawyerAdviceDetalisVC.m */; };
+		558EE5F322449574000E40DA /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 558EE5F122449573000E40DA /* RootViewController.m */; };
+		558EE5F62244AEC5000E40DA /* headerDetailsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 558EE5F42244AEC5000E40DA /* headerDetailsView.m */; };
+		558EE5F92244AFC8000E40DA /* UIViewController+AlertViewAndActionSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = 558EE5F82244AFC8000E40DA /* UIViewController+AlertViewAndActionSheet.m */; };
 		55943DE421C9F483002F82B8 /* FeedloadImgView.m in Sources */ = {isa = PBXBuildFile; fileRef = 55943DE321C9F483002F82B8 /* FeedloadImgView.m */; };
 		55943DE721CA2E89002F82B8 /* FeedLoadItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 55943DE621CA2E89002F82B8 /* FeedLoadItemView.m */; };
+		55A653132248B33200A6EA52 /* 20181218115255.wav in Resources */ = {isa = PBXBuildFile; fileRef = 55A653122248B33200A6EA52 /* 20181218115255.wav */; };
+		55A653152248B64900A6EA52 /* cnwav.aac.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 55A653142248B64900A6EA52 /* cnwav.aac.mp3 */; };
 		55B1957C21D1BFC2000E0B28 /* PSPhotoBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = 55B1957B21D1BFC2000E0B28 /* PSPhotoBrowser.m */; };
 		55B1957F21D1D50B000E0B28 /* PSWriteFeedbackDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 55B1957E21D1D50B000E0B28 /* PSWriteFeedbackDetailViewController.m */; };
 		55B1958221D21C80000E0B28 /* PSFWriteFeedSuccessViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 55B1958121D21C80000E0B28 /* PSFWriteFeedSuccessViewController.m */; };
@@ -389,6 +406,10 @@
 		55B544B5219EA24C00B0D757 /* UpDateModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 55B544B4219EA24C00B0D757 /* UpDateModel.m */; };
 		55C9EDC42188528300A11D60 /* PSFamilyRemittanceViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 55C9EDC32188528300A11D60 /* PSFamilyRemittanceViewModel.m */; };
 		55CFFF7021C0AA3C00F946E6 /* UMMobEventConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = 55CFFF6F21C0AA3C00F946E6 /* UMMobEventConfig.plist */; };
+		55D15336224B1A8F007B0864 /* PSPrisonConsumptionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 55D15335224B1A8F007B0864 /* PSPrisonConsumptionViewController.m */; };
+		55D15339224B1B26007B0864 /* PSPrisonConsumptionViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 55D15338224B1B26007B0864 /* PSPrisonConsumptionViewModel.m */; };
+		55D1533C224B4BFF007B0864 /* PSPrisonConsumptionRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 55D1533B224B4BFF007B0864 /* PSPrisonConsumptionRequest.m */; };
+		55D1533F224B4CF2007B0864 /* PSPrisonConsumptionResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 55D1533E224B4CF2007B0864 /* PSPrisonConsumptionResponse.m */; };
 		55DA4BBE2189F09900212A23 /* PSRemittanceRecodeViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 55DA4BBD2189F09900212A23 /* PSRemittanceRecodeViewModel.m */; };
 		55E8225A21D0B3660015F72A /* PSWriteFeedbackListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 55E8225921D0B3660015F72A /* PSWriteFeedbackListViewController.m */; };
 		55E8225D21D0D30B0015F72A /* FeedbackListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 55E8225C21D0D30B0015F72A /* FeedbackListCell.m */; };
@@ -1373,6 +1394,8 @@
 		5542160E21C8D815003C0E4E /* PSSorageViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PSSorageViewModel.m; sourceTree = "<group>"; };
 		5542161021C8F1CA003C0E4E /* FeedbackCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FeedbackCell.h; sourceTree = "<group>"; };
 		5542161121C8F1CA003C0E4E /* FeedbackCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FeedbackCell.m; sourceTree = "<group>"; };
+		5549EF11224C605800E3D009 /* PSPrisonConsumptionModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PSPrisonConsumptionModel.h; sourceTree = "<group>"; };
+		5549EF12224C605800E3D009 /* PSPrisonConsumptionModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PSPrisonConsumptionModel.m; sourceTree = "<group>"; };
 		554C007221D4783700E6C6D2 /* PSMailBoxesTypesRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PSMailBoxesTypesRequest.h; sourceTree = "<group>"; };
 		554C007321D4783700E6C6D2 /* PSMailBoxesTypesRequest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PSMailBoxesTypesRequest.m; sourceTree = "<group>"; };
 		554C007521D4824100E6C6D2 /* PSMailBoxesDetailRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PSMailBoxesDetailRequest.h; sourceTree = "<group>"; };
@@ -1419,10 +1442,40 @@
 		557FF9BF21C753A000F15F78 /* PSRemitanceResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSRemitanceResponse.m; sourceTree = "<group>"; };
 		558A67D121D727F400F19400 /* PSDeleteRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PSDeleteRequest.h; sourceTree = "<group>"; };
 		558A67D221D727F400F19400 /* PSDeleteRequest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PSDeleteRequest.m; sourceTree = "<group>"; };
+		558EE5CF22448A2A000E40DA /* MyConsultationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyConsultationViewController.h; sourceTree = "<group>"; };
+		558EE5D022448A2A000E40DA /* MyConsultationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyConsultationViewController.m; sourceTree = "<group>"; };
+		558EE5D222448B99000E40DA /* LegaladviceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LegaladviceViewController.m; sourceTree = "<group>"; };
+		558EE5D322448B99000E40DA /* LegaladviceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LegaladviceViewController.h; sourceTree = "<group>"; };
+		558EE5D622448C11000E40DA /* ZWTopSelectButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZWTopSelectButton.m; sourceTree = "<group>"; };
+		558EE5D722448C11000E40DA /* ZWTopSelectButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZWTopSelectButton.h; sourceTree = "<group>"; };
+		558EE5D822448C12000E40DA /* ZWTopSelectVcView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZWTopSelectVcView.h; sourceTree = "<group>"; };
+		558EE5D922448C12000E40DA /* ZWTopSelectVcView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZWTopSelectVcView.m; sourceTree = "<group>"; };
+		558EE5DC22448C43000E40DA /* LawyerAdviceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LawyerAdviceViewController.h; sourceTree = "<group>"; };
+		558EE5DD22448C43000E40DA /* LawyerAdviceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LawyerAdviceViewController.m; sourceTree = "<group>"; };
+		558EE5DF22448CB0000E40DA /* LegalAdviceCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LegalAdviceCell.h; sourceTree = "<group>"; };
+		558EE5E022448CB0000E40DA /* LegalAdviceCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LegalAdviceCell.m; sourceTree = "<group>"; };
+		558EE5E222448D27000E40DA /* lawyerGrab_Logic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lawyerGrab_Logic.h; sourceTree = "<group>"; };
+		558EE5E322448D27000E40DA /* lawyerGrab_Logic.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = lawyerGrab_Logic.m; sourceTree = "<group>"; };
+		558EE5E522448D53000E40DA /* Grab_customer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Grab_customer.m; sourceTree = "<group>"; };
+		558EE5E622448D53000E40DA /* lawyerGrab.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = lawyerGrab.m; sourceTree = "<group>"; };
+		558EE5E722448D53000E40DA /* Grab_customer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Grab_customer.h; sourceTree = "<group>"; };
+		558EE5E822448D53000E40DA /* lawyerGrab.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lawyerGrab.h; sourceTree = "<group>"; };
+		558EE5EB22448D9E000E40DA /* LawyerAdviceTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LawyerAdviceTableViewCell.m; sourceTree = "<group>"; };
+		558EE5EC22448D9F000E40DA /* LawyerAdviceTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LawyerAdviceTableViewCell.h; sourceTree = "<group>"; };
+		558EE5EE22449541000E40DA /* LawyerAdviceDetalisVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LawyerAdviceDetalisVC.m; sourceTree = "<group>"; };
+		558EE5EF22449541000E40DA /* LawyerAdviceDetalisVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LawyerAdviceDetalisVC.h; sourceTree = "<group>"; };
+		558EE5F122449573000E40DA /* RootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RootViewController.m; sourceTree = "<group>"; };
+		558EE5F222449574000E40DA /* RootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RootViewController.h; sourceTree = "<group>"; };
+		558EE5F42244AEC5000E40DA /* headerDetailsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = headerDetailsView.m; sourceTree = "<group>"; };
+		558EE5F52244AEC5000E40DA /* headerDetailsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = headerDetailsView.h; sourceTree = "<group>"; };
+		558EE5F72244AFC7000E40DA /* UIViewController+AlertViewAndActionSheet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+AlertViewAndActionSheet.h"; sourceTree = "<group>"; };
+		558EE5F82244AFC8000E40DA /* UIViewController+AlertViewAndActionSheet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+AlertViewAndActionSheet.m"; sourceTree = "<group>"; };
 		55943DE221C9F483002F82B8 /* FeedloadImgView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FeedloadImgView.h; sourceTree = "<group>"; };
 		55943DE321C9F483002F82B8 /* FeedloadImgView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FeedloadImgView.m; sourceTree = "<group>"; };
 		55943DE521CA2E89002F82B8 /* FeedLoadItemView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FeedLoadItemView.h; sourceTree = "<group>"; };
 		55943DE621CA2E89002F82B8 /* FeedLoadItemView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FeedLoadItemView.m; sourceTree = "<group>"; };
+		55A653122248B33200A6EA52 /* 20181218115255.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = 20181218115255.wav; sourceTree = "<group>"; };
+		55A653142248B64900A6EA52 /* cnwav.aac.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = cnwav.aac.mp3; sourceTree = "<group>"; };
 		55B1957A21D1BFC2000E0B28 /* PSPhotoBrowser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PSPhotoBrowser.h; sourceTree = "<group>"; };
 		55B1957B21D1BFC2000E0B28 /* PSPhotoBrowser.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PSPhotoBrowser.m; sourceTree = "<group>"; };
 		55B1957D21D1D50B000E0B28 /* PSWriteFeedbackDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PSWriteFeedbackDetailViewController.h; sourceTree = "<group>"; };
@@ -1437,6 +1490,14 @@
 		55C9EDC32188528300A11D60 /* PSFamilyRemittanceViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PSFamilyRemittanceViewModel.m; sourceTree = "<group>"; };
 		55CFFF6F21C0AA3C00F946E6 /* UMMobEventConfig.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = UMMobEventConfig.plist; sourceTree = "<group>"; };
 		55CFFF7121C0ABC600F946E6 /* MobEventConfig.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MobEventConfig.h; sourceTree = "<group>"; };
+		55D15334224B1A8F007B0864 /* PSPrisonConsumptionViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PSPrisonConsumptionViewController.h; sourceTree = "<group>"; };
+		55D15335224B1A8F007B0864 /* PSPrisonConsumptionViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PSPrisonConsumptionViewController.m; sourceTree = "<group>"; };
+		55D15337224B1B26007B0864 /* PSPrisonConsumptionViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PSPrisonConsumptionViewModel.h; sourceTree = "<group>"; };
+		55D15338224B1B26007B0864 /* PSPrisonConsumptionViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PSPrisonConsumptionViewModel.m; sourceTree = "<group>"; };
+		55D1533A224B4BFF007B0864 /* PSPrisonConsumptionRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PSPrisonConsumptionRequest.h; sourceTree = "<group>"; };
+		55D1533B224B4BFF007B0864 /* PSPrisonConsumptionRequest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PSPrisonConsumptionRequest.m; sourceTree = "<group>"; };
+		55D1533D224B4CF2007B0864 /* PSPrisonConsumptionResponse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PSPrisonConsumptionResponse.h; sourceTree = "<group>"; };
+		55D1533E224B4CF2007B0864 /* PSPrisonConsumptionResponse.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PSPrisonConsumptionResponse.m; sourceTree = "<group>"; };
 		55DA4BBC2189F09900212A23 /* PSRemittanceRecodeViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PSRemittanceRecodeViewModel.h; sourceTree = "<group>"; };
 		55DA4BBD2189F09900212A23 /* PSRemittanceRecodeViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PSRemittanceRecodeViewModel.m; sourceTree = "<group>"; };
 		55E8225821D0B3660015F72A /* PSWriteFeedbackListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PSWriteFeedbackListViewController.h; sourceTree = "<group>"; };
@@ -2206,6 +2267,8 @@
 				3E5D14AB20720FD7000FC779 /* PSPrefixHeader.pch */,
 				3E5D147B2071C93D000FC779 /* main.m */,
 				3EC77D5E209C3F30007E7A8C /* ring.mp3 */,
+				55A653122248B33200A6EA52 /* 20181218115255.wav */,
+				55A653142248B64900A6EA52 /* cnwav.aac.mp3 */,
 				3E5D1640207B13F1000FC779 /* cache.sql */,
 			);
 			path = PrisonService;
@@ -2277,6 +2340,8 @@
 				3E5D158D20732398000FC779 /* NSObject+MultiParam.m */,
 				3E5D158A20732344000FC779 /* NSString+Utils.h */,
 				3E5D158B20732345000FC779 /* NSString+Utils.m */,
+				558EE5F72244AFC7000E40DA /* UIViewController+AlertViewAndActionSheet.h */,
+				558EE5F82244AFC8000E40DA /* UIViewController+AlertViewAndActionSheet.m */,
 				3E5D156D20732203000FC779 /* NSString+Encryption.h */,
 				3E5D156C20732203000FC779 /* NSString+Encryption.m */,
 				3E5D14C020721E71000FC779 /* CAGradientLayer+Gradient.h */,
@@ -2711,6 +2776,7 @@
 		3E5D16032074D4A4000FC779 /* Vender */ = {
 			isa = PBXGroup;
 			children = (
+				558EE5D522448BFA000E40DA /* ZWTopSelectVcView */,
 				55381CE2224083CF00CC3C66 /* Waves */,
 				55573F8D21BE03870053391C /* SDTrackTool */,
 				EA33785F21003C1C0081B907 /* LYEmptyView */,
@@ -2787,6 +2853,10 @@
 				552E617B21A653A300FA31FD /* PSGetPrisonersRequest.m */,
 				552E617D21A6541900FA31FD /* PSGetPrisonerResponse.h */,
 				552E617E21A6541900FA31FD /* PSGetPrisonerResponse.m */,
+				55D1533A224B4BFF007B0864 /* PSPrisonConsumptionRequest.h */,
+				55D1533B224B4BFF007B0864 /* PSPrisonConsumptionRequest.m */,
+				55D1533D224B4CF2007B0864 /* PSPrisonConsumptionResponse.h */,
+				55D1533E224B4CF2007B0864 /* PSPrisonConsumptionResponse.m */,
 			);
 			path = Prisoner;
 			sourceTree = "<group>";
@@ -3116,6 +3186,8 @@
 		3EC7B6F8207DA5D200DFBA65 /* Base */ = {
 			isa = PBXGroup;
 			children = (
+				558EE5F222449574000E40DA /* RootViewController.h */,
+				558EE5F122449573000E40DA /* RootViewController.m */,
 				3E5D14D3207230DB000FC779 /* PSViewController.h */,
 				3E5D14D5207230DB000FC779 /* PSViewController.m */,
 				3E5D14D4207230DB000FC779 /* PSNavigationController.h */,
@@ -3585,6 +3657,8 @@
 				3EEE77722080637000CAD179 /* PSPrisonIntroduceViewController.m */,
 				3EEE777420807B1700CAD179 /* PSFamilyServiceViewController.h */,
 				3EEE777520807B1700CAD179 /* PSFamilyServiceViewController.m */,
+				55D15334224B1A8F007B0864 /* PSPrisonConsumptionViewController.h */,
+				55D15335224B1A8F007B0864 /* PSPrisonConsumptionViewController.m */,
 				55381CF622408D1200CC3C66 /* PSWorkViewController.h */,
 				55381CF722408D1400CC3C66 /* PSWorkViewController.m */,
 				55381CF922408D3F00CC3C66 /* PSDynamicViewController.h */,
@@ -3717,6 +3791,8 @@
 				EA87F57D210849E200D7A1E4 /* PSPocketMoney.m */,
 				557859B8218994140080437D /* RemittanceRecode.h */,
 				557859B9218994140080437D /* RemittanceRecode.m */,
+				5549EF11224C605800E3D009 /* PSPrisonConsumptionModel.h */,
+				5549EF12224C605800E3D009 /* PSPrisonConsumptionModel.m */,
 			);
 			path = ServiceHall;
 			sourceTree = "<group>";
@@ -3746,6 +3822,8 @@
 				55C9EDC32188528300A11D60 /* PSFamilyRemittanceViewModel.m */,
 				55DA4BBC2189F09900212A23 /* PSRemittanceRecodeViewModel.h */,
 				55DA4BBD2189F09900212A23 /* PSRemittanceRecodeViewModel.m */,
+				55D15337224B1B26007B0864 /* PSPrisonConsumptionViewModel.h */,
+				55D15338224B1B26007B0864 /* PSPrisonConsumptionViewModel.m */,
 			);
 			path = ServiceHall;
 			sourceTree = "<group>";
@@ -3926,6 +4004,17 @@
 			path = delete;
 			sourceTree = "<group>";
 		};
+		558EE5D522448BFA000E40DA /* ZWTopSelectVcView */ = {
+			isa = PBXGroup;
+			children = (
+				558EE5D722448C11000E40DA /* ZWTopSelectButton.h */,
+				558EE5D622448C11000E40DA /* ZWTopSelectButton.m */,
+				558EE5D822448C12000E40DA /* ZWTopSelectVcView.h */,
+				558EE5D922448C12000E40DA /* ZWTopSelectVcView.m */,
+			);
+			path = ZWTopSelectVcView;
+			sourceTree = "<group>";
+		};
 		55F2A52D219046FC0048D93B /* Recovered References */ = {
 			isa = PBXGroup;
 			children = (
@@ -4040,6 +4129,10 @@
 		EA3E1E33221BA3CD00D0F1B1 /* ConsultationModel */ = {
 			isa = PBXGroup;
 			children = (
+				558EE5E722448D53000E40DA /* Grab_customer.h */,
+				558EE5E522448D53000E40DA /* Grab_customer.m */,
+				558EE5E822448D53000E40DA /* lawyerGrab.h */,
+				558EE5E622448D53000E40DA /* lawyerGrab.m */,
 				EA3E1E5F221BAA9900D0F1B1 /* PSConsultation.h */,
 				EA3E1E61221BAAA100D0F1B1 /* PSConsultation.m */,
 				EA3E1E60221BAA9D00D0F1B1 /* PSCustomer.h */,
@@ -4063,6 +4156,8 @@
 		EA3E1E37221BA53400D0F1B1 /* ConsultationViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				558EE5E222448D27000E40DA /* lawyerGrab_Logic.h */,
+				558EE5E322448D27000E40DA /* lawyerGrab_Logic.m */,
 				EA3E1E69221BAC2200D0F1B1 /* PSLawerViewModel.h */,
 				EA3E1E68221BAC2200D0F1B1 /* PSLawerViewModel.m */,
 				EA3E1E39221BA55C00D0F1B1 /* PSConsultationViewModel.h */,
@@ -4272,6 +4367,14 @@
 				EAA0C9BF2186AA5C00240724 /* PSConsultationViewController.h */,
 				EAA0C9C02186AA5C00240724 /* PSConsultationViewController.m */,
 				EAA0C9CD21870A7700240724 /* PSConsultingCategoryViewController.h */,
+				558EE5D322448B99000E40DA /* LegaladviceViewController.h */,
+				558EE5D222448B99000E40DA /* LegaladviceViewController.m */,
+				558EE5CF22448A2A000E40DA /* MyConsultationViewController.h */,
+				558EE5D022448A2A000E40DA /* MyConsultationViewController.m */,
+				558EE5DC22448C43000E40DA /* LawyerAdviceViewController.h */,
+				558EE5DD22448C43000E40DA /* LawyerAdviceViewController.m */,
+				558EE5EF22449541000E40DA /* LawyerAdviceDetalisVC.h */,
+				558EE5EE22449541000E40DA /* LawyerAdviceDetalisVC.m */,
 				EAA0C9CE21870A7700240724 /* PSConsultingCategoryViewController.m */,
 				EAD67A32218AEA38009E54C2 /* PSMyAdviceViewController.h */,
 				EAD67A33218AEA38009E54C2 /* PSMyAdviceViewController.m */,
@@ -4284,6 +4387,12 @@
 		EAA0C9C22186BBFE00240724 /* ConsultationView */ = {
 			isa = PBXGroup;
 			children = (
+				558EE5F52244AEC5000E40DA /* headerDetailsView.h */,
+				558EE5F42244AEC5000E40DA /* headerDetailsView.m */,
+				558EE5EC22448D9F000E40DA /* LawyerAdviceTableViewCell.h */,
+				558EE5EB22448D9E000E40DA /* LawyerAdviceTableViewCell.m */,
+				558EE5DF22448CB0000E40DA /* LegalAdviceCell.h */,
+				558EE5E022448CB0000E40DA /* LegalAdviceCell.m */,
 				EA3E1E31221BA29700D0F1B1 /* PSAdviceDetailsView.h */,
 				EA3E1E30221BA29100D0F1B1 /* PSAdviceDetailsView.m */,
 				EAA0C9C32186BC3000240724 /* PSConsultationTableViewCell.h */,
@@ -4777,6 +4886,7 @@
 				EAA0CA8A2188321000240724 /* ImageSelectedSmallOn@2x.png in Resources */,
 				EAA0CA6B2188321000240724 /* UIBarButtonItemGrid@3x.png in Resources */,
 				EAA0C9F4218831F800240724 /* LLImagePicker.bundle in Resources */,
+				55A653152248B64900A6EA52 /* cnwav.aac.mp3 in Resources */,
 				EA0D8D5521119E320042A1BA /* infoPlist.strings in Resources */,
 				EAA0CA8C2188321000240724 /* README.md in Resources */,
 				3E5D15B720738192000FC779 /* Media.xcassets in Resources */,
@@ -4802,6 +4912,7 @@
 				EAA0CA7B2188321000240724 /* UIBarButtonItemArrowRight@3x.png in Resources */,
 				EAA0CA792188321000240724 /* VideoOverlay@3x.png in Resources */,
 				EA0D8D6A211299360042A1BA /* Localizable.strings in Resources */,
+				55A653132248B33200A6EA52 /* 20181218115255.wav in Resources */,
 				EAD18F5820D02A780053F82B /* README.md in Resources */,
 				EAA0CA872188321000240724 /* PlayButtonOverlayLarge.png in Resources */,
 				EAA0CA812188321000240724 /* ImageSelectedSmallOff.png in Resources */,
@@ -4993,6 +5104,7 @@
 			files = (
 				3ED6A0AD20A923B200D2223A /* PSPurchaseViewController.m in Sources */,
 				3EEE77CD2084A1EE00CAD179 /* PSWriteFeedbackViewController.m in Sources */,
+				558EE5DB22448C12000E40DA /* ZWTopSelectVcView.m in Sources */,
 				3E78B7512089F43E007DF162 /* PSMeetingAddRequest.m in Sources */,
 				EAA0CA632188321000240724 /* MWZoomingScrollView.m in Sources */,
 				3E5D15B3207376E9000FC779 /* PSLaunchManager.m in Sources */,
@@ -5007,11 +5119,13 @@
 				55E9A8CA2186F982003A5918 /* PSRemittancePayStateViewController.m in Sources */,
 				3E78B7412089BE9A007DF162 /* PSPrisonerDetail.m in Sources */,
 				EA9E60092178769E0009F7F9 /* PSLegalServiceTableViewCell.m in Sources */,
+				558EE5F022449541000E40DA /* LawyerAdviceDetalisVC.m in Sources */,
 				EA0CE0E620D3BF0300FFFE23 /* Expression.m in Sources */,
 				3E91DE68208F20A500AADE3C /* PSJailConfiguration.m in Sources */,
 				EAD18F5120D02A780053F82B /* MJExtensionConst.m in Sources */,
 				55B544B5219EA24C00B0D757 /* UpDateModel.m in Sources */,
 				3EDF0DA920882894002D98BD /* PSUploadCardRequest.m in Sources */,
+				558EE5D122448A2A000E40DA /* MyConsultationViewController.m in Sources */,
 				55381CFE22408D4600CC3C66 /* PSPublicViewController.m in Sources */,
 				EAEE396920C52784005F7530 /* PSTransactionRecordRequest.m in Sources */,
 				3E78B773208D8586007DF162 /* PSPhoneCardViewModel.m in Sources */,
@@ -5034,6 +5148,7 @@
 				3E5D15AD20737517000FC779 /* PSHomeViewController.m in Sources */,
 				EAA0C9C52186BC3000240724 /* PSConsultationTableViewCell.m in Sources */,
 				3EC7B729207DEF4F00DFBA65 /* PSAccountTopView.m in Sources */,
+				55D15339224B1B26007B0864 /* PSPrisonConsumptionViewModel.m in Sources */,
 				3E78B74B2089CBAC007DF162 /* PSMeetingsPageResponse.m in Sources */,
 				3E5D147C2071C93D000FC779 /* main.m in Sources */,
 				3E171A9D2092B24B00B7D807 /* PSRewardAndPunishmentRequest.m in Sources */,
@@ -5052,6 +5167,7 @@
 				55B1957C21D1BFC2000E0B28 /* PSPhotoBrowser.m in Sources */,
 				EAA0C9EC218831F800240724 /* LLImagePickerView.m in Sources */,
 				EA492485218303C100D94F1A /* MoreRoloCell.m in Sources */,
+				55D1533C224B4BFF007B0864 /* PSPrisonConsumptionRequest.m in Sources */,
 				EA3E1E72221BB29100D0F1B1 /* PSLawerAdviceTableViewCell.m in Sources */,
 				55381D032240912E00CC3C66 /* PSRingMeetingViewController.m in Sources */,
 				3EEE777A20807C9800CAD179 /* PSFamilyServiceView.m in Sources */,
@@ -5068,6 +5184,7 @@
 				3E91DE77208F5D4300AADE3C /* PSBindPrisonerRequest.m in Sources */,
 				3EC7B6EB207CADB300DFBA65 /* PSRegisterPrisonView.m in Sources */,
 				3EDF0DD12088A32A002D98BD /* PSSessionPendingController.m in Sources */,
+				558EE5EA22448D53000E40DA /* lawyerGrab.m in Sources */,
 				3ED2BC7120AD7BCE00359EF4 /* PSCancelLocalMeetingResponse.m in Sources */,
 				3ED2BC6E20AD7BBF00359EF4 /* PSCancelLocalMeetingRequest.m in Sources */,
 				EA78E1E42175827500BBEE58 /* JXButton.m in Sources */,
@@ -5108,12 +5225,14 @@
 				3E1737F92085DAB40068CCEB /* PSAppointmentDetailCell.m in Sources */,
 				EA3E1E43221BA5D700D0F1B1 /* PSLawyerComments.m in Sources */,
 				EA3E1E32221BA29700D0F1B1 /* PSAdviceDetailsView.m in Sources */,
+				5549EF13224C605800E3D009 /* PSPrisonConsumptionModel.m in Sources */,
 				3E171A962092115F00B7D807 /* PSPeriodChange.m in Sources */,
 				3E4C24B220A299A8009AC107 /* PSLocateManager.m in Sources */,
 				5511D6DA21AEE895003644AD /* NSObject+version.m in Sources */,
 				EAA0C9C12186AA5C00240724 /* PSConsultationViewController.m in Sources */,
 				3E78B7542089F44B007DF162 /* PSMeetingAddResponse.m in Sources */,
 				EAA0CA96218849DA00240724 /* PSBaseConsultaionRequest.m in Sources */,
+				558EE5E122448CB0000E40DA /* LegalAdviceCell.m in Sources */,
 				EA33784B20FDC0790081B907 /* XXAlertView.m in Sources */,
 				3EDA519220AAE64500D8D019 /* PSLocalMeetingViewController.m in Sources */,
 				EAEE396620C50EFC005F7530 /* PSTransactionRecord.m in Sources */,
@@ -5144,12 +5263,14 @@
 				EA78E20121772AB100BBEE58 /* PSSettingCell.m in Sources */,
 				3E5D16012074D3CA000FC779 /* UIView+ FrameChange.m in Sources */,
 				EAA0CA932188490000240724 /* PSUploadConsultaionRequest.m in Sources */,
+				558EE5F92244AFC8000E40DA /* UIViewController+AlertViewAndActionSheet.m in Sources */,
 				3E171ABE209300F400B7D807 /* PSBaseMailBoxRequest.m in Sources */,
 				EA3E1E3C221BA56100D0F1B1 /* PSConsultationViewModel.m in Sources */,
 				552E617321A4FE5E00FA31FD /* PSBuyCardView.m in Sources */,
 				3E5D16242079B90D000FC779 /* PSJailsRequest.m in Sources */,
 				3EC7B734207E130300DFBA65 /* PSAccountInfoCell.m in Sources */,
 				EA33786F21003D160081B907 /* XXEmptyView.m in Sources */,
+				558EE5DA22448C12000E40DA /* ZWTopSelectButton.m in Sources */,
 				EA33783720F723360081B907 /* PSHistoryCell.m in Sources */,
 				3EEE7744207F0E2A00CAD179 /* PSMessageViewModel.m in Sources */,
 				3EEE774E207F0F8400CAD179 /* PSMessageCell.m in Sources */,
@@ -5233,6 +5354,7 @@
 				EADDC8AE20BE8EC90068D3AB /* PSPrisonerAccountsRequest.m in Sources */,
 				3E171A1620908F3800B7D807 /* PermissionDetector.m in Sources */,
 				3EEEC67A209471A2003B35B3 /* PSImageDisplayViewController.m in Sources */,
+				558EE5F62244AEC5000E40DA /* headerDetailsView.m in Sources */,
 				555FF47321D3708A00FF8D1D /* PSFeedbackDetailRequest.m in Sources */,
 				EA33785B20FF8F910081B907 /* PSMeetJailsnnmeViewModel.m in Sources */,
 				EAA0CA1F2188320500240724 /* TZImageManager.m in Sources */,
@@ -5271,6 +5393,7 @@
 				3E0044F4207B55D80036CBC5 /* PSLoginTopView.m in Sources */,
 				3E5D14C320721E71000FC779 /* CAGradientLayer+Gradient.m in Sources */,
 				EACBC18C212FB064004C0EAB /* LXFileManager.m in Sources */,
+				558EE5ED22448D9F000E40DA /* LawyerAdviceTableViewCell.m in Sources */,
 				EA428612211A9FC700418685 /* VIRegisterRequest.m in Sources */,
 				3EDA51AA20AD270300D8D019 /* PSLocalMeetingAppointCell.m in Sources */,
 				3EEE77732080637000CAD179 /* PSPrisonIntroduceViewController.m in Sources */,
@@ -5284,6 +5407,7 @@
 				3E5D14FF20731B04000FC779 /* PSResponse.m in Sources */,
 				3E171AC42093019200B7D807 /* PSMailBoxesResponse.m in Sources */,
 				5542160C21C8A319003C0E4E /* PSStorageViewController.m in Sources */,
+				558EE5E922448D53000E40DA /* Grab_customer.m in Sources */,
 				3E171ABA2092CD1100B7D807 /* PSAdvertisement.m in Sources */,
 				3E0044E5207B38770036CBC5 /* PSLoginViewController.m in Sources */,
 				3EDA51BA20AD4D9800D8D019 /* PSLocalMeetingCalendarView.m in Sources */,
@@ -5295,6 +5419,7 @@
 				3E78B73A2089BD93007DF162 /* PSPrisonerDetailRequest.m in Sources */,
 				3E1737FF2085DD3B0068CCEB /* PSLastCallInfoCell.m in Sources */,
 				EA78E1C0215E233500BBEE58 /* VIRegisterProgressView.m in Sources */,
+				55D15336224B1A8F007B0864 /* PSPrisonConsumptionViewController.m in Sources */,
 				3EC7B738207E18B800DFBA65 /* PSSettingItem.m in Sources */,
 				3EEEC686209985B6003B35B3 /* PSLaunchViewController.m in Sources */,
 				3E5D15E420747DD0000FC779 /* PSCity.m in Sources */,
@@ -5422,6 +5547,7 @@
 				3E5D150320731B04000FC779 /* PSParameters.m in Sources */,
 				EA3E1E63221BAAA300D0F1B1 /* PSConsultation.m in Sources */,
 				557859BA218994140080437D /* RemittanceRecode.m in Sources */,
+				558EE5F322449574000E40DA /* RootViewController.m in Sources */,
 				3E5D15E520747DD0000FC779 /* PSJail.m in Sources */,
 				3E0044DF207B346A0036CBC5 /* PSSessionManager.m in Sources */,
 				3EEEC67320946EA8003B35B3 /* PSStartupAdvManager.m in Sources */,
@@ -5449,6 +5575,7 @@
 				3E4C249620A1A085009AC107 /* PSCartResponse.m in Sources */,
 				EA3E1E2F221B9F1A00D0F1B1 /* PSAdviceDetailsViewController.m in Sources */,
 				EA0B02FC20CFABB60091B9A0 /* PSAccountNumber.m in Sources */,
+				558EE5E422448D27000E40DA /* lawyerGrab_Logic.m in Sources */,
 				3E5D15AA2073739A000FC779 /* PSMainViewController.m in Sources */,
 				3E78B79E208DA934007DF162 /* PSAliHandler.m in Sources */,
 				555FF46721D318AC00FF8D1D /* FeedbackTypeModel.m in Sources */,
@@ -5459,6 +5586,7 @@
 				5573E08B21E83ECC00AFE04D /* NSObjectSafe.m in Sources */,
 				55943DE421C9F483002F82B8 /* FeedloadImgView.m in Sources */,
 				EAD67A40218C2338009E54C2 /* PSLawyerView.m in Sources */,
+				55D1533F224B4CF2007B0864 /* PSPrisonConsumptionResponse.m in Sources */,
 				3EEEC677209470EF003B35B3 /* PSStartupAdvViewController.m in Sources */,
 				EAD18F5520D02A780053F82B /* MJPropertyKey.m in Sources */,
 				EA3E1E46221BA66F00D0F1B1 /* PSAdviceComments.m in Sources */,
@@ -5488,6 +5616,7 @@
 				EAD18F4D20D02A770053F82B /* MJPropertyType.m in Sources */,
 				3E5D150020731B04000FC779 /* PSApiSign.m in Sources */,
 				552CBA0E219AA449008CCC03 /* UIViewController+Tool.m in Sources */,
+				558EE5D422448B99000E40DA /* LegaladviceViewController.m in Sources */,
 				EADDC8C120BF9AE00068D3AB /* PSRelationViewController.m in Sources */,
 				3E4C24AE20A1A74C009AC107 /* PSPurchaseCell.m in Sources */,
 				3E171AA72092C4CD00B7D807 /* PSNewsRequest.m in Sources */,
@@ -5537,6 +5666,7 @@
 				5511D6D721ACC511003644AD /* PSAccountrefundViewController.m in Sources */,
 				EAD18F6420D0E9C90053F82B /* ZJBLStoreShopTypeAlert.m in Sources */,
 				EAA0CA662188321000240724 /* MWPhoto.m in Sources */,
+				558EE5DE22448C43000E40DA /* LawyerAdviceViewController.m in Sources */,
 				3E171AC12093018100B7D807 /* PSMailBoxesRequest.m in Sources */,
 				3E5D146E2071C93D000FC779 /* AppDelegate.m in Sources */,
 				3E171AA32092B50A00B7D807 /* PSRewardAndPunishmentViewModel.m in Sources */,
@@ -5756,7 +5886,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.sinog2c.Yuwu;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "cc5fe474-434e-44b8-bb68-f029add6c6b9";
-				PROVISIONING_PROFILE_SPECIFIER = YuWuDevelopment;
+				PROVISIONING_PROFILE_SPECIFIER = IOS_Development;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -5797,7 +5927,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.sinog2c.Yuwu;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "cc5fe474-434e-44b8-bb68-f029add6c6b9";
-				PROVISIONING_PROFILE_SPECIFIER = YuWuDevelopment;
+				PROVISIONING_PROFILE_SPECIFIER = IOS_Development;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;

@@ -97,7 +97,7 @@
     self.detailLabel = [[UILabel alloc]init];
     self.detailLabel.text = self.item.detailText;
     self.detailLabel.textColor =UIColorFromRGBA(142, 142, 142, 1);
-    self.detailLabel.font = AppBaseTextFont2;
+    self.detailLabel.font = AppBaseTextFont3;
     self.detailLabel.numberOfLines = 0;
     self.detailLabel.size = [self sizeForTitle:self.item.detailText withFont:self.detailLabel.font];
     self.detailLabel.width = 100;
@@ -152,8 +152,8 @@
 {
     CGFloat XBFuncImgToLeftGap=15;
     self.imgView = [[UIImageView alloc]initWithImage:self.item.img];
+    self.imgView.frame = CGRectMake(XBFuncImgToLeftGap,0,17,17);
     self.imgView.x = XBFuncImgToLeftGap;
-    self.imgView.centerY = self.contentView.centerY;
     self.imgView.centerY = self.contentView.centerY;
     [self.contentView addSubview:self.imgView];
 }
@@ -164,7 +164,7 @@
     self.funcNameLabel = [[UILabel alloc]init];
     self.funcNameLabel.text = self.item.funcName;
     self.funcNameLabel.textColor =UIColorFromRGBA(51, 51, 51, 1);
-    self.funcNameLabel.font = AppBaseTextFont2;
+    self.funcNameLabel.font = AppBaseTextFont3;
     self.funcNameLabel.size = [self sizeForTitle:self.item.funcName withFont:self.funcNameLabel.font];
     self.funcNameLabel.centerY = self.contentView.centerY;
     self.funcNameLabel.x = CGRectGetMaxX(self.imgView.frame) + XBFuncLabelToFuncImgGap;

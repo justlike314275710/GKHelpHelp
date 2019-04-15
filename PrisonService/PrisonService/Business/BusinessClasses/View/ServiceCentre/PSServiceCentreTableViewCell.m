@@ -36,7 +36,7 @@
     CGFloat qWidth = 150;
     CGFloat qHeight = 15;
      _serviceTitleLabel = [UILabel new];
-     _serviceTitleLabel.font = FontOfSize(12);
+     _serviceTitleLabel.font = boldFontOfSize(15);
      _serviceTitleLabel.textAlignment = NSTextAlignmentLeft;
      _serviceTitleLabel.textColor =[UIColor blackColor];
     NSString*common_function=

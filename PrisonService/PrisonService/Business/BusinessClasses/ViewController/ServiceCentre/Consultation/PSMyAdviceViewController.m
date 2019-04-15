@@ -22,7 +22,7 @@
 #import "PSAdviceDetailsViewController.h"
 #import "PSBusinessConstants.h"
 #import "PSLawerAdviceTableViewCell.h"
-
+#import "UIViewController+Tool.h"
 @interface PSMyAdviceViewController ()<UITableViewDataSource,UITableViewDelegate,DZNEmptyDataSetSource,DZNEmptyDataSetDelegate>
 @property (nonatomic, strong) UITableView *honorTableView;
 @end
@@ -120,7 +120,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     [self renderContents];
-    // [self refreshData];
+    [self refreshData];
 }
 
 #pragma mark - UITableViewDataSource
@@ -147,7 +147,7 @@
     PSConsultationViewModel *viewModel =(PSConsultationViewModel *)self.viewModel;
     PSConsultation*Model=viewModel.myAdviceArray[indexPath.row];
     viewModel.adviceId=Model.cid;
-    [self.navigationController pushViewController:[[PSAdviceDetailsViewController alloc]initWithViewModel:viewModel] animated:YES];
+    [[UIViewController jsd_getCurrentViewController].navigationController pushViewController:[[PSAdviceDetailsViewController alloc]initWithViewModel:viewModel] animated:YES];
     
     
 }

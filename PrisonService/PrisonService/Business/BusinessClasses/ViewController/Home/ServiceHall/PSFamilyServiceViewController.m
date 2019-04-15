@@ -22,6 +22,8 @@
 #import "PSBusinessConstants.h"
 #import "PSBindPrisonerViewController.h"
 #import "PSPrisonerDetailRequest.h"
+#import "PSPrisonConsumptionViewController.h"
+#import "PSPrisonConsumptionViewModel.h"
 
 
 @interface PSFamilyServiceViewController ()<UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout>
@@ -42,11 +44,16 @@
     }
     return self;
 }
-
+//零花钱情况
 - (void)periodChange {
 //    PSPeriodChangeViewController *changeViewController = [[PSPeriodChangeViewController alloc] initWithViewModel:[PSPeriodChangeViewModel new]];
     PSPinmoneyViewController *changeViewController = [[PSPinmoneyViewController alloc] initWithViewModel:[[PSPinmoneyViewModel alloc]init] ];
     [self.navigationController pushViewController:changeViewController animated:YES];
+}
+//狱内消费情况
+-(void)prisonConsumption {
+    PSPrisonConsumptionViewController *PSPrisonConsumptionVC = [[PSPrisonConsumptionViewController alloc] initWithViewModel:[PSPrisonConsumptionViewModel new]];
+    [self.navigationController pushViewController:PSPrisonConsumptionVC animated:YES];
 }
 
 - (void)honorOfYear {
@@ -286,9 +293,7 @@
     if (indexPath.section == 1) {
         [self periodChange];
     }else if (indexPath.section == 2) {
-        //[self honorOfYear];
-        NSString*coming_soon=NSLocalizedString(@"coming_soon", @"该监狱暂未开通此功能");
-        [PSTipsView showTips:coming_soon];
+        [self prisonConsumption];
     }
 }
 
@@ -344,14 +349,5 @@
     return _details;
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

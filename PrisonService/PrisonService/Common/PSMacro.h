@@ -24,17 +24,28 @@
 
 #define AppBaseLineColor (UIColorFromHexadecimalRGB(0xe5e5e5))
 
+//法律咨询部分label字体
+#define CFontColor_LawTitle  (UIColorFromHexadecimalRGB(0xF34800)) //[UIColor colorWithHexString:@"F34800"] //Field pla 
+
+
+
+
 #define AppBaseTextFont1 (FontOfSize(15))
 
 #define AppBaseTextFont2 (FontOfSize(13))
 
 #define AppBaseTextFont3 (FontOfSize(14))
 
+
+
+
 #define AppBaseBackgroundColor1 [UIColor whiteColor]
 
 #define AppBaseBackgroundColor2 (UIColorFromHexadecimalRGB(0xF9F8FE))
 
 #define FontOfSize(size) [UIFont systemFontOfSize:size]
+#define boldFontOfSize(size) [UIFont boldSystemFontOfSize:size] 
+
 
 #define SCREEN_WIDTH [UIScreen mainScreen].bounds.size.width
 
@@ -46,7 +57,7 @@
 
 #define IS_iPhone_5 ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(640, 1136), [[UIScreen mainScreen] currentMode].size) : NO)
 
-
+#define IMAGE_NAMED(name) [UIImage imageNamed:name]
 
 //获取视图的高
 #define GETHEIGHT(view) CGRectGetHeight(view.frame)
@@ -63,12 +74,43 @@
 
 #define StatusHeight  [[UIApplication sharedApplication] statusBarFrame].size.height
 
+#define kStatusBarHeight [[UIApplication sharedApplication] statusBarFrame].size.height
+#define kNavBarHeight 44.0
+#define kTabBarHeight ([[UIApplication sharedApplication] statusBarFrame].size.height>20?83:49)
+#define kTopHeight (kStatusBarHeight + kNavBarHeight)
+
+//获取屏幕宽高
+#define KScreenWidth ([[UIScreen mainScreen] bounds].size.width)
+#define KScreenHeight [[UIScreen mainScreen] bounds].size.height
+#define kScreen_Bounds [UIScreen mainScreen].bounds
+
+// View 圆角
+#define ViewRadius(View, Radius)\
+\
+[View.layer setCornerRadius:(Radius)];\
+[View.layer setMasksToBounds:YES]
+
+//View 圆角和加边框
+#define ViewBorderRadius(View, Radius, Width, Color)\
+\
+[View.layer setCornerRadius:(Radius)];\
+[View.layer setMasksToBounds:YES];\
+[View.layer setBorderWidth:(Width)];\
+[View.layer setBorderColor:[Color CGColor]]
+//拼接字符串
+#define NSStringFormat(format,...) [NSString stringWithFormat:format,##__VA_ARGS__]
+
 //枚举---
 typedef NS_ENUM(NSInteger,WritefeedType) {
     PSWritefeedBack,   //app投诉反馈
     PSPrisonfeedBack,  //监狱投诉建议
 };
 
+//通知
+//订单状态改变
+#define KNotificationOrderStateChange @"KNotificationOrderStateChange"
+//新的订单
+#define KNotificationNewOrderState @"KNotificationNewOrderState"
 //头文件
 #import "NSObject+version.h"
 #import "NSDate+Components.h"

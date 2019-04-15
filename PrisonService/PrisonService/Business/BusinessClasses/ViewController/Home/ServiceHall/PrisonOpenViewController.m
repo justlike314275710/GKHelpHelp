@@ -71,7 +71,7 @@
     animation.duration = 4;// 动画时间
     animation.repeatCount = 1000;
     NSMutableArray *values = [NSMutableArray array];
-    [values addObject:[NSValue valueWithCATransform3D:CATransform3DMakeScale(0.5, 0.5, 1.0)]];// 这三个数字，我只研究了前两个，所以最后一个数字我还是按照它原来写1.0；前两个是控制view的大小的；
+    [values addObject:[NSValue valueWithCATransform3D:CATransform3DMakeScale(0.5, 0.5, 1.0)]];
     [values addObject:[NSValue valueWithCATransform3D:CATransform3DMakeScale(1.5, 1.5, 1.0)]];
     [values addObject:[NSValue valueWithCATransform3D:CATransform3DMakeScale(0.9, 0.9, 1.0)]];
     [values addObject:[NSValue valueWithCATransform3D:CATransform3DMakeScale(0.5, 0.5, 1.0)]];
@@ -100,6 +100,8 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     PSWorkViewModel *viewModel = [PSWorkViewModel new];
     PSPublicViewController *publicViewController = [[PSPublicViewController alloc] initWithViewModel:viewModel];
+    publicViewController.jailId = self.jailId;
+    publicViewController.jailName = self.jailName;
     switch (indexPath.row) {
         case 0:
         {
