@@ -89,6 +89,35 @@
     
 }
 
+- (void)loginGetImifnoComplete:(RequestDataCompleted)completedCallback failed:(RequestDataFailed)failedCallback {
+    
+    manager=[AFHTTPSessionManager manager];
+    NSString*token=[NSString stringWithFormat:@"Bearer %@",[LXFileManager readUserDataForKey:@"access_token"]];
+    [manager.requestSerializer setValue:token forHTTPHeaderField:@"Authorization"];
+    NSString*url=[NSString stringWithFormat:@"%@/im/users/me",EmallHostUrl];
+    [manager GET:url parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        NSHTTPURLResponse * responses = (NSHTTPURLResponse *)task.response;
+        if (responses.statusCode == 200) {
+            //云信账号密码
+            NSString*account =responseObject[@"account"];
+            NSString*token  =responseObject[@"token"];
+            [LXFileManager removeUserDataForkey:@"account"];
+            [LXFileManager removeUserDataForkey:@"token"];
+            [LXFileManager saveUserData:account forKey:@"account"];
+            [LXFileManager saveUserData:token forKey:@"token"];
+            if (completedCallback) {
+                completedCallback(responseObject);
+            }
+        }
+        
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        if (failedCallback) {
+            failedCallback(error);
+        }
+    }];
+}
+
 
 -(NSString*)dictionaryToJson:(NSDictionary *)dic{
     NSError *parseError = nil;

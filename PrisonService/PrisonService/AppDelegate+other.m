@@ -12,12 +12,13 @@
 #import "SDTrackTool.h"
 #import <AvoidCrash/AvoidCrash.h>
 #import <Bugly/Bugly.h>
+#import <UserNotifications/UserNotifications.h>
 
 #define BuglyAppID @"21f609a887"
 #define BuglyAppIDKey @"1456f3ed-eb99-458b-9ac8-227261185610"
 
 
-@interface AppDelegate()
+@interface AppDelegate()<UNUserNotificationCenterDelegate>
 
 @end
 
@@ -154,6 +155,7 @@
     [Bugly reportExceptionWithCategory:3 name:info[@"errorName"] reason:errorReason callStack:callStack extraInfo:nil terminateApp:NO];
     //[BuglyManager reportErrorName:Bugly_ErrorName_AvoidCrash errorReason:errorReason callStack:callStack extraInfo:nil];
 }
+
 
 
 @end

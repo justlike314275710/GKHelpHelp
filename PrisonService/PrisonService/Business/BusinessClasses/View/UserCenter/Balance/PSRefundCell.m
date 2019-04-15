@@ -31,7 +31,7 @@
         [self.contentView addSubview: _contentLabel];
         [_contentLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.right.mas_equalTo(-sidePadding);
-            make.width.mas_equalTo(70);
+            make.width.mas_equalTo(100);
             make.top.mas_equalTo(verPadding);
             make.height.mas_equalTo(15);
         }];
@@ -90,18 +90,12 @@
             make.height.mas_equalTo(15);
             make.top.mas_equalTo(_payWayLab.mas_bottom).offset(0);
         }];
-        
-        
-        
     }
     return self;
 }
 
-
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
 }
 
 @end

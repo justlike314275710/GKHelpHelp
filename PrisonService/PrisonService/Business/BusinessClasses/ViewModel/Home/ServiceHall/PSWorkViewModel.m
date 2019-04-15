@@ -60,8 +60,7 @@
     if (index >= 0 && index < details.count) {
         prisonerDetail = details[index];
     }
-    self.newsRequest.jailId=prisonerDetail.jailId?prisonerDetail.jailId:@"";
-    
+    self.newsRequest.jailId = self.jailId?self.jailId:prisonerDetail.jailId?prisonerDetail.jailId:@"";
     @weakify(self)
     [self.newsRequest send:^(PSRequest *request, PSResponse *response) {
         @strongify(self)

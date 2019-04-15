@@ -16,6 +16,7 @@
 #import "XXAlertView.h"
 #import "ZQLocalNotification.h"
 #import <EBBannerView/EBBannerView.h>
+#import "AppDelegate.h"
 @interface PSIMMessageManager ()<NIMLoginManagerDelegate,NIMSystemNotificationManagerDelegate,UIAlertViewDelegate>
 
 @property (nonatomic, strong) PSObserverVector *observerVector;
@@ -75,6 +76,14 @@
     //登录云信
     NSString *account = [PSSessionManager sharedInstance].session.account?[[PSSessionManager sharedInstance].session.account copy]:[[PSSessionManager sharedInstance].session.families.openId copy];
     NSString *token = [[PSSessionManager sharedInstance].session.token copy];
+    if (account.length<=0&&!account) {
+        account = [LXFileManager readUserDataForKey:@"account"];
+        [PSSessionManager sharedInstance].session.account = account;
+    }
+    if (token.length<0&&!token) {
+        token = [LXFileManager readUserDataForKey:@"token"];
+        [PSSessionManager sharedInstance].session.token = token;
+    }
     if ([account length] > 0 && [token length] > 0) {
         //自动登录
         NIMAutoLoginData *autoLoginData = [[NIMAutoLoginData alloc] init];
@@ -110,8 +119,11 @@
 
 - (void)onLogin:(NIMLoginStep)step {
     if (step == NIMLoginStepSyncOK) {
-        
+    
     }
+    if (step == NIMLoginStepLoginOK) {
+    }
+  
 }
 
 //云信自动登录失败
@@ -128,7 +140,7 @@
 
 #pragma mark - NIMSystemNotificationManagerDelegate
 - (void)onReceiveSystemNotification:(NIMSystemNotification *)notification {
-    
+
 }
 
 - (void)onSystemNotificationCountChanged:(NSInteger)unreadCount {
@@ -137,7 +149,6 @@
 
 - (void)onReceiveCustomSystemNotification:(NIMCustomSystemNotification *)notification {
     NSString *content = notification.content;
-
     if ([content isKindOfClass:[NSString class]]) {
         NSError *error = nil;
         [[NSNotificationCenter defaultCenter] postNotificationName:AppDotChange object:nil];

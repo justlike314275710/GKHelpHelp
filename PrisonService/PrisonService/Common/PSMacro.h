@@ -44,6 +44,8 @@
 #define AppBaseBackgroundColor2 (UIColorFromHexadecimalRGB(0xF9F8FE))
 
 #define FontOfSize(size) [UIFont systemFontOfSize:size]
+#define boldFontOfSize(size) [UIFont boldSystemFontOfSize:size] 
+
 
 #define SCREEN_WIDTH [UIScreen mainScreen].bounds.size.width
 

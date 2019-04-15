@@ -47,7 +47,7 @@
     CGFloat qWidth = 100;
     CGFloat qHeight = 15;
     _legalServiceLable = [UILabel new];
-   _legalServiceLable.font = FontOfSize(12);
+   _legalServiceLable.font = boldFontOfSize(15);
     _legalServiceLable.textAlignment = NSTextAlignmentLeft;
     _legalServiceLable.textColor =[UIColor blackColor];
     NSString*legal_service=NSLocalizedString(@"legal_service", @"法律服务");
@@ -67,7 +67,7 @@
     _moreButton.contentHorizontalAlignment=
     UIControlContentHorizontalAlignmentRight;
     [_moreButton setTitleColor:AppBaseTextColor3 forState:0];
-    _moreButton.titleLabel.font=FontOfSize(12);
+    _moreButton.titleLabel.font=FontOfSize(14);
     [_moreButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.mas_equalTo(-horSidePadding);
         make.top.mas_equalTo(2*verSidePadding);
@@ -92,7 +92,7 @@
     NSString*financial_embroilment=NSLocalizedString(@"financial_embroilment", @"财务纠纷");
     FinanceLable.text=financial_embroilment;
     [_FinanceButton addSubview:FinanceLable];
-    [FinanceLable setFont:[UIFont fontWithName:@"Helvetica-Bold" size:12]];
+    [FinanceLable setFont:[UIFont fontWithName:@"Helvetica-Bold" size:14]];
     FinanceLable.textColor=[UIColor whiteColor];
     [FinanceLable mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(horSidePadding);
@@ -106,7 +106,7 @@
     NSString*legitimate_interests=NSLocalizedString(@"legitimate_interests", @"最大化维护您的合法权益");
     FinanceTitleLable.text=legitimate_interests;
     [_FinanceButton addSubview:FinanceTitleLable];
-    [FinanceTitleLable setFont:[UIFont fontWithName:@"Helvetica-Bold" size:10]];
+    [FinanceTitleLable setFont:[UIFont fontWithName:@"Helvetica-Bold" size:11]];
     FinanceTitleLable.textColor=[UIColor whiteColor];
     [FinanceTitleLable mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(horSidePadding);
@@ -134,7 +134,7 @@
     NSString*marriage_family=NSLocalizedString(@"marriage_family", @"婚姻家庭");
     MarriageLable.text=marriage_family;
     [_MarriageButton addSubview:MarriageLable];
-    [MarriageLable setFont:[UIFont fontWithName:@"Helvetica-Bold" size:12]];
+    [MarriageLable setFont:[UIFont fontWithName:@"Helvetica-Bold" size:14]];
     MarriageLable.textColor=[UIColor whiteColor];
     [MarriageLable mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(horSidePadding);
@@ -148,7 +148,7 @@
     NSString*law_protect=NSLocalizedString(@"law_protect", @"让法律守护你我他");
     MarriageTitleLable.text=law_protect;
     [_MarriageButton addSubview:MarriageTitleLable];
-    [MarriageTitleLable setFont:[UIFont fontWithName:@"Helvetica-Bold" size:10]];
+    [MarriageTitleLable setFont:[UIFont fontWithName:@"Helvetica-Bold" size:11]];
     MarriageTitleLable.textColor=[UIColor whiteColor];
     [MarriageTitleLable mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(horSidePadding);

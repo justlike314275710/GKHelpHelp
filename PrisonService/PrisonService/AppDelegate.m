@@ -18,6 +18,7 @@
 #import "KGStatusBar.h"
 #import "AppDelegate+other.h"
 #import <UserNotifications/UserNotifications.h>
+#import "PSIMMessageManager.h"
 
 @interface AppDelegate ()
 
@@ -38,6 +39,36 @@
         [application registerUserNotificationSettings:[UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert|UIUserNotificationTypeBadge|UIUserNotificationTypeSound categories:nil]];
     }
     
+    self.openByNotice = NO;
+    // 如果 launchOptions 不为空
+    if (launchOptions) {
+        self.openByNotice = YES;
+        // 获取推送通知定义的userinfo
+        UILocalNotification *notification = launchOptions[UIApplicationLaunchOptionsLocalNotificationKey];
+        NSString *controller = notification.userInfo[@"controller"];
+        NSString *string = [NSString stringWithFormat:@"%@",notification.userInfo];
+//        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(7 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//            [PSTipsView showTips:string];
+//        
+//            //初始发起会见
+//            PSMeetingMessage *exitMessage = [PSMeetingMessage new];
+//            exitMessage.callDuration = @"801";
+//            exitMessage.meetingId = @"1438";
+//            exitMessage.code = PSMeetingStart;
+//            [[PSIMMessageManager sharedInstance] sendMeetingMessage:exitMessage];
+//            
+//        });
+
+
+        
+        // 这里就是告诉程序我要跳转到哪里
+//        if ([controller isEqualToString:NSStringFromClass([HelloViewController class])]) {
+//            HelloViewController *hello = [HelloViewController new];
+//            hello.userInfo = launchOptions;
+//            [self.window.rootViewController presentViewController:hello animated:YES completion:nil];
+        }
+
+    
     return YES;
 }
 
@@ -53,7 +84,11 @@
     [IQKeyboardManager sharedManager].enableAutoToolbar = YES;
     [IQKeyboardManager sharedManager].shouldResignOnTouchOutside = YES;
     //云信
-    [[NIMSDK sharedSDK] registerWithAppID:NIMKEY cerName:@"Yuwu"];
+#ifdef DEBUG
+    [[NIMSDK sharedSDK] registerWithAppID:NIMKEY cerName:@"development"];
+#else
+    [[NIMSDK sharedSDK] registerWithAppID:NIMKEY cerName:@"distribution"];
+#endif
     //科大讯飞
     [IFlySetting setLogFile:LVL_NONE];
     [IFlySetting showLogcat:NO];
@@ -112,7 +147,9 @@
 
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
-    // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
+    //在这个方法里输入如下清除方法
+    [application setApplicationIconBadgeNumber:0]; //清除角标
+    [[UIApplication sharedApplication] cancelAllLocalNotifications];//清除APP所
 }
 
 

@@ -11,6 +11,9 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface PrisonOpenViewController : PSBusinessViewController
+@property(nonatomic,strong)NSString *jailId;
+@property(nonatomic,strong)NSString *jailName;
+
 
 @end
 

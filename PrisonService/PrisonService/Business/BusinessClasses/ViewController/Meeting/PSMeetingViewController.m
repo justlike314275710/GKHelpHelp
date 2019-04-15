@@ -75,7 +75,7 @@ typedef NS_ENUM(NSInteger, PSMeettingType) {
         self.videoManager = [ZJVideoManager sharedManager];
         struct ZJVideoSize minSize = {640,480};
         struct ZJVideoSize expectedSize = {640,480};
-        [self.videoManager connectTarget:meetingViewModel.meetingID name:meetingViewModel.jailName password:meetingViewModel.meetingPassword apiServer:ZIJING_DOMAIN bandwidthIn:576 bandwidthOut:576 showFunctionItem:YES isAutoPrepresentVC:NO videoSize:minSize expectedSize:expectedSize];
+        [self.videoManager connectTarget:meetingViewModel.meetingID name:meetingViewModel.jailName password:meetingViewModel.meetingPassword apiServer:ZIJING_DOMAIN bandwidthIn:576 bandwidthOut:576 showFunctionItem:NO isAutoPrepresentVC:NO videoSize:minSize expectedSize:expectedSize];
         [self.view addSubview:self.videoManager.conferenceView];
         [self.videoManager.conferenceView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.edges.mas_equalTo(UIEdgeInsetsZero);

@@ -21,4 +21,7 @@
 
 
 -(void)postSureChangePhone:(RequestDataCompleted)completedCallback failed:(RequestDataFailed)failedCallback;
+
+//获取IM信息
+- (void)loginGetImifnoComplete:(RequestDataCompleted)completedCallback failed:(RequestDataFailed)failedCallback;
 @end

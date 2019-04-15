@@ -6,9 +6,9 @@
 //  Copyright © 2018年 calvin. All rights reserved.
 //
 
-//#define DEVELOP  1     //开发
-#define UAT 1          //测试
-//#define PRODUCE 1      //生产///////////
+#define DEVELOP  0     //开发
+#define UAT 0         //测试
+#define PRODUCE 1      //生产
 
 #ifdef DEBUG
 
@@ -16,7 +16,7 @@
 #define PRODUCE 1    //生产
 #endif
 
-#ifdef DEVELOP       //开发
+#if DEVELOP       //开发
 #define ServerDomain @"http://120.78.190.101:8086"
 #define H5ServerDomain @"http://120.78.190.101:8085"          //H5 Server
 #define ServerUrl [NSString stringWithFormat:@"%@/ywgk-app-auth",ServerDomain] //其他环境接口地址
