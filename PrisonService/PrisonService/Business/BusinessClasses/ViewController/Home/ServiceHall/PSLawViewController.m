@@ -35,7 +35,7 @@
     NSLog(@"%@",newLawUrl);
     self = [super initWithURL:[NSURL URLWithString:newLawUrl]];
     if (self) {
-        NSString*laws_regulations=NSLocalizedString(@"laws_regulations", @"法律法规");
+        NSString*laws_regulations=NSLocalizedString(@"Laws and regulations", @"法律法规");
                 self.enableUpdateTitle = NO;
                 self.title = laws_regulations;
     }

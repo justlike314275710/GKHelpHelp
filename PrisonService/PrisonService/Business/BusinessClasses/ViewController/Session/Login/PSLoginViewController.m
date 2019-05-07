@@ -145,7 +145,7 @@
 }
 
 
-
+#pragma mark - 登录
 -(void)EcommerceOfRegister{
 //    [self.view endEditing:YES];
     PSEcomRegisterViewmodel*ecomRegisterViewmodel=[[PSEcomRegisterViewmodel alloc]init];
@@ -169,13 +169,13 @@
          id body = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
        
         NSString*code=body[@"code"];
-        if ([code isEqualToString:@"user.Existed"]) {
+        if ([code isEqualToString:@"user.PhoneNumberExisted"]) {
             [self EcommerceOfLogin];
-        }
-        else if ([code isEqualToString:@"user.password.NotMatched"]){
+        } else if([code isEqualToString:@"user.SmsVerificationCodeNotMatched"]) {
+            [PSTipsView showTips:@"验证码错误"];
+        } else if ([code isEqualToString:@"user.password.NotMatched"]){
             NSString*account_error=NSLocalizedString(@"account_error", nil);
             [PSTipsView showTips:account_error];
-
         }
         else if ([code isEqualToString:@"sms.verification-code.NotMatched"]){
             [PSTipsView showTips:@"验证码错误"];
@@ -272,8 +272,22 @@
         }
 
     } failed:^(NSError *error) {
-        NSString*account_code_error=NSLocalizedString(@"account_code_error", nil);
-        [PSTipsView showTips:account_code_error];
+        NSData *data = error.userInfo[AFNetworkingOperationFailingURLResponseDataErrorKey];
+        id body = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+        NSString*msg =NSLocalizedString(@"account_code_error", nil);
+        NSString*code=body[@"code"];
+        if ([code isEqualToString:@"user.NotFound"]) {
+            msg = @"账号不存在";
+        } else if ([code isEqualToString:@"user.GroupNotMatched"]) {
+            msg = @"账号不属于该群组";
+        }  else if ([code isEqualToString:@"user.Disabled"]) {
+            msg = @"账号已禁用";
+        }  else if ([code isEqualToString:@"user.SmsVerificationCodeNotMatched"]) {
+            msg = @"短信验证码错误";
+        }  else if ([code isEqualToString:@"user.GroupNotMatched"]) {
+            msg = @"密码错误";
+        }
+        [PSTipsView showTips:msg];
     }];
 
 }
@@ -340,6 +354,8 @@
                 }
             } failed:^(NSError *error) {
                 @strongify(self)
+                NSData *data = error.userInfo[AFNetworkingOperationFailingURLResponseDataErrorKey];
+                id body = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
                 [self showNetError:error];
                  _loginMiddleView.codeButton.enabled=YES;
             }];

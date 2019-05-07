@@ -18,6 +18,7 @@
 #import "PSMeViewController.h"
 #import "PSContentManager.h"
 #import "PSHomeViewModel.h"
+#import "AppDelegate.h"
 
 @interface PSAuthenticationMainViewController ()<UITabBarControllerDelegate>
 
@@ -37,10 +38,12 @@
         NSString*home_page=NSLocalizedString(@"home_page", @"首页");
         NSString*service_centre=NSLocalizedString(@"service_centre", @"服务中心");
         NSString*home_me=NSLocalizedString(@"home_me", @"我的");
-        [self setChildViewController:homeViewController Image:@"首页－灰" selectedImage:@"首页－蓝" title:home_page];
+        [self setChildViewController:homeViewController Image:@"首页灰" selectedImage:@"首页蓝" title:home_page];
         [self setChildViewController:ServiceCentreViewController Image:@"服务中心－灰" selectedImage:@"服务中心－蓝" title:service_centre];
         [self setChildViewController:meViewController Image:@"我的－灰" selectedImage:@"我的－蓝" title:home_me];
     }
+    
+
    return self;
 }
 
@@ -88,8 +91,8 @@
     Vc.tabBarItem.selectedImage = mySelectedImage;
     Vc.tabBarItem.title=title;
     [self addChildViewController:NA_VC];
-    
 }
+
 
 
 - (BOOL)shouldAutorotate {

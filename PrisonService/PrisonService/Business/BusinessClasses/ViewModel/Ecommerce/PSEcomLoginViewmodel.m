@@ -10,6 +10,9 @@
 #import "AFNetworking.h"
 #import "PSBusinessConstants.h"
 
+#define AppUIdKey @"prison.app"
+#define AppUIdValue @"1688c4f69fc6404285aadbc996f5e429"
+
 @implementation PSEcomLoginViewmodel
 {
     AFHTTPSessionManager *manager;
@@ -29,13 +32,14 @@
     return self;
 }
 
-
+//MARK:登录
 -(void)postEcomLogin:(RequestDataCompleted)completedCallback failed:(RequestDataFailed)failedCallback {
    NSString*url=[NSString stringWithFormat:@"%@/oauth/token",EmallHostUrl];
     NSDictionary*parmeters=@{
                              @"username":self.username,
                              @"password":self.password,
-                             @"grant_type":@"password"
+                             @"grant_type":@"password",
+                             @"mode":@"sms_verification_code"
                              };
     NSMutableString *paraString = [NSMutableString string];
     for (NSString *key in [parmeters allKeys]) {
@@ -46,9 +50,9 @@
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:url]];
     [request setHTTPBody:[paraString dataUsingEncoding:NSUTF8StringEncoding]];
     request.HTTPMethod=@"POST";
-    NSString*uid=@"consumer.m.app";
-    NSString*cipherText=@"1688c4f69fc6404285aadbc996f5e429";
-    NSString * part1 = [NSString stringWithFormat:@"%@:%@",uid,cipherText];
+//    NSString*uid=@"consumer.m.app";
+//    NSString*cipherText=@"1688c4f69fc6404285aadbc996f5e429";
+    NSString * part1 = [NSString stringWithFormat:@"%@:%@",AppUIdKey,AppUIdValue];
     NSData *data = [part1 dataUsingEncoding:NSUTF8StringEncoding];
     NSString *stringBase64 = [data base64Encoding];
    //  NSString *stringBase64 = [data base64EncodedStringWithOptions:0];
@@ -88,7 +92,7 @@
     [dataTask resume];
     
 }
-
+#pragma mark - 查询当前IM用户
 - (void)loginGetImifnoComplete:(RequestDataCompleted)completedCallback failed:(RequestDataFailed)failedCallback {
     
     manager=[AFHTTPSessionManager manager];
@@ -131,7 +135,7 @@
     return  newString;
        
 }
-
+#pragma mark - 刷新token
 -(void)postRefreshEcomLogin:(RequestDataCompleted)completedCallback failed:(RequestDataFailed)failedCallback{
     NSString*Url=[NSString stringWithFormat:@"%@/oauth/token",EmallHostUrl];
     NSString*refresh_token=[LXFileManager readUserDataForKey:@"refresh_token"];
@@ -148,9 +152,9 @@
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:Url]];
     [request setHTTPBody:[paraString dataUsingEncoding:NSUTF8StringEncoding]];
     request.HTTPMethod=@"POST";
-    NSString*uid=@"consumer.m.app";
-    NSString*cipherText=@"1688c4f69fc6404285aadbc996f5e429";
-    NSString * part1 = [NSString stringWithFormat:@"%@:%@",uid,cipherText];
+//    NSString*uid=@"consumer.m.app";
+//    NSString*cipherText=@"1688c4f69fc6404285aadbc996f5e429";
+    NSString * part1 = [NSString stringWithFormat:@"%@:%@",AppUIdKey,AppUIdValue];
     NSData *data = [part1 dataUsingEncoding:NSUTF8StringEncoding];
     NSString *stringBase64 = [data base64Encoding];
     //  NSString *stringBase64 = [data base64EncodedStringWithOptions:0];

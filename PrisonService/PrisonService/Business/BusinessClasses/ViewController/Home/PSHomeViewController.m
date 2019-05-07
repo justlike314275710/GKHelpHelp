@@ -32,6 +32,7 @@
 #import <AFNetworking/AFNetworking.h>
 #import "XXEmallViewController.h"
 #import "PSContentManager.h"
+#import "PSUniversaLawViewController.h"
 
 
 @interface PSHomeViewController ()<UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout>

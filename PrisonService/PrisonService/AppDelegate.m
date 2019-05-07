@@ -19,6 +19,7 @@
 #import "AppDelegate+other.h"
 #import <UserNotifications/UserNotifications.h>
 #import "PSIMMessageManager.h"
+#import "PSBusinessConstants.h"
 
 @interface AppDelegate ()
 
@@ -33,6 +34,8 @@
     self.window.backgroundColor = [UIColor blackColor];
     [self.window makeKeyAndVisible];
     [[PSLaunchManager sharedInstance] launchApplication];
+    
+    
     
     if ([UIApplication instancesRespondToSelector:@selector(registerUserNotificationSettings:)])
     {
@@ -67,6 +70,13 @@
 //            hello.userInfo = launchOptions;
 //            [self.window.rootViewController presentViewController:hello animated:YES completion:nil];
         }
+    
+        //显示环境
+    #ifdef DEBUG
+        [self showURL];
+    #else
+    
+    #endif
 
     
     return YES;
@@ -106,6 +116,22 @@
     //网易云信apns推送
     [self registerAPNs];
     
+}
+
+#pragma mark - 显示debug下程序运行环境
+-(void)showURL{
+    UIWindow *window = [UIApplication sharedApplication].keyWindow;
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(KScreenWidth-100,0,50,20)];
+    label.font = FontOfSize(10);
+    label.textColor = [UIColor redColor];
+    if (DEVELOP) {
+        label.text = @"开发环境";
+    } else if (UAT){
+        label.text = @"测试环境";
+    } else if (PRODUCE){
+        label.text = @"生产环境";
+    }
+    [window addSubview:label];
 }
 
 

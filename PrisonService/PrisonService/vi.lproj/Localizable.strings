@@ -69,6 +69,7 @@
 "prison_opening"="Nhà tù mở";
 "work_dynamic"="Động lực làm việc";
 "laws_regulations"="Luật và quy định";
+"Laws and regulations" = "Pháp luật và các quy định";
 "family_server"="Dịch vụ gia đình";
 "local_meetting"="Họp mặt đất";
 "e_mall"="Thương mại điện tử";
@@ -427,7 +428,7 @@
 "Save the picture successfully"="Lưu ảnh thành công";
 "Failed to save image"="Không thể lưu hình ảnh";
 
-
+"Universal law" = "Luật phổ quát";
 
 "details"="ChiTiết.";
 "common_function"="Chức năng thông thường";

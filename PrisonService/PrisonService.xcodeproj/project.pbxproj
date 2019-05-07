@@ -405,6 +405,8 @@
 		55B544B2219E891000B0D757 /* CustomTabbar.m in Sources */ = {isa = PBXBuildFile; fileRef = 55B544B1219E891000B0D757 /* CustomTabbar.m */; };
 		55B544B5219EA24C00B0D757 /* UpDateModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 55B544B4219EA24C00B0D757 /* UpDateModel.m */; };
 		55C9EDC42188528300A11D60 /* PSFamilyRemittanceViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 55C9EDC32188528300A11D60 /* PSFamilyRemittanceViewModel.m */; };
+		55CBA86A22754C1B003506C3 /* PSUniversaLawViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 55CBA86922754C1B003506C3 /* PSUniversaLawViewController.m */; };
+		55CBA86D22755118003506C3 /* PSUniversalLawCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 55CBA86C22755118003506C3 /* PSUniversalLawCell.m */; };
 		55CFFF7021C0AA3C00F946E6 /* UMMobEventConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = 55CFFF6F21C0AA3C00F946E6 /* UMMobEventConfig.plist */; };
 		55D15336224B1A8F007B0864 /* PSPrisonConsumptionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 55D15335224B1A8F007B0864 /* PSPrisonConsumptionViewController.m */; };
 		55D15339224B1B26007B0864 /* PSPrisonConsumptionViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 55D15338224B1B26007B0864 /* PSPrisonConsumptionViewModel.m */; };
@@ -1488,6 +1490,10 @@
 		55B544B4219EA24C00B0D757 /* UpDateModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UpDateModel.m; sourceTree = "<group>"; };
 		55C9EDC22188528300A11D60 /* PSFamilyRemittanceViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PSFamilyRemittanceViewModel.h; sourceTree = "<group>"; };
 		55C9EDC32188528300A11D60 /* PSFamilyRemittanceViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PSFamilyRemittanceViewModel.m; sourceTree = "<group>"; };
+		55CBA86822754C1B003506C3 /* PSUniversaLawViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PSUniversaLawViewController.h; sourceTree = "<group>"; };
+		55CBA86922754C1B003506C3 /* PSUniversaLawViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PSUniversaLawViewController.m; sourceTree = "<group>"; };
+		55CBA86B22755118003506C3 /* PSUniversalLawCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PSUniversalLawCell.h; sourceTree = "<group>"; };
+		55CBA86C22755118003506C3 /* PSUniversalLawCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PSUniversalLawCell.m; sourceTree = "<group>"; };
 		55CFFF6F21C0AA3C00F946E6 /* UMMobEventConfig.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = UMMobEventConfig.plist; sourceTree = "<group>"; };
 		55CFFF7121C0ABC600F946E6 /* MobEventConfig.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MobEventConfig.h; sourceTree = "<group>"; };
 		55D15334224B1A8F007B0864 /* PSPrisonConsumptionViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PSPrisonConsumptionViewController.h; sourceTree = "<group>"; };
@@ -3653,6 +3659,8 @@
 				3EEE776C2080581D00CAD179 /* PSCommerceViewController.m */,
 				3EEE776E208059AE00CAD179 /* PSLawViewController.h */,
 				3EEE776F208059AE00CAD179 /* PSLawViewController.m */,
+				55CBA86822754C1B003506C3 /* PSUniversaLawViewController.h */,
+				55CBA86922754C1B003506C3 /* PSUniversaLawViewController.m */,
 				3EEE77712080637000CAD179 /* PSPrisonIntroduceViewController.h */,
 				3EEE77722080637000CAD179 /* PSPrisonIntroduceViewController.m */,
 				3EEE777420807B1700CAD179 /* PSFamilyServiceViewController.h */,
@@ -3760,6 +3768,8 @@
 				552E617221A4FE5E00FA31FD /* PSBuyCardView.m */,
 				552E617421A59C7000FA31FD /* PSLocalMeetingAppointmentStatusView.h */,
 				552E617521A59C7000FA31FD /* PSLocalMeetingAppointmentStatusView.m */,
+				55CBA86B22755118003506C3 /* PSUniversalLawCell.h */,
+				55CBA86C22755118003506C3 /* PSUniversalLawCell.m */,
 			);
 			path = ServiceHall;
 			sourceTree = "<group>";
@@ -5125,6 +5135,7 @@
 				EAD18F5120D02A780053F82B /* MJExtensionConst.m in Sources */,
 				55B544B5219EA24C00B0D757 /* UpDateModel.m in Sources */,
 				3EDF0DA920882894002D98BD /* PSUploadCardRequest.m in Sources */,
+				55CBA86D22755118003506C3 /* PSUniversalLawCell.m in Sources */,
 				558EE5D122448A2A000E40DA /* MyConsultationViewController.m in Sources */,
 				55381CFE22408D4600CC3C66 /* PSPublicViewController.m in Sources */,
 				EAEE396920C52784005F7530 /* PSTransactionRecordRequest.m in Sources */,
@@ -5483,6 +5494,7 @@
 				EACBC19C2133F66F004C0EAB /* PSPerfectResponse.m in Sources */,
 				EA428615211A9FF000418685 /* VIRegisterResponse.m in Sources */,
 				EAA0C9F0218831F800240724 /* UIImageView+LLExtension.m in Sources */,
+				55CBA86A22754C1B003506C3 /* PSUniversaLawViewController.m in Sources */,
 				3EEE7770208059AE00CAD179 /* PSLawViewController.m in Sources */,
 				3EEEC60920931CF7003B35B3 /* PSCommentCell.m in Sources */,
 				3E5D16112079A6E2000FC779 /* PSPrisonSelectViewController.m in Sources */,
