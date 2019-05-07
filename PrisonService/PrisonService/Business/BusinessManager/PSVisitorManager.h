@@ -9,12 +9,16 @@
 #import <Foundation/Foundation.h>
 #import "PSLaunchTask.h"
 #import "PSJail.h"
-
+#import "PSSettingCell.h"
 @interface PSVisitorManager : NSObject<PSLaunchTask>
 @property (nonatomic, strong) NSString *defaultJailId;
 @property (nonatomic, strong) NSString *defaultJailName;
 @property (nonatomic, strong, readonly) PSJail *visitorJail;
 
+
+
 + (PSVisitorManager *)sharedInstance;
 
 @end
+
+
