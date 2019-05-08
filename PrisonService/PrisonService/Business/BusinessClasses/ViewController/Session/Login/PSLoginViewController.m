@@ -313,11 +313,9 @@
     }
     else{
         PSAuthenticationMainViewController *mainViewController = [[PSAuthenticationMainViewController alloc] init];
+        [[[UIApplication sharedApplication] delegate] window].rootViewController = mainViewController;
         
-            [[[UIApplication sharedApplication] delegate] window].rootViewController = mainViewController;
-        
-
-    [self saveDefaults];
+        [self saveDefaults];
 
        
    }

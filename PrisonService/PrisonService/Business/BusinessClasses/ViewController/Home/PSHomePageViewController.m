@@ -76,6 +76,7 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     self.tabBarController.tabBar.hidden = NO;
+    self.tabBarController.selectedIndex = 0;
     _getTokenCount = 0;
 }
 
@@ -118,15 +119,13 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self name:JailChange object:nil];
     
 }
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
+
 
 #pragma mark  - notification
 -(void)showDot{
     self.dotLable.hidden = NO;
 }
+
 
 -(void)refreshData{
      PSHomeViewModel *homeViewModel = (PSHomeViewModel *)self.viewModel;
@@ -164,7 +163,6 @@
                 self.defaultJailId=prisonerDetail.jailId;
                 [self requestjailsDetailsWithJailId:prisonerDetail.jailId isShow:NO];
                 
-          
             }];
         }
             break;
@@ -195,7 +193,6 @@
     
     
 }
-
 
 - (void)messageAction{
     PSHomeViewModel *homeViewModel = (PSHomeViewModel *)self.viewModel;

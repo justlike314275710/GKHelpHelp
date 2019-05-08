@@ -419,6 +419,7 @@
 		55E9A8C42186EDC6003A5918 /* PSRemittanceRecordCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 55E9A8C32186EDC6003A5918 /* PSRemittanceRecordCell.m */; };
 		55E9A8CA2186F982003A5918 /* PSRemittancePayStateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 55E9A8C92186F982003A5918 /* PSRemittancePayStateViewController.m */; };
 		55F2A53621904B7B0048D93B /* PSFamilyRemittanceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 55F2A53521904B7B0048D93B /* PSFamilyRemittanceViewController.m */; };
+		55F4BAE62282BBD70034A533 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55F4BAE52282BBD70034A533 /* CoreLocation.framework */; };
 		55F9C6FF2190759C00E15FDD /* PSRemittanceResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 55F9C6FE2190759C00E15FDD /* PSRemittanceResponse.m */; };
 		55F9C7022190761900E15FDD /* PSSeleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 55F9C7002190761800E15FDD /* PSSeleView.m */; };
 		CA5EA014E08B9BBB9092821F /* Pods_PrisonService.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DC5524D296D19D66ABDD409 /* Pods_PrisonService.framework */; };
@@ -1518,6 +1519,7 @@
 		55E9A8C82186F982003A5918 /* PSRemittancePayStateViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PSRemittancePayStateViewController.h; sourceTree = "<group>"; };
 		55E9A8C92186F982003A5918 /* PSRemittancePayStateViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PSRemittancePayStateViewController.m; sourceTree = "<group>"; };
 		55F2A53521904B7B0048D93B /* PSFamilyRemittanceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSFamilyRemittanceViewController.m; sourceTree = "<group>"; };
+		55F4BAE52282BBD70034A533 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		55F9C6FD2190759B00E15FDD /* PSRemittanceResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSRemittanceResponse.h; sourceTree = "<group>"; };
 		55F9C6FE2190759C00E15FDD /* PSRemittanceResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSRemittanceResponse.m; sourceTree = "<group>"; };
 		55F9C7002190761800E15FDD /* PSSeleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSSeleView.m; sourceTree = "<group>"; };
@@ -1972,6 +1974,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				55F4BAE62282BBD70034A533 /* CoreLocation.framework in Frameworks */,
 				EA87F58F2109B11600D7A1E4 /* JavaScriptCore.framework in Frameworks */,
 				3EA8F867209021CA00BA23B2 /* AddressBook.framework in Frameworks */,
 				3E78B762208D8330007DF162 /* CoreMotion.framework in Frameworks */,
@@ -4763,6 +4766,7 @@
 		F5E0A8A650A532AF5CC60F14 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				55F4BAE52282BBD70034A533 /* CoreLocation.framework */,
 				EA87F58E2109B11500D7A1E4 /* JavaScriptCore.framework */,
 				3EA8F866209021CA00BA23B2 /* AddressBook.framework */,
 				3E78B761208D832F007DF162 /* CoreMotion.framework */,

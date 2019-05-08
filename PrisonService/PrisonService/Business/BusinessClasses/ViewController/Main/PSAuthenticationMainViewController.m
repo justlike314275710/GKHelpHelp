@@ -21,12 +21,14 @@
 #import "AppDelegate.h"
 
 @interface PSAuthenticationMainViewController ()<UITabBarControllerDelegate>
+@property (nonatomic,strong)NSMutableArray *datalist;
 
 @end
 
 @implementation PSAuthenticationMainViewController
 
 - (id)init {
+    
     PSHomeViewModel *homeViewModel = [[PSHomeViewModel alloc]init];;
     PSHomePageViewController*homeViewController=
         [[PSHomePageViewController alloc]initWithViewModel:homeViewModel];
@@ -42,16 +44,14 @@
         [self setChildViewController:ServiceCentreViewController Image:@"服务中心－灰" selectedImage:@"服务中心－蓝" title:service_centre];
         [self setChildViewController:meViewController Image:@"我的－灰" selectedImage:@"我的－蓝" title:home_me];
     }
-    
-
    return self;
 }
 
 
 + (void)initialize
 {
+    //自定义UITabBarItem
     UITabBarItem *tabBarItem = [UITabBarItem appearanceWhenContainedInInstancesOfClasses:@[self]];
-    
     NSMutableDictionary *dictNormal = [NSMutableDictionary dictionary];
     dictNormal[NSForegroundColorAttributeName] = UIColorFromRGBA(45, 45, 45, 1);
     dictNormal[NSFontAttributeName] = [UIFont systemFontOfSize:12];
@@ -93,8 +93,6 @@
     [self addChildViewController:NA_VC];
 }
 
-
-
 - (BOOL)shouldAutorotate {
    // NSLog(@"%@",[PSContentManager sharedInstance].topViewController.shouldAutorotate);
     return [PSContentManager sharedInstance].topViewController.shouldAutorotate;
@@ -107,18 +105,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-   
+    self.selectedIndex = 0;
 }
 
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

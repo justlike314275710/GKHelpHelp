@@ -73,7 +73,9 @@
     
         //显示环境
     #ifdef DEBUG
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [self showURL];
+    });
     #else
     
     #endif
@@ -133,7 +135,6 @@
     }
     [window addSubview:label];
 }
-
 
 - (BOOL)handleURL:(NSURL *)url {
     if ([url.host isEqualToString:@"safepay"]) {
