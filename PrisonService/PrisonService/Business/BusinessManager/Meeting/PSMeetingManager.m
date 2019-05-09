@@ -195,10 +195,6 @@
 }
 
 
-    
-
-
-
 //会议结束后的清理工作
 - (void)clearMeeting {
     self.jailId = nil;

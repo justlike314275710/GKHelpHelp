@@ -1443,6 +1443,7 @@
 		557FF9BD21C753A000F15F78 /* PSRemitanceResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSRemitanceResponse.h; sourceTree = "<group>"; };
 		557FF9BE21C753A000F15F78 /* PSRemittanceRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSRemittanceRequest.h; sourceTree = "<group>"; };
 		557FF9BF21C753A000F15F78 /* PSRemitanceResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSRemitanceResponse.m; sourceTree = "<group>"; };
+		5587C1212283D22D007BBFA4 /* PSURLMacros.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PSURLMacros.h; sourceTree = "<group>"; };
 		558A67D121D727F400F19400 /* PSDeleteRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PSDeleteRequest.h; sourceTree = "<group>"; };
 		558A67D221D727F400F19400 /* PSDeleteRequest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PSDeleteRequest.m; sourceTree = "<group>"; };
 		558EE5CF22448A2A000E40DA /* MyConsultationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyConsultationViewController.h; sourceTree = "<group>"; };
@@ -2580,6 +2581,7 @@
 				3E5D159E20736C20000FC779 /* PSThirdPartyConstants.h */,
 				3E5D159F20736C20000FC779 /* PSTipsConstants.h */,
 				3E5D15CD2074708A000FC779 /* PSBusinessConstants.h */,
+				5587C1212283D22D007BBFA4 /* PSURLMacros.h */,
 			);
 			path = BusinessConstants;
 			sourceTree = "<group>";

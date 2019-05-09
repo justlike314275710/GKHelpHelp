@@ -272,7 +272,7 @@
     [headerView addSubview:headerBgImageView];
     
     UITapGestureRecognizer *tapGesturRecognizer=[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(headerViewTapAction:)];
-     [headerView addGestureRecognizer:tapGesturRecognizer];
+    [headerView addGestureRecognizer:tapGesturRecognizer];
 
     
     CGFloat radius = 34;

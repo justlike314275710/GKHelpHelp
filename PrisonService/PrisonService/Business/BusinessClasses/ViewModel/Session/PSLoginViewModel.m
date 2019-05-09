@@ -145,6 +145,7 @@
         if ([responseObject[@"code"]integerValue] == 400) {
             if (responseObject[@"data"]) {
                 self.session =[[PSUserSession alloc]initWithDictionary:responseObject[@"data"] error:nil];
+                self.session.status = @"DENIED";
                 //[PSSessionManager sharedInstance].session=self.session;
             }
         }

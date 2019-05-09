@@ -147,7 +147,7 @@
 
 #pragma mark - 登录
 -(void)EcommerceOfRegister{
-//    [self.view endEditing:YES];
+    
     PSEcomRegisterViewmodel*ecomRegisterViewmodel=[[PSEcomRegisterViewmodel alloc]init];
     @weakify(self)
     ecomRegisterViewmodel.phoneNumber=self.loginMiddleView.phoneTextField.text;
@@ -167,7 +167,7 @@
         NSData *data = error.userInfo[AFNetworkingOperationFailingURLResponseDataErrorKey];
   
          id body = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
-       
+        
         NSString*code=body[@"code"];
         if ([code isEqualToString:@"user.PhoneNumberExisted"]) {
             [self EcommerceOfLogin];
@@ -196,7 +196,7 @@
 }
 
 -(void)EcommerceOfVietnamRegister{
-    //    [self.view endEditing:YES];
+    
     PSEcomRegisterViewmodel*ecomRegisterViewmodel=[[PSEcomRegisterViewmodel alloc]init];
     @weakify(self)
     ecomRegisterViewmodel.phoneNumber=self.loginMiddleView.phoneTextField.text;
@@ -293,17 +293,8 @@
 }
 
 
-/*
--(void)requestOfRefreshToken{
-    PSEcomLoginViewmodel*ecomViewmodel=[[PSEcomLoginViewmodel alloc]init];
-    [ecomViewmodel postRefreshEcomLogin:^(PSResponse *response) {
-        [self logInAction];
-    } failed:^(NSError *error) {
-        [self showNetError];
-    }];
-}
-*/
 
+#pragma mark - 游客模式
 -(void)actionforVistor{
     
     if ([_language isEqualToString:@"vi-US"]||[_language isEqualToString:@"vi-VN"]||[_language isEqualToString:@"vi-CN"]) {
@@ -314,10 +305,7 @@
     else{
         PSAuthenticationMainViewController *mainViewController = [[PSAuthenticationMainViewController alloc] init];
         [[[UIApplication sharedApplication] delegate] window].rootViewController = mainViewController;
-        
         [self saveDefaults];
-
-       
    }
 }
 
