@@ -33,11 +33,12 @@
     [[PSServiceCentreViewController alloc]initWithViewModel:homeViewModel];
     PSMeViewController*meViewController=[[PSMeViewController alloc]initWithViewModel:homeViewModel];
     self.delegate = self;
+   
     if (self) {
         NSString*home_page=NSLocalizedString(@"home_page", @"首页");
         NSString*service_centre=NSLocalizedString(@"service_centre", @"服务中心");
         NSString*home_me=NSLocalizedString(@"home_me", @"我的");
-        [self setChildViewController:homeViewController Image:@"首页－灰" selectedImage:@"首页－蓝" title:home_page];
+        [self setChildViewController:homeViewController Image:@"首页－默认" selectedImage:@"首页－选中" title:home_page];
         [self setChildViewController:ServiceCentreViewController Image:@"服务中心－灰" selectedImage:@"服务中心－蓝" title:service_centre];
         [self setChildViewController:meViewController Image:@"我的－灰" selectedImage:@"我的－蓝" title:home_me];
     }
@@ -48,6 +49,7 @@
 + (void)initialize
 {
     UITabBarItem *tabBarItem = [UITabBarItem appearanceWhenContainedInInstancesOfClasses:@[self]];
+     
     
     NSMutableDictionary *dictNormal = [NSMutableDictionary dictionary];
     dictNormal[NSForegroundColorAttributeName] = UIColorFromRGBA(45, 45, 45, 1);
@@ -63,6 +65,7 @@
 }
 
 - (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController {
+
     PSNavigationController *navigationContoller = (PSNavigationController *)viewController;
     UIViewController *vc = navigationContoller.viewControllers.firstObject;
     if ([vc isKindOfClass:[PSHomePageViewController class]]) {
@@ -104,7 +107,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-   
+
 }
 
 
