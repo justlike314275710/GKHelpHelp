@@ -39,6 +39,7 @@
 #import "PrisonOpenViewController.h"
 #import "PSLoginViewModel.h"
 #import "PSSessionNoneViewController.h"
+#import "PSUniversaLawViewController.h"
 
 
 @interface PSHomePageViewController ()
@@ -75,18 +76,12 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     self.tabBarController.tabBar.hidden = NO;
+    self.tabBarController.selectedIndex = 0;
     _getTokenCount = 0;
-
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    //显示环境
-#ifdef DEBUG
-    [self showURL];
-#else
-    
-#endif
     //更新
     PSVersonUpdateViewModel *UpdateViewModel = [PSVersonUpdateViewModel new];
     [UpdateViewModel VersonUpdate];
@@ -99,21 +94,6 @@
     //重新获取token
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(requestOfRefreshToken) name:RefreshToken object:nil];
 
-}
-#pragma mark - 显示debug下程序运行环境
--(void)showURL{
-    UIWindow *window = [UIApplication sharedApplication].keyWindow;
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(KScreenWidth-100,0,50,20)];
-    label.font = FontOfSize(10);
-    label.textColor = [UIColor redColor];
-    if (DEVELOP) {
-        label.text = @"开发环境";
-    } else if (UAT){
-        label.text = @"测试环境";
-    } else if (PRODUCE){
-        label.text = @"生产环境";
-    }
-    [window addSubview:label];
 }
 
 //重新获取TOKEN
@@ -139,15 +119,13 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self name:JailChange object:nil];
     
 }
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
+
 
 #pragma mark  - notification
 -(void)showDot{
     self.dotLable.hidden = NO;
 }
+
 
 -(void)refreshData{
      PSHomeViewModel *homeViewModel = (PSHomeViewModel *)self.viewModel;
@@ -185,7 +163,6 @@
                 self.defaultJailId=prisonerDetail.jailId;
                 [self requestjailsDetailsWithJailId:prisonerDetail.jailId isShow:NO];
                 
-          
             }];
         }
             break;
@@ -216,7 +193,6 @@
     
     
 }
-
 
 - (void)messageAction{
     PSHomeViewModel *homeViewModel = (PSHomeViewModel *)self.viewModel;
@@ -501,8 +477,8 @@
 }
 //法律法规
 -(void)p_insertLaw:(UIButton *)senser {
-    PSLawViewController *lawViewController = [[PSLawViewController alloc] init];
-    [self.navigationController pushViewController:lawViewController animated:YES];
+    PSUniversaLawViewController *PSUniversaLaw = [[PSUniversaLawViewController alloc] init];
+    [self.navigationController pushViewController:PSUniversaLaw animated:YES];
 }
 //工作动态
 -(void)p_inserDynamic:(UIButton *)sender {

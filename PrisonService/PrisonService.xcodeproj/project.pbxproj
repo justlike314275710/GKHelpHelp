@@ -405,6 +405,8 @@
 		55B544B2219E891000B0D757 /* CustomTabbar.m in Sources */ = {isa = PBXBuildFile; fileRef = 55B544B1219E891000B0D757 /* CustomTabbar.m */; };
 		55B544B5219EA24C00B0D757 /* UpDateModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 55B544B4219EA24C00B0D757 /* UpDateModel.m */; };
 		55C9EDC42188528300A11D60 /* PSFamilyRemittanceViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 55C9EDC32188528300A11D60 /* PSFamilyRemittanceViewModel.m */; };
+		55CBA86A22754C1B003506C3 /* PSUniversaLawViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 55CBA86922754C1B003506C3 /* PSUniversaLawViewController.m */; };
+		55CBA86D22755118003506C3 /* PSUniversalLawCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 55CBA86C22755118003506C3 /* PSUniversalLawCell.m */; };
 		55CFFF7021C0AA3C00F946E6 /* UMMobEventConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = 55CFFF6F21C0AA3C00F946E6 /* UMMobEventConfig.plist */; };
 		55D15336224B1A8F007B0864 /* PSPrisonConsumptionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 55D15335224B1A8F007B0864 /* PSPrisonConsumptionViewController.m */; };
 		55D15339224B1B26007B0864 /* PSPrisonConsumptionViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 55D15338224B1B26007B0864 /* PSPrisonConsumptionViewModel.m */; };
@@ -417,6 +419,7 @@
 		55E9A8C42186EDC6003A5918 /* PSRemittanceRecordCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 55E9A8C32186EDC6003A5918 /* PSRemittanceRecordCell.m */; };
 		55E9A8CA2186F982003A5918 /* PSRemittancePayStateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 55E9A8C92186F982003A5918 /* PSRemittancePayStateViewController.m */; };
 		55F2A53621904B7B0048D93B /* PSFamilyRemittanceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 55F2A53521904B7B0048D93B /* PSFamilyRemittanceViewController.m */; };
+		55F4BAE62282BBD70034A533 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55F4BAE52282BBD70034A533 /* CoreLocation.framework */; };
 		55F9C6FF2190759C00E15FDD /* PSRemittanceResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 55F9C6FE2190759C00E15FDD /* PSRemittanceResponse.m */; };
 		55F9C7022190761900E15FDD /* PSSeleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 55F9C7002190761800E15FDD /* PSSeleView.m */; };
 		CA5EA014E08B9BBB9092821F /* Pods_PrisonService.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DC5524D296D19D66ABDD409 /* Pods_PrisonService.framework */; };
@@ -1440,6 +1443,7 @@
 		557FF9BD21C753A000F15F78 /* PSRemitanceResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSRemitanceResponse.h; sourceTree = "<group>"; };
 		557FF9BE21C753A000F15F78 /* PSRemittanceRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSRemittanceRequest.h; sourceTree = "<group>"; };
 		557FF9BF21C753A000F15F78 /* PSRemitanceResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSRemitanceResponse.m; sourceTree = "<group>"; };
+		5587C1212283D22D007BBFA4 /* PSURLMacros.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PSURLMacros.h; sourceTree = "<group>"; };
 		558A67D121D727F400F19400 /* PSDeleteRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PSDeleteRequest.h; sourceTree = "<group>"; };
 		558A67D221D727F400F19400 /* PSDeleteRequest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PSDeleteRequest.m; sourceTree = "<group>"; };
 		558EE5CF22448A2A000E40DA /* MyConsultationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyConsultationViewController.h; sourceTree = "<group>"; };
@@ -1488,6 +1492,10 @@
 		55B544B4219EA24C00B0D757 /* UpDateModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UpDateModel.m; sourceTree = "<group>"; };
 		55C9EDC22188528300A11D60 /* PSFamilyRemittanceViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PSFamilyRemittanceViewModel.h; sourceTree = "<group>"; };
 		55C9EDC32188528300A11D60 /* PSFamilyRemittanceViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PSFamilyRemittanceViewModel.m; sourceTree = "<group>"; };
+		55CBA86822754C1B003506C3 /* PSUniversaLawViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PSUniversaLawViewController.h; sourceTree = "<group>"; };
+		55CBA86922754C1B003506C3 /* PSUniversaLawViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PSUniversaLawViewController.m; sourceTree = "<group>"; };
+		55CBA86B22755118003506C3 /* PSUniversalLawCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PSUniversalLawCell.h; sourceTree = "<group>"; };
+		55CBA86C22755118003506C3 /* PSUniversalLawCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PSUniversalLawCell.m; sourceTree = "<group>"; };
 		55CFFF6F21C0AA3C00F946E6 /* UMMobEventConfig.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = UMMobEventConfig.plist; sourceTree = "<group>"; };
 		55CFFF7121C0ABC600F946E6 /* MobEventConfig.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MobEventConfig.h; sourceTree = "<group>"; };
 		55D15334224B1A8F007B0864 /* PSPrisonConsumptionViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PSPrisonConsumptionViewController.h; sourceTree = "<group>"; };
@@ -1512,6 +1520,7 @@
 		55E9A8C82186F982003A5918 /* PSRemittancePayStateViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PSRemittancePayStateViewController.h; sourceTree = "<group>"; };
 		55E9A8C92186F982003A5918 /* PSRemittancePayStateViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PSRemittancePayStateViewController.m; sourceTree = "<group>"; };
 		55F2A53521904B7B0048D93B /* PSFamilyRemittanceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSFamilyRemittanceViewController.m; sourceTree = "<group>"; };
+		55F4BAE52282BBD70034A533 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		55F9C6FD2190759B00E15FDD /* PSRemittanceResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSRemittanceResponse.h; sourceTree = "<group>"; };
 		55F9C6FE2190759C00E15FDD /* PSRemittanceResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSRemittanceResponse.m; sourceTree = "<group>"; };
 		55F9C7002190761800E15FDD /* PSSeleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSSeleView.m; sourceTree = "<group>"; };
@@ -1966,6 +1975,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				55F4BAE62282BBD70034A533 /* CoreLocation.framework in Frameworks */,
 				EA87F58F2109B11600D7A1E4 /* JavaScriptCore.framework in Frameworks */,
 				3EA8F867209021CA00BA23B2 /* AddressBook.framework in Frameworks */,
 				3E78B762208D8330007DF162 /* CoreMotion.framework in Frameworks */,
@@ -2571,6 +2581,7 @@
 				3E5D159E20736C20000FC779 /* PSThirdPartyConstants.h */,
 				3E5D159F20736C20000FC779 /* PSTipsConstants.h */,
 				3E5D15CD2074708A000FC779 /* PSBusinessConstants.h */,
+				5587C1212283D22D007BBFA4 /* PSURLMacros.h */,
 			);
 			path = BusinessConstants;
 			sourceTree = "<group>";
@@ -3653,6 +3664,8 @@
 				3EEE776C2080581D00CAD179 /* PSCommerceViewController.m */,
 				3EEE776E208059AE00CAD179 /* PSLawViewController.h */,
 				3EEE776F208059AE00CAD179 /* PSLawViewController.m */,
+				55CBA86822754C1B003506C3 /* PSUniversaLawViewController.h */,
+				55CBA86922754C1B003506C3 /* PSUniversaLawViewController.m */,
 				3EEE77712080637000CAD179 /* PSPrisonIntroduceViewController.h */,
 				3EEE77722080637000CAD179 /* PSPrisonIntroduceViewController.m */,
 				3EEE777420807B1700CAD179 /* PSFamilyServiceViewController.h */,
@@ -3760,6 +3773,8 @@
 				552E617221A4FE5E00FA31FD /* PSBuyCardView.m */,
 				552E617421A59C7000FA31FD /* PSLocalMeetingAppointmentStatusView.h */,
 				552E617521A59C7000FA31FD /* PSLocalMeetingAppointmentStatusView.m */,
+				55CBA86B22755118003506C3 /* PSUniversalLawCell.h */,
+				55CBA86C22755118003506C3 /* PSUniversalLawCell.m */,
 			);
 			path = ServiceHall;
 			sourceTree = "<group>";
@@ -4753,6 +4768,7 @@
 		F5E0A8A650A532AF5CC60F14 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				55F4BAE52282BBD70034A533 /* CoreLocation.framework */,
 				EA87F58E2109B11500D7A1E4 /* JavaScriptCore.framework */,
 				3EA8F866209021CA00BA23B2 /* AddressBook.framework */,
 				3E78B761208D832F007DF162 /* CoreMotion.framework */,
@@ -5125,6 +5141,7 @@
 				EAD18F5120D02A780053F82B /* MJExtensionConst.m in Sources */,
 				55B544B5219EA24C00B0D757 /* UpDateModel.m in Sources */,
 				3EDF0DA920882894002D98BD /* PSUploadCardRequest.m in Sources */,
+				55CBA86D22755118003506C3 /* PSUniversalLawCell.m in Sources */,
 				558EE5D122448A2A000E40DA /* MyConsultationViewController.m in Sources */,
 				55381CFE22408D4600CC3C66 /* PSPublicViewController.m in Sources */,
 				EAEE396920C52784005F7530 /* PSTransactionRecordRequest.m in Sources */,
@@ -5483,6 +5500,7 @@
 				EACBC19C2133F66F004C0EAB /* PSPerfectResponse.m in Sources */,
 				EA428615211A9FF000418685 /* VIRegisterResponse.m in Sources */,
 				EAA0C9F0218831F800240724 /* UIImageView+LLExtension.m in Sources */,
+				55CBA86A22754C1B003506C3 /* PSUniversaLawViewController.m in Sources */,
 				3EEE7770208059AE00CAD179 /* PSLawViewController.m in Sources */,
 				3EEEC60920931CF7003B35B3 /* PSCommentCell.m in Sources */,
 				3E5D16112079A6E2000FC779 /* PSPrisonSelectViewController.m in Sources */,

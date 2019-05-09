@@ -19,6 +19,7 @@
 #import "AppDelegate+other.h"
 #import <UserNotifications/UserNotifications.h>
 #import "PSIMMessageManager.h"
+#import "PSBusinessConstants.h"
 
 @interface AppDelegate ()
 
@@ -34,6 +35,7 @@
     [self.window makeKeyAndVisible];
     [[PSLaunchManager sharedInstance] launchApplication];
     
+
     if ([UIApplication instancesRespondToSelector:@selector(registerUserNotificationSettings:)])
     {
         [application registerUserNotificationSettings:[UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert|UIUserNotificationTypeBadge|UIUserNotificationTypeSound categories:nil]];
@@ -47,26 +49,16 @@
         UILocalNotification *notification = launchOptions[UIApplicationLaunchOptionsLocalNotificationKey];
         NSString *controller = notification.userInfo[@"controller"];
         NSString *string = [NSString stringWithFormat:@"%@",notification.userInfo];
-//        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(7 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-//            [PSTipsView showTips:string];
-//        
-//            //初始发起会见
-//            PSMeetingMessage *exitMessage = [PSMeetingMessage new];
-//            exitMessage.callDuration = @"801";
-//            exitMessage.meetingId = @"1438";
-//            exitMessage.code = PSMeetingStart;
-//            [[PSIMMessageManager sharedInstance] sendMeetingMessage:exitMessage];
-//            
-//        });
-
-
-        
-        // 这里就是告诉程序我要跳转到哪里
-//        if ([controller isEqualToString:NSStringFromClass([HelloViewController class])]) {
-//            HelloViewController *hello = [HelloViewController new];
-//            hello.userInfo = launchOptions;
-//            [self.window.rootViewController presentViewController:hello animated:YES completion:nil];
         }
+    
+        //显示环境
+    #ifdef DEBUG
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self showURL];
+    });
+    #else
+    
+    #endif
 
     
     return YES;
@@ -108,6 +100,21 @@
     
 }
 
+#pragma mark - 显示debug下程序运行环境
+-(void)showURL{
+    UIWindow *window = [UIApplication sharedApplication].keyWindow;
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(KScreenWidth-100,0,50,20)];
+    label.font = FontOfSize(10);
+    label.textColor = [UIColor redColor];
+    if (DEVELOP) {
+        label.text = @"开发环境";
+    } else if (UAT){
+        label.text = @"测试环境";
+    } else if (PRODUCE){
+        label.text = @"生产环境";
+    }
+    [window addSubview:label];
+}
 
 - (BOOL)handleURL:(NSURL *)url {
     if ([url.host isEqualToString:@"safepay"]) {

@@ -169,13 +169,13 @@
     NSMutableArray *passedPrisoners = [NSMutableArray array];
     PSLoginStatus status = PSLoginNone;
     if (_session) {
-        if([_session.status isEqualToString:@"PASSED"] ){
+        if([_session.status isEqualToString:@"PASSED"] ){         //已认证
              status = PSLoginPassed;
-        }else if ([_session.status isEqualToString:@"PENDING"]) {
+        }else if ([_session.status isEqualToString:@"PENDING"]) { //带审核
             if (status < PSLoginPassed) {
                 status = PSLoginPending;
             }
-        }else if ([_session.status isEqualToString:@"DENIED"]) {
+        }else if ([_session.status isEqualToString:@"DENIED"]) { //未认证
             if (status < PSLoginDenied) {
                 status = PSLoginDenied;
             }
@@ -202,14 +202,6 @@
  
 }
 
-/*
-- (void)doLogin:(SessionCompletion)completion {
-    if (completion) {
-        completion(YES);
-    }
-}
-*/
-
 - (void)doLogin:(SessionCompletion)completion {
     NSString*token=[LXFileManager readUserDataForKey:@"access_token"];
 //    if (token) {
@@ -226,7 +218,7 @@
 //
 //    } else {
         PSLoginStatus status = self.loginStatus;
-        if (status == PSLoginPending) {
+        if (status == PSLoginPending) {      //待审核
             PSSessionViewController *sessionViewController = [[PSSessionViewController alloc] init];
             [sessionViewController initialize];
             [sessionViewController setCallback:^(BOOL successful, id session) {
@@ -253,7 +245,7 @@
                 }
             }];
             [UIApplication sharedApplication].keyWindow.rootViewController = sessionViewController;
-        }else if(status == PSLoginPassed) {
+        }else if(status == PSLoginPassed) { //已认证
             if (completion) {
                 completion(YES);
             }

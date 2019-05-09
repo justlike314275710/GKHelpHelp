@@ -118,8 +118,6 @@
     [self launch];
 }
 
-
-
 - (void)launchFromLogout {
     [self clearAllTasks];
     [self addTask:[PSSessionManager sharedInstance]];

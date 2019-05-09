@@ -27,7 +27,7 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>2.1.21</string>
+	<string>2.1.22</string>
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
@@ -52,7 +52,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>2.1.21.1</string>
+	<string>2.1.22.1</string>
 	<key>LSApplicationCategoryType</key>
 	<string></string>
 	<key>LSApplicationQueriesSchemes</key>
@@ -77,14 +77,16 @@
 	<string>您的相机将用于视频通话</string>
 	<key>NSHumanReadableCopyright</key>
 	<string></string>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>您的位置信息用于帮您安排合适的会见</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>您的麦克风将用于视频通话</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
 	<string>狱务通想要向您的相册添加多媒体文件</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>狱务通想要访问您的媒体照片库</string>
+	<key>NSLocationUsageDescription</key>
+	<string>狱务通需要您的同意,才能访问位置</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>狱务通需要您的同意,才能使用期间访问位置</string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>remote-notification</string>

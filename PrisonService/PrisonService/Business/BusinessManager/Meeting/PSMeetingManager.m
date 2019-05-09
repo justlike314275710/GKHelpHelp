@@ -22,6 +22,7 @@
 #import "PSFamilyFaceViewController.h"
 #import "PSFamliesFaceViewController.h"
 #import <EBBannerView/EBBannerView.h>
+#import "UIViewController+Tool.h"
 
 @interface PSMeetingManager ()<PSIMMessageObserver>
 
@@ -194,10 +195,6 @@
 }
 
 
-    
-
-
-
 //会议结束后的清理工作
 - (void)clearMeeting {
     self.jailId = nil;
@@ -208,6 +205,8 @@
     self.jailConfiguration = nil;
     if ([[PSContentManager sharedInstance].currentNavigationController.topViewController isKindOfClass:[PSMeetingViewController class]]) {
         [[PSContentManager sharedInstance].currentNavigationController popViewControllerAnimated:YES];
+    } else {
+        [[UIViewController jsd_getCurrentViewController] dismissViewControllerAnimated:YES completion:nil];
     }
 }
 
@@ -263,6 +262,7 @@
             [WXZTipView showBottomWithText:meet_end];
             [self clearMeeting];
             //埋点....
+            
             [SDTrackTool logEvent:VIDEO_MEETING_COMPLETE];
 
             

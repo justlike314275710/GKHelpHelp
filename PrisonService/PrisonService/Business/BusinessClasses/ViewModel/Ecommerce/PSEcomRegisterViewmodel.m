@@ -21,11 +21,13 @@
     if (self) {
         
         manager=[AFHTTPSessionManager manager];
-        manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
         manager.requestSerializer = [AFJSONRequestSerializer serializer];
-        manager.requestSerializer.timeoutInterval = 10.f;
         manager.responseSerializer = [AFJSONResponseSerializer serializer];
+        manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
+        manager.requestSerializer.timeoutInterval = 10.f;
         [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+
+
     }
     return self;
 }
@@ -36,7 +38,6 @@
     NSDictionary*parmeters=@{
                              @"phoneNumber":self.phoneNumber,
                              @"verificationCode":self.verificationCode,
-                             @"name":self.phoneNumber,//姓名是手机号码
                              @"group":@"CUSTOMER"
                              };
     [manager POST:url parameters:parmeters progress:^(NSProgress * _Nonnull uploadProgress) {
@@ -81,9 +82,9 @@
 
 
 -(void)requestCodeCompleted:(RequestDataCompleted)completedCallback failed:(RequestDataFailed)failedCallback{
-    NSString*url=[NSString stringWithFormat:@"%@/sms/verification-codes/%@",EmallHostUrl,self.phoneNumber];
-//    NSString*url=[NSString stringWithFormat:@"%@/users/%@/verification-codes/login",EmallHostUrl,self.phoneNumber];
-    [manager POST:url parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+    NSString*url=[NSString stringWithFormat:@"%@/sms/verification-codes",EmallHostUrl];
+    NSDictionary *params = @{@"phoneNumber":self.phoneNumber};
+    [manager POST:url parameters:params progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         NSHTTPURLResponse * responses = (NSHTTPURLResponse *)task.response;
         self.messageCode=responses.statusCode;
         if (completedCallback) {
