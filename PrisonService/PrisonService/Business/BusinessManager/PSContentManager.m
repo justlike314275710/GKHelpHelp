@@ -36,6 +36,7 @@
 
 - (void)launchContent {
     PSAuthenticationMainViewController *mainViewController = [[PSAuthenticationMainViewController alloc] init];
+    
     _rootViewController = mainViewController;
     [[[UIApplication sharedApplication] delegate] window].rootViewController = _rootViewController;
 //    if ([LXFileManager readUserDataForKey:@"phoneNumber"]||[LXFileManager readUserDataForKey:@"access_token"]) {
