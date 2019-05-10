@@ -6,7 +6,7 @@
 //  Copyright © 2018年 calvin. All rights reserved.
 //
 /*
- 每个版本不通的东西放在里面
+ 每个版本不同的东西放在里面
 
  */
 

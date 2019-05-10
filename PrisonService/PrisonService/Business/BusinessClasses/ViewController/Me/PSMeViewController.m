@@ -272,7 +272,6 @@
     [headerView addSubview:headerBgImageView];
     
     UITapGestureRecognizer *tapGesturRecognizer=[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(headerViewTapAction:)];
-    [headerView addGestureRecognizer:tapGesturRecognizer];
 
     
     CGFloat radius = 34;
@@ -291,7 +290,6 @@
  
     
     
-    
     if ([[LXFileManager readUserDataForKey:@"isVistor"]isEqualToString:@"YES"]) {
         UIButton*loginButton=[[UIButton alloc]initWithFrame:CGRectMake(130, 37, 180, 42)];
         [headerView addSubview:loginButton];
@@ -306,16 +304,27 @@
         }];
         
     } else {
-    
+        
+        [headerView addGestureRecognizer:tapGesturRecognizer];
+        
         UILabel*nameLable=[[UILabel alloc]initWithFrame:CGRectMake(105, 37, 180, 22)];
-        nameLable.text=[PSSessionManager sharedInstance].session.families.name?[PSSessionManager sharedInstance].session.families.name:[LXFileManager readUserDataForKey:@"phoneNumber"];
+        if ([PSSessionManager sharedInstance].session.families.name) {
+            nameLable.text = [PSSessionManager sharedInstance].session.families.name;
+        } else {
+            nameLable.text = [LXFileManager readUserDataForKey:@"phoneNumber"];
+            if (nameLable.text.length>10) {
+                nameLable.text = [nameLable.text stringByReplacingCharactersInRange:NSMakeRange(3, 4) withString:@"****"];
+            }
+        }
         [nameLable setTextColor:[UIColor whiteColor]];
         [nameLable setFont:FontOfSize(18)];
         [headerView addSubview:nameLable];
         
         UILabel*phoneLable=[[UILabel alloc]initWithFrame:CGRectMake(105, 60, 180, 40)];
-    
-        phoneLable.text= [PSSessionManager sharedInstance].session.families.phone.length<10?[PSSessionManager sharedInstance].session.families.phone:[[PSSessionManager sharedInstance].session.families.phone stringByReplacingCharactersInRange:NSMakeRange(3, 4) withString:@"****"];
+        if (phoneLable.text.length>10) {
+            phoneLable.text = [phoneLable.text stringByReplacingCharactersInRange:NSMakeRange(3, 4) withString:@"****"];
+        }
+        
         [phoneLable setTextColor:[UIColor whiteColor]];
         [phoneLable setFont:FontOfSize(14)];
         [headerView addSubview:phoneLable];

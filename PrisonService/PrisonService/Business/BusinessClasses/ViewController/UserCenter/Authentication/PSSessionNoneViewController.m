@@ -73,6 +73,16 @@
             _titleSting=session_DENIED;
             _subTitle= [NSString stringWithFormat:session_DENIED_title,repalyTime];
             _btnTitle=session_DENIED_btntitle;
+            //没有时间,从未认证
+            if (!repalyTime) {
+                NSString*session_NONE=NSLocalizedString(@"session_NONE", @"未认证");
+                NSString*session_NONE_title=NSLocalizedString(@"session_NONE_title", @"您还未进行家属认证");
+                NSString*session_NONE_btntitle=NSLocalizedString(@"session_NONE_btntitle", @"马上认证");
+                _titleSting=session_NONE;
+                _subTitle = session_NONE_title;
+                _btnTitle=session_NONE_btntitle;
+            }
+            
         }
         else if ([loginViewModel.session.status isEqualToString:@"PASSED"]){
             _loginStatus = PSLoginPassed;

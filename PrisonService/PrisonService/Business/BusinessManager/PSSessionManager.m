@@ -171,7 +171,7 @@
     if (_session) {
         if([_session.status isEqualToString:@"PASSED"] ){         //已认证
              status = PSLoginPassed;
-        }else if ([_session.status isEqualToString:@"PENDING"]) { //带审核
+        }else if ([_session.status isEqualToString:@"PENDING"]) { //待审核
             if (status < PSLoginPassed) {
                 status = PSLoginPending;
             }
@@ -203,7 +203,7 @@
 }
 
 - (void)doLogin:(SessionCompletion)completion {
-    NSString*token=[LXFileManager readUserDataForKey:@"access_token"];
+    
 //    if (token) {
 //        PSSessionViewController *sessionViewController = [[PSSessionViewController alloc] init];
 //        [sessionViewController setCallback:^(BOOL successful, id session) {
@@ -218,34 +218,35 @@
 //
 //    } else {
         PSLoginStatus status = self.loginStatus;
-        if (status == PSLoginPending) {      //待审核
-            PSSessionViewController *sessionViewController = [[PSSessionViewController alloc] init];
-            [sessionViewController initialize];
-            [sessionViewController setCallback:^(BOOL successful, id session) {
-                if (successful) {
-                    self.session = session;
-                    [PSCache addCache:AppUserSessionCacheKey obj:session];
-                }
-                if (!self.session) {
-                    if (completion) {
-                        completion(YES);
-                    }
-                }
-                if (self.loginStatus == PSLoginPassed) {
-                    if (completion) {
-                        completion(YES);
-                    }
-                }
-                
-                else if (self.loginStatus == PSLoginDenied||self.loginStatus == PSLoginNone||self.loginStatus == PSLoginPending){
-                    if (completion) {
-                        completion(YES);
-                    }
-                    
-                }
-            }];
-            [UIApplication sharedApplication].keyWindow.rootViewController = sessionViewController;
-        }else if(status == PSLoginPassed) { //已认证
+//        if (status == PSLoginPending) {      //待审核
+//            PSSessionViewController *sessionViewController = [[PSSessionViewController alloc] init];
+//            [sessionViewController initialize];
+//            [sessionViewController setCallback:^(BOOL successful, id session) {
+//                if (successful) {
+//                    self.session = session;
+//                    [PSCache addCache:AppUserSessionCacheKey obj:session];
+//                }
+//                if (!self.session) {
+//                    if (completion) {
+//                        completion(YES);
+//                    }
+//                }
+//                if (self.loginStatus == PSLoginPassed) {
+//                    if (completion) {
+//                        completion(YES);
+//                    }
+//                }
+//
+//                else if (self.loginStatus == PSLoginDenied||self.loginStatus == PSLoginNone||self.loginStatus == PSLoginPending){
+//                    if (completion) {
+//                        completion(YES);
+//                    }
+//
+//                }
+//            }];
+//            [UIApplication sharedApplication].keyWindow.rootViewController = sessionViewController;
+//        }else
+            if(status == PSLoginPassed||status == PSLoginPending||status == PSLoginDenied) { //已认证
             if (completion) {
                 completion(YES);
             }
@@ -278,6 +279,7 @@
             [UIApplication sharedApplication].keyWindow.rootViewController = sessionViewController;
         }
     //}
+
     
 }
 
@@ -311,37 +313,7 @@
         }
     }];
 }
-/*
-- (void)autoLogin:(SessionCompletion)completion {
-    self.loginRequest = [PSLoginRequest new];
-    @weakify(self)
-    [self.loginRequest send:^(PSRequest *request, PSResponse *response) {
-        NSLog(@"autoLogin:%@",response);
-        @strongify(self)
-        PSLoginResponse *loginResponse = (PSLoginResponse *)response;
-        if (loginResponse.code == 200) {
-            if (loginResponse.data) {
-                NSString *phone = self.session.families.phone;
-                NSString *uuid = self.session.families.uuid;
-                self.session = loginResponse.data;
-                self.session.families.phone = phone;
-                self.session.families.uuid = uuid;
-                [PSCache addCache:AppUserSessionCacheKey obj:self.session];
-                
-            }
-        }
-        if (completion) {
-            completion(YES);
-        }
-    } errorCallback:^(PSRequest *request, NSError *error) {
-        if (completion) {
-            completion(YES);
-        }
-        
-    }];
-}
 
-*/
 
 - (void)doLogout {
     [PSCache removeCacheForKey:AppUserSessionCacheKey];
@@ -358,16 +330,17 @@
     NSUserDefaults*userDefaults = [NSUserDefaults  standardUserDefaults];
     NSDictionary*dic = [userDefaults  dictionaryRepresentation];
     for(id key in dic) {
-        //版本更新的不去掉 // //1.2.13版本强制退出标志不去掉
-        if (![key isEqualToString:localVersion]||![key isEqualToString:forceLogoutKey]) {
+        //版本更新的不去掉 // //1.2.13版本强制退出标志不去掉 //电话号码不去掉
+        if (![key isEqualToString:localVersion]&&
+            ![key isEqualToString:forceLogoutKey]&&
+            ![key isEqualToString:@"phoneNumber"]) {
             [userDefaults  removeObjectForKey:key];
         }
     }
+
     [userDefaults  synchronize];
+    
 }
-
-
-
 
 #pragma mark -
 - (void)launchTaskWithCompletion:(LaunchTaskCompletion)completion {
