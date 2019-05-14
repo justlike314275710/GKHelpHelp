@@ -84,7 +84,6 @@
             }
             break;
     }
-    
 }
 
 #pragma mark ——————— 家属服务
@@ -92,7 +91,6 @@
     PSFamilyServiceViewController *serviceViewController = [[PSFamilyServiceViewController alloc] initWithViewModel:[PSFamilyServiceViewModel new]];
     [self.navigationController pushViewController:serviceViewController animated:YES];
 }
-
 
 - (void)appointmentPrisoner {
  
