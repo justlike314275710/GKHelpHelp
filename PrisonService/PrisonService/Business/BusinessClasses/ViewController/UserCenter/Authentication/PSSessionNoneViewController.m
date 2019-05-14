@@ -226,11 +226,10 @@
 
 
 - (IBAction)actionOfLeftItem:(id)sender {
-    //[self.navigationController popViewControllerAnimated:YES];
     [self.navigationController popToRootViewControllerAnimated:YES];
     if (_loginStatus!=[PSSessionManager sharedInstance].loginStatus) {
         if (_loginStatus==PSLoginDenied) {
-            [PSAlertView showWithTitle:@"温馨提示" message:@"您的家属认证申请已被撤回,请重新登录,授权认证!" messageAlignment:NSTextAlignmentCenter image:nil handler:^(PSAlertView *alertView, NSInteger buttonIndex) {
+            [PSAlertView showWithTitle:@"提示" message:@"您的家属认证申请已被撤回,请重新登录,授权认证!" messageAlignment:NSTextAlignmentCenter image:nil handler:^(PSAlertView *alertView, NSInteger buttonIndex) {
                 if (buttonIndex==0) {
                     [[PSSessionManager sharedInstance]doLogout];
                 }
@@ -239,11 +238,7 @@
         if (_loginStatus==PSLoginPassed) {
             [PSSessionManager sharedInstance].loginStatus=PSLoginPassed;
             [[PSContentManager sharedInstance]launchContent];
-//            [PSAlertView showWithTitle:@"温馨提示" message:@"您的家属认证申请已通过,请重新登录!" messageAlignment:NSTextAlignmentCenter image:nil handler:^(PSAlertView *alertView, NSInteger buttonIndex) {
-//                if (buttonIndex==1) {
-//                    [[PSSessionManager sharedInstance]doLogout];
-//                }
-//            } buttonTitles:@"取消",@"确定", nil];
+
         }
    
     }

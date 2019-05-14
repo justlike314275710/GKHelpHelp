@@ -283,7 +283,7 @@
                 prisonerDetail = details[index];
             }
             if ([prisonerDetail.prisonerId isEqualToString:message.prisonerId]) {
-                [ PSAlertView showWithTitle:nil message:@"您的家属认证申请已被撤回!" messageAlignment:NSTextAlignmentCenter image:nil handler:^(PSAlertView *alertView, NSInteger buttonIndex) {
+                [ PSAlertView showWithTitle:@"提示" message:@"您的家属认证申请已被撤回!" messageAlignment:NSTextAlignmentCenter image:nil handler:^(PSAlertView *alertView, NSInteger buttonIndex) {
                     if (buttonIndex==0) {
                         [[PSSessionManager sharedInstance]doLogout];
                     }

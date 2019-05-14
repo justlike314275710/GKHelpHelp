@@ -204,19 +204,8 @@
 
 - (void)doLogin:(SessionCompletion)completion {
     NSString*token=[LXFileManager readUserDataForKey:@"access_token"];
-//    if (token) {
-//        PSSessionViewController *sessionViewController = [[PSSessionViewController alloc] init];
-//        [sessionViewController setCallback:^(BOOL successful, id session) {
-//            if (successful) {
-//                self.session = session;
-//                [PSCache addCache:AppUserSessionCacheKey obj:session];
-//            }
-//            if (completion) {
-//                    completion(YES);
-//                }
-//        }];
-//
-//    } else {
+ 
+        
         PSLoginStatus status = self.loginStatus;
         if (status == PSLoginPending) {      //待审核
             PSSessionViewController *sessionViewController = [[PSSessionViewController alloc] init];
@@ -277,8 +266,7 @@
             }];
             [UIApplication sharedApplication].keyWindow.rootViewController = sessionViewController;
         }
-    //}
-    
+   
 }
 
 

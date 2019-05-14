@@ -204,7 +204,7 @@
     if (indexPath.section == 0) {
         itemSIze = CGSizeMake(SCREEN_WIDTH, 66);
     }else{
-        itemSIze = CGSizeMake(SCREEN_WIDTH, 160);
+        itemSIze = CGSizeMake(SCREEN_WIDTH, 234);
     }
     return itemSIze;
 }
@@ -248,14 +248,22 @@
         ((PSConsultationTableViewCell *)cell).contentTextView.delegate=self;
         
     }else{
-        cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"PSConsultationOtherTableViewCell" forIndexPath:indexPath];
+       cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"PSConsultationOtherTableViewCell" forIndexPath:indexPath];
         ((PSConsultationOtherTableViewCell*)cell).moneyTextField.delegate=self;
         [((PSConsultationOtherTableViewCell*)cell).moneyTextField setBk_didEndEditingBlock:^(UITextField *TextField) {
             PSConsultationViewModel *viewModel=(PSConsultationViewModel *)self.viewModel;
             viewModel.reward=TextField.text;
-            //[TextField.text floatValue];
             
         }];
+        
+       
+        [((PSConsultationOtherTableViewCell*)cell) handlerButtonAction:^(NSString *text) {
+            PSConsultationViewModel *viewModel=(PSConsultationViewModel *)self.viewModel;
+            viewModel.reward=text;
+        }];
+      
+
+       
         @weakify(self)
         [self updateProtocolText:((PSConsultationOtherTableViewCell*)cell)];
         [((PSConsultationOtherTableViewCell*)cell).protocolLabel setTextTapAction:^(UIView * _Nonnull containerView, NSAttributedString * _Nonnull text, NSRange range, CGRect rect) {
@@ -284,10 +292,17 @@
 }
 
 
+
 - (void)textViewDidEndEditing:(UITextView *)textView {
     PSConsultationViewModel *viewModel=(PSConsultationViewModel *)self.viewModel;
     viewModel.describe = textView.text;
 }
+
+//- (void)textFieldDidEndEditing:(UITextField *)textField{
+//    PSConsultationViewModel *viewModel=(PSConsultationViewModel *)self.viewModel;
+//    viewModel.reward=textField.text;
+//}
+
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
     //    限制只能输入数字
     BOOL isHaveDian = YES;
@@ -371,7 +386,7 @@
     self.serviceCollectionView.alwaysBounceVertical=YES;
     
     
-    UIButton*releaseButton=[[UIButton alloc]initWithFrame:CGRectMake(15, SCREEN_HEIGHT-125, SCREEN_WIDTH-30, 44)];
+    UIButton*releaseButton=[[UIButton alloc]initWithFrame:CGRectMake(15, 330, SCREEN_WIDTH-30, 44)];
     [releaseButton setBackgroundImage:[UIImage imageNamed:@"提交按钮底框"] forState:0];
     [releaseButton setTitle:@"发布抢单" forState:0];
     releaseButton.titleLabel.font=AppBaseTextFont3;
@@ -381,6 +396,20 @@
         [self checkDataIsEmpty];
         //[self buyCardAction];
     }];
+    
+    UILabel*consulationLable=[[UILabel alloc]initWithFrame:CGRectMake(47, releaseButton.bottom+10, SCREEN_WIDTH-100, 12)];
+    consulationLable.textColor=AppBaseTextColor1;
+    consulationLable.textAlignment=NSTextAlignmentCenter;
+    NSMutableAttributedString *str = [[NSMutableAttributedString alloc] initWithString:@"咨询费用越多，回复效率与质量越高!"];
+    NSRange range1=[[str  string]rangeOfString:@"效率"];
+    [str  addAttribute:NSForegroundColorAttributeName value:UIColorFromRGBA(255, 138, 7, 1) range:range1];
+    NSRange range2=[[str string]rangeOfString:@"质量"];
+    [str  addAttribute:NSForegroundColorAttributeName value:UIColorFromRGBA(255, 138, 7, 1) range:range2];
+    //[str addAttribute:NSForegroundColorAttributeName value:UIColorFromRGBA(255, 138, 7, 1) range:NSMakeRange(10,5)];
+    consulationLable.attributedText = str;
+    consulationLable.font=FontOfSize(10);
+    [self.serviceCollectionView addSubview:consulationLable];
+    
     
 }
 #pragma mark  - setter & getter
@@ -474,7 +503,7 @@
     [protocolText appendAttributedString:[[NSAttributedString  alloc] initWithString: usageProtocol attributes:@{NSFontAttributeName:textFont,NSForegroundColorAttributeName:UIColorFromRGB(102, 102, 102)}]];
     [protocolText appendAttributedString:[[NSAttributedString  alloc] initWithString:@" " attributes:@{NSFontAttributeName:textFont,NSForegroundColorAttributeName:AppBaseTextColor3}]];
     PSConsultationViewModel *viewModel=(PSConsultationViewModel *)self.viewModel;
-    UIImage *statusImage = viewModel.agreeProtocol ? [UIImage imageNamed:@"已勾选"] : [UIImage imageNamed:@"未勾选"];
+    UIImage *statusImage = viewModel.agreeProtocol ? [UIImage imageNamed:@"抢单已勾选"] : [UIImage imageNamed:@"未选"];
     [protocolText insertAttributedString:[NSAttributedString yy_attachmentStringWithContent:statusImage contentMode:UIViewContentModeCenter attachmentSize:statusImage.size alignToFont:textFont alignment:YYTextVerticalAlignmentCenter] atIndex:0];
     protocolText.yy_alignment = NSTextAlignmentRight ;
     ((PSConsultationOtherTableViewCell*)cell).protocolLabel.attributedText = protocolText;
