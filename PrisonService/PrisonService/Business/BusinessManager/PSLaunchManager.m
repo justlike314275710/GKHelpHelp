@@ -115,6 +115,7 @@
     [self addTask:[PSContentManager sharedInstance]];
     [self addTask:[PSMeetingManager sharedInstance]];
     [self addTask:[PSIMMessageManager sharedInstance]];
+    
     [self launch];
 }
 
