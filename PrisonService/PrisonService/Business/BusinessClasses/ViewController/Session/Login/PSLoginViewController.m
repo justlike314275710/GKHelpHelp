@@ -99,6 +99,8 @@
         @strongify(loginViewModel)
         //[LXFileManager removeUserDataForkey:@"phoneNumber"];
         [LXFileManager saveUserData:loginViewModel.phoneNumber forKey:@"phoneNumber"];
+        //去除游客状态
+        [LXFileManager removeUserDataForkey:@"isVistor"];
    
         [[PSLoadingView sharedInstance] dismiss];
         if (loginViewModel.code == 200) {
@@ -111,7 +113,7 @@
           if (self.callback&&loginViewModel.session.account) {
               self.callback(YES,loginViewModel.session);
           }
-           [[PSContentManager sharedInstance]launchContent];
+//           [[PSContentManager sharedInstance]launchContent];
         }
        else{
             [PSTipsView showTips:loginViewModel.message? loginViewModel.message : @"登录失败"];
@@ -411,6 +413,9 @@
         make.height.mas_equalTo(160);
         make.centerY.mas_equalTo(self.view).offset(50);
     }];
+    
+    loginViewModel.phoneNumber = midView.phoneTextField.text;
+    registViewModel.phoneNumber = midView.phoneTextField.text;
     [midView.phoneTextField setBk_didEndEditingBlock:^(UITextField *textField) {
         loginViewModel.phoneNumber = textField.text;
         registViewModel.phoneNumber=textField.text;

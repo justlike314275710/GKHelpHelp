@@ -1,156 +1,153 @@
 //
-//  PSMoreServiceViewController.m
+//  PSMoreRoleDetailViewController.m
 //  PrisonService
 //
 //  Created by kky on 2018/10/25.
 //  Copyright © 2018年 calvin. All rights reserved.
 //
 
-#import "PSMoreServiceViewController.h"
-#import "serciceIiem.h"
-#import "PSMoreServiceViewModel.h"
 #import "PSMoreRoleDetailViewController.h"
-#import "PSConsultationViewController.h"
-#import "PSConsultationViewModel.h"
+#import "MoreRoloCell.h"
 #import "PSLawerViewModel.h"
+#import "PSLawyerDetailsViewController.h"
+@interface PSMoreRoleDetailViewController ()<UITableViewDelegate,UITableViewDataSource>
 
-@interface PSMoreServiceViewController ()
-@property (nonatomic,strong) UIScrollView *myScrollview;
-@property (nonatomic,strong) UIButton *releaseBtn;
+@property (nonatomic, strong) UITableView *myTableview;
 
 @end
 
-@implementation PSMoreServiceViewController
+@implementation PSMoreRoleDetailViewController
 
 #pragma mark - CycleLife
 - (instancetype)initWithViewModel:(PSViewModel *)viewModel {
     self = [super initWithViewModel:viewModel];
     if (self) {
-        NSString *title = NSLocalizedString(@"legal_service", @"法律服务");
+        NSString *title = NSLocalizedString(@"legal_service", @"财务纠纷");
+        //        title = @"财产纠纷";
         self.title = title;
-
     }
     return self;
 }
-
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     self.tabBarController.tabBar.hidden=YES;
     
 }
-
 - (void)viewDidLoad {
     [super viewDidLoad];
-     self.view.backgroundColor=UIColorFromRGBA(248, 247, 254, 1);
+    self.view.backgroundColor=UIColorFromRGBA(248, 247, 254, 1);
     [self p_setUI];
+    [self refreshData];
 }
-
-#pragma mark - PrivateMethod
+#pragma mark - PrivateMethods
 - (void)p_setUI {
     
-    [self.view addSubview:self.myScrollview];
-    [self.myScrollview mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.top.right.left.mas_equalTo(self.view);
+    [self.view addSubview:self.myTableview];
+    [self.myTableview mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(self.view).with.insets(UIEdgeInsetsMake(0,0,0,0));
     }];
-    
-    //actionItem
-    PSMoreServiceViewModel *PSMoreViewModel = (PSMoreServiceViewModel *)self.viewModel;
-    for (int i = 0; i<8; i++) {
-        int x = i%2 == 0 ? 0 : self.view.mj_w/2;
-        int y = (i/2) * 140;
-        PSMoreModel *model = PSMoreViewModel.functions[i];
-        serciceIiem *actionItem = [[serciceIiem alloc] initWithFrame:CGRectMake(x, y,self.view.mj_w/2,140) logoImage:model.logoIcon title:model.title  message:model.message];
-        actionItem.tag = i + 100;
-        @weakify(self)
-        [actionItem bk_whenTapped:^{
-            @strongify(self);
-            [self p_pushRoleDetailViewController:actionItem];
-        }];
-        actionItem.backgroundColor = [UIColor whiteColor];
-        [self.myScrollview addSubview:actionItem];
-    }
-    
-    UIView *v_line =  [UIView new];
-    v_line.backgroundColor = UIColorFromRGB(217, 217, 217);
-    [self.myScrollview addSubview:v_line];
-    [v_line mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(self.myScrollview).offset(20);
-        make.width.mas_equalTo(1);
-        make.height.mas_equalTo(540);
-        make.centerX.mas_equalTo(self.myScrollview);
-
-    }];
-    
-    for (int i = 0;i < 3; i++ ) {
-        UIView *w_line =  [UIView new];
-        w_line.backgroundColor = UIColorFromRGB(217, 217, 217);
-        [self.myScrollview addSubview:w_line];
-        [w_line mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.mas_equalTo(140*(i+1));
-            make.left.mas_equalTo(20);
-            make.width.mas_equalTo(self.myScrollview.contentSize.width-40);
-            make.height.mas_equalTo(1);
-        }];
-    }
-    //发布抢单
-    [self.myScrollview addSubview:self.releaseBtn];
-    [self.releaseBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(140*4+25);
-        make.width.mas_equalTo(100);
-        make.height.mas_equalTo(40);
-        make.centerX.mas_equalTo(self.myScrollview);
-    }];
+    [self.myTableview registerClass:MoreRoloCell.class forCellReuseIdentifier:@"MoreRoloCell"];
     @weakify(self);
-    [self.releaseBtn bk_whenTapped:^{
+    self.myTableview.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
         @strongify(self);
-        [self p_pushReleaseViewController];
+        [self refreshData];
+    }];
+}
+
+- (void)refreshData {
+    PSLawerViewModel *viewModel =(PSLawerViewModel *)self.viewModel;
+    [[PSLoadingView sharedInstance] show];
+    @weakify(self)
+    [viewModel refreshLawyerCompleted:^(PSResponse *response) {
+        @strongify(self)
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [[PSLoadingView sharedInstance] dismiss];
+            [self reloadContents];
+        });
+    } failed:^(NSError *error) {
+        @strongify(self)
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [[PSLoadingView sharedInstance] dismiss];
+            [self reloadContents];
+        });
     }];
     
-}
-
-- (void)p_pushReleaseViewController {
-
-    PSConsultationViewModel*viewModel=[[PSConsultationViewModel alloc]init];
-    PSConsultationViewController*consultationViewController=[[PSConsultationViewController alloc]initWithViewModel:viewModel];
-    [self.navigationController pushViewController:consultationViewController animated:YES];
-}
-
--(void)p_pushRoleDetailViewController:(serciceIiem *)item {
-    NSInteger actionIndex = item.tag - 100;
-    if (actionIndex==0) {
-        PSLawerViewModel*viewModel=[[PSLawerViewModel alloc]init];
-        viewModel.category=@"PROPERTY_DISPUTES";
-        PSMoreRoleDetailViewController *RoloDetailVC = [[PSMoreRoleDetailViewController alloc] initWithViewModel:viewModel];
-        [self.navigationController pushViewController:RoloDetailVC animated:YES];
-    }
-    else if (actionIndex==1){
-        
-    }
     
 }
 
-#pragma mark - setting&&getting
-- (UIScrollView *)myScrollview {
-    if (!_myScrollview) {
-        _myScrollview = [[UIScrollView alloc] init];
-        _myScrollview.contentSize = CGSizeMake(self.view.mj_w,140*4+80);
-        _myScrollview.backgroundColor = UIColorFromRGBA(249,248,254,1);
+
+- (void)reloadContents {
+    PSLawerViewModel *viewModel =(PSLawerViewModel *)self.viewModel;
+    
+    if (viewModel.hasNextPage) {
+        @weakify(self)
+        self.myTableview .mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
+            @strongify(self)
+            [self loadMore];
+        }];
+    }else{
+        self.myTableview .mj_footer = nil;
     }
-    return _myScrollview;
+    [self.myTableview .mj_header endRefreshing];
+    [self.myTableview .mj_footer endRefreshing];
+    [self.myTableview  reloadData];
 }
 
-- (UIButton *)releaseBtn {
-    if (!_releaseBtn) {
-        _releaseBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_releaseBtn setTitle:@"发布抢单" forState:UIControlStateNormal];
-        _releaseBtn.titleLabel.font = FontOfSize(14);
-        _releaseBtn.layer.masksToBounds = YES;
-        _releaseBtn.layer.borderWidth = 1;
-        _releaseBtn.layer.cornerRadius = 20;
-        _releaseBtn.layer.borderColor = UIColorFromRGB(38, 76, 144).CGColor;
-        [_releaseBtn setTitleColor:UIColorFromRGB(38, 76, 144) forState:UIControlStateNormal];
-    }
-    return _releaseBtn;
+- (void)loadMore {
+    PSLawerViewModel*viewModel =(PSLawerViewModel *)self.viewModel;
+    @weakify(self)
+    [viewModel loadMoreLawyerCompleted:^(PSResponse *response) {
+        @strongify(self)
+        [self reloadContents];
+    } failed:^(NSError *error) {
+        @strongify(self)
+        [self reloadContents];
+    }];
 }
+
+#pragma mark - Delegate
+//MARK:UITableViewDelegate&UITableViewDataSource
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return 4;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    MoreRoloCell *cell = [[MoreRoloCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"MoreRoloCell"];
+    return cell;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return 120;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    return [UIView new];
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    return 20;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    PSLawerViewModel*viewModel=[[PSLawerViewModel alloc]init];
+    [self.navigationController pushViewController:[[PSLawyerDetailsViewController alloc]initWithViewModel:viewModel] animated:YES];
+}
+
+#pragma mark - Setting&&Getting
+- (UITableView *)myTableview {
+    if (!_myTableview) {
+        _myTableview = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
+        _myTableview.tableFooterView = [UIView new];
+        _myTableview.backgroundColor = [UIColor clearColor];
+        _myTableview.separatorStyle = UITableViewCellSeparatorStyleNone;
+        _myTableview.dataSource = self;
+        _myTableview.delegate = self;
+    }
+    return _myTableview;
+}
+
+
+
 
 @end
