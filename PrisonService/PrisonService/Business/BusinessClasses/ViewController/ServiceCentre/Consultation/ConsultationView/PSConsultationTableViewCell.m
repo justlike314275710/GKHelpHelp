@@ -37,7 +37,7 @@
         [str addAttribute:NSForegroundColorAttributeName value:[UIColor blackColor] range:NSMakeRange(0,4)];
         [consulationButton setAttributedTitle:str forState:0];
         consulationButton.contentHorizontalAlignment=UIControlContentHorizontalAlignmentLeft;
-        consulationButton.titleLabel.font=FontOfSize(12);
+        consulationButton.titleLabel.font=FontOfSize(14);
         [bgImageView addSubview:consulationButton];
         
         
@@ -45,7 +45,7 @@
         _choseButton.contentHorizontalAlignment=UIControlContentHorizontalAlignmentRight;
         [_choseButton setTitle:@"咨询类别▼" forState:0];
         [_choseButton setTitleColor:AppBaseTextColor1 forState:0];
-        _choseButton.titleLabel.font=FontOfSize(11);
+        _choseButton.titleLabel.font=FontOfSize(14);
         [bgImageView addSubview:_choseButton];
         
        
