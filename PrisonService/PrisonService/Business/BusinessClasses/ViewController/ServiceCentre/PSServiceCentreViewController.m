@@ -148,9 +148,9 @@
              [self p_insertMoreServiceVC];
         }];
         [cell.FinanceButton bk_whenTapped:^{
-//            NSString*coming_soon=NSLocalizedString(@"coming_soon", @"该监狱暂未开通此功能");
-//            [PSTipsView showTips:coming_soon];
-//            return;
+            NSString*coming_soon=NSLocalizedString(@"coming_soon", @"该监狱暂未开通此功能");
+            [PSTipsView showTips:coming_soon];
+            return;
             PSConsultationViewModel*viewModel=[[PSConsultationViewModel alloc]init];
             PSConsultationViewController*consultationViewController
             =[[PSConsultationViewController alloc]initWithViewModel:viewModel];
