@@ -104,10 +104,6 @@
             failedCallback(error);
         }
     }];
-    
 }
-
-
-
 
 @end

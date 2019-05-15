@@ -84,7 +84,6 @@
             }
             break;
     }
-    
 }
 
 #pragma mark ——————— 家属服务
@@ -92,7 +91,6 @@
     PSFamilyServiceViewController *serviceViewController = [[PSFamilyServiceViewController alloc] initWithViewModel:[PSFamilyServiceViewModel new]];
     [self.navigationController pushViewController:serviceViewController animated:YES];
 }
-
 
 - (void)appointmentPrisoner {
  
@@ -150,9 +148,9 @@
              [self p_insertMoreServiceVC];
         }];
         [cell.FinanceButton bk_whenTapped:^{
-//            NSString*coming_soon=NSLocalizedString(@"coming_soon", @"该监狱暂未开通此功能");
-//            [PSTipsView showTips:coming_soon];
-//            return;
+            NSString*coming_soon=NSLocalizedString(@"coming_soon", @"该监狱暂未开通此功能");
+            [PSTipsView showTips:coming_soon];
+            return;
             PSConsultationViewModel*viewModel=[[PSConsultationViewModel alloc]init];
             PSConsultationViewController*consultationViewController
             =[[PSConsultationViewController alloc]initWithViewModel:viewModel];
@@ -194,9 +192,9 @@
 }
 
 - (void)p_insertMoreServiceVC {
-//    NSString*coming_soon=NSLocalizedString(@"coming_soon", @"该监狱暂未开通此功能");
-//    [PSTipsView showTips:coming_soon];
-//    return;
+    NSString*coming_soon=NSLocalizedString(@"coming_soon", @"该监狱暂未开通此功能");
+    [PSTipsView showTips:coming_soon];
+    return;
     PSMoreServiceViewController *PSMoreServiceVC = [[PSMoreServiceViewController alloc] initWithViewModel:[PSMoreServiceViewModel new]];
     [self.navigationController pushViewController:PSMoreServiceVC animated:YES];
 }

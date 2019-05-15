@@ -393,7 +393,7 @@
                 _contentTextView.text = [x substringToIndex:299];
                 [PSTipsView showTips:more_msg];
             }
-            self.countLab.text = [NSString stringWithFormat:@"%lu/300",_contentTextView.text.length];
+            self.countLab.text = [NSString stringWithFormat:@"%lu/300",(unsigned long)_contentTextView.text.length];
         }];
     }
     return _contentTextView;
