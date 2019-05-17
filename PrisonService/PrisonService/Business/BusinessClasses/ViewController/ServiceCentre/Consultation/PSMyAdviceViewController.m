@@ -6,23 +6,24 @@
 //  Created by 狂生烈徒 on 2018/6/4.
 //  Copyright © 2018年 calvin. All rights reserved.
 //
+#import "UIViewController+Tool.h"
 #import "PSMyAdviceViewController.h"
 #import "PSConsultationViewModel.h"
-#import "PSRefundViewController.h"
+//#import "PSRefundViewController.h"
 #import "MJRefresh.h"
-#import "NSString+Date.h"
-#import "UIScrollView+EmptyDataSet.h"
+//#import "NSString+Date.h"
+
 #import "PSTipsConstants.h"
-#import "UITableView+FDTemplateLayoutCell.h"
 #import "PSMyAdviceTableViewCell.h"
 #import "PSConsultation.h"
 #import "MJExtension.h"
 #import "PSCustomer.h"
-#import "PSSessionManager.h"
+//#import "PSSessionManager.h"
 #import "PSAdviceDetailsViewController.h"
-#import "PSBusinessConstants.h"
 #import "PSLawerAdviceTableViewCell.h"
-#import "UIViewController+Tool.h"
+#import "LegalAdviceCell.h"
+
+
 @interface PSMyAdviceViewController ()<UITableViewDataSource,UITableViewDelegate,DZNEmptyDataSetSource,DZNEmptyDataSetDelegate>
 @property (nonatomic, strong) UITableView *honorTableView;
 @end
@@ -66,7 +67,6 @@
 
 - (void)reloadContents {
     PSConsultationViewModel *viewModel =(PSConsultationViewModel *)self.viewModel;
-    //(PSTransactionRecordViewModel *)self.viewModel;
     if (viewModel.hasNextPage) {
         @weakify(self)
         self.honorTableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
@@ -82,6 +82,8 @@
 }
 
 - (void)renderContents {
+    self.automaticallyAdjustsScrollViewInsets = NO;
+    self.edgesForExtendedLayout = UIRectEdgeNone;
     self.view.backgroundColor=UIColorFromRGBA(248, 247, 254, 1);
     _honorTableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
     self.honorTableView.dataSource = self;
@@ -98,11 +100,12 @@
     }];
     [self.honorTableView registerClass:[PSMyAdviceTableViewCell class] forCellReuseIdentifier:@"PSMyAdviceTableViewCell"];
     [self.honorTableView registerClass:[PSLawerAdviceTableViewCell class] forCellReuseIdentifier:@"PSLawerAdviceTableViewCell"];
+    [self.honorTableView registerClass:[LegalAdviceCell class] forCellReuseIdentifier:@"LegalAdviceCell"];
     self.honorTableView.tableFooterView = [UIView new];
     [self.view addSubview:self.honorTableView];
     [self.honorTableView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(15);
-        make.bottom.mas_equalTo(0);
+        make.top.mas_equalTo(0);
+        make.bottom.mas_equalTo(-49-kTopHeight-44-14);
         make.right.mas_equalTo(0);
         make.left.mas_equalTo(0);
         //make.edges.mas_equalTo(UIEdgeInsetsZero);
@@ -112,7 +115,7 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     self.tabBarController.tabBar.hidden=YES;
-    [self refreshData];
+    
     
 }
 
@@ -121,6 +124,17 @@
     // Do any additional setup after loading the view.
     [self renderContents];
     [self refreshData];
+    
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(refreshData) name:KNotificationOrderStateChange object:nil];
+    
+    
+    
+}
+
+- (void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:YES];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:KNotificationOrderStateChange object:nil];
+    
 }
 
 #pragma mark - UITableViewDataSource
@@ -130,13 +144,14 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 98;
+    return 105;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     PSConsultationViewModel *viewModel =(PSConsultationViewModel *)self.viewModel;
     PSConsultation*model=viewModel.myAdviceArray[indexPath.row];
-    PSMyAdviceTableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:@"PSMyAdviceTableViewCell"];
+    LegalAdviceCell*cell=[tableView dequeueReusableCellWithIdentifier:@"LegalAdviceCell"];
+    //    PSMyAdviceTableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:@"PSMyAdviceTableViewCell"];
     [self builedModel:model];
     [cell fillWithModel:model];
     return cell;
@@ -147,7 +162,9 @@
     PSConsultationViewModel *viewModel =(PSConsultationViewModel *)self.viewModel;
     PSConsultation*Model=viewModel.myAdviceArray[indexPath.row];
     viewModel.adviceId=Model.cid;
-    [[UIViewController jsd_getCurrentViewController].navigationController pushViewController:[[PSAdviceDetailsViewController alloc]initWithViewModel:viewModel] animated:YES];
+    UIViewController *vc = [UIViewController jsd_getCurrentViewController];
+    [vc.navigationController pushViewController:[[PSAdviceDetailsViewController alloc]initWithViewModel:viewModel] animated:YES];
+    
     
     
 }

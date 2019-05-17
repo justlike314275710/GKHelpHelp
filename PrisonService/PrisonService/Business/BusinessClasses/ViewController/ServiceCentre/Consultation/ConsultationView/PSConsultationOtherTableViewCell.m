@@ -90,7 +90,7 @@
             btn.frame = CGRectMake(i*tempW+pading*(i+1), self.moneyTextField.bottom+15, tempW, 34);
             [btn setTitle:title forState:UIControlStateNormal];
             btn .titleLabel.font=FontOfSize(12);
-            
+
             btn.tag = i+100;
             //btn.contentMode = UIViewContentModeCenter;
             [btn setTitleColor:AppBaseTextColor3 forState:UIControlStateNormal];
