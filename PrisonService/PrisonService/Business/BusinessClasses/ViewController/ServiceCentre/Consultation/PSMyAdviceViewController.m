@@ -124,10 +124,7 @@
     // Do any additional setup after loading the view.
     [self renderContents];
     [self refreshData];
-    
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(refreshData) name:KNotificationOrderStateChange object:nil];
-    
-    
     
 }
 

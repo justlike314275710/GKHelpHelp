@@ -80,7 +80,7 @@
     }];
     ViewBorderRadius(_catagoylable, 10, 1, CFontColor_LawTitle);
     _catagoylable.textColor=CFontColor_LawTitle;
-    _catagoylable.text=@"财务纠纷";
+    _catagoylable.text=@"财产纠纷";
     _catagoylable.font=FontOfSize(12);
     _catagoylable.textAlignment=NSTextAlignmentCenter;
 

@@ -89,7 +89,7 @@
     }];
     
     UILabel*FinanceLable=[UILabel new];
-    NSString*financial_embroilment=NSLocalizedString(@"financial_embroilment", @"财务纠纷");
+    NSString*financial_embroilment=NSLocalizedString(@"financial_embroilment", @"财产纠纷");
     FinanceLable.text=financial_embroilment;
     [_FinanceButton addSubview:FinanceLable];
     [FinanceLable setFont:[UIFont fontWithName:@"Helvetica-Bold" size:14]];
