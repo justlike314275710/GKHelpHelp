@@ -23,7 +23,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+
     [self p_setUI];
 }
 
@@ -100,25 +100,29 @@
         make.height.mas_equalTo(20);
     }];
     
-    UILabel *k_nameLab = [UILabel new];
-    NSString *k_nameLabText = NSLocalizedString(@"pemittance to prisoners", @"汇款至服刑人员");
-    k_nameLab.text = k_nameLabText;
-    k_nameLab.textColor = UIColorFromRGB(102, 102, 102);
-    k_nameLab.font = FontOfSize(12);
-    [self.view addSubview:k_nameLab];
-    [k_nameLab mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(18);
-        make.width.mas_equalTo(120);
-        make.height.mas_equalTo(20);
-        make.top.mas_equalTo(k_payWayLab.mas_bottom).offset(10);
-    }];
-    [self.view addSubview:self.namelab];
-    [self.namelab mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.mas_equalTo(-15);
-        make.centerY.mas_equalTo(k_nameLab);
-        make.width.mas_equalTo(200);
-        make.height.mas_equalTo(20);
-    }];    
+    if (self.payWay !=payWayLegaladvice) {
+        
+        UILabel *k_nameLab = [UILabel new];
+        NSString *k_nameLabText = NSLocalizedString(@"pemittance to prisoners", @"汇款至服刑人员");
+        k_nameLab.text = k_nameLabText;
+        k_nameLab.textColor = UIColorFromRGB(102, 102, 102);
+        k_nameLab.font = FontOfSize(12);
+        [self.view addSubview:k_nameLab];
+        [k_nameLab mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.mas_equalTo(18);
+            make.width.mas_equalTo(120);
+            make.height.mas_equalTo(20);
+            make.top.mas_equalTo(k_payWayLab.mas_bottom).offset(10);
+        }];
+        [self.view addSubview:self.namelab];
+        [self.namelab mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.right.mas_equalTo(-15);
+            make.centerY.mas_equalTo(k_nameLab);
+            make.width.mas_equalTo(200);
+            make.height.mas_equalTo(20);
+        }];
+    }
+   
 }
 
 #pragma mark - Setting&Getting
