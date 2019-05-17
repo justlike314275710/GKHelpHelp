@@ -211,7 +211,7 @@
 -(UILabel *)typeLab {
     if (!_typeLab) {
         _typeLab = [UILabel new];
-        _typeLab.text = @"财务纠纷";
+        _typeLab.text = @"财产纠纷";
         _typeLab.textColor = CFontColor_LawTitle;
         _typeLab.textAlignment = NSTextAlignmentCenter;
         _typeLab.font = FontOfSize(11);

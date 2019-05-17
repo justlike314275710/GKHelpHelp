@@ -22,7 +22,7 @@
 - (instancetype)initWithViewModel:(PSViewModel *)viewModel {
     self = [super initWithViewModel:viewModel];
     if (self) {
-        NSString *title = NSLocalizedString(@"legal_service", @"财务纠纷");
+        NSString *title = NSLocalizedString(@"legal_service", @"财产纠纷");
         //        title = @"财产纠纷";
         self.title = title;
     }

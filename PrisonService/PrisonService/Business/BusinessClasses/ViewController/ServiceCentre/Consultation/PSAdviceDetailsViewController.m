@@ -113,6 +113,7 @@
     [viewModel deleteConsultationCompleted:^(PSResponse *response) {
         [[PSLoadingView sharedInstance]dismiss];
         [PSTipsView showTips:@"删除订单成功"];
+        [[NSNotificationCenter defaultCenter] postNotificationName:KNotificationOrderStateChange object:nil];
         [self.navigationController popViewControllerAnimated:YES];
     } failed:^(NSError *error) {
         [[PSLoadingView sharedInstance]dismiss];

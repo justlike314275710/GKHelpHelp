@@ -63,7 +63,7 @@
     _addressLable.text=@"执业律所：红黄蓝律师事务所";
     
     
-    NSArray *arr = @[@"财务纠纷",@"婚姻家庭"];
+    NSArray *arr = @[@"财产纠纷",@"婚姻家庭"];
     CGFloat btnW = 60;
     for (int i = 0; i < arr.count; i ++) {
         UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(80+i * (btnW+5), CGRectGetMaxY(_addressLable.frame) + 50, btnW, 16)];
