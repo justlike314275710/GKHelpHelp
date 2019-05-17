@@ -36,12 +36,12 @@
                   moduleName = "PrisonService"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/xiaojun/Desktop/%E7%8B%B1%E5%8A%A1%E9%80%9A_iOS/PrisonService/PrisonService/Business/BusinessManager/Meeting/PSMeetingManager.m"
-                  timestampString = "579512160.828222"
+                  timestampString = "579580449.9512171"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "286"
                   endingLineNumber = "286"
-                  offsetFromSymbolStart = "1900">
+                  offsetFromSymbolStart = "1903">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -51,12 +51,12 @@
                   moduleName = "PrisonService"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/xiaojun/Desktop/%E7%8B%B1%E5%8A%A1%E9%80%9A_iOS/PrisonService/PrisonService/Business/BusinessManager/Meeting/PSMeetingManager.m"
-                  timestampString = "579512160.832119"
+                  timestampString = "579580449.955132"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "287"
                   endingLineNumber = "287"
-                  offsetFromSymbolStart = "60">
+                  offsetFromSymbolStart = "56">
                </Location>
             </Locations>
          </BreakpointContent>

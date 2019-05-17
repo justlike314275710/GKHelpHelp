@@ -52,10 +52,13 @@
     
 }
 
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self renderContents];
     _images=[[NSMutableArray alloc]init];
+    
+    
     // Do any additional setup after loading the view.
 }
 
