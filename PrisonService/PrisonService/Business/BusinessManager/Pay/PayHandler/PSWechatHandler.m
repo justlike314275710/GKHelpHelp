@@ -35,12 +35,12 @@
     self.payInfo = payInfo;
     [self goPay];
 }
-//法律咨询支付
+//MARK:法律咨询支付
 - (void)goOrderWithPayInfo:(PSPayInfo *)payInfo{
     self.payInfo=payInfo;
     [self goOrderPay];
 }
-//汇款
+//MARK:汇款
 - (void)goRemittanceWithPayInfo:(PSPayInfo *)payInfo {
     self.payInfo = payInfo;
     [self goRemittance];

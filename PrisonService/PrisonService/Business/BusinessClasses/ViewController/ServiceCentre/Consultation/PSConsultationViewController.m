@@ -24,6 +24,7 @@
 #import "PSMyAdviceViewController.h"
 #import "PSConsultationViewModel.h"
 #import "PSMoreServiceViewController.h"
+#import "PSRemittancePayStateViewController.h"
 
 @interface PSConsultationViewController ()<UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,UITextViewDelegate,UITextFieldDelegate>
 @property (nonatomic, strong) UICollectionView *serviceCollectionView;
@@ -31,6 +32,7 @@
 @property (nonatomic , strong) NSMutableArray *images;
 @property (nonatomic, strong) PSPayView *payView;
 @property (nonatomic , assign) NSInteger index;
+@property (nonatomic, assign) NSString *money;
 
 @end
 
@@ -109,6 +111,7 @@
 
 
 - (void)buyCardAction:(NSString*)cid withReward:(NSString*)reward{
+    _money = reward;
     PSPhoneCardViewModel*viewModel=[[PSPhoneCardViewModel alloc]init];
     PSPayView *payView = [PSPayView new];
     payView.payType = @"law";
@@ -172,15 +175,36 @@
     PSPayInfo*payinfo=[PSPayInfo new];
     PSPayment *paymentInfo = viewModel.payments[_index];
     payinfo.productID=cid;
+    payinfo.money = [NSString stringWithFormat:@"%@",_money];
     payinfo.payment=paymentInfo.payment;
     [[PSLoadingView sharedInstance] show];
     @weakify(self)
     [[PSPayCenter payCenter] goPayWithPayInfo:payinfo type:PayTypeOrd callback:^(BOOL result, NSError *error) {
         @strongify(self)
         [[PSLoadingView sharedInstance] dismiss];
+//        if (error) {
+//            if (error.code != 106 && error.code != 206) {
+//                [PSTipsView showTips:error.domain];
+//            }
+//        }else{
+//            self.payView.status = PSPaySuccessful;
+//            PSConsultationViewModel *viewModel =(PSConsultationViewModel *)self.viewModel;
+//            viewModel.adviceId=cid;
+//            [self.navigationController pushViewController:[[PSAdviceDetailsViewController alloc]initWithViewModel:viewModel] animated:YES];
+//        }
+        
+        
         if (error) {
             if (error.code != 106 && error.code != 206) {
-                [PSTipsView showTips:error.domain];
+                if (error.code == 202 ||error.code == 205||error.code == 102) { //输入金额不正确 (202)  系统错误(支付宝返回205)   未安装微信（202）
+                    [PSTipsView showTips:error.domain dismissAfterDelay:1];
+                } else { //可能点击取消返回
+                    [self p_showPayResult:payCancel PSPayInfo:payinfo];
+                    [self.payView dismissAnimated:YES];
+                }
+            } else {
+                [self p_showPayResult:payFailure PSPayInfo:payinfo];
+                [self.payView dismissAnimated:YES];
             }
         }else{
             self.payView.status = PSPaySuccessful;
@@ -190,6 +214,22 @@
         }
     }];
     
+}
+
+
+- (void)p_showPayResult:(PayState)state PSPayInfo:(PSPayInfo *)info {
+    PSRemittancePayStateViewController *payStateVC = [[PSRemittancePayStateViewController alloc] init];
+    @weakify(self)
+    payStateVC.completeBlock = ^(PayState state) {
+        @strongify(self);
+        if (state == payScuess) {
+//            [self remittanceRecord];
+        }
+    };
+    payStateVC.info = info;
+    payStateVC.state = state;
+//    payStateVC.prisoner = self.prisoner;
+    [self.navigationController presentViewController:payStateVC animated:YES completion:nil];
 }
 
 #pragma mark  - UITableViewDelegate
