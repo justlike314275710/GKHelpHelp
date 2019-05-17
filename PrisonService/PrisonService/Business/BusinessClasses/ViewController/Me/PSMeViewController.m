@@ -178,10 +178,10 @@
         
     }
     else if ([itemModel.funcName isEqualToString:my_advice]){
-        NSString*coming_soon=NSLocalizedString(@"coming_soon", @"该监狱暂未开通此功能");
-        [PSTipsView showTips:coming_soon];
-        return;
-//        [self.navigationController pushViewController:[[MyConsultationViewController alloc] initWithViewModel:[[PSConsultationViewModel alloc] init]] animated:YES];
+//        NSString*coming_soon=NSLocalizedString(@"coming_soon", @"该监狱暂未开通此功能");
+//        [PSTipsView showTips:coming_soon];
+//        return;
+        [self.navigationController pushViewController:[[MyConsultationViewController alloc] initWithViewModel:[[PSConsultationViewModel alloc] init]] animated:YES];
         
     }
     else{
@@ -240,6 +240,7 @@
     switch ([PSSessionManager sharedInstance].loginStatus) {
         case PSLoginPassed:{
              [self selectHallFunctionAtIndex:indexPath.row];
+        
         }
             break;
         default:
@@ -247,8 +248,13 @@
             if ([[LXFileManager readUserDataForKey:@"isVistor"]isEqualToString:@"YES"]) {
                 [[PSSessionManager sharedInstance]doLogout];
             } else {
-                if (indexPath.row==7) {
-                    [self.navigationController pushViewController:[[PSSettingViewController alloc] initWithViewModel:[[PSSettingViewModel alloc] init]] animated:YES];
+                
+                if (indexPath.row==7||indexPath.row==5) {
+                    if (indexPath.row==7) {
+                           [self.navigationController pushViewController:[[PSSettingViewController alloc] initWithViewModel:[[PSSettingViewModel alloc] init]] animated:YES];
+                    } else {
+                           [self.navigationController pushViewController:[[MyConsultationViewController alloc] initWithViewModel:[[PSConsultationViewModel alloc] init]] animated:YES];
+                    }
                 } else {
                     self.hidesBottomBarWhenPushed=YES;
                     PSLoginViewModel*viewModel=[[PSLoginViewModel alloc]init];

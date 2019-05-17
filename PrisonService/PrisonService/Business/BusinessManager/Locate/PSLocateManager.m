@@ -49,6 +49,10 @@
                 _province = place.administrativeArea;
                 [[NSUserDefaults standardUserDefaults] setObject:place.administrativeArea forKey:Locate_Province_Cache_key];
                 [[NSUserDefaults standardUserDefaults] synchronize];
+                //获取到地址重新刷新广告
+                if (_province.length>0) {
+                    [[NSNotificationCenter defaultCenter] postNotificationName:KNotificationRefreshAdvertisement object:nil];
+                }
             }
         }
     }];

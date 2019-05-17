@@ -85,12 +85,9 @@
     [self renderContents];
 }
 
-
-
 - (void)getData {
     
     PSFamilyServiceViewModel *serviceViewModel = (PSFamilyServiceViewModel *)self.viewModel;
-    
     [[PSLoadingView sharedInstance] show];
     PSMeetJailsnnmeViewModel *model = [[PSMeetJailsnnmeViewModel alloc] init];
     @weakify(self);
