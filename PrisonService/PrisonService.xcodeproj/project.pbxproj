@@ -647,6 +647,7 @@
 		EADDC8B820BE94900068D3AB /* AccountsViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = EADDC8B720BE94900068D3AB /* AccountsViewModel.m */; };
 		EADDC8BE20BEFBEA0068D3AB /* Accounts.m in Sources */ = {isa = PBXBuildFile; fileRef = EADDC8BD20BEFBEA0068D3AB /* Accounts.m */; };
 		EADDC8C120BF9AE00068D3AB /* PSRelationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EADDC8C020BF9AE00068D3AB /* PSRelationViewController.m */; };
+		EAEDA85A228E5B74004AF16C /* UIColor+HexString.m in Sources */ = {isa = PBXBuildFile; fileRef = EAEDA858228E5B73004AF16C /* UIColor+HexString.m */; };
 		EAEE395920C4CD2D005F7530 /* PSRefundBalanceRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = EAEE395820C4CD2D005F7530 /* PSRefundBalanceRequest.m */; };
 		EAEE395C20C4CD63005F7530 /* PSRefundBalanceRespense.m in Sources */ = {isa = PBXBuildFile; fileRef = EAEE395B20C4CD63005F7530 /* PSRefundBalanceRespense.m */; };
 		EAEE395F20C507CD005F7530 /* PSRefundViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = EAEE395E20C507CD005F7530 /* PSRefundViewModel.m */; };
@@ -1940,6 +1941,8 @@
 		EADDC8BD20BEFBEA0068D3AB /* Accounts.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Accounts.m; sourceTree = "<group>"; };
 		EADDC8BF20BF9AE00068D3AB /* PSRelationViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PSRelationViewController.h; sourceTree = "<group>"; };
 		EADDC8C020BF9AE00068D3AB /* PSRelationViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PSRelationViewController.m; sourceTree = "<group>"; };
+		EAEDA858228E5B73004AF16C /* UIColor+HexString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+HexString.m"; sourceTree = "<group>"; };
+		EAEDA859228E5B73004AF16C /* UIColor+HexString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+HexString.h"; sourceTree = "<group>"; };
 		EAEE395720C4CD2D005F7530 /* PSRefundBalanceRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PSRefundBalanceRequest.h; sourceTree = "<group>"; };
 		EAEE395820C4CD2D005F7530 /* PSRefundBalanceRequest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PSRefundBalanceRequest.m; sourceTree = "<group>"; };
 		EAEE395A20C4CD63005F7530 /* PSRefundBalanceRespense.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PSRefundBalanceRespense.h; sourceTree = "<group>"; };
@@ -2342,6 +2345,8 @@
 		3E5D14BA20721E71000FC779 /* Category */ = {
 			isa = PBXGroup;
 			children = (
+				EAEDA859228E5B73004AF16C /* UIColor+HexString.h */,
+				EAEDA858228E5B73004AF16C /* UIColor+HexString.m */,
 				EA3E1E2B221B97BC00D0F1B1 /* UIImage+WLCompress.h */,
 				EA3E1E2A221B97B600D0F1B1 /* UIImage+WLCompress.m */,
 				552E617721A5A53000FA31FD /* UIView+Frame.h */,
@@ -5286,6 +5291,7 @@
 				3E5D163C207B0AC3000FC779 /* PSVisitorBusinessViewController.m in Sources */,
 				3E171A1F209092A300B7D807 /* IFlyFaceResultKeys.m in Sources */,
 				EAD18F5320D02A780053F82B /* NSObject+MJClass.m in Sources */,
+				EAEDA85A228E5B74004AF16C /* UIColor+HexString.m in Sources */,
 				3E1738052085F5670068CCEB /* PSBuyCardStepCell.m in Sources */,
 				554C007A21D4B0ED00E6C6D2 /* NSString+emoji.m in Sources */,
 				EA78E20121772AB100BBEE58 /* PSSettingCell.m in Sources */,

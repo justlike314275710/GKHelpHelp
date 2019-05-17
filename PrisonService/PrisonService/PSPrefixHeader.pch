@@ -27,5 +27,7 @@
 #import "UIImage+Rename.h"
 #import "SDTrackTool.h"
 
+#import "UIScrollView+EmptyDataSet.h"
+#import "UITableView+FDTemplateLayoutCell.h"
 #endif /* PSPrefixHeader_pch */
 #endif

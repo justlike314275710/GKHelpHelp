@@ -8,13 +8,8 @@
 
 
 #define DEVELOP  0    //开发
-<<<<<<< HEAD
 #define UAT 1        //测试
 #define PRODUCE 0     //生产
-=======
-#define UAT 1      //测试
-#define PRODUCE 0    //生产
->>>>>>> 1829f842aed26b5afc9f9af78b16f1028bb75e6c
 
 
 #ifdef DEBUG

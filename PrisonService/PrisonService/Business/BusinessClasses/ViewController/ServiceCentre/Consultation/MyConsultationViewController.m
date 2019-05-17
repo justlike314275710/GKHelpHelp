@@ -8,11 +8,13 @@
 
 #import "MyConsultationViewController.h"
 #import "LegaladviceViewController.h"
+//#import "CounselingViewController.h"
 #import "ZWTopSelectButton.h"
 #import "ZWTopSelectVcView.h"
 #import "PSMyAdviceViewController.h"
 #import "PSConsultationViewModel.h"
 #import "LawyerAdviceViewController.h"
+#import "UIColor+HexString.h"
 
 @interface MyConsultationViewController ()<ZWTopSelectVcViewDataSource,ZWTopSelectVcViewDelegate> {
     BOOL              isChangeChildVc;
@@ -30,19 +32,20 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"我的咨询";
-//    [self addNavigationItemWithImageNames:@[@"会话icon－红点"] isLeft:NO target:self action:@selector(rightAction) tags:@[@2000]];
+    //    [self addNavigationItemWithImageNames:@[@"会话icon－红点"] isLeft:NO target:self action:@selector(rightAction) tags:@[@2000]];
     [self setupUI];
-
+    
     
     
 }
 
 #pragma mark - PrivateMethods
 - (void)setupUI {
-    
+    self.automaticallyAdjustsScrollViewInsets = NO;
+    self.edgesForExtendedLayout = UIRectEdgeNone;
     ZWTopSelectVcView *topSelectVcView=[[ZWTopSelectVcView alloc]init];
     self.topSelectVcView.isCloseSwipeGesture = YES;
-    topSelectVcView.frame=CGRectMake(0,14,SCREEN_WIDTH,SCREEN_HEIGHT);
+    topSelectVcView.frame=CGRectMake(0,14,KScreenWidth,KScreenHeight);
     [self.view addSubview:topSelectVcView];
     self.topSelectVcView=topSelectVcView;
     self.topSelectVcView.dataSource=self;
@@ -55,27 +58,26 @@
     self.iconImg1.frame = CGRectMake(40,(50-13)/2, 13, 13);
     
     [self.topSelectVcView addSubview:self.iconImg2];
-    self.iconImg2.frame = CGRectMake(40+SCREEN_WIDTH/2,(50-13)/2, 13, 13);
+    self.iconImg2.frame = CGRectMake(40+KScreenWidth/2,(50-13)/2, 13, 13);
     //fix
-//    UIButton *btn = [UIButton new];
-//    btn.frame = CGRectMake(KScreenWidth/2,14,KScreenHeight/2,50);
-//    [self.view addSubview:btn];
-//    btn.backgroundColor= KClearColor;
-//    [btn addTapBlock:^(UIButton *btn) {
-//         [PSTipsView showTips:Hmsg_Comingsoon];
-//    }];
-
+    //    UIButton *btn = [UIButton new];
+    //    btn.frame = CGRectMake(KScreenWidth/2,14,KScreenHeight/2,50);
+    //    [self.view addSubview:btn];
+    //    btn.backgroundColor= KClearColor;
+    //    [btn addTapBlock:^(UIButton *btn) {
+    //         [PSTipsView showTips:Hmsg_Comingsoon];
+    //    }];
+    
 }
 
 #pragma mark - TouchEvent
 -(void)rightAction {
-    [PSTipsView showTips:@"敬请期待"];
+    [PSTipsView showTips:@"敬请期待!"];
 }
 
 #pragma mark - ZWTopSelectVcViewDelegate
 - (void)topSelectVcView:(ZWTopSelectVcView *)topSelectVcView didSelectVc:(UIViewController *)selectVc atIndex:(int)index
 {
-    NSLog(@"\n当前选中Vc %@ \n index为%d  222",selectVc,index);
     selectIndex = index;
     selectViewController = selectVc;
     if (index==0) {
@@ -93,20 +95,9 @@
 -(NSMutableArray *)totalControllerInZWTopSelectVcView:(ZWTopSelectVcView *)topSelectVcView
 {
     NSMutableArray *controllerMutableArr=[NSMutableArray array];
-    
-    switch (1) {
-        case 3:{
-            LawyerAdviceViewController *showtwoVc= [[ LawyerAdviceViewController alloc]init];
-            showtwoVc.title=@"法律咨询";
-            [controllerMutableArr addObject:showtwoVc];}
-            break;
-            
-        default:{
-            PSMyAdviceViewController *showtwoVc= [[ PSMyAdviceViewController alloc]initWithViewModel:[[PSConsultationViewModel alloc] init]];
-            showtwoVc.title=@"法律咨询";
-            [controllerMutableArr addObject:showtwoVc];}
-            break;
-    }
+    PSMyAdviceViewController *showtwoVc= [[ PSMyAdviceViewController alloc]initWithViewModel:[[PSConsultationViewModel alloc] init]];
+    showtwoVc.title=@"法律咨询";
+    [controllerMutableArr addObject:showtwoVc];
     
     
     LegaladviceViewController *showoneVc= [[LegaladviceViewController alloc]initWithViewModel:[[PSConsultationViewModel alloc] init]];
@@ -125,23 +116,22 @@
 //顶部按钮间隔线颜色
 -(UIColor *)topSliderLineSpacingColorInZWTopSelectVcView:(ZWTopSelectVcView *)topSelectVcViedew
 {
-    return UIColorFromRGB(235, 235, 235);
+    return [UIColor colorWithHexString:@"EBEBEB"];
 }
 //顶部按钮文字选中背景色设置
 -(UIColor *)topSliderViewSelectedTitleColorInZWTopSelectVcView:(ZWTopSelectVcView *)topSelectVcViedew
 {
-
-    return UIColorFromRGB(51, 51, 51);
+    return [UIColor colorWithHexString:@"333333"];
 }
 //顶部按钮文字未选中背景色设置
 -(UIColor *)topSliderViewNotSelectedTitleColorInZWTopSelectVcView:(ZWTopSelectVcView *)topSelectVcViedew
 {
-    return UIColorFromRGB(153,153,153);
+    return [UIColor colorWithHexString:@"999999"];
 }
 //顶部滑块背景设置
 -(UIColor *)topSliderViewBackGroundColorInZWTopSelectVcView:(ZWTopSelectVcView *)topSelectVcView
 {
-     return UIColorFromRGB(36,108,144);
+    return [UIColor colorWithHexString:@"264C90"];
 }
 -(CGFloat)topViewHeightInZWTopSelectVcView:(ZWTopSelectVcView *)topSelectVcView {
     return 50;
