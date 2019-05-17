@@ -12,5 +12,13 @@
 @interface AccountsViewModel : PSViewModel
 @property (nonatomic, strong) PSUserSession *session;
 @property(nonatomic,strong) NSString*blance;
+@property(nonatomic,strong) NSString*applicationDate;
+
 - (void)requestAccountsCompleted:(RequestDataCompleted)completedCallback failed:(RequestDataFailed)failedCallback;//获取相应监狱家属余额
+
+//查询改日期是否能预约视频通话
+- (void)requestCheckDataCompleted:(RequestDataCompleted)completedCallback failed:(RequestDataFailed)failedCallback;
+
+
+
 @end

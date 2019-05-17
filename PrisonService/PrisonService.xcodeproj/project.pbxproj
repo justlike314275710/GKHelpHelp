@@ -367,6 +367,8 @@
 		55573F9821BE03870053391C /* SDTrackTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 55573F9421BE03870053391C /* SDTrackTool.m */; };
 		55573F9B21BE64FB0053391C /* UIImage+Rename.m in Sources */ = {isa = PBXBuildFile; fileRef = 55573F9A21BE64FB0053391C /* UIImage+Rename.m */; };
 		555B5CB721952B8B00B64DF3 /* AppDelegate+other.m in Sources */ = {isa = PBXBuildFile; fileRef = 555B5CB621952B8B00B64DF3 /* AppDelegate+other.m */; };
+		555E768B228BBBE300462658 /* PSPrisonerPreCheckRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 555E768A228BBBE300462658 /* PSPrisonerPreCheckRequest.m */; };
+		555E768E228BBC5B00462658 /* PSRrisonerPreCheckResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 555E768D228BBC5B00462658 /* PSRrisonerPreCheckResponse.m */; };
 		555FF46121D3121300FF8D1D /* PSFeedBackTypesRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 555FF46021D3121300FF8D1D /* PSFeedBackTypesRequest.m */; };
 		555FF46421D3123B00FF8D1D /* PSFeedBackTypesResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 555FF46321D3123B00FF8D1D /* PSFeedBackTypesResponse.m */; };
 		555FF46721D318AC00FF8D1D /* FeedbackTypeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 555FF46621D318AC00FF8D1D /* FeedbackTypeModel.m */; };
@@ -1416,6 +1418,10 @@
 		55573F9A21BE64FB0053391C /* UIImage+Rename.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Rename.m"; sourceTree = "<group>"; };
 		555B5CB521952B8B00B64DF3 /* AppDelegate+other.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "AppDelegate+other.h"; sourceTree = "<group>"; };
 		555B5CB621952B8B00B64DF3 /* AppDelegate+other.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "AppDelegate+other.m"; sourceTree = "<group>"; };
+		555E7689228BBBE300462658 /* PSPrisonerPreCheckRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PSPrisonerPreCheckRequest.h; sourceTree = "<group>"; };
+		555E768A228BBBE300462658 /* PSPrisonerPreCheckRequest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PSPrisonerPreCheckRequest.m; sourceTree = "<group>"; };
+		555E768C228BBC5B00462658 /* PSRrisonerPreCheckResponse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PSRrisonerPreCheckResponse.h; sourceTree = "<group>"; };
+		555E768D228BBC5B00462658 /* PSRrisonerPreCheckResponse.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PSRrisonerPreCheckResponse.m; sourceTree = "<group>"; };
 		555FF45F21D3121300FF8D1D /* PSFeedBackTypesRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PSFeedBackTypesRequest.h; sourceTree = "<group>"; };
 		555FF46021D3121300FF8D1D /* PSFeedBackTypesRequest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PSFeedBackTypesRequest.m; sourceTree = "<group>"; };
 		555FF46221D3123B00FF8D1D /* PSFeedBackTypesResponse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PSFeedBackTypesResponse.h; sourceTree = "<group>"; };
@@ -4733,6 +4739,10 @@
 				EAEE396820C52784005F7530 /* PSTransactionRecordRequest.m */,
 				EAEE396A20C5279A005F7530 /* PSTransactionRecordResponse.h */,
 				EAEE396B20C5279A005F7530 /* PSTransactionRecordResponse.m */,
+				555E7689228BBBE300462658 /* PSPrisonerPreCheckRequest.h */,
+				555E768A228BBBE300462658 /* PSPrisonerPreCheckRequest.m */,
+				555E768C228BBC5B00462658 /* PSRrisonerPreCheckResponse.h */,
+				555E768D228BBC5B00462658 /* PSRrisonerPreCheckResponse.m */,
 			);
 			path = "Accounts(余额)";
 			sourceTree = "<group>";
@@ -5176,6 +5186,7 @@
 				3EEEC66420941706003B35B3 /* PSWhiteListRequest.m in Sources */,
 				3EDA51B720AD2C3000D8D019 /* PSLocalMeetingDetailResponse.m in Sources */,
 				3E1737F62085D29C0068CCEB /* NSDate+Components.m in Sources */,
+				555E768E228BBC5B00462658 /* PSRrisonerPreCheckResponse.m in Sources */,
 				3EDA51AD20AD272900D8D019 /* PSLocalMeetingRouteCell.m in Sources */,
 				EAEE397220C53134005F7530 /* PSRefundCell.m in Sources */,
 				3EC7B6D8207C64A500DFBA65 /* PSIDCardViewController.m in Sources */,
@@ -5439,6 +5450,7 @@
 				55D15336224B1A8F007B0864 /* PSPrisonConsumptionViewController.m in Sources */,
 				3EC7B738207E18B800DFBA65 /* PSSettingItem.m in Sources */,
 				3EEEC686209985B6003B35B3 /* PSLaunchViewController.m in Sources */,
+				555E768B228BBBE300462658 /* PSPrisonerPreCheckRequest.m in Sources */,
 				3E5D15E420747DD0000FC779 /* PSCity.m in Sources */,
 				552E618221A65F4100FA31FD /* PSServicePrisonsCell.m in Sources */,
 				3E5D150520731B04000FC779 /* PSPassport.m in Sources */,
@@ -5878,7 +5890,7 @@
 				CLANG_WARN_DOCUMENTATION_COMMENTS = NO;
 				CLANG_WARN_STRICT_PROTOTYPES = NO;
 				CODE_SIGN_ENTITLEMENTS = PrisonService/PrisonService.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = 35NTC834XG;
 				ENABLE_BITCODE = NO;
@@ -5904,7 +5916,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.sinog2c.Yuwu;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "cc5fe474-434e-44b8-bb68-f029add6c6b9";
-				PROVISIONING_PROFILE_SPECIFIER = Yuwu_distribution;
+				PROVISIONING_PROFILE_SPECIFIER = YuWuDevelopment_iOS;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -5945,7 +5957,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.sinog2c.Yuwu;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "cc5fe474-434e-44b8-bb68-f029add6c6b9";
-				PROVISIONING_PROFILE_SPECIFIER = iOS_Distribution;
+				PROVISIONING_PROFILE_SPECIFIER = YuWuDistribution;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;

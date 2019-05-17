@@ -93,6 +93,9 @@
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(refreshData) name:JailChange object:nil];
     //重新获取token
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(requestOfRefreshToken) name:RefreshToken object:nil];
+    //获取到定位信息刷新广告页
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadAdvertisingPage) name:KNotificationRefreshAdvertisement object:nil];
+    
 
 }
 
@@ -540,7 +543,7 @@
     }
     return _myScrollview;
 }
-//加载广告页
+//MARK:加载广告页
 -(void)loadAdvertisingPage{
     PSWorkViewModel *workViewModel = [PSWorkViewModel new];
     [workViewModel requestAdvsCompleted:^(PSResponse *response) {

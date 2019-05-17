@@ -148,9 +148,9 @@
              [self p_insertMoreServiceVC];
         }];
         [cell.FinanceButton bk_whenTapped:^{
-            NSString*coming_soon=NSLocalizedString(@"coming_soon", @"该监狱暂未开通此功能");
-            [PSTipsView showTips:coming_soon];
-            return;
+//            NSString*coming_soon=NSLocalizedString(@"coming_soon", @"该监狱暂未开通此功能");
+//            [PSTipsView showTips:coming_soon];
+//            return;
             PSConsultationViewModel*viewModel=[[PSConsultationViewModel alloc]init];
             PSConsultationViewController*consultationViewController
             =[[PSConsultationViewController alloc]initWithViewModel:viewModel];
@@ -190,11 +190,11 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
    
 }
-
+//MARK:更多
 - (void)p_insertMoreServiceVC {
-    NSString*coming_soon=NSLocalizedString(@"coming_soon", @"该监狱暂未开通此功能");
-    [PSTipsView showTips:coming_soon];
-    return;
+//    NSString*coming_soon=NSLocalizedString(@"coming_soon", @"该监狱暂未开通此功能");
+//    [PSTipsView showTips:coming_soon];
+//    return;
     PSMoreServiceViewController *PSMoreServiceVC = [[PSMoreServiceViewController alloc] initWithViewModel:[PSMoreServiceViewModel new]];
     [self.navigationController pushViewController:PSMoreServiceVC animated:YES];
 }
@@ -236,13 +236,37 @@
         //make.edges.mas_equalTo(UIEdgeInsetsZero);
     }];
     
-    _advView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_WIDTH * 0.55467) imageURLStringsGroup:nil];
-    NSString*serviceHallAdvDefault= [NSObject judegeIsVietnamVersion]?@"v_服务中心广告图":@"服务中心广告图";
-    _advView.placeholderImage = [UIImage imageNamed:serviceHallAdvDefault];
-    _advView.bannerImageViewContentMode = UIViewContentModeScaleAspectFill;
-    self.serviceCentreTableView.tableHeaderView = _advView;
+    //广告图
+    self.serviceCentreTableView.tableHeaderView = self.advView;
+    
+//    _advView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_WIDTH * 0.55467) imageURLStringsGroup:nil];
+//    NSString*serviceHallAdvDefault= [NSObject judegeIsVietnamVersion]?@"v_服务中心广告图":@"服务中心广告图";
+//    _advView.placeholderImage = [UIImage imageNamed:serviceHallAdvDefault];
+//    _advView.bannerImageViewContentMode = UIViewContentModeScaleAspectFill;
+//    self.serviceCentreTableView.tableHeaderView = _advView;
 }
 #pragma mark  - setter & getter
+- (SDCycleScrollView *)advView {
+    if (!_advView) {
+        self.view.backgroundColor=UIColorFromRGBA(248, 247, 254, 1);
+        _advView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0,SCREEN_WIDTH,200) imageURLStringsGroup:nil];
+        NSString *imageName = [NSObject judegeIsVietnamVersion]?@"v广告图":@"广告图";
+        _advView.placeholderImage = [UIImage imageNamed:imageName];
+        _advView.bannerImageViewContentMode = UIViewContentModeScaleToFill;
+        [self loadAdvertisingPage];
+    }
+    return _advView;
+}
+
+//MARK:加载广告页
+-(void)loadAdvertisingPage{
+    PSWorkViewModel *workViewModel = [PSWorkViewModel new];
+    [workViewModel requestAdvsCompleted:^(PSResponse *response) {
+        _advView.imageURLStringsGroup = workViewModel.advUrls;
+    } failed:^(NSError *error) {
+        
+    }];
+}
 
 
 - (void)didReceiveMemoryWarning {

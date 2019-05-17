@@ -10,7 +10,7 @@
 #import "SDCycleScrollView.h"
 @interface PSServiceCentreViewController : PSBusinessViewController<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic, strong, readonly) UITableView *serviceCentreTableView;
-@property (nonatomic, strong, readonly) SDCycleScrollView *advView;
+@property (nonatomic, strong) SDCycleScrollView *advView;
 //是否显示广告
 - (BOOL)showAdv;
 

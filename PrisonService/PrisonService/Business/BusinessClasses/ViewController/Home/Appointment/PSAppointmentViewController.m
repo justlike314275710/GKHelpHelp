@@ -485,11 +485,25 @@
 
 
 -(void)requsetPhoneCardBalance{
+    //查询余额
      AccountsViewModel*accountsViewModel=[[AccountsViewModel alloc]init];
     [accountsViewModel requestAccountsCompleted:^(PSResponse *response) {
         self.Balance=[accountsViewModel.blance floatValue];
-
-        [self addPrisonerFamliesAction];
+        //查询是该日期否能预约
+        accountsViewModel.applicationDate = [self.calendar.selectedDate yearMonthDay];
+        [accountsViewModel requestCheckDataCompleted:^(PSResponse *response) {
+            NSInteger code = response.code;
+            if (code==200) {
+                [self addPrisonerFamliesAction];
+            } else {
+                NSString *msg = response.msg?response.msg:@"当天不支持会见!";
+                [PSAlertView showWithTitle:nil message:msg messageAlignment:NSTextAlignmentCenter image:nil handler:^(PSAlertView *alertView, NSInteger buttonIndex) {
+                } buttonTitles:@"确定", nil];
+            }
+            
+        } failed:^(NSError *error) {
+            [self showNetError:error];
+        }];
 
     } failed:^(NSError *error) {
         if (error.code>=500) {

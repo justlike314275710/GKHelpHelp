@@ -106,7 +106,7 @@ typedef NS_ENUM(NSInteger,WritefeedType) {
     PSPrisonfeedBack,  //监狱投诉建议
 };
 
-//通知
+//***********************************************通知*****************************************
 //订单状态改变
 #define KNotificationOrderStateChange @"KNotificationOrderStateChange"
 //新的订单
@@ -115,9 +115,10 @@ typedef NS_ENUM(NSInteger,WritefeedType) {
 #import "NSObject+version.h"
 #import "NSDate+Components.h"
 #import "NSObjectSafe.h" //NSInvalidArgumentException 异常
-
-//*******----通知
 #define NotificationNoNetwork @"NotificationNoNetwork"
+
+//获取到地址重新刷新广告
+#define KNotificationRefreshAdvertisement @"KNotificationRefreshAdvertisement"
 
 #ifdef DEBUG
 #define PSLog(...) NSLog(__VA_ARGS__);
