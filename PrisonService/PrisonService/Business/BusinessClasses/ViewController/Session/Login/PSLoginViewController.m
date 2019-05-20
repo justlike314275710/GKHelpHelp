@@ -39,8 +39,14 @@
 #import "PSAuthenticationMainViewController.h"
 #import "PSContentManager.h"
 #import "NSObject+version.h"
+
+typedef NS_ENUM(NSUInteger, PSLoginType) {
+    PSLoginPassword,
+    PSLoginCode,
+};
 @interface PSLoginViewController ()<PSCountdownObserver,UIAlertViewDelegate>
 
+@property (nonatomic , assign) PSLoginType loginType;
 @property (nonatomic, strong) PSLoginMiddleView *loginMiddleView;
 @property (nonatomic, assign) NSInteger seconds;
 @property (nonatomic, strong)  NSMutableArray*titles;
@@ -57,6 +63,7 @@
     self = [super initWithViewModel:viewModel];
     if (self) {
         [[PSCountdownManager sharedInstance] addObserver:self];
+        self.loginType=PSLoginPassword;
     }
     return self;
 }
@@ -378,6 +385,10 @@
 }
 
 - (void)updateProtocolText {
+    
+    
+    
+    
     NSString*read_agree=NSLocalizedString(@"read_agree", nil);
     NSString*usageProtocol=NSLocalizedString(@"usageProtocol", nil);
     NSMutableAttributedString *protocolText = [NSMutableAttributedString new];
@@ -421,6 +432,7 @@
         registViewModel.phoneNumber=textField.text;
 
     }];
+    /*
     if ([_language isEqualToString:@"vi-US"]||[_language isEqualToString:@"vi-VN"]||[_language isEqualToString:@"vi-CN"]) {
         midView.codeButton.hidden=YES;
 
@@ -446,17 +458,35 @@
         }];
         changePhoneButton.titleLabel.numberOfLines=0;
     }
+     */
+    @weakify(self)
+    [midView.codeButton bk_whenTapped:^{
+        @strongify(self)
+        [self codeClicks];//连续点击获取验证码
+    }];
+//    NSString*change_phone=NSLocalizedString(@"change_phone", nil);
+//    UIButton *changePhoneButton = [UIButton buttonWithType:UIButtonTypeCustom];
+//    [changePhoneButton addTarget:self action:@selector(changePhoneAction) forControlEvents:UIControlEventTouchUpInside];
+//    [changePhoneButton setTitleColor:AppBaseTextColor3 forState:UIControlStateNormal];
+//    changePhoneButton.titleLabel.font = AppBaseTextFont1;
+//    [changePhoneButton setTitle:change_phone forState:UIControlStateNormal];
+//    [self.view addSubview:changePhoneButton];
+//    [changePhoneButton mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.bottom.mas_equalTo(self.view.mas_bottom).offset(-10);
+//        make.size.mas_equalTo(CGSizeMake(100, 40));
+//        make.centerX.mas_equalTo(self.view);
+//    }];
+//    changePhoneButton.titleLabel.numberOfLines=0;
     [midView.codeTextField setBk_didEndEditingBlock:^(UITextField *textField) {
         loginViewModel.messageCode =textField.text;
     }];
-    @weakify(self)
     [midView.loginButton bk_whenTapped:^{
         @strongify(self)
        [self checkDataIsEmpty];
 
     }];
     _loginMiddleView = midView;
-    CGFloat protocolSidePadding = RELATIVE_WIDTH_VALUE(30);
+    //CGFloat protocolSidePadding = RELATIVE_WIDTH_VALUE(30);
     self.protocolLabel = [YYLabel new];
     NSString*usageProtocol=NSLocalizedString(@"usageProtocol", nil);
     [self.protocolLabel setTextTapAction:^(UIView * _Nonnull containerView, NSAttributedString * _Nonnull text, NSRange range, CGRect rect) {
@@ -474,25 +504,24 @@
     }];
     [self.view addSubview:self.protocolLabel];
     [self.protocolLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(protocolSidePadding);
-        make.right.mas_equalTo(midView.mas_right);
-        make.top.mas_equalTo(midView.mas_bottom).offset(5);
+        make.centerX.mas_equalTo(self.view);
+        make.bottom.mas_equalTo(self.view.mas_bottom).offset(-10);
         make.height.mas_equalTo(30);
     }];
     [self updateProtocolText];
     
 
     
-    NSString*vistor_version=NSLocalizedString(@"vistor_version", nil);
+    
     UIButton *vistorButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [vistorButton addTarget:self action:@selector(actionforVistor) forControlEvents:UIControlEventTouchUpInside];
     [vistorButton setTitleColor:AppBaseTextColor3 forState:UIControlStateNormal];
     vistorButton.titleLabel.font = AppBaseTextFont3;
     vistorButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
-    [vistorButton setTitle:vistor_version forState:UIControlStateNormal];
+    [vistorButton setTitle:@"使用密码登录" forState:UIControlStateNormal];
     [self.view addSubview:vistorButton];
     [vistorButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(midView.mas_bottom).offset(40);
+        make.top.mas_equalTo(midView.mas_bottom).offset(10);
         make.size.mas_equalTo(CGSizeMake(180, 40));
         make.right.mas_equalTo(midView.mas_right);
     }];
