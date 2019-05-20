@@ -16,7 +16,6 @@
 @property (nonatomic, strong) UILabel *payWayLab; //支付方式
 @property (nonatomic, strong) UILabel *namelab;
 
-
 @end
 
 @implementation PSRemittancePayStateViewController
@@ -100,8 +99,8 @@
         make.height.mas_equalTo(20);
     }];
     
-    if (self.payWay !=payWayLegaladvice) {
-        
+    if (self.payWay==payWayRemittance) {
+    
         UILabel *k_nameLab = [UILabel new];
         NSString *k_nameLabText = NSLocalizedString(@"pemittance to prisoners", @"汇款至服刑人员");
         k_nameLab.text = k_nameLabText;

@@ -285,6 +285,7 @@
 
 - (void)p_showPayResult:(PayState)state PSPayInfo:(PSPayInfo *)info {
     PSRemittancePayStateViewController *payStateVC = [[PSRemittancePayStateViewController alloc] init];
+    payStateVC.payWay = payWayRemittance;
     @weakify(self)
     payStateVC.completeBlock = ^(PayState state) {
         @strongify(self);
