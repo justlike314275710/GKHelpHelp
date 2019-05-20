@@ -495,6 +495,8 @@
 		EA492484218303C100D94F1A /* PSMoreModel.m in Sources */ = {isa = PBXBuildFile; fileRef = EA49247A218303C100D94F1A /* PSMoreModel.m */; };
 		EA492485218303C100D94F1A /* MoreRoloCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EA49247D218303C100D94F1A /* MoreRoloCell.m */; };
 		EA492486218303C100D94F1A /* serciceIiem.m in Sources */ = {isa = PBXBuildFile; fileRef = EA49247E218303C100D94F1A /* serciceIiem.m */; };
+		EA67825822927B2700638C17 /* PSPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA67825722927B2700638C17 /* PSPasswordViewController.m */; };
+		EA67825B22927BA400638C17 /* PSPasswordViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = EA67825A22927BA400638C17 /* PSPasswordViewModel.m */; };
 		EA78E1C0215E233500BBEE58 /* VIRegisterProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = EA78E1BF215E233500BBEE58 /* VIRegisterProgressView.m */; };
 		EA78E1C3215F63B200BBEE58 /* VIAddFamilesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA78E1C2215F63B200BBEE58 /* VIAddFamilesViewController.m */; };
 		EA78E1E42175827500BBEE58 /* JXButton.m in Sources */ = {isa = PBXBuildFile; fileRef = EA78E1E22175827500BBEE58 /* JXButton.m */; };
@@ -1674,6 +1676,10 @@
 		EA49247E218303C100D94F1A /* serciceIiem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = serciceIiem.m; sourceTree = "<group>"; };
 		EA49247F218303C100D94F1A /* MoreRoloCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoreRoloCell.h; sourceTree = "<group>"; };
 		EA492480218303C100D94F1A /* serciceIiem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = serciceIiem.h; sourceTree = "<group>"; };
+		EA67825622927B2700638C17 /* PSPasswordViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PSPasswordViewController.h; sourceTree = "<group>"; };
+		EA67825722927B2700638C17 /* PSPasswordViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PSPasswordViewController.m; sourceTree = "<group>"; };
+		EA67825922927BA400638C17 /* PSPasswordViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PSPasswordViewModel.h; sourceTree = "<group>"; };
+		EA67825A22927BA400638C17 /* PSPasswordViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PSPasswordViewModel.m; sourceTree = "<group>"; };
 		EA78E1BE215E233500BBEE58 /* VIRegisterProgressView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VIRegisterProgressView.h; sourceTree = "<group>"; };
 		EA78E1BF215E233500BBEE58 /* VIRegisterProgressView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VIRegisterProgressView.m; sourceTree = "<group>"; };
 		EA78E1C1215F63B100BBEE58 /* VIAddFamilesViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VIAddFamilesViewController.h; sourceTree = "<group>"; };
@@ -3301,6 +3307,8 @@
 				55B1957E21D1D50B000E0B28 /* PSWriteFeedbackDetailViewController.m */,
 				55B1958021D21C80000E0B28 /* PSFWriteFeedSuccessViewController.h */,
 				55B1958121D21C80000E0B28 /* PSFWriteFeedSuccessViewController.m */,
+				EA67825622927B2700638C17 /* PSPasswordViewController.h */,
+				EA67825722927B2700638C17 /* PSPasswordViewController.m */,
 			);
 			path = Setting;
 			sourceTree = "<group>";
@@ -3381,6 +3389,8 @@
 				5542160E21C8D815003C0E4E /* PSSorageViewModel.m */,
 				555FF46821D3585700FF8D1D /* PSFeedbackListViewModel.h */,
 				555FF46921D3585700FF8D1D /* PSFeedbackListViewModel.m */,
+				EA67825922927BA400638C17 /* PSPasswordViewModel.h */,
+				EA67825A22927BA400638C17 /* PSPasswordViewModel.m */,
 			);
 			path = Setting;
 			sourceTree = "<group>";
@@ -5211,6 +5221,7 @@
 				55381CEE224084CB00CC3C66 /* PSWorkViewModel.m in Sources */,
 				EAD18F7020D255020053F82B /* PSchangePhoneNextViewController.m in Sources */,
 				55573F9B21BE64FB0053391C /* UIImage+Rename.m in Sources */,
+				EA67825B22927BA400638C17 /* PSPasswordViewModel.m in Sources */,
 				3E78B7452089CB76007DF162 /* PSMeetingsBaseRequest.m in Sources */,
 				EA87F589210851C900D7A1E4 /* PSPinmoneyViewModel.m in Sources */,
 				3EC7B6DB207C64C800DFBA65 /* PSPhoneMessageViewController.m in Sources */,
@@ -5499,6 +5510,7 @@
 				EADDC8B120BE8F580068D3AB /* PSPrisonerAcccountsResponse.m in Sources */,
 				3EC7B70A207DBA0B00DFBA65 /* PSUserCenterTopView.m in Sources */,
 				EAA0CA222188320500240724 /* TZImagePickerController.m in Sources */,
+				EA67825822927B2700638C17 /* PSPasswordViewController.m in Sources */,
 				EAFB4A7021523D2800CDFE11 /* PSFamilyFaceViewController.m in Sources */,
 				EA0D8D7421142FA00042A1BA /* PSMeetCancelResponse.m in Sources */,
 				3EC7B6C7207C46FC00DFBA65 /* PSRegisterViewModel.m in Sources */,

@@ -20,6 +20,8 @@
 #import "PSSorageViewModel.h"
 #import "PSWriteFeedbackListViewController.h"
 #import "PSFeedbackListViewModel.h"
+#import "PSPasswordViewController.h"
+#import "PSPasswordViewModel.h"
 @interface PSSettingViewController ()<UITableViewDataSource,UITableViewDelegate>
 
 @property (nonatomic, strong) UITableView *settingTableView;
@@ -73,6 +75,11 @@
         }
         break;
     }
+}
+
+-(void)passWordSave{
+    PSPasswordViewModel*viewModel=[[PSPasswordViewModel alloc]init];
+    [self.navigationController pushViewController:[[PSPasswordViewController alloc]initWithViewModel:viewModel] animated:YES];
 }
 
 - (void)refreshStorage {
@@ -263,11 +270,15 @@
     PSSettingItem *settingitem = settingViewModel.settingItems[indexPath.section][indexPath.row];
     NSString*feedback=NSLocalizedString(@"feedback", @"意见反馈");
     NSString*storage = NSLocalizedString(@"storage", @"存储空间");
+    NSString*passWord=@"重置密码";
     if ([settingitem.itemName isEqualToString:feedback]) {
         [self writeFeedback];
     }
     if ([settingitem.itemName isEqualToString:storage]) {
         [self insert_storage];
+    }
+    if ([settingitem.itemName isEqualToString:passWord]) {
+        [self passWordSave];
     }
 }
 

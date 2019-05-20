@@ -39,7 +39,7 @@
                              @"username":self.username,
                              @"password":self.password,
                              @"grant_type":@"password",
-                             @"mode":@"sms_verification_code"
+                             @"mode":self.loginMode
                              };
     NSMutableString *paraString = [NSMutableString string];
     for (NSString *key in [parmeters allKeys]) {
