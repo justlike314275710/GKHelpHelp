@@ -58,9 +58,9 @@
                 [self requestLocalMeeting];
             }
             else if (tag==2){
-                NSString*coming_soon=
-                NSLocalizedString(@"coming_soon", @"该监狱暂未开通此功能");
-                [PSTipsView showTips:coming_soon];
+                [self showPrisonLimits:@"电子商务" limitBlock:^{
+                    NSLog(@"Push电子商务");
+                }];
             }
             else if (tag==3){
                 [self psFamilyService];
@@ -148,28 +148,26 @@
              [self p_insertMoreServiceVC];
         }];
         [cell.FinanceButton bk_whenTapped:^{
-//            NSString*coming_soon=NSLocalizedString(@"coming_soon", @"该监狱暂未开通此功能");
-//            [PSTipsView showTips:coming_soon];
-//            return;
-            PSConsultationViewModel*viewModel=[[PSConsultationViewModel alloc]init];
-            PSConsultationViewController*consultationViewController
-            =[[PSConsultationViewController alloc]initWithViewModel:viewModel];
-            viewModel.category=@"财产纠纷";
-            consultationViewController.title=@"发布抢单";
-            [self.navigationController pushViewController:consultationViewController animated:YES];
+            [self showPrisonLimits:@"财产纠纷" limitBlock:^{
+                PSConsultationViewModel*viewModel=[[PSConsultationViewModel alloc]init];
+                PSConsultationViewController*consultationViewController
+                =[[PSConsultationViewController alloc]initWithViewModel:viewModel];
+                viewModel.category=@"财产纠纷";
+                consultationViewController.title=@"发布抢单";
+                [self.navigationController pushViewController:consultationViewController animated:YES];
+            }];
         }];
         [cell.MarriageButton bk_whenTapped:^{
             
-//            NSString*coming_soon=NSLocalizedString(@"coming_soon", @"该监狱暂未开通此功能");
-//            [PSTipsView showTips:coming_soon];
-//            return;
-            
-            PSConsultationViewModel*viewModel=[[PSConsultationViewModel alloc]init];
-            PSConsultationViewController*consultationViewController
-            =[[PSConsultationViewController alloc]initWithViewModel:viewModel];
-            viewModel.category=@"婚姻家庭";
-            consultationViewController.title=@"发布抢单";
-            [self.navigationController pushViewController:consultationViewController animated:YES];
+            [self showPrisonLimits:@"婚姻家庭" limitBlock:^{
+                PSConsultationViewModel*viewModel=[[PSConsultationViewModel alloc]init];
+                PSConsultationViewController*consultationViewController
+                =[[PSConsultationViewController alloc]initWithViewModel:viewModel];
+                viewModel.category=@"婚姻家庭";
+                consultationViewController.title=@"发布抢单";
+                [self.navigationController pushViewController:consultationViewController animated:YES];
+                
+            }];
         }];
         
         return cell;
@@ -192,11 +190,10 @@
 }
 //MARK:更多
 - (void)p_insertMoreServiceVC {
-//    NSString*coming_soon=NSLocalizedString(@"coming_soon", @"该监狱暂未开通此功能");
-//    [PSTipsView showTips:coming_soon];
-//    return;
-    PSMoreServiceViewController *PSMoreServiceVC = [[PSMoreServiceViewController alloc] initWithViewModel:[PSMoreServiceViewModel new]];
-    [self.navigationController pushViewController:PSMoreServiceVC animated:YES];
+    [self showPrisonLimits:@"更多" limitBlock:^{
+        PSMoreServiceViewController *PSMoreServiceVC = [[PSMoreServiceViewController alloc] initWithViewModel:[PSMoreServiceViewModel new]];
+        [self.navigationController pushViewController:PSMoreServiceVC animated:YES];
+    }];
 }
 
 - (BOOL)hiddenNavigationBar{

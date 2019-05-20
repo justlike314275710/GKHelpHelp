@@ -399,6 +399,8 @@
 		558EE5F92244AFC8000E40DA /* UIViewController+AlertViewAndActionSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = 558EE5F82244AFC8000E40DA /* UIViewController+AlertViewAndActionSheet.m */; };
 		55943DE421C9F483002F82B8 /* FeedloadImgView.m in Sources */ = {isa = PBXBuildFile; fileRef = 55943DE321C9F483002F82B8 /* FeedloadImgView.m */; };
 		55943DE721CA2E89002F82B8 /* FeedLoadItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 55943DE621CA2E89002F82B8 /* FeedLoadItemView.m */; };
+		55995211229257E200BA9FFA /* UIButton+LZCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 5599520F229257E100BA9FFA /* UIButton+LZCategory.m */; };
+		55995215229274EE00BA9FFA /* UIViewController+Author.m in Sources */ = {isa = PBXBuildFile; fileRef = 55995214229274EE00BA9FFA /* UIViewController+Author.m */; };
 		55A653132248B33200A6EA52 /* 20181218115255.wav in Resources */ = {isa = PBXBuildFile; fileRef = 55A653122248B33200A6EA52 /* 20181218115255.wav */; };
 		55A653152248B64900A6EA52 /* cnwav.aac.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 55A653142248B64900A6EA52 /* cnwav.aac.mp3 */; };
 		55B1957C21D1BFC2000E0B28 /* PSPhotoBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = 55B1957B21D1BFC2000E0B28 /* PSPhotoBrowser.m */; };
@@ -1488,6 +1490,11 @@
 		55943DE321C9F483002F82B8 /* FeedloadImgView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FeedloadImgView.m; sourceTree = "<group>"; };
 		55943DE521CA2E89002F82B8 /* FeedLoadItemView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FeedLoadItemView.h; sourceTree = "<group>"; };
 		55943DE621CA2E89002F82B8 /* FeedLoadItemView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FeedLoadItemView.m; sourceTree = "<group>"; };
+		5599520F229257E100BA9FFA /* UIButton+LZCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+LZCategory.m"; sourceTree = "<group>"; };
+		55995210229257E200BA9FFA /* UIButton+LZCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+LZCategory.h"; sourceTree = "<group>"; };
+		55995213229274EE00BA9FFA /* UIViewController+Author.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIViewController+Author.h"; sourceTree = "<group>"; };
+		55995214229274EE00BA9FFA /* UIViewController+Author.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+Author.m"; sourceTree = "<group>"; };
+		559952162292788100BA9FFA /* Authorization.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Authorization.h; sourceTree = "<group>"; };
 		55A653122248B33200A6EA52 /* 20181218115255.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = 20181218115255.wav; sourceTree = "<group>"; };
 		55A653142248B64900A6EA52 /* cnwav.aac.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = cnwav.aac.mp3; sourceTree = "<group>"; };
 		55B1957A21D1BFC2000E0B28 /* PSPhotoBrowser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PSPhotoBrowser.h; sourceTree = "<group>"; };
@@ -2289,7 +2296,6 @@
 				3E5D14752071C93D000FC779 /* Assets.xcassets */,
 				3E5D15B620738192000FC779 /* Media.xcassets */,
 				3E5D147A2071C93D000FC779 /* Info.plist */,
-				55D900C1228E586800E54FE1 /* Jurisdiction.plist */,
 				EA0D8D6C211299360042A1BA /* Localizable.strings */,
 				EA0D8D5721119E320042A1BA /* infoPlist.strings */,
 				3E5D14AB20720FD7000FC779 /* PSPrefixHeader.pch */,
@@ -2354,6 +2360,8 @@
 		3E5D14BA20721E71000FC779 /* Category */ = {
 			isa = PBXGroup;
 			children = (
+				55995210229257E200BA9FFA /* UIButton+LZCategory.h */,
+				5599520F229257E100BA9FFA /* UIButton+LZCategory.m */,
 				EAEDA859228E5B73004AF16C /* UIColor+HexString.h */,
 				EAEDA858228E5B73004AF16C /* UIColor+HexString.m */,
 				EA3E1E2B221B97BC00D0F1B1 /* UIImage+WLCompress.h */,
@@ -3505,8 +3513,12 @@
 		3EDF0D88208722D4002D98BD /* AhthorizationTool */ = {
 			isa = PBXGroup;
 			children = (
+				55D900C1228E586800E54FE1 /* Jurisdiction.plist */,
+				559952162292788100BA9FFA /* Authorization.h */,
 				55381CFF2240903B00CC3C66 /* PSAuthorizationTool.h */,
 				55381D002240903E00CC3C66 /* PSAuthorizationTool.m */,
+				55995213229274EE00BA9FFA /* UIViewController+Author.h */,
+				55995214229274EE00BA9FFA /* UIViewController+Author.m */,
 			);
 			path = AhthorizationTool;
 			sourceTree = "<group>";
@@ -5654,6 +5666,7 @@
 				EAD18F6720D200CA0053F82B /* PSVistorHomeViewController.m in Sources */,
 				3ED2BC6B20AD74E200359EF4 /* PSLocalMeeting.m in Sources */,
 				EAA0CA232188320500240724 /* TZGifPhotoPreviewController.m in Sources */,
+				55995215229274EE00BA9FFA /* UIViewController+Author.m in Sources */,
 				55381CE7224083E800CC3C66 /* WWWaveProgressView.m in Sources */,
 				3EEEC6672094171A003B35B3 /* PSWhiteListResponse.m in Sources */,
 				3E5D15BE20746B8F000FC779 /* PSVisitorViewController.m in Sources */,
@@ -5698,6 +5711,7 @@
 				3EDF0DA020882830002D98BD /* PSUploadBaseRequest.m in Sources */,
 				3EC7B6E6207CA29B00DFBA65 /* PSImagePickerController.m in Sources */,
 				EAA0CA652188321000240724 /* MWTapDetectingImageView.m in Sources */,
+				55995211229257E200BA9FFA /* UIButton+LZCategory.m in Sources */,
 				3EC7B6D2207C647B00DFBA65 /* PSPersonalViewController.m in Sources */,
 				3EDF0DCB20889AA4002D98BD /* PSUserSession.m in Sources */,
 				EA4285F82119861400418685 /* VIRegisterViewController.m in Sources */,

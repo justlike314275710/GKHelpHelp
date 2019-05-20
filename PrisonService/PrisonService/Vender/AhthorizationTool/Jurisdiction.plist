@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>PSHomePageViewController</key>
+	<dict>
+		<key>互动平台</key>
+		<string>0</string>
+		<key>电子商务</key>
+		<string>0</string>
+	</dict>
+	<key>PSServiceCentreViewController</key>
+	<dict>
+		<key>电子商务</key>
+		<string>0</string>
+		<key>财产纠纷</key>
+		<string>0</string>
+		<key>婚姻家庭</key>
+		<string>0</string>
+		<key>更多</key>
+		<string>0</string>
+	</dict>
+	<key>PSMeViewController</key>
+	<dict>
+		<key>家属汇款</key>
+		<string>0</string>
+		<key>我的咨询</key>
+		<string>0</string>
+	</dict>
+	<key>PSUniversaLawViewController</key>
+	<dict>
+		<key>法律服务</key>
+		<string>0</string>
+	</dict>
+</dict>
+</plist>

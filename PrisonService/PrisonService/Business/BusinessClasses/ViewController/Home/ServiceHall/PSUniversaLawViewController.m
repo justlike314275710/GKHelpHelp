@@ -48,8 +48,9 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.row == 0) {
-        NSString*coming_soon=NSLocalizedString(@"coming_soon", @"该监狱暂未开通此功能");
-        [PSTipsView showTips:coming_soon];
+        [self showPrisonLimits:@"法律服务" limitBlock:^{
+            
+        }];
     } else {
         PSLawViewController *lawViewController = [[PSLawViewController alloc] init];
         [self.navigationController pushViewController:lawViewController animated:YES];
