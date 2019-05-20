@@ -42,6 +42,7 @@
 "account_error"="账号密码不匹配";
 "code_error"="验证码错误";
 "account_code_error"="手机号码或验证码错误";
+"user.PasswordNotMatched"="手机号码或验证码错误";
 ////图片
 "sessionPrisonText"="sessionPrisonText";
 "serviceHallAdvDefault"="serviceHallAdvDefault";

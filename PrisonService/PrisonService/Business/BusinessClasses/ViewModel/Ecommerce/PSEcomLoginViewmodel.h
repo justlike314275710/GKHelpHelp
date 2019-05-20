@@ -12,6 +12,7 @@
 @property (nonatomic, strong) NSString*username;
 @property (nonatomic, strong) NSString*password;
 @property (nonatomic, strong) NSString*grant_type;
+@property (nonatomic , strong) NSString *loginMode;
 @property (nonatomic, assign) NSInteger statusCode;
 @property (nonatomic , strong) NSString *token;
 @property (nonatomic , strong) NSString *refresh_token;

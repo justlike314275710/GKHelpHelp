@@ -39,11 +39,17 @@
 #import "PSAuthenticationMainViewController.h"
 #import "PSContentManager.h"
 #import "NSObject+version.h"
+typedef NS_ENUM(NSInteger, PSLoginModeType) {
+    PSLoginModeCode,
+    PSLoginModePassword,
+};
 @interface PSLoginViewController ()<PSCountdownObserver,UIAlertViewDelegate>
-
+@property (nonatomic ,assign) PSLoginModeType loginModeType;
+@property (nonatomic ,strong) NSString *mode;
 @property (nonatomic, strong) PSLoginMiddleView *loginMiddleView;
+@property (nonatomic , strong) UIButton *loginTypeButton ;
 @property (nonatomic, assign) NSInteger seconds;
-@property (nonatomic, strong)  NSMutableArray*titles;
+@property (nonatomic, strong) NSMutableArray*titles;
 @property (nonatomic ,strong) NSMutableArray *token;
 @property (nonatomic ,strong) NSString *language ;
 @property (nonatomic ,assign) NSInteger RefreshCode;
@@ -57,6 +63,8 @@
     self = [super initWithViewModel:viewModel];
     if (self) {
         [[PSCountdownManager sharedInstance] addObserver:self];
+        self.loginModeType=PSLoginModeCode;
+        self.mode=@"sms_verification_code";
     }
     return self;
 }
@@ -138,7 +146,13 @@
                 [self EcommerceOfVietnamRegister];
             }
             else{
-            [self EcommerceOfRegister];
+                if (self.loginModeType==PSLoginModePassword) {
+                     [self EcommerceOfLogin];
+                }
+                if (self.loginModeType==PSLoginModeCode){
+                     [self EcommerceOfRegister];
+                }
+           
             }
         }else{
             [PSTipsView showTips:tips];
@@ -196,7 +210,7 @@
         }
     }];
 }
-
+//越南版注册
 -(void)EcommerceOfVietnamRegister{
     
     PSEcomRegisterViewmodel*ecomRegisterViewmodel=[[PSEcomRegisterViewmodel alloc]init];
@@ -255,6 +269,7 @@
     PSEcomLoginViewmodel*ecomViewmodel=[[PSEcomLoginViewmodel alloc]init];
     ecomViewmodel.username=self.loginMiddleView.phoneTextField.text;
     ecomViewmodel.password=self.loginMiddleView.codeTextField.text;
+    ecomViewmodel.loginMode=self.mode;
     @weakify(ecomViewmodel)
     @weakify(self)
     [ecomViewmodel postEcomLogin:^(PSResponse *response) {
@@ -276,20 +291,8 @@
     } failed:^(NSError *error) {
         NSData *data = error.userInfo[AFNetworkingOperationFailingURLResponseDataErrorKey];
         id body = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
-        NSString*msg =NSLocalizedString(@"account_code_error", nil);
-        NSString*code=body[@"code"];
-        if ([code isEqualToString:@"user.NotFound"]) {
-            msg = @"账号不存在";
-        } else if ([code isEqualToString:@"user.GroupNotMatched"]) {
-            msg = @"账号不属于该群组";
-        }  else if ([code isEqualToString:@"user.Disabled"]) {
-            msg = @"账号已禁用";
-        }  else if ([code isEqualToString:@"user.SmsVerificationCodeNotMatched"]) {
-            msg = @"短信验证码错误";
-        }  else if ([code isEqualToString:@"user.GroupNotMatched"]) {
-            msg = @"密码错误";
-        }
-        [PSTipsView showTips:msg];
+        NSString*code=body[@"message"];
+        [PSTipsView showTips:code];
     }];
 
 }
@@ -356,6 +359,27 @@
 }
 
 
+/**
+ 登录方式变化
+ */
+-(void)loginTypeChange{
+    if (self.loginModeType==PSLoginModePassword) {
+        self.loginModeType=PSLoginModeCode;
+        self.mode=@"sms_verification_code";
+        self.loginMiddleView.codeButton.hidden=NO;
+        self.loginMiddleView.codeTextField.placeholder=@"请输入验证码";
+        [self.loginTypeButton setTitle:@"使用密码登录" forState:0];
+    }
+     if (self.loginModeType==PSLoginModeCode){
+         self.loginModeType=PSLoginModePassword;
+         self.mode=@"account_password";
+         self.loginMiddleView.codeButton.hidden=YES;
+         self.loginMiddleView.codeTextField.placeholder=@"请输入密码";
+         [self.loginTypeButton setTitle:@"使用验证码登录" forState:0];
+    }
+   
+}
+
 -(void)changePhoneAction{
      PSLoginViewModel *loginViewModel = (PSLoginViewModel *)self.viewModel;
     [self.navigationController pushViewController:[[PSchangPhoneViewController alloc]initWithViewModel:loginViewModel] animated:YES];
@@ -386,9 +410,9 @@
     [protocolText appendAttributedString:[[NSAttributedString  alloc] initWithString: usageProtocol attributes:@{NSFontAttributeName:textFont,NSForegroundColorAttributeName:AppBaseTextColor3}]];
     [protocolText appendAttributedString:[[NSAttributedString  alloc] initWithString:@" " attributes:@{NSFontAttributeName:textFont,NSForegroundColorAttributeName:AppBaseTextColor3}]];
     PSLoginViewModel *loginViewModel =(PSLoginViewModel *)self.viewModel;
-    UIImage *statusImage = loginViewModel.agreeProtocol ? [UIImage imageNamed:@"sessionProtocolSelected"] : [UIImage imageNamed:@"sessionProtocolNormal"];
-    [protocolText appendAttributedString:[NSAttributedString yy_attachmentStringWithContent:statusImage contentMode:UIViewContentModeCenter attachmentSize:statusImage.size alignToFont:textFont alignment:YYTextVerticalAlignmentCenter]];
-    protocolText.yy_alignment = NSTextAlignmentLeft ;
+     UIImage *statusImage = loginViewModel.agreeProtocol ? [UIImage imageNamed:@"抢单已勾选"] : [UIImage imageNamed:@"未选"];
+    [protocolText insertAttributedString:[NSAttributedString yy_attachmentStringWithContent:statusImage contentMode:UIViewContentModeCenter attachmentSize:statusImage.size alignToFont:textFont alignment:YYTextVerticalAlignmentCenter] atIndex:0];
+    protocolText.yy_alignment = NSTextAlignmentRight ;
     self.protocolLabel.attributedText = protocolText;
     self.protocolLabel.numberOfLines=0;
 }
@@ -405,22 +429,23 @@
     PSLoginViewModel *loginViewModel = (PSLoginViewModel *)self.viewModel;
     PSEcomRegisterViewmodel*registViewModel=[[PSEcomRegisterViewmodel alloc]init];
 
-    PSLoginMiddleView *midView = [PSLoginMiddleView new];
-    [self.view addSubview:midView];
-    [midView mas_makeConstraints:^(MASConstraintMaker *make) {
+    self.loginMiddleView = [PSLoginMiddleView new];
+    [self.view addSubview:self.loginMiddleView];
+    [self.loginMiddleView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(20);
         make.right.mas_equalTo(-20);
         make.height.mas_equalTo(160);
         make.centerY.mas_equalTo(self.view).offset(50);
     }];
     
-    loginViewModel.phoneNumber = midView.phoneTextField.text;
-    registViewModel.phoneNumber = midView.phoneTextField.text;
-    [midView.phoneTextField setBk_didEndEditingBlock:^(UITextField *textField) {
+    loginViewModel.phoneNumber = self.loginMiddleView.phoneTextField.text;
+    registViewModel.phoneNumber = self.loginMiddleView.phoneTextField.text;
+    [self.loginMiddleView.phoneTextField setBk_didEndEditingBlock:^(UITextField *textField) {
         loginViewModel.phoneNumber = textField.text;
         registViewModel.phoneNumber=textField.text;
 
     }];
+    /*
     if ([_language isEqualToString:@"vi-US"]||[_language isEqualToString:@"vi-VN"]||[_language isEqualToString:@"vi-CN"]) {
         midView.codeButton.hidden=YES;
 
@@ -446,17 +471,37 @@
         }];
         changePhoneButton.titleLabel.numberOfLines=0;
     }
-    [midView.codeTextField setBk_didEndEditingBlock:^(UITextField *textField) {
+     */
+    @weakify(self)
+    [self.loginMiddleView.codeButton bk_whenTapped:^{
+        @strongify(self)
+        [self codeClicks];//连续点击获取验证码
+    }];
+    #warning TODO 2.1.24除去更换手机号码
+    /*
+    NSString*change_phone=NSLocalizedString(@"change_phone", nil);
+    UIButton *changePhoneButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [changePhoneButton addTarget:self action:@selector(changePhoneAction) forControlEvents:UIControlEventTouchUpInside];
+    [changePhoneButton setTitleColor:AppBaseTextColor3 forState:UIControlStateNormal];
+    changePhoneButton.titleLabel.font = AppBaseTextFont1;
+    [changePhoneButton setTitle:change_phone forState:UIControlStateNormal];
+    [self.view addSubview:changePhoneButton];
+    [changePhoneButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.bottom.mas_equalTo(self.view.mas_bottom).offset(-10);
+        make.size.mas_equalTo(CGSizeMake(100, 40));
+        make.centerX.mas_equalTo(self.view);
+    }];
+    changePhoneButton.titleLabel.numberOfLines=0;
+    */
+    [self.loginMiddleView.codeTextField setBk_didEndEditingBlock:^(UITextField *textField) {
         loginViewModel.messageCode =textField.text;
     }];
-    @weakify(self)
-    [midView.loginButton bk_whenTapped:^{
+    [self.loginMiddleView.loginButton bk_whenTapped:^{
         @strongify(self)
        [self checkDataIsEmpty];
 
     }];
-    _loginMiddleView = midView;
-    CGFloat protocolSidePadding = RELATIVE_WIDTH_VALUE(30);
+   // _loginMiddleView = midView;
     self.protocolLabel = [YYLabel new];
     NSString*usageProtocol=NSLocalizedString(@"usageProtocol", nil);
     [self.protocolLabel setTextTapAction:^(UIView * _Nonnull containerView, NSAttributedString * _Nonnull text, NSRange range, CGRect rect) {
@@ -470,37 +515,34 @@
                 [self updateProtocolStatus];
             }
         }
-        // [self openProtocol];
     }];
     [self.view addSubview:self.protocolLabel];
     [self.protocolLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(protocolSidePadding);
-        make.right.mas_equalTo(midView.mas_right);
-        make.top.mas_equalTo(midView.mas_bottom).offset(5);
-        make.height.mas_equalTo(30);
+        make.centerX.mas_equalTo(self.view);
+        make.bottom.mas_equalTo(self.view.mas_bottom).offset(-15);
+         make.size.mas_equalTo(CGSizeMake(250, 30));
     }];
     [self updateProtocolText];
     
 
     
-    NSString*vistor_version=NSLocalizedString(@"vistor_version", nil);
-    UIButton *vistorButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [vistorButton addTarget:self action:@selector(actionforVistor) forControlEvents:UIControlEventTouchUpInside];
-    [vistorButton setTitleColor:AppBaseTextColor3 forState:UIControlStateNormal];
-    vistorButton.titleLabel.font = AppBaseTextFont3;
-    vistorButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
-    [vistorButton setTitle:vistor_version forState:UIControlStateNormal];
-    [self.view addSubview:vistorButton];
-    [vistorButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(midView.mas_bottom).offset(40);
+    self.loginTypeButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [self.loginTypeButton addTarget:self action:@selector(loginTypeChange) forControlEvents:UIControlEventTouchUpInside];
+    [self.loginTypeButton setTitleColor:AppBaseTextColor3 forState:UIControlStateNormal];
+    self.loginTypeButton.titleLabel.font = AppBaseTextFont3;
+    self.loginTypeButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
+    [self.loginTypeButton setTitle:@"使用密码登录" forState:UIControlStateNormal];
+    [self.view addSubview:self.loginTypeButton];
+    [self.loginTypeButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(self.loginMiddleView.mas_bottom).offset(10);
         make.size.mas_equalTo(CGSizeMake(180, 40));
-        make.right.mas_equalTo(midView.mas_right);
+        make.right.mas_equalTo(self.loginMiddleView.mas_right);
     }];
     PSLoginTopView *topView = [PSLoginTopView new];
     [self.view addSubview:topView];
     [topView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.mas_equalTo(0);
-        make.bottom.mas_equalTo(midView.mas_top).offset(-RELATIVE_HEIGHT_VALUE(60));
+        make.bottom.mas_equalTo(self.loginMiddleView.mas_top).offset(-RELATIVE_HEIGHT_VALUE(60));
         make.height.mas_equalTo(86);
     }];
 }
