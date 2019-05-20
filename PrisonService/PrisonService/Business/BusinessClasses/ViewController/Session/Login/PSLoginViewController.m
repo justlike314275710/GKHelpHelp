@@ -370,13 +370,16 @@ typedef NS_ENUM(NSInteger, PSLoginModeType) {
         self.loginMiddleView.codeTextField.placeholder=@"请输入验证码";
         [self.loginTypeButton setTitle:@"使用密码登录" forState:0];
     }
-     if (self.loginModeType==PSLoginModeCode){
+   else if (self.loginModeType==PSLoginModeCode){
          self.loginModeType=PSLoginModePassword;
          self.mode=@"account_password";
          self.loginMiddleView.codeButton.hidden=YES;
          self.loginMiddleView.codeTextField.placeholder=@"请输入密码";
          [self.loginTypeButton setTitle:@"使用验证码登录" forState:0];
     }
+   else{
+       
+   }
    
 }
 
