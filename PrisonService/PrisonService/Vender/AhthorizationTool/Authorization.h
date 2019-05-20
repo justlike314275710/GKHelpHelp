@@ -9,5 +9,8 @@
 #ifndef Authorization_h
 #define Authorization_h
 
+/*------------------权限事件ID----------------*/
+#define YUWUTONG_AUTH           @"yuwutong_auth"            //公共平台
+
 
 #endif /* Authorization_h */
