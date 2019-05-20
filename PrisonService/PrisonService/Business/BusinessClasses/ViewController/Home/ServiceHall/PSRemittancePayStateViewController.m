@@ -16,7 +16,6 @@
 @property (nonatomic, strong) UILabel *payWayLab; //支付方式
 @property (nonatomic, strong) UILabel *namelab;
 
-
 @end
 
 @implementation PSRemittancePayStateViewController
