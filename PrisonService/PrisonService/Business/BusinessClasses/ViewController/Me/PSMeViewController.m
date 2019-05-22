@@ -327,6 +327,7 @@
         [headerView addSubview:nameLable];
         
         UILabel*phoneLable=[[UILabel alloc]initWithFrame:CGRectMake(105, 60, 180, 40)];
+        phoneLable.text = [LXFileManager readUserDataForKey:@"phoneNumber"];
         if (phoneLable.text.length>10) {
             phoneLable.text = [phoneLable.text stringByReplacingCharactersInRange:NSMakeRange(3, 4) withString:@"****"];
         }
