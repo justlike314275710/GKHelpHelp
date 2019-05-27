@@ -70,7 +70,6 @@
 
      [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"dot"];
     self.dotLable.hidden=YES;
-    
 }
 
 - (void)requestLocalMeeting {
@@ -90,6 +89,7 @@
         [self showNetError:error];
     }];
 }
+
 - (void)selectHallFunctionAtIndex:(NSInteger)index {
     NSString*prison_introduction=NSLocalizedString(@"prison_introduction", nil);
     NSString*prison_opening=NSLocalizedString(@"prison_opening", nil);
@@ -103,7 +103,6 @@
     PSHomeViewModel *homeViewModel = (PSHomeViewModel *)self.viewModel;
     if (index >= 0 && index < homeViewModel.functions.count) {
         PSHallFunction *function = homeViewModel.functions[index];
-        
         if ([function.itemName isEqualToString:@"语音盒子"]) {
             [PSTipsView showTips:@"该监狱暂未开通此功能"];
         }else if ([function.itemName isEqualToString:local_meetting]) {
