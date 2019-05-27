@@ -16,4 +16,5 @@ typedef NS_ENUM(NSInteger,LZCategoryType) {
 
 - (void)setbuttonType:(LZCategoryType)type;
 - (void)setbuttonType:(LZCategoryType)type spaceHeght:(int)spaceHeght;
+-(void)lz_initButton:(UIButton*)btn;
 @end

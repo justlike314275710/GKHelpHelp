@@ -529,8 +529,9 @@
             [itemBtn setTitle:titles[i] forState:UIControlStateNormal];
             [itemBtn setTitleColor:UIColorFromRGB(51,51,51) forState:UIControlStateNormal];
             itemBtn.titleLabel.font = FontOfSize(12);
-            [itemBtn setbuttonType:LZCategoryTypeBottom];
+//            [itemBtn setbuttonType:LZCategoryTypeBottom];
             itemBtn.tag = 10088+i;
+            [itemBtn lz_initButton:itemBtn];
             [itemBtn bk_whenTapped:^{
                 if ([PSSessionManager sharedInstance].loginStatus==PSLoginPassed) {
                     NSInteger tag = itemBtn.tag-10088;
@@ -572,6 +573,8 @@
     }
     return _itemView;
 }
+
+
 //MARK:更多服务
 - (UIView *)moreServicesView {
     if (!_moreServicesView) {

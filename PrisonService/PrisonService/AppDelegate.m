@@ -111,7 +111,7 @@
     } else if (UAT){
         label.text = @"测试环境";
     } else if (PRODUCE){
-        label.text = @"生产环境";
+//        label.text = @"生产环境";
     }
     [window addSubview:label];
 }
