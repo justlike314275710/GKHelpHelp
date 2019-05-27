@@ -183,21 +183,12 @@
         
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         [[PSLoadingView sharedInstance]dismiss];
-        NSLog(@"%@",error);
         NSData *data = error.userInfo[AFNetworkingOperationFailingURLResponseDataErrorKey];
         id body = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
-        NSString*code=body[@"code"];
-        if ([code isEqualToString:@"user.Existed"]) {
-            [PSTipsView showTips:@"用户已存在"];
-        }
-        else if ([code isEqualToString:@"user.password.NotMatched"]){
-            [PSTipsView showTips:@"账号密码不匹配"];
-        }
-        else if ([code isEqualToString:@"sms.verification-code.NotMatched"]){
-            [PSTipsView showTips:@"验证码错误"];
-
-        }
-        else {
+        NSString*message = body[@"message"];
+        if (message) {
+            [PSTipsView showTips:message];
+        } else {
             [self showNetError:error];
         }
     }];
