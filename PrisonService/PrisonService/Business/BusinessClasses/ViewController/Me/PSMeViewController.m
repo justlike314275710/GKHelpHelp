@@ -178,9 +178,9 @@
         
     }
     else if ([itemModel.funcName isEqualToString:my_advice]){
-//        NSString*coming_soon=NSLocalizedString(@"coming_soon", @"该监狱暂未开通此功能");
-//        [PSTipsView showTips:coming_soon];
-//        return;
+        NSString*coming_soon=NSLocalizedString(@"coming_soon", @"该监狱暂未开通此功能");
+        [PSTipsView showTips:coming_soon];
+        return;
         [self.navigationController pushViewController:[[MyConsultationViewController alloc] initWithViewModel:[[PSConsultationViewModel alloc] init]] animated:YES];
         
     }
@@ -327,11 +327,6 @@
         [headerView addSubview:nameLable];
         
         UILabel*phoneLable=[[UILabel alloc]initWithFrame:CGRectMake(105, 60, 180, 40)];
-        phoneLable.text = [LXFileManager readUserDataForKey:@"phoneNumber"];
-        if (phoneLable.text.length>10) {
-            phoneLable.text = [phoneLable.text stringByReplacingCharactersInRange:NSMakeRange(3, 4) withString:@"****"];
-        }
-        
         [phoneLable setTextColor:[UIColor whiteColor]];
         [phoneLable setFont:FontOfSize(14)];
         [headerView addSubview:phoneLable];
@@ -367,6 +362,10 @@
             [AuthenticaBtn bk_whenTapped:^{
                 [self.navigationController pushViewController:[[PSAccountViewController alloc] initWithViewModel:[[PSAccountViewModel alloc] init]] animated:YES];
             }];
+            phoneLable.text = [LXFileManager readUserDataForKey:@"phoneNumber"];
+            if (phoneLable.text.length>10) {
+                phoneLable.text = [phoneLable.text stringByReplacingCharactersInRange:NSMakeRange(3, 4) withString:@"****"];
+            }
         } else {
             iconImage.image = [UIImage imageNamed:@"未认证icon"];
             authLab.text = session_NONE;

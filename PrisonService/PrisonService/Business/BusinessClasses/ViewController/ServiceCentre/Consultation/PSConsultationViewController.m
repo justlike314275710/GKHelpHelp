@@ -204,8 +204,8 @@
                     [self.payView dismissAnimated:YES];
                 }
             } else {
-                [self p_showPayResult:payFailure PSPayInfo:payinfo];
-                [self.payView dismissAnimated:YES];
+//                [self p_showPayResult:payFailure PSPayInfo:payinfo];
+//                [self.payView dismissAnimated:YES];
             }
         }else{
             self.payView.status = PSPaySuccessful;
