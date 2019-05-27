@@ -102,6 +102,7 @@
 
 #pragma mark - 显示debug下程序运行环境
 -(void)showURL{
+    /*
     UIWindow *window = [UIApplication sharedApplication].keyWindow;
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(KScreenWidth-100,0,50,20)];
     label.font = FontOfSize(10);
@@ -114,6 +115,7 @@
 //        label.text = @"生产环境";
     }
     [window addSubview:label];
+     */
 }
 
 - (BOOL)handleURL:(NSURL *)url {
