@@ -35,7 +35,7 @@
     UILabel *titleLabel = [UILabel new];
     titleLabel.font = FontOfSize(14);
     titleLabel.textColor = UIColorFromHexadecimalRGB(0x3333333);
-    NSString*family_appointment=NSLocalizedString(@"family_appointment", @"亲情预约");
+    NSString*family_appointment=NSLocalizedString(@"family_appointment", @"远程探视预约");
     titleLabel.text = family_appointment;
     [self addSubview:titleLabel];
     [titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {

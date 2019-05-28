@@ -377,6 +377,7 @@
 		555FF47021D359BC00FF8D1D /* PSFeedbackListResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 555FF46F21D359BC00FF8D1D /* PSFeedbackListResponse.m */; };
 		555FF47321D3708A00FF8D1D /* PSFeedbackDetailRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 555FF47221D3708A00FF8D1D /* PSFeedbackDetailRequest.m */; };
 		555FF47621D370AD00FF8D1D /* PSFeedbackDetailResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 555FF47521D370AD00FF8D1D /* PSFeedbackDetailResponse.m */; };
+		5571198E229BD6CE00519C90 /* PSAppointmentProcessView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5571198D229BD6CE00519C90 /* PSAppointmentProcessView.m */; };
 		5573E08B21E83ECC00AFE04D /* NSObjectSafe.m in Sources */ = {isa = PBXBuildFile; fileRef = 5573E08921E83ECC00AFE04D /* NSObjectSafe.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		557859BA218994140080437D /* RemittanceRecode.m in Sources */ = {isa = PBXBuildFile; fileRef = 557859B9218994140080437D /* RemittanceRecode.m */; };
 		557859BD2189A3D80080437D /* PSRemittanceBusinessRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 557859BC2189A3D80080437D /* PSRemittanceBusinessRequest.m */; };
@@ -1445,6 +1446,8 @@
 		555FF47221D3708A00FF8D1D /* PSFeedbackDetailRequest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PSFeedbackDetailRequest.m; sourceTree = "<group>"; };
 		555FF47421D370AD00FF8D1D /* PSFeedbackDetailResponse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PSFeedbackDetailResponse.h; sourceTree = "<group>"; };
 		555FF47521D370AD00FF8D1D /* PSFeedbackDetailResponse.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PSFeedbackDetailResponse.m; sourceTree = "<group>"; };
+		5571198C229BD6CE00519C90 /* PSAppointmentProcessView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PSAppointmentProcessView.h; sourceTree = "<group>"; };
+		5571198D229BD6CE00519C90 /* PSAppointmentProcessView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PSAppointmentProcessView.m; sourceTree = "<group>"; };
 		5573E08921E83ECC00AFE04D /* NSObjectSafe.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSObjectSafe.m; sourceTree = "<group>"; };
 		5573E08A21E83ECC00AFE04D /* NSObjectSafe.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSObjectSafe.h; sourceTree = "<group>"; };
 		557859B8218994140080437D /* RemittanceRecode.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RemittanceRecode.h; sourceTree = "<group>"; };
@@ -3921,6 +3924,8 @@
 				3E78B7AB208DBC89007DF162 /* PSPaymentBlock.h */,
 				EA4285F22119333E00418685 /* PSInstructionsDataView.h */,
 				EA4285F32119333E00418685 /* PSInstructionsDataView.m */,
+				5571198C229BD6CE00519C90 /* PSAppointmentProcessView.h */,
+				5571198D229BD6CE00519C90 /* PSAppointmentProcessView.m */,
 			);
 			path = Appointment;
 			sourceTree = "<group>";
@@ -5328,6 +5333,7 @@
 				554C007A21D4B0ED00E6C6D2 /* NSString+emoji.m in Sources */,
 				EA78E20121772AB100BBEE58 /* PSSettingCell.m in Sources */,
 				3E5D16012074D3CA000FC779 /* UIView+ FrameChange.m in Sources */,
+				5571198E229BD6CE00519C90 /* PSAppointmentProcessView.m in Sources */,
 				EAA0CA932188490000240724 /* PSUploadConsultaionRequest.m in Sources */,
 				558EE5F92244AFC8000E40DA /* UIViewController+AlertViewAndActionSheet.m in Sources */,
 				3E171ABE209300F400B7D807 /* PSBaseMailBoxRequest.m in Sources */,
