@@ -50,17 +50,6 @@
         NSString *controller = notification.userInfo[@"controller"];
         NSString *string = [NSString stringWithFormat:@"%@",notification.userInfo];
         }
-    
-        //显示环境
-//    #ifdef DEBUG
-//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-//        [self showURL];
-//    });
-//    #else
-//
-//    #endif
-
-    
     return YES;
 }
 
@@ -99,25 +88,6 @@
     [self registerAPNs];
     
 }
-
-#pragma mark - 显示debug下程序运行环境
--(void)showURL{
-    /*
-    UIWindow *window = [UIApplication sharedApplication].keyWindow;
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(KScreenWidth-100,0,50,20)];
-    label.font = FontOfSize(10);
-    label.textColor = [UIColor redColor];
-    if (DEVELOP) {
-        label.text = @"开发环境";
-    } else if (UAT){
-        label.text = @"测试环境";
-    } else if (PRODUCE){
-//        label.text = @"生产环境";
-    }
-    [window addSubview:label];
-     */
-}
-
 - (BOOL)handleURL:(NSURL *)url {
     if ([url.host isEqualToString:@"safepay"]) {
         //跳转支付宝钱包进行支付，处理支付结果
