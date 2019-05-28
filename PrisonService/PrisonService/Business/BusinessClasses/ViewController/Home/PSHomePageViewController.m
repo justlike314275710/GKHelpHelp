@@ -524,9 +524,11 @@
 }
 #pragma mark ——————— 电子商务
 -(void)e_commerce {
-    NSString*coming_soon=
-    NSLocalizedString(@"coming_soon", @"该监狱暂未开通此功能");
-    [PSTipsView showTips:coming_soon];
+    PSCommerceViewController*webVC=[[PSCommerceViewController alloc]init];
+    [self.navigationController pushViewController:webVC animated:YES];
+//    NSString*coming_soon=
+//    NSLocalizedString(@"coming_soon", @"该监狱暂未开通此功能");
+//    [PSTipsView showTips:@"敬请期待"];
 }
 
 #pragma mark ——————— 家属服务
