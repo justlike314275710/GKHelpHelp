@@ -42,11 +42,14 @@
 }
 
 - (void)reverseGeocodeLocation:(CLLocation *)location {
+    _lat=[[NSNumber numberWithDouble:location.coordinate.latitude] stringValue] ;
+    _lng=[[NSNumber numberWithDouble:location.coordinate.longitude] stringValue] ;
     CLGeocoder *geocoder = [[CLGeocoder alloc] init];
     [geocoder reverseGeocodeLocation:location completionHandler:^(NSArray<CLPlacemark *> *_Nullable placemarks, NSError * _Nullable error) {
         for (CLPlacemark *place in placemarks) {
             if (place.administrativeArea.length > 0) {
                 _province = place.administrativeArea;
+                _city=place.locality;
                 [[NSUserDefaults standardUserDefaults] setObject:place.administrativeArea forKey:Locate_Province_Cache_key];
                 [[NSUserDefaults standardUserDefaults] synchronize];
                 //获取到地址重新刷新广告

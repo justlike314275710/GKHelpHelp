@@ -442,6 +442,8 @@
 		EA0D8D6A211299360042A1BA /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = EA0D8D6C211299360042A1BA /* Localizable.strings */; };
 		EA0D8D7121142F490042A1BA /* PSMeetCancelRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = EA0D8D7021142F490042A1BA /* PSMeetCancelRequest.m */; };
 		EA0D8D7421142FA00042A1BA /* PSMeetCancelResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = EA0D8D7321142FA00042A1BA /* PSMeetCancelResponse.m */; };
+		EA0F3EA8229BB936003AA280 /* PSMeetingsCoordinateRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = EA0F3EA7229BB936003AA280 /* PSMeetingsCoordinateRequest.m */; };
+		EA0F3EAB229BBA03003AA280 /* PSMeetingsCoordinateResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = EA0F3EAA229BBA03003AA280 /* PSMeetingsCoordinateResponse.m */; };
 		EA1AD2C620E38BA300646B9E /* PSEcomRegisterViewmodel.m in Sources */ = {isa = PBXBuildFile; fileRef = EA1AD2C520E38BA300646B9E /* PSEcomRegisterViewmodel.m */; };
 		EA1AD2C920E47D3000646B9E /* PSEcomLoginViewmodel.m in Sources */ = {isa = PBXBuildFile; fileRef = EA1AD2C820E47D3000646B9E /* PSEcomLoginViewmodel.m */; };
 		EA2D77AB20D9255A0068F150 /* PSVistorLawViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA2D77AA20D9255A0068F150 /* PSVistorLawViewController.m */; };
@@ -1574,6 +1576,10 @@
 		EA0D8D7021142F490042A1BA /* PSMeetCancelRequest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PSMeetCancelRequest.m; sourceTree = "<group>"; };
 		EA0D8D7221142FA00042A1BA /* PSMeetCancelResponse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PSMeetCancelResponse.h; sourceTree = "<group>"; };
 		EA0D8D7321142FA00042A1BA /* PSMeetCancelResponse.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PSMeetCancelResponse.m; sourceTree = "<group>"; };
+		EA0F3EA6229BB936003AA280 /* PSMeetingsCoordinateRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PSMeetingsCoordinateRequest.h; sourceTree = "<group>"; };
+		EA0F3EA7229BB936003AA280 /* PSMeetingsCoordinateRequest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PSMeetingsCoordinateRequest.m; sourceTree = "<group>"; };
+		EA0F3EA9229BBA03003AA280 /* PSMeetingsCoordinateResponse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PSMeetingsCoordinateResponse.h; sourceTree = "<group>"; };
+		EA0F3EAA229BBA03003AA280 /* PSMeetingsCoordinateResponse.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PSMeetingsCoordinateResponse.m; sourceTree = "<group>"; };
 		EA1AD2C420E38BA300646B9E /* PSEcomRegisterViewmodel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PSEcomRegisterViewmodel.h; sourceTree = "<group>"; };
 		EA1AD2C520E38BA300646B9E /* PSEcomRegisterViewmodel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PSEcomRegisterViewmodel.m; sourceTree = "<group>"; };
 		EA1AD2C720E47D3000646B9E /* PSEcomLoginViewmodel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PSEcomLoginViewmodel.h; sourceTree = "<group>"; };
@@ -2923,6 +2929,10 @@
 				EAFB4A632150EF6700CDFE11 /* PSMeetingMembersRequest.m */,
 				EAFB4A652150EF8300CDFE11 /* PSMeetingMembersResponse.h */,
 				EAFB4A662150EF8300CDFE11 /* PSMeetingMembersResponse.m */,
+				EA0F3EA6229BB936003AA280 /* PSMeetingsCoordinateRequest.h */,
+				EA0F3EA7229BB936003AA280 /* PSMeetingsCoordinateRequest.m */,
+				EA0F3EA9229BBA03003AA280 /* PSMeetingsCoordinateResponse.h */,
+				EA0F3EAA229BBA03003AA280 /* PSMeetingsCoordinateResponse.m */,
 			);
 			path = Meetings;
 			sourceTree = "<group>";
@@ -5432,6 +5442,7 @@
 				EAA0CA1F2188320500240724 /* TZImageManager.m in Sources */,
 				3E171A272090C2F700B7D807 /* PSMeetingViewController.m in Sources */,
 				3E78B79D208DA934007DF162 /* PSWechatHandler.m in Sources */,
+				EA0F3EA8229BB936003AA280 /* PSMeetingsCoordinateRequest.m in Sources */,
 				3E5D15ED2074C343000FC779 /* PSPrisonContentViewController.m in Sources */,
 				552E617921A5A53100FA31FD /* UIView+Frame.m in Sources */,
 				3EC7B74B207EFA5D00DFBA65 /* PSBalanceTopView.m in Sources */,
@@ -5750,6 +5761,7 @@
 				3E171AA32092B50A00B7D807 /* PSRewardAndPunishmentViewModel.m in Sources */,
 				3E78B7AA208DB6A3007DF162 /* PSPaySuccessViewController.m in Sources */,
 				3EEEC60320931AD4003B35B3 /* PSCommentsResponse.m in Sources */,
+				EA0F3EAB229BBA03003AA280 /* PSMeetingsCoordinateResponse.m in Sources */,
 				55943DE721CA2E89002F82B8 /* FeedLoadItemView.m in Sources */,
 				55381CF522408B3E00CC3C66 /* PSServiceCentreTableViewCell.m in Sources */,
 				EAA0C9EE218831F800240724 /* LLActionSheetView.m in Sources */,

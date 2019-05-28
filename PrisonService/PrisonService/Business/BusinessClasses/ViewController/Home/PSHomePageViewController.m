@@ -40,6 +40,7 @@
 #import "PSUniversaLawViewController.h"
 #import "UIButton+LZCategory.h"
 
+#import "PSLocateManager.h"
 
 @interface PSHomePageViewController ()
 @property (nonatomic, strong) PSDefaultJailRequest*jailRequest;
@@ -88,6 +89,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(requestOfRefreshToken) name:RefreshToken object:nil];
     //获取到定位信息刷新广告页
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadAdvertisingPage) name:KNotificationRefreshAdvertisement object:nil];
+  
     
 
 }
@@ -96,6 +98,8 @@
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self name:AppDotChange object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:JailChange object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:RefreshToken object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:KNotificationRefreshAdvertisement object:nil];
     
 }
 

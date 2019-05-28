@@ -104,39 +104,13 @@
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         NSMutableArray *items = [NSMutableArray array];
         
-        PSAccountInfoItem *phoneItem = [PSAccountInfoItem new];
-        NSString*Contact_phonenumber=NSLocalizedString(@"Contact_phonenumber", @"联系电话");
-        phoneItem.itemName =Contact_phonenumber;
-        phoneItem.itemIconName = @"userCenterAccountPhone";
-        phoneItem.infoText = [PSSessionManager sharedInstance].session.families.phone;
-        [items addObject:phoneItem];
-
-        
-        PSAccountInfoItem *relationItem = [PSAccountInfoItem new];
-        NSString*Home_address=NSLocalizedString(@"Home_address", @"家庭地址");
-        relationItem.itemName = Home_address;
-        relationItem.itemIconName = @"userCenterAccountAddress";
-        NSString*address=responseObject[@"data"][@"families"][@"homeAddress"];
-        relationItem.infoText = address?address:@"未填写";
-        [items addObject:relationItem];
-        
-        
-        PSAccountInfoItem *nameItem = [PSAccountInfoItem new];
-        NSString*Zip_code=NSLocalizedString(@"Zip_code", @"邮编");
-        nameItem.itemName = Zip_code;
-        nameItem.itemIconName = @"userCenterAccountEmail";
-        NSString*email=responseObject[@"data"][@"families"][@"postalCode"];
-        nameItem.infoText = email?email:@"未填写";
-        [items addObject:nameItem];
-        
-
         PSAccountInfoItem *sexItem = [PSAccountInfoItem new];
         NSString*genderSting=NSLocalizedString(@"gender", @"性别");
         sexItem.itemName = genderSting;
         sexItem.itemIconName = @"userCenterAccountSex";
         NSString*man=NSLocalizedString(@"man", @"男");
         NSString*weomen=NSLocalizedString(@"women", @"女");
-         NSString*gender=responseObject[@"data"][@"families"][@"gender"];
+        NSString*gender=responseObject[@"data"][@"families"][@"gender"];
         if ([gender isEqualToString:@"男"]) {
             sexItem.infoText=man;
         }
@@ -145,6 +119,41 @@
         }
         //sexItem.infoText = gender?gender:@"未填写";
         [items addObject:sexItem];
+
+        
+        PSAccountInfoItem *phoneItem = [PSAccountInfoItem new];
+        NSString*Contact_phonenumber=NSLocalizedString(@"Contact_phonenumber", @"联系电话");
+        phoneItem.itemName =Contact_phonenumber;
+        phoneItem.itemIconName = @"userCenterAccountPhone";
+        phoneItem.infoText = [PSSessionManager sharedInstance].session.families.phone;
+        [items addObject:phoneItem];
+        
+        PSAccountInfoItem *relationItem = [PSAccountInfoItem new];
+        NSString*Home_address=NSLocalizedString(@"Home_address", @"家庭地址");
+        relationItem.itemName = Home_address;
+        relationItem.itemIconName = @"userCenterAccountAddress";
+        NSString*address=responseObject[@"data"][@"families"][@"homeAddress"];
+        if (isNull(address)) {
+            relationItem.infoText=@"未填写";
+        } else {
+            relationItem.infoText = address;
+        }
+        //relationItem.infoText = address?address:@"未填写";
+        [items addObject:relationItem];
+        
+        
+        PSAccountInfoItem *nameItem = [PSAccountInfoItem new];
+        NSString*Zip_code=NSLocalizedString(@"Zip_code", @"邮编");
+        nameItem.itemName = Zip_code;
+        nameItem.itemIconName = @"userCenterAccountEmail";
+        NSString*email=responseObject[@"data"][@"families"][@"postalCode"];
+        if (isNull(email)) {
+            nameItem.infoText=@"未填写";
+        }
+        else{
+            nameItem.infoText = email;
+        }
+        [items addObject:nameItem];
         
         _infoItems = items;
         
