@@ -25,6 +25,7 @@
 #import "PSConsultationViewModel.h"
 #import "PSConsultationViewController.h"
 #import "PSFamilyServiceViewController.h"
+#import "PSCommerceViewController.h"
 @interface PSServiceCentreViewController ()
 
 @end
@@ -58,9 +59,11 @@
                 [self requestLocalMeeting];
             }
             else if (tag==2){
-                NSString*coming_soon=
-                NSLocalizedString(@"coming_soon", @"该监狱暂未开通此功能");
-                [PSTipsView showTips:coming_soon];
+                PSCommerceViewController*webVC=[[PSCommerceViewController alloc]init];
+                [self.navigationController pushViewController:webVC animated:YES];
+//                NSString*coming_soon=
+//                NSLocalizedString(@"coming_soon", @"该监狱暂未开通此功能");
+//                [PSTipsView showTips:coming_soon];
             }
             else if (tag==3){
                 [self psFamilyService];
