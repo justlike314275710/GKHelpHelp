@@ -9,7 +9,7 @@
 
 #define DEVELOP  0    //开发
 #define UAT 0      //测试
-#define PRODUCE 1    //生产
+#define PRODUCE 1   //生产
 
 
 #ifdef DEBUG
