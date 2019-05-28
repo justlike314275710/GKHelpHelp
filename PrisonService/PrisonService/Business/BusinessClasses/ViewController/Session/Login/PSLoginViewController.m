@@ -181,8 +181,8 @@ typedef NS_ENUM(NSInteger, PSLoginModeType) {
     } failed:^(NSError *error) {
         @strongify(self)
         NSData *data = error.userInfo[AFNetworkingOperationFailingURLResponseDataErrorKey];
-  
-         id body = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+        
+        id body = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
         
         NSString*code=body[@"code"];
         if ([code isEqualToString:@"user.PhoneNumberExisted"]) {
@@ -232,29 +232,10 @@ typedef NS_ENUM(NSInteger, PSLoginModeType) {
         NSData *data = error.userInfo[AFNetworkingOperationFailingURLResponseDataErrorKey];
         if (data) {
             id body = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
-            NSString*code=body[@"code"];
-            if ([code isEqualToString:@"user.Existed"]) {
-                [self EcommerceOfLogin];
-            }
-            else if ([code isEqualToString:@"user.password.NotMatched"]){
-                NSString*account_error=NSLocalizedString(@"account_error", nil);
-                [PSTipsView showTips:account_error];
-                
-            }
-            else if ([code isEqualToString:@"sms.verification-code.NotMatched"]){
-                 NSString*code_error=NSLocalizedString(@"code_error", nil);
-                [PSTipsView showTips:code_error];
-            }
-            else if ([code isEqualToString:@"unauthorized"]){
-                [PSTipsView showTips:@"账号不存在"];
-            }
-            else if ([code isEqualToString:@"user.group.NotMatched"]){
-                [PSTipsView showTips:@"账号不属于该群组"];
-            }
-            else if ([code isEqualToString:@"invalid_grant"]){
-                [PSTipsView showTips:@"账号已禁用"];
-            }
-            else {
+            NSString*message=body[@"message"];
+            if (message) {
+                [PSTipsView showTips:message];
+            } else {
                 [self showNetError:error];
             }
         }
@@ -291,8 +272,12 @@ typedef NS_ENUM(NSInteger, PSLoginModeType) {
     } failed:^(NSError *error) {
         NSData *data = error.userInfo[AFNetworkingOperationFailingURLResponseDataErrorKey];
         id body = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
-        NSString*code=body[@"message"];
-        [PSTipsView showTips:code];
+        NSString*message=body[@"message"];
+        if (message) {
+            [PSTipsView showTips:message];
+        } else {
+            [self showNetError:error];
+        }
     }];
 
 }

@@ -12,8 +12,12 @@
 #import "PSPrisonerFamily.h"
 #import "PSSessionManager.h"
 
+#import "PSMeetingsCoordinateRequest.h"
+#import "PSMeetingsCoordinateResponse.h"
+
 @interface PSMeetingViewModel()
 @property (nonatomic , strong) PSMeetingMembersRequest *meetingMembersRequest;
+@property (nonatomic , strong) PSMeetingsCoordinateRequest* meetingsCoordinateRequest;
 @property (nonatomic , strong) NSMutableArray *items;
 
 @end
@@ -51,4 +55,26 @@
     }];
     
 }
+
+
+- (void)requestUpdateMeetingCoordinateCompleted:(RequestDataCompleted)completedCallback failed:(RequestDataFailed)failedCallback{
+    self.meetingsCoordinateRequest=[PSMeetingsCoordinateRequest new];
+    self.meetingsCoordinateRequest.meetingId=self.meetingID;
+    self.meetingsCoordinateRequest.lat=self.lat;
+    self.meetingsCoordinateRequest.lng=self.lng;
+    self.meetingsCoordinateRequest.province=self.province;
+    self.meetingsCoordinateRequest.city=self.city;
+    [self.meetingsCoordinateRequest send:^(PSRequest *request, PSResponse *response) {
+        if (completedCallback) {
+            completedCallback(response);
+        }
+    } errorCallback:^(PSRequest *request, NSError *error) {
+        if (failedCallback) {
+            failedCallback(error);
+        }
+    }];
+}
+
+
+
 @end

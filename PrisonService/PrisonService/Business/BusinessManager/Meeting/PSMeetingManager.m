@@ -24,6 +24,7 @@
 #import <EBBannerView/EBBannerView.h>
 #import "UIViewController+Tool.h"
 
+#import "PSLocateManager.h"
 @interface PSMeetingManager ()<PSIMMessageObserver>
 
 @property (nonatomic, strong) PSJailConfigurationsRequest *jailConfigurationsRequest;
@@ -178,6 +179,15 @@
     viewModel.familymeetingID=self.familesMeetingID;
     viewModel.callDuration=self.callDuration;
     
+    viewModel.lat=[PSLocateManager sharedInstance].lat;
+    viewModel.lng=[PSLocateManager sharedInstance].lng;
+    viewModel.province=[PSLocateManager sharedInstance].province;
+    viewModel.province=[PSLocateManager sharedInstance].city;
+    [viewModel requestUpdateMeetingCoordinateCompleted:^(PSResponse *response) {
+        
+    } failed:^(NSError *error) {
+        
+    }];
     
    PSMeetingViewController *meetingViewController = [[PSMeetingViewController alloc] initWithViewModel:viewModel];
 //    [self.meetingNavigationController pushViewController:meetingViewController animated:YES];

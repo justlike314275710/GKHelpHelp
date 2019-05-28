@@ -165,7 +165,6 @@
     PSPrisonerFamilesViewController*familesViewController=[[PSPrisonerFamilesViewController alloc]initWithViewModel:prisonerFamliesViewModel];
     familesViewController.returnValueBlock = ^(NSArray *arrayValue) {
         self.selectArray=arrayValue;
-         NSLog(@"arrayValue:%@",self.selectArray);
     };
     
     [familesViewController setCompletion:^(BOOL successful) {

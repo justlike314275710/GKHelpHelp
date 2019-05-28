@@ -18,8 +18,17 @@
 @property (nonatomic, strong) NSString *meetingPassword;
 @property (nonatomic ,strong) NSString *familymeetingID;
 @property (nonatomic ,strong) NSString *callDuration;
-
 @property (nonatomic, strong,readonly) NSArray *FamilyMembers;
 
+//***更新家属视频会见经纬度参数***//
+@property (nonatomic, strong) NSString *lat;
+@property (nonatomic, strong) NSString *lng;
+@property (nonatomic, strong) NSString *province;
+@property (nonatomic, strong) NSString *city;
+//***end***//
+
 - (void)requestFamilyMembersCompleted:(RequestDataCompleted)completedCallback failed:(RequestDataFailed)failedCallback;
+
+- (void)requestUpdateMeetingCoordinateCompleted:(RequestDataCompleted)completedCallback failed:(RequestDataFailed)failedCallback;
+
 @end
