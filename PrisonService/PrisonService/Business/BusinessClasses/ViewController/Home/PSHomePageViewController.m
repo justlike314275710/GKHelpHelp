@@ -40,6 +40,7 @@
 #import "PSLoginViewModel.h"
 #import "PSSessionNoneViewController.h"
 #import "PSUniversaLawViewController.h"
+#import "PSCommerceViewController.h"
 
 
 @interface PSHomePageViewController ()
