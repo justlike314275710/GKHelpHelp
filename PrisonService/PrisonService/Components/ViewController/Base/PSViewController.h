@@ -50,6 +50,9 @@
  */
 -(void)showTokenError;
 
+//返回
+- (IBAction)actionOfLeftItem:(id)sender;
+
 
 /**
  *  导航栏图片

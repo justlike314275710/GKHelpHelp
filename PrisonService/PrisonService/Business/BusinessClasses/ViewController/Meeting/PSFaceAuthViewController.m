@@ -350,9 +350,9 @@ typedef UIImage *(^ImageBlock)(UIImageView *showImageView);
             ret = [faceRet intValue];
         }
         //没有检测到人脸或发生错误
-        if (ret || !faceArray || [faceArray count] < 1) {
+        if (ret||!faceArray ||[faceArray count] < 1) {
             [self hideFace];
-            NSString*no_face=NSLocalizedString(@"no_face", @"人未检测到人脸");
+             NSString*no_face=NSLocalizedString(@"no_face", @"未检测到人脸");
             _statusTipsLable.text=no_face;
             //[WXZTipView showBottomWithText:@"未监测到人脸,请调整摄像头" duration:2.0f];
             return;
@@ -386,6 +386,10 @@ typedef UIImage *(^ImageBlock)(UIImageView *showImageView);
             [self beginFaceVerifyWithData:[faceImg.image compressedData]];
             //faceImg.image = nil;
         }
+//        else{
+//              NSString*no_face=NSLocalizedString(@"face_fail", @"人脸识别失败");
+//              _statusTipsLable.text=no_face;
+//        }
     }@catch (NSException *exception) {
         PSLog(@"prase exception:%@",exception.name);
     }@finally {

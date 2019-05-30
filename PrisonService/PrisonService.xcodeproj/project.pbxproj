@@ -414,7 +414,6 @@
 		55D15339224B1B26007B0864 /* PSPrisonConsumptionViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 55D15338224B1B26007B0864 /* PSPrisonConsumptionViewModel.m */; };
 		55D1533C224B4BFF007B0864 /* PSPrisonConsumptionRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 55D1533B224B4BFF007B0864 /* PSPrisonConsumptionRequest.m */; };
 		55D1533F224B4CF2007B0864 /* PSPrisonConsumptionResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 55D1533E224B4CF2007B0864 /* PSPrisonConsumptionResponse.m */; };
-		55D900C2228E586900E54FE1 /* Jurisdiction.plist in Resources */ = {isa = PBXBuildFile; fileRef = 55D900C1228E586800E54FE1 /* Jurisdiction.plist */; };
 		55DA4BBE2189F09900212A23 /* PSRemittanceRecodeViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 55DA4BBD2189F09900212A23 /* PSRemittanceRecodeViewModel.m */; };
 		55E8225A21D0B3660015F72A /* PSWriteFeedbackListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 55E8225921D0B3660015F72A /* PSWriteFeedbackListViewController.m */; };
 		55E8225D21D0D30B0015F72A /* FeedbackListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 55E8225C21D0D30B0015F72A /* FeedbackListCell.m */; };
@@ -1514,7 +1513,6 @@
 		55D1533B224B4BFF007B0864 /* PSPrisonConsumptionRequest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PSPrisonConsumptionRequest.m; sourceTree = "<group>"; };
 		55D1533D224B4CF2007B0864 /* PSPrisonConsumptionResponse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PSPrisonConsumptionResponse.h; sourceTree = "<group>"; };
 		55D1533E224B4CF2007B0864 /* PSPrisonConsumptionResponse.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PSPrisonConsumptionResponse.m; sourceTree = "<group>"; };
-		55D900C1228E586800E54FE1 /* Jurisdiction.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Jurisdiction.plist; sourceTree = "<group>"; };
 		55DA4BBC2189F09900212A23 /* PSRemittanceRecodeViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PSRemittanceRecodeViewModel.h; sourceTree = "<group>"; };
 		55DA4BBD2189F09900212A23 /* PSRemittanceRecodeViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PSRemittanceRecodeViewModel.m; sourceTree = "<group>"; };
 		55E8225821D0B3660015F72A /* PSWriteFeedbackListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PSWriteFeedbackListViewController.h; sourceTree = "<group>"; };
@@ -2283,7 +2281,6 @@
 				3E5D14752071C93D000FC779 /* Assets.xcassets */,
 				3E5D15B620738192000FC779 /* Media.xcassets */,
 				3E5D147A2071C93D000FC779 /* Info.plist */,
-				55D900C1228E586800E54FE1 /* Jurisdiction.plist */,
 				EA0D8D6C211299360042A1BA /* Localizable.strings */,
 				EA0D8D5721119E320042A1BA /* infoPlist.strings */,
 				3E5D14AB20720FD7000FC779 /* PSPrefixHeader.pch */,
@@ -4949,7 +4946,6 @@
 				55A653132248B33200A6EA52 /* 20181218115255.wav in Resources */,
 				EAD18F5820D02A780053F82B /* README.md in Resources */,
 				EAA0CA872188321000240724 /* PlayButtonOverlayLarge.png in Resources */,
-				55D900C2228E586900E54FE1 /* Jurisdiction.plist in Resources */,
 				EAA0CA812188321000240724 /* ImageSelectedSmallOff.png in Resources */,
 				EAA0CA862188321000240724 /* ImageSelectedSmallOn@3x.png in Resources */,
 				3E5D1641207B13F1000FC779 /* cache.sql in Resources */,
