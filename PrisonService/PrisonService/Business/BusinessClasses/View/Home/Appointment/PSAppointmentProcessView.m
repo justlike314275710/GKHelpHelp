@@ -111,20 +111,6 @@
     }];
     ViewBorderRadius(twoStepDot, 2, 1, dotColor);
     
-    UILabel *twoTitleLab = [UILabel new];
-    twoTitleLab.textColor = AppBaseTextColor1;
-    twoTitleLab.text = @"第二步\n提交远程探视申请-等待审核";
-    twoTitleLab.numberOfLines = 2;
-    twoTitleLab.font = FontOfSize(12);
-    twoTitleLab.textAlignment = NSTextAlignmentRight;
-    [bgView addSubview:twoTitleLab];
-    [twoTitleLab mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.mas_equalTo(twoStepDot.mas_left).offset(-titleSpaceX);
-        make.height.mas_equalTo(30);
-        make.width.mas_equalTo(180);
-        make.top.mas_equalTo(twoStepDot.mas_top).offset(-4);
-    }];
-    
     UIImageView *twoStepImg = [UIImageView new];
     twoStepImg.image = IMAGE_NAMED(@"twoStepIcon");
     [bgView addSubview:twoStepImg];
@@ -134,6 +120,21 @@
         make.top.mas_equalTo(11+100);
         make.left.mas_equalTo(spaceX);
     }];
+    
+    UILabel *twoTitleLab = [UILabel new];
+    twoTitleLab.textColor = AppBaseTextColor1;
+    twoTitleLab.text = @"第二步\n提交远程探视申请-等待审核";
+    twoTitleLab.numberOfLines = 3;
+    twoTitleLab.font = FontOfSize(12);
+    twoTitleLab.textAlignment = NSTextAlignmentRight;
+    [bgView addSubview:twoTitleLab];
+    [twoTitleLab mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.mas_equalTo(twoStepDot.mas_left).offset(-titleSpaceX);
+        make.height.mas_equalTo(45);
+        make.left.mas_equalTo(twoStepImg.mas_right).offset(10);
+        make.top.mas_equalTo(twoStepDot.mas_top).offset(-4);
+    }];
+    
     
     UIView *twoLine = [UIView new];
     twoLine.backgroundColor = UIColorFromRGB(234, 235, 238);
@@ -154,20 +155,6 @@
     }];
     ViewBorderRadius(threeStepDot, 2, 1, dotColor);
     
-    UILabel *threeTitleLab = [UILabel new];
-    threeTitleLab.textColor = AppBaseTextColor1;
-    threeTitleLab.text = @"第三步\n审核通过,远程探视当日保持手机网络畅通,等待监狱发起远程探视视频邀请";
-    threeTitleLab.numberOfLines = 4;
-    threeTitleLab.font = FontOfSize(12);
-    threeTitleLab.textAlignment = NSTextAlignmentLeft;
-    [bgView addSubview:threeTitleLab];
-    [threeTitleLab mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(oneStepDot.mas_right).offset(titleSpaceX);
-        make.height.mas_equalTo(60);
-        make.width.mas_equalTo(180);
-        make.centerY.mas_equalTo(threeStepDot);
-    }];
-    
     UIImageView *threeStepImg = [UIImageView new];
     threeStepImg.image = IMAGE_NAMED(@"threeStepIcon");
     [bgView addSubview:threeStepImg];
@@ -176,6 +163,21 @@
         make.width.mas_equalTo(107);
         make.top.mas_equalTo(11+200);
         make.right.mas_equalTo(-spaceX);
+    }];
+
+    
+    UILabel *threeTitleLab = [UILabel new];
+    threeTitleLab.textColor = AppBaseTextColor1;
+    threeTitleLab.text = @"第三步\n审核通过,远程探视当日保持手机网络畅通,等待监狱发起远程探视视频邀请";
+    threeTitleLab.numberOfLines = 0;
+    threeTitleLab.font = FontOfSize(12);
+    threeTitleLab.textAlignment = NSTextAlignmentLeft;
+    [bgView addSubview:threeTitleLab];
+    [threeTitleLab mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(oneStepDot.mas_right).offset(titleSpaceX);
+        make.height.mas_equalTo(80);
+        make.right.mas_equalTo(threeStepImg.mas_left).offset(-10);
+        make.centerY.mas_equalTo(threeStepDot);
     }];
     
    

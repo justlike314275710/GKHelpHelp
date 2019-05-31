@@ -293,7 +293,7 @@
     [self createRightBarButtonItemWithTarget:self action:@selector(AccountDetails) title:Account_details];
     //banner
     UIImageView *imageLogo = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 170)];
-    imageLogo.image = [UIImage R_imageNamed:@"banner"];
+    imageLogo.image = [UIImage R_imageNamed:@"balanceBanner"];
     [self.view addSubview:imageLogo];
     
     UIImageView *locationLogo = [[UIImageView alloc] initWithFrame:CGRectMake(20, 10, 13, 15)];

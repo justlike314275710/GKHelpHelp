@@ -1,48 +1,50 @@
 //
-//  PSHistoryViewController.m
+//  PSFamilyServiceNoticeViewContrlller.m
 //  PrisonService
 //
-//  Created by 狂生烈徒 on 2018/7/12.
-//  Copyright © 2018年 calvin. All rights reserved.
+//  Created by kky on 2019/5/30.
+//  Copyright © 2019年 calvin. All rights reserved.
 //
 
-#import "PSHistoryViewController.h"
+#import "PSFamilyServiceNoticeViewContrlller.h"
 #import "MJRefresh.h"
 #import "NSString+Date.h"
 #import "UIScrollView+EmptyDataSet.h"
-#import "PSHistoryCell.h"
+#import "PSFamilyServiceNoticeCell.h"
 #import "PSTipsConstants.h"
 #import "PSMeetingHistoryViewModel.h"
 #import "PSMeettingHistory.h"
 #import "PSCancelReasonView.h"
 
-@interface PSHistoryViewController ()<UITableViewDelegate,UITableViewDataSource,DZNEmptyDataSetSource,DZNEmptyDataSetDelegate>
-@property (nonatomic , strong) UITableView*historyTableView;
+
+@interface PSFamilyServiceNoticeViewContrlller ()<UITableViewDelegate,UITableViewDataSource,DZNEmptyDataSetSource,DZNEmptyDataSetDelegate>
+{
+    
+}
+@property(nonatomic,strong)UITableView *myTableview;
+
 
 @end
 
-@implementation PSHistoryViewController
+@implementation PSFamilyServiceNoticeViewContrlller
 
-
+#pragma mark - LifeCycle
 - (instancetype)initWithViewModel:(PSViewModel *)viewModel {
     self = [super initWithViewModel:viewModel];
     if (self) {
-        NSString*userCenterHistory=NSLocalizedString(@"userCenterHistory", @"会见历史");
-        self.title = userCenterHistory;
+        NSString*family_server=@"服务通知";
+        self.title = family_server;
     }
     return self;
 }
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self renderContents];
     [self refreshData];
-    // Do any additional setup after loading the view.
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 - (void)loadMore {
     PSMeetingHistoryViewModel *meetingHistoryModel =(PSMeetingHistoryViewModel *)self.viewModel;
@@ -59,7 +61,7 @@
     PSMeetingHistoryViewModel *meetingHistoryModel =(PSMeetingHistoryViewModel *)self.viewModel;
     [[PSLoadingView sharedInstance]show];
     @weakify(self)
-
+    
     [meetingHistoryModel refreshRefundCompleted:^(PSResponse *response) {
         @strongify(self)
         [[PSLoadingView sharedInstance] dismiss];
@@ -75,42 +77,38 @@
     PSMeetingHistoryViewModel *meetingHistoryModel =(PSMeetingHistoryViewModel *)self.viewModel;
     if (meetingHistoryModel.hasNextPage) {
         @weakify(self)
-        self.historyTableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
+        self.myTableview.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
             @strongify(self)
             [self loadMore];
         }];
     }else{
-        self.historyTableView.mj_footer = nil;
+        self.myTableview.mj_footer = nil;
     }
-    [self.historyTableView.mj_header endRefreshing];
-    [self.historyTableView.mj_footer endRefreshing];
-    [self.historyTableView reloadData];
+    [self.myTableview.mj_header endRefreshing];
+    [self.myTableview.mj_footer endRefreshing];
+    [self.myTableview reloadData];
 }
 - (void)renderContents {
     self.view.backgroundColor=[UIColor whiteColor];
-    self.historyTableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
-    self.historyTableView.dataSource = self;
-    self.historyTableView.delegate = self;
-    self.historyTableView.emptyDataSetSource = self;
-    self.historyTableView.emptyDataSetDelegate = self;
-    self.historyTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    self.historyTableView.backgroundColor = [UIColor clearColor];
+    self.myTableview = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
+    self.myTableview.dataSource = self;
+    self.myTableview.delegate = self;
+    self.myTableview.emptyDataSetSource = self;
+    self.myTableview.emptyDataSetDelegate = self;
+    self.myTableview.separatorStyle = UITableViewCellSeparatorStyleNone;
+    self.myTableview.backgroundColor = [UIColor clearColor];
     @weakify(self)
-    self.historyTableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+    self.myTableview.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
         @strongify(self)
         [self refreshData];
     }];
-    [self.historyTableView registerClass:[PSHistoryCell class] forCellReuseIdentifier:@"PSHistoryCell"];
-    self.historyTableView.tableFooterView = [UIView new];
-    [self.view addSubview:self.historyTableView];
-    
-    [self.historyTableView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.right.left.mas_equalTo(0);
-        make.bottom.mas_equalTo(-49-kTopHeight-35-14);
-        //make.edges.mas_equalTo(UIEdgeInsetsZero);
+    [self.myTableview registerClass:[PSFamilyServiceNoticeCell class] forCellReuseIdentifier:@"PSFamilyServiceNoticeCell"];
+    self.myTableview.tableFooterView = [UIView new];
+    [self.view addSubview:self.myTableview];
+    [self.myTableview mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.mas_equalTo(UIEdgeInsetsZero);
     }];
 }
-
 
 #pragma mark - UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -118,21 +116,17 @@
     return meetingHistoryModel.meeetHistorys.count;
 }
 
-
-
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     PSMeetingHistoryViewModel *meetingHistoryModel =(PSMeetingHistoryViewModel *)self.viewModel;
     PSMeettingHistory *MeettingHistory= meetingHistoryModel.meeetHistorys[indexPath.row];
     NSString *str = MeettingHistory.remarks ;//你想显示的字符串
-    
     CGSize size = [str sizeWithFont:[UIFont systemFontOfSize: 12] constrainedToSize:CGSizeMake(280, 999) lineBreakMode:NSLineBreakByWordWrapping];
-    
-    return size.height + 115;
+    return size.height + 140;
 }
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    PSHistoryCell*cell = [tableView dequeueReusableCellWithIdentifier:@"PSHistoryCell"];
+    PSFamilyServiceNoticeCell*cell = [tableView dequeueReusableCellWithIdentifier:@"PSFamilyServiceNoticeCell"];
     PSMeetingHistoryViewModel *meetingHistoryModel =(PSMeetingHistoryViewModel *)self.viewModel;
     PSMeettingHistory *MeettingHistory= meetingHistoryModel.meeetHistorys[indexPath.row];
     cell.iconLable.text=[NSString stringWithFormat:@"%@",MeettingHistory.name];
@@ -163,8 +157,8 @@
         }else{
             cell.cancleButton.hidden=YES;
         }
-       // cell.cancleButton.hidden=NO;
-         cell.cancleButton.tag=indexPath.row;
+        // cell.cancleButton.hidden=NO;
+        cell.cancleButton.tag=indexPath.row;
         [cell.cancleButton addTarget:self action:@selector(cancelApplyMeeting:) forControlEvents:UIControlEventTouchUpInside];
     }
     else if ([status isEqualToString:@"PASSED"]){
@@ -193,7 +187,7 @@
         cell.cancleButton.hidden=YES;
     }
     else if ([status isEqualToString:@"DENIED"]){
-    
+        
         if ([MeettingHistory.remarks isEqualToString:@"null"]) {
             cell.otherTextLabel.text=Refuse_reason;
             cell.otherLabel.text=@"";
@@ -245,7 +239,7 @@
 }
 
 - (NSAttributedString *)titleForEmptyDataSet:(UIScrollView *)scrollView {
-        PSMeetingHistoryViewModel *historyViewModel = (PSMeetingHistoryViewModel *)self.viewModel;
+    PSMeetingHistoryViewModel *historyViewModel = (PSMeetingHistoryViewModel *)self.viewModel;
     NSString *tips = historyViewModel.dataStatus == PSDataEmpty ? EMPTY_CONTENT : NET_ERROR;
     return historyViewModel.dataStatus == PSDataInitial ? nil : [[NSAttributedString alloc] initWithString:tips attributes:@{NSFontAttributeName:AppBaseTextFont1,NSForegroundColorAttributeName:AppBaseTextColor1}];
     
@@ -265,43 +259,5 @@
 }
 
 
-
-- (void)cancelApplyMeeting:(UIButton*)sender {
-    PSMeetingHistoryViewModel *meetingHistoryViewModel =(PSMeetingHistoryViewModel *)self.viewModel;
-    PSMeettingHistory *MeettingHistory= meetingHistoryViewModel.meeetHistorys[sender.tag];
-    meetingHistoryViewModel.cancelId=MeettingHistory.historyId;
-    PSCancelReasonView *cancelReasonView = [PSCancelReasonView new];
-    [cancelReasonView setDidCancel:^(NSString *reason) {
-        meetingHistoryViewModel.cause=reason;
-    }];
-    [cancelReasonView show];
-    cancelReasonView.clickIndex = ^(NSInteger index) {
-        if (index==2) {
-            NSLog(@"%@ || %@",meetingHistoryViewModel.cancelId,meetingHistoryViewModel.cause);
-                [meetingHistoryViewModel MeetapplyCancelCompleted:^(PSResponse *response) {
-                    [self refreshData];
-                    NSString*cancel_apply=NSLocalizedString(@"cancel_success", @"取消会见成功");
-                    [PSTipsView showTips:cancel_apply];
-                    //埋点...
-                    [SDTrackTool logEvent:CANCEL_FAMILY_CALL];
-                    
-                } failed:^(NSError *error) {
-                    [self showNetError:error];
-                }];
-        }
-    };
-    
-}
-
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end
