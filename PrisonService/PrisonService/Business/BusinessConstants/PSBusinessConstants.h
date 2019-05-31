@@ -29,7 +29,7 @@
 
 #elif UAT            //测试
 #define ServerDomain @"http://120.79.251.238:8022"
-#define H5ServerDomain @"http://120.78.190.101:8083"
+#define H5ServerDomain @"http://120.79.251.238:8021" //
 #define ServerUrl [NSString stringWithFormat:@"%@/ywgk-app",ServerDomain]
 #define EmallHostUrl  @"http://qa.api.auth.prisonpublic.com"
 #define EmallUrl @"http://10.10.10.16:805"
@@ -60,7 +60,7 @@
 
 //图片上传地址
 //#define UploadServerUrl [NSString stringWithFormat:@"%@/image-server",ServerDomain]
-#define UploadServerUrl @"http://120.78.190.101:1339/image-server"
+#define UploadServerUrl @"http://120.79.251.238:1339/image-server"
 //使用协议
 //#define ProtocolUrl [NSString stringWithFormat:@"%@/front/xieyi.html",H5ServerDomain]
 #define ProtocolUrl @"http://39.108.185.51:8081/front/xieyi.html"
