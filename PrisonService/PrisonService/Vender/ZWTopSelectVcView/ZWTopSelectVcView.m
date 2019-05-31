@@ -107,6 +107,16 @@ typedef enum{
     }else{
         return [UIColor redColor];}
 }
+
+- (CGFloat)setupSliderViewHeight
+{
+    if ([self.dataSource respondsToSelector:@selector(topSliderViewHeightZWTopSelectVcView:)]) {
+        return  [self.dataSource topSliderViewHeightZWTopSelectVcView:self];
+    }else{
+        return 5;
+    }
+}
+
 - (UIColor *)setupTopViewBackGourndColor
 {
     if ([self.dataSource respondsToSelector:@selector(topViewBackGroundColorInZWTopSelectVcView:)]) {
@@ -449,8 +459,9 @@ typedef enum{
 }
 -(void)setupViewUnderContent
 {
-    NSInteger spaceX = 100/self.contentVC.childViewControllers.count/2;
-    self.viewUnder=[[UIView alloc]initWithFrame:CGRectMake(spaceX,(_topViewHeight)-7, (_topViewWidth-100)/self.contentVC.childViewControllers.count, 5)];
+    CGFloat viewUnderheight= [self setupSliderViewHeight];
+    CGFloat spaceX = 100/self.contentVC.childViewControllers.count/2;
+    self.viewUnder=[[UIView alloc]initWithFrame:CGRectMake(spaceX,(_topViewHeight)-(viewUnderheight+2), (_topViewWidth-100)/self.contentVC.childViewControllers.count,viewUnderheight)];
     self.viewUnder.layer.cornerRadius = 3.0;
     self.viewUnder.backgroundColor=[self setupSliderViewBackGourndColor];
     [self.viewTop addSubview:_viewUnder];
@@ -536,14 +547,15 @@ typedef enum{
 }
 -(void)underViewMoveTo:(int)index withAnimation:(BOOL)isAnimation{
     NSInteger spaceX = 100/self.contentVC.childViewControllers.count/2;
+    CGFloat viewUnderheight= [self setupSliderViewHeight];
     if (isAnimation) {
         [UIView animateWithDuration:0.7 animations:^{
-            self.viewUnder.frame=CGRectMake(index *((_topViewWidth)/self.index)+spaceX, (_topViewHeight)-7, (_topViewWidth-100)/self.index, 5);
+            self.viewUnder.frame=CGRectMake(index *((_topViewWidth)/self.index)+spaceX, (_topViewHeight)-(viewUnderheight+2), (_topViewWidth-100)/self.index, viewUnderheight);
             self.viewUnder.layer.cornerRadius = 3.0;
         }];
     }else
     {
-        self.viewUnder.frame=CGRectMake(index *((_topViewWidth)/self.index)+spaceX, (_topViewHeight)-7, (_topViewWidth-100)/self.index, 5);
+        self.viewUnder.frame=CGRectMake(index *((_topViewWidth)/self.index)+spaceX, (_topViewHeight)-(viewUnderheight+2), (_topViewWidth-100)/self.index, viewUnderheight);
         self.viewUnder.layer.cornerRadius = 3.0;
     }
     

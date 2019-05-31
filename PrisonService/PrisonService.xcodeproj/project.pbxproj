@@ -383,6 +383,10 @@
 		557859BD2189A3D80080437D /* PSRemittanceBusinessRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 557859BC2189A3D80080437D /* PSRemittanceBusinessRequest.m */; };
 		557FF9C021C753A000F15F78 /* PSRemittanceRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 557FF9BC21C753A000F15F78 /* PSRemittanceRequest.m */; };
 		557FF9C121C753A000F15F78 /* PSRemitanceResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 557FF9BF21C753A000F15F78 /* PSRemitanceResponse.m */; };
+		5580DE81229F6F7100A88EED /* PSFamilyServiceNoticeViewContrlller.m in Sources */ = {isa = PBXBuildFile; fileRef = 5580DE80229F6F7100A88EED /* PSFamilyServiceNoticeViewContrlller.m */; };
+		5580DE84229F729A00A88EED /* PSFamilyServiceNoticeViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 5580DE83229F729A00A88EED /* PSFamilyServiceNoticeViewModel.m */; };
+		5580DE87229F749000A88EED /* PSFamilyServiceNoticeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5580DE86229F749000A88EED /* PSFamilyServiceNoticeCell.m */; };
+		5580DE8A229F8AC300A88EED /* PSAllHistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5580DE89229F8AC300A88EED /* PSAllHistoryViewController.m */; };
 		558A67D321D727F400F19400 /* PSDeleteRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 558A67D221D727F400F19400 /* PSDeleteRequest.m */; };
 		558EE5D122448A2A000E40DA /* MyConsultationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 558EE5D022448A2A000E40DA /* MyConsultationViewController.m */; };
 		558EE5D422448B99000E40DA /* LegaladviceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 558EE5D222448B99000E40DA /* LegaladviceViewController.m */; };
@@ -1463,6 +1467,14 @@
 		557FF9BD21C753A000F15F78 /* PSRemitanceResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSRemitanceResponse.h; sourceTree = "<group>"; };
 		557FF9BE21C753A000F15F78 /* PSRemittanceRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSRemittanceRequest.h; sourceTree = "<group>"; };
 		557FF9BF21C753A000F15F78 /* PSRemitanceResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSRemitanceResponse.m; sourceTree = "<group>"; };
+		5580DE7F229F6F7100A88EED /* PSFamilyServiceNoticeViewContrlller.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PSFamilyServiceNoticeViewContrlller.h; sourceTree = "<group>"; };
+		5580DE80229F6F7100A88EED /* PSFamilyServiceNoticeViewContrlller.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PSFamilyServiceNoticeViewContrlller.m; sourceTree = "<group>"; };
+		5580DE82229F729A00A88EED /* PSFamilyServiceNoticeViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PSFamilyServiceNoticeViewModel.h; sourceTree = "<group>"; };
+		5580DE83229F729A00A88EED /* PSFamilyServiceNoticeViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PSFamilyServiceNoticeViewModel.m; sourceTree = "<group>"; };
+		5580DE85229F749000A88EED /* PSFamilyServiceNoticeCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PSFamilyServiceNoticeCell.h; sourceTree = "<group>"; };
+		5580DE86229F749000A88EED /* PSFamilyServiceNoticeCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PSFamilyServiceNoticeCell.m; sourceTree = "<group>"; };
+		5580DE88229F8AC300A88EED /* PSAllHistoryViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PSAllHistoryViewController.h; sourceTree = "<group>"; };
+		5580DE89229F8AC300A88EED /* PSAllHistoryViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PSAllHistoryViewController.m; sourceTree = "<group>"; };
 		5587C1212283D22D007BBFA4 /* PSURLMacros.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PSURLMacros.h; sourceTree = "<group>"; };
 		558A67D121D727F400F19400 /* PSDeleteRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PSDeleteRequest.h; sourceTree = "<group>"; };
 		558A67D221D727F400F19400 /* PSDeleteRequest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PSDeleteRequest.m; sourceTree = "<group>"; };
@@ -2664,6 +2676,7 @@
 				3ED6A0AF20A9245000D2223A /* Cart */,
 				3EEEC66C20945E01003B35B3 /* PrisonerManage */,
 				3E91DE69208F35BF00AADE3C /* Bind */,
+				3EEE776B2080581D00CAD179 /* PSCommerceViewController.h */,
 				3EEE77CF208590DF00CAD179 /* Appointment */,
 				3EEE776A2080580300CAD179 /* ServiceHall */,
 				3EEE773C207F0D9600CAD179 /* Message */,
@@ -3724,7 +3737,6 @@
 			isa = PBXGroup;
 			children = (
 				EA0D8D46211062BA0042A1BA /* EmallModel */,
-				3EEE776B2080581D00CAD179 /* PSCommerceViewController.h */,
 				3EEE776C2080581D00CAD179 /* PSCommerceViewController.m */,
 				3EEE776E208059AE00CAD179 /* PSLawViewController.h */,
 				3EEE776F208059AE00CAD179 /* PSLawViewController.m */,
@@ -3734,6 +3746,8 @@
 				3EEE77722080637000CAD179 /* PSPrisonIntroduceViewController.m */,
 				3EEE777420807B1700CAD179 /* PSFamilyServiceViewController.h */,
 				3EEE777520807B1700CAD179 /* PSFamilyServiceViewController.m */,
+				5580DE7F229F6F7100A88EED /* PSFamilyServiceNoticeViewContrlller.h */,
+				5580DE80229F6F7100A88EED /* PSFamilyServiceNoticeViewContrlller.m */,
 				55D15334224B1A8F007B0864 /* PSPrisonConsumptionViewController.h */,
 				55D15335224B1A8F007B0864 /* PSPrisonConsumptionViewController.m */,
 				55381CF622408D1200CC3C66 /* PSWorkViewController.h */,
@@ -3839,6 +3853,8 @@
 				552E617521A59C7000FA31FD /* PSLocalMeetingAppointmentStatusView.m */,
 				55CBA86B22755118003506C3 /* PSUniversalLawCell.h */,
 				55CBA86C22755118003506C3 /* PSUniversalLawCell.m */,
+				5580DE85229F749000A88EED /* PSFamilyServiceNoticeCell.h */,
+				5580DE86229F749000A88EED /* PSFamilyServiceNoticeCell.m */,
 			);
 			path = ServiceHall;
 			sourceTree = "<group>";
@@ -3872,6 +3888,8 @@
 				557859B9218994140080437D /* RemittanceRecode.m */,
 				5549EF11224C605800E3D009 /* PSPrisonConsumptionModel.h */,
 				5549EF12224C605800E3D009 /* PSPrisonConsumptionModel.m */,
+				5580DE82229F729A00A88EED /* PSFamilyServiceNoticeViewModel.h */,
+				5580DE83229F729A00A88EED /* PSFamilyServiceNoticeViewModel.m */,
 			);
 			path = ServiceHall;
 			sourceTree = "<group>";
@@ -4154,6 +4172,8 @@
 			children = (
 				EA33783120F702240081B907 /* PSHistoryViewController.h */,
 				EA4285F02118092100418685 /* PSHistoryViewController.m */,
+				5580DE88229F8AC300A88EED /* PSAllHistoryViewController.h */,
+				5580DE89229F8AC300A88EED /* PSAllHistoryViewController.m */,
 			);
 			path = History;
 			sourceTree = "<group>";
@@ -5308,6 +5328,7 @@
 				3E0044ED207B3A900036CBC5 /* PSLoginViewModel.m in Sources */,
 				55381D012240903E00CC3C66 /* PSAuthorizationTool.m in Sources */,
 				EAA0CA182188320500240724 /* TZVideoPlayerController.m in Sources */,
+				5580DE8A229F8AC300A88EED /* PSAllHistoryViewController.m in Sources */,
 				3EDF0DC120887CF8002D98BD /* PSLoginResponse.m in Sources */,
 				3E78B758208AD792007DF162 /* PSAppointmentViewModel.m in Sources */,
 				EAEE395F20C507CD005F7530 /* PSRefundViewModel.m in Sources */,
@@ -5473,6 +5494,7 @@
 				3EA8F862209018D100BA23B2 /* PSMeetingMessage.m in Sources */,
 				3E5D14DA207230DB000FC779 /* PSNavigationController.m in Sources */,
 				EACBC1AC2142165F004C0EAB /* PSSessionNoneViewController.m in Sources */,
+				5580DE81229F6F7100A88EED /* PSFamilyServiceNoticeViewContrlller.m in Sources */,
 				3EDA519E20AC353700D8D019 /* PSLocalMeetingCountdownCell.m in Sources */,
 				EAA0CA202188320500240724 /* TZPhotoPickerController.m in Sources */,
 				3EDF0D8F20873F5C002D98BD /* PSFamilyBaseRequest.m in Sources */,
@@ -5525,6 +5547,7 @@
 				3EC7B6CD207C5C6700DFBA65 /* PSRegisterPageController.m in Sources */,
 				EAD8DE5E2179BCD40035E22F /* PSDefaultJailResponse.m in Sources */,
 				555FF46D21D3599600FF8D1D /* PSFeedbackListRequest.m in Sources */,
+				5580DE84229F729A00A88EED /* PSFamilyServiceNoticeViewModel.m in Sources */,
 				EAA0CA1B2188320500240724 /* UIView+Layout.m in Sources */,
 				3E171A0F20908EFF00B7D807 /* IFlyFaceImage.m in Sources */,
 				3E171A1E209092A300B7D807 /* IFlyFaceResultTrack.m in Sources */,
@@ -5727,6 +5750,7 @@
 				EAA0C9EF218831F800240724 /* UIImage+LLGif.m in Sources */,
 				3EEE77B8208456E900CAD179 /* PSPeriodChangeViewController.m in Sources */,
 				3E5D1586207322D4000FC779 /* RSAUtil.m in Sources */,
+				5580DE87229F749000A88EED /* PSFamilyServiceNoticeCell.m in Sources */,
 				55E8225D21D0D30B0015F72A /* FeedbackListCell.m in Sources */,
 				EAEE395C20C4CD63005F7530 /* PSRefundBalanceRespense.m in Sources */,
 				3EDF0D9C20874477002D98BD /* PSCountdownManager.m in Sources */,

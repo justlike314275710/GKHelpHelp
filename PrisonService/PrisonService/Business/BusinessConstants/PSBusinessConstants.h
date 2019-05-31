@@ -8,8 +8,8 @@
 
 
 #define DEVELOP  0    //开发
-#define UAT 0        //测试
-#define PRODUCE 1     //生产
+#define UAT 1       //测试
+#define PRODUCE 0     //生产
 
 
 #ifdef DEBUG
@@ -28,9 +28,9 @@
 #define ConsultationHostUrl @"http://qa.api.legal.prisonpublic.com"
 
 #elif UAT            //测试
-#define ServerDomain @"http://120.78.190.101:8084"
+#define ServerDomain @"http://120.79.251.238:8022"
 #define H5ServerDomain @"http://120.78.190.101:8083"
-#define ServerUrl [NSString stringWithFormat:@"%@/ywgk-app-demo",ServerDomain]
+#define ServerUrl [NSString stringWithFormat:@"%@/ywgk-app",ServerDomain]
 #define EmallHostUrl  @"http://qa.api.auth.prisonpublic.com"
 #define EmallUrl @"http://10.10.10.16:805"
 #define ImageDeleteUrl @"http://120.78.190.101:1339/delete/resources"//删除图片接口

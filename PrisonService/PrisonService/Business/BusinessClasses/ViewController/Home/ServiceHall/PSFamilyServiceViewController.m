@@ -24,6 +24,9 @@
 #import "PSPrisonerDetailRequest.h"
 #import "PSPrisonConsumptionViewController.h"
 #import "PSPrisonConsumptionViewModel.h"
+#import "PSFamilyServiceNoticeViewModel.h"
+#import "PSFamilyServiceNoticeViewContrlller.h"
+
 
 
 @interface PSFamilyServiceViewController ()<UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout>
@@ -83,6 +86,11 @@
     self.view.backgroundColor = AppBaseBackgroundColor2;
     [self getData];
     [self renderContents];
+    [self createRightBarButtonItemWithTarget:self action:@selector(rightAction) title:@"服务通知"];
+}
+
+- (void)rightAction {
+    [self.navigationController pushViewController:[[PSFamilyServiceNoticeViewContrlller alloc]initWithViewModel:[[PSFamilyServiceNoticeViewModel alloc]init]]animated:YES];
 }
 
 - (void)getData {

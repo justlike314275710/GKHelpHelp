@@ -35,6 +35,7 @@
 #import "PSFamilyRemittanceViewController.h"
 #import "PSFamilyRemittanceViewModel.h"
 #import "MyConsultationViewController.h"
+#import "PSAllHistoryViewController.h"
 
 @interface PSMeViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic , strong) UITableView *settingTableview;
@@ -147,7 +148,7 @@
         [self.navigationController pushViewController:[[PSBalanceViewController alloc] init] animated:YES];
     }
     else if ([itemModel.funcName isEqualToString:userCenterHistory]){
-        [self.navigationController pushViewController:[[PSHistoryViewController alloc]initWithViewModel:[[PSMeetingHistoryViewModel alloc]init]]animated:YES];
+        [self.navigationController pushViewController:[[PSAllHistoryViewController alloc]initWithViewModel:[[PSMeetingHistoryViewModel alloc]init]]animated:YES];
     }
     else if ([itemModel.funcName isEqualToString:recharge_record]){
         [self.navigationController pushViewController:[[PSPurchaseViewController alloc] initWithViewModel:[[PSPurchaseViewModel alloc] init]] animated:YES];
