@@ -15,9 +15,13 @@
 #import "PSMeetingsCoordinateRequest.h"
 #import "PSMeetingsCoordinateResponse.h"
 
+#import "PSFreeMeetingCoordinateRequest.h"
+#import "PSFreeMeetingCoordinateResponse.h"
+
 @interface PSMeetingViewModel()
 @property (nonatomic , strong) PSMeetingMembersRequest *meetingMembersRequest;
 @property (nonatomic , strong) PSMeetingsCoordinateRequest* meetingsCoordinateRequest;
+@property (nonatomic , strong) PSFreeMeetingCoordinateRequest *freeMeetingCoordinateRequest;
 @property (nonatomic , strong) NSMutableArray *items;
 
 @end
@@ -75,6 +79,22 @@
     }];
 }
 
-
+- (void)requestUpdateFreeMeetingCoordinateCompleted:(RequestDataCompleted)completedCallback failed:(RequestDataFailed)failedCallback{
+    self.freeMeetingCoordinateRequest=[PSFreeMeetingCoordinateRequest new];
+    self.freeMeetingCoordinateRequest.meetingId=self.meetingID;
+    self.freeMeetingCoordinateRequest.lat=self.lat;
+    self.freeMeetingCoordinateRequest.lng=self.lng;
+    self.freeMeetingCoordinateRequest.province=self.province;
+    self.freeMeetingCoordinateRequest.city=self.city;
+    [self.freeMeetingCoordinateRequest send:^(PSRequest *request, PSResponse *response) {
+        if (completedCallback) {
+            completedCallback(response);
+        }
+    } errorCallback:^(PSRequest *request, NSError *error) {
+        if (failedCallback) {
+            failedCallback(error);
+        }
+    }];
+}
 
 @end

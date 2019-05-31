@@ -444,6 +444,8 @@
 		EA0D8D7421142FA00042A1BA /* PSMeetCancelResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = EA0D8D7321142FA00042A1BA /* PSMeetCancelResponse.m */; };
 		EA0F3EA8229BB936003AA280 /* PSMeetingsCoordinateRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = EA0F3EA7229BB936003AA280 /* PSMeetingsCoordinateRequest.m */; };
 		EA0F3EAB229BBA03003AA280 /* PSMeetingsCoordinateResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = EA0F3EAA229BBA03003AA280 /* PSMeetingsCoordinateResponse.m */; };
+		EA0F3EAE229E2298003AA280 /* PSFreeMeetingCoordinateRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = EA0F3EAD229E2298003AA280 /* PSFreeMeetingCoordinateRequest.m */; };
+		EA0F3EB1229E22D8003AA280 /* PSFreeMeetingCoordinateResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = EA0F3EB0229E22D8003AA280 /* PSFreeMeetingCoordinateResponse.m */; };
 		EA1AD2C620E38BA300646B9E /* PSEcomRegisterViewmodel.m in Sources */ = {isa = PBXBuildFile; fileRef = EA1AD2C520E38BA300646B9E /* PSEcomRegisterViewmodel.m */; };
 		EA1AD2C920E47D3000646B9E /* PSEcomLoginViewmodel.m in Sources */ = {isa = PBXBuildFile; fileRef = EA1AD2C820E47D3000646B9E /* PSEcomLoginViewmodel.m */; };
 		EA2D77AB20D9255A0068F150 /* PSVistorLawViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA2D77AA20D9255A0068F150 /* PSVistorLawViewController.m */; };
@@ -1580,6 +1582,10 @@
 		EA0F3EA7229BB936003AA280 /* PSMeetingsCoordinateRequest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PSMeetingsCoordinateRequest.m; sourceTree = "<group>"; };
 		EA0F3EA9229BBA03003AA280 /* PSMeetingsCoordinateResponse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PSMeetingsCoordinateResponse.h; sourceTree = "<group>"; };
 		EA0F3EAA229BBA03003AA280 /* PSMeetingsCoordinateResponse.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PSMeetingsCoordinateResponse.m; sourceTree = "<group>"; };
+		EA0F3EAC229E2298003AA280 /* PSFreeMeetingCoordinateRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PSFreeMeetingCoordinateRequest.h; sourceTree = "<group>"; };
+		EA0F3EAD229E2298003AA280 /* PSFreeMeetingCoordinateRequest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PSFreeMeetingCoordinateRequest.m; sourceTree = "<group>"; };
+		EA0F3EAF229E22D8003AA280 /* PSFreeMeetingCoordinateResponse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PSFreeMeetingCoordinateResponse.h; sourceTree = "<group>"; };
+		EA0F3EB0229E22D8003AA280 /* PSFreeMeetingCoordinateResponse.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PSFreeMeetingCoordinateResponse.m; sourceTree = "<group>"; };
 		EA1AD2C420E38BA300646B9E /* PSEcomRegisterViewmodel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PSEcomRegisterViewmodel.h; sourceTree = "<group>"; };
 		EA1AD2C520E38BA300646B9E /* PSEcomRegisterViewmodel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PSEcomRegisterViewmodel.m; sourceTree = "<group>"; };
 		EA1AD2C720E47D3000646B9E /* PSEcomLoginViewmodel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PSEcomLoginViewmodel.h; sourceTree = "<group>"; };
@@ -2933,6 +2939,10 @@
 				EA0F3EA7229BB936003AA280 /* PSMeetingsCoordinateRequest.m */,
 				EA0F3EA9229BBA03003AA280 /* PSMeetingsCoordinateResponse.h */,
 				EA0F3EAA229BBA03003AA280 /* PSMeetingsCoordinateResponse.m */,
+				EA0F3EAC229E2298003AA280 /* PSFreeMeetingCoordinateRequest.h */,
+				EA0F3EAD229E2298003AA280 /* PSFreeMeetingCoordinateRequest.m */,
+				EA0F3EAF229E22D8003AA280 /* PSFreeMeetingCoordinateResponse.h */,
+				EA0F3EB0229E22D8003AA280 /* PSFreeMeetingCoordinateResponse.m */,
 			);
 			path = Meetings;
 			sourceTree = "<group>";
@@ -5583,6 +5593,7 @@
 				3E1738022085F1180068CCEB /* PSBuyCardViewController.m in Sources */,
 				3E5D14D9207230DB000FC779 /* PSViewController.m in Sources */,
 				3E171AD020930B2400B7D807 /* PSWriteSuggestionResponse.m in Sources */,
+				EA0F3EAE229E2298003AA280 /* PSFreeMeetingCoordinateRequest.m in Sources */,
 				3E91DE70208F381100AADE3C /* PSBindPrisonerViewModel.m in Sources */,
 				3E78B766208D842A007DF162 /* PSPhoneCardRequest.m in Sources */,
 				EA1AD2C920E47D3000646B9E /* PSEcomLoginViewmodel.m in Sources */,
@@ -5700,6 +5711,7 @@
 				55573F9721BE03870053391C /* UIViewController+ SDTrackTool.m in Sources */,
 				3EC7B6DE207C6E7B00DFBA65 /* PSUnderlineTextField.m in Sources */,
 				EA33783B20FC45700081B907 /* PSMeetHistoryRequest.m in Sources */,
+				EA0F3EB1229E22D8003AA280 /* PSFreeMeetingCoordinateResponse.m in Sources */,
 				EAD18F4D20D02A770053F82B /* MJPropertyType.m in Sources */,
 				3E5D150020731B04000FC779 /* PSApiSign.m in Sources */,
 				552CBA0E219AA449008CCC03 /* UIViewController+Tool.m in Sources */,
