@@ -179,15 +179,7 @@
     viewModel.familymeetingID=self.familesMeetingID;
     viewModel.callDuration=self.callDuration;
     
-    viewModel.lat=[PSLocateManager sharedInstance].lat;
-    viewModel.lng=[PSLocateManager sharedInstance].lng;
-    viewModel.province=[PSLocateManager sharedInstance].province;
-    viewModel.province=[PSLocateManager sharedInstance].city;
-    [viewModel requestUpdateMeetingCoordinateCompleted:^(PSResponse *response) {
-        
-    } failed:^(NSError *error) {
-        
-    }];
+    
     
    PSMeetingViewController *meetingViewController = [[PSMeetingViewController alloc] initWithViewModel:viewModel];
 //    [self.meetingNavigationController pushViewController:meetingViewController animated:YES];
@@ -202,6 +194,35 @@
      self.meetingNavigationController = nil;
 
     
+}
+
+-(void)sendFreeLocation{
+    PSMeetingViewModel *viewModel = [PSMeetingViewModel new];
+    viewModel.meetingID = self.meetingID;
+    viewModel.lat=[PSLocateManager sharedInstance].lat;
+    viewModel.lng=[PSLocateManager sharedInstance].lng;
+    viewModel.province=[PSLocateManager sharedInstance].province;
+    viewModel.province=[PSLocateManager sharedInstance].city;
+    [viewModel requestUpdateFreeMeetingCoordinateCompleted:^(PSResponse *response) {
+        
+    } failed:^(NSError *error) {
+        
+    }];
+    
+}
+
+-(void)sendChargeLocation{
+    PSMeetingViewModel *viewModel = [PSMeetingViewModel new];
+    viewModel.meetingID = self.meetingID;
+    viewModel.lat=[PSLocateManager sharedInstance].lat;
+    viewModel.lng=[PSLocateManager sharedInstance].lng;
+    viewModel.province=[PSLocateManager sharedInstance].province;
+    viewModel.province=[PSLocateManager sharedInstance].city;
+    [viewModel requestUpdateMeetingCoordinateCompleted:^(PSResponse *response) {
+        
+    } failed:^(NSError *error) {
+        
+    }];
 }
 
 
@@ -237,6 +258,18 @@
 - (void)receivedMeetingMessage:(PSMeetingMessage *)message {
     NSLog(@"_____****_____%@",message);
     switch (message.code) {
+            
+        case PSChargeMeetingLocation:
+        {
+            [self sendChargeLocation];
+            
+        }
+        case PSFreeMeetingLocation:
+        {
+            [self sendFreeLocation];
+            
+        }
+            
         case PSMeetingStart:
         {
             //发起会议

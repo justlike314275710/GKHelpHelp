@@ -31,4 +31,5 @@
 
 - (void)requestUpdateMeetingCoordinateCompleted:(RequestDataCompleted)completedCallback failed:(RequestDataFailed)failedCallback;
 
+- (void)requestUpdateFreeMeetingCoordinateCompleted:(RequestDataCompleted)completedCallback failed:(RequestDataFailed)failedCallback;
 @end
