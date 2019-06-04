@@ -256,7 +256,7 @@
 
 #pragma mark - PSIMMessageObserver
 - (void)receivedMeetingMessage:(PSMeetingMessage *)message {
-    NSLog(@"_____****_____%@",message);
+    NSLog(@"_____****_____%@",message.msg);
     switch (message.code) {
             
         case PSChargeMeetingLocation:

@@ -509,6 +509,8 @@
 		EA67825822927B2700638C17 /* PSPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA67825722927B2700638C17 /* PSPasswordViewController.m */; };
 		EA67825B22927BA400638C17 /* PSPasswordViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = EA67825A22927BA400638C17 /* PSPasswordViewModel.m */; };
 		EA67825E2293EE3400638C17 /* PSResetPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA67825D2293EE3300638C17 /* PSResetPasswordViewController.m */; };
+		EA6BE71522A4F18F00363036 /* PSForgetPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA6BE71422A4F18F00363036 /* PSForgetPasswordViewController.m */; };
+		EA6BE71822A5181700363036 /* PSForgetNextViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA6BE71722A5181700363036 /* PSForgetNextViewController.m */; };
 		EA78E1C0215E233500BBEE58 /* VIRegisterProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = EA78E1BF215E233500BBEE58 /* VIRegisterProgressView.m */; };
 		EA78E1C3215F63B200BBEE58 /* VIAddFamilesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA78E1C2215F63B200BBEE58 /* VIAddFamilesViewController.m */; };
 		EA78E1E42175827500BBEE58 /* JXButton.m in Sources */ = {isa = PBXBuildFile; fileRef = EA78E1E22175827500BBEE58 /* JXButton.m */; };
@@ -1717,6 +1719,10 @@
 		EA67825A22927BA400638C17 /* PSPasswordViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PSPasswordViewModel.m; sourceTree = "<group>"; };
 		EA67825C2293EE3300638C17 /* PSResetPasswordViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PSResetPasswordViewController.h; sourceTree = "<group>"; };
 		EA67825D2293EE3300638C17 /* PSResetPasswordViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PSResetPasswordViewController.m; sourceTree = "<group>"; };
+		EA6BE71322A4F18F00363036 /* PSForgetPasswordViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PSForgetPasswordViewController.h; sourceTree = "<group>"; };
+		EA6BE71422A4F18F00363036 /* PSForgetPasswordViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PSForgetPasswordViewController.m; sourceTree = "<group>"; };
+		EA6BE71622A5181700363036 /* PSForgetNextViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PSForgetNextViewController.h; sourceTree = "<group>"; };
+		EA6BE71722A5181700363036 /* PSForgetNextViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PSForgetNextViewController.m; sourceTree = "<group>"; };
 		EA78E1BE215E233500BBEE58 /* VIRegisterProgressView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VIRegisterProgressView.h; sourceTree = "<group>"; };
 		EA78E1BF215E233500BBEE58 /* VIRegisterProgressView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VIRegisterProgressView.m; sourceTree = "<group>"; };
 		EA78E1C1215F63B100BBEE58 /* VIAddFamilesViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VIAddFamilesViewController.h; sourceTree = "<group>"; };
@@ -3358,6 +3364,10 @@
 				EA67825722927B2700638C17 /* PSPasswordViewController.m */,
 				EA67825C2293EE3300638C17 /* PSResetPasswordViewController.h */,
 				EA67825D2293EE3300638C17 /* PSResetPasswordViewController.m */,
+				EA6BE71322A4F18F00363036 /* PSForgetPasswordViewController.h */,
+				EA6BE71422A4F18F00363036 /* PSForgetPasswordViewController.m */,
+				EA6BE71622A5181700363036 /* PSForgetNextViewController.h */,
+				EA6BE71722A5181700363036 /* PSForgetNextViewController.m */,
 			);
 			path = Setting;
 			sourceTree = "<group>";
@@ -5609,6 +5619,7 @@
 				3EC7B72D207E0E2300DFBA65 /* PSAccountInfoItem.m in Sources */,
 				3EEE77862080977400CAD179 /* PSFamilyServiceInfoView.m in Sources */,
 				552E617621A59C7000FA31FD /* PSLocalMeetingAppointmentStatusView.m in Sources */,
+				EA6BE71822A5181700363036 /* PSForgetNextViewController.m in Sources */,
 				EAA0C9C82186BC7D00240724 /* PSConsultationOtherTableViewCell.m in Sources */,
 				EA4285FB211986D700418685 /* VIRegisterPageController.m in Sources */,
 				3EA8F87C20904FC400BA23B2 /* PSMeetingViewModel.m in Sources */,
@@ -5759,6 +5770,7 @@
 				3EEE775D207F58EA00CAD179 /* PSHomeHallSectionView.m in Sources */,
 				EA42860A2119894D00418685 /* VIPhoneMessageViewController.m in Sources */,
 				EAB45370214B8727007A7627 /* PSPrisonerFamily.m in Sources */,
+				EA6BE71522A4F18F00363036 /* PSForgetPasswordViewController.m in Sources */,
 				3E5D14C520721E72000FC779 /* UIImage+Color.m in Sources */,
 				3EA8F85E2090129400BA23B2 /* PSIMMessageManager.m in Sources */,
 				555FF47621D370AD00FF8D1D /* PSFeedbackDetailResponse.m in Sources */,

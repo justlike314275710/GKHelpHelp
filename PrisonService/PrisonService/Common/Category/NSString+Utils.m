@@ -592,6 +592,126 @@ static const char encodingTable[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopq
     }
     return levelType;
 }
+#pragma 正则匹配用户密码6-18位数字和字母组合
+-(int)checkIsHaveNumAndLetter:(NSString*)password
+
+{
+    
+    //数字条件
+    
+    NSRegularExpression *tNumRegularExpression = [NSRegularExpression regularExpressionWithPattern:@"[0-9]" options:NSRegularExpressionCaseInsensitive error:nil];
+    
+    
+    
+    //符合数字条件的有几个字节
+    
+    NSUInteger tNumMatchCount = [tNumRegularExpression numberOfMatchesInString:password
+                                 
+                                                                       options:NSMatchingReportProgress
+                                 
+                                                                         range:NSMakeRange(0, password.length)];
+    
+    
+    
+    //英文字条件
+    
+    NSRegularExpression *sLetterRegularExpression = [NSRegularExpression regularExpressionWithPattern:@"[a-z]" options:NSRegularExpressionDotMatchesLineSeparators error:nil];
+    
+    
+    
+    //符合英文字条件的有几个字节
+    
+    NSUInteger sLetterMatchCount = [sLetterRegularExpression numberOfMatchesInString:password options:NSMatchingReportProgress range:NSMakeRange(0, password.length)];
+    
+    
+    
+    //英文字条件
+    
+    NSRegularExpression *tLetterRegularExpression = [NSRegularExpression regularExpressionWithPattern:@"[A-Z]" options:NSRegularExpressionDotMatchesLineSeparators error:nil];
+    
+    
+    
+    //符合英文字条件的有几个字节
+    
+    NSUInteger tLetterMatchCount = [tLetterRegularExpression numberOfMatchesInString:password options:NSMatchingReportProgress range:NSMakeRange(0, password.length)];
+    
+    
+    
+    if (password.length < 16&&password.length < 8) {
+        
+        // 密码长度不正确
+        
+        return 0;
+        
+    } else {
+        
+        
+        
+        // 没有大写或小写
+        
+        if (tLetterMatchCount == 0 || sLetterMatchCount == 0) {
+            
+            
+            
+            return 1;
+            
+        } else {
+            
+            if (tNumMatchCount > 0) {
+                
+                return 4;
+                
+            } else{
+                
+                if(tNumMatchCount + tLetterMatchCount + sLetterMatchCount < password.length){
+                    
+                    return 4;
+                    
+                } else{
+                    
+                    return 2;
+                    
+                }
+                
+            }
+            
+        }
+        
+    }
+    
+}
+
+
+
+
++ (BOOL)checkPassword:(NSString *) password
+{
+    BOOL result = NO;
+    if (password.length >= 8 && password.length <= 16){
+        //数字条件
+        NSRegularExpression *tNumRegularExpression = [NSRegularExpression regularExpressionWithPattern:@"[0-9]" options:NSRegularExpressionCaseInsensitive error:nil];
+        
+        //符合数字条件的有几个
+        NSUInteger tNumMatchCount = [tNumRegularExpression numberOfMatchesInString:password
+                                                                           options:NSMatchingReportProgress
+                                                                             range:NSMakeRange(0, password.length)];
+        
+        //英文字条件
+        NSRegularExpression *tLetterRegularExpression = [NSRegularExpression regularExpressionWithPattern:@"[A-Za-z]" options:NSRegularExpressionCaseInsensitive error:nil];
+        
+        //符合英文字条件的有几个
+        NSUInteger tLetterMatchCount = [tLetterRegularExpression numberOfMatchesInString:password
+                                                                                 options:NSMatchingReportProgress
+                                                                                   range:NSMakeRange(0, password.length)];
+        
+        if(tNumMatchCount >= 1 && tLetterMatchCount >= 1){
+            result = YES;
+        }
+        
+    }
+    return result;
+    
+}
 
 + (BOOL)verifyIDCardNumber:(NSString *)value {
     value = [value stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
@@ -722,7 +842,6 @@ static const char encodingTable[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopq
 +(NSString *) timeChange:(NSString *)timeString{
     NSString*time=[timeString substringToIndex:18];
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    
     [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss"];
     NSDate *currentDate = [dateFormatter dateFromString:time];
     NSTimeZone *zone = [NSTimeZone systemTimeZone];

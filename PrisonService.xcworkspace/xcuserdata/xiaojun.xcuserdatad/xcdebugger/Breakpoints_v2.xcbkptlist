@@ -13,5 +13,53 @@
             stopOnStyle = "0">
          </BreakpointContent>
       </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "PrisonService/PrisonService/Business/BusinessManager/Meeting/PSMeetingManager.m"
+            timestampString = "581311333.452226"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "207"
+            endingLineNumber = "207"
+            landmarkName = "-sendFreeLocation"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__36-[PSMeetingManager sendFreeLocation]_block_invoke"
+                  moduleName = "PrisonService"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/xiaojun/Desktop/%E7%8B%B1%E5%8A%A1%E9%80%9A_iOS/PrisonService/PrisonService/Business/BusinessManager/Meeting/PSMeetingManager.m"
+                  timestampString = "581311333.698635"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "208"
+                  endingLineNumber = "208"
+                  offsetFromSymbolStart = "56">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__36-[PSMeetingManager sendFreeLocation]_block_invoke_2"
+                  moduleName = "PrisonService"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/xiaojun/Desktop/%E7%8B%B1%E5%8A%A1%E9%80%9A_iOS/PrisonService/PrisonService/Business/BusinessManager/Meeting/PSMeetingManager.m"
+                  timestampString = "581311333.703472"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "210"
+                  endingLineNumber = "210"
+                  offsetFromSymbolStart = "56">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
    </Breakpoints>
 </Bucket>

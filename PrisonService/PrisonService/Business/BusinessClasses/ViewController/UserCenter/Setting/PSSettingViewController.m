@@ -22,6 +22,7 @@
 #import "PSFeedbackListViewModel.h"
 #import "PSPasswordViewController.h"
 #import "PSPasswordViewModel.h"
+#import "PSResetPasswordViewController.h"
 @interface PSSettingViewController ()<UITableViewDataSource,UITableViewDelegate>
 
 @property (nonatomic, strong) UITableView *settingTableView;
@@ -79,7 +80,16 @@
 
 -(void)passWordSave{
     PSPasswordViewModel*viewModel=[[PSPasswordViewModel alloc]init];
-    [self.navigationController pushViewController:[[PSPasswordViewController alloc]initWithViewModel:viewModel] animated:YES];
+    [viewModel requestBoolPasswordCompleted:^(PSResponse *response) {
+        [self.navigationController pushViewController:[[PSResetPasswordViewController alloc]initWithViewModel:viewModel] animated:YES];
+    } failed:^(NSError *error) {
+        [PSAlertView showWithTitle:@"提示" message:@"请先设置密码" messageAlignment:NSTextAlignmentCenter image:nil handler:^(PSAlertView *alertView, NSInteger buttonIndex) {
+            if (buttonIndex==1) {
+            [self.navigationController pushViewController:[[PSPasswordViewController alloc]initWithViewModel:viewModel] animated:YES];
+            }
+        } buttonTitles:@"取消",@"设置", nil];
+    }];
+    
 }
 
 - (void)refreshStorage {

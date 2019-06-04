@@ -1,19 +1,19 @@
 //
-//  PSPasswordViewController.m
+//  PSForgetNextViewController.m
 //  PrisonService
 //
-//  Created by 狂生烈徒 on 2019/5/20.
+//  Created by 狂生烈徒 on 2019/6/3.
 //  Copyright © 2019年 calvin. All rights reserved.
 //
 
-#import "PSPasswordViewController.h"
+#import "PSForgetNextViewController.h"
 #import "PSPasswordViewModel.h"
-@interface PSPasswordViewController ()
-
+@interface PSForgetNextViewController ()
 @property (nonatomic , strong) UITextField *passwordTextfield;
 @end
 
-@implementation PSPasswordViewController
+@implementation PSForgetNextViewController
+
 - (instancetype)initWithViewModel:(PSViewModel *)viewModel {
     self = [super initWithViewModel:viewModel];
     if (self) {
@@ -75,7 +75,7 @@
         make.width.mas_equalTo(16);
     }];
     [showPasswordButton addTarget:self action:@selector(rightBarButtonItemClicked:) forControlEvents:UIControlEventTouchUpInside];
-
+    
     
     
     UIButton*passwordButton=[UIButton new];
@@ -96,19 +96,20 @@
     }];
 }
 - (void)passwordButtonClicked {
-     PSPasswordViewModel *ViewModel  =(PSPasswordViewModel *)self.viewModel;
-     ViewModel.phone_password=self.passwordTextfield.text;
-     [ViewModel checkPhoneDataWithCallback:^(BOOL successful, NSString *tips) {
+    PSPasswordViewModel *ViewModel  =(PSPasswordViewModel *)self.viewModel;
+    ViewModel.phone_newPassword=self.passwordTextfield.text;
+    [ViewModel checkNewPhoneDataWithCallback:^(BOOL successful, NSString *tips) {
         if (successful) {
-            [ViewModel requestPasswordCompleted:^(PSResponse *response) {
-                [PSTipsView showTips:@"设置密码成功!"];
+            [ViewModel requestByVerficationCodeCompleted:^(PSResponse *response) {
+                [PSTipsView showTips:@"密码修改成功!"];
+                [self.navigationController popToRootViewControllerAnimated:YES];
             } failed:^(NSError *error) {
-                [PSTipsView showTips:@"设置密码失败!"];
+                [PSTipsView showTips:@"密码修改失败!"];
             }];
         }else{
             [PSTipsView showTips:tips];
         }
-     }];
+    }];
     
 }
 
@@ -117,10 +118,6 @@
     sender.selected=!sender.selected;
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
 
 /*
 #pragma mark - Navigation
