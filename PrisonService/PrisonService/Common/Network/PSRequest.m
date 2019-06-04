@@ -133,6 +133,7 @@
     if ([self serviceName]) {
         [serverURL appendString:self.serviceName];
     }
+    NSLog(@"***%@",serverURL);
     return serverURL;
 }
 

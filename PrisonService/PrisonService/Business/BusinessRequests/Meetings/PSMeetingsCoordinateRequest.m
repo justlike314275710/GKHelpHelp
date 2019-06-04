@@ -14,7 +14,7 @@
     if (self) {
         self.method = PSHttpMethodPost;
         self.serviceName = @"updateMeetingCoordinate";
-        self.parameterType=PSPostParameterJson;
+        self.parameterType=PSPostParameterFormData;
     }
     return self;
 }
