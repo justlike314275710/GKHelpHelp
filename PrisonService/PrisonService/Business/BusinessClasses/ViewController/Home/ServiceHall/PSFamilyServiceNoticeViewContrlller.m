@@ -12,8 +12,8 @@
 #import "UIScrollView+EmptyDataSet.h"
 #import "PSFamilyServiceNoticeCell.h"
 #import "PSTipsConstants.h"
-#import "PSMeetingHistoryViewModel.h"
-#import "PSMeettingHistory.h"
+#import "PSFamilyServiceNoticeModel.h"
+#import "PSFamilyServiceNoticeViewModel.h"
 #import "PSCancelReasonView.h"
 
 
@@ -47,7 +47,7 @@
     [super didReceiveMemoryWarning];
 }
 - (void)loadMore {
-    PSMeetingHistoryViewModel *meetingHistoryModel =(PSMeetingHistoryViewModel *)self.viewModel;
+    PSFamilyServiceNoticeViewModel *meetingHistoryModel =(PSFamilyServiceNoticeViewModel *)self.viewModel;
     @weakify(self)
     [meetingHistoryModel loadMoreRefundCompleted:^(PSResponse *response) {
         @strongify(self)
@@ -58,7 +58,7 @@
     }];
 }
 - (void)refreshData {
-    PSMeetingHistoryViewModel *meetingHistoryModel =(PSMeetingHistoryViewModel *)self.viewModel;
+    PSFamilyServiceNoticeViewModel *meetingHistoryModel =(PSFamilyServiceNoticeViewModel *)self.viewModel;
     [[PSLoadingView sharedInstance]show];
     @weakify(self)
     
@@ -74,7 +74,7 @@
 }
 
 - (void)reloadContents {
-    PSMeetingHistoryViewModel *meetingHistoryModel =(PSMeetingHistoryViewModel *)self.viewModel;
+    PSFamilyServiceNoticeViewModel *meetingHistoryModel =(PSFamilyServiceNoticeViewModel *)self.viewModel;
     if (meetingHistoryModel.hasNextPage) {
         @weakify(self)
         self.myTableview.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
@@ -112,120 +112,29 @@
 
 #pragma mark - UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    PSMeetingHistoryViewModel *meetingHistoryModel =(PSMeetingHistoryViewModel *)self.viewModel;
+    PSFamilyServiceNoticeViewModel *meetingHistoryModel =(PSFamilyServiceNoticeViewModel *)self.viewModel;
     return meetingHistoryModel.meeetHistorys.count;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    PSMeetingHistoryViewModel *meetingHistoryModel =(PSMeetingHistoryViewModel *)self.viewModel;
-    PSMeettingHistory *MeettingHistory= meetingHistoryModel.meeetHistorys[indexPath.row];
+    PSFamilyServiceNoticeViewModel *meetingHistoryModel =(PSFamilyServiceNoticeViewModel *)self.viewModel;
+    PSFamilyServiceNoticeModel *MeettingHistory= meetingHistoryModel.meeetHistorys[indexPath.row];
     NSString *str = MeettingHistory.remarks ;//你想显示的字符串
     CGSize size = [str sizeWithFont:[UIFont systemFontOfSize: 12] constrainedToSize:CGSizeMake(280, 999) lineBreakMode:NSLineBreakByWordWrapping];
-    return size.height + 140;
+    if ([MeettingHistory.status isEqualToString:@"DENIED"]) { //已拒绝
+        return size.height + 150;
+    } else {
+         return size.height + 135;
+    }
+
 }
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     PSFamilyServiceNoticeCell*cell = [tableView dequeueReusableCellWithIdentifier:@"PSFamilyServiceNoticeCell"];
-    PSMeetingHistoryViewModel *meetingHistoryModel =(PSMeetingHistoryViewModel *)self.viewModel;
-    PSMeettingHistory *MeettingHistory= meetingHistoryModel.meeetHistorys[indexPath.row];
-    cell.iconLable.text=[NSString stringWithFormat:@"%@",MeettingHistory.name];
-    cell.otherLabel.lineBreakMode=NSLineBreakByWordWrapping;
-    cell.otherLabel.numberOfLines=0;
-    NSString*status=MeettingHistory.status;
-    
-    
-    NSString*meet_PENDING=NSLocalizedString(@"meet_PENDING", nil);
-    NSString*meet_PASSED=NSLocalizedString(@"meet_PASSED", nil);
-    NSString*meet_FINISHED=NSLocalizedString(@"meet_FINISHED", nil);
-    NSString*meet_EXPIRED=NSLocalizedString(@"meet_EXPIRED", nil);
-    NSString*meet_DENIED=NSLocalizedString(@"meet_DENIED_HISTORY", nil);
-    NSString*meet_CACELED=NSLocalizedString(@"meet_CACELED", nil);
-    NSString*apply_data=NSLocalizedString(@"apply_data", @"申请日期");
-    NSString*meet_data=NSLocalizedString(@"meet_data", @"会见日期");
-    NSString*Refuse_reason=NSLocalizedString(@"Refuse_reason", @"拒绝原因");
-    if ([status isEqualToString:@"PENDING"]) {
-        cell.otherTextLabel.text=@"";
-        cell.otherLabel.text=@"";
-        [cell.statusButton setBackgroundColor:UIColorFromRGB(255, 138, 7)];
-        [cell.statusButton setTitle:meet_PENDING forState:UIControlStateNormal];
-        
-        cell.dateTextLabel.text=apply_data;
-        cell.dateLabel.text=MeettingHistory.applicationDate;
-        if ([MeettingHistory.canCancel isEqualToString:@"1"]) {
-            cell.cancleButton.hidden=NO;
-        }else{
-            cell.cancleButton.hidden=YES;
-        }
-        // cell.cancleButton.hidden=NO;
-        cell.cancleButton.tag=indexPath.row;
-        [cell.cancleButton addTarget:self action:@selector(cancelApplyMeeting:) forControlEvents:UIControlEventTouchUpInside];
-    }
-    else if ([status isEqualToString:@"PASSED"]){
-        cell.otherTextLabel.text=meet_data;
-        cell.otherLabel.text=MeettingHistory.meetingTime;
-        [cell.statusButton setBackgroundColor:UIColorFromRGB(0, 142, 60)];
-        [cell.statusButton setTitle:meet_PASSED forState:UIControlStateNormal];
-        cell.dateTextLabel.text=apply_data;
-        cell.dateLabel.text=MeettingHistory.applicationDate;
-        if ([MeettingHistory.canCancel isEqualToString:@"1"]) {
-            cell.cancleButton.hidden=NO;
-        }else{
-            cell.cancleButton.hidden=YES;
-        }
-        
-        cell.cancleButton.tag=indexPath.row;
-        [cell.cancleButton addTarget:self action:@selector(cancelApplyMeeting:) forControlEvents:UIControlEventTouchUpInside];
-    }
-    else if ([status isEqualToString:@"FINISHED"]){
-        cell.otherTextLabel.text=meet_data;
-        cell.otherLabel.text=MeettingHistory.meetingTime;
-        [cell.statusButton setBackgroundColor:UIColorFromRGB(83, 119, 185)];
-        [cell.statusButton setTitle:meet_FINISHED forState:UIControlStateNormal];
-        cell.dateTextLabel.text=apply_data;
-        cell.dateLabel.text=MeettingHistory.applicationDate;
-        cell.cancleButton.hidden=YES;
-    }
-    else if ([status isEqualToString:@"DENIED"]){
-        
-        if ([MeettingHistory.remarks isEqualToString:@"null"]) {
-            cell.otherTextLabel.text=Refuse_reason;
-            cell.otherLabel.text=@"";
-        }else{
-            cell.otherTextLabel.text=Refuse_reason;
-            cell.otherLabel.text=MeettingHistory.remarks;
-        }
-        [cell.statusButton setBackgroundColor:UIColorFromRGB(192, 3, 3)];
-        [cell.statusButton setTitle:meet_DENIED forState:UIControlStateNormal];
-        cell.dateTextLabel.text=apply_data;
-        cell.dateLabel.text=MeettingHistory.applicationDate;
-        cell.cancleButton.hidden=YES;
-    }
-    else if ([status isEqualToString:@"CANCELED"]){
-        
-        if ([MeettingHistory.remarks isEqualToString:@"null"]) {
-            cell.otherTextLabel.text=Refuse_reason;
-            cell.otherLabel.text=@"";
-        }else{
-            cell.otherTextLabel.text=Refuse_reason;
-            cell.otherLabel.text=MeettingHistory.remarks;
-        }
-        [cell.statusButton setBackgroundColor:UIColorFromRGB(192, 3, 3)];
-        [cell.statusButton setTitle:meet_CACELED forState:UIControlStateNormal];
-        cell.dateTextLabel.text=apply_data;
-        cell.dateLabel.text=MeettingHistory.applicationDate;
-        cell.cancleButton.hidden=YES;
-    }
-    else if ([status isEqualToString:@"EXPIRED"]){
-        
-        cell.otherTextLabel.text=meet_data;
-        cell.otherLabel.text=MeettingHistory.meetingTime;
-        [cell.statusButton setBackgroundColor:UIColorFromRGB(153, 153, 153)];
-        [cell.statusButton setTitle:meet_EXPIRED forState:UIControlStateNormal];
-        cell.dateTextLabel.text=apply_data;
-        cell.dateLabel.text=MeettingHistory.applicationDate;
-        cell.cancleButton.hidden=YES;
-    }
+    PSFamilyServiceNoticeViewModel *meetingHistoryModel =(PSFamilyServiceNoticeViewModel *)self.viewModel;
+    PSFamilyServiceNoticeModel *MeettingHistory= meetingHistoryModel.meeetHistorys[indexPath.row];
+    cell.model = MeettingHistory;
     return cell;
 }
 
@@ -233,20 +142,20 @@
 
 #pragma mark - DZNEmptyDataSetSource and DZNEmptyDataSetDelegate
 - (UIImage *)imageForEmptyDataSet:(UIScrollView *)scrollView {
-    PSMeetingHistoryViewModel *historyViewModel = (PSMeetingHistoryViewModel *)self.viewModel;
+    PSFamilyServiceNoticeViewModel *historyViewModel = (PSFamilyServiceNoticeViewModel *)self.viewModel;
     UIImage *emptyImage = historyViewModel.dataStatus == PSDataEmpty ? [UIImage imageNamed:@"universalNoneIcon"] : [UIImage imageNamed:@"universalNetErrorIcon"];
     return historyViewModel.dataStatus == PSDataInitial ? nil : emptyImage;
 }
 
 - (NSAttributedString *)titleForEmptyDataSet:(UIScrollView *)scrollView {
-    PSMeetingHistoryViewModel *historyViewModel = (PSMeetingHistoryViewModel *)self.viewModel;
+    PSFamilyServiceNoticeViewModel *historyViewModel = (PSFamilyServiceNoticeViewModel *)self.viewModel;
     NSString *tips = historyViewModel.dataStatus == PSDataEmpty ? EMPTY_CONTENT : NET_ERROR;
     return historyViewModel.dataStatus == PSDataInitial ? nil : [[NSAttributedString alloc] initWithString:tips attributes:@{NSFontAttributeName:AppBaseTextFont1,NSForegroundColorAttributeName:AppBaseTextColor1}];
     
 }
 
 - (NSAttributedString *)buttonTitleForEmptyDataSet:(UIScrollView *)scrollView forState:(UIControlState)state {
-    PSMeetingHistoryViewModel *historyViewModel = (PSMeetingHistoryViewModel *)self.viewModel;
+    PSFamilyServiceNoticeViewModel *historyViewModel = (PSFamilyServiceNoticeViewModel *)self.viewModel;
     return historyViewModel.dataStatus == PSDataError ? [[NSAttributedString alloc] initWithString:CLICK_ADD attributes:@{NSFontAttributeName:AppBaseTextFont1,NSForegroundColorAttributeName:AppBaseTextColor1}] : nil;
 }
 

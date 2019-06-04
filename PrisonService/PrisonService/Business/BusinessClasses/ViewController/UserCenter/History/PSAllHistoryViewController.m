@@ -16,6 +16,8 @@
 #import "LawyerAdviceViewController.h"
 #import "UIColor+HexString.h"
 #import "PSMeetingHistoryViewModel.h"
+#import "PSLocalHistoryViewContller.h"
+#import "PSLocalMeetingHistoryViewModel.h"
 
 @interface PSAllHistoryViewController ()<ZWTopSelectVcViewDataSource,ZWTopSelectVcViewDelegate> {
     BOOL              isChangeChildVc;
@@ -65,7 +67,7 @@
     showoneVc.title=@"远程探视";
     [controllerMutableArr addObject:showoneVc];
     
-    PSHistoryViewController*showtwoVc =[[PSHistoryViewController alloc]initWithViewModel:[[PSMeetingHistoryViewModel alloc]init]];
+    PSLocalHistoryViewContller*showtwoVc =[[PSLocalHistoryViewContller alloc]initWithViewModel:[[PSLocalMeetingHistoryViewModel alloc]init]];
     showtwoVc.title=@"实地会见";
     [controllerMutableArr addObject:showtwoVc];
     
