@@ -9,7 +9,7 @@
 
 #define DEVELOP  0    //开发
 #define UAT 1       //测试
-#define PRODUCE 0     //生产
+#define PRODUCE 0    //生产
 
 
 #ifdef DEBUG
@@ -35,6 +35,7 @@
 #define EmallUrl @"http://10.10.10.16:805"
 #define ImageDeleteUrl @"http://120.78.190.101:1339/delete/resources"//删除图片接口
 #define ConsultationHostUrl @"http://qa.api.legal.prisonpublic.com"
+#define UploadServerUrl @"http://120.79.251.238:1339/image-server"
 
 #elif PRODUCE        //生产
 #define ServerDomain @"https://www.yuwugongkai.com"
@@ -44,6 +45,7 @@
 #define EmallHostUrl @"https://api.auth.prisonpublic.com"
 #define ImageDeleteUrl @"https://www.yuwugongkai.com/image-server/delete/resources"//删除图片接口
 #define ConsultationHostUrl @"http://qa.api.legal.prisonpublic.com"
+#define UploadServerUrl [NSString stringWithFormat:@"%@/image-server",ServerDomain]
 #else               //生产（防止没有定义的时候没有域名)
 
 #define ServerDomain @"https://www.yuwugongkai.com"
@@ -60,7 +62,7 @@
 
 //图片上传地址
 //#define UploadServerUrl [NSString stringWithFormat:@"%@/image-server",ServerDomain]
-#define UploadServerUrl @"http://120.79.251.238:1339/image-server"
+//#define UploadServerUrl @"http://120.79.251.238:1339/image-server"
 //使用协议
 //#define ProtocolUrl [NSString stringWithFormat:@"%@/front/xieyi.html",H5ServerDomain]
 #define ProtocolUrl @"http://39.108.185.51:8081/front/xieyi.html"
