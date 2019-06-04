@@ -64,7 +64,9 @@
 - (void)sendMeetingMessage:(PSMeetingMessage *)message {
     NSString *content = [message toJSONString];
     NIMCustomSystemNotification *customSystemNotification = [[NIMCustomSystemNotification alloc] initWithContent:content];
+    NSLog(@"***%@",content);
     [[NIMSDK sharedSDK].systemNotificationManager sendCustomNotification:customSystemNotification toSession:self.session completion:nil];
+    NSLog(@"%@",self.session);
 }
 
 /**

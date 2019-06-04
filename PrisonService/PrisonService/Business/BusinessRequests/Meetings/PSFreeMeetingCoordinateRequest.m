@@ -13,8 +13,8 @@
     self = [super init];
     if (self) {
         self.method = PSHttpMethodPost;
-        self.serviceName = @"api/free_meetings/updateMeetingCoordinate";
-        self.parameterType=PSPostParameterJson;
+        self.serviceName = @"updateMeetingCoordinate";
+        self.parameterType=PSPostParameterFormData;
     }
     return self;
 }
@@ -26,6 +26,10 @@
     [parameters addParameter:self.province forKey:@"province"];
     [parameters addParameter:self.city forKey:@"city"];
     [super buildPostParameters:parameters];
+}
+
+- (NSString *)businessDomain {
+    return @"/api/free_meetings/";
 }
 
 - (Class)responseClass {

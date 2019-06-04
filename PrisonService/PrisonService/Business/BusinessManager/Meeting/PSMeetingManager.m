@@ -202,7 +202,7 @@
     viewModel.lat=[PSLocateManager sharedInstance].lat;
     viewModel.lng=[PSLocateManager sharedInstance].lng;
     viewModel.province=[PSLocateManager sharedInstance].province;
-    viewModel.province=[PSLocateManager sharedInstance].city;
+    viewModel.city=[PSLocateManager sharedInstance].city;
     [viewModel requestUpdateFreeMeetingCoordinateCompleted:^(PSResponse *response) {
         
     } failed:^(NSError *error) {
@@ -217,7 +217,7 @@
     viewModel.lat=[PSLocateManager sharedInstance].lat;
     viewModel.lng=[PSLocateManager sharedInstance].lng;
     viewModel.province=[PSLocateManager sharedInstance].province;
-    viewModel.province=[PSLocateManager sharedInstance].city;
+    viewModel.city=[PSLocateManager sharedInstance].city;
     [viewModel requestUpdateMeetingCoordinateCompleted:^(PSResponse *response) {
         
     } failed:^(NSError *error) {
@@ -256,7 +256,7 @@
 
 #pragma mark - PSIMMessageObserver
 - (void)receivedMeetingMessage:(PSMeetingMessage *)message {
-    NSLog(@"_____****_____%@",message);
+    NSLog(@"_____****_____%@",message.msg);
     switch (message.code) {
             
         case PSChargeMeetingLocation:

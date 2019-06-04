@@ -6,9 +6,9 @@
 //  Copyright © 2019年 calvin. All rights reserved.
 //
 
-#import "PSRequest.h"
+#import "PSBusinessRequest.h"
 #import "PSFreeMeetingCoordinateResponse.h"
-@interface PSFreeMeetingCoordinateRequest : PSRequest
+@interface PSFreeMeetingCoordinateRequest : PSBusinessRequest
 @property (nonatomic, strong) NSString *meetingId;
 @property (nonatomic, strong) NSString *lat;
 @property (nonatomic, strong) NSString *lng;
