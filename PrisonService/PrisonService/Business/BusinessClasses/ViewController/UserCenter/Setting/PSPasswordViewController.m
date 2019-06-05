@@ -102,6 +102,7 @@
         if (successful) {
             [ViewModel requestPasswordCompleted:^(PSResponse *response) {
                 [PSTipsView showTips:@"设置密码成功!"];
+                [self.navigationController popToRootViewControllerAnimated:YES];
             } failed:^(NSError *error) {
                 [PSTipsView showTips:@"设置密码失败!"];
             }];

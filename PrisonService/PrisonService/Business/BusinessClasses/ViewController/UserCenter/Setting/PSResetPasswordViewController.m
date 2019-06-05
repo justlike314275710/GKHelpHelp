@@ -237,6 +237,7 @@
         if (successful) {
             [ViewModel requestResetPasswordCompleted:^(PSResponse *response) {
                 [PSTipsView showTips:@"重置密码成功!"];
+                [self.navigationController popToRootViewControllerAnimated:YES];
             } failed:^(NSError *error) {
                 [PSTipsView showTips:@"重置密码失败!"];
             }];
