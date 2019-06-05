@@ -12,12 +12,12 @@
 #import "PSMeettingHistory.h"
 #import "PSLocalMeetingHistoryRequest.h"
 #import "PSLocalMeetingHistoryResponse.h"
-#import "PSLocalMeetCancelRequest.h"
+#import "PSCancelLocalMeetingRequest.h"
 
 @interface PSLocalMeetingHistoryViewModel()
 @property (nonatomic , strong) PSLocalMeetingHistoryRequest *meetHistoryRequest;
 @property (nonatomic , strong) NSMutableArray *items;
-@property (nonatomic , strong) PSLocalMeetCancelRequest *cancelMeetingRequest;
+@property (nonatomic , strong) PSCancelLocalMeetingRequest *cancelMeetingRequest;
 @end
 
 @implementation PSLocalMeetingHistoryViewModel
@@ -104,10 +104,11 @@
 
 
 - (void)MeetapplyCancelCompleted:(RequestDataCompleted)completedCallback failed:(RequestDataFailed)failedCallback{
-    _cancelMeetingRequest=[PSLocalMeetCancelRequest new];
-    _cancelMeetingRequest.ID=self.cancelId;
-    _cancelMeetingRequest.cause=self.cause;
-    [_cancelMeetingRequest send:^(PSRequest *request, PSResponse *response) {
+    
+    self.cancelMeetingRequest = [PSCancelLocalMeetingRequest new];
+    self.cancelMeetingRequest.meetingID = self.cancelId;
+    self.cancelMeetingRequest.cause = self.cause;
+    [self.cancelMeetingRequest send:^(PSRequest *request, PSResponse *response) {
         if (completedCallback) {
             completedCallback(response);
         }
@@ -116,5 +117,6 @@
             failedCallback(error);
         }
     }];
+    
 }
 @end

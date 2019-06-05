@@ -420,7 +420,7 @@
 		55BF613D22A65FBC00A8AE92 /* PSLocalMeetingHistoryResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 55BF613C22A65FBC00A8AE92 /* PSLocalMeetingHistoryResponse.m */; };
 		55BF614322A6613400A8AE92 /* PSLocalHistoryViewContller.m in Sources */ = {isa = PBXBuildFile; fileRef = 55BF614222A6613400A8AE92 /* PSLocalHistoryViewContller.m */; };
 		55BF614622A664A000A8AE92 /* PSLocalMeetingHistoryViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 55BF614522A664A000A8AE92 /* PSLocalMeetingHistoryViewModel.m */; };
-		55BF614922A66C9B00A8AE92 /* PSLocalMeetCancelRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 55BF614822A66C9B00A8AE92 /* PSLocalMeetCancelRequest.m */; };
+		55C4E54E22A7985E00EF63F6 /* PSLocalHistoryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 55C4E54D22A7985E00EF63F6 /* PSLocalHistoryCell.m */; };
 		55C9EDC42188528300A11D60 /* PSFamilyRemittanceViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 55C9EDC32188528300A11D60 /* PSFamilyRemittanceViewModel.m */; };
 		55CBA86A22754C1B003506C3 /* PSUniversaLawViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 55CBA86922754C1B003506C3 /* PSUniversaLawViewController.m */; };
 		55CBA86D22755118003506C3 /* PSUniversalLawCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 55CBA86C22755118003506C3 /* PSUniversalLawCell.m */; };
@@ -1551,8 +1551,8 @@
 		55BF614222A6613400A8AE92 /* PSLocalHistoryViewContller.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PSLocalHistoryViewContller.m; sourceTree = "<group>"; };
 		55BF614422A664A000A8AE92 /* PSLocalMeetingHistoryViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PSLocalMeetingHistoryViewModel.h; sourceTree = "<group>"; };
 		55BF614522A664A000A8AE92 /* PSLocalMeetingHistoryViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PSLocalMeetingHistoryViewModel.m; sourceTree = "<group>"; };
-		55BF614722A66C9B00A8AE92 /* PSLocalMeetCancelRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PSLocalMeetCancelRequest.h; sourceTree = "<group>"; };
-		55BF614822A66C9B00A8AE92 /* PSLocalMeetCancelRequest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PSLocalMeetCancelRequest.m; sourceTree = "<group>"; };
+		55C4E54C22A7985E00EF63F6 /* PSLocalHistoryCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PSLocalHistoryCell.h; sourceTree = "<group>"; };
+		55C4E54D22A7985E00EF63F6 /* PSLocalHistoryCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PSLocalHistoryCell.m; sourceTree = "<group>"; };
 		55C9EDC22188528300A11D60 /* PSFamilyRemittanceViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PSFamilyRemittanceViewModel.h; sourceTree = "<group>"; };
 		55C9EDC32188528300A11D60 /* PSFamilyRemittanceViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PSFamilyRemittanceViewModel.m; sourceTree = "<group>"; };
 		55CBA86822754C1B003506C3 /* PSUniversaLawViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PSUniversaLawViewController.h; sourceTree = "<group>"; };
@@ -4229,6 +4229,8 @@
 			children = (
 				EA33783520F723360081B907 /* PSHistoryCell.h */,
 				EA33783620F723360081B907 /* PSHistoryCell.m */,
+				55C4E54C22A7985E00EF63F6 /* PSLocalHistoryCell.h */,
+				55C4E54D22A7985E00EF63F6 /* PSLocalHistoryCell.m */,
 			);
 			path = History;
 			sourceTree = "<group>";
@@ -4244,8 +4246,6 @@
 				EA0D8D7021142F490042A1BA /* PSMeetCancelRequest.m */,
 				EA0D8D7221142FA00042A1BA /* PSMeetCancelResponse.h */,
 				EA0D8D7321142FA00042A1BA /* PSMeetCancelResponse.m */,
-				55BF614722A66C9B00A8AE92 /* PSLocalMeetCancelRequest.h */,
-				55BF614822A66C9B00A8AE92 /* PSLocalMeetCancelRequest.m */,
 			);
 			path = MeetHistory;
 			sourceTree = "<group>";
@@ -5470,6 +5470,7 @@
 				3E91DDFA208ECC2200AADE3C /* PSAlipayInfo.m in Sources */,
 				EAA0CA212188320500240724 /* TZPhotoPreviewCell.m in Sources */,
 				3E171AAD2092C6D100B7D807 /* PSNews.m in Sources */,
+				55C4E54E22A7985E00EF63F6 /* PSLocalHistoryCell.m in Sources */,
 				55B1958221D21C80000E0B28 /* PSFWriteFeedSuccessViewController.m in Sources */,
 				3EC7B6D5207C648E00DFBA65 /* PSMemberViewController.m in Sources */,
 				EA87F5752106C9E000D7A1E4 /* PSAccountEditAddressViewModel.m in Sources */,
@@ -5591,7 +5592,6 @@
 				3EC7B738207E18B800DFBA65 /* PSSettingItem.m in Sources */,
 				3EEEC686209985B6003B35B3 /* PSLaunchViewController.m in Sources */,
 				555E768B228BBBE300462658 /* PSPrisonerPreCheckRequest.m in Sources */,
-				55BF614922A66C9B00A8AE92 /* PSLocalMeetCancelRequest.m in Sources */,
 				3E5D15E420747DD0000FC779 /* PSCity.m in Sources */,
 				552E618221A65F4100FA31FD /* PSServicePrisonsCell.m in Sources */,
 				3E5D150520731B04000FC779 /* PSPassport.m in Sources */,

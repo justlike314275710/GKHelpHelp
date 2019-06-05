@@ -96,6 +96,7 @@
     NSArray *details = [PSSessionManager sharedInstance].passedPrisonerDetails;
     if (index >= 0 && index < details.count) {
         prisonerDetail = details[index];
+        titleLabel.text = [NSString stringWithFormat:@"%@%@",prisonerDetail.jailName,titleLabel.text];
     }
     UILabel *balanceTxtLabel = [UILabel new];
     balanceTxtLabel.textAlignment = NSTextAlignmentCenter;
@@ -104,7 +105,7 @@
     balanceTxtLabel.numberOfLines=0;
     NSString*Phone_card_balance=NSLocalizedString(@"Phone_card_balance", @"%@电话卡余额");
 //    balanceTxtLabel.text =[NSString stringWithFormat:Phone_card_balance,prisonerDetail.name];
-    balanceTxtLabel.text = @"监狱余额";
+    balanceTxtLabel.text = @"探视卡余额";
     [infoView addSubview:balanceTxtLabel];
     [balanceTxtLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(_balanceLabel.mas_bottom).offset(5);

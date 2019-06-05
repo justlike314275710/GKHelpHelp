@@ -42,8 +42,36 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self renderContents];
-   
-    // Do any additional setup after loading the view.
+}
+
+#pragma mark  - PrivateMethods
+
+- (void)renderContents{
+    
+    self.view.backgroundColor=UIColorFromRGBA(248, 247, 254, 1);
+    self.serviceCentreTableView.backgroundColor = [UIColor whiteColor];
+    _serviceCentreTableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
+    self.serviceCentreTableView.dataSource = self;
+    self.serviceCentreTableView.delegate = self;
+    self.serviceCentreTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    self.serviceCentreTableView.showsVerticalScrollIndicator=NO;
+    self.serviceCentreTableView.backgroundColor = [UIColor clearColor];
+    [self.serviceCentreTableView registerClass:[PSServiceCentreTableViewCell class] forCellReuseIdentifier:@"PSServiceCentreTableViewCell"];
+    [self.serviceCentreTableView registerClass:[PSLegalServiceTableViewCell class] forCellReuseIdentifier:@"PSLegalServiceTableViewCell"];
+    [self.serviceCentreTableView registerClass:[PSPsychologicalCounselingTableViewCell class] forCellReuseIdentifier:@"PSPsychologicalCounselingTableViewCell"];
+    self.serviceCentreTableView.tableFooterView = [UIView new];
+    
+    [self.view addSubview:self.serviceCentreTableView];
+    [self.serviceCentreTableView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(0);
+        make.right.mas_equalTo(0);
+        make.top.mas_equalTo(0);
+        make.bottom.mas_equalTo(-64);
+    }];
+    
+    //广告图
+    self.serviceCentreTableView.tableHeaderView = self.advView;
+    
 }
 #pragma mark  - notification
 
@@ -204,44 +232,6 @@
     return YES;
 }
 
-#pragma mark  - UI
-
-- (void)renderContents{
-    self.view.backgroundColor=UIColorFromRGBA(248, 247, 254, 1);
-    self.serviceCentreTableView.backgroundColor = [UIColor whiteColor];
-    _serviceCentreTableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
-    self.serviceCentreTableView.dataSource = self;
-    self.serviceCentreTableView.delegate = self;
-    self.serviceCentreTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    self.serviceCentreTableView.showsVerticalScrollIndicator=NO;
-    self.serviceCentreTableView.backgroundColor = [UIColor clearColor];
-    [self.serviceCentreTableView registerClass:[PSServiceCentreTableViewCell class] forCellReuseIdentifier:@"PSServiceCentreTableViewCell"];
-    [self.serviceCentreTableView registerClass:[PSLegalServiceTableViewCell class] forCellReuseIdentifier:@"PSLegalServiceTableViewCell"];
-    [self.serviceCentreTableView registerClass:[PSPsychologicalCounselingTableViewCell class] forCellReuseIdentifier:@"PSPsychologicalCounselingTableViewCell"];
-    self.serviceCentreTableView.tableFooterView = [UIView new];
-//    if (@available(iOS 11.0, *)) {
-//        self.serviceCentreTableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
-//    } else {
-//        self.automaticallyAdjustsScrollViewInsets = NO;
-//    }
-    [self.view addSubview:self.serviceCentreTableView];
-    [self.serviceCentreTableView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(0);
-        make.right.mas_equalTo(0);
-        make.top.mas_equalTo(0);
-        make.bottom.mas_equalTo(-64);
-        //make.edges.mas_equalTo(UIEdgeInsetsZero);
-    }];
-    
-    //广告图
-    self.serviceCentreTableView.tableHeaderView = self.advView;
-    
-//    _advView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_WIDTH * 0.55467) imageURLStringsGroup:nil];
-//    NSString*serviceHallAdvDefault= [NSObject judegeIsVietnamVersion]?@"v_服务中心广告图":@"服务中心广告图";
-//    _advView.placeholderImage = [UIImage imageNamed:serviceHallAdvDefault];
-//    _advView.bannerImageViewContentMode = UIViewContentModeScaleAspectFill;
-//    self.serviceCentreTableView.tableHeaderView = _advView;
-}
 #pragma mark  - setter & getter
 - (SDCycleScrollView *)advView {
     if (!_advView) {

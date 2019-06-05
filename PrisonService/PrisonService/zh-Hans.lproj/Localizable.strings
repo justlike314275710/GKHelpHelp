@@ -133,7 +133,7 @@
 "Thank you for your feedback"="提交成功,感谢您的反馈";
 //会见状态
 "meet_PENDING"="审核中";
-"meet_PASSED"="待会见";
+"meet_PASSED"="已通过";
 "meet_DENIED"="已拒绝/\n已取消";
 "meet_CACELED"="已取消";
 "meet_FINISHED"="已完成";

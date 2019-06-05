@@ -466,7 +466,8 @@
     [applyButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.mas_equalTo(-20);
         make.centerX.mas_equalTo(self.view);
-        make.size.mas_equalTo(bgImage.size);
+        make.left.mas_equalTo(15);
+        make.right.mas_equalTo(-15);
     }];
     self.appointmentTableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
     self.appointmentTableView.dataSource = self;
