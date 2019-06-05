@@ -1,25 +1,25 @@
 //
-//  PSMeetingHistoryViewModel.m
+//  PSFamilyServiceNoticeViewModel.m
 //  PrisonService
 //
-//  Created by 狂生烈徒 on 2018/7/16.
-//  Copyright © 2018年 calvin. All rights reserved.
+//  Created by kky on 2019/6/4.
+//  Copyright © 2019年 calvin. All rights reserved.
 //
+
+#import "PSFamilyServiceNoticeViewModel.h"
+#import "PSFamilyServiceNoticeResponse.h"
+#import "PSFamilyServiceNoticeRequest.h"
 #import "PSCache.h"
 #import "PSBusinessConstants.h"
-#import "PSMeetingHistoryViewModel.h"
-#import "PSMeettingHistory.h"
-#import "PSMeetHistoryRequest.h"
-#import "PSMeetHistoryResponse.h"
-#import "PSMeetCancelRequest.h"
 
-@interface PSMeetingHistoryViewModel()
-@property (nonatomic , strong) PSMeetHistoryRequest *meetHistoryRequest;
+@interface PSFamilyServiceNoticeViewModel()
+
+@property (nonatomic , strong) PSFamilyServiceNoticeRequest *familyServiceNoticeRequest;
 @property (nonatomic , strong) NSMutableArray *items;
-@property (nonatomic, strong) PSMeetCancelRequest *cancelMeetingRequest;
+
 @end
 
-@implementation PSMeetingHistoryViewModel
+@implementation PSFamilyServiceNoticeViewModel
 @synthesize dataStatus = _dataStatus;
 
 
@@ -52,29 +52,30 @@
 }
 
 - (void)requestRefundCompleted:(RequestDataCompleted)completedCallback failed:(RequestDataFailed)failedCallback {
-    self.meetHistoryRequest = [PSMeetHistoryRequest new];
-    self.meetHistoryRequest.page = self.page;
-    self.meetHistoryRequest.rows = self.pageSize;
+    self.familyServiceNoticeRequest = [PSFamilyServiceNoticeRequest new];
+    self.familyServiceNoticeRequest.page = self.page;
+    self.familyServiceNoticeRequest.rows = self.pageSize;
     self.session = [PSCache queryCache:AppUserSessionCacheKey];
-    self.meetHistoryRequest.familyId=self.session.families.id;
+    self.familyServiceNoticeRequest.familyId=[self.session.families.id integerValue];
     @weakify(self)
-    [self.meetHistoryRequest send:^(PSRequest *request, PSResponse *response) {
+    [self.familyServiceNoticeRequest send:^(PSRequest *request, PSResponse *response) {
         @strongify(self)
-      
+        
         if (response.code == 200) {
-            PSMeetHistoryResponse *meetHistoryResponse= (PSMeetHistoryResponse *)response;
+            PSFamilyServiceNoticeResponse *familyServiceNoticeResponse= (PSFamilyServiceNoticeResponse *)response;
+//            PSFamilyServiceNoticeResponse *meetHistoryResponse= (PSFamilyServiceNoticeResponse *)response;
             if (self.page == 1) {
                 self.items = [NSMutableArray new];
             }
-            if (meetHistoryResponse.history.count == 0) {
+            if (familyServiceNoticeResponse.logs.count == 0) {
                 self.dataStatus = PSDataEmpty;
             }else{
                 self.dataStatus = PSDataNormal;
             }
-            self.hasNextPage = meetHistoryResponse.history.count >= self.pageSize;
+            self.hasNextPage = familyServiceNoticeResponse.logs.count >= self.pageSize;
             
-         [self.items addObjectsFromArray:meetHistoryResponse.history];
-     
+            [self.items addObjectsFromArray:familyServiceNoticeResponse.logs];
+            
         }else{
             if (self.page > 1) {
                 self.page --;
@@ -102,18 +103,6 @@
 
 
 
-- (void)MeetapplyCancelCompleted:(RequestDataCompleted)completedCallback failed:(RequestDataFailed)failedCallback{
-    _cancelMeetingRequest=[PSMeetCancelRequest new];
-    _cancelMeetingRequest.ID=self.cancelId;
-    _cancelMeetingRequest.cause=self.cause;
-    [_cancelMeetingRequest send:^(PSRequest *request, PSResponse *response) {
-        if (completedCallback) {
-            completedCallback(response);
-        }
-    } errorCallback:^(PSRequest *request, NSError *error) {
-        if (failedCallback) {
-            failedCallback(error);
-        }
-    }];
-}
+
+
 @end

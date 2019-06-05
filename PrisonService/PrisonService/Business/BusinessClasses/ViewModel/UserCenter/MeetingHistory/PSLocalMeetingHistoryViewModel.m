@@ -1,30 +1,26 @@
 //
-//  PSFamilyServiceNoticeViewModel.m
+//  PSLocalMeetingHistoryViewModel.m
 //  PrisonService
 //
-//  Created by kky on 2019/5/30.
+//  Created by kky on 2019/6/4.
 //  Copyright © 2019年 calvin. All rights reserved.
 //
 
-#import "PSFamilyServiceNoticeViewModel.h"
-
+#import "PSLocalMeetingHistoryViewModel.h"
 #import "PSCache.h"
 #import "PSBusinessConstants.h"
-#import "PSMeetingHistoryViewModel.h"
 #import "PSMeettingHistory.h"
-#import "PSMeetHistoryRequest.h"
-#import "PSMeetHistoryResponse.h"
+#import "PSLocalMeetingHistoryRequest.h"
+#import "PSLocalMeetingHistoryResponse.h"
+#import "PSLocalMeetCancelRequest.h"
 
-#import "PSMeetCancelRequest.h"
-
-@interface PSFamilyServiceNoticeViewModel()
-
-@property (nonatomic , strong) PSMeetHistoryRequest *meetHistoryRequest;
+@interface PSLocalMeetingHistoryViewModel()
+@property (nonatomic , strong) PSLocalMeetingHistoryRequest *meetHistoryRequest;
 @property (nonatomic , strong) NSMutableArray *items;
-@property (nonatomic, strong) PSMeetCancelRequest *cancelMeetingRequest;
+@property (nonatomic , strong) PSLocalMeetCancelRequest *cancelMeetingRequest;
 @end
 
-@implementation PSFamilyServiceNoticeViewModel
+@implementation PSLocalMeetingHistoryViewModel
 @synthesize dataStatus = _dataStatus;
 
 
@@ -57,7 +53,7 @@
 }
 
 - (void)requestRefundCompleted:(RequestDataCompleted)completedCallback failed:(RequestDataFailed)failedCallback {
-    self.meetHistoryRequest = [PSMeetHistoryRequest new];
+    self.meetHistoryRequest = [PSLocalMeetingHistoryRequest new];
     self.meetHistoryRequest.page = self.page;
     self.meetHistoryRequest.rows = self.pageSize;
     self.session = [PSCache queryCache:AppUserSessionCacheKey];
@@ -67,7 +63,7 @@
         @strongify(self)
         
         if (response.code == 200) {
-            PSMeetHistoryResponse *meetHistoryResponse= (PSMeetHistoryResponse *)response;
+            PSLocalMeetingHistoryResponse *meetHistoryResponse= (PSLocalMeetingHistoryResponse *)response;
             if (self.page == 1) {
                 self.items = [NSMutableArray new];
             }
@@ -108,7 +104,7 @@
 
 
 - (void)MeetapplyCancelCompleted:(RequestDataCompleted)completedCallback failed:(RequestDataFailed)failedCallback{
-    _cancelMeetingRequest=[PSMeetCancelRequest new];
+    _cancelMeetingRequest=[PSLocalMeetCancelRequest new];
     _cancelMeetingRequest.ID=self.cancelId;
     _cancelMeetingRequest.cause=self.cause;
     [_cancelMeetingRequest send:^(PSRequest *request, PSResponse *response) {
@@ -121,5 +117,4 @@
         }
     }];
 }
-
 @end
