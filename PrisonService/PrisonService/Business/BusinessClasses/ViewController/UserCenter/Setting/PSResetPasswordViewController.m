@@ -5,7 +5,6 @@
 //  Created by 狂生烈徒 on 2019/5/21.
 //  Copyright © 2019年 calvin. All rights reserved.
 //
-//PSForgetpasswordViewController
 #import "PSResetPasswordViewController.h"
 #import "PSPasswordViewModel.h"
 #import "PSForgetPasswordViewController.h"
@@ -231,8 +230,9 @@
 
 -(void)completeButtonClick{
     PSPasswordViewModel *ViewModel  =(PSPasswordViewModel *)self.viewModel;
-    ViewModel.phone_password=self.oldPasswordTextfield.text;
+    ViewModel.phone_oldpassword=self.oldPasswordTextfield.text;
     ViewModel.phone_newPassword=self.novaPasswordTextfield.text;
+    ViewModel.determine_password=self.confirmPasswordTextfield.text;
     [ViewModel checkDataWithCallback:^(BOOL successful, NSString *tips) {
         if (successful) {
             [ViewModel requestResetPasswordCompleted:^(PSResponse *response) {
@@ -245,14 +245,7 @@
             [PSTipsView showTips:tips];
         }
     }];
-    
-//    ViewModel.phone_password=self.oldPasswordTextfield.text;
-//    ViewModel.phone_newPassword=self.novaPasswordTextfield.text;
-//    [ViewModel requestResetPasswordCompleted:^(PSResponse *response) {
-//        [PSTipsView showTips:@"重置密码成功!"];
-//    } failed:^(NSError *error) {
-//        [PSTipsView showTips:@"重置密码失败!"];
-//    }];
+
 }
 
 - (void)didReceiveMemoryWarning {

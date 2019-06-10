@@ -95,6 +95,7 @@
         [self passwordButtonClicked];
     }];
 }
+
 - (void)passwordButtonClicked {
     PSPasswordViewModel *ViewModel  =(PSPasswordViewModel *)self.viewModel;
     ViewModel.phone_newPassword=self.passwordTextfield.text;

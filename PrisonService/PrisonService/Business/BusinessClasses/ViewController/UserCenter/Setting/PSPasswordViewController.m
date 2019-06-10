@@ -97,7 +97,7 @@
 }
 - (void)passwordButtonClicked {
      PSPasswordViewModel *ViewModel  =(PSPasswordViewModel *)self.viewModel;
-     ViewModel.phone_password=self.passwordTextfield.text;
+     ViewModel.phone_oldpassword=self.passwordTextfield.text;
      [ViewModel checkPhoneDataWithCallback:^(BOOL successful, NSString *tips) {
         if (successful) {
             [ViewModel requestPasswordCompleted:^(PSResponse *response) {

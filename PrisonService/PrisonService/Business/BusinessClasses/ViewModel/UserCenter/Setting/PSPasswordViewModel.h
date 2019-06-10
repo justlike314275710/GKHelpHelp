@@ -9,8 +9,9 @@
 #import "PSViewModel.h"
 
 @interface PSPasswordViewModel : PSViewModel
-@property (nonatomic , strong) NSString *phone_password;
+@property (nonatomic , strong) NSString *phone_oldpassword;
 @property (nonatomic , strong) NSString *phone_newPassword;
+@property (nonatomic , strong) NSString *determine_password;
 
 @property (nonatomic, assign) NSInteger Code;//返回码
 @property (nonatomic, strong) NSString  *VerificationCode;//短信验证码
