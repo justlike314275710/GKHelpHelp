@@ -25,7 +25,9 @@
 #import "PSConsultationViewModel.h"
 #import "PSConsultationViewController.h"
 #import "PSFamilyServiceViewController.h"
-@interface PSServiceCentreViewController ()
+#import "PSHomeFunctionView.h"
+@interface PSServiceCentreViewController ()<PSServiceCentreTableViewCellDelegate>
+@property (nonatomic,strong)UIView *headView;
 
 @end
 
@@ -41,14 +43,16 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.view.backgroundColor = [UIColor whiteColor];
     [self renderContents];
+}
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
 }
 
 #pragma mark  - PrivateMethods
-
 - (void)renderContents{
     
-    self.view.backgroundColor=UIColorFromRGBA(248, 247, 254, 1);
     self.serviceCentreTableView.backgroundColor = [UIColor whiteColor];
     _serviceCentreTableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
     self.serviceCentreTableView.dataSource = self;
@@ -56,6 +60,7 @@
     self.serviceCentreTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.serviceCentreTableView.showsVerticalScrollIndicator=NO;
     self.serviceCentreTableView.backgroundColor = [UIColor clearColor];
+    
     [self.serviceCentreTableView registerClass:[PSServiceCentreTableViewCell class] forCellReuseIdentifier:@"PSServiceCentreTableViewCell"];
     [self.serviceCentreTableView registerClass:[PSLegalServiceTableViewCell class] forCellReuseIdentifier:@"PSLegalServiceTableViewCell"];
     [self.serviceCentreTableView registerClass:[PSPsychologicalCounselingTableViewCell class] forCellReuseIdentifier:@"PSPsychologicalCounselingTableViewCell"];
@@ -68,11 +73,21 @@
         make.top.mas_equalTo(0);
         make.bottom.mas_equalTo(-64);
     }];
-    
     //广告图
-    self.serviceCentreTableView.tableHeaderView = self.advView;
+    self.serviceCentreTableView.tableHeaderView = self.headView;
     
 }
+
+//MARK:加载广告页
+-(void)loadAdvertisingPage{
+    PSWorkViewModel *workViewModel = [PSWorkViewModel new];
+    [workViewModel requestAdvsCompleted:^(PSResponse *response) {
+        _advView.imageURLStringsGroup = workViewModel.advUrls;
+    } failed:^(NSError *error) {
+        
+    }];
+}
+
 #pragma mark  - notification
 
 #pragma mark  - action
@@ -148,28 +163,22 @@
 #pragma mark  - UITableViewDelegate OR otherDelegate
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
    
-    return 3;
+    return 2;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     CGFloat height=0;
     switch (indexPath.row){
-        case 0:{ height=114;} break;
-        case 1:{ height=162;} break;
-        case 2:{ height=90; } break;
+        case 0:{ height=220;} break;
+        case 1:{ height=100; } break;
         default:{}break;
     }
-
     return height;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.row==0) {
-        PSServiceCentreTableViewCell*cell= [tableView dequeueReusableCellWithIdentifier:@"PSServiceCentreTableViewCell"];
-        cell.delegate=self;
-        return cell;
-    }
-    else if (indexPath.row==1){
+    
+    if (indexPath.row==0){
          PSLegalServiceTableViewCell*cell= [tableView dequeueReusableCellWithIdentifier:@"PSLegalServiceTableViewCell"];
 
         [cell.moreButton bk_whenTapped:^{
@@ -236,7 +245,7 @@
 - (SDCycleScrollView *)advView {
     if (!_advView) {
         self.view.backgroundColor=UIColorFromRGBA(248, 247, 254, 1);
-        _advView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0,SCREEN_WIDTH,200) imageURLStringsGroup:nil];
+        _advView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0,SCREEN_WIDTH,220) imageURLStringsGroup:nil];
         NSString *imageName = [NSObject judegeIsVietnamVersion]?@"v广告图":@"广告图";
         _advView.placeholderImage = [UIImage imageNamed:imageName];
         _advView.bannerImageViewContentMode = UIViewContentModeScaleToFill;
@@ -245,21 +254,25 @@
     return _advView;
 }
 
-//MARK:加载广告页
--(void)loadAdvertisingPage{
-    PSWorkViewModel *workViewModel = [PSWorkViewModel new];
-    [workViewModel requestAdvsCompleted:^(PSResponse *response) {
-        _advView.imageURLStringsGroup = workViewModel.advUrls;
-    } failed:^(NSError *error) {
-        
-    }];
+- (UIView *)headView {
+    if (!_headView) {
+        _headView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, 284)];
+        [_headView addSubview:self.advView];
+        NSArray *titles = @[@"远程探视",@"实地会见",@"电子商务",@"家属服务",@"投诉建议"];
+        NSArray *imageIcons = @[@"远程探视",@"实地会见",@"电子商务",@"家属服务icon",@"投诉建议"];
+        PSHomeFunctionView *homeFunctionView = [[PSHomeFunctionView alloc] initWithFrame:CGRectMake(4,160,KScreenWidth-8,120) titles:titles imageIcons:imageIcons];
+        @weakify(self);
+        homeFunctionView.homeFunctionBlock = ^(NSInteger index) {
+            @strongify(self);
+            [self choseTerm:index];
+        };
+        [_headView addSubview:homeFunctionView];
+    }
+    return _headView;
 }
 
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
+
 
 
 @end

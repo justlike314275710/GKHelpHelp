@@ -12,6 +12,5 @@
 @property (nonatomic , strong) UILabel *legalServiceLable;
 @property (nonatomic , strong) UIButton *FinanceButton;
 @property (nonatomic , strong) UIButton *MarriageButton;
-//@property (nonatomic , strong) UIImageView *MarriageImageView;
 @property (nonatomic , strong) UIButton *moreButton;
 @end

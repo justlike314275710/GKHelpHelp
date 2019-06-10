@@ -39,6 +39,8 @@
 #import "PSLoginViewModel.h"
 #import "PSUniversaLawViewController.h"
 #import "UIButton+LZCategory.h"
+#import "PSHomeFunctionView.h"
+#import "PSHomeMoreFunctionView.h"
 
 #import "PSLocateManager.h"
 
@@ -52,12 +54,12 @@
 @property (nonatomic, strong) PSUserSession *session;
 @property (nonatomic, strong) UIScrollView *myScrollview;
 @property (nonatomic, assign) NSInteger getTokenCount;
-@property (nonatomic, strong)UIImageView *itemView;
-@property (nonatomic, strong)WWWaterWaveView *waterWaveView;
-@property (nonatomic, strong)UIImageView *prisonIntroduceView; //监狱简介
-@property (nonatomic, strong)UILabel *prisonTitleLable;
-@property (nonatomic, strong)UILabel*prisonIntroduceContentLable;
-@property (nonatomic, strong)UIView *moreServicesView; //更多服务
+@property (nonatomic, strong) PSHomeFunctionView *homeFunctionView;
+@property (nonatomic, strong) WWWaterWaveView *waterWaveView;
+@property (nonatomic, strong) UIImageView *prisonIntroduceView; //监狱简介
+@property (nonatomic, strong) UILabel *prisonTitleLable;
+@property (nonatomic, strong) UILabel*prisonIntroduceContentLable;
+@property (nonatomic, strong) PSHomeMoreFunctionView *moreServicesView; //更多服务
 
 
 @end
@@ -89,9 +91,6 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(requestOfRefreshToken) name:RefreshToken object:nil];
     //获取到定位信息刷新广告页
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadAdvertisingPage) name:KNotificationRefreshAdvertisement object:nil];
-  
-    
-
 }
 
 - (void)dealloc
@@ -140,14 +139,13 @@
 
 //MARK:加载广告页
 -(void)loadAdvertisingPage{
-    /*
+
      PSWorkViewModel *workViewModel = [PSWorkViewModel new];
      [workViewModel requestAdvsCompleted:^(PSResponse *response) {
      _advView.imageURLStringsGroup = workViewModel.advUrls;
      } failed:^(NSError *error) {
-     
-     }];/
-     */
+         
+     }];
 }
 
 #pragma mark  - action and request
@@ -182,8 +180,6 @@
            
             break;
     }
-  
-   
 }
 
 - (void)synchronizeDefaultJailConfigurations {
@@ -201,7 +197,6 @@
         }
     }];
     
-    
 }
 
 //MARK:系统消息
@@ -213,7 +208,6 @@
         PSMessageViewController *messageViewController = [[PSMessageViewController alloc] initWithViewModel:viewModel];
         [self.navigationController pushViewController:messageViewController animated:YES];
     }
-    
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"dot"];
     self.dotLable.hidden=YES;
     
@@ -328,11 +322,13 @@
     if ([dot isEqualToString:@"0"]) {
         self.dotLable.hidden = NO;
     }
-    [self.myScrollview addSubview:self.itemView];
-
+    
+    [self.myScrollview addSubview:self.homeFunctionView];
+    
     //监狱背景
     [self.myScrollview addSubview:self.prisonIntroduceView];
-    _prisonIntroduceView.frame = CGRectMake(sidePadding,_itemView.bottom+spacing,SCREEN_WIDTH-2*sidePadding,107);
+    
+    _prisonIntroduceView.frame = CGRectMake(sidePadding,_homeFunctionView.bottom+spacing,SCREEN_WIDTH-2*sidePadding,107);
     //监狱简介标题
     self.prisonTitleLable.frame = CGRectMake((_prisonIntroduceView.width-100)/2,spacing,100, 15);
     [_prisonIntroduceView addSubview:self.prisonTitleLable];
@@ -343,7 +339,6 @@
     [self.myScrollview addSubview:self.moreServicesView];
     self.moreServicesView.frame = CGRectMake(0,_prisonIntroduceView.bottom+spacing,KScreenWidth,180);
     
-    
     if ([[LXFileManager readUserDataForKey:@"isVistor"]isEqualToString:@"YES"]){
         _messageButton.hidden=YES;
     }
@@ -351,24 +346,90 @@
 }
 
 #pragma mark - TouchEvent
-//MARK:监狱简介
+//MARK:顶部Item事件
+- (void)dicHomeFuctionItem:(NSInteger)index {
+    if ([PSSessionManager sharedInstance].loginStatus==PSLoginPassed) {
+        switch (index) {
+            case 0:
+            {
+                [self appointmentPrisoner];
+            }
+                break;
+            case 1:
+            {
+                [self requestLocalMeeting];
+            }
+                break;
+            case 2:
+            {
+                [self e_commerce];
+            }
+                break;
+            case 3:
+            {
+                [self psFamilyService];
+            }
+                break;
+            case 4:
+            {
+                [self interactive_platform];
+            }
+                break;
+                
+            default:
+                break;
+        }
+    } else {
+        [self doNotLoginPassed];
+    }
+    
+    
+}
+
+- (void)clickHomeMoreFunctionItem:(NSInteger)index {
+    if ([PSSessionManager sharedInstance].loginStatus==PSLoginPassed) {
+        switch (index) {
+            case 0:
+            {
+                [self p_InsertPrisonPublic:nil];
+            }
+                break;
+            case 1:
+            {
+                [self p_insertLaw:nil];
+            }
+                break;
+            case 2:
+            {
+                [self p_inserDynamic:nil];
+            }
+                break;
+            default:
+                break;
+        }
+    } else {
+        [self doNotLoginPassed];
+    }
+}
+
+#pragma mark ———————监狱简介
 -(void)p_InsertPrisonIntroduce {
     PSPrisonIntroduceViewController *prisonViewController = [[PSPrisonIntroduceViewController alloc] initWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@?t=%@",PrisonDetailUrl,self.defaultJailId,[NSDate getNowTimeTimestamp]]]];
     [self.navigationController pushViewController:prisonViewController animated:YES];
 }
-//MARK:狱务公开
+#pragma mark ——————— 狱务公开
 -(void)p_InsertPrisonPublic:(UIButton *)sender {
     PrisonOpenViewController *prisonVC = [[PrisonOpenViewController alloc] init];
     prisonVC.jailId=self.defaultJailId;
     prisonVC.jailName=self.defaultJailName;
     [self.navigationController pushViewController:prisonVC animated:YES];
 }
-//MARK:法律法规
+#pragma mark ——————— 法律法规
 -(void)p_insertLaw:(UIButton *)senser {
     PSUniversaLawViewController *PSUniversaLaw = [[PSUniversaLawViewController alloc] init];
     [self.navigationController pushViewController:PSUniversaLaw animated:YES];
 }
-//MARK:工作动态
+#pragma mark ——————— 工作动态
 -(void)p_inserDynamic:(UIButton *)sender {
     
     PSWorkViewModel *viewModel = [PSWorkViewModel new];
@@ -422,7 +483,6 @@
         
     }];
 }
-
 #pragma mark - setting&getting
 - (UIScrollView *)myScrollview {
     if (!_myScrollview) {
@@ -515,130 +575,29 @@
     return _prisonIntroduceView;
 }
 //MARK:常用功能
--(UIImageView *)itemView {
-    if (!_itemView) {
-        _itemView = [UIImageView new];
-        _itemView.image = IMAGE_NAMED(@"commonBg");
-        _itemView.frame = CGRectMake(4,self.advView.bottom-60,SCREEN_WIDTH-8,124);
-        _itemView.userInteractionEnabled = YES;
-         NSArray *titles = @[@"远程探视",@"实地会见",@"电子商务",@"家属服务",@"互动平台"];
-         NSArray *imgs =   @[@"远程探视",@"实地会见icon",@"电子商务icon",@"家属服务icon",@"互动平台icon"];
-        for (int i=0; i<titles.count; i++) {
-            CGFloat width = (_itemView.width-20)/titles.count;
-            UIButton *itemBtn = [UIButton new];
-            itemBtn.frame = CGRectMake(width*i+10,0,width,88);
-            [_itemView addSubview:itemBtn];
-            [itemBtn setImage:IMAGE_NAMED(imgs[i]) forState:UIControlStateNormal];
-            [itemBtn setTitle:titles[i] forState:UIControlStateNormal];
-            [itemBtn setTitleColor:UIColorFromRGB(51,51,51) forState:UIControlStateNormal];
-            itemBtn.titleLabel.font = FontOfSize(12);
-//            [itemBtn setbuttonType:LZCategoryTypeBottom];
-            itemBtn.tag = 10088+i;
-            [itemBtn lz_initButton:itemBtn];
-            [itemBtn bk_whenTapped:^{
-                if ([PSSessionManager sharedInstance].loginStatus==PSLoginPassed) {
-                    NSInteger tag = itemBtn.tag-10088;
-                    switch (tag) {
-                        case 0:
-                        {
-                            [self appointmentPrisoner];
-                        }
-                            break;
-                        case 1:
-                        {
-                            [self requestLocalMeeting];
-                        }
-                            break;
-                        case 2:
-                        {
-                            [self e_commerce];
-                        }
-                            break;
-                        case 3:
-                        {
-                            [self psFamilyService];
-                        }
-                            break;
-                        case 4:
-                        {
-                            [self interactive_platform];
-                        }
-                            break;
-                            
-                        default:
-                            break;
-                    }
-                } else {
-                    [self doNotLoginPassed];
-                }
-            }];
-        }
+-(PSHomeFunctionView *)homeFunctionView {
+    if (!_homeFunctionView) {
+        NSArray *titles =  @[@"远程探视",@"实地会见",@"电子商务",@"家属服务",@"互动平台"];
+        NSArray *imageIcons = @[@"远程探视",@"实地会见icon",@"电子商务icon",@"家属服务icon",@"互动平台icon"];
+        _homeFunctionView = [[PSHomeFunctionView alloc] initWithFrame:CGRectMake(4,self.advView.bottom-60,SCREEN_WIDTH-8, 120) titles:titles imageIcons:imageIcons];
+        @weakify(self);
+        _homeFunctionView.homeFunctionBlock = ^(NSInteger index) {
+            @strongify(self);
+            [self dicHomeFuctionItem:index];
+        };
     }
-    return _itemView;
+    return _homeFunctionView;
 }
 
-
 //MARK:更多服务
-- (UIView *)moreServicesView {
+-(PSHomeMoreFunctionView *)moreServicesView {
     if (!_moreServicesView) {
-        _moreServicesView = [UIView new];
-        
-        UILabel *label = [UILabel new];
-        label.text = @"更多服务";
-        label.font = boldFontOfSize(13);
-        label.textColor = UIColorFromRGB(51, 51,51);
-        label.textAlignment=NSTextAlignmentLeft;
-        label.frame = CGRectMake(18,2, 100, 20);
-        [_moreServicesView addSubview:label];
-        NSString*prison_opening=NSLocalizedString(@"prison_opening", @"狱务公开");
-        NSString*laws_regulations=NSLocalizedString(@"laws_regulations", @"全民普法");
-        NSString*work_dynamic=NSLocalizedString(@"work_dynamic", @"工作动态");
-        NSArray *moreItmetitles = @[prison_opening,laws_regulations,work_dynamic];
-        NSArray *imgs = @[@"狱务公开icon",@"全民普法icon",@"工作动态icon"];
-        int moreItemWidth = (KScreenWidth)/moreItmetitles.count;
-        for (int i = 0; i<moreItmetitles.count; i++) {
-            UIImageView *moreItemBg = [UIImageView new];
-            moreItemBg.userInteractionEnabled = YES;
-            moreItemBg.image = IMAGE_NAMED(@"更多服务单个底");
-            moreItemBg.frame = CGRectMake(i*moreItemWidth,22,moreItemWidth,160);
-            [_moreServicesView addSubview:moreItemBg];
-            UIButton *moreBtnItem = [UIButton new];
-            moreBtnItem.frame = CGRectMake(0, 0,moreItemBg.width,moreItemBg.width);
-            moreBtnItem.tag = 1000+i;
-            [moreBtnItem setImage:IMAGE_NAMED(imgs[i]) forState:UIControlStateNormal];
-            [moreBtnItem setTitle:moreItmetitles[i] forState:UIControlStateNormal];
-            [moreBtnItem setTitleColor:UIColorFromRGB(51,51,51) forState:UIControlStateNormal];
-            moreBtnItem.titleLabel.font = FontOfSize(12);
-            [moreBtnItem setbuttonType:LZCategoryTypeBottom spaceHeght:15];
-            [moreItemBg addSubview:moreBtnItem];
-            [moreBtnItem bk_whenTapped:^{
-                if ([PSSessionManager sharedInstance].loginStatus==PSLoginPassed) {
-                    NSInteger tag = moreBtnItem.tag-1000;
-                    switch (tag) {
-                        case 0:
-                        {
-                            [self p_InsertPrisonPublic:moreBtnItem];
-                        }
-                            break;
-                        case 1:
-                        {
-                            [self p_insertLaw:moreBtnItem];
-                        }
-                            break;
-                        case 2:
-                        {
-                            [self p_inserDynamic:moreBtnItem];
-                        }
-                            break;
-                        default:
-                            break;
-                    }
-                } else {
-                    [self doNotLoginPassed];
-                }
-            }];
-            
-        }
+        _moreServicesView = [[PSHomeMoreFunctionView alloc] init];
+        @weakify(self);
+        _moreServicesView.moreFunctionBlock = ^(NSInteger index) {
+            @strongify(self);
+            [self clickHomeMoreFunctionItem:index];
+        };
     }
     return _moreServicesView;
 }
@@ -667,13 +626,6 @@
     }
     return _prisonTitleLable;
 }
-
-
-
-
-
-
-
 
 
 @end
