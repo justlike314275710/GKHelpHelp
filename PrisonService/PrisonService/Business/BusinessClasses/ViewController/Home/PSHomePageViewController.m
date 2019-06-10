@@ -328,7 +328,6 @@
     if ([dot isEqualToString:@"0"]) {
         self.dotLable.hidden = NO;
     }
-    
     [self.myScrollview addSubview:self.itemView];
 
     //监狱背景
@@ -462,7 +461,7 @@
 //红点
 - (UILabel *)dotLable {
     if (!_dotLable) {
-        _dotLable = [[UILabel alloc] initWithFrame:CGRectMake(SCREEN_WIDTH-15, 30, 6, 6)];
+        _dotLable = [[UILabel alloc] initWithFrame:CGRectMake(SCREEN_WIDTH-15,20, 6, 6)];
         _dotLable.backgroundColor = [UIColor redColor];
         _dotLable.layer.cornerRadius = 3;
         _dotLable.clipsToBounds = YES;
@@ -474,7 +473,7 @@
 //监狱地址
 - (UIButton *)addressButton {
     if (!_addressButton) {
-        _addressButton=[[UIButton alloc]initWithFrame:CGRectMake(15, 35, 150, 14)];
+        _addressButton=[[UIButton alloc]initWithFrame:CGRectMake(15,25, 150, 14)];
         [_addressButton setImage:[UIImage imageNamed:@"定位"] forState:0];
         _addressButton.titleLabel.font=FontOfSize(12);
         _addressButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
@@ -492,7 +491,7 @@
     if (!_messageButton) {
         UIImageView *messageImg = [[UIImageView alloc] initWithFrame:CGRectMake(20, 15, 15, 15)];
         messageImg.image = [UIImage imageNamed:@"消息"];
-        _messageButton=[[UIButton alloc]initWithFrame:CGRectMake(SCREEN_WIDTH-50,20,50,50)];
+        _messageButton=[[UIButton alloc]initWithFrame:CGRectMake(SCREEN_WIDTH-50,7,50,50)];
         [_messageButton addSubview:messageImg];
         @weakify(self)
         [_messageButton bk_whenTapped:^{

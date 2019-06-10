@@ -1,15 +1,14 @@
 //
-//  PSHistoryCell.m
+//  PSLocalHistoryCell.m
 //  PrisonService
 //
-//  Created by 狂生烈徒 on 2018/7/12.
-//  Copyright © 2018年 calvin. All rights reserved.
+//  Created by kky on 2019/6/5.
+//  Copyright © 2019年 calvin. All rights reserved.
 //
 
-#import "PSHistoryCell.h"
+#import "PSLocalHistoryCell.h"
 
-@implementation PSHistoryCell
-
+@implementation PSLocalHistoryCell
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
@@ -51,7 +50,7 @@
         make.height.mas_equalTo(22);
         make.width.mas_equalTo(22);
     }];
-
+    
     //监狱名称
     _iconLable=[UILabel new];
     [contentView addSubview:_iconLable];
@@ -90,12 +89,12 @@
             make.width.mas_equalTo(50);
         }];
     }
-     _statusButton.layer.cornerRadius=11;
+    _statusButton.layer.cornerRadius=11;
     [_statusButton setBackgroundColor: [UIColor colorWithRed:153/255.0 green:153/255.0 blue:153/255.0 alpha:1]];
     _statusButton.titleLabel.numberOfLines=0;
     _cancleButton=[UIButton new];
     [contentView addSubview:  _cancleButton];
-      _cancleButton.titleLabel.font=FontOfSize(12);
+    _cancleButton.titleLabel.font=FontOfSize(12);
     NSString*cancel_meet=NSLocalizedString(@"cancel_meet",@"取消会见" );
     [_cancleButton setTitle:cancel_meet forState:UIControlStateNormal];
     if ([language isEqualToString:@"vi-US"]||[language isEqualToString:@"vi-VN"]||[language isEqualToString:@"vi-CN"]) {
@@ -113,7 +112,7 @@
             make.width.mas_equalTo(60);
         }];
     }
-     _cancleButton.layer.cornerRadius=11;
+    _cancleButton.layer.cornerRadius=11;
     [_cancleButton setTitleColor:UIColorFromRGB(153, 153, 153) forState:UIControlStateNormal];
     _cancleButton.contentHorizontalAlignment=UIControlContentVerticalAlignmentCenter;
     [_cancleButton.layer setBorderWidth:1.0];
@@ -185,8 +184,8 @@
     _otherLabel.numberOfLines = 0;
     [contentView addSubview:_otherLabel];
     [_otherLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(_dateTextLabel.mas_bottom).offset(verticalPadding-5);
-//        make.bottom.mas_equalTo(-verticalPadding);
+        make.top.mas_equalTo(_dateTextLabel.mas_bottom).offset(verticalPadding-8);
+        //        make.bottom.mas_equalTo(-verticalPadding);
         make.height.mas_equalTo(30);
         make.right.mas_equalTo(-sidePadding);
         make.width.mas_equalTo(self.frame.size.width-sidePadding-90);
@@ -232,6 +231,33 @@
         make.width.mas_equalTo(self.frame.size.width-sidePadding-90);
     }];
     
+    //监狱地址
+    _adderssTextlab = [UILabel new];
+    _adderssTextlab.font = FontOfSize(12);
+    _adderssTextlab.textAlignment = NSTextAlignmentLeft;
+    _adderssTextlab.textColor = AppBaseTextColor2;
+    _adderssTextlab.text = @"监狱地址";
+    [contentView addSubview:_adderssTextlab];
+    [_adderssTextlab mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(_overDueTextLab.mas_bottom).offset(verticalPadding);
+        make.height.mas_equalTo(13);
+        make.left.mas_equalTo(sidePadding);
+        make.width.mas_equalTo(50);
+    }];
+    
+    _addersslab = [UILabel new];
+    _addersslab.font = FontOfSize(12);
+    _addersslab.textAlignment = NSTextAlignmentRight;
+    _addersslab.textColor = AppBaseTextColor2;
+    _addersslab.numberOfLines = 0;
+    [contentView addSubview:_addersslab];
+    [_addersslab mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.mas_equalTo(_adderssTextlab);
+        make.height.mas_equalTo(13);
+        make.right.mas_equalTo(-sidePadding);
+        make.width.mas_equalTo(self.frame.size.width-sidePadding-90);
+    }];
+    
     
     
     
@@ -243,7 +269,7 @@
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
-
+    
     // Configure the view for the selected state
 }
 

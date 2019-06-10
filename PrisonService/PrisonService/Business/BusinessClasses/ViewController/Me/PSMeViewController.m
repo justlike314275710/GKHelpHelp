@@ -53,7 +53,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self refreshData];
-    // Do any additional setup after loading the view.
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -66,15 +65,18 @@
     
 }
 
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+}
+
+
 #pragma mark  - notification
 
 #pragma mark  - action
 -(void)refreshData{
-//    NSString*home_me=NSLocalizedString(@"home_me", @"我的");
-//    self.title=home_me;
+    
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(requestBalance) name:JailChange object:nil];
     self.view.backgroundColor=UIColorFromRGBA(248, 247, 254, 1);
-    self.settingTableview.backgroundColor = [UIColor whiteColor];
     self.navigationItem.leftBarButtonItem = nil;
     self.navigationItem.hidesBackButton = NO;
     switch ([PSSessionManager sharedInstance].loginStatus) {
@@ -89,7 +91,6 @@
             [self renderContents];
             break;
     }
-
 }
 
 
@@ -268,32 +269,36 @@
 #pragma mark  - UI
 - (void)renderContents {
     
-    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, StatusHeight, SCREEN_WIDTH, 130)];
+    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, StatusHeight, SCREEN_WIDTH, 190)];
      [self.view addSubview:headerView];
     //headerView.backgroundColor =UIColorFromRGBA(234, 234, 234, 1);
-    UIImageView *headerBgImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 130)];
+    UIImageView *headerBgImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 170)];
     headerBgImageView.image = [UIImage imageNamed:@"我的顶部背景"];
     [headerView addSubview:headerBgImageView];
     
     UITapGestureRecognizer *tapGesturRecognizer=[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(headerViewTapAction:)];
-
     
-    CGFloat radius = 34;
+    UIImageView *headContentImg = [[UIImageView alloc] initWithFrame:CGRectMake(13,75,SCREEN_WIDTH-13*2, 117)];
+    headContentImg.image = IMAGE_NAMED(@"个人信息底");
+    headContentImg.userInteractionEnabled = YES;
+    [headerView addSubview:headContentImg];
+    
+    
+    CGFloat radius = 30;
     _avatarView = [PYPhotosView photosView];
-    _avatarView.frame=CGRectMake(27, 35, 68, 68);
+    _avatarView.frame=CGRectMake(17,27, 60, 60);
     _avatarView.layer.cornerRadius = radius;
     _avatarView.layer.borderWidth = 1.0;
     _avatarView.layer.borderColor = [UIColor whiteColor].CGColor;
     _avatarView.photoWidth = radius * 2;
     _avatarView.photoHeight = radius * 2;
     _avatarView.placeholderImage = [UIImage imageNamed:@"个人中心-头像"];
-      [headerView addSubview:_avatarView];
+    [headContentImg addSubview:_avatarView];
     _avatarView.thumbnailUrls = @[PICURL([PSSessionManager sharedInstance].session.families.avatarUrl)];
     _avatarView.originalUrls = @[PICURL([PSSessionManager sharedInstance].session.families.avatarUrl)];
     _avatarView.userInteractionEnabled = NO;
- 
     
-    
+
     if ([[LXFileManager readUserDataForKey:@"isVistor"]isEqualToString:@"YES"]) {
         UIButton*loginButton=[[UIButton alloc]initWithFrame:CGRectMake(130, 37, 180, 42)];
         [headerView addSubview:loginButton];
@@ -311,7 +316,7 @@
         
         [headerView addGestureRecognizer:tapGesturRecognizer];
         
-        UILabel*nameLable=[[UILabel alloc]initWithFrame:CGRectMake(105, 37, 180, 22)];
+        UILabel*nameLable=[[UILabel alloc]initWithFrame:CGRectMake(90,30,180,20)];
         if ([PSSessionManager sharedInstance].session.families.name) {
             nameLable.text = [PSSessionManager sharedInstance].session.families.name;
         } else {
@@ -320,9 +325,9 @@
                 nameLable.text = [nameLable.text stringByReplacingCharactersInRange:NSMakeRange(3, 4) withString:@"****"];
             }
         }
-        [nameLable setTextColor:[UIColor whiteColor]];
+        [nameLable setTextColor:UIColorFromRGB(51, 51, 51)];
         [nameLable setFont:FontOfSize(18)];
-        [headerView addSubview:nameLable];
+        [headContentImg addSubview:nameLable];
         
         UILabel*phoneLable=[[UILabel alloc]initWithFrame:CGRectMake(105, 60, 180, 40)];
         if (phoneLable.text.length>10) {
@@ -334,12 +339,12 @@
         [headerView addSubview:phoneLable];
         
         UIButton *AuthenticaBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        AuthenticaBtn.frame = CGRectMake(SCREEN_WIDTH-90,nameLable.y, 65, 25);
+        AuthenticaBtn.frame = CGRectMake(90,59,69, 25);
         AuthenticaBtn.layer.masksToBounds = YES;
         AuthenticaBtn.layer.borderWidth = 1;
-        AuthenticaBtn.layer.borderColor = [UIColor whiteColor].CGColor;
-        AuthenticaBtn.layer.cornerRadius = 4.0;
-        [headerView addSubview:AuthenticaBtn];
+        AuthenticaBtn.layer.borderColor = UIColorFromRGB(38, 76, 144).CGColor;
+        AuthenticaBtn.layer.cornerRadius = 12.0;
+        [headContentImg addSubview:AuthenticaBtn];
         
         UIImageView *iconImage = [[UIImageView alloc] initWithFrame:CGRectMake(7,5, 12, 14)];
         iconImage.image = [UIImage imageNamed:@"已认证icon"];
@@ -354,39 +359,58 @@
         
         authLab.text = session_PASSED;
         authLab.font = FontOfSize(10);
-        authLab.textColor = [UIColor whiteColor];
         authLab.numberOfLines = 0;
         [AuthenticaBtn addSubview:authLab];
         //已认证
         if ([PSSessionManager sharedInstance].loginStatus == PSLoginPassed) {
             iconImage.image = [UIImage imageNamed:@"已认证icon"];
             authLab.text = session_PASSED;
+            authLab.textColor = UIColorFromRGB(38,76,144);
             [AuthenticaBtn bk_whenTapped:^{
                 [self.navigationController pushViewController:[[PSAccountViewController alloc] initWithViewModel:[[PSAccountViewModel alloc] init]] animated:YES];
             }];
+            AuthenticaBtn.layer.borderColor = UIColorFromRGB(38, 76, 144).CGColor;
         } else {
             iconImage.image = [UIImage imageNamed:@"未认证icon"];
             authLab.text = session_NONE;
+            authLab.textColor = UIColorFromRGB(102,102,102);
             [AuthenticaBtn bk_whenTapped:^{
                 PSLoginViewModel*viewModel=[[PSLoginViewModel alloc]init];
                 [self.navigationController pushViewController:[[PSSessionNoneViewController alloc]initWithViewModel:viewModel] animated:YES];
             }];
+            AuthenticaBtn.layer.borderColor = UIColorFromRGB(153,153,153).CGColor;
         }
-    
     }
+
+    //设置
+    UIButton *settingBtn = [[UIButton alloc] initWithFrame:CGRectMake(headContentImg.width-16-49, 30,16,16)];
+    [settingBtn setImage:IMAGE_NAMED(@"设置icon") forState:UIControlStateNormal];
+    [headContentImg addSubview:settingBtn];
+    [settingBtn bk_whenTapped:^{
+        [self.navigationController pushViewController:[[PSSettingViewController alloc] initWithViewModel:[[PSSettingViewModel alloc] init]] animated:YES];
+    }];
+    //消息
+    UIButton *messageBtn = [[UIButton alloc] initWithFrame:CGRectMake(headContentImg.width-16-18, 30,16,16)];
+    [messageBtn setImage:IMAGE_NAMED(@"消息icon") forState:UIControlStateNormal];
+    [headContentImg addSubview:messageBtn];
+    [messageBtn bk_whenTapped:^{
+//        [self.navigationController pushViewController:[[PSSettingViewController alloc] initWithViewModel:[[PSSettingViewModel alloc] init]] animated:YES];
+        
+    }];
     
     self.settingTableview = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
     self.settingTableview.showsVerticalScrollIndicator=NO;
     self.settingTableview.dataSource = self;
     self.settingTableview.delegate = self;
     self.settingTableview.tableFooterView = [UIView new];
+    self.settingTableview.backgroundColor = [UIColor clearColor];
     [self.settingTableview  setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     [self.settingTableview registerClass:[PSSettingCell class] forCellReuseIdentifier:@"PSSettingCell"];
     [self.view addSubview:self.settingTableview];
     [self.settingTableview mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(12);
         make.right.mas_equalTo(-12);
-        make.top.mas_equalTo(140+StatusHeight);
+        make.top.mas_equalTo(200+StatusHeight);
         make.bottom.mas_equalTo(-60);
     }];
     
@@ -459,32 +483,15 @@
     familyRemittanceItem.img = [UIImage imageNamed:@"家属汇款"];
     familyRemittanceItem.accessoryType = PSSettingAccessoryTypeDisclosureIndicator;
     
-    
-    
-    
     PSSettingItemModel *settingItem = [[PSSettingItemModel alloc]init];
     NSString*userCenterSetting=NSLocalizedString(@"userCenterSetting", @"设置");
     settingItem .funcName = userCenterSetting;
     settingItem .img = [UIImage imageNamed:@"设置"];
     settingItem .accessoryType = PSSettingAccessoryTypeDisclosureIndicator;
-    _modelArray = @[familyServiceItem,addFamilyItem,balanceItem,RechargeItem,familyRemittanceItem,ConsultationItem,historyItem,settingItem];
+    _modelArray = @[familyServiceItem,addFamilyItem,balanceItem,RechargeItem,familyRemittanceItem,ConsultationItem,historyItem];
 
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 
 

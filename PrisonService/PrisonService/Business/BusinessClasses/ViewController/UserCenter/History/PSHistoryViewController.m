@@ -124,10 +124,17 @@
     PSMeetingHistoryViewModel *meetingHistoryModel =(PSMeetingHistoryViewModel *)self.viewModel;
     PSMeettingHistory *MeettingHistory= meetingHistoryModel.meeetHistorys[indexPath.row];
     NSString *str = MeettingHistory.remarks ;//你想显示的字符串
-    
     CGSize size = [str sizeWithFont:[UIFont systemFontOfSize: 12] constrainedToSize:CGSizeMake(280, 999) lineBreakMode:NSLineBreakByWordWrapping];
-    
-    return size.height + 115;
+    NSString*status=MeettingHistory.status;
+    //已过期
+    if ([status isEqualToString:@"EXPIRED"]) {
+        return size.height + 135;
+    } else if ([status isEqualToString:@"PENDING"]) {
+        return size.height + 110;
+    } else {
+        return size.height + 120;
+    }
+
 }
 
 
@@ -135,9 +142,12 @@
     PSHistoryCell*cell = [tableView dequeueReusableCellWithIdentifier:@"PSHistoryCell"];
     PSMeetingHistoryViewModel *meetingHistoryModel =(PSMeetingHistoryViewModel *)self.viewModel;
     PSMeettingHistory *MeettingHistory= meetingHistoryModel.meeetHistorys[indexPath.row];
-    cell.iconLable.text=[NSString stringWithFormat:@"%@",MeettingHistory.name];
+    cell.iconLable.text=[NSString stringWithFormat:@"%@",MeettingHistory.title];
+    cell.prisonerLab.text = [NSString stringWithFormat:@"%@",MeettingHistory.name];
     cell.otherLabel.lineBreakMode=NSLineBreakByWordWrapping;
     cell.otherLabel.numberOfLines=0;
+    cell.overDueLab.hidden = YES;
+    cell.overDueTextLab.hidden = YES;
     NSString*status=MeettingHistory.status;
     
     
@@ -167,7 +177,7 @@
          cell.cancleButton.tag=indexPath.row;
         [cell.cancleButton addTarget:self action:@selector(cancelApplyMeeting:) forControlEvents:UIControlEventTouchUpInside];
     }
-    else if ([status isEqualToString:@"PASSED"]){
+    else if ([status isEqualToString:@"PASSED"]){ //已通过
         cell.otherTextLabel.text=meet_data;
         cell.otherLabel.text=MeettingHistory.meetingTime;
         [cell.statusButton setBackgroundColor:UIColorFromRGB(0, 142, 60)];
@@ -183,7 +193,7 @@
         cell.cancleButton.tag=indexPath.row;
         [cell.cancleButton addTarget:self action:@selector(cancelApplyMeeting:) forControlEvents:UIControlEventTouchUpInside];
     }
-    else if ([status isEqualToString:@"FINISHED"]){
+    else if ([status isEqualToString:@"FINISHED"]){ //已完成
         cell.otherTextLabel.text=meet_data;
         cell.otherLabel.text=MeettingHistory.meetingTime;
         [cell.statusButton setBackgroundColor:UIColorFromRGB(83, 119, 185)];
@@ -222,7 +232,7 @@
         cell.dateLabel.text=MeettingHistory.applicationDate;
         cell.cancleButton.hidden=YES;
     }
-    else if ([status isEqualToString:@"EXPIRED"]){
+    else if ([status isEqualToString:@"EXPIRED"]){ //已过期
         
         cell.otherTextLabel.text=meet_data;
         cell.otherLabel.text=MeettingHistory.meetingTime;
@@ -231,6 +241,9 @@
         cell.dateTextLabel.text=apply_data;
         cell.dateLabel.text=MeettingHistory.applicationDate;
         cell.cancleButton.hidden=YES;
+        cell.overDueLab.text = MeettingHistory.remarks;
+        cell.overDueLab.hidden = NO;
+        cell.overDueTextLab.hidden = NO;
     }
     return cell;
 }

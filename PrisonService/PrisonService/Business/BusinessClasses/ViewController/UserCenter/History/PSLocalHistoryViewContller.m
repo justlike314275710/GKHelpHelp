@@ -10,7 +10,7 @@
 #import "MJRefresh.h"
 #import "NSString+Date.h"
 #import "UIScrollView+EmptyDataSet.h"
-#import "PSHistoryCell.h"
+#import "PSLocalHistoryCell.h"
 #import "PSTipsConstants.h"
 #import "PSLocalMeetingHistoryViewModel.h"
 #import "PSMeettingHistory.h"
@@ -100,7 +100,7 @@
         @strongify(self)
         [self refreshData];
     }];
-    [self.historyTableView registerClass:[PSHistoryCell class] forCellReuseIdentifier:@"PSHistoryCell"];
+    [self.historyTableView registerClass:[PSLocalHistoryCell class] forCellReuseIdentifier:@"PSLocalHistoryCell"];
     self.historyTableView.tableFooterView = [UIView new];
     [self.view addSubview:self.historyTableView];
     
@@ -127,20 +127,33 @@
     
     CGSize size = [str sizeWithFont:[UIFont systemFontOfSize: 12] constrainedToSize:CGSizeMake(280, 999) lineBreakMode:NSLineBreakByWordWrapping];
     
-    return size.height + 115;
+    NSString*status=MeettingHistory.status;
+    //已通过/已完成
+    if ([status isEqualToString:@"PASSED"]||[status isEqualToString:@"FINISHED"]) {
+        return size.height + 180;
+    } else if ([status isEqualToString:@"PENDING"]) {
+        return size.height + 110;
+    } else {
+        return size.height + 120;
+    }
 }
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    PSHistoryCell*cell = [tableView dequeueReusableCellWithIdentifier:@"PSHistoryCell"];
+    PSLocalHistoryCell*cell = [tableView dequeueReusableCellWithIdentifier:@"PSLocalHistoryCell"];
     PSLocalMeetingHistoryViewModel *meetingHistoryModel =(PSLocalMeetingHistoryViewModel *)self.viewModel;
     PSMeettingHistory *MeettingHistory= meetingHistoryModel.meeetHistorys[indexPath.row];
-    cell.iconLable.text=[NSString stringWithFormat:@"%@",MeettingHistory.name];
+    cell.iconLable.text=[NSString stringWithFormat:@"%@",MeettingHistory.title];
+    cell.prisonerLab.text = [NSString stringWithFormat:@"%@",MeettingHistory.name];
     cell.otherLabel.lineBreakMode=NSLineBreakByWordWrapping;
     cell.otherLabel.numberOfLines=0;
+    cell.overDueLab.hidden = YES;
+    cell.overDueTextLab.hidden = YES;
+    cell.adderssTextlab.hidden = YES;
+    cell.addersslab.hidden = YES;
+    
     NSString*status=MeettingHistory.status;
-    
-    
+
     NSString*meet_PENDING=NSLocalizedString(@"meet_PENDING", nil);
     NSString*meet_PASSED=NSLocalizedString(@"meet_PASSED", nil);
     NSString*meet_FINISHED=NSLocalizedString(@"meet_FINISHED", nil);
@@ -158,18 +171,15 @@
         
         cell.dateTextLabel.text=apply_data;
         cell.dateLabel.text=MeettingHistory.applicationDate;
-        if ([MeettingHistory.canCancel isEqualToString:@"1"]) {
-            cell.cancleButton.hidden=NO;
-        }else{
-            cell.cancleButton.hidden=YES;
-        }
-        // cell.cancleButton.hidden=NO;
+        cell.cancleButton.hidden=NO;
         cell.cancleButton.tag=indexPath.row;
         [cell.cancleButton addTarget:self action:@selector(cancelApplyMeeting:) forControlEvents:UIControlEventTouchUpInside];
     }
     else if ([status isEqualToString:@"PASSED"]){
         cell.otherTextLabel.text=meet_data;
-        cell.otherLabel.text=MeettingHistory.meetingTime;
+        //窗口
+        cell.otherTextLabel.text = @"窗口";
+        cell.otherLabel.text=MeettingHistory.window;
         [cell.statusButton setBackgroundColor:UIColorFromRGB(0, 142, 60)];
         [cell.statusButton setTitle:meet_PASSED forState:UIControlStateNormal];
         cell.dateTextLabel.text=apply_data;
@@ -182,15 +192,38 @@
         
         cell.cancleButton.tag=indexPath.row;
         [cell.cancleButton addTarget:self action:@selector(cancelApplyMeeting:) forControlEvents:UIControlEventTouchUpInside];
+        
+        cell.overDueLab.hidden = NO;
+        cell.overDueTextLab.hidden = NO;
+        cell.adderssTextlab.hidden = NO;
+        cell.addersslab.hidden = NO;
+        cell.overDueTextLab.text = @"会见时间";
+        cell.overDueLab.text = MeettingHistory.meetingTime;
+        cell.adderssTextlab.text = @"监狱地址";
+        cell.addersslab.text = MeettingHistory.address;
+        
     }
     else if ([status isEqualToString:@"FINISHED"]){
         cell.otherTextLabel.text=meet_data;
-        cell.otherLabel.text=MeettingHistory.meetingTime;
-        [cell.statusButton setBackgroundColor:UIColorFromRGB(83, 119, 185)];
+        
+        cell.otherTextLabel.text = @"窗口";
+        cell.otherLabel.text=MeettingHistory.window;
+
+        [cell.statusButton setBackgroundColor:UIColorFromRGB(0,142,60)];
         [cell.statusButton setTitle:meet_FINISHED forState:UIControlStateNormal];
         cell.dateTextLabel.text=apply_data;
         cell.dateLabel.text=MeettingHistory.applicationDate;
         cell.cancleButton.hidden=YES;
+        
+        cell.overDueLab.hidden = NO;
+        cell.overDueTextLab.hidden = NO;
+        cell.adderssTextlab.hidden = NO;
+        cell.addersslab.hidden = NO;
+        cell.overDueTextLab.text = @"会见时间";
+        cell.overDueLab.text = MeettingHistory.meetingTime;
+        cell.adderssTextlab.text = @"监狱地址";
+        cell.addersslab.text = MeettingHistory.address;
+        
     }
     else if ([status isEqualToString:@"DENIED"]){
         
@@ -207,7 +240,7 @@
         cell.dateLabel.text=MeettingHistory.applicationDate;
         cell.cancleButton.hidden=YES;
     }
-    else if ([status isEqualToString:@"CANCELED"]){
+    else if ([status isEqualToString:@"CANCELED"]){ //已取消
         
         if ([MeettingHistory.remarks isEqualToString:@"null"]) {
             cell.otherTextLabel.text=Refuse_reason;
@@ -222,7 +255,7 @@
         cell.dateLabel.text=MeettingHistory.applicationDate;
         cell.cancleButton.hidden=YES;
     }
-    else if ([status isEqualToString:@"EXPIRED"]){
+    else if ([status isEqualToString:@"EXPIRED"]){ //已过期
         
         cell.otherTextLabel.text=meet_data;
         cell.otherLabel.text=MeettingHistory.meetingTime;
@@ -279,11 +312,15 @@
         if (index==2) {
             NSLog(@"%@ || %@",meetingHistoryViewModel.cancelId,meetingHistoryViewModel.cause);
             [meetingHistoryViewModel MeetapplyCancelCompleted:^(PSResponse *response) {
-                [self refreshData];
-                NSString*cancel_apply=NSLocalizedString(@"cancel_success", @"取消会见成功");
-                [PSTipsView showTips:cancel_apply];
-                //埋点...
-                [SDTrackTool logEvent:CANCEL_FAMILY_CALL];
+                if (response.code == 200) {
+                    [self refreshData];
+                    NSString*cancel_apply=NSLocalizedString(@"cancel_success", @"取消会见成功");
+                    [PSTipsView showTips:cancel_apply];
+                    //埋点...
+                    [SDTrackTool logEvent:CANCEL_FAMILY_CALL];
+                }else{
+                    [PSTipsView showTips:response.msg?response.msg:@"取消会见失败"];
+                }
                 
             } failed:^(NSError *error) {
                 [self showNetError:error];
@@ -293,14 +330,5 @@
     
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end
