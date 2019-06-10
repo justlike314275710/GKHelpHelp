@@ -8,9 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@protocol PSServiceCentreTableViewCellDelegate<NSObject>
-- (void)choseTerm:(NSInteger)tag; 
-
+@protocol PSServiceCentreTableViewCellDelegate <NSObject>
+- (void)choseTerm:(NSInteger)tag;
 @end
 
 
@@ -21,5 +20,5 @@
 @property (nonatomic, strong, readonly) UIButton *localMeetingButton;
 @property (nonatomic, strong, readonly) UIButton *EcommerceButton;
 @property (nonatomic, strong, readonly) UIButton *complaintButton;
-@property(nonatomic, weak) id<PSServiceCentreTableViewCellDelegate> delegate;
+@property (nonatomic, assign) id<PSServiceCentreTableViewCellDelegate> delegate;
 @end

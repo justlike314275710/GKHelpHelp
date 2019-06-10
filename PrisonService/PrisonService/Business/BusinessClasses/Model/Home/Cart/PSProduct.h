@@ -13,6 +13,7 @@
 
 @interface PSProduct : JSONModel
 
+
 @property (nonatomic, assign) CGFloat price;
 @property (nonatomic, assign) CGFloat defaultPrice;
 @property (nonatomic, strong) NSString<Optional> *id;
