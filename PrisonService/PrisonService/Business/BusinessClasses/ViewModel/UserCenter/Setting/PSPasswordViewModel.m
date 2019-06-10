@@ -31,7 +31,7 @@
 }
 
 - (void)checkPhoneDataWithCallback:(CheckDataCallback)callback{
-    if (![NSString checkPassword:self.phone_password]) {
+    if (![NSString checkPassword:self.phone_oldpassword]) {
         if (callback) {
             callback(NO,@"密码至少包含数字,字母和字符2种组合!");
         }
@@ -56,7 +56,14 @@
 
 - (void)checkDataWithCallback:(CheckDataCallback)callback {
    
-    if (![NSString checkPassword:self.phone_password]) {
+    if(self.phone_oldpassword.length==0||self.phone_newPassword.length==0||self.determine_password.length==0){
+        if (callback) {
+            callback(NO,@"请填写完成再操作!");
+        }
+        return;
+    }
+    
+    if (![NSString checkPassword:self.phone_oldpassword]) {
         if (callback) {
             callback(NO,@"密码至少包含数字,字母和字符2种组合!");
         }
@@ -68,9 +75,9 @@
         }
         return;
     }
-    if (![self.phone_password isEqualToString:self.phone_newPassword]) {
+    if (![self.determine_password isEqualToString:self.phone_newPassword]) {
         if (callback) {
-            callback(NO,@"新密码与确定密码输入不一致!");
+            callback(NO,@"两次密码必须保持一致!");
         }
         return;
     }
@@ -95,7 +102,7 @@
 }
 
 - (void)requestPasswordCompleted:(RequestDataCompleted)completedCallback failed:(RequestDataFailed)failedCallback{
-    NSDictionary*parmeters=@{@"newPassword":self.phone_password,};
+    NSDictionary*parmeters=@{@"newPassword":self.phone_oldpassword,};
     NSString*url=[NSString stringWithFormat:@"%@/users/me/password",EmallHostUrl];
     [manager PUT:url parameters:parmeters success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         if (completedCallback) {
@@ -111,7 +118,7 @@
 - (void)requestResetPasswordCompleted:(RequestDataCompleted)completedCallback failed:(RequestDataFailed)failedCallback{
     NSString*url=[NSString stringWithFormat:@"%@/users/me/password/by-old-password",EmallHostUrl];
      NSDictionary*parmeters=
-      @{@"oldPassword":self.phone_password,@"newPassword":self.phone_newPassword,};
+      @{@"oldPassword":self.phone_oldpassword,@"newPassword":self.phone_newPassword,};
     [manager PUT:url parameters:parmeters success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         if (completedCallback) {
             completedCallback(responseObject);
