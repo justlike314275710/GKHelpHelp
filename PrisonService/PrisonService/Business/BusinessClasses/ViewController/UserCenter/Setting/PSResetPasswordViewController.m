@@ -239,7 +239,14 @@
                 [PSTipsView showTips:@"重置密码成功!"];
                 [self.navigationController popToRootViewControllerAnimated:YES];
             } failed:^(NSError *error) {
-                [PSTipsView showTips:@"重置密码失败!"];
+               // NSLog(@"%@",error);
+               // 账号密码不匹配
+                if ([ViewModel.errorMsg isEqualToString:@"账号密码不匹配"]){
+                    [PSTipsView showTips:@"旧密码输入错误!"];
+                } else {
+                    [PSTipsView showTips:ViewModel.errorMsg?ViewModel.errorMsg :@"重置密码失败!"];
+                }
+                
             }];
         }else{
             [PSTipsView showTips:tips];

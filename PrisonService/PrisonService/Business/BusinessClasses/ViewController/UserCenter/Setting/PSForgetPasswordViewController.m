@@ -123,10 +123,14 @@
 -(void)nextTipItemClicked{
      PSPasswordViewModel *ViewModel  =(PSPasswordViewModel *)self.viewModel;
      ViewModel.VerificationCode=_codeTextField.text;
+    if (_codeTextField.text.length==0) {
+        [PSTipsView showTips:@"请输入验证码!"];
+        return;
+    }
     [ViewModel requestCodeVerificationCompleted:^(PSResponse *response) {
         [self.navigationController pushViewController:[[PSForgetNextViewController alloc]initWithViewModel:ViewModel] animated:YES];
     } failed:^(NSError *error) {
-        [PSTipsView showTips:@"验证码不正确!"];
+        [PSTipsView showTips:@"验证码输入错误!"];
     }];
 }
 

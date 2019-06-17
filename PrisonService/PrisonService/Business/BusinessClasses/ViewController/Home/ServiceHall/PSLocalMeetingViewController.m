@@ -231,8 +231,8 @@
         make.edges.mas_equalTo(UIEdgeInsetsZero);
     }];
 
-    NSString*Historical_record=NSLocalizedString(@"Historical record", @"历史记录");
-    [self createRightBarButtonItemWithTarget:self action:@selector(rightAction) title:Historical_record];
+//    NSString*Historical_record=NSLocalizedString(@"Historical record", @"历史记录");
+//    [self createRightBarButtonItemWithTarget:self action:@selector(rightAction) title:Historical_record];
 
     [self requestLocalMeeting];
 }
