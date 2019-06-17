@@ -9,7 +9,6 @@
 
 #import "PSPrisonIntroduceViewController.h"
 #import "PSPrisonContentViewController.h"
-#import <AFNetworking/AFNetworking.h>
 #import "PSHomePageViewController.h"
 #import "PSMessageViewController.h"
 #import "PSVisitorViewController.h"
@@ -348,6 +347,7 @@
 #pragma mark - TouchEvent
 //MARK:顶部Item事件
 - (void)dicHomeFuctionItem:(NSInteger)index {
+    
     if ([PSSessionManager sharedInstance].loginStatus==PSLoginPassed) {
         switch (index) {
             case 0:
@@ -382,8 +382,6 @@
     } else {
         [self doNotLoginPassed];
     }
-    
-    
 }
 
 - (void)clickHomeMoreFunctionItem:(NSInteger)index {
