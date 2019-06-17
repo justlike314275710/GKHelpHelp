@@ -60,7 +60,7 @@
 }
 
 -(void)itemAction:(UIButton *)sender {
-    NSInteger index = sender.tag = 10088;
+    NSInteger index = sender.tag - 10088;
     if (self.homeFunctionBlock) {
         self.homeFunctionBlock(index);
     }
