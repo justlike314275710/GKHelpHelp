@@ -196,9 +196,9 @@
     
 }
 
--(void)sendFreeLocation{
+-(void)sendFreeLocation:(NSString*)meetingID{
     PSMeetingViewModel *viewModel = [PSMeetingViewModel new];
-    viewModel.meetingID = self.meetingID;
+    viewModel.meetingID = meetingID;
     viewModel.lat=[PSLocateManager sharedInstance].lat;
     viewModel.lng=[PSLocateManager sharedInstance].lng;
     viewModel.province=[PSLocateManager sharedInstance].province;
@@ -211,9 +211,9 @@
     
 }
 
--(void)sendChargeLocation{
+-(void)sendChargeLocation:(NSString*)meetingID{
     PSMeetingViewModel *viewModel = [PSMeetingViewModel new];
-    viewModel.meetingID = self.meetingID;
+    viewModel.meetingID = meetingID;
     viewModel.lat=[PSLocateManager sharedInstance].lat;
     viewModel.lng=[PSLocateManager sharedInstance].lng;
     viewModel.province=[PSLocateManager sharedInstance].province;
@@ -261,12 +261,13 @@
             
         case PSChargeMeetingLocation:
         {
-            [self sendChargeLocation];
+            [self sendChargeLocation:message.meetingId];
             
         }
         case PSFreeMeetingLocation:
         {
-            [self sendFreeLocation];
+            [self sendFreeLocation:message.meetingId];
+            
             
         }
             

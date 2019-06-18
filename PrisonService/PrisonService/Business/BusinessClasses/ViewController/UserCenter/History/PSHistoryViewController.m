@@ -179,7 +179,7 @@
     }
     else if ([status isEqualToString:@"PASSED"]){ //已通过
         cell.otherTextLabel.text=meet_data;
-        cell.otherLabel.text=MeettingHistory.meetingTime;
+        cell.otherLabel.text=[MeettingHistory.meetingTime substringFromIndex:10];
         [cell.statusButton setBackgroundColor:UIColorFromRGB(0, 142, 60)];
         [cell.statusButton setTitle:meet_PASSED forState:UIControlStateNormal];
         cell.dateTextLabel.text=apply_data;
@@ -195,7 +195,7 @@
     }
     else if ([status isEqualToString:@"FINISHED"]){ //已完成
         cell.otherTextLabel.text=meet_data;
-        cell.otherLabel.text=MeettingHistory.meetingTime;
+        cell.otherLabel.text=[MeettingHistory.meetingTime substringFromIndex:10] ;
         [cell.statusButton setBackgroundColor:UIColorFromRGB(83, 119, 185)];
         [cell.statusButton setTitle:meet_FINISHED forState:UIControlStateNormal];
         cell.dateTextLabel.text=apply_data;
@@ -235,7 +235,7 @@
     else if ([status isEqualToString:@"EXPIRED"]){ //已过期
         
         cell.otherTextLabel.text=meet_data;
-        cell.otherLabel.text=MeettingHistory.meetingTime;
+        cell.otherLabel.text=[MeettingHistory.meetingTime substringFromIndex:10] ;
         [cell.statusButton setBackgroundColor:UIColorFromRGB(153, 153, 153)];
         [cell.statusButton setTitle:meet_EXPIRED forState:UIControlStateNormal];
         cell.dateTextLabel.text=apply_data;

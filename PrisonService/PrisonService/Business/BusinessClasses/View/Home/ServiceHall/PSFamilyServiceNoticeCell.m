@@ -148,7 +148,7 @@
     _dateTextLabel.font = FontOfSize(12);
     _dateTextLabel.textAlignment = NSTextAlignmentLeft;
     _dateTextLabel.textColor = AppBaseTextColor2;
-    _dateTextLabel.text = @"申请日期";
+    _dateTextLabel.text = @"会见日期";
     [contentView addSubview:_dateTextLabel];
     [_dateTextLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(_prisonNumberLab.mas_bottom).offset(sidePadding);
