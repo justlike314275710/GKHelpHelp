@@ -168,7 +168,9 @@
 
 
 
-//视频通话
+/**
+ 视频通话
+ */
 - (void)startMeeting {
     PSMeetingViewModel *viewModel = [PSMeetingViewModel new];
     viewModel.jailConfiguration = self.jailConfiguration;
@@ -196,8 +198,13 @@
     
 }
 
+
+/**
+ 发送免费会见定位
+ 
+ @param meetingID 会见ID(监狱端传送）
+ */
 -(void)sendFreeLocation:(NSString*)meetingID{
-    
     if ([CLLocationManager locationServicesEnabled] &&([CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorizedAlways|| [CLLocationManager authorizationStatus] == kCLAuthorizationStatusNotDetermined)) {
         PSMeetingViewModel *viewModel = [PSMeetingViewModel new];
         viewModel.meetingID = meetingID;
@@ -214,10 +221,13 @@
     else{
         //定位不可用
     }
-   
-    
 }
 
+/**
+ 发送收费会见定位
+ 
+ @param meetingID 会见ID(监狱端传送）
+ */
 -(void)sendChargeLocation:(NSString*)meetingID{
     if ([CLLocationManager locationServicesEnabled] &&([CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorizedAlways|| [CLLocationManager authorizationStatus] == kCLAuthorizationStatusNotDetermined)) {
         PSMeetingViewModel *viewModel = [PSMeetingViewModel new];
@@ -269,21 +279,22 @@
 
 #pragma mark - PSIMMessageObserver
 - (void)receivedMeetingMessage:(PSMeetingMessage *)message {
-    NSLog(@"_____****_____%@",message.msg);
     switch (message.code) {
+            
+      
+        case PSFreeMeetingLocation:
+        {
+            [self sendFreeLocation:message.meetingId];
+            
+        }
+            break;
             
         case PSChargeMeetingLocation:
         {
             [self sendChargeLocation:message.meetingId];
             
         }
-        case PSFreeMeetingLocation:
-        {
-            [self sendFreeLocation:message.meetingId];
-            
-            
-        }
-            
+            break;
         case PSMeetingStart:
         {
             //发起会议

@@ -19,13 +19,77 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "PrisonService/PrisonService/Business/BusinessClasses/ViewModel/Meeting/PSMeetingViewModel.m"
-            timestampString = "581322948.684051"
+            filePath = "PrisonService/PrisonService/Business/BusinessManager/Meeting/PSMeetingManager.m"
+            timestampString = "582538001.3091739"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "91"
-            endingLineNumber = "91"
-            landmarkName = "-requestUpdateFreeMeetingCoordinateCompleted:failed:"
+            startingLineNumber = "240"
+            endingLineNumber = "240"
+            landmarkName = "-sendChargeLocation:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "PrisonService/PrisonService/Business/BusinessManager/Meeting/PSMeetingManager.m"
+            timestampString = "582538001.309745"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "242"
+            endingLineNumber = "242"
+            landmarkName = "-sendChargeLocation:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "PrisonService/PrisonService/Business/BusinessManager/Meeting/PSMeetingManager.m"
+            timestampString = "582538001.310164"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "218"
+            endingLineNumber = "218"
+            landmarkName = "-sendFreeLocation:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "PrisonService/PrisonService/Business/BusinessManager/Meeting/PSMeetingManager.m"
+            timestampString = "582538001.310536"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "215"
+            endingLineNumber = "215"
+            landmarkName = "-sendFreeLocation:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "PrisonService/PrisonService/Business/BusinessManager/Meeting/PSMeetingManager.m"
+            timestampString = "582538001.310938"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "245"
+            endingLineNumber = "245"
+            landmarkName = "-sendChargeLocation:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -36,12 +100,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "PrisonService/PrisonService/Business/BusinessClasses/ViewModel/Meeting/PSMeetingViewModel.m"
-            timestampString = "581322949.947554"
+            timestampString = "582538001.311255"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "95"
-            endingLineNumber = "95"
-            landmarkName = "-requestUpdateFreeMeetingCoordinateCompleted:failed:"
+            startingLineNumber = "73"
+            endingLineNumber = "73"
+            landmarkName = "-requestUpdateMeetingCoordinateCompleted:failed:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -52,12 +116,92 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "PrisonService/PrisonService/Business/BusinessClasses/ViewModel/Meeting/PSMeetingViewModel.m"
-            timestampString = "581323049.418641"
+            timestampString = "582538001.311332"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "88"
-            endingLineNumber = "88"
-            landmarkName = "-requestUpdateFreeMeetingCoordinateCompleted:failed:"
+            startingLineNumber = "77"
+            endingLineNumber = "77"
+            landmarkName = "-requestUpdateMeetingCoordinateCompleted:failed:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "PrisonService/PrisonService/Business/BusinessManager/Meeting/PSMeetingManager.m"
+            timestampString = "582538001.311403"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "222"
+            endingLineNumber = "222"
+            landmarkName = "-sendFreeLocation:"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__38-[PSMeetingManager sendChargeLocation]_block_invoke"
+                  moduleName = "PrisonService"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/xiaojun/Desktop/%E7%8B%B1%E5%8A%A1%E9%80%9A_iOS/PrisonService/PrisonService/Business/BusinessManager/Meeting/PSMeetingManager.m"
+                  timestampString = "582538003.439485"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "223"
+                  endingLineNumber = "223"
+                  offsetFromSymbolStart = "52">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__38-[PSMeetingManager sendChargeLocation]_block_invoke_2"
+                  moduleName = "PrisonService"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/xiaojun/Desktop/%E7%8B%B1%E5%8A%A1%E9%80%9A_iOS/PrisonService/PrisonService/Business/BusinessManager/Meeting/PSMeetingManager.m"
+                  timestampString = "582538003.442416"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "225"
+                  endingLineNumber = "225"
+                  offsetFromSymbolStart = "52">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "PrisonService/PrisonService/Business/BusinessManager/Meeting/PSMeetingManager.m"
+            timestampString = "582538013.668368"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "294"
+            endingLineNumber = "294"
+            landmarkName = "-receivedMeetingMessage:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "PrisonService/PrisonService/Business/BusinessManager/Meeting/PSMeetingManager.m"
+            timestampString = "582538104.42722"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "209"
+            endingLineNumber = "209"
+            landmarkName = "-sendFreeLocation:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
