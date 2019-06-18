@@ -218,8 +218,8 @@
 "Available_balance"="%@可用余额";
 
 //会见历史
-"apply_data"="申请日期";
-"meet_data"="会见日期";
+"apply_data"="会见日期";
+"meet_data"="会见时间";
 "Refuse_reason"="拒绝原因";
 "cancel_meet"="取消会见";
 

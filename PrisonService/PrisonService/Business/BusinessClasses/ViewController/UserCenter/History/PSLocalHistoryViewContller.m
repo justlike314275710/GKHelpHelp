@@ -198,7 +198,7 @@
         cell.adderssTextlab.hidden = NO;
         cell.addersslab.hidden = NO;
         cell.overDueTextLab.text = @"会见时间";
-        cell.overDueLab.text = MeettingHistory.meetingTime;
+        cell.overDueLab.text = [MeettingHistory.meetingTime substringFromIndex:10] ;
         cell.adderssTextlab.text = @"监狱地址";
         cell.addersslab.text = MeettingHistory.address;
         
@@ -220,7 +220,7 @@
         cell.adderssTextlab.hidden = NO;
         cell.addersslab.hidden = NO;
         cell.overDueTextLab.text = @"会见时间";
-        cell.overDueLab.text = MeettingHistory.meetingTime;
+        cell.overDueLab.text = [MeettingHistory.meetingTime substringFromIndex:10] ;
         cell.adderssTextlab.text = @"监狱地址";
         cell.addersslab.text = MeettingHistory.address;
         
@@ -258,7 +258,7 @@
     else if ([status isEqualToString:@"EXPIRED"]){ //已过期
         
         cell.otherTextLabel.text=meet_data;
-        cell.otherLabel.text=MeettingHistory.meetingTime;
+        cell.otherLabel.text=[MeettingHistory.meetingTime substringFromIndex:10];
         [cell.statusButton setBackgroundColor:UIColorFromRGB(153, 153, 153)];
         [cell.statusButton setTitle:meet_EXPIRED forState:UIControlStateNormal];
         cell.dateTextLabel.text=apply_data;
