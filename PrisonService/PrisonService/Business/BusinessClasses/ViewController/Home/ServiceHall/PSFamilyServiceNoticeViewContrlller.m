@@ -120,7 +120,7 @@
     PSFamilyServiceNoticeViewModel *meetingHistoryModel =(PSFamilyServiceNoticeViewModel *)self.viewModel;
     PSFamilyServiceNoticeModel *MeettingHistory= meetingHistoryModel.meeetHistorys[indexPath.row];
     NSString *str = MeettingHistory.remarks ;//你想显示的字符串
-    CGSize size = [str sizeWithFont:[UIFont systemFontOfSize: 12] constrainedToSize:CGSizeMake(280, 999) lineBreakMode:NSLineBreakByWordWrapping];
+    CGSize size = [str sizeWithFont:[UIFont systemFontOfSize: 12] constrainedToSize:CGSizeMake(KScreenWidth-140, 999) lineBreakMode:NSLineBreakByWordWrapping];
     if ([MeettingHistory.status isEqualToString:@"DENIED"]) { //已拒绝
         return size.height + 150;
     } else {

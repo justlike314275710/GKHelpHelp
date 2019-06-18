@@ -177,10 +177,10 @@
     _otherLabel.numberOfLines = 0;
     [contentView addSubview:_otherLabel];
     [_otherLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(_dateLabel.mas_bottom).offset(sidePadding);
-        make.height.mas_equalTo(30);
+        make.top.mas_equalTo(_dateLabel.mas_bottom).offset(5);
+        make.bottom.mas_equalTo(-10);
         make.right.mas_equalTo(-sidePadding);
-        make.width.mas_equalTo(self.frame.size.width-sidePadding-90);
+        make.width.mas_equalTo(KScreenWidth-sidePadding-130);
     }];
     
     _otherTextLabel = [PSLabel new];
@@ -190,7 +190,7 @@
     _otherTextLabel.text = @"拒绝原因";
     [contentView addSubview:_otherTextLabel];
     [_otherTextLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(_otherLabel.mas_top);
+        make.top.mas_equalTo(_dateLabel.mas_bottom).offset(sidePadding);
         make.height.mas_equalTo(13);
         make.left.mas_equalTo(sidePadding);
         make.width.mas_equalTo(50);
@@ -234,9 +234,6 @@
     _dateLabel.text = model.applicationDate;
     _otherLabel.text = model.remarks;
 }
-
-
-
 
 - (void)awakeFromNib {
     [super awakeFromNib];
