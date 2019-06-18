@@ -33,7 +33,7 @@
 - (void)checkPhoneDataWithCallback:(CheckDataCallback)callback{
     if (![NSString checkPassword:self.phone_oldpassword]) {
         if (callback) {
-            callback(NO,@"密码至少包含数字,字母和字符2种组合!");
+            callback(NO,@"8-16位,至少包含数字,字母和字符2种组合!");
         }
         return;
     }
@@ -44,7 +44,7 @@
 - (void)checkNewPhoneDataWithCallback:(CheckDataCallback)callback {
     if (![NSString checkPassword:self.phone_newPassword]) {
         if (callback) {
-            callback(NO,@"密码至少包含数字,字母和字符2种组合!");
+            callback(NO,@"8-16位,至少包含数字,字母和字符2种组合!");
         }
         return;
     }
@@ -65,13 +65,13 @@
     
     if (![NSString checkPassword:self.phone_oldpassword]) {
         if (callback) {
-            callback(NO,@"密码至少包含数字,字母和字符2种组合!");
+            callback(NO,@"8-16位,至少包含数字,字母和字符2种组合!");
         }
         return;
     }
     if (![NSString checkPassword:self.phone_newPassword]) {
         if (callback) {
-            callback(NO,@"密码至少包含数字,字母和字符2种组合!");
+            callback(NO,@"8-16位,至少包含数字,字母和字符2种组合!");
         }
         return;
     }
