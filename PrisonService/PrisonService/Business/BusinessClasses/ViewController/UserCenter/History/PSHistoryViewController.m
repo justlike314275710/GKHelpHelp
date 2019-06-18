@@ -127,7 +127,7 @@
     CGSize size = [str sizeWithFont:[UIFont systemFontOfSize: 12] constrainedToSize:CGSizeMake(280, 999) lineBreakMode:NSLineBreakByWordWrapping];
     NSString*status=MeettingHistory.status;
     //已过期
-    if ([status isEqualToString:@"EXPIRED"]) {
+    if ([status isEqualToString:@"EXPIRED"]||[status isEqualToString:@"PASSED"]) {
         return size.height + 135;
     } else if ([status isEqualToString:@"PENDING"]) {
         return size.height + 110;

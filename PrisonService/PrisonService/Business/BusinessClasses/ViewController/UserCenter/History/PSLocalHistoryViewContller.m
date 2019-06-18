@@ -124,10 +124,15 @@
     PSLocalMeetingHistoryViewModel *meetingHistoryModel =(PSLocalMeetingHistoryViewModel *)self.viewModel;
     PSMeettingHistory *MeettingHistory= meetingHistoryModel.meeetHistorys[indexPath.row];
     NSString *str = MeettingHistory.remarks ;//你想显示的字符串
+    NSString*status=MeettingHistory.status;
+    if ([status isEqualToString:@"CANCELED"]||[status isEqualToString:@"DENIED"]) {
+        if (str.length<=0) {
+            str = @"拒绝原因";
+        }
+    }
     
     CGSize size = [str sizeWithFont:[UIFont systemFontOfSize: 12] constrainedToSize:CGSizeMake(280, 999) lineBreakMode:NSLineBreakByWordWrapping];
     
-    NSString*status=MeettingHistory.status;
     //已通过/已完成
     if ([status isEqualToString:@"PASSED"]||[status isEqualToString:@"FINISHED"]) {
         return size.height + 180;
@@ -225,7 +230,7 @@
         cell.addersslab.text = MeettingHistory.address;
         
     }
-    else if ([status isEqualToString:@"DENIED"]){
+    else if ([status isEqualToString:@"DENIED"]){ //已拒绝
         
         if ([MeettingHistory.remarks isEqualToString:@"null"]) {
             cell.otherTextLabel.text=Refuse_reason;
