@@ -62,7 +62,7 @@
         _codeTextField.textAlignment = NSTextAlignmentCenter;
         NSString*please_enter_verify_code=NSLocalizedString(@"please_enter_verify_code", nil);
         _codeTextField.placeholder = please_enter_verify_code;
-        _codeTextField.keyboardType =UIKeyboardTypeNumberPad;
+        _codeTextField.keyboardType =UIKeyboardTypeDefault;
         [self addSubview:_codeTextField];
         [_codeTextField mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.mas_equalTo(sidePadding);

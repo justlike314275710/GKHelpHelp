@@ -62,7 +62,7 @@
 
 
 - (void)requestUpdateMeetingCoordinateCompleted:(RequestDataCompleted)completedCallback failed:(RequestDataFailed)failedCallback{
-    self.meetingsCoordinateRequest=[PSMeetingsCoordinateRequest new];
+    self.meetingsCoordinateRequest=[[PSMeetingsCoordinateRequest alloc]init];
     self.meetingsCoordinateRequest.meetingId=self.meetingID;
     self.meetingsCoordinateRequest.lat=self.lat;
     self.meetingsCoordinateRequest.lng=self.lng;
