@@ -5,7 +5,7 @@
 //  Created by calvin on 2018/4/25.
 //  Copyright © 2018年 calvin. All rights reserved.
 //
-
+#import <CoreLocation/CoreLocation.h>
 #import "PSMeetingManager.h"
 #import "PSIMMessageManager.h"
 #import "PSJailConfigurationsRequest.h"
@@ -197,32 +197,45 @@
 }
 
 -(void)sendFreeLocation:(NSString*)meetingID{
-    PSMeetingViewModel *viewModel = [PSMeetingViewModel new];
-    viewModel.meetingID = meetingID;
-    viewModel.lat=[PSLocateManager sharedInstance].lat;
-    viewModel.lng=[PSLocateManager sharedInstance].lng;
-    viewModel.province=[PSLocateManager sharedInstance].province;
-    viewModel.city=[PSLocateManager sharedInstance].city;
-    [viewModel requestUpdateFreeMeetingCoordinateCompleted:^(PSResponse *response) {
-        
-    } failed:^(NSError *error) {
-        
-    }];
+    
+    if ([CLLocationManager locationServicesEnabled] &&([CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorizedAlways|| [CLLocationManager authorizationStatus] == kCLAuthorizationStatusNotDetermined)) {
+        PSMeetingViewModel *viewModel = [PSMeetingViewModel new];
+        viewModel.meetingID = meetingID;
+        viewModel.lat=[PSLocateManager sharedInstance].lat;
+        viewModel.lng=[PSLocateManager sharedInstance].lng;
+        viewModel.province=[PSLocateManager sharedInstance].province;
+        viewModel.city=[PSLocateManager sharedInstance].city;
+        [viewModel requestUpdateFreeMeetingCoordinateCompleted:^(PSResponse *response) {
+            
+        } failed:^(NSError *error) {
+            
+        }];
+    }
+    else{
+        //定位不可用
+    }
+   
     
 }
 
 -(void)sendChargeLocation:(NSString*)meetingID{
-    PSMeetingViewModel *viewModel = [PSMeetingViewModel new];
-    viewModel.meetingID = meetingID;
-    viewModel.lat=[PSLocateManager sharedInstance].lat;
-    viewModel.lng=[PSLocateManager sharedInstance].lng;
-    viewModel.province=[PSLocateManager sharedInstance].province;
-    viewModel.city=[PSLocateManager sharedInstance].city;
-    [viewModel requestUpdateMeetingCoordinateCompleted:^(PSResponse *response) {
-        
-    } failed:^(NSError *error) {
-        
-    }];
+    if ([CLLocationManager locationServicesEnabled] &&([CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorizedAlways|| [CLLocationManager authorizationStatus] == kCLAuthorizationStatusNotDetermined)) {
+        PSMeetingViewModel *viewModel = [PSMeetingViewModel new];
+        viewModel.meetingID = meetingID;
+        viewModel.lat=[PSLocateManager sharedInstance].lat;
+        viewModel.lng=[PSLocateManager sharedInstance].lng;
+        viewModel.province=[PSLocateManager sharedInstance].province;
+        viewModel.city=[PSLocateManager sharedInstance].city;
+        [viewModel requestUpdateMeetingCoordinateCompleted:^(PSResponse *response) {
+            
+        } failed:^(NSError *error) {
+            
+        }];
+    } else {
+        //定位不可用
+    }
+    
+
 }
 
 
