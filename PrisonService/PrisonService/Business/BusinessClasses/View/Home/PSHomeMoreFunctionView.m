@@ -86,11 +86,12 @@
 }
 -(UILabel *)label{
     if (!_label) {
+        _label = [UILabel new];
         _label.text = @"更多服务";
-        _label.font = boldFontOfSize(13);
+        _label.font = boldFontOfSize(14);
         _label.textColor = UIColorFromRGB(51, 51,51);
         _label.textAlignment=NSTextAlignmentLeft;
-        _label.frame = CGRectMake(18,2, 100, 20);
+        _label.frame = CGRectMake(16,2, 100, 20);
     }
     return _label;
 }

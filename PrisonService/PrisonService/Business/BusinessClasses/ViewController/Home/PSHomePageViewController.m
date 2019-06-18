@@ -324,7 +324,7 @@
     
     [self.myScrollview addSubview:self.homeFunctionView];
     
-    //监狱背景
+    //监狱简介背景
     [self.myScrollview addSubview:self.prisonIntroduceView];
     
     _prisonIntroduceView.frame = CGRectMake(sidePadding,_homeFunctionView.bottom+spacing,SCREEN_WIDTH-2*sidePadding,107);
@@ -334,9 +334,10 @@
     //监狱简介内容
     [_prisonIntroduceView addSubview:self.prisonIntroduceContentLable];
     _prisonIntroduceContentLable.frame = CGRectMake(30, 28,_prisonIntroduceView.width-60,63);
+    
     //更多服务
     [self.myScrollview addSubview:self.moreServicesView];
-    self.moreServicesView.frame = CGRectMake(0,_prisonIntroduceView.bottom+spacing,KScreenWidth,180);
+    self.moreServicesView.frame = CGRectMake(0,_prisonIntroduceView.bottom+15,KScreenWidth,180);
     
     if ([[LXFileManager readUserDataForKey:@"isVistor"]isEqualToString:@"YES"]){
         _messageButton.hidden=YES;
