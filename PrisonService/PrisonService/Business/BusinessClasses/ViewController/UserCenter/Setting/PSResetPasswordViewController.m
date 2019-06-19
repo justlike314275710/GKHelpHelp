@@ -121,8 +121,8 @@
     self.novaPasswordTextfield.secureTextEntry=YES;
     
     UIButton*newShowPasswordButton=[UIButton new];
-    [newShowPasswordButton setImage:IMAGE_NAMED(@"显示密码") forState:UIControlStateNormal];
-    [newShowPasswordButton setImage:IMAGE_NAMED(@"不显示密码") forState:UIControlStateSelected];
+    [newShowPasswordButton setImage:IMAGE_NAMED(@"显示密码") forState:UIControlStateSelected];
+    [newShowPasswordButton setImage:IMAGE_NAMED(@"不显示密码") forState:UIControlStateNormal];
     [bgView addSubview:newShowPasswordButton];
     [newShowPasswordButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(line_one.mas_top).offset(horizontalSpace);
@@ -169,8 +169,8 @@
     self.confirmPasswordTextfield.secureTextEntry=YES;
 
     UIButton*confirmShowPasswordButton=[UIButton new];
-    [confirmShowPasswordButton setImage:IMAGE_NAMED(@"显示密码") forState:UIControlStateNormal];
-    [confirmShowPasswordButton setImage:IMAGE_NAMED(@"不显示密码") forState:UIControlStateSelected];
+    [confirmShowPasswordButton setImage:IMAGE_NAMED(@"显示密码") forState:UIControlStateSelected];
+    [confirmShowPasswordButton setImage:IMAGE_NAMED(@"不显示密码") forState:UIControlStateNormal ];
     [bgView addSubview:confirmShowPasswordButton];
     [confirmShowPasswordButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(line_two.mas_top).offset(horizontalSpace);
