@@ -205,7 +205,11 @@
  @param meetingID 会见ID(监狱端传送）
  */
 -(void)sendFreeLocation:(NSString*)meetingID{
-    if ([CLLocationManager locationServicesEnabled] &&([CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorizedAlways|| [CLLocationManager authorizationStatus] == kCLAuthorizationStatusNotDetermined)) {
+    CLAuthorizationStatus status=[CLLocationManager authorizationStatus];
+    if (kCLAuthorizationStatusDenied == status || kCLAuthorizationStatusRestricted == status){
+       
+    }else//开启的
+    {
         PSMeetingViewModel *viewModel = [PSMeetingViewModel new];
         viewModel.meetingID = meetingID;
         viewModel.lat=[PSLocateManager sharedInstance].lat;
@@ -218,9 +222,7 @@
             
         }];
     }
-    else{
-        //定位不可用
-    }
+    
 }
 
 /**
@@ -229,7 +231,12 @@
  @param meetingID 会见ID(监狱端传送）
  */
 -(void)sendChargeLocation:(NSString*)meetingID{
-    if ([CLLocationManager locationServicesEnabled] &&([CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorizedAlways|| [CLLocationManager authorizationStatus] == kCLAuthorizationStatusNotDetermined)) {
+    CLAuthorizationStatus status=[CLLocationManager authorizationStatus];
+    if (kCLAuthorizationStatusDenied == status || kCLAuthorizationStatusRestricted == status)
+    {
+    
+    }else//开启的
+    {
         PSMeetingViewModel *viewModel = [PSMeetingViewModel new];
         viewModel.meetingID = meetingID;
         viewModel.lat=[PSLocateManager sharedInstance].lat;
@@ -237,13 +244,12 @@
         viewModel.province=[PSLocateManager sharedInstance].province;
         viewModel.city=[PSLocateManager sharedInstance].city;
         [viewModel requestUpdateMeetingCoordinateCompleted:^(PSResponse *response) {
-            
+    
         } failed:^(NSError *error) {
-            
+    
         }];
-    } else {
-        //定位不可用
     }
+    
     
 
 }

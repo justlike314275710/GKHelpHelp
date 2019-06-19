@@ -353,6 +353,7 @@ typedef NS_ENUM(NSInteger, PSLoginModeType) {
         self.mode=@"sms_verification_code";
         self.loginMiddleView.codeButton.hidden=NO;
         self.loginMiddleView.codeTextField.placeholder=@"请输入验证码";
+        self.loginMiddleView.codeLable.text=@"验证码";
         [self.loginTypeButton setTitle:@"使用密码登录" forState:0];
     }
    else if (self.loginModeType==PSLoginModeCode){
@@ -360,6 +361,7 @@ typedef NS_ENUM(NSInteger, PSLoginModeType) {
          self.mode=@"account_password";
          self.loginMiddleView.codeButton.hidden=YES;
          self.loginMiddleView.codeTextField.placeholder=@"请输入密码";
+         self.loginMiddleView.codeLable.text=@"密码";
          [self.loginTypeButton setTitle:@"使用验证码登录" forState:0];
     }
    else{
@@ -491,6 +493,7 @@ typedef NS_ENUM(NSInteger, PSLoginModeType) {
     }];
    // _loginMiddleView = midView;
     self.protocolLabel = [YYLabel new];
+    self.protocolLabel.textAlignment=NSTextAlignmentCenter;
     NSString*usageProtocol=NSLocalizedString(@"usageProtocol", nil);
     [self.protocolLabel setTextTapAction:^(UIView * _Nonnull containerView, NSAttributedString * _Nonnull text, NSRange range, CGRect rect) {
         @strongify(self)
@@ -508,7 +511,7 @@ typedef NS_ENUM(NSInteger, PSLoginModeType) {
     [self.protocolLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.mas_equalTo(self.view);
         make.bottom.mas_equalTo(self.view.mas_bottom).offset(-15);
-         make.size.mas_equalTo(CGSizeMake(250, 30));
+        make.size.mas_equalTo(CGSizeMake(250, 30));
     }];
     [self updateProtocolText];
     
