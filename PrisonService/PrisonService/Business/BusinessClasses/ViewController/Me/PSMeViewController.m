@@ -294,7 +294,7 @@
     _avatarView.userInteractionEnabled = NO;
     
     if ([[LXFileManager readUserDataForKey:@"isVistor"]isEqualToString:@"YES"]) {
-        UIButton*loginButton=[[UIButton alloc]initWithFrame:CGRectMake(130, 37, 180, 42)];
+        UIButton*loginButton=[[UIButton alloc]initWithFrame:CGRectMake(130, 37, 165, 40)];
         [headContentImg addSubview:loginButton];
         loginButton.centerY = _avatarView.centerY;
         NSString*click_login=NSLocalizedString(@"click_login", @"点击登录");
