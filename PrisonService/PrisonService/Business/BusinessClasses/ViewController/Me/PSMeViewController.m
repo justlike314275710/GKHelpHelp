@@ -73,7 +73,7 @@
 -(void)refreshData{
     
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(requestBalance) name:JailChange object:nil];
-    self.view.backgroundColor=UIColorFromRGBA(248, 247, 254, 1);
+    self.view.backgroundColor=UIColorFromRGBA(251, 251, 251, 1);
     self.navigationItem.leftBarButtonItem = nil;
     self.navigationItem.hidesBackButton = NO;
     switch ([PSSessionManager sharedInstance].loginStatus) {
