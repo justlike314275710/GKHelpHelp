@@ -41,6 +41,7 @@
         callback(YES,nil);
     }
 }
+
 - (void)checkNewPhoneDataWithCallback:(CheckDataCallback)callback {
     if (![NSString checkPassword:self.phone_newPassword]) {
         if (callback) {
