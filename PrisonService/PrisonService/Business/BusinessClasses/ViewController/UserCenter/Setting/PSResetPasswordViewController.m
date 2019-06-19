@@ -72,8 +72,8 @@
     self.oldPasswordTextfield.secureTextEntry=YES;
     
     UIButton*oldShowPasswordButton=[UIButton new];
-    [oldShowPasswordButton setImage:IMAGE_NAMED(@"显示密码") forState:UIControlStateNormal];
-    [oldShowPasswordButton setImage:IMAGE_NAMED(@"不显示密码") forState:UIControlStateSelected];
+    [oldShowPasswordButton setImage:IMAGE_NAMED(@"显示密码") forState:UIControlStateSelected];
+    [oldShowPasswordButton setImage:IMAGE_NAMED(@"不显示密码") forState: UIControlStateNormal];
     [bgView addSubview:oldShowPasswordButton];
     [oldShowPasswordButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(self.oldPasswordTextfield.top).offset(horizontalSpace);
