@@ -293,15 +293,16 @@
     _avatarView.originalUrls = @[PICURL([PSSessionManager sharedInstance].session.families.avatarUrl)];
     _avatarView.userInteractionEnabled = NO;
     
-
     if ([[LXFileManager readUserDataForKey:@"isVistor"]isEqualToString:@"YES"]) {
         UIButton*loginButton=[[UIButton alloc]initWithFrame:CGRectMake(130, 37, 180, 42)];
-        [headerView addSubview:loginButton];
+        [headContentImg addSubview:loginButton];
+        loginButton.centerY = _avatarView.centerY;
         NSString*click_login=NSLocalizedString(@"click_login", @"点击登录");
         [loginButton setTitle:click_login forState:0];
+        [loginButton setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
         loginButton.titleLabel.font=FontOfSize(18);
         [loginButton setBackgroundColor:[UIColor clearColor]];
-        [loginButton.layer setBorderColor:[UIColor whiteColor].CGColor];
+        [loginButton.layer setBorderColor:[UIColor grayColor].CGColor];
         [loginButton.layer setBorderWidth:1.0];
         [loginButton bk_whenTapped:^{
             [[PSSessionManager sharedInstance]doLogout];
@@ -380,9 +381,9 @@
     UIView *settingBtnView = [[UIView alloc] initWithFrame:CGRectMake(headContentImg.width-60,15, 50, 50)];
     [headContentImg addSubview:settingBtnView];
     
-    UIButton *settingBtn = [[UIButton alloc] initWithFrame:CGRectMake(15,15,16,16)];
-    [settingBtn setImage:IMAGE_NAMED(@"设置icon") forState:UIControlStateNormal];
-    [settingBtnView addSubview:settingBtn];
+    UIImageView *settingImage = [[UIImageView alloc] initWithFrame:CGRectMake(15,15,16,16)];
+    [settingImage setImage:IMAGE_NAMED(@"设置icon")];
+    [settingBtnView addSubview:settingImage];
     [settingBtnView bk_whenTapped:^{
         [self.navigationController pushViewController:[[PSSettingViewController alloc] initWithViewModel:[[PSSettingViewModel alloc] init]] animated:YES];
     }];

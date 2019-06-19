@@ -48,6 +48,7 @@ typedef NS_ENUM(NSInteger, PSLoginModeType) {
 @property (nonatomic ,strong) NSString *mode;
 @property (nonatomic, strong) PSLoginMiddleView *loginMiddleView;
 @property (nonatomic , strong) UIButton *loginTypeButton ;
+@property (nonatomic , strong) UIButton *publicTypeButton ;
 @property (nonatomic, assign) NSInteger seconds;
 @property (nonatomic, strong) NSMutableArray*titles;
 @property (nonatomic ,strong) NSMutableArray *token;
@@ -511,9 +512,10 @@ typedef NS_ENUM(NSInteger, PSLoginModeType) {
     [self.protocolLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.mas_equalTo(self.view);
         make.bottom.mas_equalTo(self.view.mas_bottom).offset(-15);
-        make.size.mas_equalTo(CGSizeMake(250, 30));
+        make.size.mas_equalTo(CGSizeMake(220, 30));
     }];
     [self updateProtocolText];
+
     
 
     
@@ -536,6 +538,21 @@ typedef NS_ENUM(NSInteger, PSLoginModeType) {
         make.bottom.mas_equalTo(self.loginMiddleView.mas_top).offset(-RELATIVE_HEIGHT_VALUE(60));
         make.height.mas_equalTo(86);
     }];
+    
+    //公众版本
+    self.publicTypeButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [self.publicTypeButton addTarget:self action:@selector(actionforVistor) forControlEvents:UIControlEventTouchUpInside];
+    [self.publicTypeButton setTitleColor:AppBaseTextColor3 forState:UIControlStateNormal];
+    self.publicTypeButton.titleLabel.font = AppBaseTextFont3;
+    self.publicTypeButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+    [self.publicTypeButton setTitle:@"公众版本" forState:UIControlStateNormal];
+    [self.view addSubview:self.publicTypeButton];
+    [self.publicTypeButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(self.loginMiddleView.mas_bottom).offset(10);
+        make.size.mas_equalTo(CGSizeMake(180, 40));
+        make.left.mas_equalTo(self.loginMiddleView.mas_left).offset(2);
+    }];
+    
 }
 
 - (void)initialize {
