@@ -39,10 +39,10 @@
 
 @interface PSMeViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic , strong) UITableView *settingTableview;
-@property (nonatomic,strong) NSArray *modelArray;
-@property (nonatomic, strong, readonly) PYPhotosView *avatarView;
+@property (nonatomic , strong) NSArray *modelArray;
+@property (nonatomic , strong, readonly)PYPhotosView *avatarView;
 @property (nonatomic , strong) NSString *PrisonerDetailName;
-@property (nonatomic ,strong) PSPrisonerDetail *prisonerDetail;
+@property (nonatomic , strong) PSPrisonerDetail *prisonerDetail;
 @property (nonatomic , strong) NSString *balanceSting;
 @end
 
@@ -62,13 +62,10 @@
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    
 }
-
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
 }
-
 
 #pragma mark  - notification
 
@@ -92,8 +89,6 @@
             break;
     }
 }
-
-
 
 -(void)requestBalance{
     [[PSLoadingView sharedInstance]show];
@@ -353,7 +348,6 @@
         float authLabWidth = [NSObject judegeIsVietnamVersion]?50:35;
         UILabel *authLab = [[UILabel alloc] initWithFrame:CGRectMake(iconImage.right+4,0,authLabWidth, 25)];
         
-
         NSString*session_PASSED=NSLocalizedString(@"session_PASSED", @"已认证");
         NSString*session_NONE=NSLocalizedString(@"session_NONE", @"未认证");
         
@@ -383,16 +377,21 @@
     }
 
     //设置
-    UIButton *settingBtn = [[UIButton alloc] initWithFrame:CGRectMake(headContentImg.width-16-49, 30,16,16)];
+    UIView *settingBtnView = [[UIView alloc] initWithFrame:CGRectMake(headContentImg.width-60,15, 50, 50)];
+    [headContentImg addSubview:settingBtnView];
+    
+    UIButton *settingBtn = [[UIButton alloc] initWithFrame:CGRectMake(15,15,16,16)];
     [settingBtn setImage:IMAGE_NAMED(@"设置icon") forState:UIControlStateNormal];
-    [headContentImg addSubview:settingBtn];
-    [settingBtn bk_whenTapped:^{
+    [settingBtnView addSubview:settingBtn];
+    [settingBtnView bk_whenTapped:^{
         [self.navigationController pushViewController:[[PSSettingViewController alloc] initWithViewModel:[[PSSettingViewModel alloc] init]] animated:YES];
     }];
+    
+    
     //消息
     UIButton *messageBtn = [[UIButton alloc] initWithFrame:CGRectMake(headContentImg.width-16-18, 30,16,16)];
     [messageBtn setImage:IMAGE_NAMED(@"消息icon") forState:UIControlStateNormal];
-    [headContentImg addSubview:messageBtn];
+//    [headContentImg addSubview:messageBtn];
     [messageBtn bk_whenTapped:^{
 //        [self.navigationController pushViewController:[[PSSettingViewController alloc] initWithViewModel:[[PSSettingViewModel alloc] init]] animated:YES];
         

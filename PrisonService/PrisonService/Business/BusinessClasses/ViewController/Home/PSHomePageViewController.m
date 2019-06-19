@@ -59,6 +59,7 @@
 @property (nonatomic, strong) UILabel *prisonTitleLable;
 @property (nonatomic, strong) UILabel*prisonIntroduceContentLable;
 @property (nonatomic, strong) PSHomeMoreFunctionView *moreServicesView; //更多服务
+@property (nonatomic, strong) UIImageView *arcImageView;
 
 
 @end
@@ -308,6 +309,9 @@
     //背景水波
 //    [self.myScrollview addSubview:self.waterWaveView];
 //    self.waterWaveView.frame = CGRectMake(0,_advView.bottom-44, SCREEN_WIDTH, 44);
+    [self.myScrollview addSubview:self.arcImageView];
+    self.arcImageView.frame = CGRectMake(0,200, KScreenWidth,126);
+    self.arcImageView.top = self.advView.bottom-10;
     
     [self.myScrollview addSubview:self.addressButton];
     [self.addressButton setTitle:self.defaultJailName forState:0];
@@ -504,6 +508,15 @@
     }
     return _advView;
 }
+
+- (UIImageView *)arcImageView {
+    if (!_arcImageView) {
+        _arcImageView = [UIImageView new];
+        _arcImageView.image = IMAGE_NAMED(@"弧形背景");
+    }
+    return _arcImageView;
+}
+
 - (WWWaterWaveView *)waterWaveView{
     if (!_waterWaveView) {
         _waterWaveView=[[WWWaterWaveView alloc] init];

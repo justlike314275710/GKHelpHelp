@@ -28,6 +28,7 @@
 #import "PSHomeFunctionView.h"
 @interface PSServiceCentreViewController ()<PSServiceCentreTableViewCellDelegate>
 @property (nonatomic,strong)UIView *headView;
+@property (nonatomic,strong)UIImageView *arcImageView;
 
 @end
 
@@ -53,17 +54,17 @@
 #pragma mark  - PrivateMethods
 - (void)renderContents{
     
-    self.serviceCentreTableView.backgroundColor = [UIColor whiteColor];
     _serviceCentreTableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
     self.serviceCentreTableView.dataSource = self;
     self.serviceCentreTableView.delegate = self;
     self.serviceCentreTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.serviceCentreTableView.showsVerticalScrollIndicator=NO;
     self.serviceCentreTableView.backgroundColor = [UIColor clearColor];
-    
+
     [self.serviceCentreTableView registerClass:[PSServiceCentreTableViewCell class] forCellReuseIdentifier:@"PSServiceCentreTableViewCell"];
     [self.serviceCentreTableView registerClass:[PSLegalServiceTableViewCell class] forCellReuseIdentifier:@"PSLegalServiceTableViewCell"];
     [self.serviceCentreTableView registerClass:[PSPsychologicalCounselingTableViewCell class] forCellReuseIdentifier:@"PSPsychologicalCounselingTableViewCell"];
+    self.serviceCentreTableView.backgroundColor = [UIColor whiteColor];
     self.serviceCentreTableView.tableFooterView = [UIView new];
     
     [self.view addSubview:self.serviceCentreTableView];
@@ -180,7 +181,6 @@
     
     if (indexPath.row==0){
          PSLegalServiceTableViewCell*cell= [tableView dequeueReusableCellWithIdentifier:@"PSLegalServiceTableViewCell"];
-
         [cell.moreButton bk_whenTapped:^{
              [self p_insertMoreServiceVC];
         }];
@@ -258,6 +258,11 @@
     if (!_headView) {
         _headView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, 284)];
         [_headView addSubview:self.advView];
+        
+        [_headView addSubview:self.arcImageView];
+        self.arcImageView.frame = CGRectMake(0,220, KScreenWidth,60);
+        self.arcImageView.top = self.advView.bottom-10;
+
         NSArray *titles = @[@"远程探视",@"实地会见",@"电子商务",@"家属服务",@"投诉建议"];
         NSArray *imageIcons = @[@"远程探视",@"实地会见",@"电子商务",@"家属服务icon",@"投诉建议"];
         PSHomeFunctionView *homeFunctionView = [[PSHomeFunctionView alloc] initWithFrame:CGRectMake(4,160,KScreenWidth-8,120) titles:titles imageIcons:imageIcons];
@@ -269,6 +274,14 @@
         [_headView addSubview:homeFunctionView];
     }
     return _headView;
+}
+
+- (UIImageView *)arcImageView {
+    if (!_arcImageView) {
+        _arcImageView = [UIImageView new];
+        _arcImageView.image = IMAGE_NAMED(@"弧形背景");
+    }
+    return _arcImageView;
 }
 
 
