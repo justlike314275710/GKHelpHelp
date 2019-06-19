@@ -244,7 +244,6 @@
 #pragma mark  - setter & getter
 - (SDCycleScrollView *)advView {
     if (!_advView) {
-        self.view.backgroundColor=UIColorFromRGBA(248, 247, 254, 1);
         _advView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0,SCREEN_WIDTH,220) imageURLStringsGroup:nil];
         NSString *imageName = [NSObject judegeIsVietnamVersion]?@"v广告图":@"广告图";
         _advView.placeholderImage = [UIImage imageNamed:imageName];
@@ -260,8 +259,8 @@
         [_headView addSubview:self.advView];
         
         [_headView addSubview:self.arcImageView];
-        self.arcImageView.frame = CGRectMake(0,220, KScreenWidth,60);
-        self.arcImageView.top = self.advView.bottom-10;
+        self.arcImageView.frame = CGRectMake(0,220, KScreenWidth,26);
+        self.arcImageView.top = self.advView.bottom-12;
 
         NSArray *titles = @[@"远程探视",@"实地会见",@"电子商务",@"家属服务",@"投诉建议"];
         NSArray *imageIcons = @[@"远程探视",@"实地会见",@"电子商务",@"家属服务icon",@"投诉建议"];

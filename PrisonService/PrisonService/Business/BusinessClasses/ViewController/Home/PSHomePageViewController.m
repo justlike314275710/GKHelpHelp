@@ -310,8 +310,8 @@
 //    [self.myScrollview addSubview:self.waterWaveView];
 //    self.waterWaveView.frame = CGRectMake(0,_advView.bottom-44, SCREEN_WIDTH, 44);
     [self.myScrollview addSubview:self.arcImageView];
-    self.arcImageView.frame = CGRectMake(0,200, KScreenWidth,126);
-    self.arcImageView.top = self.advView.bottom-10;
+    self.arcImageView.frame = CGRectMake(0,200, KScreenWidth,26);
+    self.arcImageView.top = self.advView.bottom-12;
     
     [self.myScrollview addSubview:self.addressButton];
     [self.addressButton setTitle:self.defaultJailName forState:0];

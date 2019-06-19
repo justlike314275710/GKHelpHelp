@@ -35,7 +35,7 @@
     }];
     
     UIView*lineView=[UIView new];
-    lineView.backgroundColor=UIColorFromRGBA(248, 247, 254, 1);;
+//    lineView.backgroundColor=UIColorFromRGBA(248, 247, 254, 1);
     [bgView addSubview:lineView];
     [lineView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(0);
