@@ -8,6 +8,7 @@
 #import "PSResetPasswordViewController.h"
 #import "PSPasswordViewModel.h"
 #import "PSForgetPasswordViewController.h"
+#import "UIButton+BEEnLargeEdge.h"
 @interface PSResetPasswordViewController ()
 @property (nonatomic , strong) UITextField *oldPasswordTextfield;
 @property (nonatomic , strong) UITextField *novaPasswordTextfield;
@@ -74,6 +75,7 @@
     UIButton*oldShowPasswordButton=[UIButton new];
     [oldShowPasswordButton setImage:IMAGE_NAMED(@"显示密码") forState:UIControlStateSelected];
     [oldShowPasswordButton setImage:IMAGE_NAMED(@"不显示密码") forState: UIControlStateNormal];
+    [oldShowPasswordButton be_setEnlargeEdgeWithTop:5 right:15 bottom:5 left:15];
     [bgView addSubview:oldShowPasswordButton];
     [oldShowPasswordButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(self.oldPasswordTextfield.top).offset(horizontalSpace);
@@ -123,6 +125,8 @@
     UIButton*newShowPasswordButton=[UIButton new];
     [newShowPasswordButton setImage:IMAGE_NAMED(@"显示密码") forState:UIControlStateSelected];
     [newShowPasswordButton setImage:IMAGE_NAMED(@"不显示密码") forState:UIControlStateNormal];
+    [newShowPasswordButton be_setEnlargeEdgeWithTop:5 right:15 bottom:5 left:15];
+    
     [bgView addSubview:newShowPasswordButton];
     [newShowPasswordButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(line_one.mas_top).offset(horizontalSpace);
@@ -171,6 +175,7 @@
     UIButton*confirmShowPasswordButton=[UIButton new];
     [confirmShowPasswordButton setImage:IMAGE_NAMED(@"显示密码") forState:UIControlStateSelected];
     [confirmShowPasswordButton setImage:IMAGE_NAMED(@"不显示密码") forState:UIControlStateNormal ];
+    [confirmShowPasswordButton be_setEnlargeEdgeWithTop:5 right:15 bottom:5 left:15];
     [bgView addSubview:confirmShowPasswordButton];
     [confirmShowPasswordButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(line_two.mas_top).offset(horizontalSpace);
@@ -223,10 +228,7 @@
         sender.selected=!sender.selected;
         return;
     }
-   
-   // sender.selected=!sender.selected;
 }
-
 
 -(void)completeButtonClick{
     PSPasswordViewModel *ViewModel  =(PSPasswordViewModel *)self.viewModel;
@@ -252,7 +254,6 @@
             [PSTipsView showTips:tips];
         }
     }];
-
 }
 
 - (void)didReceiveMemoryWarning {
@@ -260,17 +261,5 @@
     // Dispose of any resources that can be recreated.
 }
 
-
-
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

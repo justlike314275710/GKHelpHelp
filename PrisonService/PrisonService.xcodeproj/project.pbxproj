@@ -438,6 +438,7 @@
 		55E9A8C12186EB33003A5918 /* PSREmittanceRecodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 55E9A8C02186EB33003A5918 /* PSREmittanceRecodeViewController.m */; };
 		55E9A8C42186EDC6003A5918 /* PSRemittanceRecordCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 55E9A8C32186EDC6003A5918 /* PSRemittanceRecordCell.m */; };
 		55E9A8CA2186F982003A5918 /* PSRemittancePayStateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 55E9A8C92186F982003A5918 /* PSRemittancePayStateViewController.m */; };
+		55EDE92E22BA25DB00569D29 /* UIButton+BEEnLargeEdge.m in Sources */ = {isa = PBXBuildFile; fileRef = 55EDE92D22BA25DB00569D29 /* UIButton+BEEnLargeEdge.m */; };
 		55F2A53621904B7B0048D93B /* PSFamilyRemittanceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 55F2A53521904B7B0048D93B /* PSFamilyRemittanceViewController.m */; };
 		55F4BAE62282BBD70034A533 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55F4BAE52282BBD70034A533 /* CoreLocation.framework */; };
 		55F9C6FF2190759C00E15FDD /* PSRemittanceResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 55F9C6FE2190759C00E15FDD /* PSRemittanceResponse.m */; };
@@ -1589,6 +1590,8 @@
 		55E9A8C32186EDC6003A5918 /* PSRemittanceRecordCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PSRemittanceRecordCell.m; sourceTree = "<group>"; };
 		55E9A8C82186F982003A5918 /* PSRemittancePayStateViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PSRemittancePayStateViewController.h; sourceTree = "<group>"; };
 		55E9A8C92186F982003A5918 /* PSRemittancePayStateViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PSRemittancePayStateViewController.m; sourceTree = "<group>"; };
+		55EDE92C22BA25DB00569D29 /* UIButton+BEEnLargeEdge.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIButton+BEEnLargeEdge.h"; sourceTree = "<group>"; };
+		55EDE92D22BA25DB00569D29 /* UIButton+BEEnLargeEdge.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIButton+BEEnLargeEdge.m"; sourceTree = "<group>"; };
 		55F2A53521904B7B0048D93B /* PSFamilyRemittanceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSFamilyRemittanceViewController.m; sourceTree = "<group>"; };
 		55F4BAE52282BBD70034A533 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		55F9C6FD2190759B00E15FDD /* PSRemittanceResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSRemittanceResponse.h; sourceTree = "<group>"; };
@@ -2470,6 +2473,8 @@
 				554C007921D4B0ED00E6C6D2 /* NSString+emoji.m */,
 				5573E08A21E83ECC00AFE04D /* NSObjectSafe.h */,
 				5573E08921E83ECC00AFE04D /* NSObjectSafe.m */,
+				55EDE92C22BA25DB00569D29 /* UIButton+BEEnLargeEdge.h */,
+				55EDE92D22BA25DB00569D29 /* UIButton+BEEnLargeEdge.m */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -5631,6 +5636,7 @@
 				3EEEC60C20931D98003B35B3 /* PSCommentHeaderView.m in Sources */,
 				3E171A8D20920B1E00B7D807 /* PSPrisonerTermsRequest.m in Sources */,
 				EACBC1B22146046D004C0EAB /* PSAuthenticationHomeViewController.m in Sources */,
+				55EDE92E22BA25DB00569D29 /* UIButton+BEEnLargeEdge.m in Sources */,
 				3E171A0420908ED400B7D807 /* CaptureManager.m in Sources */,
 				3EEE773F207F0DBE00CAD179 /* PSMessageViewController.m in Sources */,
 				3ED6A0A520A5713A00D2223A /* PSAppointmentBaseViewModel.m in Sources */,
