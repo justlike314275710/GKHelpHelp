@@ -177,15 +177,14 @@
     [ manager.requestSerializer setValue:token forHTTPHeaderField:@"Authorization"];
     [manager PUT:url parameters:parmeters success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         [[PSLoadingView sharedInstance]dismiss];
-        NSLog(@"改手机%@",responseObject);
-
         [self synchronizationPhone];
         
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         [[PSLoadingView sharedInstance]dismiss];
         NSData *data = error.userInfo[AFNetworkingOperationFailingURLResponseDataErrorKey];
         id body = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
-        NSString*message = body[@"message"];
+        
+        NSString*message=body[@"message"];
         if (message) {
             [PSTipsView showTips:message];
         } else {

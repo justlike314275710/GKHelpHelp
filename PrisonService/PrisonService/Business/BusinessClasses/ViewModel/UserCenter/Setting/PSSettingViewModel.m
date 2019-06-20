@@ -22,6 +22,15 @@
 -(void)setData {
     
     NSMutableArray *items = [NSMutableArray array];
+    
+    NSMutableArray *firstItems = [NSMutableArray array];
+    PSSettingItem *passwordItem = [PSSettingItem new];
+    passwordItem.itemValue = @"";
+    passwordItem.itemName = @"重置密码";
+    passwordItem.itemIconName = @"userCenterSettingPasswordSave";
+    [firstItems addObject:passwordItem];
+    [items addObject:firstItems];
+    
     NSMutableArray *secondSectionItems = [NSMutableArray array];
     PSSettingItem *feedbackItem = [PSSettingItem new];
     feedbackItem.itemValue = @"";

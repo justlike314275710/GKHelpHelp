@@ -18,8 +18,8 @@
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
-        self.backgroundColor = [UIColor clearColor];
-        self.contentView.backgroundColor = [UIColor clearColor];
+        self.backgroundColor = [UIColor whiteColor];
+        self.contentView.backgroundColor = [UIColor whiteColor];
         self.selectionStyle = UITableViewCellSelectionStyleNone;
         [self renderContents];
     }
@@ -28,13 +28,14 @@
 
 -(void)renderContents{
     UIView* bgView = [UIView new];
+    bgView.backgroundColor = [UIColor whiteColor];
     [self addSubview:bgView];
     [bgView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.mas_equalTo(UIEdgeInsetsZero);
     }];
     
     UIView*lineView=[UIView new];
-    lineView.backgroundColor=UIColorFromRGBA(248, 247, 254, 1);;
+//    lineView.backgroundColor=UIColorFromRGBA(248, 247, 254, 1);
     [bgView addSubview:lineView];
     [lineView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(0);
@@ -67,7 +68,7 @@
     psychologicalLable.text=psychological_counseling;
     [bgView addSubview: psychologicalLable];
     [ psychologicalLable mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(horSidePadding);
+        make.left.mas_equalTo(2*horSidePadding);
         make.top.mas_equalTo(2*horSidePadding);
         make.width.mas_equalTo(qWidth);
         make.height.mas_equalTo(qHeight);
@@ -81,9 +82,9 @@
     psychologicalTitleLable.text=service_guarantee;
     [bgView addSubview: psychologicalTitleLable];
     [ psychologicalTitleLable mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(horSidePadding);
+        make.left.mas_equalTo(2*horSidePadding);
         make.top.mas_equalTo(psychologicalLable.mas_bottom)
-        .offset(horSidePadding);
+        .offset(horSidePadding-5);
         make.width.mas_equalTo(200);
         make.height.mas_equalTo(qHeight);
     }];

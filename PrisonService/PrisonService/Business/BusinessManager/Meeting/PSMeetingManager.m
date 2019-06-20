@@ -5,7 +5,7 @@
 //  Created by calvin on 2018/4/25.
 //  Copyright © 2018年 calvin. All rights reserved.
 //
-
+#import <CoreLocation/CoreLocation.h>
 #import "PSMeetingManager.h"
 #import "PSIMMessageManager.h"
 #import "PSJailConfigurationsRequest.h"
@@ -24,6 +24,7 @@
 #import <EBBannerView/EBBannerView.h>
 #import "UIViewController+Tool.h"
 
+#import "PSLocateManager.h"
 @interface PSMeetingManager ()<PSIMMessageObserver>
 
 @property (nonatomic, strong) PSJailConfigurationsRequest *jailConfigurationsRequest;
@@ -167,7 +168,9 @@
 
 
 
-//视频通话
+/**
+ 视频通话
+ */
 - (void)startMeeting {
     PSMeetingViewModel *viewModel = [PSMeetingViewModel new];
     viewModel.jailConfiguration = self.jailConfiguration;
@@ -177,6 +180,7 @@
     viewModel.presenterPassword = self.presenterPassword;
     viewModel.familymeetingID=self.familesMeetingID;
     viewModel.callDuration=self.callDuration;
+    
     
     
    PSMeetingViewController *meetingViewController = [[PSMeetingViewController alloc] initWithViewModel:viewModel];
@@ -192,6 +196,62 @@
      self.meetingNavigationController = nil;
 
     
+}
+
+
+/**
+ 发送免费会见定位
+ 
+ @param meetingID 会见ID(监狱端传送）
+ */
+-(void)sendFreeLocation:(NSString*)meetingID{
+    CLAuthorizationStatus status=[CLLocationManager authorizationStatus];
+    if (kCLAuthorizationStatusDenied == status || kCLAuthorizationStatusRestricted == status){
+       
+    }else//开启的
+    {
+        PSMeetingViewModel *viewModel = [PSMeetingViewModel new];
+        viewModel.meetingID = meetingID;
+        viewModel.lat=[PSLocateManager sharedInstance].lat;
+        viewModel.lng=[PSLocateManager sharedInstance].lng;
+        viewModel.province=[PSLocateManager sharedInstance].province;
+        viewModel.city=[PSLocateManager sharedInstance].city;
+        [viewModel requestUpdateFreeMeetingCoordinateCompleted:^(PSResponse *response) {
+            
+        } failed:^(NSError *error) {
+            
+        }];
+    }
+    
+}
+
+/**
+ 发送收费会见定位
+ 
+ @param meetingID 会见ID(监狱端传送）
+ */
+-(void)sendChargeLocation:(NSString*)meetingID{
+    CLAuthorizationStatus status=[CLLocationManager authorizationStatus];
+    if (kCLAuthorizationStatusDenied == status || kCLAuthorizationStatusRestricted == status)
+    {
+    
+    }else//开启的
+    {
+        PSMeetingViewModel *viewModel = [PSMeetingViewModel new];
+        viewModel.meetingID = meetingID;
+        viewModel.lat=[PSLocateManager sharedInstance].lat;
+        viewModel.lng=[PSLocateManager sharedInstance].lng;
+        viewModel.province=[PSLocateManager sharedInstance].province;
+        viewModel.city=[PSLocateManager sharedInstance].city;
+        [viewModel requestUpdateMeetingCoordinateCompleted:^(PSResponse *response) {
+    
+        } failed:^(NSError *error) {
+    
+        }];
+    }
+    
+    
+
 }
 
 
@@ -225,8 +285,22 @@
 
 #pragma mark - PSIMMessageObserver
 - (void)receivedMeetingMessage:(PSMeetingMessage *)message {
-    NSLog(@"_____****_____%@",message);
     switch (message.code) {
+            
+      
+        case PSFreeMeetingLocation:
+        {
+            [self sendFreeLocation:message.meetingId];
+            
+        }
+            break;
+            
+        case PSChargeMeetingLocation:
+        {
+            [self sendChargeLocation:message.meetingId];
+            
+        }
+            break;
         case PSMeetingStart:
         {
             //发起会议

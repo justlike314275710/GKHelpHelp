@@ -9,9 +9,11 @@
 #import "JSONModel.h"
 
 typedef NS_ENUM(NSInteger, PSMeetingCode) {
+    PSFreeMeetingLocation=-4,//免费会见定位
+    PSChargeMeetingLocation=-3,//收费会见定位
+    PSMeetingEnd = -2,    //结束会议code
     PSMeetingStart = -1,  //发起会议code
     PSMeetingEnter = 0,   //进入会议code
-    PSMeetingEnd = -2,    //结束会议code
     PSMeetingStatus = 1,  //会见状态变更code
     PSMeetingLocal = 2,   //实地会见
     PSMeetingCancelAuthorization=3,//注册授权撤销

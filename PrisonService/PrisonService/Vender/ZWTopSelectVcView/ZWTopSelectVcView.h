@@ -44,6 +44,7 @@
 -(UIColor *)topSliderLineSpacingColorInZWTopSelectVcView:(ZWTopSelectVcView *)topSelectVcViedew;
 //顶部滑块背景设置
 -(UIColor *)topSliderViewBackGroundColorInZWTopSelectVcView:(ZWTopSelectVcView *)topSelectVcView;
+-(CGFloat)topSliderViewHeightZWTopSelectVcView:(ZWTopSelectVcView *)topSelectVcView;
 //顶部标题背景设置
 -(UIColor *)topViewBackGroundColorInZWTopSelectVcView:(ZWTopSelectVcView *)topSelectVcView;
 ///顶部高度设置

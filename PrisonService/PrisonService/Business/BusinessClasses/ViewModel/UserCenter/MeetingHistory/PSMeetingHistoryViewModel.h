@@ -20,7 +20,7 @@
 @property (nonatomic, strong) NSString *cancelId;
 @property (nonatomic, strong) NSString *cause;
 - (void)MeetapplyCancelCompleted:(RequestDataCompleted)completedCallback failed:(RequestDataFailed)failedCallback;
-
 - (void)refreshRefundCompleted:(RequestDataCompleted)completedCallback failed:(RequestDataFailed)failedCallback;
 - (void)loadMoreRefundCompleted:(RequestDataCompleted)completedCallback failed:(RequestDataFailed)failedCallback;
+
 @end

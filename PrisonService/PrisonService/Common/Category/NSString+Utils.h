@@ -74,6 +74,11 @@ typedef NS_ENUM(NSInteger, STUserLevelType) {
 
 //身份证正则表达式
 + (BOOL)verifyIDCardNumber:(NSString *)value;
+// 正则匹配用户密码6-18位数字和字母组合
++ (BOOL)checkPassword:(NSString *) password;
+//密码6-18位，并需包含大写字母、小写字母、数字或特殊字符等三种"
+-(int)checkIsHaveNumAndLetter:(NSString*)password;
+
 
 //计算含有emoji表情的字符串长度
 + (CGFloat)getAttributedStringHeightWithString:(NSAttributedString *)string WidthValue:(CGFloat)width;
@@ -85,5 +90,8 @@ typedef NS_ENUM(NSInteger, STUserLevelType) {
 - (id)JsonObject;
 
 + (NSString *)stringWithNumber:(NSUInteger)number;
+
+
+
 
 @end

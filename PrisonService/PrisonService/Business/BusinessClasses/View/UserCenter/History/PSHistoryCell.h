@@ -17,7 +17,14 @@
 @property (nonatomic, strong, readonly) UIButton *cancleButton;
 @property (nonatomic, strong, readonly) UILabel *dateTextLabel;
 @property (nonatomic, strong, readonly) UILabel *dateLabel;
+
 @property (nonatomic, strong, readonly) PSLabel *otherTextLabel;
 @property (nonatomic, strong, readonly) UILabel *otherLabel;
+
+@property (nonatomic, strong) UILabel *prisonerTextLab;  //服刑人员
+@property (nonatomic, strong) UILabel *prisonerLab;
+
+@property (nonatomic, strong) UILabel *overDueTextLab; //过期原因
+@property (nonatomic, strong) UILabel *overDueLab;
 
 @end

@@ -181,26 +181,26 @@
                     _statusTipsLable.text=face_success;
                     PSMeetingViewModel *viewModel = (PSMeetingViewModel*)self.viewModel;
                     @weakify(self)
-                    if (_i==viewModel.FamilyMembers.count-1) {
-                         @strongify(self)
-                        if (self.completion) {
-                            self.completion(YES);
-                        }
-                        return;
-                    }
-                  else {
-                        PSFamilesFaceViewController *authViewController = [[PSFamilesFaceViewController alloc] initWithViewModel:viewModel];
-                      @weakify(self)
-                        [authViewController setCompletion:^(BOOL successful) {
-                            @strongify(self)
-                            if (successful) {
-                                if (self.completion) {
-                                    self.completion(YES);
-                                }
-                                return ;
-                              
+                        if (_i==viewModel.FamilyMembers.count-1) {
+                             @strongify(self)
+                            if (self.completion) {
+                                self.completion(YES);
                             }
-                        }];
+                            return;
+                        }
+                        else {
+                            PSFamilesFaceViewController *authViewController = [[PSFamilesFaceViewController alloc] initWithViewModel:viewModel];
+                          @weakify(self)
+                            [authViewController setCompletion:^(BOOL successful) {
+                                @strongify(self)
+                                if (successful) {
+                                    if (self.completion) {
+                                        self.completion(YES);
+                                    }
+                                    return ;
+                                  
+                                }
+                            }];
                       [[PSMeetingManager sharedInstance].meetingNavigationController pushViewController:authViewController animated:NO];
                     }
                     } else{
@@ -208,7 +208,7 @@
                         [SDTrackTool logEvent:FACE_RECOGNITION attributes:@{STATUS:MobFAILURE}];
                         _statusTipsLable.text=face_fail;
                     }
-
+                    
                 }
             }
 

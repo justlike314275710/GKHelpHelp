@@ -16,6 +16,8 @@
 #import "PSAccountEditEmailViewModel.h"
 #import "PSAccountEditAddressViewModel.h"
 #import "PSAlertView.h"
+#import "PSchangPhoneViewController.h"
+#import "PSEcomRegisterViewmodel.h"
 
 @interface PSAccountViewController ()<UITableViewDataSource,UITableViewDelegate>
 
@@ -166,14 +168,12 @@
     cell.textLabel.text = infoItem.itemName;
     cell.detailTextLabel.text = [infoItem.infoText isKindOfClass:[NSNull class]]?@"":infoItem.infoText;
     cell.detailTextLabel.numberOfLines=0;
-    if (1==indexPath.row) {
-        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-    }
-    else if (2==indexPath.row){
-        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-    }
-    else {
+    if (0==indexPath.row) {
         cell.accessoryType = UITableViewCellSeparatorStyleNone;
+    }
+ 
+    else {
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
  
     return cell;
@@ -186,12 +186,15 @@
 
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-  
     if (1==indexPath.row) {
+        PSchangPhoneViewController*changPhoneViewController=[[PSchangPhoneViewController alloc]initWithViewModel:[[PSEcomRegisterViewmodel alloc]init]];
+        [self.navigationController pushViewController:changPhoneViewController animated:YES];
+    }
+   else if (2==indexPath.row) {
         PSAccountAddressViewController *addressViewController = [[PSAccountAddressViewController alloc] initWithViewModel:[PSAccountEditAddressViewModel new]];
         [self.navigationController pushViewController:addressViewController animated:YES];
     }
-    else if (2==indexPath.row){
+    else if (3==indexPath.row){
         
         PSAccountEmailViewController *emailViewController = [[PSAccountEmailViewController alloc] initWithViewModel:[PSAccountEditEmailViewModel new]];
         [self.navigationController pushViewController:emailViewController animated:YES];

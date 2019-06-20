@@ -79,8 +79,6 @@
     
 
 }
-
-
 -(void)initButton:(UIButton*)btn{
     btn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
     [btn setTitleEdgeInsets:UIEdgeInsetsMake(btn.imageView.frame.size.height + 20 ,-btn.imageView.frame.size.width, 0.0,0.0)];
@@ -89,7 +87,6 @@
         [btn setImageEdgeInsets:UIEdgeInsetsMake(0.0,(btn.width- btn.imageView.width)/2,10, -btn.titleLabel.bounds.size.width)];
     }
 }
-
 - (void)checkAction:(UIButton *)sender {
     [_delegate choseTerm:sender.tag];
 }  

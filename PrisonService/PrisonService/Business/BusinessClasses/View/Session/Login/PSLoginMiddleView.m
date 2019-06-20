@@ -62,7 +62,7 @@
         _codeTextField.textAlignment = NSTextAlignmentCenter;
         NSString*please_enter_verify_code=NSLocalizedString(@"please_enter_verify_code", nil);
         _codeTextField.placeholder = please_enter_verify_code;
-        _codeTextField.keyboardType =UIKeyboardTypeNumberPad;
+        _codeTextField.keyboardType =UIKeyboardTypeASCIICapable;
         [self addSubview:_codeTextField];
         [_codeTextField mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.mas_equalTo(sidePadding);
@@ -84,18 +84,19 @@
             make.bottom.mas_equalTo(_codeTextField.mas_bottom);
             make.width.mas_equalTo(70);
         }];
+        
         NSString*verifycode=NSLocalizedString(@"verifycode", nil);
-        UILabel*codeLable=[UILabel new];
-        codeLable.text=verifycode;
-        codeLable.font= AppBaseTextFont2;
-        [self addSubview:codeLable];
-        [codeLable mas_makeConstraints:^(MASConstraintMaker *make) {
+       self.codeLable=[UILabel new];
+       self.codeLable.text=verifycode;
+       self.codeLable.font= AppBaseTextFont2;
+        [self addSubview:self.codeLable];
+        [self.codeLable mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.mas_equalTo(_codeTextField.mas_top);
             make.left.mas_equalTo(_codeTextField.mas_left);
             make.bottom.mas_equalTo(_codeTextField.mas_bottom);
             make.width.mas_equalTo(70);
         }];
-        codeLable.numberOfLines=0;
+        self.codeLable.numberOfLines=0;
         
         _loginButton = [UIButton buttonWithType:UIButtonTypeCustom];
         _loginButton.titleLabel.font = AppBaseTextFont1;

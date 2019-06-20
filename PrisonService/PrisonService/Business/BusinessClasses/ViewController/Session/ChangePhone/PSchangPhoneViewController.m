@@ -18,6 +18,7 @@
 #import "PSAlertView.h"
 #import "PSEcomRegisterViewmodel.h"
 #import "PSEcomLoginViewmodel.h"
+#import "PSSessionManager.h"
 @interface PSchangPhoneViewController ()<PSCountdownObserver>
 @property (nonatomic,strong) PSUnderlineTextField *phoneTextField;
 @property (nonatomic,strong) PSUnderlineTextField *cardTextField;
@@ -61,33 +62,36 @@
    
     self.view.backgroundColor= [UIColor colorWithRed:249/255.0 green:248/255.0 blue:254/255.0 alpha:1];
     CGFloat sidePadding = 20;
-    _phoneTextField = [[PSUnderlineTextField alloc] initWithFrame:CGRectZero];
-    _phoneTextField.font = AppBaseTextFont2;
-    _phoneTextField.borderStyle = UITextBorderStyleNone;
-    _phoneTextField.textColor = AppBaseTextColor1;
-    _phoneTextField.textAlignment = NSTextAlignmentCenter;
-    _phoneTextField.placeholder = @"请输入旧手机号";
-    _phoneTextField.keyboardType = UIKeyboardTypeNumberPad;
-    [self.view addSubview:_phoneTextField];
-    [_phoneTextField mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(sidePadding);
-        make.right.mas_equalTo(-sidePadding);
-        make.top.mas_equalTo(20);
-        make.height.mas_equalTo(44);
-    }];
+//    _phoneTextField = [[PSUnderlineTextField alloc] initWithFrame:CGRectZero];
+//    _phoneTextField.font = AppBaseTextFont2;
+//    _phoneTextField.borderStyle = UITextBorderStyleNone;
+//    _phoneTextField.textColor = AppBaseTextColor1;
+//    _phoneTextField.textAlignment = NSTextAlignmentCenter;
+//    _phoneTextField.placeholder = @"请输入旧手机号";
+//    _phoneTextField.keyboardType = UIKeyboardTypeNumberPad;
+//    [self.view addSubview:_phoneTextField];
+//    [_phoneTextField mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.left.mas_equalTo(sidePadding);
+//        make.right.mas_equalTo(-sidePadding);
+//        make.top.mas_equalTo(20);
+//        make.height.mas_equalTo(44);
+//    }];
 //    [_phoneTextField setBk_didEndEditingBlock:^(UITextField *textField) {
 //         regiestViewModel.phoneNumber = textField.text;
 //    }];
     
     UILabel*phoneLable=[UILabel new];
-    phoneLable.text=@"旧手机号";
-    phoneLable.font= AppBaseTextFont2;
+    NSString*phoneNumber=[PSSessionManager sharedInstance].session.families.phone;
+    phoneLable.text=NSStringFormat(@"更换手机号，下次登录可使用新手机号登录。当前手机号:%@",phoneNumber);
+    phoneLable.textColor=AppBaseTextColor1;
+    phoneLable.numberOfLines=0;
+    phoneLable.font= FontOfSize(12);
     [self.view addSubview:phoneLable];
     [phoneLable mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(_phoneTextField.mas_top);
-        make.left.mas_equalTo(_phoneTextField.mas_left);
-        make.bottom.mas_equalTo(_phoneTextField.mas_bottom);
-        make.width.mas_equalTo(70);
+        make.top.mas_equalTo(sidePadding);
+        make.left.mas_equalTo(sidePadding);
+        make.right.mas_equalTo(-sidePadding);
+        make.height.mas_equalTo(44);
     }];
     
 
@@ -103,7 +107,7 @@
     [_codeTextField mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(sidePadding);
         make.right.mas_equalTo(-sidePadding);
-        make.top.mas_equalTo(_phoneTextField.mas_bottom);
+        make.top.mas_equalTo(phoneLable.mas_bottom);
         make.height.mas_equalTo(44);
     }];
 //    [_codeTextField setBk_didEndEditingBlock:^(UITextField *textField) {
@@ -160,7 +164,7 @@
 
 -(void)checkDataAcition{
      
-    if([Expression validatePhoneId:self.phoneTextField.text]&&[Expression validateVetifyCode:_codeTextField.text]) {
+    if([Expression validateVetifyCode:_codeTextField.text]) {
         [self EcommerceOfLogin];
         return;
     }
@@ -188,7 +192,7 @@
 -(void)requestMessageCode{
     [self.view endEditing:YES];
     PSEcomRegisterViewmodel*regiestViewModel=[[PSEcomRegisterViewmodel alloc]init];
-    regiestViewModel.phoneNumber=_phoneTextField.text;
+    regiestViewModel.phoneNumber=[PSSessionManager sharedInstance].session.families.phone;
     @weakify(regiestViewModel)
     [regiestViewModel checkPhoneDataWithCallback:^(BOOL successful, NSString *tips) {
         @strongify(regiestViewModel)
@@ -212,7 +216,7 @@
 }
 -(void)EcommerceOfLogin{
     PSEcomLoginViewmodel*ecomViewmodel=[[PSEcomLoginViewmodel alloc]init];
-    ecomViewmodel.username=self.phoneTextField.text;
+    ecomViewmodel.username=[PSSessionManager sharedInstance].session.families.phone;
     ecomViewmodel.password=self.codeTextField.text;
     @weakify(ecomViewmodel)
     @weakify(self)

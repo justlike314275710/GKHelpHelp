@@ -31,11 +31,14 @@
 #import "PSPayView.h"
 #import "PSPayInfo.h"
 #import "PSPayCenter.h"
+#import "PSAppointmentProcessView.h"
 
 
 
-@interface PSAppointmentViewController ()<FSCalendarDataSource,FSCalendarDelegate,UITableViewDataSource,UITableViewDelegate,PSIMMessageObserver,PSSessionObserver>
-
+@interface PSAppointmentViewController ()<FSCalendarDataSource,FSCalendarDelegate,UITableViewDataSource,UITableViewDelegate,PSIMMessageObserver,PSSessionObserver,UIGestureRecognizerDelegate>
+{
+    void * _KVOContext;
+}
 @property (nonatomic, strong) FSCalendar *calendar;
 @property (nonatomic, strong) PSDateView *dateView;
 @property (strong, nonatomic) NSDateFormatter *dateFormatter;
@@ -49,13 +52,16 @@
 @property (nonatomic, strong) PSPrisonerDetail *prisonerDetail;
 @property (nonatomic, strong) PSBuyModel *buyModel;
 @property (nonatomic, strong) PSPayView *payView;
-
+@property (strong, nonatomic) UIPanGestureRecognizer *scopeGesture;
 
 
 
 @end
 
 @implementation PSAppointmentViewController
+
+#pragma mark - LifeCycle
+
 - (instancetype)initWithViewModel:(PSViewModel *)viewModel {
     self = [super initWithViewModel:viewModel];
     if (self) {
@@ -67,10 +73,12 @@
     return self;
 }
 
-- (void)dealloc {
-    [[PSIMMessageManager sharedInstance] removeObserver:self];
-    [[PSSessionManager sharedInstance] removeObserver:self];
-    self.selectArray=nil;
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    // Do any additional setup after loading the view.
+    [self requestPhoneCard];
+    self.selectArray=[NSArray array];
+    self.meetingMembersArray=[[NSMutableArray alloc ]init];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -78,6 +86,18 @@
     self.tabBarController.tabBar.hidden = YES;
 }
 
+- (void)dealloc {
+    [[PSIMMessageManager sharedInstance] removeObserver:self];
+    [[PSSessionManager sharedInstance] removeObserver:self];
+    self.selectArray=nil;
+    [self.calendar removeObserver:self forKeyPath:@"scope" context:_KVOContext];
+}
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+}
+
+#pragma mark - PrivateMethods
 - (void)appointmentAction {
     
     PSAppointmentViewModel *appointmentViewModel = (PSAppointmentViewModel *)self.viewModel;
@@ -134,8 +154,6 @@
     }];
 }
 
-
-
 - (void)checkFaceAuth {
     PSFaceAuthViewController *authViewController = [[PSFaceAuthViewController alloc] initWithViewModel:nil];
     [authViewController setCompletion:^(BOOL successful) {
@@ -165,7 +183,6 @@
     PSPrisonerFamilesViewController*familesViewController=[[PSPrisonerFamilesViewController alloc]initWithViewModel:prisonerFamliesViewModel];
     familesViewController.returnValueBlock = ^(NSArray *arrayValue) {
         self.selectArray=arrayValue;
-         NSLog(@"arrayValue:%@",self.selectArray);
     };
     
     [familesViewController setCompletion:^(BOOL successful) {
@@ -394,7 +411,7 @@
         }
     }];
 }
-
+//MARK:UI
 - (void)renderContents {
     UIColor *topColor = UIColorFromHexadecimalRGB(0x264c90);
     self.dateView = [PSDateView new];
@@ -421,6 +438,7 @@
     self.calendar.appearance.todayColor = topColor;
     self.calendar.appearance.selectionColor = AppBaseTextColor1;
     self.calendar.calendarWeekdayView.backgroundColor = topColor;
+    self.calendar.scope = FSCalendarScopeWeek;
     if (IS_iPhone_5) {
        self.calendar.appearance.subtitleFont = FontOfSize(7);
     } else {
@@ -435,19 +453,21 @@
     NSDate *todayNext = [self.calendar.today dateByAddingTimeInterval:24 * 60 * 60];
     [self.calendar selectDate:todayNext];
     [self.dateView setNowDate:self.calendar.today selectedDate:self.calendar.selectedDate];
+    
     UIButton *applyButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [applyButton addTarget:self action:@selector(requsetPhoneCardBalance) forControlEvents:UIControlEventTouchUpInside];
     applyButton.titleLabel.font = AppBaseTextFont1;
     UIImage *bgImage = [UIImage imageNamed:@"universalBtGradientBg"];
     [applyButton setBackgroundImage:bgImage forState:UIControlStateNormal];
     [applyButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    NSString*Application_familyPhone=NSLocalizedString(@"Application_familyPhone", @"申请亲情电话");
+    NSString*Application_familyPhone=NSLocalizedString(@"Application_familyPhone", @"申请远程探视");
     [applyButton setTitle:Application_familyPhone forState:UIControlStateNormal];
     [self.view addSubview:applyButton];
     [applyButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.mas_equalTo(-20);
         make.centerX.mas_equalTo(self.view);
-        make.size.mas_equalTo(bgImage.size);
+        make.left.mas_equalTo(15);
+        make.right.mas_equalTo(-15);
     }];
     self.appointmentTableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
     self.appointmentTableView.dataSource = self;
@@ -455,14 +475,30 @@
     self.appointmentTableView.separatorInset = UIEdgeInsetsMake(0, 15, 0, 15);
     self.appointmentTableView.tableFooterView = [UIView new];
     [self.appointmentTableView registerClass:[PSAppointmentDetailCell class] forCellReuseIdentifier:@"PSAppointmentDetailCell"];
+    [self.appointmentTableView registerClass:[PSAppointmentProcessView class] forCellReuseIdentifier:@"PSAppointmentProcessView"];
     [self.appointmentTableView registerClass:[PSAppointmentInstructionCell class] forCellReuseIdentifier:@"PSAppointmentInstructionCell"];
     [self.appointmentTableView registerClass:[PSLastCallInfoCell class] forCellReuseIdentifier:@"PSLastCallInfoCell"];
     [self.view addSubview:self.appointmentTableView];
+    self.appointmentTableView.tableHeaderView = [UIView new];
     [self.appointmentTableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.mas_equalTo(0);
         make.bottom.mas_equalTo(applyButton.mas_top).offset(-20);
-        make.top.mas_equalTo(self.calendar.mas_bottom).offset(5);
+        make.top.mas_equalTo(self.calendar.mas_bottom).offset(0);
     }];
+    
+    //增加拉拽事件
+    UIPanGestureRecognizer *panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self.calendar action:@selector(handleScopeGesture:)];
+    panGesture.delegate = self;
+    panGesture.minimumNumberOfTouches = 1;
+    panGesture.maximumNumberOfTouches = 2;
+    [self.view addGestureRecognizer:panGesture];
+    self.scopeGesture = panGesture;
+    [self.appointmentTableView.panGestureRecognizer requireGestureRecognizerToFail:panGesture];
+    [self.calendar addObserver:self forKeyPath:@"scope" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:_KVOContext];
+    // For UITest
+    self.calendar.accessibilityIdentifier = @"calendar";
+    
+    
 }
 
 - (void)requestPhoneCard {
@@ -533,23 +569,23 @@
         return YES;
     }
 }
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    // Do any additional setup after loading the view.
-    [self requestPhoneCard];
-    self.selectArray=[NSArray array];
-    self.meetingMembersArray=[[NSMutableArray alloc ]init];
-
-    
-}
 
 #pragma mark - UITableViewDataSource and UITableViewDelegate
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 3;
+    return 4;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return indexPath.row == 1 ? 109 : 49;
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.row==0) {
+        return 70;
+    } else if (indexPath.row==1) {
+        return 110;
+    } else if (indexPath.row==2) {
+        return 350;
+    } else {
+        return 70;
+    }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -565,7 +601,6 @@
             PSAppointmentViewModel *appointmentViewModel = (PSAppointmentViewModel *)self.viewModel;
             PSMeeting *latestFinishedMeeting = [appointmentViewModel latestFinishedMeetingOfDate:self.calendar.currentPage];
             NSString*Last_call_time=NSLocalizedString(@"Last_call_time", @"上次通话时间：暂无通话");
-//            cell1.textLabel.text = latestFinishedMeeting ? [NSString stringWithFormat:@"上次通话时间：%@",latestFinishedMeeting.meetingTime] : Last_call_time;
             cell1.titleLab.text = latestFinishedMeeting ? [NSString stringWithFormat:@"上次通话时间：%@",latestFinishedMeeting.meetingTime] : Last_call_time;
             return cell1;
 
@@ -607,6 +642,12 @@
         }
             break;
         case 2:
+        {
+            cell = [tableView dequeueReusableCellWithIdentifier:@"PSAppointmentProcessView"];
+            
+        }
+            break;
+        case 3:
         {
             cell = [tableView dequeueReusableCellWithIdentifier:@"PSAppointmentInstructionCell"];
             @weakify(self)
@@ -676,7 +717,12 @@
 
 
 - (void)calendar:(FSCalendar *)calendar boundingRectWillChange:(CGRect)bounds animated:(BOOL)animated {
-    
+    [self.calendar mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.left.right.mas_equalTo(0);
+        make.top.mas_equalTo(self.dateView.mas_bottom).offset(-1);
+        make.height.mas_equalTo(CGRectGetHeight(bounds));
+    }];
+    [self.view layoutIfNeeded];
 }
 
 
@@ -831,10 +877,6 @@
     [self.appointmentTableView reloadData];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
 
 #pragma mark - Setting&Getting
 - (PSBuyCardView *)buyCardView {
@@ -851,16 +893,40 @@
     return _buyCardView;
 }
 
+#pragma mark - Update UI 5.27 
+#pragma mark - KVO
 
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context
+{
+    if (context == _KVOContext) {
+        FSCalendarScope oldScope = [change[NSKeyValueChangeOldKey] unsignedIntegerValue];
+        FSCalendarScope newScope = [change[NSKeyValueChangeNewKey] unsignedIntegerValue];
+        NSLog(@"From %@ to %@",(oldScope==FSCalendarScopeWeek?@"week":@"month"),(newScope==FSCalendarScopeWeek?@"week":@"month"));
+    } else {
+        [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
+    }
 }
-*/
+
+#pragma mark - <UIGestureRecognizerDelegate>
+
+// Whether scope gesture should begin
+- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer
+{
+    BOOL shouldBegin = self.appointmentTableView.contentOffset.y <= -self.appointmentTableView.contentInset.top;
+    if (shouldBegin) {
+        CGPoint velocity = [self.scopeGesture velocityInView:self.view];
+        switch (self.calendar.scope) {
+                case FSCalendarScopeMonth:
+                return velocity.y < 0;
+                case FSCalendarScopeWeek:
+                return velocity.y > 0;
+        }
+    }
+    return shouldBegin;
+}
+
+
+
+
 
 @end
