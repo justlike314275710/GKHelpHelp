@@ -112,7 +112,7 @@
         self.balanceSting=accountsModel.blance;
         _totalLab.textColor = [UIColor whiteColor];
         _totalLab.font = FontOfSize(47);
-        _totalLab.text= [NSString stringWithFormat:@"¥%@元",self.balanceSting];
+        _totalLab.text= [NSString stringWithFormat:@"¥%.2f元",[self.balanceSting floatValue]];
         NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc]initWithString:_totalLab.text];
         [attrStr addAttribute:NSFontAttributeName value:FontOfSize(12) range:NSMakeRange(_totalLab.text.length-1, 1)];
         _totalLab.attributedText = attrStr;

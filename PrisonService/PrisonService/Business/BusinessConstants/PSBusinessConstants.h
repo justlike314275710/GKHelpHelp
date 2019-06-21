@@ -8,7 +8,7 @@
 
 
 #define DEVELOP  0    //开发
-#define UAT 1     //测试
+#define UAT 1    //测试
 #define PRODUCE 0  //生产
 
 
@@ -63,9 +63,7 @@
 //电子商务Server
 #define CommerceServerDomain @"http://39.108.185.51:8088"
 
-//图片上传地址
-//#define UploadServerUrl [NSString stringWithFormat:@"%@/image-server",ServerDomain]
-//#define UploadServerUrl @"http://120.79.251.238:1339/image-server"
+
 //使用协议
 //#define ProtocolUrl [NSString stringWithFormat:@"%@/front/xieyi.html",H5ServerDomain]
 #define ProtocolUrl @"http://39.108.185.51:8081/front/xieyi.html"
@@ -73,10 +71,6 @@
 //#define CommerceUrl [NSString stringWithFormat:@"%@/ywt-ec/index.html",CommerceServerDomain]
 //电子商务敬请期待
 #define ProCommerceUrl [NSString stringWithFormat:@"%@/ywt-ec/index.html",CommerceServerDomain]
-
-//#define ConsultationHostUrl @"http://qa.api.legal.prisonpublic.com"
-//#define EmallHostUrl @"http://qa.api.auth.prisonpublic.com"
-
 
 //外网授权认证平台测试地址
 //#define EmallHostUrl @"http://123.57.7.159:8081" //123.57.7.159

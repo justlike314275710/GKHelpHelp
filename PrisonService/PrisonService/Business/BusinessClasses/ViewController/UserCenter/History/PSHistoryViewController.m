@@ -124,10 +124,15 @@
     PSMeetingHistoryViewModel *meetingHistoryModel =(PSMeetingHistoryViewModel *)self.viewModel;
     PSMeettingHistory *MeettingHistory= meetingHistoryModel.meeetHistorys[indexPath.row];
     NSString *str = MeettingHistory.remarks ;//你想显示的字符串
-    CGSize size = [str sizeWithFont:[UIFont systemFontOfSize: 12] constrainedToSize:CGSizeMake(280, 999) lineBreakMode:NSLineBreakByWordWrapping];
     NSString*status=MeettingHistory.status;
+    if ([status isEqualToString:@"CANCELED"]||[status isEqualToString:@"DENIED"]) {
+        if (str.length<=0) {
+            str = @"拒绝原因";
+        }
+    }
+    CGSize size = [str sizeWithFont:[UIFont systemFontOfSize: 12] constrainedToSize:CGSizeMake(280, 999) lineBreakMode:NSLineBreakByWordWrapping];
     //已过期
-    if ([status isEqualToString:@"EXPIRED"]||[status isEqualToString:@"PASSED"]) {
+    if ([status isEqualToString:@"EXPIRED"]) {
         return size.height + 135;
     } else if ([status isEqualToString:@"PENDING"]) {
         return size.height + 110;
