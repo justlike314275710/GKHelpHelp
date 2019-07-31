@@ -136,7 +136,9 @@
         return size.height + 135;
     } else if ([status isEqualToString:@"PENDING"]) {
         return size.height + 110;
-    } else {
+    } else if ([status isEqualToString:@"PASSED"]) {
+        return size.height + 127;
+    }else {
         return size.height + 120;
     }
 

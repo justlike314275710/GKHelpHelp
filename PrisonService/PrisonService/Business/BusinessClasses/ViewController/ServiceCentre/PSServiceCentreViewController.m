@@ -245,7 +245,7 @@
 - (SDCycleScrollView *)advView {
     if (!_advView) {
         _advView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0,SCREEN_WIDTH,220) imageURLStringsGroup:nil];
-        NSString *imageName = [NSObject judegeIsVietnamVersion]?@"vbanner":@"banner";
+        NSString *imageName = [NSObject judegeIsVietnamVersion]?@"vserverbanner":@"serverbanner";
         _advView.placeholderImage = [UIImage imageNamed:imageName];
         _advView.bannerImageViewContentMode = UIViewContentModeScaleToFill;
         [self loadAdvertisingPage];

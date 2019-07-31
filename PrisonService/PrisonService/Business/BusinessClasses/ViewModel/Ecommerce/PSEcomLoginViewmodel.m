@@ -80,7 +80,8 @@
                 [LXFileManager saveUserData:token forKey:@"access_token"];
                 [LXFileManager saveUserData:refresh_token forKey:@"refresh_token"];
                 [LXFileManager saveUserData:cookieToken forKey:@"cookieToken"];
-               
+            
+                
             }
             if (completedCallback) {
                 completedCallback(responseObject);

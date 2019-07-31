@@ -76,6 +76,8 @@
     if ([self showAdv]) {
         if (workViewModel.newsType==1||workViewModel.newsType==2||workViewModel.newsType==3) {
             _advView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_WIDTH * 0.55467) imageURLStringsGroup:nil];
+            _advView.backgroundColor = UIColorFromRGB(249, 248, 254);
+            
             NSString*serviceHallAdvDefault=NSLocalizedString(@"serviceHallAdvDefault", @"工作动态");
             _advView.placeholderImage = [UIImage imageNamed:@"狱务公开头图1"];
             _advView.bannerImageViewContentMode = UIViewContentModeScaleAspectFill;

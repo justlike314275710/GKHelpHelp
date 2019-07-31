@@ -37,11 +37,12 @@
     UIView*lineView=[UIView new];
 //    lineView.backgroundColor=UIColorFromRGBA(248, 247, 254, 1);
     [bgView addSubview:lineView];
+
     [lineView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(0);
         make.top.mas_equalTo(0);
         make.width.mas_equalTo(SCREEN_WIDTH);
-        make.height.mas_equalTo(15);
+        make.height.mas_equalTo(0);
     }];
 
     UIImageView *bgImageView = [UIImageView new];
@@ -52,7 +53,7 @@
         make.left.mas_equalTo(0);
         make.top.mas_equalTo(lineView.mas_bottom);
         make.width.mas_equalTo(SCREEN_WIDTH);
-        make.height.mas_equalTo(70);
+        make.height.mas_equalTo(85);
     }];
     
     CGFloat horSidePadding = 15;
@@ -69,7 +70,7 @@
     [bgView addSubview: psychologicalLable];
     [ psychologicalLable mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(2*horSidePadding);
-        make.top.mas_equalTo(2*horSidePadding);
+        make.top.mas_equalTo(horSidePadding+3);
         make.width.mas_equalTo(qWidth);
         make.height.mas_equalTo(qHeight);
     }];
@@ -95,7 +96,7 @@
     [bgView addSubview:_goButton];
     [_goButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.mas_equalTo(-2*horSidePadding);
-        make.centerY.mas_equalTo(bgView.mas_centerY);
+        make.centerY.mas_equalTo(bgImageView.mas_centerY);
         make.width.mas_equalTo(24);
         make.height.mas_equalTo(24);
     }];

@@ -34,10 +34,30 @@
     self.tabBarController.tabBar.hidden = YES;
 }
 
+- (BOOL)hiddenNavigationBar{
+    return YES;
+}
+
+- (IBAction)back:(id)sender {
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
 - (void)setupUI{
     self.view.backgroundColor = AppBaseBackgroundColor2;
     [self.tableView registerClass:[PSPrisonOpenCell class] forCellReuseIdentifier:@"PSPrisonOpenCell"];
     [self.view addSubview:self.tableView];
+    
+    UIButton *backButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [backButton addTarget:self action:@selector(back:) forControlEvents:UIControlEventTouchUpInside];
+    [backButton setImage:[UIImage imageNamed:@"userCenterAccountBack"] forState:UIControlStateNormal];
+    [self.view addSubview:backButton];
+    [backButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(0);
+        //        make.size.mas_equalTo(CGSizeMake(44, CGRectGetHeight(navBar.frame)));
+        make.width.mas_equalTo(40);
+        make.height.mas_equalTo(44);
+        make.top.mas_equalTo(StatusHeight);
+    }];
 }
 -(void)setupData{
     NSDictionary *indexData1 = @{@"imageicon":@"减刑假释icon",@"title":@"减刑假释",};

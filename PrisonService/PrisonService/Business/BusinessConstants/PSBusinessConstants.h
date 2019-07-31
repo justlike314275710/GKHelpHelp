@@ -7,26 +7,26 @@
 //
 
 
-#define DEVELOP  0    //开发
-#define UAT 1    //测试
+#define DEVELOP  1    //开发
+#define UAT 0    //测试
 #define PRODUCE 0  //生产
 
 
 
 #ifdef DEBUG
-
 #else
 #define PRODUCE 1    //生产
 #endif
 
 #if DEVELOP       //开发
-#define ServerDomain @"http://192.168.0.41:8086"
+#define ServerDomain @"http://192.168.0.230:8089"
 #define H5ServerDomain @"http://120.78.190.101:8085"          //H5 Server
 #define ServerUrl [NSString stringWithFormat:@"%@/ywgk-app-auth",ServerDomain] //其他环境接口地址
 #define EmallUrl @"http://10.10.10.17:805"               //电子商城
 #define EmallHostUrl @"http://192.168.0.230:8081"        //认证授权平台
 #define ImageDeleteUrl @"http://120.78.190.101:1339/delete/resources"//删除图片接口
 #define ConsultationHostUrl @"http://qa.api.legal.prisonpublic.com"
+#define UploadServerUrl @"http://120.79.251.238:1339/image-server"
 
 #elif UAT            //测试
 #define ServerDomain @"http://120.79.251.238:8022"
@@ -38,7 +38,7 @@
 #define EmallUrl @"http://10.10.10.16:805"
 #define ImageDeleteUrl @"http://120.78.190.101:1339/delete/resources"//删除图片接口
 #define ConsultationHostUrl @"http://qa.api.legal.prisonpublic.com"
-#define UploadServerUrl @"http://120.79.251.238:1339/image-server"
+
 
 #elif PRODUCE        //生产
 #define ServerDomain @"https://www.yuwugongkai.com"

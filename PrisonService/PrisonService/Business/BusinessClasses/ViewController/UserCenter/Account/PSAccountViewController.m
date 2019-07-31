@@ -67,6 +67,7 @@
         make.top.mas_equalTo(StatusHeight);
     }];
     
+    
     UILabel *titleLabel = [UILabel new];
     titleLabel.font = AppBaseTextFont1;
     titleLabel.textAlignment = NSTextAlignmentCenter;
