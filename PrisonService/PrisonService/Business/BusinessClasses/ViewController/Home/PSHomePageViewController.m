@@ -27,7 +27,6 @@
 #import "PSWorkViewModel.h"
 #import "PSHomeViewModel.h"
 #import "PSCache.h"
-#import "PSVersonUpdateViewModel.h"
 #import "PSEcomLoginViewmodel.h"
 #import "NSObject+version.h"
 #import "WWWaterWaveView.h"
@@ -40,7 +39,7 @@
 #import "UIButton+LZCategory.h"
 #import "PSHomeFunctionView.h"
 #import "PSHomeMoreFunctionView.h"
-
+#import "InteractivePlatformViewController.h"
 #import "PSLocateManager.h"
 
 @interface PSHomePageViewController ()
@@ -79,8 +78,7 @@
     [super viewDidLoad];
     //更新
     self.view.backgroundColor=UIColorFromRGBA(253, 253, 253, 1);
-    PSVersonUpdateViewModel *UpdateViewModel = [PSVersonUpdateViewModel new];
-    [UpdateViewModel VersonUpdate];
+
     //没有网络下不能为空白
     [self.view addSubview:self.myScrollview];
     [self renderContents:NO];
@@ -483,7 +481,8 @@
 #pragma mark ——————— 互动平台
 -(void)interactive_platform {
     [self showPrisonLimits:@"互动平台" limitBlock:^{
-        
+        InteractivePlatformViewController *platformVC = [[InteractivePlatformViewController alloc] initWithViewModel:[PSFamilyServiceViewModel new]];
+        [self.navigationController pushViewController:platformVC animated:YES];
     }];
 }
 #pragma mark - setting&getting
