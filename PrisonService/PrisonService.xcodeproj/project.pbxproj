@@ -379,10 +379,15 @@
 		555FF47621D370AD00FF8D1D /* PSFeedbackDetailResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 555FF47521D370AD00FF8D1D /* PSFeedbackDetailResponse.m */; };
 		55667C5322A8B22000CE5029 /* PSHomeFunctionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 55667C5222A8B22000CE5029 /* PSHomeFunctionView.m */; };
 		55667C5622A8C1EF00CE5029 /* PSHomeMoreFunctionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 55667C5522A8C1EF00CE5029 /* PSHomeMoreFunctionView.m */; };
+		556974C8230B857F00A20D3F /* PSLoginViewControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 556974C7230B857F00A20D3F /* PSLoginViewControllerTests.m */; };
 		5571198E229BD6CE00519C90 /* PSAppointmentProcessView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5571198D229BD6CE00519C90 /* PSAppointmentProcessView.m */; };
 		5573E08B21E83ECC00AFE04D /* NSObjectSafe.m in Sources */ = {isa = PBXBuildFile; fileRef = 5573E08921E83ECC00AFE04D /* NSObjectSafe.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		5576A95C22F7D14100DDE375 /* PSPlatformHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5576A95B22F7D14100DDE375 /* PSPlatformHeadView.m */; };
+		5576A95F22F7FDC500DDE375 /* PSPublishArticleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5576A95E22F7FDC500DDE375 /* PSPublishArticleViewController.m */; };
 		557859BA218994140080437D /* RemittanceRecode.m in Sources */ = {isa = PBXBuildFile; fileRef = 557859B9218994140080437D /* RemittanceRecode.m */; };
 		557859BD2189A3D80080437D /* PSRemittanceBusinessRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 557859BC2189A3D80080437D /* PSRemittanceBusinessRequest.m */; };
+		557C570822F9156200ED3230 /* PSPublishScuessViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 557C570722F9156200ED3230 /* PSPublishScuessViewController.m */; };
+		557C570B22F9195300ED3230 /* PSArticleStateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 557C570A22F9195300ED3230 /* PSArticleStateViewController.m */; };
 		557FF9C021C753A000F15F78 /* PSRemittanceRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 557FF9BC21C753A000F15F78 /* PSRemittanceRequest.m */; };
 		557FF9C121C753A000F15F78 /* PSRemitanceResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 557FF9BF21C753A000F15F78 /* PSRemitanceResponse.m */; };
 		5580DE81229F6F7100A88EED /* PSFamilyServiceNoticeViewContrlller.m in Sources */ = {isa = PBXBuildFile; fileRef = 5580DE80229F6F7100A88EED /* PSFamilyServiceNoticeViewContrlller.m */; };
@@ -405,6 +410,10 @@
 		558EE5F92244AFC8000E40DA /* UIViewController+AlertViewAndActionSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = 558EE5F82244AFC8000E40DA /* UIViewController+AlertViewAndActionSheet.m */; };
 		55943DE421C9F483002F82B8 /* FeedloadImgView.m in Sources */ = {isa = PBXBuildFile; fileRef = 55943DE321C9F483002F82B8 /* FeedloadImgView.m */; };
 		55943DE721CA2E89002F82B8 /* FeedLoadItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 55943DE621CA2E89002F82B8 /* FeedLoadItemView.m */; };
+		55959FAB22F40699004C2446 /* InteractiveArticleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 55959FAA22F40699004C2446 /* InteractiveArticleViewController.m */; };
+		55959FAE22F406FD004C2446 /* CollectionArtcleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 55959FAD22F406FD004C2446 /* CollectionArtcleViewController.m */; };
+		55959FB122F40734004C2446 /* MineArticleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 55959FB022F40734004C2446 /* MineArticleViewController.m */; };
+		55959FB722F415B0004C2446 /* PSPlatformArticleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 55959FB622F415B0004C2446 /* PSPlatformArticleCell.m */; };
 		55995211229257E200BA9FFA /* UIButton+LZCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 5599520F229257E100BA9FFA /* UIButton+LZCategory.m */; };
 		55995215229274EE00BA9FFA /* UIViewController+Author.m in Sources */ = {isa = PBXBuildFile; fileRef = 55995214229274EE00BA9FFA /* UIViewController+Author.m */; };
 		55A653132248B33200A6EA52 /* 20181218115255.wav in Resources */ = {isa = PBXBuildFile; fileRef = 55A653122248B33200A6EA52 /* 20181218115255.wav */; };
@@ -433,6 +442,10 @@
 		55D1533F224B4CF2007B0864 /* PSPrisonConsumptionResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 55D1533E224B4CF2007B0864 /* PSPrisonConsumptionResponse.m */; };
 		55D900C2228E586900E54FE1 /* Jurisdiction.plist in Resources */ = {isa = PBXBuildFile; fileRef = 55D900C1228E586800E54FE1 /* Jurisdiction.plist */; };
 		55DA4BBE2189F09900212A23 /* PSRemittanceRecodeViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 55DA4BBD2189F09900212A23 /* PSRemittanceRecodeViewModel.m */; };
+		55E1374222F2CFBF00CB15F6 /* InteractivePlatformViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 55E1374022F2CFBF00CB15F6 /* InteractivePlatformViewController.m */; };
+		55E1376722F2D4A100CB15F6 /* PSPlatformMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = 55E1376622F2D4A100CB15F6 /* PSPlatformMenuView.m */; };
+		55E1376B22F2D7AA00CB15F6 /* UIButton+Layout.m in Sources */ = {isa = PBXBuildFile; fileRef = 55E1376922F2D7AA00CB15F6 /* UIButton+Layout.m */; };
+		55E1376E22F2D7B600CB15F6 /* YLButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 55E1376C22F2D7B600CB15F6 /* YLButton.m */; };
 		55E8225A21D0B3660015F72A /* PSWriteFeedbackListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 55E8225921D0B3660015F72A /* PSWriteFeedbackListViewController.m */; };
 		55E8225D21D0D30B0015F72A /* FeedbackListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 55E8225C21D0D30B0015F72A /* FeedbackListCell.m */; };
 		55E9A8C12186EB33003A5918 /* PSREmittanceRecodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 55E9A8C02186EB33003A5918 /* PSREmittanceRecodeViewController.m */; };
@@ -1471,14 +1484,23 @@
 		55667C5222A8B22000CE5029 /* PSHomeFunctionView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PSHomeFunctionView.m; sourceTree = "<group>"; };
 		55667C5422A8C1EF00CE5029 /* PSHomeMoreFunctionView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PSHomeMoreFunctionView.h; sourceTree = "<group>"; };
 		55667C5522A8C1EF00CE5029 /* PSHomeMoreFunctionView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PSHomeMoreFunctionView.m; sourceTree = "<group>"; };
+		556974C7230B857F00A20D3F /* PSLoginViewControllerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PSLoginViewControllerTests.m; sourceTree = "<group>"; };
 		5571198C229BD6CE00519C90 /* PSAppointmentProcessView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PSAppointmentProcessView.h; sourceTree = "<group>"; };
 		5571198D229BD6CE00519C90 /* PSAppointmentProcessView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PSAppointmentProcessView.m; sourceTree = "<group>"; };
 		5573E08921E83ECC00AFE04D /* NSObjectSafe.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSObjectSafe.m; sourceTree = "<group>"; };
 		5573E08A21E83ECC00AFE04D /* NSObjectSafe.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSObjectSafe.h; sourceTree = "<group>"; };
+		5576A95A22F7D14100DDE375 /* PSPlatformHeadView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PSPlatformHeadView.h; sourceTree = "<group>"; };
+		5576A95B22F7D14100DDE375 /* PSPlatformHeadView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PSPlatformHeadView.m; sourceTree = "<group>"; };
+		5576A95D22F7FDC500DDE375 /* PSPublishArticleViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PSPublishArticleViewController.h; sourceTree = "<group>"; };
+		5576A95E22F7FDC500DDE375 /* PSPublishArticleViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PSPublishArticleViewController.m; sourceTree = "<group>"; };
 		557859B8218994140080437D /* RemittanceRecode.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RemittanceRecode.h; sourceTree = "<group>"; };
 		557859B9218994140080437D /* RemittanceRecode.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RemittanceRecode.m; sourceTree = "<group>"; };
 		557859BB2189A3D80080437D /* PSRemittanceBusinessRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PSRemittanceBusinessRequest.h; sourceTree = "<group>"; };
 		557859BC2189A3D80080437D /* PSRemittanceBusinessRequest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PSRemittanceBusinessRequest.m; sourceTree = "<group>"; };
+		557C570622F9156200ED3230 /* PSPublishScuessViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PSPublishScuessViewController.h; sourceTree = "<group>"; };
+		557C570722F9156200ED3230 /* PSPublishScuessViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PSPublishScuessViewController.m; sourceTree = "<group>"; };
+		557C570922F9195300ED3230 /* PSArticleStateViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PSArticleStateViewController.h; sourceTree = "<group>"; };
+		557C570A22F9195300ED3230 /* PSArticleStateViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PSArticleStateViewController.m; sourceTree = "<group>"; };
 		557DFE9821917DEB001A09FC /* PrisonService.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PrisonService.entitlements; sourceTree = "<group>"; };
 		557FF9BC21C753A000F15F78 /* PSRemittanceRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSRemittanceRequest.m; sourceTree = "<group>"; };
 		557FF9BD21C753A000F15F78 /* PSRemitanceResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSRemitanceResponse.h; sourceTree = "<group>"; };
@@ -1525,6 +1547,14 @@
 		55943DE321C9F483002F82B8 /* FeedloadImgView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FeedloadImgView.m; sourceTree = "<group>"; };
 		55943DE521CA2E89002F82B8 /* FeedLoadItemView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FeedLoadItemView.h; sourceTree = "<group>"; };
 		55943DE621CA2E89002F82B8 /* FeedLoadItemView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FeedLoadItemView.m; sourceTree = "<group>"; };
+		55959FA922F40699004C2446 /* InteractiveArticleViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InteractiveArticleViewController.h; sourceTree = "<group>"; };
+		55959FAA22F40699004C2446 /* InteractiveArticleViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InteractiveArticleViewController.m; sourceTree = "<group>"; };
+		55959FAC22F406FD004C2446 /* CollectionArtcleViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CollectionArtcleViewController.h; sourceTree = "<group>"; };
+		55959FAD22F406FD004C2446 /* CollectionArtcleViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CollectionArtcleViewController.m; sourceTree = "<group>"; };
+		55959FAF22F40734004C2446 /* MineArticleViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MineArticleViewController.h; sourceTree = "<group>"; };
+		55959FB022F40734004C2446 /* MineArticleViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MineArticleViewController.m; sourceTree = "<group>"; };
+		55959FB522F415B0004C2446 /* PSPlatformArticleCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PSPlatformArticleCell.h; sourceTree = "<group>"; };
+		55959FB622F415B0004C2446 /* PSPlatformArticleCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PSPlatformArticleCell.m; sourceTree = "<group>"; };
 		5599520F229257E100BA9FFA /* UIButton+LZCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+LZCategory.m"; sourceTree = "<group>"; };
 		55995210229257E200BA9FFA /* UIButton+LZCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+LZCategory.h"; sourceTree = "<group>"; };
 		55995213229274EE00BA9FFA /* UIViewController+Author.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIViewController+Author.h"; sourceTree = "<group>"; };
@@ -1579,6 +1609,14 @@
 		55D900C1228E586800E54FE1 /* Jurisdiction.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Jurisdiction.plist; sourceTree = "<group>"; };
 		55DA4BBC2189F09900212A23 /* PSRemittanceRecodeViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PSRemittanceRecodeViewModel.h; sourceTree = "<group>"; };
 		55DA4BBD2189F09900212A23 /* PSRemittanceRecodeViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PSRemittanceRecodeViewModel.m; sourceTree = "<group>"; };
+		55E1374022F2CFBF00CB15F6 /* InteractivePlatformViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InteractivePlatformViewController.m; sourceTree = "<group>"; };
+		55E1374122F2CFBF00CB15F6 /* InteractivePlatformViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InteractivePlatformViewController.h; sourceTree = "<group>"; };
+		55E1376522F2D4A100CB15F6 /* PSPlatformMenuView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PSPlatformMenuView.h; sourceTree = "<group>"; };
+		55E1376622F2D4A100CB15F6 /* PSPlatformMenuView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PSPlatformMenuView.m; sourceTree = "<group>"; };
+		55E1376922F2D7AA00CB15F6 /* UIButton+Layout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+Layout.m"; sourceTree = "<group>"; };
+		55E1376A22F2D7AA00CB15F6 /* UIButton+Layout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+Layout.h"; sourceTree = "<group>"; };
+		55E1376C22F2D7B600CB15F6 /* YLButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YLButton.m; sourceTree = "<group>"; };
+		55E1376D22F2D7B600CB15F6 /* YLButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YLButton.h; sourceTree = "<group>"; };
 		55E8225821D0B3660015F72A /* PSWriteFeedbackListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PSWriteFeedbackListViewController.h; sourceTree = "<group>"; };
 		55E8225921D0B3660015F72A /* PSWriteFeedbackListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PSWriteFeedbackListViewController.m; sourceTree = "<group>"; };
 		55E8225B21D0D30B0015F72A /* FeedbackListCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FeedbackListCell.h; sourceTree = "<group>"; };
@@ -2380,8 +2418,9 @@
 		3E5D14842071C93D000FC779 /* PrisonServiceTests */ = {
 			isa = PBXGroup;
 			children = (
-				3E5D14852071C93D000FC779 /* PrisonServiceTests.m */,
 				3E5D14872071C93D000FC779 /* Info.plist */,
+				3E5D14852071C93D000FC779 /* PrisonServiceTests.m */,
+				556974C7230B857F00A20D3F /* PSLoginViewControllerTests.m */,
 			);
 			path = PrisonServiceTests;
 			sourceTree = "<group>";
@@ -2429,6 +2468,7 @@
 		3E5D14BA20721E71000FC779 /* Category */ = {
 			isa = PBXGroup;
 			children = (
+				55E1376822F2D7AA00CB15F6 /* UIButton+Layout */,
 				55995210229257E200BA9FFA /* UIButton+LZCategory.h */,
 				5599520F229257E100BA9FFA /* UIButton+LZCategory.m */,
 				EAEDA859228E5B73004AF16C /* UIColor+HexString.h */,
@@ -2714,6 +2754,7 @@
 		3E5D15A52073730F000FC779 /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				55E1373F22F2CFBF00CB15F6 /* InteractivePlatform */,
 				3ED6A0AF20A9245000D2223A /* Cart */,
 				3EEEC66C20945E01003B35B3 /* PrisonerManage */,
 				3E91DE69208F35BF00AADE3C /* Bind */,
@@ -3753,6 +3794,7 @@
 		3EEE774A207F0F6B00CAD179 /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				55E1376422F2D42C00CB15F6 /* InteractivePlatform */,
 				EA87F58A2108576900D7A1E4 /* Pinmoney */,
 				3ED6A0B620A92C1700D2223A /* Cart */,
 				3E91DE71208F3C5D00AADE3C /* Bind */,
@@ -4171,6 +4213,52 @@
 				558EE5D922448C12000E40DA /* ZWTopSelectVcView.m */,
 			);
 			path = ZWTopSelectVcView;
+			sourceTree = "<group>";
+		};
+		55E1373F22F2CFBF00CB15F6 /* InteractivePlatform */ = {
+			isa = PBXGroup;
+			children = (
+				55E1374122F2CFBF00CB15F6 /* InteractivePlatformViewController.h */,
+				55E1374022F2CFBF00CB15F6 /* InteractivePlatformViewController.m */,
+				55959FA922F40699004C2446 /* InteractiveArticleViewController.h */,
+				55959FAA22F40699004C2446 /* InteractiveArticleViewController.m */,
+				55959FAC22F406FD004C2446 /* CollectionArtcleViewController.h */,
+				55959FAD22F406FD004C2446 /* CollectionArtcleViewController.m */,
+				55959FAF22F40734004C2446 /* MineArticleViewController.h */,
+				55959FB022F40734004C2446 /* MineArticleViewController.m */,
+				5576A95D22F7FDC500DDE375 /* PSPublishArticleViewController.h */,
+				5576A95E22F7FDC500DDE375 /* PSPublishArticleViewController.m */,
+				557C570622F9156200ED3230 /* PSPublishScuessViewController.h */,
+				557C570722F9156200ED3230 /* PSPublishScuessViewController.m */,
+				557C570922F9195300ED3230 /* PSArticleStateViewController.h */,
+				557C570A22F9195300ED3230 /* PSArticleStateViewController.m */,
+			);
+			path = InteractivePlatform;
+			sourceTree = "<group>";
+		};
+		55E1376422F2D42C00CB15F6 /* InteractivePlatform */ = {
+			isa = PBXGroup;
+			children = (
+				55E1376522F2D4A100CB15F6 /* PSPlatformMenuView.h */,
+				55E1376622F2D4A100CB15F6 /* PSPlatformMenuView.m */,
+				55959FB522F415B0004C2446 /* PSPlatformArticleCell.h */,
+				55959FB622F415B0004C2446 /* PSPlatformArticleCell.m */,
+				5576A95A22F7D14100DDE375 /* PSPlatformHeadView.h */,
+				5576A95B22F7D14100DDE375 /* PSPlatformHeadView.m */,
+			);
+			path = InteractivePlatform;
+			sourceTree = "<group>";
+		};
+		55E1376822F2D7AA00CB15F6 /* UIButton+Layout */ = {
+			isa = PBXGroup;
+			children = (
+				55E1376D22F2D7B600CB15F6 /* YLButton.h */,
+				55E1376C22F2D7B600CB15F6 /* YLButton.m */,
+				55E1376922F2D7AA00CB15F6 /* UIButton+Layout.m */,
+				55E1376A22F2D7AA00CB15F6 /* UIButton+Layout.h */,
+			);
+			name = "UIButton+Layout";
+			path = "../../../../../../Downloads/YLButton-master/YLButton/UIButton+Layout";
 			sourceTree = "<group>";
 		};
 		55F2A52D219046FC0048D93B /* Recovered References */ = {
@@ -5296,8 +5384,10 @@
 				3E91DE68208F20A500AADE3C /* PSJailConfiguration.m in Sources */,
 				EAD18F5120D02A780053F82B /* MJExtensionConst.m in Sources */,
 				55B544B5219EA24C00B0D757 /* UpDateModel.m in Sources */,
+				55959FAE22F406FD004C2446 /* CollectionArtcleViewController.m in Sources */,
 				3EDF0DA920882894002D98BD /* PSUploadCardRequest.m in Sources */,
 				55CBA86D22755118003506C3 /* PSUniversalLawCell.m in Sources */,
+				55959FAB22F40699004C2446 /* InteractiveArticleViewController.m in Sources */,
 				558EE5D122448A2A000E40DA /* MyConsultationViewController.m in Sources */,
 				55381CFE22408D4600CC3C66 /* PSPublicViewController.m in Sources */,
 				EAEE396920C52784005F7530 /* PSTransactionRecordRequest.m in Sources */,
@@ -5311,6 +5401,7 @@
 				3E171AB72092CB3400B7D807 /* PSAdvertisementResponse.m in Sources */,
 				3EDF0D9220873F89002D98BD /* PSSendCodeRequest.m in Sources */,
 				EA33784520FC4C600081B907 /* PSMeetingHistoryViewModel.m in Sources */,
+				55959FB122F40734004C2446 /* MineArticleViewController.m in Sources */,
 				3EEEC66F20945E31003B35B3 /* PSPrisonerManageViewController.m in Sources */,
 				3E5D159C20736C15000FC779 /* PSBusinessViewController.m in Sources */,
 				3E5D16022074D3CA000FC779 /* UIView+anchorPoint.m in Sources */,
@@ -5349,6 +5440,7 @@
 				EAD18F7020D255020053F82B /* PSchangePhoneNextViewController.m in Sources */,
 				55573F9B21BE64FB0053391C /* UIImage+Rename.m in Sources */,
 				EA67825B22927BA400638C17 /* PSPasswordViewModel.m in Sources */,
+				557C570B22F9195300ED3230 /* PSArticleStateViewController.m in Sources */,
 				3E78B7452089CB76007DF162 /* PSMeetingsBaseRequest.m in Sources */,
 				EA87F589210851C900D7A1E4 /* PSPinmoneyViewModel.m in Sources */,
 				3EC7B6DB207C64C800DFBA65 /* PSPhoneMessageViewController.m in Sources */,
@@ -5401,6 +5493,7 @@
 				3E171A1120908EFF00B7D807 /* CalculatorTools.m in Sources */,
 				3E1737F92085DAB40068CCEB /* PSAppointmentDetailCell.m in Sources */,
 				EA3E1E43221BA5D700D0F1B1 /* PSLawyerComments.m in Sources */,
+				557C570822F9156200ED3230 /* PSPublishScuessViewController.m in Sources */,
 				EA3E1E32221BA29700D0F1B1 /* PSAdviceDetailsView.m in Sources */,
 				5549EF13224C605800E3D009 /* PSPrisonConsumptionModel.m in Sources */,
 				3E171A962092115F00B7D807 /* PSPeriodChange.m in Sources */,
@@ -5473,6 +5566,7 @@
 				3EEE77CA208499D600CAD179 /* PSWriteComplaintViewController.m in Sources */,
 				EACBC1A821420573004C0EAB /* PSSessionPassedViewController.m in Sources */,
 				55E9A8C12186EB33003A5918 /* PSREmittanceRecodeViewController.m in Sources */,
+				5576A95C22F7D14100DDE375 /* PSPlatformHeadView.m in Sources */,
 				3EEEC6162093291F003B35B3 /* PSFeedbackViewModel.m in Sources */,
 				3E78B780208D8FAE007DF162 /* PSAlipayResponse.m in Sources */,
 				555FF47021D359BC00FF8D1D /* PSFeedbackListResponse.m in Sources */,
@@ -5517,6 +5611,7 @@
 				3EEEC68220947657003B35B3 /* PSGuideManager.m in Sources */,
 				EA87F56F2105BC2B00D7A1E4 /* PSAccountAddressViewController.m in Sources */,
 				3E4C249320A1A075009AC107 /* PSCartRequest.m in Sources */,
+				55959FB722F415B0004C2446 /* PSPlatformArticleCell.m in Sources */,
 				554C007421D4783700E6C6D2 /* PSMailBoxesTypesRequest.m in Sources */,
 				55BF612E22A63C8400A8AE92 /* PSFamilyServiceNoticeRequest.m in Sources */,
 				3EDA51A420AD214000D8D019 /* PSIntroduceTextCell.m in Sources */,
@@ -5601,6 +5696,7 @@
 				EAD8DE5B2179BC9B0035E22F /* PSDefaultJailRequest.m in Sources */,
 				3EDF0DAF2088489D002D98BD /* PSLoadingView.m in Sources */,
 				EA33785520FED2970081B907 /* PSLabel.m in Sources */,
+				55E1374222F2CFBF00CB15F6 /* InteractivePlatformViewController.m in Sources */,
 				3E78B73A2089BD93007DF162 /* PSPrisonerDetailRequest.m in Sources */,
 				3E1737FF2085DD3B0068CCEB /* PSLastCallInfoCell.m in Sources */,
 				EA78E1C0215E233500BBEE58 /* VIRegisterProgressView.m in Sources */,
@@ -5725,6 +5821,7 @@
 				3EDF0DA620882871002D98BD /* PSUploadAvatarResponse.m in Sources */,
 				EAA0CA172188320500240724 /* TZAssetCell.m in Sources */,
 				3E5D15E620747DD0000FC779 /* PSProvince.m in Sources */,
+				55E1376E22F2D7B600CB15F6 /* YLButton.m in Sources */,
 				3E91DDF7208EBB2B00AADE3C /* PSWechatInfo.m in Sources */,
 				EA42860D211A93BC00418685 /* VIRegisterViewModel.m in Sources */,
 				3E5D15D220747168000FC779 /* PSBusinessRequest.m in Sources */,
@@ -5744,6 +5841,7 @@
 				3E5D15E520747DD0000FC779 /* PSJail.m in Sources */,
 				3E0044DF207B346A0036CBC5 /* PSSessionManager.m in Sources */,
 				3EEEC67320946EA8003B35B3 /* PSStartupAdvManager.m in Sources */,
+				55E1376722F2D4A100CB15F6 /* PSPlatformMenuView.m in Sources */,
 				EA33783E20FC458B0081B907 /* PSMeetHistoryResponse.m in Sources */,
 				55381CE12240838600CC3C66 /* PSHomePageViewController.m in Sources */,
 				3EE8623820B54B1500B69B39 /* PSCancelReasonView.m in Sources */,
@@ -5810,6 +5908,7 @@
 				3EC7B6DE207C6E7B00DFBA65 /* PSUnderlineTextField.m in Sources */,
 				EA33783B20FC45700081B907 /* PSMeetHistoryRequest.m in Sources */,
 				EA0F3EB1229E22D8003AA280 /* PSFreeMeetingCoordinateResponse.m in Sources */,
+				5576A95F22F7FDC500DDE375 /* PSPublishArticleViewController.m in Sources */,
 				EAD18F4D20D02A770053F82B /* MJPropertyType.m in Sources */,
 				3E5D150020731B04000FC779 /* PSApiSign.m in Sources */,
 				552CBA0E219AA449008CCC03 /* UIViewController+Tool.m in Sources */,
@@ -5865,6 +5964,7 @@
 				EA9E600C217881CE0009F7F9 /* PSPsychologicalCounselingTableViewCell.m in Sources */,
 				3E91DE7A208F5D5100AADE3C /* PSBindPrisonerResponse.m in Sources */,
 				EA33785820FF4A500081B907 /* WXZTipView.m in Sources */,
+				55E1376B22F2D7AA00CB15F6 /* UIButton+Layout.m in Sources */,
 				5511D6D721ACC511003644AD /* PSAccountrefundViewController.m in Sources */,
 				EAD18F6420D0E9C90053F82B /* ZJBLStoreShopTypeAlert.m in Sources */,
 				EAA0CA662188321000240724 /* MWPhoto.m in Sources */,
@@ -5896,6 +5996,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3E5D14862071C93D000FC779 /* PrisonServiceTests.m in Sources */,
+				556974C8230B857F00A20D3F /* PSLoginViewControllerTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -6075,6 +6176,8 @@
 					"$(PROJECT_DIR)/PrisonService/Vender/IflyMSC",
 					"$(PROJECT_DIR)/PrisonService/Vender/ZJSDK",
 				);
+				GCC_GENERATE_TEST_COVERAGE_FILES = YES;
+				GCC_INSTRUMENT_PROGRAM_FLOW_ARCS = YES;
 				GCC_PREFIX_HEADER = PrisonService/PSPrefixHeader.pch;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -6116,6 +6219,7 @@
 					"$(PROJECT_DIR)/PrisonService/Vender/IflyMSC",
 					"$(PROJECT_DIR)/PrisonService/Vender/ZJSDK",
 				);
+				GCC_GENERATE_TEST_COVERAGE_FILES = NO;
 				GCC_PREFIX_HEADER = PrisonService/PSPrefixHeader.pch;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -6139,9 +6243,8 @@
 		3E5D14992071C93D000FC779 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = E37PXLHGPX;
+				DEVELOPMENT_TEAM = 35NTC834XG;
 				INFOPLIST_FILE = PrisonServiceTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.sinog2c.Yuwu.PrisonServiceTests;
@@ -6154,9 +6257,8 @@
 		3E5D149A2071C93D000FC779 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = E37PXLHGPX;
+				DEVELOPMENT_TEAM = 35NTC834XG;
 				INFOPLIST_FILE = PrisonServiceTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.sinog2c.Yuwu.PrisonServiceTests;

@@ -10,8 +10,8 @@
 
 
 @interface PSVersonUpdateViewModel : PSViewModel
-//版本更新
--(void)VersonUpdate;
+//判断版本更新
+-(void)jundgeVersonUpdate;
 @end
 
 

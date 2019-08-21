@@ -10,13 +10,18 @@
 #import <AFNetworking/AFNetworking.h>
 #import "PSBusinessConstants.h"
 #import "UpDateModel.h"
-//static NSString *const updateApi = @"https://www.yuwugongkai.com/ywgk-app/api/versions/page";
-#define updateApi  [NSString stringWithFormat:@"%@/api/versions/page",ServerUrl]
 
+#define updateApi  [NSString stringWithFormat:@"%@/api/versions/page",ServerUrl]
+#define errorMsg   @"软件维护中,暂停使用"
+@interface PSVersonUpdateViewModel(){
+    NSString *_localVerson;      //本地版本
+    NSString *_appStoreVerson;   //appStore版本
+}
+@end
 
 @implementation PSVersonUpdateViewModel
 
--(void)VersonUpdate{
+-(void)jundgeVersonUpdate{
     
     //定义的app的地址
     NSString *urld = [NSString stringWithFormat:@"http://itunes.apple.com/lookup?id=%@",@"1102307635"];
@@ -29,8 +34,7 @@
         if (data) {
             //data是有关于App所有的信息
             NSDictionary *receiveDic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:nil];
-            
-            
+
             if ([[receiveDic valueForKey:@"resultCount"] intValue]>0)
             { [receiveStatusDic setValue:@"1" forKey:@"status"];
                 [receiveStatusDic setValue:[[[receiveDic valueForKey:@"results"] objectAtIndex:0] valueForKey:@"version"] forKey:@"version"];
@@ -42,17 +46,36 @@
     
 }
 
--(void)receiveData:(id)sender { //获取APP自身版本号CFBundleShortVersionString
-    //服务器 -->2.1.9     本地->2.2.0
+-(void)receiveData:(id)sender {
+    
+    //获取APP自身版本号CFBundleShortVersionString
     NSString *localVersion = [[[NSBundle mainBundle]infoDictionary]objectForKey:@"CFBundleShortVersionString"];
-    //NSString*AppstoreVersion=sender[@"version"];
-    NSArray *localArray = [localVersion componentsSeparatedByString:@"."];
-    NSArray *versionArray = [sender[@"version"] componentsSeparatedByString:@"."];
-    NSInteger minArrayLength = MIN(localArray.count, versionArray.count);
+    _appStoreVerson = sender[@"version"];
+    //是否需要版本更新
+    BOOL needUpdate = [self updataVerson1:localVersion verson2:_appStoreVerson];
+    if (needUpdate) { //更新
+        [self p_versonUpdate:YES];
+    } else {          //不需要更新
+        [self p_versonUpdate:NO];
+    }
+}
+
+#pragma mark - 版本号比较
+/**
+ verson1>verson2 return NO;
+ verson1<verson2 return YES;
+//服务器 -->2.1.9     本地->2.2.0
+ */
+-(BOOL)updataVerson1:(NSString *)verson1
+       verson2:(NSString *)verson2 {
+    
+    NSArray *verson1Array =  [verson1 componentsSeparatedByString:@"."];
+    NSArray *version2Array = [verson2 componentsSeparatedByString:@"."];
     BOOL needUpdate = NO;
+    NSInteger minArrayLength = MIN(verson1Array.count, version2Array.count);
     for (int i = 0; i<minArrayLength; i++) {      //每一个位置比较
-        NSString *localElement = localArray[i];
-        NSString *appElement = versionArray[i];
+        NSString *localElement = verson1Array[i];
+        NSString *appElement = version2Array[i];
         NSInteger localValue = localElement.integerValue;
         NSInteger appValue = appElement.integerValue;
         if (localValue<appValue) {     //9>0 需要更新
@@ -66,31 +89,10 @@
             needUpdate = NO;
         }
     }
-    
-    if (needUpdate) {
-        [self p_VersonUpdate];
-    }
-    
-    /*
-        if ((versionArray.count == 3) && (localArray.count == versionArray.count))
-        {
-            if ([localArray[0] intValue] > [versionArray[0] intValue]){
-            [self updateVersion];
-            }
-           else if ([localArray[0] intValue] == [versionArray[0] intValue]) {
-                if ([localArray[1] intValue] > [versionArray[1] intValue]) {
-                    [self updateVersion];
-                }
-                else if ([localArray[1] intValue] == [versionArray[1] intValue]) {
-                    if ([localArray[2] intValue] > [versionArray[2] intValue]) {
-                        [self updateVersion];
-                    }
-                }
-           }
-        }
-     */
+    return needUpdate;
 }
 
+#pragma mark - 更新提示
 -(void)updateVersion:(UpDateModel *)model{
     
     NSString *msg = model.des.length > 0 ? model.des : @"更新最新版本，优惠信息提前知";
@@ -123,7 +125,35 @@
     }
 }
 
-- (void)p_VersonUpdate {
+#pragma mark - 异常提示OR不提示
+-(void)showErrorMsg:(UpDateModel *)model {
+    //(当后台版本>应用市场版本)&&强制更新 ->提示        软件维护中,暂停使用
+    NSString *backVerson = model.versionCode;
+    BOOL isShowError = [self updataVerson1:_appStoreVerson verson2:backVerson];
+    BOOL isForce = model.isForce;
+    if (isShowError&&isForce) {  //提示错误
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"温馨提示" message:errorMsg preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *otherAction = [UIAlertAction actionWithTitle:@"我知道了" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+            //退出app
+//            [self exitApplication];
+        }];
+        [alertController addAction:otherAction];
+        UIWindow *window = [UIApplication sharedApplication].keyWindow;
+        [window.rootViewController presentViewController:alertController animated:YES completion:nil];
+    }
+}
+
+- (void)exitApplication{
+//    -Wundeclared-selector"      //运行一个不存在的方法,退出界面更加圆滑
+    [self performSelector:@selector(notExistCall)];
+    abort();
+#pragma clang diagnostic pop
+    
+}
+    
+    
+
+- (void)p_versonUpdate:(BOOL)update {
     
     NSLog(@"%@",updateApi);
     AFHTTPSessionManager *manager=[AFHTTPSessionManager manager];
@@ -146,10 +176,16 @@
                 [dataAry enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
                     UpDateModel *model = [[UpDateModel alloc] initWithDictionary:obj error:nil];
                     [mary addObject:model];
-                    //IOS
-                    if ([model.id isEqualToString:@"3"]) {
+                    //IOS-->更新
+                    if ([model.id isEqualToString:@"3"]&&update) {
                         @strongify(self);
                         [self updateVersion:model];
+                        *stop = YES;
+                    }
+                    //不更新---->异常提示
+                    if ([model.id isEqualToString:@"3"]&&!update) {
+                        @strongify(self);
+                        [self showErrorMsg:model];
                         *stop = YES;
                     }
                 }];

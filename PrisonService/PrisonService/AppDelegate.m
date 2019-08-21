@@ -20,6 +20,7 @@
 #import <UserNotifications/UserNotifications.h>
 #import "PSIMMessageManager.h"
 #import "PSBusinessConstants.h"
+#import "PSVersonUpdateViewModel.h"
 
 @interface AppDelegate ()
 
@@ -35,7 +36,6 @@
     [self.window makeKeyAndVisible];
     [[PSLaunchManager sharedInstance] launchApplication];
     
-
     if ([UIApplication instancesRespondToSelector:@selector(registerUserNotificationSettings:)])
     {
         [application registerUserNotificationSettings:[UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert|UIUserNotificationTypeBadge|UIUserNotificationTypeSound categories:nil]];
@@ -50,6 +50,9 @@
         NSString *controller = notification.userInfo[@"controller"];
         NSString *string = [NSString stringWithFormat:@"%@",notification.userInfo];
         }
+    //检测更新
+    PSVersonUpdateViewModel *updateViewModel = [PSVersonUpdateViewModel new];
+    [updateViewModel jundgeVersonUpdate];
 
     return YES;
 }
