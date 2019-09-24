@@ -106,6 +106,16 @@ typedef NS_ENUM(NSInteger,WritefeedType) {
     PSPrisonfeedBack,  //监狱投诉建议
 };
 
+//发送通知
+#define KPostNotification(name,obj) [[NSNotificationCenter defaultCenter] postNotificationName:name object:obj];
+
+/// PushVC
+#define     PushVC(vc)                  {\
+[vc setHidesBottomBarWhenPushed:YES];\
+[self.navigationController pushViewController:vc animated:YES];\
+}
+
+
 //***********************************************通知*****************************************
 //订单状态改变
 #define KNotificationOrderStateChange @"KNotificationOrderStateChange"
@@ -119,6 +129,8 @@ typedef NS_ENUM(NSInteger,WritefeedType) {
 
 //获取到地址重新刷新广告
 #define KNotificationRefreshAdvertisement @"KNotificationRefreshAdvertisement"
+//用户修改头像成功通知
+#define KNotificationUserAvaterChangeScuess @"KNotificationUserAvaterChangeScuess"
 
 #ifdef DEBUG
 #define PSLog(...) NSLog(__VA_ARGS__);
