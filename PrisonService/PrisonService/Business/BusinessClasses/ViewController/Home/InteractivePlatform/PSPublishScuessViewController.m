@@ -7,6 +7,7 @@
 //
 
 #import "PSPublishScuessViewController.h"
+#import "InteractivePlatformViewController.h"
 
 @interface PSPublishScuessViewController ()
 
@@ -56,8 +57,22 @@
     
 }
 
+//返回
+- (IBAction)actionOfLeftItem:(id)sender {
+    [self backAction];
+}
+
+- (void)backAction{
+    [self.navigationController.viewControllers enumerateObjectsUsingBlock:^(__kindof UIViewController * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if ([obj isKindOfClass:[InteractivePlatformViewController class]]) {
+            [self.navigationController popToViewController:obj animated:YES];
+            *stop=YES;
+        }
+    }];
+}
+
 - (void)action:(UIButton *)sender {
-    [self.navigationController popViewControllerAnimated:YES];
+    [self backAction];
 }
 
 

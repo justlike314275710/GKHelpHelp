@@ -9,5 +9,26 @@
 #import "PSCollectArticleRequest.h"
 
 @implementation PSCollectArticleRequest
+- (id)init {
+    self = [super init];
+    if (self) {
+        self.method = PSHttpMethodPost;
+        self.serviceName = @"collectArticle";
+        
+    }
+    return self;
+}
+//POST /api/article/collectArticle
+- (NSString *)businessDomain {
+    return @"/api/article/";
+}
 
+- (void)buildPostParameters:(PSMutableParameters *)parameters {
+    [parameters addParameter:self.articleId forKey:@"articleId"];
+    [super buildParameters:parameters];
+}
+
+- (Class)responseClass {
+    return [PSResponse class];
+}
 @end

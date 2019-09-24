@@ -41,6 +41,7 @@
 #import "PSHomeMoreFunctionView.h"
 #import "InteractivePlatformViewController.h"
 #import "PSLocateManager.h"
+#import "PSAllMessageViewController.h"
 
 @interface PSHomePageViewController ()
 @property (nonatomic, strong) PSDefaultJailRequest*jailRequest;
@@ -72,11 +73,12 @@
     self.tabBarController.tabBar.hidden = NO;
     self.tabBarController.selectedIndex = 0;
     _getTokenCount = 0;
+   
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    //更新
+ 
     self.view.backgroundColor=UIColorFromRGBA(253, 253, 253, 1);
 
     //没有网络下不能为空白
@@ -89,6 +91,17 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(requestOfRefreshToken) name:RefreshToken object:nil];
     //获取到定位信息刷新广告页
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadAdvertisingPage) name:KNotificationRefreshAdvertisement object:nil];
+    //获取未读消息数
+    [self getCountVisit];
+    
+    //没有认证且未调过狱务通登录接口直接退出
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSString *isLogin = [defaults valueForKey:Kuncertified_isLogin];
+    if (!isLogin&&[PSSessionManager sharedInstance].loginStatus==PSLoginDenied) {
+        [defaults setObject:@"1" forKey:Kuncertified_isLogin];
+        [defaults synchronize];
+        [[PSSessionManager sharedInstance] doLogout];
+    }
 }
 
 - (void)dealloc
@@ -97,12 +110,12 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self name:JailChange object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:RefreshToken object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:KNotificationRefreshAdvertisement object:nil];
-    
 }
 
 #pragma mark  - notification
 -(void)showDot{
     self.dotLable.hidden = NO;
+    [self getCountVisit];
 }
 
 -(void)refreshData{
@@ -196,9 +209,40 @@
     }];
     
 }
-
+//MARK:获取系统消息数
+- (void)getCountVisit{
+    PSHomeViewModel *homeViewModel = (PSHomeViewModel *)self.viewModel;
+    [homeViewModel getRequestCountVisitCompleted:^(PSResponse *response) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if ([homeViewModel.messageCountModel.total integerValue]>0) {
+                _messageButton.redDotNumber = [homeViewModel.messageCountModel.total integerValue];
+                _messageButton.redDotBorderWidth = 1.0;
+                _messageButton.redDotBorderColor = [UIColor magentaColor];
+                [_messageButton ShowBadgeView];
+            } else {
+                [_messageButton hideBadgeView];
+            }
+        });
+    } failed:^(NSError *error) {
+        
+    }];
+    
+}
 //MARK:系统消息
 - (void)messageAction{
+    PSHomeViewModel *homeViewModel = (PSHomeViewModel *)self.viewModel;
+    PSAllMessageViewController *allMessageVC = [[PSAllMessageViewController alloc] init];
+    allMessageVC.prisonerDetail = homeViewModel.passedPrisonerDetails[homeViewModel.selectedPrisonerIndex];
+    allMessageVC.model = homeViewModel.messageCountModel;
+    @weakify(self);
+    allMessageVC.backBlock = ^{
+        @strongify(self);
+        [self getCountVisit];
+    };
+    [self.navigationController pushViewController:allMessageVC animated:YES];
+
+    return;
+  /*
     PSHomeViewModel *homeViewModel = (PSHomeViewModel *)self.viewModel;
     if (homeViewModel.selectedPrisonerIndex >= 0 && homeViewModel.selectedPrisonerIndex < homeViewModel.passedPrisonerDetails.count) {
         PSMessageViewModel *viewModel = [[PSMessageViewModel alloc] init];
@@ -208,6 +252,10 @@
     }
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"dot"];
     self.dotLable.hidden=YES;
+    //隐藏
+
+    [_messageButton hideBadgeView];
+   */
     
 }
 
@@ -315,7 +363,7 @@
     [self.addressButton setTitle:self.defaultJailName forState:0];
     self.addressButton.userInteractionEnabled=isShow;
     [self.myScrollview addSubview:self.messageButton];
-    self.messageButton.hidden=isShow;
+//    self.messageButton.hidden=isShow;
     //消息红点
     [self.myScrollview addSubview:self.dotLable];
     self.session = [PSCache queryCache:AppUserSessionCacheKey];
@@ -383,7 +431,11 @@
                 break;
         }
     } else {
-        [self doNotLoginPassed];
+        if (index==4) {
+            [self interactive_platform];
+        } else {
+            [self doNotLoginPassed];
+        }
     }
 }
 
@@ -532,7 +584,7 @@
 //红点
 - (UILabel *)dotLable {
     if (!_dotLable) {
-        _dotLable = [[UILabel alloc] initWithFrame:CGRectMake(SCREEN_WIDTH-15,20, 6, 6)];
+//        _dotLable = [[UILabel alloc] initWithFrame:CGRectMake(SCREEN_WIDTH-15,20, 6, 6)];
         _dotLable.backgroundColor = [UIColor redColor];
         _dotLable.layer.cornerRadius = 3;
         _dotLable.clipsToBounds = YES;
@@ -560,10 +612,9 @@
 
 - (UIButton *)messageButton {
     if (!_messageButton) {
-        UIImageView *messageImg = [[UIImageView alloc] initWithFrame:CGRectMake(20, 15, 15, 15)];
-        messageImg.image = [UIImage imageNamed:@"消息"];
-        _messageButton=[[UIButton alloc]initWithFrame:CGRectMake(SCREEN_WIDTH-50,7,50,50)];
-        [_messageButton addSubview:messageImg];
+        _messageButton=[[UIButton alloc]initWithFrame:CGRectMake(SCREEN_WIDTH-30,22,15,15)];
+        [_messageButton be_setEnlargeEdgeWithTop:10 right:15 bottom:10 left:15];
+        [_messageButton setImage:IMAGE_NAMED(@"消息") forState:UIControlStateNormal];
         @weakify(self)
         [_messageButton bk_whenTapped:^{
             @strongify(self)

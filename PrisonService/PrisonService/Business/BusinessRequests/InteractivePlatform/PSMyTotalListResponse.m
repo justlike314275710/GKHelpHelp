@@ -10,4 +10,8 @@
 
 @implementation PSMyTotalListResponse
 
++ (JSONKeyMapper *)keyMapper {
+    return [[JSONKeyMapper alloc] initWithModelToJSONDictionary:@{@"articles_notpublished":@"data.articles_notpublished",@"articles_notpass":@"data.articles_notpass",@"articles_published":@"data.articles_published"}];
+}
+
 @end

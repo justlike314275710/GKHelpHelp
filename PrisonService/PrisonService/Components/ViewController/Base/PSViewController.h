@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface PSViewController : UIViewController
-@property(nonatomic ,strong) UILabel*dotLab;
+@property(nonatomic ,strong)  UILabel*dotLab;
 @property (nonatomic, assign) UIInterfaceOrientationMask orientationMask;
 
 /**

@@ -7,6 +7,8 @@
 //
 
 #import "PSPlatformArticleCell.h"
+#import "PSAccountViewModel.h"
+#import "UIButton+BEEnLargeEdge.h"
 
 @interface PSPlatformArticleCell()
 @property(nonatomic,strong)UIView *bgView;
@@ -39,13 +41,15 @@
     [self.titleLab mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(15);
         make.right.mas_equalTo(-15);
-        make.top.height.mas_equalTo(20);
+        make.top.mas_equalTo(20);
+        make.height.mas_equalTo(40);
     }];
     
     [self.bgView addSubview:self.headImg];
+    ViewRadius(_headImg,12);
     [self.headImg mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(_titleLab);
-        make.top.mas_equalTo(_titleLab.mas_bottom).offset(10);
+        make.top.mas_equalTo(_titleLab.mas_bottom).offset(3);
         make.width.height.mas_equalTo(24);
     }];
     
@@ -53,14 +57,23 @@
     [self.nameLab mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(self.headImg.mas_right).offset(10);
         make.height.mas_equalTo(21);
-        make.width.mas_equalTo(200);
+        make.width.mas_equalTo(75);
         make.centerY.mas_equalTo(self.headImg);
     }];
+    
+    [_bgView addSubview:self.stateImageView];
+    [self.stateImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(_nameLab.mas_right).offset(5);
+        make.height.mas_equalTo(15);
+        make.width.mas_equalTo(50);
+        make.centerY.mas_equalTo(self.headImg);
+    }];
+    
     
     [_bgView addSubview:self.contentLab];
     [self.contentLab mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.mas_equalTo(_titleLab);
-        make.top.mas_equalTo(_headImg.mas_bottom).offset(10);
+        make.top.mas_equalTo(_headImg.mas_bottom).offset(5);
         make.height.mas_equalTo(45);
     }];
     
@@ -109,8 +122,144 @@
         make.width.mas_equalTo(60);
         
     }];
+}
+//
+- (void)setModel:(PSArticleDetailModel *)model {
+    _model = model;
+    _titleLab.text = model.title;
+    _contentLab.text = model.content;
+    _nameLab.text = model.penName;
+    _hotLab.text = model.clientNum;
+    _likeLab.text = model.praiseNum;
+    //是否能点赞
+    if ([_model.ispraise isEqualToString:@"0"]) {
+        [_likeBtn setImage:IMAGE_NAMED(@"未赞") forState:UIControlStateNormal];
+    } else {
+        [_likeBtn setImage:IMAGE_NAMED(@"已赞") forState:UIControlStateNormal];
+    }
+    
+    //用户头像
+    PSAccountViewModel *viewModel = [[PSAccountViewModel alloc] init];
+    [viewModel getAvatarImageUserName:model.username Completed:^(UIImage *image) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            _headImg.image = image;
+        });
+    } failed:^(NSError *error) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            _headImg.image = IMAGE_NAMED(@"作者头像");
+        });
+    }];
+    
+    if ([model.status isEqualToString:@"pass"]) {
+        _hotLab.hidden = NO;
+        _likeBtn.hidden = NO;
+        _hotIconImg.hidden = NO;
+        _likeLab.hidden = NO;
+        _stateImageView.hidden = YES;
+        _timeLab.text = model.publishAt;
+    } else {
+        _hotLab.hidden = YES;
+        _likeBtn.hidden = YES;
+        _hotIconImg.hidden = YES;
+        _likeLab.hidden = YES;
+        _stateImageView.hidden = NO;
+        if ([model.status isEqualToString:@"publish"]) {
+            _stateImageView.image = IMAGE_NAMED(@"审核中");
+            _timeLab.text = model.publishAt;
+        } else if ([model.status isEqualToString:@"reject"]) {
+             _stateImageView.image = IMAGE_NAMED(@"未通过");
+            _timeLab.text = model.publishAt;
+        } else if ([model.status isEqualToString:@"shelf"]) {
+            _stateImageView.image = IMAGE_NAMED(@"已下架");
+            _timeLab.text = model.publishAt;
+        }
+    }
     
     
+
+
+}
+
+-(void)setCollecModel:(PSCollectArticleListModel *)collecModel{
+    
+    _collecModel = collecModel;
+    _titleLab.text = collecModel.title;
+    _contentLab.text = collecModel.content;
+    _nameLab.text = collecModel.pen_name;
+    _timeLab.text = collecModel.created_at;
+    _hotLab.text = collecModel.client_num;
+    _likeLab.text = collecModel.praise_num;
+    
+    
+    //是否能点赞
+    if ([collecModel.is_praise isEqualToString:@"0"]) {
+        [_likeBtn setImage:IMAGE_NAMED(@"未赞") forState:UIControlStateNormal];
+    } else {
+        [_likeBtn setImage:IMAGE_NAMED(@"已赞") forState:UIControlStateNormal];
+    }
+    //用户头像
+    PSAccountViewModel *viewModel = [[PSAccountViewModel alloc] init];
+    [viewModel getAvatarImageUserName:collecModel.username Completed:^(UIImage *image) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            _headImg.image = image;
+        });
+    } failed:^(NSError *error) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            _headImg.image = IMAGE_NAMED(@"作者头像");
+        });
+    }];
+}
+
+#pragma mark - TouchEvent
+-(void)praiseAction:(UIButton *)sender {
+    //互动文章
+    if (_model) {
+        if ([_model.ispraise isEqualToString:@"0"]) {
+            if (self.praiseBlock) {
+                self.praiseBlock(YES, _model.id, ^(BOOL action) {
+                    if (action) {
+                        [_likeBtn setImage:IMAGE_NAMED(@"已赞") forState:UIControlStateNormal];
+                        _likeLab.text = [NSString stringWithFormat:@"%d",[_model.praiseNum intValue]+1];
+                        _model.praiseNum = _likeLab.text;
+                        _model.ispraise = @"1";
+                    }
+                });
+            }
+        } else {
+            if (self.praiseBlock) {
+                self.praiseBlock(NO, _model.id, ^(BOOL action) {
+                    [_likeBtn setImage:IMAGE_NAMED(@"未赞") forState:UIControlStateNormal];
+                    _likeLab.text = [NSString stringWithFormat:@"%d",[_model.praiseNum intValue]-1];
+                    _model.praiseNum = _likeLab.text;
+                    _model.ispraise = @"0";
+                });
+            }
+        }
+    }
+    //是否能点赞(收藏列表)
+    if (_collecModel) {
+        if ([_collecModel.is_praise isEqualToString:@"0"]) {
+            if (self.praiseBlock) {
+                self.praiseBlock(YES, _collecModel.id, ^(BOOL action) {
+                    if (action) {
+                      [_likeBtn setImage:IMAGE_NAMED(@"已赞") forState:UIControlStateNormal];
+                        _likeLab.text = [NSString stringWithFormat:@"%d",[_collecModel.praise_num intValue]+1];
+                        _collecModel.praise_num = _likeLab.text;
+                        _collecModel.is_praise = @"1";
+                    }
+                });
+            }
+        } else {
+            if (self.praiseBlock) {
+                self.praiseBlock(NO, _collecModel.id, ^(BOOL action) {
+                     [_likeBtn setImage:IMAGE_NAMED(@"未赞") forState:UIControlStateNormal];
+                     _likeLab.text = [NSString stringWithFormat:@"%d",[_collecModel.praise_num intValue]-1];
+                     _collecModel.praise_num = _likeLab.text;
+                    _collecModel.is_praise = @"0";
+                });
+            }
+        }
+    }
 }
 
 - (void)awakeFromNib {
@@ -144,6 +293,7 @@
         _titleLab.text = @"今夜的月光超载太重照着我一夜哄不成梦每根";
         _titleLab.textColor = UIColorFromRGB(51,51,51);
         _titleLab.font = boldFontOfSize(15);
+        _titleLab.numberOfLines = 2;
         _titleLab.textAlignment = NSTextAlignmentLeft;
     }
     return _titleLab;
@@ -176,6 +326,8 @@
     if (!_likeBtn) {
         _likeBtn = [UIButton new];
         [_likeBtn setImage:IMAGE_NAMED(@"未赞") forState:UIControlStateNormal];
+        [_likeBtn be_setEnlargeEdge:10];
+        [_likeBtn addTarget:self action:@selector(praiseAction:) forControlEvents:UIControlEventTouchUpInside];
     }
     return _likeBtn;
 }
@@ -198,7 +350,7 @@
         _contentLab.font = FontOfSize(12);
         _contentLab.textColor = UIColorFromRGB(102, 102, 102);
         _contentLab.textAlignment = NSTextAlignmentLeft;
-        _contentLab.numberOfLines = 0;
+        _contentLab.numberOfLines = 2;
     }
     return _contentLab;
 }
@@ -216,7 +368,7 @@
 - (UILabel *)likeLab{
     if (!_likeLab) {
         _likeLab = [UILabel new];
-        _likeLab.text = @"1.6w";
+        _likeLab.text = @"";
         _likeLab.font = FontOfSize(10);
         _likeLab.textColor = UIColorFromRGB(153,153,153);
         _likeLab.textAlignment = NSTextAlignmentLeft;
@@ -227,12 +379,21 @@
 - (UILabel *)hotLab{
     if (!_hotLab) {
         _hotLab = [UILabel new];
-        _hotLab.text = @"208w热度";
+        _hotLab.text = @"";
         _hotLab.font = FontOfSize(10);
         _hotLab.textColor = UIColorFromRGB(153,153,153);
         _hotLab.textAlignment = NSTextAlignmentLeft;
     }
     return _hotLab;
+}
+
+- (UIImageView *)stateImageView {
+    if (!_stateImageView) {
+        _stateImageView = [UIImageView new];
+        _stateImageView.image = IMAGE_NAMED(@"未通过");
+        _stateImageView.hidden = YES;
+    }
+    return _stateImageView;
 }
 
 

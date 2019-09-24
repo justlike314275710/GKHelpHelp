@@ -7,11 +7,24 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <JSONModel/JSONModel.h>
 
-NS_ASSUME_NONNULL_BEGIN
-
-@interface PSMessageCountModel : NSObject
+@protocol PSMessageCountModel<NSObject>
 
 @end
 
-NS_ASSUME_NONNULL_END
+@interface PSMessageCountModel : JSONModel
+@property (nonatomic, strong) NSString<Optional> *total;
+@property (nonatomic, strong) NSString<Optional> *pointsCount;
+@property (nonatomic, strong) NSString<Optional> *pointsUnreadCount;
+@property (nonatomic, strong) NSString<Optional> *visitCount;
+@property (nonatomic, strong) NSString<Optional> *visitUnreadCount;
+
+@end
+
+
+
+
+
+
+

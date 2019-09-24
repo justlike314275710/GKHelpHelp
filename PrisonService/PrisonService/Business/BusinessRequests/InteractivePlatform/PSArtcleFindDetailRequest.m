@@ -7,7 +7,28 @@
 //
 
 #import "PSArtcleFindDetailRequest.h"
+#import "PSArtcleFindDetailResponse.h"
 
 @implementation PSArtcleFindDetailRequest
+- (id)init {
+    self = [super init];
+    if (self) {
+        self.method = PSHttpMethodGet;
+        self.serviceName = @"findDetail";
+    }
+    return self;
+}
+//GET /api/article/findDetail
+- (NSString *)businessDomain {
+    return @"/api/article/";
+}
 
+- (void)buildParameters:(PSMutableParameters *)parameters {
+    [parameters addParameter:[NSString stringWithFormat:@"%ld",(long)self.id] forKey:@"id"];
+    [super buildParameters:parameters];
+}
+
+- (Class)responseClass {
+    return [PSArtcleFindDetailResponse class];
+}
 @end

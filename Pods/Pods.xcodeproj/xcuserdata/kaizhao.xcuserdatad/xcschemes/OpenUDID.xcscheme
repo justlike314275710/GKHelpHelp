@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0930"
+   LastUpgradeVersion = "1100"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,10 +14,10 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "BBF86370E852A9E216E708346426B571"
+               BlueprintIdentifier = "D9E35E25D90A614E195E5B4FBC555747"
+               BuildableName = "OpenUDID.framework"
                BlueprintName = "OpenUDID"
-               ReferencedContainer = "container:Pods.xcodeproj"
-               BuildableName = "OpenUDID.framework">
+               ReferencedContainer = "container:Pods.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>

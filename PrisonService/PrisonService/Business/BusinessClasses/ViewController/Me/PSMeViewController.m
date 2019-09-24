@@ -37,10 +37,12 @@
 #import "MyConsultationViewController.h"
 #import "PSAllHistoryViewController.h"
 
+
+
 @interface PSMeViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic , strong) UITableView *settingTableview;
 @property (nonatomic , strong) NSArray *modelArray;
-@property (nonatomic , strong, readonly)PYPhotosView *avatarView;
+@property (nonatomic , strong) UIImageView *avatarView;
 @property (nonatomic , strong) NSString *PrisonerDetailName;
 @property (nonatomic , strong) PSPrisonerDetail *prisonerDetail;
 @property (nonatomic , strong) NSString *balanceSting;
@@ -53,11 +55,13 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self refreshData];
+
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     self.tabBarController.tabBar.hidden = NO;
+
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -73,6 +77,8 @@
 -(void)refreshData{
     
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(requestBalance) name:JailChange object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getUserAvater) name:KNotificationUserAvaterChangeScuess object:nil];
+    
     self.view.backgroundColor=UIColorFromRGBA(251, 251, 251, 1);
     self.navigationItem.leftBarButtonItem = nil;
     self.navigationItem.hidesBackButton = NO;
@@ -81,6 +87,7 @@
             [self updateContent];
             [self requestBalance];
             [self renderContents];
+            [self getUserAvater];
         }
             break;
         default:
@@ -101,21 +108,37 @@
     } failed:^(NSError *error) {
         [[PSLoadingView sharedInstance]dismiss];
     }];
-    
 }
+//MARK:获取用户头像
+- (void)getUserAvater{
+    PSAccountViewModel *viewModel = [[PSAccountViewModel alloc] init];
+    [viewModel getUserAvatarImageCompleted:^(UIImage *image) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            _avatarView.image = image;
+        });
+    } failed:^(NSError *error) {
+
+    }];
+}
+
 - (void)headerViewTapAction:(id)tap {
+    PSAccountViewModel *viewModel = [[PSAccountViewModel alloc] init];
+    viewModel.avatarImage = _avatarView.image;
+    [self.navigationController pushViewController:[[PSAccountViewController alloc] initWithViewModel:viewModel] animated:YES];
     
+    /*
     switch ([PSSessionManager sharedInstance].loginStatus) {
         case PSLoginPassed:{
-           [self.navigationController pushViewController:[[PSAccountViewController alloc] initWithViewModel:[[PSAccountViewModel alloc] init]] animated:YES];
+            PSAccountViewModel *viewModel = [[PSAccountViewModel alloc] init];
+            viewModel.avatarImage = _avatarView.image;
+           [self.navigationController pushViewController:[[PSAccountViewController alloc] initWithViewModel:viewModel] animated:YES];
         }
             break;
         default:
-            self.hidesBottomBarWhenPushed=YES;
             [self.navigationController pushViewController:[[PSSessionNoneViewController alloc]init] animated:YES];
-            self.hidesBottomBarWhenPushed=NO;
             break;
     }
+     */
 }
 
 
@@ -204,18 +227,15 @@
     self.prisonerDetail = prisonerDetail;
     [self setupModelArray];
     [self.settingTableview reloadData];
-    
 }
 #pragma mark  - UITableViewDelegate
 - (BOOL)hiddenNavigationBar{
     return YES;
 }
 
-
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return _modelArray.count;
 }
-
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     static NSString *identifier = @"PSSettingCell";
@@ -243,12 +263,8 @@
                 [[PSSessionManager sharedInstance]doLogout];
             } else {
                 
-                if (indexPath.row==7||indexPath.row==5) {
-                    if (indexPath.row==7) {
-                           [self.navigationController pushViewController:[[PSSettingViewController alloc] initWithViewModel:[[PSSettingViewModel alloc] init]] animated:YES];
-                    } else {
-                           [self.navigationController pushViewController:[[MyConsultationViewController alloc] initWithViewModel:[[PSConsultationViewModel alloc] init]] animated:YES];
-                    }
+                if (indexPath.row==7) {
+                    [self.navigationController pushViewController:[[PSSettingViewController alloc] initWithViewModel:[[PSSettingViewModel alloc] init]] animated:YES];
                 } else {
                     self.hidesBottomBarWhenPushed=YES;
                     PSLoginViewModel*viewModel=[[PSLoginViewModel alloc]init];
@@ -280,17 +296,18 @@
     
     
     CGFloat radius = 30;
-    _avatarView = [PYPhotosView photosView];
+    _avatarView = [UIImageView new];
     _avatarView.frame=CGRectMake(17,27, 60, 60);
     _avatarView.layer.cornerRadius = radius;
+    _avatarView.layer.masksToBounds = YES;
     _avatarView.layer.borderWidth = 1.0;
     _avatarView.layer.borderColor = [UIColor whiteColor].CGColor;
-    _avatarView.photoWidth = radius * 2;
-    _avatarView.photoHeight = radius * 2;
-    _avatarView.placeholderImage = [UIImage imageNamed:@"个人中心-头像"];
+//    _avatarView.photoWidth = radius * 2;
+//    _avatarView.photoHeight = radius * 2;
+    _avatarView.image = [UIImage imageNamed:@"个人中心-头像"];
     [headContentImg addSubview:_avatarView];
-    _avatarView.thumbnailUrls = @[PICURL([PSSessionManager sharedInstance].session.families.avatarUrl)];
-    _avatarView.originalUrls = @[PICURL([PSSessionManager sharedInstance].session.families.avatarUrl)];
+//    _avatarView.thumbnailUrls = @[PICURL([PSSessionManager sharedInstance].session.families.avatarUrl)];
+//    _avatarView.originalUrls = @[PICURL([PSSessionManager sharedInstance].session.families.avatarUrl)];
     _avatarView.userInteractionEnabled = NO;
     
     if ([[LXFileManager readUserDataForKey:@"isVistor"]isEqualToString:@"YES"]) {

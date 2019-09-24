@@ -12,7 +12,8 @@
 @interface PSAccountTopView : UIView
 
 @property (nonatomic, strong, readonly) UIImageView *avatarImageView;
-@property (nonatomic, strong, readonly) PYPhotosView *avatarView;
+//@property (nonatomic, strong, readonly) PYPhotosView *avatarView;
+@property (nonatomic, strong) UIImageView *avatarView;
 @property (nonatomic, strong, readonly) UILabel *nicknameLabel;
 @property (nonatomic, assign, readonly) CGFloat topRate;
 @property (nonatomic, assign, readonly) CGFloat infoRate;

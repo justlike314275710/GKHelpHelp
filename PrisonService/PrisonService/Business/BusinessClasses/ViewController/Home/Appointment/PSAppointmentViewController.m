@@ -763,8 +763,6 @@
 }
 
 
-
-
 - (CGPoint)calendar:(FSCalendar *)calendar appearance:(FSCalendarAppearance *)appearance subtitleOffsetForDate:(NSDate *)date {
     PSAppointmentViewModel *appointment = (PSAppointmentViewModel *)self.viewModel;
     PSMeeting *meeting = [appointment meetingOfDate:date];

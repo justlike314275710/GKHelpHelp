@@ -11,7 +11,9 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface PSPublishArtileRequest : PSBusinessRequest
+@interface PSPublishListArtileRequest : PSBusinessRequest
+@property (nonatomic, assign) NSInteger page;
+@property (nonatomic, assign) NSInteger rows;
 
 @end
 

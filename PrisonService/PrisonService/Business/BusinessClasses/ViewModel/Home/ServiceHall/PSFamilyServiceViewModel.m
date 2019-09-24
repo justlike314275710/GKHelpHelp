@@ -42,26 +42,24 @@
         NSString*token=[NSString stringWithFormat:@"Bearer %@",[LXFileManager readUserDataForKey:@"access_token"]];
         [manager.requestSerializer setValue:token forHTTPHeaderField:@"Authorization"];
         
-//        PSPrisonerDetail *prisonerDetail = nil;
-//        NSInteger index = [PSSessionManager sharedInstance].selectedPrisonerIndex;
-//        NSArray *details = [PSSessionManager sharedInstance].passedPrisonerDetails;
-//        if (index >= 0 && index < details.count) {
-//            prisonerDetail = details[index];
-//        }
-        NSString*sentence=NSLocalizedString(@"sentence", @"原判刑期");
+        
         NSMutableArray *items = [NSMutableArray array];
+        NSString*prisonName=@"服刑监狱";
+        PSFamilyServiceItem *prison = [PSFamilyServiceItem new];
+        prison.itemIconName = @"服刑监狱icon";
+        prison.itemName = prisonName;
+        prison.content = self.prisonerDetail.jailName;
+        [items addObject:prison];
+        
+        
+        NSString*sentence=NSLocalizedString(@"sentence", @"原判刑期");
         PSFamilyServiceItem *periodItem = [PSFamilyServiceItem new];
         periodItem.itemIconName = @"serviceHallPeriodIcon";
         periodItem.itemName = sentence;
         periodItem.content = self.prisonerDetail.originalSentence;
         [items addObject:periodItem];
         
-//        PSFamilyServiceItem *guiltyNametem = [PSFamilyServiceItem new];
-//        guiltyNametem.itemIconName = @"serviceHallGuiltyIcon";
-//        guiltyNametem.itemName = @"罪名";
-//        guiltyNametem.content = self.prisonerDetail.crimes;
-//        [items addObject:guiltyNametem];
-        
+
         NSString*sentence_start=NSLocalizedString(@"sentence_start", @"原判刑期起日");
         PSFamilyServiceItem *startItem = [PSFamilyServiceItem new];
         startItem.itemIconName = @"serviceHallStartIcon";
@@ -76,12 +74,7 @@
         endItem.content = [self.prisonerDetail.endedAt timestampToDateString];
         [items addObject:endItem];
         
-//        PSFamilyServiceItem *extraItem = [PSFamilyServiceItem new];
-//        extraItem.itemIconName = @"serviceHallExtraIcon";
-//        extraItem.itemName = @"附加刑";
-//        extraItem.content = self.prisonerDetail.additionalPunishment ? self.prisonerDetail.additionalPunishment : @"无";
-//        [items addObject:extraItem];
-        
+
         NSString*Reduced_number=NSLocalizedString(@"Reduced_number", @"累计减刑次数");
         PSFamilyServiceItem *reduceItem = [PSFamilyServiceItem new];
         reduceItem.itemIconName = @"serviceHallReduceIcon";
@@ -102,7 +95,6 @@
              termFinishString=[self.prisonerDetail.endedAt timestampToDateString];;
         }
        
-       // lastReduceItem.content =[[self.prisonerDetail.termFinish stringToDateWithFormat:@"yyyy-MM-dd HH:mm:ss.SSS"] dateStringWithFormat:@"yyyy-MM-dd"];x
         lastReduceItem.content=termFinishString;
         [items addObject:lastReduceItem];
         _familyServiceItems = items;
@@ -119,6 +111,7 @@
         honorItem.itemIconName = @"serviceHallConsumptionIcon";
         honorItem.itemName = Consumption_prison;
         [otherItems addObject:honorItem];
+    
         
         _otherServiceItems = otherItems;
     }
@@ -165,9 +158,19 @@
 
 - (NSArray *)newfamilyServiceItems {
     
+    
+    NSMutableArray *items = [NSMutableArray array];
+    NSString*prisonName=@"服刑监狱";
+    PSFamilyServiceItem *prison = [PSFamilyServiceItem new];
+    prison.itemIconName = @"服刑监狱icon";
+    prison.itemName = prisonName;
+    prison.content = self.prisonerDetail.jailName;
+    [items addObject:prison];
+    
+    NSLog(@"%@",self.prisonerDetail);
+    
 
     NSString*sentence=NSLocalizedString(@"sentence", @"原判刑期");
-    NSMutableArray *items = [NSMutableArray array];
     PSFamilyServiceItem *periodItem = [PSFamilyServiceItem new];
     periodItem.itemIconName = @"serviceHallPeriodIcon";
     periodItem.itemName = sentence;
@@ -188,12 +191,7 @@
     endItem.content = [self.prisonerDetail.endedAt timestampToDateString];
     [items addObject:endItem];
     
-    //        PSFamilyServiceItem *extraItem = [PSFamilyServiceItem new];
-    //        extraItem.itemIconName = @"serviceHallExtraIcon";
-    //        extraItem.itemName = @"附加刑";
-    //        extraItem.content = self.prisonerDetail.additionalPunishment ? self.prisonerDetail.additionalPunishment : @"无";
-    //        [items addObject:extraItem];
-    
+    //5
     NSString*Reduced_number=NSLocalizedString(@"Reduced_number", @"累计减刑次数");
     PSFamilyServiceItem *reduceItem = [PSFamilyServiceItem new];
     reduceItem.itemIconName = @"serviceHallReduceIcon";
@@ -202,8 +200,9 @@
     reduceItem.content = [NSString stringWithFormat:@"%ld%@",(long)self.prisonerDetail.times,one];
     [items addObject:reduceItem];
     
-    NSString*Current_term=NSLocalizedString(@"Current_term", @"现刑期止日");
+    //6
     PSFamilyServiceItem *lastReduceItem = [PSFamilyServiceItem new];
+    NSString*Current_term=NSLocalizedString(@"Current_term", @"现刑期止日");
     lastReduceItem.itemIconName = @"serviceHallLastReduceIcon";
     lastReduceItem.itemName = Current_term;
     NSString * ALLtermFinishString= self.prisonerDetail.termFinish;

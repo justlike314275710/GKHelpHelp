@@ -272,12 +272,14 @@ typedef NS_ENUM(NSInteger, PSLoginModeType) {
 
     } failed:^(NSError *error) {
         NSData *data = error.userInfo[AFNetworkingOperationFailingURLResponseDataErrorKey];
-        id body = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
-        NSString*message=body[@"message"];
-        if (message) {
-            [PSTipsView showTips:message];
-        } else {
-            [self showNetError:error];
+        if (data) {
+            id body = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+            NSString*message=body[@"message"];
+            if (message) {
+                [PSTipsView showTips:message];
+            } else {
+                [self showNetError:error];
+            }
         }
     }];
 
@@ -355,6 +357,7 @@ typedef NS_ENUM(NSInteger, PSLoginModeType) {
         self.loginMiddleView.codeButton.hidden=NO;
         self.loginMiddleView.codeTextField.placeholder=@"请输入验证码";
         self.loginMiddleView.codeLable.text=@"验证码";
+        self.loginMiddleView.codeTextField.secureTextEntry = NO;
         [self.loginTypeButton setTitle:@"使用密码登录" forState:0];
     }
    else if (self.loginModeType==PSLoginModeCode){
@@ -363,7 +366,9 @@ typedef NS_ENUM(NSInteger, PSLoginModeType) {
          self.loginMiddleView.codeButton.hidden=YES;
          self.loginMiddleView.codeTextField.placeholder=@"请输入密码";
          self.loginMiddleView.codeLable.text=@"密码";
+         self.loginMiddleView.codeTextField.secureTextEntry = YES;
          [self.loginTypeButton setTitle:@"使用验证码登录" forState:0];
+       
     }
    else{
        

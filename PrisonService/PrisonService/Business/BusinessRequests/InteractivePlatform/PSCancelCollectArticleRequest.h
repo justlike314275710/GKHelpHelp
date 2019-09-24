@@ -11,7 +11,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface PSCancelCollectArticleRequest : PSBusinessRequest
-
+@property (nonatomic, copy)NSString *articleId;
 @end
 
 NS_ASSUME_NONNULL_END

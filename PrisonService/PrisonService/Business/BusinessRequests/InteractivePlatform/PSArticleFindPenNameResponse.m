@@ -9,5 +9,7 @@
 #import "PSArticleFindPenNameResponse.h"
 
 @implementation PSArticleFindPenNameResponse
-
++ (JSONKeyMapper *)keyMapper {
+    return [[JSONKeyMapper alloc] initWithModelToJSONDictionary:@{@"publicArticleModel":@"data"}];
+}
 @end

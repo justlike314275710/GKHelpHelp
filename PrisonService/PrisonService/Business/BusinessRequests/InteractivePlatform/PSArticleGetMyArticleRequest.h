@@ -11,6 +11,9 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface PSArticleGetMyArticleRequest : PSBusinessRequest
+@property (nonatomic, assign) NSInteger page;
+@property (nonatomic, assign) NSInteger rows;
+@property (nonatomic, copy)   NSString *status;
 
 @end
 

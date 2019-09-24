@@ -8,10 +8,21 @@
 
 #import <JSONModel/JSONModel.h>
 
-NS_ASSUME_NONNULL_BEGIN
-
-@interface PSCollectArticleListModel : JSONModel
+@protocol PSCollectArticleListModel<NSObject>
 
 @end
 
-NS_ASSUME_NONNULL_END
+@interface PSCollectArticleListModel : JSONModel
+@property (nonatomic, strong) NSString<Optional> *praise_num;
+@property (nonatomic, strong) NSString<Optional> *client_num;
+@property (nonatomic, strong) NSString<Optional> *created_at;
+@property (nonatomic, strong) NSString<Optional> *is_praise;
+@property (nonatomic, strong) NSString<Optional> *id;
+@property (nonatomic, strong) NSString<Optional> *title;
+@property (nonatomic, strong) NSString<Optional> *pen_name;
+@property (nonatomic, strong) NSString<Optional> *content;
+@property (nonatomic, strong) NSString<Optional> *username;
+
+
+@end
+

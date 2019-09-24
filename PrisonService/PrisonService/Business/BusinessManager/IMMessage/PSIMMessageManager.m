@@ -154,13 +154,14 @@
     if ([content isKindOfClass:[NSString class]]) {
         NSError *error = nil;
         [[NSNotificationCenter defaultCenter] postNotificationName:AppDotChange object:nil];
+    
+        
         self.session = [NIMSession session:notification.sender type:NIMSessionTypeP2P];
         PSMeetingMessage *message = [[PSMeetingMessage alloc] initWithString:content error:&error];
         if (!error) {
             if (message.code == PSMeetingLocal) {
                 NSString *token = [[PSSessionManager sharedInstance].session.token copy];
                 [ZQLocalNotification NotificationType:CountdownNotification Identifier:token activityId:190000 alertBody:message.msg alertTitle:@"狱务通" alertString:@"确定" withTimeDay:0 hour:0 minute:0 second:1];
-//                [EBBannerView showWithContent:message.msg];
                 EBBannerView *banner = [EBBannerView bannerWithBlock:^(EBBannerViewMaker *make) {
                     make.style = 11;
                     make.content = message.msg;

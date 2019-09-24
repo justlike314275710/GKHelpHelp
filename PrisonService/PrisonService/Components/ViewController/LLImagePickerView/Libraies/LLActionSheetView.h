@@ -26,6 +26,8 @@
 // 支持block
 @property (nonatomic,copy) void (^ClickIndex) (NSInteger index);
 
+- (void)setTitleColor:(UIColor *)color index:(NSInteger)index;
+
 /**
  根据数组进行文字显示,返回index
  @param titleArr 传入显示的数组

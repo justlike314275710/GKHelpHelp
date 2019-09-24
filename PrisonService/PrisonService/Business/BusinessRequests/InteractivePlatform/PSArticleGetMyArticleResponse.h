@@ -7,11 +7,12 @@
 //
 
 #import "PSResponse.h"
+#import "PSArticleDetailModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
-
+//articles
 @interface PSArticleGetMyArticleResponse : PSResponse
-
+@property (nonatomic, strong) NSArray<PSArticleDetailModel,Optional> *articles;
 @end
 
 NS_ASSUME_NONNULL_END

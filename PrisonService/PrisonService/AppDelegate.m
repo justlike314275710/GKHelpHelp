@@ -21,6 +21,7 @@
 #import "PSIMMessageManager.h"
 #import "PSBusinessConstants.h"
 #import "PSVersonUpdateViewModel.h"
+#import "ZQLocalNotification.h"
 
 @interface AppDelegate ()
 
@@ -89,7 +90,8 @@
     //友盟数据统计
     [self registerUMMob];
     //网易云信apns推送
-    [self registerAPNs];
+//    [self registerAPNs];
+    [ZQLocalNotification initialize];
     
 }
 - (BOOL)handleURL:(NSURL *)url {
@@ -148,6 +150,8 @@
 - (UIInterfaceOrientationMask)application:(UIApplication *)application supportedInterfaceOrientationsForWindow:(UIWindow *)window {
     return UIInterfaceOrientationMaskPortrait | UIInterfaceOrientationMaskLandscapeRight;
 }
+
+
 
 
 @end

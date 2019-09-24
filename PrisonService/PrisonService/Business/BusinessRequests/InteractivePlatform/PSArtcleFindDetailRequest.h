@@ -11,7 +11,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface PSArtcleFindDetailRequest : PSBusinessRequest
-
+@property (nonatomic, assign) NSInteger id;
 @end
 
 NS_ASSUME_NONNULL_END

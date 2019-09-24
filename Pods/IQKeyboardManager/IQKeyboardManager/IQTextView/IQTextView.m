@@ -130,7 +130,7 @@
         placeHolderLabel.font = self.font;
         placeHolderLabel.textAlignment = self.textAlignment;
         placeHolderLabel.backgroundColor = [UIColor clearColor];
-        placeHolderLabel.textColor = [UIColor colorWithWhite:0.7 alpha:1.0];
+        placeHolderLabel.textColor =  [[UIColor lightGrayColor] colorWithAlphaComponent:0.7];
         placeHolderLabel.alpha = 0;
         [self addSubview:placeHolderLabel];
     }

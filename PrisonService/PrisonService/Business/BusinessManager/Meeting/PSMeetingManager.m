@@ -287,7 +287,6 @@
 - (void)receivedMeetingMessage:(PSMeetingMessage *)message {
     switch (message.code) {
             
-      
         case PSFreeMeetingLocation:
         {
             [self sendFreeLocation:message.meetingId];
@@ -371,6 +370,24 @@
           
         }
           break;
+        case PSMessageArticleInteractive:  //互动文章消息
+        {
+//            [self handleMeetingStatusMessage:message];
+            //刷新我的文章列表
+            KPostNotification(KNotificationRefreshMyArticle, nil);
+            //刷新消息列表
+            KPostNotification(KNotificationRefreshzx_message, nil);
+            KPostNotification(KNotificationRefreshts_message, nil);
+            KPostNotification(KNotificationRefreshhd_message, nil);
+            NSString *token = [[PSSessionManager sharedInstance].session.token copy];
+            [ZQLocalNotification NotificationType:CountdownNotification Identifier:token activityId:1900000 alertBody:message.msg alertTitle:@"狱务通" alertString:@"确定" withTimeDay:0 hour:0 minute:0 second:1];
+            EBBannerView *banner = [EBBannerView bannerWithBlock:^(EBBannerViewMaker *make) {
+                make.style = 11;
+                make.content = message.msg;
+            }];
+            [banner show];
+        }
+            break;
         default:
             break;
     }

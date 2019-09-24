@@ -286,7 +286,7 @@
 
 -(BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
     if ([textView isFirstResponder]) {
-        
+
         if ([[[textView textInputMode] primaryLanguage] isEqualToString:@"emoji"] || ![[textView textInputMode] primaryLanguage]) {
             NSString *msg = NSLocalizedString(@"Can't enter expressions!", @"不能输入表情！");
             [PSTipsView showTips:msg];

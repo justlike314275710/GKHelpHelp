@@ -82,6 +82,11 @@
     [[UIApplication sharedApplication].keyWindow addSubview:self];
 }
 
+- (void)setTitleColor:(UIColor *)color index:(NSInteger)index{
+    UIButton *btn = [self viewWithTag:index+1];
+    [btn setTitleColor:color forState:UIControlStateNormal];
+}
+
 - (void)show{
     CGSize size = [UIScreen mainScreen].bounds.size;
     [UIView animateWithDuration:0.3 animations:^{

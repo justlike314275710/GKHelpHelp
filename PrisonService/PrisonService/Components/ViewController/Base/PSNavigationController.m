@@ -68,6 +68,11 @@
             [self resetOrientationWithOrientationMask:willOrientationMask];
         }
     }
+    
+    //cell因为网络请求延迟而多次push同一页面
+    if (![[super topViewController] isKindOfClass:[viewController class]]) {  // 如果和上一个控制器一样，隔绝此操作
+        [super pushViewController:viewController animated:animated];
+    }
 }
 
 - (UIViewController *)popViewControllerAnimated:(BOOL)animated {

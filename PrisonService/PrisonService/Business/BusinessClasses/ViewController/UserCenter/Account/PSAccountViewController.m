@@ -18,8 +18,13 @@
 #import "PSAlertView.h"
 #import "PSchangPhoneViewController.h"
 #import "PSEcomRegisterViewmodel.h"
+#import "PSAuthorizationTool.h"
+#import "PSImagePickerController.h"
+#import "PSRegisterViewModel.h"
+#import "PSConsultationViewModel.h"
+#import "LLActionSheetView.h"
 
-@interface PSAccountViewController ()<UITableViewDataSource,UITableViewDelegate>
+@interface PSAccountViewController ()<UITableViewDataSource,UITableViewDelegate,UINavigationControllerDelegate,UIImagePickerControllerDelegate>
 
 @property (nonatomic, strong) PSAccountTopView *acctountTopView;
 @property (nonatomic, strong) UITableView *infoTableView;
@@ -43,13 +48,25 @@
 }
 
 - (void)renderContents {
+    PSAccountViewModel *accountViewModel =(PSAccountViewModel *)self.viewModel;
     self.acctountTopView = [PSAccountTopView new];
     //[self.acctountTopView.avatarImageView sd_setImageWithURL:[NSURL URLWithString:PICURL([PSSessionManager sharedInstance].session.families.avatarUrl)] placeholderImage:[UIImage imageNamed:@"userCenterDefaultAvatar"]];
-    self.acctountTopView.avatarView.thumbnailUrls = @[PICURL([PSSessionManager sharedInstance].session.families.avatarUrl)];
-    self.acctountTopView.avatarView.originalUrls = @[PICURL([PSSessionManager sharedInstance].session.families.avatarUrl)];
+//    self.acctountTopView.avatarView.thumbnailUrls = @[PICURL([PSSessionManager sharedInstance].session.families.avatarUrl)];
+//    self.acctountTopView.avatarView.originalUrls = @[PICURL([PSSessionManager sharedInstance].session.families.avatarUrl)];
+    
+    //_avatarView.placeholderImage = [UIImage imageNamed:@"userCenterDefaultAvatar"];
+    NSURL *imageURL  = [NSURL URLWithString:PICURL([PSSessionManager sharedInstance].session.families.avatarUrl)];
+//    [self.acctountTopView.avatarView sd_setImageWithURL:imageURL placeholderImage:IMAGE_NAMED(@"userCenterDefaultAvatar")];
+    self.acctountTopView.avatarView.image = accountViewModel.avatarImage;
     self.acctountTopView.nicknameLabel.text = [PSSessionManager sharedInstance].session.families.name;
     CGFloat topHeight = SCREEN_WIDTH * self.acctountTopView.topRate + SCREEN_WIDTH * self.acctountTopView.infoRate - 40;
     [self.view addSubview:self.acctountTopView];
+    @weakify(self);
+    [self.acctountTopView.avatarView bk_whenTapped:^{
+        @strongify(self);
+        [self clickAvatarView];
+    }];
+
     [self.acctountTopView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.top.right.mas_equalTo(0);
         make.height.mas_equalTo(topHeight);
@@ -129,19 +146,79 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     [self renderContents];
-    
 }
-- (void)refreshData {
+
+#pragma mark - 点击头像
+- (void)clickAvatarView {
+    
+    LLActionSheetView *alertView = [[LLActionSheetView alloc]initWithTitleArray:@[@"相册选择",@"拍照",@"更换头像"] andShowCancel:YES];
+    [alertView setTitleColor:[UIColor grayColor] index:2];
+    alertView.ClickIndex = ^(NSInteger index) {
+        if (index == 1){
+            [self openAlbum];
+            NSLog(@"相册选择");
+        }else if (index == 2){
+            [self openCamera];
+            NSLog(@"拍照");
+        }
+    };
+    [alertView show];
+}
+
+-(void)openAlbum {
+    @weakify(self);
+    [PSAuthorizationTool checkAndRedirectPhotoAuthorizationWithBlock:^(BOOL result) {
+        PSImagePickerController *picker = [[PSImagePickerController alloc] initWithCropHeaderImageCallback:^(UIImage *cropImage) {
+            @strongify(self)
+            [self handlePickerImage:cropImage];
+        }];
+        [picker setSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
+        picker.delegate = self;
+        [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:picker animated:YES completion:nil];
+    }];
+}
+
+-(void)openCamera {
+    @weakify(self);
+    [PSAuthorizationTool checkAndRedirectCameraAuthorizationWithBlock:^(BOOL result) {
+        PSImagePickerController *picker = [[PSImagePickerController alloc] initWithCropHeaderImageCallback:^(UIImage *cropImage) {
+            @strongify(self)
+            [self handlePickerImage:cropImage];
+            
+        }];
+        [picker setSourceType:UIImagePickerControllerSourceTypeCamera];
+        picker.delegate = self;
+        [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:picker animated:YES completion:nil];
+    }];
+}
+
+- (void)handlePickerImage:(UIImage *)image {
     PSAccountViewModel *accountViewModel =(PSAccountViewModel *)self.viewModel;
+    accountViewModel.avatarImage = image;
+    [accountViewModel uploadUserAvatarImageCompleted:^(BOOL successful, NSString *tips) {
+        if (successful) {
+            self.acctountTopView.avatarView.image = image;
+            KPostNotification(KNotificationUserAvaterChangeScuess, nil);
+            [PSTipsView showTips:@"头像修改成功"];
+        } else {
+            [PSTipsView showTips:@"头像修改失败"];
+        }
+    }];
+}
+
+- (void)refreshData {
+     PSAccountViewModel *accountViewModel =(PSAccountViewModel *)self.viewModel;
      [[PSLoadingView sharedInstance]show];
      [accountViewModel requestAccountBasicinfoCompleted:^(PSResponse *response) {
-        [[PSLoadingView sharedInstance] dismiss];
-      //  [self renderContents];
          dispatch_async(dispatch_get_main_queue(), ^{
               [self.infoTableView  reloadData];
+              [[PSLoadingView sharedInstance] dismiss];
          });
     } failed:^(NSError *error) {
-        [[PSLoadingView sharedInstance] dismiss];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [[PSLoadingView sharedInstance] dismiss];
+            
+        });
     }];
 }
 
@@ -171,9 +248,7 @@
     cell.detailTextLabel.numberOfLines=0;
     if (0==indexPath.row) {
         cell.accessoryType = UITableViewCellSeparatorStyleNone;
-    }
- 
-    else {
+    }else {
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
  
@@ -184,8 +259,6 @@
 
 
 #pragma mark - UITableViewDelegate
-
-
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if (1==indexPath.row) {
         PSchangPhoneViewController*changPhoneViewController=[[PSchangPhoneViewController alloc]initWithViewModel:[[PSEcomRegisterViewmodel alloc]init]];

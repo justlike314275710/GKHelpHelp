@@ -130,7 +130,7 @@
     //(当后台版本>应用市场版本)&&强制更新 ->提示        软件维护中,暂停使用
     NSString *backVerson = model.versionCode;
     BOOL isShowError = [self updataVerson1:_appStoreVerson verson2:backVerson];
-    BOOL isForce = model.isForce;
+    BOOL isForce = [model.isForce boolValue];
     if (isShowError&&isForce) {  //提示错误
         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"温馨提示" message:errorMsg preferredStyle:UIAlertControllerStyleAlert];
         UIAlertAction *otherAction = [UIAlertAction actionWithTitle:@"我知道了" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
@@ -175,7 +175,7 @@
                 @weakify(self);
                 [dataAry enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
                     UpDateModel *model = [[UpDateModel alloc] initWithDictionary:obj error:nil];
-                    [mary addObject:model];
+                    if (model) [mary addObject:model];
                     //IOS-->更新
                     if ([model.id isEqualToString:@"3"]&&update) {
                         @strongify(self);

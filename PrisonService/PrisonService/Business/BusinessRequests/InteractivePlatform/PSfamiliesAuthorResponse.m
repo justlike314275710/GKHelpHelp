@@ -9,5 +9,7 @@
 #import "PSfamiliesAuthorResponse.h"
 
 @implementation PSfamiliesAuthorResponse
-
++ (JSONKeyMapper *)keyMapper {
+    return [[JSONKeyMapper alloc] initWithModelToJSONDictionary:@{@"author":@"data.author"}];
+}
 @end

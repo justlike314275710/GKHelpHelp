@@ -9,5 +9,8 @@
 #import "PSCollectArticleListResponse.h"
 
 @implementation PSCollectArticleListResponse
++ (JSONKeyMapper *)keyMapper {
+    return [[JSONKeyMapper alloc] initWithModelToJSONDictionary:@{@"collectList":@"data.collectList"}];
+}
 
 @end

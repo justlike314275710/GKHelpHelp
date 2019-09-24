@@ -7,11 +7,12 @@
 //
 
 #import "PSResponse.h"
+#import "PSArticleDetailModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface PSArtcleFindDetailResponse : PSResponse
-
+@property (nonatomic, strong)PSArticleDetailModel *detailModel;
 @end
 
 NS_ASSUME_NONNULL_END

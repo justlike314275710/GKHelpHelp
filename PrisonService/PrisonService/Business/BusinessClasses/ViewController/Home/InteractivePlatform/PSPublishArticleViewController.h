@@ -7,11 +7,10 @@
 //
 
 #import "PSBusinessViewController.h"
-
 NS_ASSUME_NONNULL_BEGIN
 
 @interface PSPublishArticleViewController : PSBusinessViewController
-
+@property(nonatomic,copy)NSString *penName;
 @end
 
 NS_ASSUME_NONNULL_END

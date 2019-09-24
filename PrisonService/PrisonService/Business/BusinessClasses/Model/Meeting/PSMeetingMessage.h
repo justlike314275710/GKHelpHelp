@@ -16,7 +16,8 @@ typedef NS_ENUM(NSInteger, PSMeetingCode) {
     PSMeetingEnter = 0,   //进入会议code
     PSMeetingStatus = 1,  //会见状态变更code
     PSMeetingLocal = 2,   //实地会见
-    PSMeetingCancelAuthorization=3,//注册授权撤销
+    PSMeetingCancelAuthorization=3, //注册授权撤销
+    PSMessageArticleInteractive = 4,//互动文章消息
 };
 
 @interface PSMeetingMessage : JSONModel

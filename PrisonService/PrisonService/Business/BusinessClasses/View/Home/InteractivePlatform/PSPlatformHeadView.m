@@ -7,6 +7,7 @@
 //
 
 #import "PSPlatformHeadView.h"
+#import "UIButton+BEEnLargeEdge.h"
 
 @interface PSPlatformHeadView () {
     NSString *_title;
@@ -60,6 +61,7 @@
     if (!_insertAction) {
         _insertAction = [UIButton buttonWithType:UIButtonTypeCustom];
         _insertAction.frame = CGRectMake(KScreenWidth-25,12,10,16);
+        [_insertAction be_setEnlargeEdgeWithTop:10 right:5 bottom:10 left:100];
         [_insertAction setImage:[UIImage imageNamed:@"进入icon"] forState:UIControlStateNormal];
         [_insertAction addTarget:self action:@selector(action:) forControlEvents:UIControlEventTouchUpInside];
     }

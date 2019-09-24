@@ -14,7 +14,11 @@
 #import "PSTipsConstants.h"
 #import "UITableView+FDTemplateLayoutCell.h"
 
+
 @interface PSMessageViewController ()<UITableViewDataSource,UITableViewDelegate,DZNEmptyDataSetSource,DZNEmptyDataSetDelegate>
+{
+    BOOL isFirst;
+}
 
 @property (nonatomic, strong) UITableView *messageTableView;
 
@@ -28,6 +32,12 @@
        self.title = title;
     }
     return self;
+}
+
+-(void)reloadDataReddot {
+    self.dotIndex = 0;
+    [self.messageTableView reloadData];
+    
 }
 
 - (void)loadMore {
@@ -63,6 +73,14 @@
     cell.titleLabel.text = message.title;
     cell.dateLabel.text = [message.createdAt timestampToDateString];
     cell.contentLabel.text = message.content;
+    cell.iconImageView.image = IMAGE_NAMED(@"探视消息列表icon");
+    if (indexPath.row<self.dotIndex) {
+        cell.iconImageView.redDotNumber = 0;
+        [cell.iconImageView ShowBadgeView];
+    } else {
+        [cell.iconImageView hideBadgeView];
+    }
+    
 }
 
 - (void)reloadContents {
@@ -100,11 +118,31 @@
     }];
 }
 
+
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     [self renderContents];
-    [self refreshData];
+//    [self refreshData];
+    isFirst = NO;
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshData) name:KNotificationRefreshts_message object:nil];
+    //第一次刷新
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshData1) name:KNotificationRefreshts_message_1 object:nil];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:KNotificationRefreshts_message object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:KNotificationRefreshts_message_1 object:nil];
+}
+
+
+-(void)refreshData1{
+    if (isFirst==NO) {
+        [self refreshData];
+        isFirst = YES;
+    }
 }
 
 #pragma mark -
@@ -156,14 +194,6 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

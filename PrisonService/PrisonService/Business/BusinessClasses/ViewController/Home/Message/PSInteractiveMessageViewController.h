@@ -7,10 +7,14 @@
 //
 
 #import "PSBusinessViewController.h"
+#import "PSMessageViewModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface PSInteractiveMessageViewController : PSBusinessViewController
+@property(nonatomic,assign)NSInteger dotIndex;
+
+-(void)reloadDataReddot;
 
 @end
 

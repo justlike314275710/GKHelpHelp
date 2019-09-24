@@ -11,12 +11,16 @@
 #import "PSMeetingsPageRequest.h"
 #import "NSDate+Components.h"
 #import "PSSessionManager.h"
+#import "PSCountVisitRequest.h"
+#import "PSMessageCountModel.h"
+#import "PSCountVisitResponse.h"
 
 #import "PSLocalMeetingDetailRequest.h"
 @interface PSHomeViewModel ()
 
 @property (nonatomic, strong) PSMeetingsPageRequest *meetingsRequest;
-@property (nonatomic , strong) PSLocalMeetingDetailRequest *meetingDetailRequest;
+@property (nonatomic, strong) PSLocalMeetingDetailRequest *meetingDetailRequest;
+@property (nonatomic, strong) PSCountVisitRequest *countVisitRequest;
 @end
 
 @implementation PSHomeViewModel
@@ -191,6 +195,24 @@
         }
 
     }];
+}
+//消息统计
+- (void)getRequestCountVisitCompleted:(RequestDataCompleted)completedCallback failed:(RequestDataFailed)failedCallback{
+    self.countVisitRequest = [PSCountVisitRequest new];
+    self.countVisitRequest.familyId = [PSSessionManager sharedInstance].session.families.id;
+    [self.countVisitRequest send:^(PSRequest *request, PSResponse *response) {
+        if (completedCallback) {
+            PSCountVisitResponse *responseData = (PSCountVisitResponse *)response;
+            PSMessageCountModel *model = [responseData.mesageCounts objectAtIndex:0];
+            self.messageCountModel = model;
+            completedCallback(response);
+        }
+    } errorCallback:^(PSRequest *request, NSError *error) {
+        if (failedCallback) {
+            failedCallback(error);
+        }
+    }];
+    
 }
 
 

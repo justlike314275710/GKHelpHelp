@@ -127,13 +127,15 @@
     }];
 }
 
+//狱务通登录
 - (void)loginCompleted:(RequestDataCompleted)completedCallback failed:(RequestDataFailed)failedCallback {
     manager=[AFHTTPSessionManager manager];
     NSString*token=[NSString stringWithFormat:@"Bearer %@",[LXFileManager readUserDataForKey:@"access_token"]];
-
+    NSString *phone = self.phoneNumber.length>0?self.phoneNumber:@"";
+    NSDictionary *parameters = @{@"phone":phone};
     [manager.requestSerializer setValue:token forHTTPHeaderField:@"Authorization"];
     NSString*url=[NSString stringWithFormat:@"%@/families/validTourist",ServerUrl];
-    [manager POST:url parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+    [manager POST:url parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         self.code=[responseObject[@"code"]integerValue];
         self.message=responseObject[@"msg"];
         if ([responseObject[@"code"]integerValue] == 200) {
@@ -150,6 +152,10 @@
             }
         }
         
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        [defaults setObject:@"1" forKey:Kuncertified_isLogin];
+        [defaults synchronize];
+        
         //13875136862
         if (completedCallback) {
             completedCallback(responseObject);
@@ -161,8 +167,8 @@
             failedCallback(error);
         }
     }];
-    
 }
+
 
 - (void)checkWhiteListCompleted:(RequestDataCompleted)completedCallback failed:(RequestDataFailed)failedCallback {
     self.whiteListRequest = [PSWhiteListRequest new];

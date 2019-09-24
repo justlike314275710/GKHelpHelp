@@ -9,7 +9,6 @@
 #import <UIKit/UIKit.h>
 @class YLButton;
 @protocol PSPlatfromMenuViewDelegate <NSObject>
-
 /// 点击item
 - (void)pagescrollMenuViewItemOnClick:(YLButton *)button index:(NSInteger)index;
 

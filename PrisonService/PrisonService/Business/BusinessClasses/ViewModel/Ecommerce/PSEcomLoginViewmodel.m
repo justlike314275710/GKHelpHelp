@@ -10,8 +10,6 @@
 #import "AFNetworking.h"
 #import "PSBusinessConstants.h"
 
-#define AppUIdKey @"prison.app"
-#define AppUIdValue @"1688c4f69fc6404285aadbc996f5e429"
 
 @implementation PSEcomLoginViewmodel
 {
@@ -32,7 +30,7 @@
     return self;
 }
 
-//MARK:登录
+//MARK:公共服务登录
 -(void)postEcomLogin:(RequestDataCompleted)completedCallback failed:(RequestDataFailed)failedCallback {
    NSString*url=[NSString stringWithFormat:@"%@/oauth/token",EmallHostUrl];
     NSDictionary*parmeters=@{
@@ -104,13 +102,20 @@
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         NSHTTPURLResponse * responses = (NSHTTPURLResponse *)task.response;
         if (responses.statusCode == 200) {
+            //[5]    (null)    @"username" : @"38da99eca72141efa5a445c675d076d2"    
             //云信账号密码
             NSString*account =responseObject[@"account"];
             NSString*token  =responseObject[@"token"];
+            NSString*username = responseObject[@"username"];
+            
             [LXFileManager removeUserDataForkey:@"account"];
             [LXFileManager removeUserDataForkey:@"token"];
+            [LXFileManager removeUserDataForkey:@"username"];
             [LXFileManager saveUserData:account forKey:@"account"];
             [LXFileManager saveUserData:token forKey:@"token"];
+            [LXFileManager saveUserData:username forKey:@"username"];
+            
+            
             if (completedCallback) {
                 completedCallback(responseObject);
             }

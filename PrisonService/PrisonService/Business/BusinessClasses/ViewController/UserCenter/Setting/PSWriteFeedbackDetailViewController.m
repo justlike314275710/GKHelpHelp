@@ -51,7 +51,6 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     [self p_setUI];
-
     [self createRightBarButtonItemWithTarget:self action:@selector(rightAction) normalImage:[UIImage imageNamed:@"userCenterSettingFeedback"] highlightedImage:[UIImage imageNamed:@"userCenterSettingFeedback"]];
     
     PSFeedbackListViewModel *listViewModel =  (PSFeedbackListViewModel *)self.viewModel;

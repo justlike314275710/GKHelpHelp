@@ -7,7 +7,32 @@
 //
 
 #import "PSCollectListRequest.h"
+#import "PSCollectArticleListResponse.h"
 
 @implementation PSCollectListRequest
+
+- (id)init {
+    self = [super init];
+    if (self) {
+        self.method = PSHttpMethodGet;
+        self.serviceName = @"collectList";
+    }
+    return self;
+}
+
+- (NSString *)businessDomain {
+    return @"/api/article/";
+}
+///api/article/collectList
+
+- (void)buildParameters:(PSMutableParameters *)parameters {
+    [parameters addParameter:[NSString stringWithFormat:@"%ld",(long)self.page] forKey:@"page"];
+    [parameters addParameter:[NSString stringWithFormat:@"%ld",(long)self.rows] forKey:@"rows"];
+    [super buildParameters:parameters];
+}
+
+- (Class)responseClass {
+    return [PSCollectArticleListResponse class];
+}
 
 @end

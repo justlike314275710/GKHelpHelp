@@ -112,6 +112,16 @@ PODS:
     - SDWebImage/GIF (~> 4.2.1)
   - ReactiveObjC (3.1.0)
   - RegexKitLite (4.0)
+  - RZColorful (1.2.3):
+    - RZColorful/AttributeCore (= 1.2.3)
+    - RZColorful/UICore (= 1.2.3)
+  - RZColorful/AttributeCore (1.2.3)
+  - RZColorful/UICore (1.2.3):
+    - RZColorful/AttributeCore
+  - RZRichTextView (0.1.0):
+    - Masonry
+    - RZColorful
+    - TZImagePickerController
   - SDCycleScrollView (1.75):
     - SDWebImage (>= 4.0.0)
   - SDWebImage (4.2.3):
@@ -159,6 +169,7 @@ DEPENDENCIES:
   - PYPhotoBrowser
   - ReactiveObjC
   - RegexKitLite (~> 4.0)
+  - RZRichTextView
   - SDCycleScrollView (~> 1.75)
   - SDWebImage (~> 4.2.3)
   - TZImagePickerController (~> 1.9.8)
@@ -203,6 +214,8 @@ SPEC REPOS:
     - PYPhotoBrowser
     - ReactiveObjC
     - RegexKitLite
+    - RZColorful
+    - RZRichTextView
     - SDCycleScrollView
     - SDWebImage
     - SVProgressHUD
@@ -247,6 +260,8 @@ SPEC CHECKSUMS:
   PYPhotoBrowser: 74f6526b290069a55943ed92e5a21f84c6d90ecf
   ReactiveObjC: 2a38ea15335de4119d8b17caf1db1484f61db902
   RegexKitLite: c0e4c12e6e7de0769f3a3ed679f0f61604170661
+  RZColorful: c25258ebcde3763755593ecba195434d92f848e6
+  RZRichTextView: 7d27a75278211faf9a66f56456fccacd9ca7e751
   SDCycleScrollView: 884b88f0266dd4708a0e1934975c69cb971707b1
   SDWebImage: 791bb72962b3492327ddcac4b1880bd1b5458431
   SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
@@ -260,6 +275,6 @@ SPEC CHECKSUMS:
   YYText: 5c461d709e24d55a182d1441c41dc639a18a4849
   ZYCornerRadius: f0af817be7805b5c63d793042ca7a03f81e14069
 
-PODFILE CHECKSUM: 00e3b33281e6970275ac50e87a9de18293bc066d
+PODFILE CHECKSUM: 9814255d415fd1cc1489f07d0333437013be6941
 
-COCOAPODS: 1.5.2
+COCOAPODS: 1.7.5

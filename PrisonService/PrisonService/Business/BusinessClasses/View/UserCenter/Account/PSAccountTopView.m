@@ -51,13 +51,17 @@
         }];
          */
         CGFloat radius = 27;
-        _avatarView = [PYPhotosView photosView];
+//        _avatarView = [PYPhotosView photosView];
+        _avatarView = [UIImageView new];
         _avatarView.layer.cornerRadius = radius;
         _avatarView.layer.borderWidth = 1.0;
         _avatarView.layer.borderColor = [UIColor whiteColor].CGColor;
-        _avatarView.photoWidth = radius * 2;
-        _avatarView.photoHeight = radius * 2;
-        _avatarView.placeholderImage = [UIImage imageNamed:@"userCenterDefaultAvatar"];
+//        _avatarView.photoWidth = radius * 2;
+//        _avatarView.photoHeight = radius * 2;
+        _avatarView.layer.masksToBounds = YES;
+        _avatarView.userInteractionEnabled = YES;
+        
+//        _avatarView.placeholderImage = [UIImage imageNamed:@"userCenterDefaultAvatar"];
         [self addSubview:_avatarView];
         [_avatarView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.bottom.mas_equalTo(infoBgImageView.mas_centerY);

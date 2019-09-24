@@ -9,5 +9,8 @@
 #import "PSArtcleDetailResponse.h"
 
 @implementation PSArtcleDetailResponse
++ (JSONKeyMapper *)keyMapper {
+    return [[JSONKeyMapper alloc] initWithModelToJSONDictionary:@{@"articles":@"data.articles"}];
+}
 
 @end

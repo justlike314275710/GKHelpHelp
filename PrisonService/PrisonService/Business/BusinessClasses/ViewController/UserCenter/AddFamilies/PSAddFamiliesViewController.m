@@ -313,7 +313,6 @@
 -(void)addFamilesAction{
     [[PSLoadingView sharedInstance]show];
     PSRegisterViewModel *registerViewModel = (PSRegisterViewModel *)self.viewModel;
-
     [registerViewModel addFamilesCompleted:^(PSResponse *response) {
         [[PSLoadingView sharedInstance] dismiss];
         if (response.code == 200) {

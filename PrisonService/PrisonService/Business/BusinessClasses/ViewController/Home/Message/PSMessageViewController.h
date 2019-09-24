@@ -10,5 +10,9 @@
 #import "PSMessageViewModel.h"
 
 @interface PSMessageViewController : PSBusinessViewController
+@property(nonatomic,assign)NSInteger dotIndex;
+
+-(void)reloadDataReddot;
+
 
 @end

@@ -13,5 +13,6 @@
 @property (nonatomic, strong, readonly) UILabel *titleLabel;
 @property (nonatomic, strong, readonly) UILabel *dateLabel;
 @property (nonatomic, strong, readonly) UILabel *contentLabel;
+@property (nonatomic, strong, readonly) UIImageView *iconImageView;
 
 @end

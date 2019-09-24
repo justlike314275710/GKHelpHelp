@@ -115,22 +115,35 @@ typedef NS_ENUM(NSInteger,WritefeedType) {
 [self.navigationController pushViewController:vc animated:YES];\
 }
 
-
 //***********************************************通知*****************************************
 //订单状态改变
 #define KNotificationOrderStateChange @"KNotificationOrderStateChange"
 //新的订单
 #define KNotificationNewOrderState @"KNotificationNewOrderState"
-//头文件
-#import "NSObject+version.h"
-#import "NSDate+Components.h"
-#import "NSObjectSafe.h" //NSInvalidArgumentException 异常
-#define NotificationNoNetwork @"NotificationNoNetwork"
 
+#define NotificationNoNetwork @"NotificationNoNetwork"
 //获取到地址重新刷新广告
 #define KNotificationRefreshAdvertisement @"KNotificationRefreshAdvertisement"
 //用户修改头像成功通知
 #define KNotificationUserAvaterChangeScuess @"KNotificationUserAvaterChangeScuess"
+//刷新我的互动文章
+#define KNotificationRefreshInteractiveArticle  @"KNotificationRefreshInteractiveArticle"
+//刷新我的收藏
+#define KNotificationRefreshCollectArticle    @"KNotificationRefreshMyCollectArticle"
+//刷新我的文章
+#define KNotificationRefreshMyArticle          @"KNotificationRefreshMyArticle"
+//刷新咨询消息
+#define KNotificationRefreshzx_message         @"KNotificationRefreshzx_message"
+#define KNotificationRefreshzx_message_1       @"KNotificationRefreshzx_message_1"
+//刷新探视消息
+#define KNotificationRefreshts_message         @"KNotificationRefreshts_message"
+#define KNotificationRefreshts_message_1       @"KNotificationRefreshts_message_1"
+//刷新互动平台消息
+#define KNotificationRefreshhd_message         @"KNotificationRefreshhd_message"
+#define KNotificationRefreshhd_message_1       @"KNotificationRefreshhd_message_1"
+
+#define Kuncertified_isLogin @"uncertified_isLogin"   //没认证是否登录提示
+
 
 #ifdef DEBUG
 #define PSLog(...) NSLog(__VA_ARGS__);
