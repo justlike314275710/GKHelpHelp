@@ -25,6 +25,7 @@
 
 - (void)buildPostParameters:(PSMutableParameters *)parameters {
     [parameters addParameter:self.articleId forKey:@"articleId"];
+    [parameters addParameter:@"1" forKey:@"type"];
     [super buildParameters:parameters];
 }
 

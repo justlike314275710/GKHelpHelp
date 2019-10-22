@@ -334,9 +334,11 @@ typedef NS_ENUM(NSInteger, PSLoginModeType) {
             } failed:^(NSError *error) {
                 @strongify(self)
                 NSData *data = error.userInfo[AFNetworkingOperationFailingURLResponseDataErrorKey];
-                id body = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
-                [self showNetError:error];
-                 _loginMiddleView.codeButton.enabled=YES;
+                if (data) {
+                    id body = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+                    [self showNetError:error];
+                }
+                _loginMiddleView.codeButton.enabled=YES;
             }];
         } else {
             [PSTipsView showTips:tips];

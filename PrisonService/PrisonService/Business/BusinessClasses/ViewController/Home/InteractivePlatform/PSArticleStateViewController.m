@@ -102,6 +102,45 @@
     [self.tableView reloadData];
 }
 
+//点赞
+-(void)praiseActionid:(NSString *)id result:(PSPraiseResult)result {
+    PSArticleDetailViewModel *viewModel = [PSArticleDetailViewModel new];
+    viewModel.id = id;
+    [viewModel praiseArticleCompleted:^(PSResponse *response) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            NSString *msg = [response msg];
+            [PSTipsView showTips:msg];
+            if (response.code == 200){
+                result(YES);
+            } else {
+                result(NO);
+            }
+        });
+    } failed:^(NSError *error) {
+        [PSTipsView showTips:@"点赞失败"];
+        result(NO);
+    }];
+}
+//取消点赞
+-(void)deletePraiseActionid:(NSString *)id result:(PSPraiseResult)result {
+    PSArticleDetailViewModel *viewModel = [PSArticleDetailViewModel new];
+    viewModel.id = id;
+    [viewModel deletePraiseArticleCompleted:^(PSResponse *response) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            NSString *msg = [response msg];
+            [PSTipsView showTips:msg];
+            if (response.code == 200){
+                result(YES);
+            } else {
+                result(NO);
+            }
+        });
+    } failed:^(NSError *error) {
+        [PSTipsView showTips:@"取消点赞失败"];
+        result(NO);
+    }];
+}
+
 #pragma mark - Setting&&Getting
 - (UITableView *)tableView {
     if (!_tableView) {
@@ -126,6 +165,15 @@
     PSPlatformArticleCell *cell = [tableView dequeueReusableCellWithIdentifier:@"PSPlatformArticleCell"];
     PSArticleStateViewModel *messageViewModel = (PSArticleStateViewModel *)self.viewModel;
     cell.model = [messageViewModel.messages objectAtIndex:indexPath.row];
+    @weakify(self);
+    cell.praiseBlock = ^(BOOL action, NSString *id, PSPraiseResult result) {
+        @strongify(self);
+        if (action) {
+            [self praiseActionid:id result:result];
+        } else {
+            [self deletePraiseActionid:id result:result];
+        }
+    };
     return cell;
 }
 

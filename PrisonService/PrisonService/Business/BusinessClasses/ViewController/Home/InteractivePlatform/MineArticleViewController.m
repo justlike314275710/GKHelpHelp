@@ -18,7 +18,9 @@
 #import "PSArticleDetailViewModel.h"
 #import "PSDetailArticleViewController.h"
 
-@interface MineArticleViewController ()<UITableViewDelegate,UITableViewDataSource,DZNEmptyDataSetSource,DZNEmptyDataSetDelegate>
+@interface MineArticleViewController ()<UITableViewDelegate,UITableViewDataSource,DZNEmptyDataSetSource,DZNEmptyDataSetDelegate>{
+    BOOL _isFirst;
+}
 @property (nonatomic,strong) UITableView *tableView;
 
 @end
@@ -30,8 +32,8 @@
     self.title = @"我的文章";
     self.view.backgroundColor = [UIColor clearColor];
     [self setupUI];
-    [self refreshData];
-    
+//    [self refreshData];
+    _isFirst = NO;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshData) name:KNotificationRefreshMyArticle object:nil];
     
 }
@@ -62,6 +64,13 @@
         @strongify(self)
         [self reloadContents];
     }];
+}
+
+-(void)firstRefreshData {
+    if (!_isFirst) {
+        [self refreshData];
+        _isFirst = YES;
+    }
 }
 
 - (void)refreshData {
@@ -109,6 +118,45 @@
     return _tableView;
 }
 
+//点赞
+-(void)praiseActionid:(NSString *)id result:(PSPraiseResult)result {
+    PSArticleDetailViewModel *viewModel = [PSArticleDetailViewModel new];
+    viewModel.id = id;
+    [viewModel praiseArticleCompleted:^(PSResponse *response) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            NSString *msg = [response msg];
+            [PSTipsView showTips:msg];
+            if (response.code == 200){
+                result(YES);
+            } else {
+                result(NO);
+            }
+        });
+    } failed:^(NSError *error) {
+        [PSTipsView showTips:@"点赞失败"];
+        result(NO);
+    }];
+}
+//取消点赞
+-(void)deletePraiseActionid:(NSString *)id result:(PSPraiseResult)result {
+    PSArticleDetailViewModel *viewModel = [PSArticleDetailViewModel new];
+    viewModel.id = id;
+    [viewModel deletePraiseArticleCompleted:^(PSResponse *response) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            NSString *msg = [response msg];
+            [PSTipsView showTips:msg];
+            if (response.code == 200){
+                result(YES);
+            } else {
+                result(NO);
+            }
+        });
+    } failed:^(NSError *error) {
+        [PSTipsView showTips:@"取消点赞失败"];
+        result(NO);
+    }];
+}
+
 #pragma mark - Delegate
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     PSMyTotalArtcleListViewModel *messageViewModel = (PSMyTotalArtcleListViewModel *)self.viewModel;
@@ -126,6 +174,16 @@
     PSMyTotalArtcleListViewModel *messageViewModel = (PSMyTotalArtcleListViewModel *)self.viewModel;
     NSArray *models = [messageViewModel.articles objectAtIndex:indexPath.section];
     cell.model = [models objectAtIndex:indexPath.row];
+    @weakify(self);
+    cell.praiseBlock = ^(BOOL action, NSString *id, PSPraiseResult result) {
+        @strongify(self);
+        if (action) {
+            [self praiseActionid:id result:result];
+        } else {
+            [self deletePraiseActionid:id result:result];
+        }
+    };
+    
     return cell;
 }
 

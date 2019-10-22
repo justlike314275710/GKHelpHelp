@@ -64,7 +64,6 @@
     [[NIMSDK sharedSDK] updateApnsToken:deviceToken];
 }
 
-
 - (void)registerThirdParty {
     //键盘
     [IQKeyboardManager sharedManager].enableAutoToolbar = YES;
@@ -150,8 +149,6 @@
 - (UIInterfaceOrientationMask)application:(UIApplication *)application supportedInterfaceOrientationsForWindow:(UIWindow *)window {
     return UIInterfaceOrientationMaskPortrait | UIInterfaceOrientationMaskLandscapeRight;
 }
-
-
 
 
 @end

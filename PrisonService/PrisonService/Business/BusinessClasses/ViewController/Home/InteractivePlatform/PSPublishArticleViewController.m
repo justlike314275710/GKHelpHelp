@@ -16,6 +16,7 @@
 #import <UITextView+Placeholder.h>
 #import "PSPublishArticleViewModel.h"
 #import "UITextView+RZColorful.h"
+#import "NSMutableAttributedString+XZExtension.h"
 
 
 @interface PSPublishArticleViewController ()<UITextFieldDelegate>
@@ -34,6 +35,7 @@
 @property(nonatomic,strong)RZRichTextView *articleContent;
 @property(nonatomic,strong)UIScrollView *scrollview;
 @property(nonatomic,strong)UIView *container;
+@property(nonatomic,assign)BOOL hasWords;
 
 @end
 
@@ -85,8 +87,10 @@
     self.authorField.text = viewModel.model.pseudonym;
     if (self.authorField.text.length>0) {
        self.authorField.enabled = NO;
+        viewModel.editPenName = NO;
     } else {
        self.authorField.enabled = YES;
+        viewModel.editPenName = YES;
     }
 }
 
@@ -107,7 +111,7 @@
     }
     NSMutableAttributedString * attriStr = [[NSMutableAttributedString alloc] initWithString:viewModel.content];
     NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
-    [paragraphStyle setFirstLineHeadIndent:20];
+//    [paragraphStyle setFirstLineHeadIndent:20];
     [paragraphStyle setLineSpacing:10];
     [attriStr addAttribute:NSParagraphStyleAttributeName value:paragraphStyle range:NSMakeRange(0,[viewModel.content length])];
     _articleContent.attributedText = attriStr;
@@ -134,6 +138,7 @@
     [self.scrollview addSubview:self.container];
     [self.container mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.width.height.mas_equalTo(_scrollview);
+        make.top.mas_equalTo(0);
     }];
     
     [self.container addSubview:self.articletypeImg];
@@ -261,6 +266,7 @@
 }
 
 -(void)publishAction:(UIButton*)sender{
+    _hasWords = NO;
      PSPublishArticleViewModel *viewModel = (PSPublishArticleViewModel *)self.viewModel;
     viewModel.penName = _authorField.text;
     viewModel.content = _articleContent.text;
@@ -320,6 +326,7 @@
 //存在敏感字符
 -(void)reEditContent{
     //内容
+    self.hasWords = YES;
     PSPublishArticleViewModel *viewModel = (PSPublishArticleViewModel *)self.viewModel;
     NSMutableAttributedString * attriStr = [[NSMutableAttributedString alloc] initWithString:viewModel.content];
     [viewModel.words enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
@@ -331,7 +338,7 @@
         }];
     }];
     NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
-    [paragraphStyle setFirstLineHeadIndent:20];
+//    [paragraphStyle setFirstLineHeadIndent:20];
     [paragraphStyle setLineSpacing:10];
     [attriStr addAttribute:NSParagraphStyleAttributeName value:paragraphStyle range:NSMakeRange(0,[viewModel.content length])];
     // 调整字间距
@@ -373,10 +380,15 @@
 #pragma mark - Delegate
 //MARK:UITextFieldDelegate
 -(BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+    
     if ([[[textField textInputMode] primaryLanguage] isEqualToString:@"emoji"] || ![[textField textInputMode] primaryLanguage])
     {
         NSString *msg = [textField isEqual:_authorField]?@"笔名不能包含表情符号!":@"标题不能包含表情符号!";
         [PSTipsView showTips:msg];
+        return NO;
+    }
+    if (string.length>0&&self.hasWords) {
+        [NSMutableAttributedString xzt_makeWordsAnotherColor:string color:[UIColor redColor] view:textField];
         return NO;
     }
     return YES;
@@ -534,32 +546,73 @@
         _articleContent.placeholder = @"请输入正文，字数限制为100-20000字";
         _articleContent.font = FontOfSize(14);
         NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
-        [paragraphStyle setFirstLineHeadIndent:20];
+//        [paragraphStyle setFirstLineHeadIndent:20];
         [paragraphStyle setLineSpacing:10];
         _articleContent.rz_attributedDictionays[NSParagraphStyleAttributeName] = paragraphStyle;
         @weakify(self);
+        @weakify(_articleContent);
         [_articleContent setRz_textViewDidEndEditing:^(RZRichTextView * _Nonnull textView) {
             @strongify(self);
+            @strongify(_articleContent);
             PSPublishArticleViewModel *viewModel = (PSPublishArticleViewModel *)self.viewModel;
             viewModel.content = textView.text;
             if ([NSString hasEmoji:textView.text]||[NSString stringContainsEmoji:textView.text]) {
                 NSString *msg = NSLocalizedString(@"Can't enter expressions!", @"不能输入表情！");
                 [PSTipsView showTips:msg];
             }
+            textView.selectedRange = NSMakeRange(0, 0);
+            NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+            [paragraphStyle setFirstLineHeadIndent:0];
+            [paragraphStyle setLineSpacing:10];
+            _articleContent.rz_attributedDictionays[NSParagraphStyleAttributeName] = paragraphStyle;
+        
         }];
         
+        [_articleContent setRz_textViewDidBeginEditing:^(RZRichTextView * _Nonnull textView) {
+            textView.selectedRange = NSMakeRange(0, 0);
+            @strongify(_articleContent);
+            NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+//            [paragraphStyle setFirstLineHeadIndent:20];
+            [paragraphStyle setLineSpacing:10];
+            _articleContent.rz_attributedDictionays[NSParagraphStyleAttributeName] = paragraphStyle;
+            if (textView.text.length<=0) {
+                textView.selectedRange = NSMakeRange(0, 0);
+            }
+        }];
+        
+        
         _articleContent.rz_shouldChangeTextInRange = ^BOOL(RZRichTextView * _Nonnull textView, NSRange inRange, NSString * _Nonnull replacementText) {
+            @strongify(_articleContent);
+            @strongify(self);
+            if (textView.text.length<=0) {
+                NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+                [paragraphStyle setFirstLineHeadIndent:0];
+                [paragraphStyle setLineSpacing:10];
+                _articleContent.rz_attributedDictionays[NSParagraphStyleAttributeName] = paragraphStyle;
+                textView.selectedRange = NSMakeRange(0, 0);
+            } else {
+                NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+//                [paragraphStyle setFirstLineHeadIndent:20];
+                [paragraphStyle setLineSpacing:10];
+                _articleContent.rz_attributedDictionays[NSParagraphStyleAttributeName] = paragraphStyle;
+            }
             if ([[[textView textInputMode] primaryLanguage] isEqualToString:@"emoji"] || ![[textView textInputMode] primaryLanguage]) {
                 NSString *msg = NSLocalizedString(@"Can't enter expressions!", @"不能输入表情！");
                 [PSTipsView showTips:msg];
                 return NO;
-            } else{
+            } else {
+                if (replacementText.length>0&&self.hasWords) {
+                    [NSMutableAttributedString xz_makeWordsAnotherColor:replacementText color:[UIColor redColor] view:_articleContent];
+                    return NO;
+                }
                 return YES;
             }
         };
     }
     return _articleContent;
 }
+
+
 
 
 

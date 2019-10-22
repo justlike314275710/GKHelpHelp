@@ -27,7 +27,7 @@
 - (NSString *)businessDomain {
     return @"/api/prisoners/";
 }
-
+///api/prisoners/details
 - (Class)responseClass {
     return [PSPrisonerDetailResponse class];
 }

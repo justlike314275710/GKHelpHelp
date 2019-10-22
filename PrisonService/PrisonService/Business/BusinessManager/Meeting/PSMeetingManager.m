@@ -296,7 +296,13 @@
             
         case PSChargeMeetingLocation:
         {
-            [self sendChargeLocation:message.meetingId];
+            NSString *callDuration = message.callDuration;
+            //倒计时通知
+            if (callDuration&&[callDuration integerValue]>0) {
+                KPostNotification(KNOtificationMeetingCountdown, message);
+            } else {
+                [self sendChargeLocation:message.meetingId]; //收费会见定位
+            }
             
         }
             break;
@@ -372,20 +378,23 @@
           break;
         case PSMessageArticleInteractive:  //互动文章消息
         {
-//            [self handleMeetingStatusMessage:message];
-            //刷新我的文章列表
-            KPostNotification(KNotificationRefreshMyArticle, nil);
-            //刷新消息列表
-            KPostNotification(KNotificationRefreshzx_message, nil);
-            KPostNotification(KNotificationRefreshts_message, nil);
-            KPostNotification(KNotificationRefreshhd_message, nil);
-            NSString *token = [[PSSessionManager sharedInstance].session.token copy];
-            [ZQLocalNotification NotificationType:CountdownNotification Identifier:token activityId:1900000 alertBody:message.msg alertTitle:@"狱务通" alertString:@"确定" withTimeDay:0 hour:0 minute:0 second:1];
-            EBBannerView *banner = [EBBannerView bannerWithBlock:^(EBBannerViewMaker *make) {
-                make.style = 11;
-                make.content = message.msg;
-            }];
-            [banner show];
+            //刷新我的列表
+            if ([message.channel isEqualToString:@"1"]) { //1为家属段
+                KPostNotification(KNotificationRefreshMyArticle, nil);
+                KPostNotification(KNotificationRefreshInteractiveArticle, nil);
+                KPostNotification(KNotificationRefreshCollectArticle, nil);
+                NSString *token = [[PSSessionManager sharedInstance].session.token copy];
+                [ZQLocalNotification NotificationType:CountdownNotification Identifier:token activityId:1900000 alertBody:message.msg alertTitle:@"狱务通" alertString:@"确定" withTimeDay:0 hour:0 minute:0 second:1];
+                EBBannerView *banner = [EBBannerView bannerWithBlock:^(EBBannerViewMaker *make) {
+                    make.style = 11;
+                    make.content = message.msg;
+                }];
+                [banner show];
+                //发布文章权限改变
+                if (message.isEnabled&&message.isEnabled.length>0) {
+                    KPostNotification(KNotificationAuthorChange, nil);
+                }
+            }
         }
             break;
         default:

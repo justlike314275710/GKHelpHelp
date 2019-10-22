@@ -13,7 +13,6 @@
 #import "PSInteractiveMessageViewController.h"
 #import "PSMessageViewModel.h"
 #import "PSPlatMessageViewModel.h"
-#import "PSSessionManager.h"
 
 
 
@@ -30,7 +29,9 @@
     NSArray *titles = @[@"咨询消息",@"探视消息",@"互动平台"];
     NSArray *normalImages = @[@"未选中资讯消息icon",@"未选中探视消息icon",@"未选中互动平台icon"];
     NSArray *selectedImages = @[@"已选中资讯消息icon",@"已选中探视消息icon",@"已选中互动平台icon"];
-    NSArray *dotnumbles = @[@"0",self.model.visitUnreadCount,self.model.pointsUnreadCount];
+    NSString *visitUnreadCount = self.model.visitUnreadCount?self.model.visitUnreadCount:@"0";
+    NSString *pointsUnreadCount = self.model.pointsUnreadCount?self.model.pointsUnreadCount:@"0";
+    NSArray *dotnumbles = @[@"0",visitUnreadCount,pointsUnreadCount];
     
     //咨询消息
     PSMessageViewModel *viewModel = [[PSMessageViewModel alloc] init];
@@ -58,8 +59,9 @@
 }
 
 - (IBAction)actionOfLeftItem:(id)sender {
-
-    if (self.backBlock) self.backBlock();
+    if (self.backBlock) {
+        self.backBlock();
+    }
     [self.navigationController popViewControllerAnimated:YES];
   
 }
@@ -68,7 +70,6 @@
 //MARK:PSMessageTopTabViewDelegate
 - (void)pagescrollMenuViewItemOnClick:(YLButton *)button index:(NSInteger)index lastindex:(NSInteger)lastindex{
     if (index==1) {
-        //已认证
         KPostNotification(KNotificationRefreshts_message_1, nil);
     } else if (index==2) {
         KPostNotification(KNotificationRefreshhd_message_1, nil);

@@ -153,8 +153,11 @@
     NSString *content = notification.content;
     if ([content isKindOfClass:[NSString class]]) {
         NSError *error = nil;
-        [[NSNotificationCenter defaultCenter] postNotificationName:AppDotChange object:nil];
-    
+        //刷新消息列表
+        KPostNotification(AppDotChange, nil); //未读消息数
+        KPostNotification(KNotificationRefreshzx_message, nil);
+        KPostNotification(KNotificationRefreshts_message, nil);
+        KPostNotification(KNotificationRefreshhd_message, nil);
         
         self.session = [NIMSession session:notification.sender type:NIMSessionTypeP2P];
         PSMeetingMessage *message = [[PSMeetingMessage alloc] initWithString:content error:&error];
@@ -162,6 +165,7 @@
             if (message.code == PSMeetingLocal) {
                 NSString *token = [[PSSessionManager sharedInstance].session.token copy];
                 [ZQLocalNotification NotificationType:CountdownNotification Identifier:token activityId:190000 alertBody:message.msg alertTitle:@"狱务通" alertString:@"确定" withTimeDay:0 hour:0 minute:0 second:1];
+//                [EBBannerView showWithContent:message.msg];
                 EBBannerView *banner = [EBBannerView bannerWithBlock:^(EBBannerViewMaker *make) {
                     make.style = 11;
                     make.content = message.msg;

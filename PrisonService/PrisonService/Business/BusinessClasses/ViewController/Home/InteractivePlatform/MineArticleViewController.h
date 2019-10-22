@@ -12,6 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface MineArticleViewController : PSBusinessViewController
 
+-(void)firstRefreshData;
 @end
 
 NS_ASSUME_NONNULL_END

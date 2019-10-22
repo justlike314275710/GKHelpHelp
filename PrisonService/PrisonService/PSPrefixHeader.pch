@@ -11,7 +11,7 @@
 #ifdef __OBJC__
 // Include any system framework and library headers here that should be included in all compilation units.
 // You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
-#import "View+MASAdditions.h"
+#import <View+MASAdditions.h>
 #import <libextobjc/EXTScope.h>
 #import <SDWebImage/UIImageView+WebCache.h>
 #import <SDWebImage/UIView+WebCache.h>
@@ -36,5 +36,9 @@
 #import "UIScrollView+EmptyDataSet.h"
 #import "UITableView+FDTemplateLayoutCell.h"
 #import "SDTextLimitTool.h"
+#import "KCH.h"
+#import "UILabel+KY.h"
+#import "KpengDianZanBtn.h"
+#import "UIView+JJChange.h"
 #endif /* PSPrefixHeader_pch */
 #endif

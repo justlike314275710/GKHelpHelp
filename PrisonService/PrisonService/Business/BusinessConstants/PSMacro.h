@@ -138,11 +138,17 @@ typedef NS_ENUM(NSInteger,WritefeedType) {
 //刷新探视消息
 #define KNotificationRefreshts_message         @"KNotificationRefreshts_message"
 #define KNotificationRefreshts_message_1       @"KNotificationRefreshts_message_1"
+//文章权限改变通知
+#define KNotificationAuthorChange      @"KNotificationAuthorChange"
+
 //刷新互动平台消息
 #define KNotificationRefreshhd_message         @"KNotificationRefreshhd_message"
 #define KNotificationRefreshhd_message_1       @"KNotificationRefreshhd_message_1"
-
 #define Kuncertified_isLogin @"uncertified_isLogin"   //没认证是否登录提示
+//视屏会见通知倒计时
+#define KNOtificationMeetingCountdown @"KNOtificationMeetingCountdown"
+
+
 
 
 #ifdef DEBUG

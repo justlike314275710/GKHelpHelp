@@ -15,7 +15,9 @@
 #import "PSArticleDetailViewModel.h"
 #import "PSDetailArticleViewController.h"
 
-@interface CollectionArtcleViewController ()<UITableViewDelegate,UITableViewDataSource,DZNEmptyDataSetSource,DZNEmptyDataSetDelegate>
+@interface CollectionArtcleViewController ()<UITableViewDelegate,UITableViewDataSource,DZNEmptyDataSetSource,DZNEmptyDataSetDelegate>{
+    BOOL _isFirst;
+}
 @property (nonatomic,strong) UITableView *tableView;
 
 @end
@@ -27,7 +29,8 @@
     self.title = @"收藏文章";
     self.view.backgroundColor = [UIColor clearColor];
     [self setupUI];
-    [self refreshData];
+//    [self refreshData];
+    _isFirst = NO;
     //收藏刷新
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshData) name:KNotificationRefreshCollectArticle object:nil];
 }
@@ -58,6 +61,13 @@
         @strongify(self)
         [self reloadContents];
     }];
+}
+
+-(void)firstRefreshData {
+    if (!_isFirst) {
+        [self refreshData];
+        _isFirst = YES;
+    }
 }
 
 - (void)refreshData {

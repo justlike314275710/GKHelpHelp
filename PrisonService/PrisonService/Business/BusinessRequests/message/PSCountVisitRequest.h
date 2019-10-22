@@ -12,6 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface PSCountVisitRequest : PSBusinessRequest
 @property (nonatomic, strong)NSString *familyId;
+@property (nonatomic, strong)NSString *channel;
 
 @end
 

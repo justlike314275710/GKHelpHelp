@@ -64,7 +64,7 @@
             for (int i=0; i<jailsArray.count; i++) {
                 MeetJails*model=jailsArray[i];
                  [_array addObject:model.name];
-                [_prisons addObject:model];
+                 [_prisons addObject:model];
             }
         self.jailsSting = [_array componentsJoinedByString:@"、"];
         if (completedCallback) {

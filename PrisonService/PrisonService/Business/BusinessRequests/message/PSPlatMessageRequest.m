@@ -32,6 +32,7 @@
     }
     [parameters addParameter:self.prisonerId forKey:@"prisonerId"];
     [parameters addParameter:self.familyId forKey:@"familyId"];
+    [parameters addParameter:@"1" forKey:@"channel"];
     [super buildParameters:parameters];
 }
 

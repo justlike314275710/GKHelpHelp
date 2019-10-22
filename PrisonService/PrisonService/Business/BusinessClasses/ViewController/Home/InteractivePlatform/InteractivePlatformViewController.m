@@ -50,6 +50,8 @@
     
     [self.view addSubview:self.publishBtn];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setupData) name:KNotificationAuthorChange object:nil];
+    
     [self setupData];
     
     _author = YES;
@@ -111,7 +113,12 @@
 #pragma mark - Delegate
 //MARK:PSPlatfromMenuViewDelegate
 - (void)pagescrollMenuViewItemOnClick:(YLButton *)button index:(NSInteger)index {
-    
+    if (index==1) {
+        [_CollectionVC firstRefreshData];
+    }
+    if (index==2) {
+        [_MineArticleVC firstRefreshData];
+    }
     NSInteger sliderIndex = index-_currentIndex;
     NSInteger slidertime = labs(sliderIndex);
     if (sliderIndex>0) {

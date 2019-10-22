@@ -13,6 +13,7 @@
 #import "PSMeetingManager.h"
 #import "PSCountdownManager.h"
 #import "PSAlertView.h"
+#import "PSMeetingMessage.h"
 
 typedef NS_ENUM(NSInteger, PSMeettingType) {
     PSMeettingTypeFree=0,                   // don't show any accessory view
@@ -96,13 +97,14 @@ typedef NS_ENUM(NSInteger, PSMeettingType) {
         _timeDownLable.textColor=[UIColor whiteColor];
         [_timeDownLable setFont:[UIFont fontWithName:@"Helvetica-Bold" size:14]];
         [self.view addSubview:_timeDownLable];
-        
+
         
         UIButton*hangButton=[[UIButton alloc]initWithFrame:CGRectMake(SCREEN_HEIGHT-100, 20, 100,100)];
         [self.view addSubview:hangButton];
         [hangButton setBackgroundColor:[UIColor clearColor]];
 #endif
     }
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notciceCountDown:) name:KNOtificationMeetingCountdown object:nil];
 }
 
 #pragma mark -- 传入 秒 得到 xx分钟xx秒
@@ -127,9 +129,6 @@ typedef NS_ENUM(NSInteger, PSMeettingType) {
     }
     
     
-    
-    
-    
     return format_time;
 }
 
@@ -140,15 +139,15 @@ typedef NS_ENUM(NSInteger, PSMeettingType) {
     // Dispose of any resources that can be recreated.
 }
 
-/*
- #pragma mark - Navigation
- 
- // In a storyboard-based application, you will often want to do a little preparation before navigation
- - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
- // Get the new view controller using [segue destinationViewController].
- // Pass the selected object to the new view controller.
- }
- */
+- (void)notciceCountDown:(NSNotification *)notice{
+    
+    PSMeetingMessage *message = [notice object];;
+    if (message.code==-3) {
+        self.seconds = [message.callDuration integerValue];
+        self.Type = PSMeettingTypePay;
+    }
+
+}
 
 - (void)countdown {
    NSString*Call=NSLocalizedString(@"Call", @"已通话");
@@ -156,12 +155,12 @@ typedef NS_ENUM(NSInteger, PSMeettingType) {
     NSLocalizedString(@"call_expired", @"本次通话已超时");
    NSString*Remaining_time=
     NSLocalizedString(@"Remaining_time", @"剩余通话时间");
+
     switch (self.Type) {
         case PSMeettingTypeFree:
             if (_seconds > 0) {
                 _timeDownLable.text=[NSString stringWithFormat:@"%@:%@", Call,[self getMMSSFromSS:self.seconds]];
                 _seconds ++;
-                
             }
             break;
         case PSMeettingTypePay:

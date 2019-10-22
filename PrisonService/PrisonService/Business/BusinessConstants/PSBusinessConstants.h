@@ -18,7 +18,7 @@
 #endif
 
 #if DEVELOP       //开发
-#define ServerDomain @"http://192.168.0.230:8089"
+#define ServerDomain @"http://192.168.0.180:8089"
 #define H5ServerDomain @"http://120.78.190.101:8085"          //H5 Server
 #define ServerUrl [NSString stringWithFormat:@"%@/ywgk-app-auth",ServerDomain] //其他环境接口地址
 #define EmallUrl @"http://10.10.10.17:805"               //电子商城
@@ -51,7 +51,6 @@
 #define ConsultationHostUrl @"http://qa.api.legal.prisonpublic.com"
 #define UploadServerUrl [NSString stringWithFormat:@"%@/image-server",ServerDomain]
 //#define AppUIdValue @"1688c4f69fc6404285aadbc996f5e429"
-
 
 #else               //生产（防止没有定义的时候没有域名)
 
@@ -94,6 +93,9 @@
 #define JailChange @"JailChange"
 #define AppScheme @"YuWuService"
 #define RefreshToken @"RefreshToken" //刷新token
+
+//根据username获取头像url
+#define AvaterImageWithUsername(username)  [NSString stringWithFormat:@"%@/users/by-username/avatar?username=%@",EmallHostUrl,username]
 //紫荆云视域名
 #define ZIJING_DOMAIN @"cs.zijingcloud.com"
 

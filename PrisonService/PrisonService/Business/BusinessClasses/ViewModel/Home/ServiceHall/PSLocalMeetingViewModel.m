@@ -81,6 +81,14 @@
     self.addMeetingRequest.prisonerId = self.prisonerDetail.prisonerId;
     self.addMeetingRequest.jailId = self.prisonerDetail.jailId;
     self.addMeetingRequest.applicationDate = [self.appointDate dateStringWithFormat:@"yyyy-MM-dd"];
+    
+//    self.addMeetingRequest.name = @"haha";
+//    self.addMeetingRequest.uuid = @"uuid";
+//    self.addMeetingRequest.relationship = @"relationship";
+//    self.addMeetingRequest.phone = @"phone";
+    
+    
+    
     [self.addMeetingRequest send:^(PSRequest *request, PSResponse *response) {
         if (completedCallback) {
             completedCallback(response);

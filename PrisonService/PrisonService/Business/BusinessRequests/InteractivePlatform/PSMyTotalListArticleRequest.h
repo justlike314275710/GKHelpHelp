@@ -13,6 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface PSMyTotalListArticleRequest : PSBusinessRequest
 @property (nonatomic, assign) NSInteger page;
 @property (nonatomic, assign) NSInteger rows;
+@property (nonatomic, assign) NSInteger type;
 @end
 
 NS_ASSUME_NONNULL_END

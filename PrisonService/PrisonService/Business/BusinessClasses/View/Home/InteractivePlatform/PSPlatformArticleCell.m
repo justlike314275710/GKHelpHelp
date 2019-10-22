@@ -9,9 +9,11 @@
 #import "PSPlatformArticleCell.h"
 #import "PSAccountViewModel.h"
 #import "UIButton+BEEnLargeEdge.h"
+#import "PSBusinessConstants.h"
+#import "PSUserSession.h"
 
 @interface PSPlatformArticleCell()
-@property(nonatomic,strong)UIView *bgView;
+@property(nonatomic,strong)UIImageView *bgView;
 @end
 
 @implementation PSPlatformArticleCell
@@ -23,6 +25,7 @@
         self.contentView.backgroundColor = UIColorFromRGB(249,248,254);
         self.selectionStyle = UITableViewCellSelectionStyleNone;
         [self renderContents];
+        [self SDWebImageAuth];
     }
     return self;
 }
@@ -31,18 +34,18 @@
     
     [self addSubview:self.bgView];
     [self.bgView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(15);
-        make.right.mas_equalTo(-15);
-        make.height.mas_equalTo(161);
-        make.top.mas_equalTo(5);
+        make.left.mas_equalTo(0);
+        make.right.mas_equalTo(0);
+        make.height.mas_equalTo(175);
+        make.top.mas_equalTo(0);
     }];
     
     [self.bgView addSubview:self.titleLab];
     [self.titleLab mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(15);
-        make.right.mas_equalTo(-15);
-        make.top.mas_equalTo(20);
-        make.height.mas_equalTo(40);
+        make.left.mas_equalTo(30);
+        make.right.mas_equalTo(-25);
+        make.top.mas_equalTo(22);
+        make.height.mas_equalTo(20);
     }];
     
     [self.bgView addSubview:self.headImg];
@@ -56,10 +59,10 @@
     [_bgView addSubview:self.nameLab];
     [self.nameLab mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(self.headImg.mas_right).offset(10);
-        make.height.mas_equalTo(21);
-        make.width.mas_equalTo(75);
+        make.height.mas_equalTo(35);
         make.centerY.mas_equalTo(self.headImg);
     }];
+    [self.nameLab setContentHuggingPriority:UILayoutPriorityDefaultLow forAxis:UILayoutConstraintAxisHorizontal];
     
     [_bgView addSubview:self.stateImageView];
     [self.stateImageView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -73,14 +76,14 @@
     [_bgView addSubview:self.contentLab];
     [self.contentLab mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.mas_equalTo(_titleLab);
-        make.top.mas_equalTo(_headImg.mas_bottom).offset(5);
-        make.height.mas_equalTo(45);
+        make.top.mas_equalTo(_headImg.mas_bottom).offset(8);
+        make.height.mas_equalTo(40);
     }];
     
     [_bgView addSubview:self.timeIconImg];
     [self.timeIconImg mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(self.contentLab);
-        make.bottom.mas_equalTo(-13);
+        make.bottom.mas_equalTo(-33);
         make.width.height.mas_equalTo(10);
     }];
     
@@ -90,7 +93,8 @@
         make.width.height.mas_equalTo(10);
         make.centerX.mas_equalTo(_bgView.mas_centerX);
     }];
-
+    self.likeBtn.touchExtendInset = UIEdgeInsetsMake(-15, -15, -15, -15);
+    
     [_bgView addSubview:self.timeLab];
     [self.timeLab mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(self.timeIconImg.mas_right).offset(5);
@@ -131,24 +135,29 @@
     _nameLab.text = model.penName;
     _hotLab.text = model.clientNum;
     _likeLab.text = model.praiseNum;
+    _contentLab.lineSpace = @"6";
+    _contentLab.lineBreakMode = NSLineBreakByTruncatingTail;
     //是否能点赞
     if ([_model.ispraise isEqualToString:@"0"]) {
         [_likeBtn setImage:IMAGE_NAMED(@"未赞") forState:UIControlStateNormal];
+        _likeBtn.selected = NO;
     } else {
         [_likeBtn setImage:IMAGE_NAMED(@"已赞") forState:UIControlStateNormal];
+        _likeBtn.selected = YES;
     }
     
     //用户头像
-    PSAccountViewModel *viewModel = [[PSAccountViewModel alloc] init];
-    [viewModel getAvatarImageUserName:model.username Completed:^(UIImage *image) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            _headImg.image = image;
-        });
-    } failed:^(NSError *error) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            _headImg.image = IMAGE_NAMED(@"作者头像");
-        });
-    }];
+    NSString*url=AvaterImageWithUsername(_model.username);
+    //自己头像
+    NSString*username=[NSString stringWithFormat:@"%@",[LXFileManager readUserDataForKey:@"username"]];
+    if ([username isEqualToString:_model.username]) {
+        NSLog(@"hahaaha");
+        NSString*urlSting=[NSString stringWithFormat:@"%@%@",EmallHostUrl,URL_get_userAvatar];
+        [_headImg sd_setImageWithURL:[NSURL URLWithString:urlSting] placeholderImage:IMAGE_NAMED(@"作者头像") options:SDWebImageRefreshCached];
+    } else {
+        [_headImg sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"作者头像"] options:SDWebImageRefreshCached];
+    }
+    
     
     if ([model.status isEqualToString:@"pass"]) {
         _hotLab.hidden = NO;
@@ -156,7 +165,7 @@
         _hotIconImg.hidden = NO;
         _likeLab.hidden = NO;
         _stateImageView.hidden = YES;
-        _timeLab.text = model.publishAt;
+        _timeLab.text = model.auditAt;
     } else {
         _hotLab.hidden = YES;
         _likeBtn.hidden = YES;
@@ -171,7 +180,7 @@
             _timeLab.text = model.publishAt;
         } else if ([model.status isEqualToString:@"shelf"]) {
             _stateImageView.image = IMAGE_NAMED(@"已下架");
-            _timeLab.text = model.publishAt;
+            _timeLab.text = model.auditAt;
         }
     }
     
@@ -189,25 +198,39 @@
     _timeLab.text = collecModel.created_at;
     _hotLab.text = collecModel.client_num;
     _likeLab.text = collecModel.praise_num;
-    
+    _contentLab.lineSpace = @"6";
+    _contentLab.lineBreakMode = NSLineBreakByTruncatingTail;
+    _contentLab.lineSpace = @"6";
+    _contentLab.lineBreakMode = NSLineBreakByTruncatingTail;
     
     //是否能点赞
     if ([collecModel.is_praise isEqualToString:@"0"]) {
         [_likeBtn setImage:IMAGE_NAMED(@"未赞") forState:UIControlStateNormal];
+        _likeBtn.selected = NO;
     } else {
         [_likeBtn setImage:IMAGE_NAMED(@"已赞") forState:UIControlStateNormal];
+        _likeBtn.selected = YES;
     }
+
     //用户头像
-    PSAccountViewModel *viewModel = [[PSAccountViewModel alloc] init];
-    [viewModel getAvatarImageUserName:collecModel.username Completed:^(UIImage *image) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            _headImg.image = image;
-        });
-    } failed:^(NSError *error) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            _headImg.image = IMAGE_NAMED(@"作者头像");
-        });
-    }];
+    NSString*url=AvaterImageWithUsername(_collecModel.username);
+    //自己头像
+    NSString*username=[NSString stringWithFormat:@"%@",[LXFileManager readUserDataForKey:@"username"]];
+    if ([username isEqualToString:_collecModel.username]) {
+        NSLog(@"hahaaha");
+        NSString*urlSting=[NSString stringWithFormat:@"%@%@",EmallHostUrl,URL_get_userAvatar];
+        [_headImg sd_setImageWithURL:[NSURL URLWithString:urlSting] placeholderImage:IMAGE_NAMED(@"作者头像") options:SDWebImageRefreshCached];
+    } else {
+        [_headImg sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"作者头像"] options:SDWebImageRefreshCached];
+    }
+}
+
+-(void)SDWebImageAuth{
+    
+    NSString*token=[NSString stringWithFormat:@"Bearer %@",[LXFileManager readUserDataForKey:@"access_token"]];
+    [SDWebImageDownloader.sharedDownloader setValue:@"text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8" forHTTPHeaderField:@"Accept"];
+    [SDWebImageManager.sharedManager.imageDownloader setValue:token forHTTPHeaderField:@"Authorization"];
+    [SDWebImageManager sharedManager].imageCache.config.maxCacheAge=5*60.0;
 }
 
 #pragma mark - TouchEvent
@@ -274,15 +297,10 @@
 }
 
 #pragma mark - Setting&&Getting
-- (UIView *)bgView{
+- (UIImageView *)bgView{
     if (!_bgView) {
-        _bgView = [UIView new];
-        _bgView.backgroundColor = [UIColor colorWithRed:255/255.0 green:255/255.0 blue:255/255.0 alpha:1.0];
-        _bgView.layer.shadowColor = [UIColor colorWithRed:0/255.0 green:41/255.0 blue:108/255.0 alpha:0.18].CGColor;
-        _bgView.layer.shadowOffset = CGSizeMake(0,4);
-        _bgView.layer.shadowOpacity = 1;
-        _bgView.layer.shadowRadius = 12;
-        _bgView.layer.cornerRadius = 4;
+        _bgView = [UIImageView new];
+        _bgView.image = IMAGE_NAMED(@"platcell_bottom");
     }
     return _bgView;
 }
@@ -322,11 +340,10 @@
     return _hotIconImg;
 }
 
-- (UIButton *)likeBtn {
+- (KpengDianZanBtn *)likeBtn {
     if (!_likeBtn) {
-        _likeBtn = [UIButton new];
+        _likeBtn = [KpengDianZanBtn new];
         [_likeBtn setImage:IMAGE_NAMED(@"未赞") forState:UIControlStateNormal];
-        [_likeBtn be_setEnlargeEdge:10];
         [_likeBtn addTarget:self action:@selector(praiseAction:) forControlEvents:UIControlEventTouchUpInside];
     }
     return _likeBtn;

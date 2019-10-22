@@ -135,10 +135,8 @@
     if (self.type&&self.type.length>0) {
         self.familyLogsRequest.type = self.type;
     }
-    self.familyLogsRequest.familyId = [PSSessionManager sharedInstance].session.families.id;
-    if (!self.familyLogsRequest.familyId) {
-        self.familyLogsRequest.familyId = @"";
-    }
+    NSString *familyId = [PSSessionManager sharedInstance].session.families.id?[PSSessionManager sharedInstance].session.families.id:@"";
+    self.familyLogsRequest.familyId = familyId;
     @weakify(self)
     [self.familyLogsRequest send:^(PSRequest *request, PSResponse *response) {
         @strongify(self)
@@ -161,12 +159,9 @@
                 self.page --;
                 self.hasNextPage = YES;
             }else{
+                self.dataStatus = PSDataError;
                 if (response.code==500) {
-                    if (self.logs.count==0||!self.logs) {
-                        self.dataStatus = PSDataEmpty;
-                    }
-                } else {
-                  self.dataStatus = PSDataError;
+                    self.dataStatus = PSDataEmpty;
                 }
             }
         }

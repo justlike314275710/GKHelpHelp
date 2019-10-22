@@ -24,6 +24,7 @@ typedef NS_ENUM(NSInteger,PSPublishArticleType) {
 @property(nonatomic,strong)NSString *penName;
 @property(nonatomic,strong)NSString *id;
 @property(nonatomic,strong)NSArray *words;
+@property(nonatomic,assign)BOOL editPenName;
 
 
 

@@ -206,7 +206,7 @@
         self.cancelBlock(self.tag);
     }
 }
-
+//意见反馈上传图片
 - (void)handlePickerImage:(UIImage *)image {
     
     PSRegisterViewModel *registerViewModel = [[PSRegisterViewModel alloc] init];

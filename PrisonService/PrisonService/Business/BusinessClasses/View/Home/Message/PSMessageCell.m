@@ -20,14 +20,14 @@
         CGFloat verPadding = VerSidePadding;
         CGFloat labelHeight = DefaultLabelHeight;
         
-        _iconImageView = [UIImageView new];
-        _iconImageView.image = IMAGE_NAMED(@"探视消息列表icon");
-        [self.contentView addSubview:_iconImageView];
-        [_iconImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.mas_equalTo(sidePadding);
-            make.width.height.mas_equalTo(34);
-            make.top.mas_equalTo(10);
-        }];
+//        _iconImageView = [UIImageView new];
+//        _iconImageView.image = IMAGE_NAMED(@"探视消息列表icon");
+//        [self.contentView addSubview:_iconImageView];
+//        [_iconImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+//            make.left.mas_equalTo(sidePadding);
+//            make.width.height.mas_equalTo(34);
+//            make.top.mas_equalTo(10);
+//        }];
         
         _dateLabel = [UILabel new];
         _dateLabel.font = FontOfSize(10);
@@ -47,7 +47,8 @@
         _titleLabel.textAlignment = NSTextAlignmentLeft;
         [self.contentView addSubview:_titleLabel];
         [_titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.mas_equalTo(_iconImageView.mas_right).offset(10);
+//            make.left.mas_equalTo(_iconImageView.mas_right).offset(10);
+            make.left.mas_equalTo(20);
             make.right.mas_equalTo(_dateLabel.mas_left).offset(20);
             make.top.mas_equalTo(_dateLabel.mas_top);
             make.bottom.mas_equalTo(_dateLabel.mas_bottom);
@@ -60,7 +61,8 @@
         _contentLabel.textAlignment = NSTextAlignmentLeft;
         [self.contentView addSubview:_contentLabel];
         [_contentLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.mas_equalTo(_iconImageView.mas_right).offset(10);
+//            make.left.mas_equalTo(_iconImageView.mas_right).offset(10);
+            make.left.mas_equalTo(20);
             make.right.mas_equalTo(-sidePadding);
             make.bottom.mas_equalTo(-verPadding);
             make.top.mas_equalTo(_dateLabel.mas_bottom).offset(verPadding);

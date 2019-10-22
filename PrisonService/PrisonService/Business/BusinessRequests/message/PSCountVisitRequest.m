@@ -25,6 +25,7 @@
 
 - (void)buildParameters:(PSMutableParameters *)parameters {
     [parameters addParameter:self.familyId forKey:@"familyId"];
+    [parameters addParameter:@"1" forKey:@"channel"];
     [super buildParameters:parameters];
 }
 

@@ -12,6 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface PSCollectArticleRequest : PSBusinessRequest
 @property (nonatomic, copy)NSString *articleId;
+@property (nonatomic, copy)NSString *type;
 @end
 
 NS_ASSUME_NONNULL_END

@@ -36,10 +36,13 @@
 #import "PSFamilyRemittanceViewModel.h"
 #import "MyConsultationViewController.h"
 #import "PSAllHistoryViewController.h"
+#import "LLActionSheetView.h"
+#import "PSAuthorizationTool.h"
+#import "PSImagePickerController.h"
 
 
 
-@interface PSMeViewController ()<UITableViewDelegate,UITableViewDataSource>
+@interface PSMeViewController ()<UITableViewDelegate,UITableViewDataSource,UINavigationControllerDelegate,UIImagePickerControllerDelegate>
 @property (nonatomic , strong) UITableView *settingTableview;
 @property (nonatomic , strong) NSArray *modelArray;
 @property (nonatomic , strong) UIImageView *avatarView;
@@ -82,12 +85,12 @@
     self.view.backgroundColor=UIColorFromRGBA(251, 251, 251, 1);
     self.navigationItem.leftBarButtonItem = nil;
     self.navigationItem.hidesBackButton = NO;
+    [self getUserAvater];
     switch ([PSSessionManager sharedInstance].loginStatus) {
         case PSLoginPassed:{
             [self updateContent];
             [self requestBalance];
             [self renderContents];
-            [self getUserAvater];
         }
             break;
         default:
@@ -109,8 +112,9 @@
         [[PSLoadingView sharedInstance]dismiss];
     }];
 }
-//MARK:获取用户头像
+//MARK:获取自己头像
 - (void)getUserAvater{
+    
     PSAccountViewModel *viewModel = [[PSAccountViewModel alloc] init];
     [viewModel getUserAvatarImageCompleted:^(UIImage *image) {
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -122,23 +126,23 @@
 }
 
 - (void)headerViewTapAction:(id)tap {
-    PSAccountViewModel *viewModel = [[PSAccountViewModel alloc] init];
-    viewModel.avatarImage = _avatarView.image;
-    [self.navigationController pushViewController:[[PSAccountViewController alloc] initWithViewModel:viewModel] animated:YES];
+
     
-    /*
     switch ([PSSessionManager sharedInstance].loginStatus) {
         case PSLoginPassed:{
             PSAccountViewModel *viewModel = [[PSAccountViewModel alloc] init];
             viewModel.avatarImage = _avatarView.image;
-           [self.navigationController pushViewController:[[PSAccountViewController alloc] initWithViewModel:viewModel] animated:YES];
+            [self.navigationController pushViewController:[[PSAccountViewController alloc] initWithViewModel:viewModel] animated:YES];
         }
             break;
+        case PSLoginDenied:{
+            [self clickAvatarView];
+        }
+        break;
         default:
             [self.navigationController pushViewController:[[PSSessionNoneViewController alloc]init] animated:YES];
             break;
     }
-     */
 }
 
 
@@ -508,6 +512,65 @@
     _modelArray = @[familyServiceItem,addFamilyItem,balanceItem,RechargeItem,familyRemittanceItem,ConsultationItem,historyItem];
 
 }
+
+#pragma mark - 点击头像
+- (void)clickAvatarView {
+    
+    LLActionSheetView *alertView = [[LLActionSheetView alloc]initWithTitleArray:@[@"相册选择",@"拍照",@"更换头像"] andShowCancel:YES];
+    [alertView setTitleColor:[UIColor grayColor] index:2];
+    alertView.ClickIndex = ^(NSInteger index) {
+        if (index == 1){
+            [self openAlbum];
+            NSLog(@"相册选择");
+        }else if (index == 2){
+            [self openCamera];
+            NSLog(@"拍照");
+        }
+    };
+    [alertView show];
+}
+
+-(void)openAlbum {
+    @weakify(self);
+    [PSAuthorizationTool checkAndRedirectPhotoAuthorizationWithBlock:^(BOOL result) {
+        PSImagePickerController *picker = [[PSImagePickerController alloc] initWithCropHeaderImageCallback:^(UIImage *cropImage) {
+            @strongify(self)
+            [self handlePickerImage:cropImage];
+        }];
+        [picker setSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
+        picker.delegate = self;
+        [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:picker animated:YES completion:nil];
+    }];
+}
+
+-(void)openCamera {
+    @weakify(self);
+    [PSAuthorizationTool checkAndRedirectCameraAuthorizationWithBlock:^(BOOL result) {
+        PSImagePickerController *picker = [[PSImagePickerController alloc] initWithCropHeaderImageCallback:^(UIImage *cropImage) {
+            @strongify(self)
+            [self handlePickerImage:cropImage];
+            
+        }];
+        [picker setSourceType:UIImagePickerControllerSourceTypeCamera];
+        picker.delegate = self;
+        [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:picker animated:YES completion:nil];
+    }];
+}
+
+- (void)handlePickerImage:(UIImage *)image {
+    PSAccountViewModel *accountViewModel = [PSAccountViewModel new];
+    accountViewModel.avatarImage = image;
+    [accountViewModel uploadUserAvatarImageCompleted:^(BOOL successful, NSString *tips) {
+        if (successful) {
+            _avatarView.image = image;
+            KPostNotification(KNotificationUserAvaterChangeScuess, nil);
+            [PSTipsView showTips:@"头像修改成功"];
+        } else {
+            [PSTipsView showTips:@"头像修改失败"];
+        }
+    }];
+}
+
 
 
 

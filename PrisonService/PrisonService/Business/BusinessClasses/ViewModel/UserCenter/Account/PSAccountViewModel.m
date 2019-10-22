@@ -159,7 +159,7 @@
     }];
 }
 
-//获取用户头像
+//获取自己头像
 -(void)getUserAvatarImageCompleted:(SucessImageBlock)completedCallback
                             failed:(RequestDataFailed)failedCallback{
     self.session = [PSCache queryCache:AppUserSessionCacheKey];

@@ -13,6 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface PSCollectListRequest : PSBusinessRequest
 @property (nonatomic, assign) NSInteger page;
 @property (nonatomic, assign) NSInteger rows;
+@property (nonatomic, copy) NSString* type;
 
 @end
 

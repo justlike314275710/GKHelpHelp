@@ -193,7 +193,7 @@
 }
 
 - (void)handlePickerImage:(UIImage *)image {
-    PSAccountViewModel *accountViewModel =(PSAccountViewModel *)self.viewModel;
+    PSAccountViewModel *accountViewModel =[PSAccountViewModel new];
     accountViewModel.avatarImage = image;
     [accountViewModel uploadUserAvatarImageCompleted:^(BOOL successful, NSString *tips) {
         if (successful) {

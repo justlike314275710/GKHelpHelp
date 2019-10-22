@@ -85,7 +85,7 @@
     if (self.penName.length<=0)
     {
         callback(NO,@"请输入作者笔名");
-    } else if (self.penName.length>6)
+    } else if (self.penName.length>6&&self.editPenName)
     {
         callback(NO,@"作者笔名不能超过6个字");
     } else if (self.title.length<=0)

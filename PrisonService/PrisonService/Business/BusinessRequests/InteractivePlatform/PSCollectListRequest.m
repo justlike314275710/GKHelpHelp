@@ -22,12 +22,13 @@
 
 - (NSString *)businessDomain {
     return @"/api/article/";
-}
 ///api/article/collectList
+}
 
 - (void)buildParameters:(PSMutableParameters *)parameters {
     [parameters addParameter:[NSString stringWithFormat:@"%ld",(long)self.page] forKey:@"page"];
     [parameters addParameter:[NSString stringWithFormat:@"%ld",(long)self.rows] forKey:@"rows"];
+    [parameters addParameter:[NSString stringWithFormat:@"%@",@"1"] forKey:@"type"];
     [super buildParameters:parameters];
 }
 

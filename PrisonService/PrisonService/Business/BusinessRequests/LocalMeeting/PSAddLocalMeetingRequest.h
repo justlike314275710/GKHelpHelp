@@ -12,8 +12,12 @@
 @interface PSAddLocalMeetingRequest : PSBaseLocalMeetingRequest
 
 @property (nonatomic, strong) NSString *familyId;
-@property (nonatomic, strong) NSString *prisonerId;
+//@property (nonatomic, strong) NSString *name;
+//@property (nonatomic, strong) NSString *uuid; //家属身份证
+//@property (nonatomic, strong) NSString *phone;
+//@property (nonatomic, strong) NSString *relationship;
 @property (nonatomic, strong) NSString *applicationDate;
+@property (nonatomic, strong) NSString *prisonerId;
 @property (nonatomic, strong) NSString *jailId;
 
 @end

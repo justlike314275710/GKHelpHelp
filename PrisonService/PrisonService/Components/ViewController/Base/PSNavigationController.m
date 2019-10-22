@@ -53,6 +53,10 @@
             popAnimated = NO;
         }
     }
+    //判断上一个控制器和现在的控制器是不是同一个，如果是，返回。如果不是push到当前控制器，这就有效避免了同一个控制器连续push的问题
+    if ([self.topViewController isMemberOfClass:[viewController class]]) {
+        return;
+    }
     viewController.hidesBottomBarWhenPushed=YES;
     [super pushViewController:viewController animated:popAnimated];
     viewController.hidesBottomBarWhenPushed=NO;
@@ -67,11 +71,6 @@
             self.afterDelay = 0.005f;
             [self resetOrientationWithOrientationMask:willOrientationMask];
         }
-    }
-    
-    //cell因为网络请求延迟而多次push同一页面
-    if (![[super topViewController] isKindOfClass:[viewController class]]) {  // 如果和上一个控制器一样，隔绝此操作
-        [super pushViewController:viewController animated:animated];
     }
 }
 

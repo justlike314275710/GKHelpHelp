@@ -13,6 +13,7 @@
 #import "PSPublishArticleViewModel.h"
 #import "UIButton+BEEnLargeEdge.h"
 #import "PSAccountViewModel.h"
+#import "PSBusinessConstants.h"
 
 
 @interface PSDetailArticleViewController ()
@@ -23,7 +24,7 @@
 @property(nonatomic,strong)UIImageView *timeImageView;
 @property(nonatomic,strong)UILabel *timeLab;
 @property(nonatomic,strong)UITextView *contentTextView;
-@property(nonatomic,strong)UIView *bottomView;
+@property(nonatomic,strong)UIImageView *bottomView;
 @property(nonatomic,strong)UIButton *likeBtn; //点赞
 @property(nonatomic,strong)UILabel *likeLab; //点赞
 @property(nonatomic,strong)UIButton *hotBtn; //热度
@@ -43,9 +44,19 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.title = @"";
+    [self headImageView];
     self.view.backgroundColor=[UIColor whiteColor];
     [self setupData];
 }
+
+-(void)SDWebImageAuth{
+    
+    NSString*token=[NSString stringWithFormat:@"Bearer %@",[LXFileManager readUserDataForKey:@"access_token"]];
+    [SDWebImageDownloader.sharedDownloader setValue:@"text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8" forHTTPHeaderField:@"Accept"];
+    [SDWebImageManager.sharedManager.imageDownloader setValue:token forHTTPHeaderField:@"Authorization"];
+    [SDWebImageManager sharedManager].imageCache.config.maxCacheAge=5*60.0;
+}
+
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
@@ -66,7 +77,7 @@
     [self.scrollview mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(_topTipLab.mas_bottom);
         make.left.right.mas_equalTo(0);
-        make.bottom.mas_equalTo(-50);
+        make.bottom.mas_equalTo(-90);
     }];
     
     [self.scrollview addSubview:self.titleLab];
@@ -74,14 +85,14 @@
         make.top.mas_equalTo(20);
         make.left.mas_equalTo(25);
         make.right.mas_equalTo(-25);
-        make.height.mas_equalTo(50);
+        make.height.mas_equalTo(38);
     }];
     //20+50+20+44+30
     [self.scrollview addSubview:self.headImageView];
     [self.headImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(_titleLab.mas_left);
         make.height.width.mas_equalTo(44);
-        make.top.mas_equalTo(_titleLab.mas_bottom).offset(20);
+        make.top.mas_equalTo(_titleLab.mas_bottom).offset(10);
     }];
     
     [self.scrollview addSubview:self.nameLab];
@@ -119,19 +130,20 @@
     [self.bottomView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.mas_equalTo(self.view);
         make.left.right.mas_equalTo(0);
-        make.height.mas_equalTo(50);
+        make.height.mas_equalTo(90);
     }];
     
     [self.bottomView addSubview:self.likeBtn];
     [self.likeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(0);
+        make.centerY.mas_equalTo(self.bottomView.centerY).offset(10);
         make.height.width.mas_equalTo(20);
         make.left.mas_equalTo(25);
     }];
+    self.likeBtn.touchExtendInset = UIEdgeInsetsMake(-20, -20, -20, -20);
     
     [self.bottomView addSubview:self.likeLab];
     [self.likeLab mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(0);
+        make.centerY.mas_equalTo(self.bottomView.centerY).offset(10);
         make.height.mas_equalTo(20);
         make.width.mas_equalTo(35);
         make.left.mas_equalTo(_likeBtn.mas_right).offset(10);
@@ -139,14 +151,14 @@
     
     [self.bottomView addSubview:self.hotBtn];
     [self.hotBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(0);
+        make.centerY.mas_equalTo(self.bottomView.centerY).offset(10);
         make.height.width.mas_equalTo(20);
         make.centerX.mas_equalTo(_bottomView.mas_centerX).offset(-45);
     }];
     
     [self.bottomView addSubview:self.hotLab];
     [self.hotLab mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(0);
+        make.centerY.mas_equalTo(self.bottomView.centerY).offset(10);
         make.height.mas_equalTo(20);
         make.width.mas_equalTo(60);
         make.left.mas_equalTo(_hotBtn.mas_right).offset(10);
@@ -154,14 +166,15 @@
     
     [self.bottomView addSubview:self.collectBtn];
     [self.collectBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(0);
+        make.centerY.mas_equalTo(self.bottomView.centerY).offset(10);
         make.height.width.mas_equalTo(20);
         make.centerX.mas_equalTo(_bottomView.mas_centerX).offset(80);
     }];
+    self.collectBtn.touchExtendInset = UIEdgeInsetsMake(-20, -20, -20, -20);
     
     [self.bottomView addSubview:self.collectLab];
     [self.collectLab mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(0);
+        make.centerY.mas_equalTo(self.bottomView.centerY).offset(10);
         make.height.mas_equalTo(20);
         make.width.mas_equalTo(60);
         make.left.mas_equalTo(_collectBtn.mas_right).offset(10);
@@ -187,6 +200,7 @@
         isHideBottom = YES;
     } else if ([viewModel.detailModel.status isEqualToString:@"pass"]) { //已通过
         _topTipLab.text = @"";
+        _timeLab.text = viewModel.detailModel.auditAt;
         _topTipLab.hidden = YES;
         [_topTipLab mas_updateConstraints:^(MASConstraintMaker *make) {
             make.height.mas_equalTo(0);
@@ -201,21 +215,23 @@
         _topTipLab.hidden = NO;
         _topTipLab.text = [NSString stringWithFormat:@"文章已下架,%@",viewModel.detailModel.shelfReason];
         isHideBottom = NO;
+        _timeLab.text = viewModel.detailModel.auditAt;
         [self createRightBarButtonItemWithTarget:self action:@selector(editAction) title:@"编辑"];
     }
     [self setupUIViewHidden:isHideBottom];
     
     //用户头像
-    PSAccountViewModel *accountViewModel = [[PSAccountViewModel alloc] init];
-    [accountViewModel getAvatarImageUserName:viewModel.detailModel.username Completed:^(UIImage *image) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            _headImageView.image = image;
-        });
-    } failed:^(NSError *error) {
+    NSString*url=AvaterImageWithUsername(viewModel.detailModel.username);
+    //自己头像
+    NSString*username=[NSString stringWithFormat:@"%@",[LXFileManager readUserDataForKey:@"username"]];
+    if ([username isEqualToString:viewModel.detailModel.username]) {
+        NSLog(@"hahaaha");
+        NSString*urlSting=[NSString stringWithFormat:@"%@%@",EmallHostUrl,URL_get_userAvatar];
+        [_headImageView sd_setImageWithURL:[NSURL URLWithString:urlSting] placeholderImage:IMAGE_NAMED(@"作者头像") options:SDWebImageRefreshCached];
         
-    }];
-    
-    
+    } else {
+        [_headImageView sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"作者头像"] options:SDWebImageRefreshCached];
+    }
     
     if ([viewModel.detailModel.iscollect isEqualToString:@"0"]) {
         [_collectBtn setImage:IMAGE_NAMED(@"未收藏") forState:UIControlStateNormal];
@@ -229,9 +245,11 @@
     if ([viewModel.detailModel.ispraise isEqualToString:@"0"]) {
         [_likeBtn setImage:IMAGE_NAMED(@"未点赞") forState:UIControlStateNormal];
         [_likeLab setTextColor:UIColorFromRGB(102,102,102)];
+        _likeBtn.selected = NO;
     } else {
         [_likeBtn setImage:IMAGE_NAMED(@"已赞icon") forState:UIControlStateNormal];
         [_likeLab setTextColor:UIColorFromRGB(237,63,92)];
+        _likeBtn.selected = YES;
     }
     
     if ([viewModel.detailModel.clientNum integerValue]>0) {
@@ -241,7 +259,7 @@
         [_hotBtn setImage:IMAGE_NAMED(@"热度") forState:UIControlStateNormal];
         [_hotLab setTextColor:UIColorFromRGB(102,102,102)];
     }
-    CGFloat bottom = isHideBottom?0:-50;
+    CGFloat bottom = isHideBottom?0:-90;
     [self.scrollview mas_updateConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(_topTipLab.mas_bottom);
         make.left.right.mas_equalTo(0);
@@ -250,7 +268,7 @@
     
     CGFloat height = [viewModel heightForString:_contentTextView.text andWidth:KScreenWidth-48];
     [self.contentTextView mas_updateConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(164);
+        make.top.mas_equalTo(142);
         make.left.mas_equalTo(24);
         make.width.mas_equalTo(KScreenWidth-48);
         make.height.mas_equalTo(height);
@@ -444,7 +462,7 @@
     if (!_titleLab) {
         _titleLab = [UILabel new];
         [_titleLab setText:@"平台正在审核中"];
-        _titleLab.font = boldFontOfSize(20);
+        _titleLab.font = boldFontOfSize(18);
         [_titleLab setTextColor:UIColorFromRGB(51,51,51)];
         _titleLab.textAlignment = NSTextAlignmentLeft;
         _titleLab.numberOfLines = 0;
@@ -497,7 +515,7 @@
         _contentTextView.text = @"那是在 被人们";
         _contentTextView.editable = NO;
         NSMutableParagraphStyle *paragraphStyle = [NSMutableParagraphStyle new];
-        paragraphStyle.lineSpacing = 20;// 字体的行间距
+        paragraphStyle.lineSpacing = 10;// 字体的行间距
         NSDictionary *attributes = @{
                                      NSParagraphStyleAttributeName:paragraphStyle
                                      };
@@ -509,17 +527,17 @@
     return _contentTextView;
 }
 
-- (UIView *)bottomView{
+- (UIImageView *)bottomView{
     if (!_bottomView) {
-        _bottomView = [UIView new];
-        _bottomView.backgroundColor = [UIColor whiteColor];
+        _bottomView = [UIImageView new];
+        _bottomView.image = IMAGE_NAMED(@"ArticleDetailBottomBG");
+        _bottomView.userInteractionEnabled = YES;
     }
     return _bottomView;
 }
-
-- (UIButton*)likeBtn {
+- (KpengDianZanBtn*)likeBtn {
     if (!_likeBtn) {
-        _likeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        _likeBtn = [KpengDianZanBtn buttonWithType:UIButtonTypeCustom];
         [_likeBtn setImage:IMAGE_NAMED(@"未点赞") forState:UIControlStateNormal];
         [_likeBtn addTarget:self action:@selector(clickPraiseAction:) forControlEvents:UIControlEventTouchUpInside];
         [_likeBtn be_setEnlargeEdge:10];

@@ -184,25 +184,4 @@
     }];
 }
 
-
-//-(void)requestValidCompleted:(RequestDataCompleted)completedCallback failed:(RequestDataFailed)failedCallback{
-//    NSString*url=[NSString stringWithFormat:@"%@/families/validTourist",ServerUrl];
-//    [manager POST:url parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-//        self.code=[responseObject[@"code"]integerValue];
-//        if ([responseObject[@"code"]integerValue] == 200) {
-//            if (responseObject[@"data"]) {
-//                self.session = [PSUserSession mj_objectWithKeyValues:responseObject[@"data"]];
-//            }
-//        }
-//        if (completedCallback) {
-//            completedCallback(responseObject);
-//        }
-//        
-//    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-//        if (failedCallback) {
-//            failedCallback(error);
-//        }
-//    }];
-//}
-
 @end

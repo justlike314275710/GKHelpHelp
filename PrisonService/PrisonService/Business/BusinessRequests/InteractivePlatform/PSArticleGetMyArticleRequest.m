@@ -27,6 +27,7 @@
     [parameters addParameter:[NSString stringWithFormat:@"%ld",(long)self.page] forKey:@"page"];
     [parameters addParameter:[NSString stringWithFormat:@"%ld",(long)self.rows] forKey:@"rows"];
     [parameters addParameter:self.status forKey:@"status"];
+    [parameters addParameter:@"1" forKey:@"type"];
     [super buildParameters:parameters];
 }
 

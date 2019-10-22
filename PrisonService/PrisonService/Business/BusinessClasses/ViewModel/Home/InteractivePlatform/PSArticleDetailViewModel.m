@@ -135,7 +135,6 @@
             self.authorModel = model;
             completedCallback(response);
         }
-        
         if (completedCallback) {
             if (response.code==200) {
                 PSfamiliesAuthorResponse *AuthorResponse = (PSfamiliesAuthorResponse *)response;
@@ -177,7 +176,7 @@
     // 计算文本的大小
     
     NSMutableParagraphStyle *paragraphStyle = [NSMutableParagraphStyle new];
-    paragraphStyle.lineSpacing = 20;// 字体的行间距
+    paragraphStyle.lineSpacing = 10;// 字体的行间距
     NSDictionary *attributes = @{
                                  NSParagraphStyleAttributeName:paragraphStyle
                                  };

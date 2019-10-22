@@ -20,7 +20,6 @@ typedef void (^SucessImageBlock)(UIImage *image);
 @property (nonatomic, strong)  UIImage *avatarImage;
 
 - (void)requestAccountBasicinfoCompleted:(RequestDataCompleted)completedCallback failed:(RequestDataFailed)failedCallback;
-
 //上传头像
 - (void)uploadUserAvatarImageCompleted:(CheckDataCallback)callback;
 

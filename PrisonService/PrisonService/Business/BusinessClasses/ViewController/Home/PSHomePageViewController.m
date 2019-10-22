@@ -226,7 +226,6 @@
     } failed:^(NSError *error) {
         
     }];
-    
 }
 //MARK:系统消息
 - (void)messageAction{
@@ -242,21 +241,6 @@
     [self.navigationController pushViewController:allMessageVC animated:YES];
 
     return;
-  /*
-    PSHomeViewModel *homeViewModel = (PSHomeViewModel *)self.viewModel;
-    if (homeViewModel.selectedPrisonerIndex >= 0 && homeViewModel.selectedPrisonerIndex < homeViewModel.passedPrisonerDetails.count) {
-        PSMessageViewModel *viewModel = [[PSMessageViewModel alloc] init];
-        viewModel.prisonerDetail = homeViewModel.passedPrisonerDetails[homeViewModel.selectedPrisonerIndex];
-        PSMessageViewController *messageViewController = [[PSMessageViewController alloc] initWithViewModel:viewModel];
-        [self.navigationController pushViewController:messageViewController animated:YES];
-    }
-    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"dot"];
-    self.dotLable.hidden=YES;
-    //隐藏
-
-    [_messageButton hideBadgeView];
-   */
-    
 }
 
 - (void)selectJails{
@@ -295,6 +279,7 @@
                 } else {
                     self.prisonIntroduceContentLable.text = [attrStr string];
                 }
+                self.prisonIntroduceContentLable.lineSpace = @"4";//行距
                 [[PSLoadingView sharedInstance]dismiss];
             });
         } else {
@@ -384,7 +369,6 @@
     //监狱简介内容
     [_prisonIntroduceView addSubview:self.prisonIntroduceContentLable];
     _prisonIntroduceContentLable.frame = CGRectMake(30, 28,_prisonIntroduceView.width-60,63);
-    
     //更多服务
     [self.myScrollview addSubview:self.moreServicesView];
     self.moreServicesView.frame = CGRectMake(0,_prisonIntroduceView.bottom+15,KScreenWidth,180);
