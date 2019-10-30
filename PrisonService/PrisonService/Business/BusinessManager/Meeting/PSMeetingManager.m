@@ -341,7 +341,6 @@
             [WXZTipView showBottomWithText:meet_end];
             [self clearMeeting];
             //埋点....
-            
             [SDTrackTool logEvent:VIDEO_MEETING_COMPLETE];
 
             
@@ -383,17 +382,19 @@
                 KPostNotification(KNotificationRefreshMyArticle, nil);
                 KPostNotification(KNotificationRefreshInteractiveArticle, nil);
                 KPostNotification(KNotificationRefreshCollectArticle, nil);
-                NSString *token = [[PSSessionManager sharedInstance].session.token copy];
-                [ZQLocalNotification NotificationType:CountdownNotification Identifier:token activityId:1900000 alertBody:message.msg alertTitle:@"狱务通" alertString:@"确定" withTimeDay:0 hour:0 minute:0 second:1];
+//                NSString *token = [[PSSessionManager sharedInstance].session.token copy];
+//                [ZQLocalNotification NotificationType:CountdownNotification Identifier:token activityId:1900000 alertBody:message.msg alertTitle:@"狱务通" alertString:@"确定" withTimeDay:0 hour:0 minute:0 second:1];
                 EBBannerView *banner = [EBBannerView bannerWithBlock:^(EBBannerViewMaker *make) {
                     make.style = 11;
                     make.content = message.msg;
+                    make.object = message;
                 }];
                 [banner show];
                 //发布文章权限改变
                 if (message.isEnabled&&message.isEnabled.length>0) {
                     KPostNotification(KNotificationAuthorChange, nil);
                 }
+                
             }
         }
             break;

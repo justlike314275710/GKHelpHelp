@@ -73,7 +73,6 @@
     self.tabBarController.tabBar.hidden = NO;
     self.tabBarController.selectedIndex = 0;
     _getTokenCount = 0;
-   
 }
 
 - (void)viewDidLoad {
@@ -93,7 +92,6 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadAdvertisingPage) name:KNotificationRefreshAdvertisement object:nil];
     //获取未读消息数
     [self getCountVisit];
-    
     //没有认证且未调过狱务通登录接口直接退出
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSString *isLogin = [defaults valueForKey:Kuncertified_isLogin];
@@ -122,7 +120,10 @@
     PSHomeViewModel *homeViewModel   = (PSHomeViewModel *)self.viewModel;
     NSInteger index                  = homeViewModel.selectedPrisonerIndex;
     PSPrisonerDetail *prisonerDetail = nil;
+<<<<<<< HEAD
 
+=======
+>>>>>>> 3de5662e2125307a8dfe4730dcfbae56863de17f
     if (index >= 0 && index < homeViewModel.passedPrisonerDetails.count) {
     prisonerDetail                   = homeViewModel.passedPrisonerDetails[index];
     }

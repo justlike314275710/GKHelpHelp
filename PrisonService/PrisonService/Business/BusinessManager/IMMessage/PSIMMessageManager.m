@@ -17,6 +17,8 @@
 #import "ZQLocalNotification.h"
 #import <EBBannerView/EBBannerView.h>
 #import "AppDelegate.h"
+#import "UIViewController+Tool.h"
+#import "PSAllMessageViewController.h"
 @interface PSIMMessageManager ()<NIMLoginManagerDelegate,NIMSystemNotificationManagerDelegate,UIAlertViewDelegate>
 
 @property (nonatomic, strong) PSObserverVector *observerVector;
@@ -43,6 +45,7 @@
         self.observerVector = [[PSObserverVector alloc] init];
         [[[NIMSDK sharedSDK] loginManager] addDelegate:self];
         [[NIMSDK sharedSDK].systemNotificationManager addDelegate:self];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(EBBannerViewDidClickAction:) name:EBBannerViewDidClickNotification object:nil];
     }
     return self;
 }
@@ -158,26 +161,59 @@
         KPostNotification(KNotificationRefreshzx_message, nil);
         KPostNotification(KNotificationRefreshts_message, nil);
         KPostNotification(KNotificationRefreshhd_message, nil);
-        
         self.session = [NIMSession session:notification.sender type:NIMSessionTypeP2P];
         PSMeetingMessage *message = [[PSMeetingMessage alloc] initWithString:content error:&error];
         if (!error) {
-            if (message.code == PSMeetingLocal) {
-                NSString *token = [[PSSessionManager sharedInstance].session.token copy];
-                [ZQLocalNotification NotificationType:CountdownNotification Identifier:token activityId:190000 alertBody:message.msg alertTitle:@"狱务通" alertString:@"确定" withTimeDay:0 hour:0 minute:0 second:1];
-//                [EBBannerView showWithContent:message.msg];
-                EBBannerView *banner = [EBBannerView bannerWithBlock:^(EBBannerViewMaker *make) {
-                    make.style = 11;
-                    make.content = message.msg;
-                }];
-                [banner show];
-                
-                [self.observerVector notifyObserver:@selector(receivedLocalMeetingMessage:) object:message];
-            }else{
-                [self.observerVector notifyObserver:@selector(receivedMeetingMessage:) object:message];
+            //apns通知启动
+            AppDelegate *appdelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+            if (appdelegate.openByNotice) {
+                [[NSNotificationCenter defaultCenter] postNotificationName:EBBannerViewDidClickNotification object:message];
+                appdelegate.openByNotice = NO;
+            } else {
+                if (message.code == PSMeetingLocal) {
+                    [self.observerVector notifyObserver:@selector(receivedLocalMeetingMessage:) object:message];
+                }else{
+                    [self.observerVector notifyObserver:@selector(receivedMeetingMessage:) object:message];
+                    
+                }
             }
         }
     }
+}
+
+#pragma mark - Notification Method
+-(void)EBBannerViewDidClickAction:(NSNotification *)noti{
+    UIViewController *currentVC = [UIViewController jsd_getCurrentViewController];
+    PSMeetingMessage *message = noti.object;
+    switch (message.code) {
+        case PSMeetingStatus:
+        case PSMeetingLocal:
+        case PSMeetingCancelAuthorization:
+        {
+            PSAllMessageViewController *allMessageVC = [[PSAllMessageViewController alloc] init];
+            [currentVC.navigationController pushViewController:allMessageVC animated:YES];
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [allMessageVC scrollviewItemIndex:1];
+            });
+        }
+            break;
+        case PSMessageArticleInteractive:
+        {
+            PSAllMessageViewController *allMessageVC = [[PSAllMessageViewController alloc] init];
+            [currentVC.navigationController pushViewController:allMessageVC animated:YES];
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [allMessageVC scrollviewItemIndex:2];
+            });
+        }
+            break;
+            
+        default:
+            break;
+    }
+    //延时刷新未读红点数
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        KPostNotification(AppDotChange, nil);
+    });
 }
 
 #pragma mark - PSLaunchTask

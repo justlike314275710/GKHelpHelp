@@ -18,7 +18,9 @@
  @param index  当前inex
  @param lastindex 上个index
  */
-- (void)pagescrollMenuViewItemOnClick:(YLButton *)button index:(NSInteger)index lastindex:(NSInteger)lastindex;
+- (void)pagescrollMenuViewItemOnClick:(YLButton *)button
+                                index:(NSInteger)index
+                            lastindex:(NSInteger)lastindex;
 
 
 @end
@@ -37,6 +39,8 @@ NS_ASSUME_NONNULL_BEGIN
            delegate:(id<PSMessageTopTabViewDelegate>)delegate
      viewController:(UIViewController *)viewController
             numbers:(NSArray *)numbers;
+
+- (void)scrollviewItemIndex:(NSInteger)index; //滑动到指定位置
 
 
 

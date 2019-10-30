@@ -14,6 +14,8 @@
 #import "UIButton+BEEnLargeEdge.h"
 #import "PSAccountViewModel.h"
 #import "PSBusinessConstants.h"
+#import "PSReportArticleViewController.h"
+#import "PSReportArticleViewModel.h"
 
 
 @interface PSDetailArticleViewController ()
@@ -25,7 +27,7 @@
 @property(nonatomic,strong)UILabel *timeLab;
 @property(nonatomic,strong)UITextView *contentTextView;
 @property(nonatomic,strong)UIImageView *bottomView;
-@property(nonatomic,strong)UIButton *likeBtn; //点赞
+@property(nonatomic,strong)KpengDianZanBtn *likeBtn; //点赞
 @property(nonatomic,strong)UILabel *likeLab; //点赞
 @property(nonatomic,strong)UIButton *hotBtn; //热度
 @property(nonatomic,strong)UILabel *hotLab;  //热度
@@ -33,6 +35,7 @@
 @property(nonatomic,strong)UILabel *collectLab;  //收藏
 @property(nonatomic,strong)UIImageView *endIconImageView;
 @property(nonatomic,strong)UIScrollView *scrollview;
+@property(nonatomic,strong)UIButton *reportBtn;
 
 
 @end
@@ -47,6 +50,7 @@
     [self headImageView];
     self.view.backgroundColor=[UIColor whiteColor];
     [self setupData];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setupData) name:KNotificationRefreshArticleDetail object:nil];
 }
 
 -(void)SDWebImageAuth{
@@ -132,6 +136,15 @@
         make.left.right.mas_equalTo(0);
         make.height.mas_equalTo(90);
     }];
+    
+    [self.view addSubview:self.reportBtn];
+    [self.reportBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.bottom.mas_equalTo(self.bottomView.mas_top).offset(5);
+        make.width.height.mas_equalTo(62);
+        make.right.mas_equalTo(-6);
+    }];
+    ViewRadius(_reportBtn,31);
+    
     
     [self.bottomView addSubview:self.likeBtn];
     [self.likeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -228,11 +241,12 @@
         NSLog(@"hahaaha");
         NSString*urlSting=[NSString stringWithFormat:@"%@%@",EmallHostUrl,URL_get_userAvatar];
         [_headImageView sd_setImageWithURL:[NSURL URLWithString:urlSting] placeholderImage:IMAGE_NAMED(@"作者头像") options:SDWebImageRefreshCached];
-        
+        self.reportBtn.hidden = YES;
     } else {
         [_headImageView sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"作者头像"] options:SDWebImageRefreshCached];
+        self.reportBtn.hidden = [viewModel.detailModel.isreport isEqualToString:@"0"]?NO:YES;
     }
-    
+ 
     if ([viewModel.detailModel.iscollect isEqualToString:@"0"]) {
         [_collectBtn setImage:IMAGE_NAMED(@"未收藏") forState:UIControlStateNormal];
         [_collectLab setText:@"点击收藏"];
@@ -442,6 +456,14 @@
         [PSTipsView showTips:@"收藏失败"];
     }];
 }
+//举报
+-(void)reportAction:(UIButton *)sender{
+    PSArticleDetailViewModel *viewModel =  (PSArticleDetailViewModel *)self.viewModel;
+    PSReportArticleViewModel*reportViewModel = [PSReportArticleViewModel new];
+    reportViewModel.detailModel = viewModel.detailModel;
+    PSReportArticleViewController *reportArticleVC = [[PSReportArticleViewController alloc] initWithViewModel:reportViewModel];
+    PushVC(reportArticleVC);
+}
 
 #pragma mark - Setting&&Getting
 -(UILabel *)topTipLab{
@@ -609,6 +631,14 @@
         _endIconImageView.image = IMAGE_NAMED(@"end");
     }
     return _endIconImageView;
+}
+-(UIButton *)reportBtn{
+    if(_reportBtn==nil){
+        _reportBtn = [[UIButton alloc] init];
+        [_reportBtn setImage:IMAGE_NAMED(@"举报") forState:UIControlStateNormal];
+        [_reportBtn addTarget:self action:@selector(reportAction:) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _reportBtn;
 }
 
 

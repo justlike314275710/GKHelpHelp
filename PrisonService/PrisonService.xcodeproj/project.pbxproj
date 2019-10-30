@@ -422,6 +422,8 @@
 		557EFB5E232FD6050095D658 /* PSDetailArticleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 557EFB5D232FD6050095D658 /* PSDetailArticleViewController.m */; };
 		557FF9C021C753A000F15F78 /* PSRemittanceRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 557FF9BC21C753A000F15F78 /* PSRemittanceRequest.m */; };
 		557FF9C121C753A000F15F78 /* PSRemitanceResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 557FF9BF21C753A000F15F78 /* PSRemitanceResponse.m */; };
+		558022632367CCAB003B57EA /* PSUploadImageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 558022622367CCAB003B57EA /* PSUploadImageManager.m */; };
+		558022662367D9FB003B57EA /* PSYJWriteFeedbackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 558022652367D9FB003B57EA /* PSYJWriteFeedbackViewController.m */; };
 		5580DE81229F6F7100A88EED /* PSFamilyServiceNoticeViewContrlller.m in Sources */ = {isa = PBXBuildFile; fileRef = 5580DE80229F6F7100A88EED /* PSFamilyServiceNoticeViewContrlller.m */; };
 		5580DE87229F749000A88EED /* PSFamilyServiceNoticeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5580DE86229F749000A88EED /* PSFamilyServiceNoticeCell.m */; };
 		5580DE8A229F8AC300A88EED /* PSAllHistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5580DE89229F8AC300A88EED /* PSAllHistoryViewController.m */; };
@@ -505,6 +507,10 @@
 		55F680A42330E46900E7445B /* PSCollectArticleListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 55F680A32330E46900E7445B /* PSCollectArticleListModel.m */; };
 		55F9C6FF2190759C00E15FDD /* PSRemittanceResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 55F9C6FE2190759C00E15FDD /* PSRemittanceResponse.m */; };
 		55F9C7022190761900E15FDD /* PSSeleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 55F9C7002190761800E15FDD /* PSSeleView.m */; };
+		55FE57102366883C008056C9 /* PSReportArticleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 55FE570F2366883C008056C9 /* PSReportArticleViewController.m */; };
+		55FE57132366985B008056C9 /* PSArticleReportCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 55FE57122366985B008056C9 /* PSArticleReportCell.m */; };
+		55FE57162366C414008056C9 /* PSReportScuessViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 55FE57152366C414008056C9 /* PSReportScuessViewController.m */; };
+		55FE57192366D821008056C9 /* PSReportArticleViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 55FE57182366D821008056C9 /* PSReportArticleViewModel.m */; };
 		55FF6BE0234092BC0001FA6C /* Kache.m in Sources */ = {isa = PBXBuildFile; fileRef = 55FF6BD2234092BC0001FA6C /* Kache.m */; };
 		55FF6BE1234092BC0001FA6C /* KUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 55FF6BD5234092BC0001FA6C /* KUtil.m */; };
 		55FF6BE2234092BC0001FA6C /* KObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 55FF6BD8234092BC0001FA6C /* KObject.m */; };
@@ -1626,6 +1632,10 @@
 		557FF9BD21C753A000F15F78 /* PSRemitanceResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSRemitanceResponse.h; sourceTree = "<group>"; };
 		557FF9BE21C753A000F15F78 /* PSRemittanceRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSRemittanceRequest.h; sourceTree = "<group>"; };
 		557FF9BF21C753A000F15F78 /* PSRemitanceResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSRemitanceResponse.m; sourceTree = "<group>"; };
+		558022612367CCAB003B57EA /* PSUploadImageManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PSUploadImageManager.h; sourceTree = "<group>"; };
+		558022622367CCAB003B57EA /* PSUploadImageManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PSUploadImageManager.m; sourceTree = "<group>"; };
+		558022642367D9FB003B57EA /* PSYJWriteFeedbackViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PSYJWriteFeedbackViewController.h; sourceTree = "<group>"; };
+		558022652367D9FB003B57EA /* PSYJWriteFeedbackViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PSYJWriteFeedbackViewController.m; sourceTree = "<group>"; };
 		5580DE7F229F6F7100A88EED /* PSFamilyServiceNoticeViewContrlller.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PSFamilyServiceNoticeViewContrlller.h; sourceTree = "<group>"; };
 		5580DE80229F6F7100A88EED /* PSFamilyServiceNoticeViewContrlller.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PSFamilyServiceNoticeViewContrlller.m; sourceTree = "<group>"; };
 		5580DE85229F749000A88EED /* PSFamilyServiceNoticeCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PSFamilyServiceNoticeCell.h; sourceTree = "<group>"; };
@@ -1787,6 +1797,14 @@
 		55F9C6FE2190759C00E15FDD /* PSRemittanceResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSRemittanceResponse.m; sourceTree = "<group>"; };
 		55F9C7002190761800E15FDD /* PSSeleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSSeleView.m; sourceTree = "<group>"; };
 		55F9C7012190761800E15FDD /* PSSeleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSSeleView.h; sourceTree = "<group>"; };
+		55FE570E2366883C008056C9 /* PSReportArticleViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PSReportArticleViewController.h; sourceTree = "<group>"; };
+		55FE570F2366883C008056C9 /* PSReportArticleViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PSReportArticleViewController.m; sourceTree = "<group>"; };
+		55FE57112366985B008056C9 /* PSArticleReportCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PSArticleReportCell.h; sourceTree = "<group>"; };
+		55FE57122366985B008056C9 /* PSArticleReportCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PSArticleReportCell.m; sourceTree = "<group>"; };
+		55FE57142366C414008056C9 /* PSReportScuessViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PSReportScuessViewController.h; sourceTree = "<group>"; };
+		55FE57152366C414008056C9 /* PSReportScuessViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PSReportScuessViewController.m; sourceTree = "<group>"; };
+		55FE57172366D821008056C9 /* PSReportArticleViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PSReportArticleViewModel.h; sourceTree = "<group>"; };
+		55FE57182366D821008056C9 /* PSReportArticleViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PSReportArticleViewModel.m; sourceTree = "<group>"; };
 		55FF6BD2234092BC0001FA6C /* Kache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Kache.m; sourceTree = "<group>"; };
 		55FF6BD3234092BC0001FA6C /* KObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KObject.h; sourceTree = "<group>"; };
 		55FF6BD4234092BC0001FA6C /* KPool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KPool.h; sourceTree = "<group>"; };
@@ -2915,6 +2933,8 @@
 				3E5D15B920738C4C000FC779 /* PSVisitorManager.m */,
 				3E0044DD207B346A0036CBC5 /* PSSessionManager.h */,
 				3E0044DE207B346A0036CBC5 /* PSSessionManager.m */,
+				558022612367CCAB003B57EA /* PSUploadImageManager.h */,
+				558022622367CCAB003B57EA /* PSUploadImageManager.m */,
 			);
 			path = BusinessManager;
 			sourceTree = "<group>";
@@ -3616,6 +3636,8 @@
 				EA6BE71422A4F18F00363036 /* PSForgetPasswordViewController.m */,
 				EA6BE71622A5181700363036 /* PSForgetNextViewController.h */,
 				EA6BE71722A5181700363036 /* PSForgetNextViewController.m */,
+				558022642367D9FB003B57EA /* PSYJWriteFeedbackViewController.h */,
+				558022652367D9FB003B57EA /* PSYJWriteFeedbackViewController.m */,
 			);
 			path = Setting;
 			sourceTree = "<group>";
@@ -4441,6 +4463,8 @@
 				55F680912330B56500E7445B /* PSArticleStateViewModel.m */,
 				5517DBF623322CBA00E2DDCF /* PSPublishArticleViewModel.h */,
 				5517DBF723322CBA00E2DDCF /* PSPublishArticleViewModel.m */,
+				55FE57172366D821008056C9 /* PSReportArticleViewModel.h */,
+				55FE57182366D821008056C9 /* PSReportArticleViewModel.m */,
 			);
 			path = InteractivePlatform;
 			sourceTree = "<group>";
@@ -4554,6 +4578,10 @@
 				557C570A22F9195300ED3230 /* PSArticleStateViewController.m */,
 				557EFB5C232FD6050095D658 /* PSDetailArticleViewController.h */,
 				557EFB5D232FD6050095D658 /* PSDetailArticleViewController.m */,
+				55FE570E2366883C008056C9 /* PSReportArticleViewController.h */,
+				55FE570F2366883C008056C9 /* PSReportArticleViewController.m */,
+				55FE57142366C414008056C9 /* PSReportScuessViewController.h */,
+				55FE57152366C414008056C9 /* PSReportScuessViewController.m */,
 			);
 			path = InteractivePlatform;
 			sourceTree = "<group>";
@@ -4567,6 +4595,8 @@
 				55959FB622F415B0004C2446 /* PSPlatformArticleCell.m */,
 				5576A95A22F7D14100DDE375 /* PSPlatformHeadView.h */,
 				5576A95B22F7D14100DDE375 /* PSPlatformHeadView.m */,
+				55FE57112366985B008056C9 /* PSArticleReportCell.h */,
+				55FE57122366985B008056C9 /* PSArticleReportCell.m */,
 			);
 			path = InteractivePlatform;
 			sourceTree = "<group>";
@@ -5781,6 +5811,7 @@
 				55D1533C224B4BFF007B0864 /* PSPrisonConsumptionRequest.m in Sources */,
 				EA3E1E72221BB29100D0F1B1 /* PSLawerAdviceTableViewCell.m in Sources */,
 				55381D032240912E00CC3C66 /* PSRingMeetingViewController.m in Sources */,
+				558022632367CCAB003B57EA /* PSUploadImageManager.m in Sources */,
 				3EEE777A20807C9800CAD179 /* PSFamilyServiceView.m in Sources */,
 				55381CEE224084CB00CC3C66 /* PSWorkViewModel.m in Sources */,
 				EAD18F7020D255020053F82B /* PSchangePhoneNextViewController.m in Sources */,
@@ -5817,6 +5848,7 @@
 				3EDF0DD42088A385002D98BD /* PSPendingViewController.m in Sources */,
 				3EC7B711207DD9F100DFBA65 /* PSUserCenterViewModel.m in Sources */,
 				3E5D162A2079E814000FC779 /* PSSelectDisplayViewController.m in Sources */,
+				55FE57162366C414008056C9 /* PSReportScuessViewController.m in Sources */,
 				555FF46421D3123B00FF8D1D /* PSFeedBackTypesResponse.m in Sources */,
 				3EEE77912080A27B00CAD179 /* PSFamilyServiceViewModel.m in Sources */,
 				3E78B7482089CB9C007DF162 /* PSMeetingsPageRequest.m in Sources */,
@@ -5838,6 +5870,7 @@
 				EAA0CA182188320500240724 /* TZVideoPlayerController.m in Sources */,
 				5580DE8A229F8AC300A88EED /* PSAllHistoryViewController.m in Sources */,
 				3EDF0DC120887CF8002D98BD /* PSLoginResponse.m in Sources */,
+				55FE57102366883C008056C9 /* PSReportArticleViewController.m in Sources */,
 				5535CC4D23339AFC002EE576 /* PSfamiliesAuthorRequest.m in Sources */,
 				3E78B758208AD792007DF162 /* PSAppointmentViewModel.m in Sources */,
 				EAEE395F20C507CD005F7530 /* PSRefundViewModel.m in Sources */,
@@ -5875,6 +5908,7 @@
 				5517DC012332375D00E2DDCF /* PSPublishFamilyArticleRequest.m in Sources */,
 				EAA0CA1C2188320500240724 /* TZPhotoPreviewController.m in Sources */,
 				3EC7B6CA207C477000DFBA65 /* PSRegisterProgressView.m in Sources */,
+				558022662367D9FB003B57EA /* PSYJWriteFeedbackViewController.m in Sources */,
 				554C007721D4824100E6C6D2 /* PSMailBoxesDetailRequest.m in Sources */,
 				EAEE396F20C52973005F7530 /* PSTransactionRecordViewModel.m in Sources */,
 				3EC7B73C207E190500DFBA65 /* PSFunctionItem.m in Sources */,
@@ -5891,6 +5925,7 @@
 				EA78E20121772AB100BBEE58 /* PSSettingCell.m in Sources */,
 				3E5D16012074D3CA000FC779 /* UIView+ FrameChange.m in Sources */,
 				557EFB5B232FC7C70095D658 /* PSMyTotalListResponse.m in Sources */,
+				55FE57132366985B008056C9 /* PSArticleReportCell.m in Sources */,
 				5571198E229BD6CE00519C90 /* PSAppointmentProcessView.m in Sources */,
 				EAA0CA932188490000240724 /* PSUploadConsultaionRequest.m in Sources */,
 				558EE5F92244AFC8000E40DA /* UIViewController+AlertViewAndActionSheet.m in Sources */,
@@ -6294,6 +6329,7 @@
 				5576A95F22F7FDC500DDE375 /* PSPublishArticleViewController.m in Sources */,
 				EAD18F4D20D02A770053F82B /* MJPropertyType.m in Sources */,
 				3E5D150020731B04000FC779 /* PSApiSign.m in Sources */,
+				55FE57192366D821008056C9 /* PSReportArticleViewModel.m in Sources */,
 				552CBA0E219AA449008CCC03 /* UIViewController+Tool.m in Sources */,
 				558EE5D422448B99000E40DA /* LegaladviceViewController.m in Sources */,
 				EADDC8C120BF9AE00068D3AB /* PSRelationViewController.m in Sources */,
@@ -6624,7 +6660,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.sinog2c.Yuwu;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "cc5fe474-434e-44b8-bb68-f029add6c6b9";
-				PROVISIONING_PROFILE_SPECIFIER = Yuwu_Distribution;
+				PROVISIONING_PROFILE_SPECIFIER = YuWuDistribution;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;

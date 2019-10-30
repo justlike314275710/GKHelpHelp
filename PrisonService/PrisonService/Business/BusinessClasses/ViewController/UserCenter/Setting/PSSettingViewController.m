@@ -13,6 +13,7 @@
 #import "PSProtocolViewController.h"
 #import "PSAlertView.h"
 #import "PSWriteFeedbackViewController.h"
+#import "PSYJWriteFeedbackViewController.h"
 #import "PSSessionManager.h"
 #import "PSLoginViewModel.h"
 #import "PSSessionNoneViewController.h"
@@ -59,7 +60,13 @@
 }
 
 - (void)writeFeedback {
+    
+    PSFeedbackViewModel *viewModel = [PSFeedbackViewModel new];
+    viewModel.writefeedType = PSWritefeedBack;
+    PSYJWriteFeedbackViewController *feedbackViewController = [[PSYJWriteFeedbackViewController alloc] initWithViewModel:viewModel];
+    [self.navigationController pushViewController:feedbackViewController animated:YES];
 
+    /*
     switch ([PSSessionManager sharedInstance].loginStatus) {
         case PSLoginPassed:{
             PSFeedbackListViewModel *viewModel = [PSFeedbackListViewModel new];
@@ -76,6 +83,7 @@
         }
         break;
     }
+     */
 }
 
 -(void)passWordSave{
@@ -99,6 +107,12 @@
 }
 - (void)insert_storage {
     
+    PSStorageViewController *storageViewController = [[PSStorageViewController alloc] initWithViewModel:[[PSSorageViewModel alloc] init]];
+    storageViewController.clearScuessBlock = ^{
+        [self refreshStorage];
+    };
+    [self.navigationController pushViewController:storageViewController animated:YES];
+    /*
     switch ([PSSessionManager sharedInstance].loginStatus) {
         case PSLoginPassed:{
             PSStorageViewController *storageViewController = [[PSStorageViewController alloc] initWithViewModel:[[PSSorageViewModel alloc] init]];
@@ -115,6 +129,7 @@
         }
             break;
     }
+     */
 }
 
 - (void)logout {

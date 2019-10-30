@@ -113,14 +113,14 @@
     vc2.view.frame = CGRectMake(1*KScreenWidth,50,KScreenWidth,KScreenHeight-50);
     vc3.view.frame = CGRectMake(2*KScreenWidth,50,KScreenWidth,KScreenHeight-50);
 }
-
-- (void)setNumbers:(NSArray *)numbers {
-    YLButton *item1 = [self viewWithTag:100];
-    YLButton *item2 = [self viewWithTag:101];
-    YLButton *item3 = [self viewWithTag:102];
+#pragma -------------privateMethods
+- (void)scrollviewItemIndex:(NSInteger)index{
+    if (index>2) return;
+    YLButton *btn = [YLButton new];
+    btn.tag = index+100;
+    [self itemAction:btn];
     
 }
-
 - (void)itemAction:(YLButton *)sender {
     NSInteger index = sender.tag-100;
     if (index == _currentIndex) return;
@@ -132,7 +132,6 @@
     } completion:^(BOOL finished) {
         
     }];
-    
     if (_delegate&&[_delegate respondsToSelector:@selector(pagescrollMenuViewItemOnClick:index: lastindex:)]) {
         [_delegate pagescrollMenuViewItemOnClick:sender index:index lastindex:_currentIndex];
     }

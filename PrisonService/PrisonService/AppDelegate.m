@@ -22,6 +22,8 @@
 #import "PSBusinessConstants.h"
 #import "PSVersonUpdateViewModel.h"
 #import "ZQLocalNotification.h"
+#import "UIViewController+Tool.h"
+#import "PSAllMessageViewController.h"
 
 @interface AppDelegate ()
 
@@ -32,25 +34,22 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     [self registerThirdParty];
+    //注册apns
+    [self registerAPNS:application launchOptions:launchOptions];
+    
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     self.window.backgroundColor = [UIColor blackColor];
     [self.window makeKeyAndVisible];
     [[PSLaunchManager sharedInstance] launchApplication];
     
-    if ([UIApplication instancesRespondToSelector:@selector(registerUserNotificationSettings:)])
-    {
-        [application registerUserNotificationSettings:[UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert|UIUserNotificationTypeBadge|UIUserNotificationTypeSound categories:nil]];
-    }
-    
     self.openByNotice = NO;
-    // 如果 launchOptions 不为空
     if (launchOptions) {
-        self.openByNotice = YES;
-        // 获取推送通知定义的userinfo
-        UILocalNotification *notification = launchOptions[UIApplicationLaunchOptionsLocalNotificationKey];
-        NSString *controller = notification.userInfo[@"controller"];
-        NSString *string = [NSString stringWithFormat:@"%@",notification.userInfo];
+         // 获取推送通知定义的userinfo
+         NSDictionary *userInfo = launchOptions[UIApplicationLaunchOptionsRemoteNotificationKey];
+        if (userInfo) {
+            self.openByNotice = YES;
         }
+    }
     //检测更新
     PSVersonUpdateViewModel *updateViewModel = [PSVersonUpdateViewModel new];
     [updateViewModel jundgeVersonUpdate];
@@ -74,7 +73,9 @@
 #else
     [[NIMSDK sharedSDK] registerWithAppID:NIMKEY cerName:@"distribution"];
 #endif
+//    获取推送设置
     //科大讯飞
+    
     [IFlySetting setLogFile:LVL_NONE];
     [IFlySetting showLogcat:NO];
     [IFlySpeechUtility createUtility:[NSString stringWithFormat:@"appid=%@",KEDAXUNFEI_APPID]];
@@ -90,7 +91,7 @@
     [self registerUMMob];
     //网易云信apns推送
 //    [self registerAPNs];
-    [ZQLocalNotification initialize];
+ 
     
 }
 - (BOOL)handleURL:(NSURL *)url {
@@ -102,6 +103,12 @@
         [[PSPayCenter payCenter] handleWeChatURL:url];
     }
     return YES;
+}
+
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    if ([touches.anyObject locationInView:nil].y > 20) return;
+    [[NSNotificationCenter defaultCenter]postNotificationName:@"statusBarTappedNotification" object:nil];
+    
 }
 
 

@@ -36,6 +36,7 @@
 
 
 - (void)registerAPNs;
+- (void)registerAPNS:(UIApplication *)application launchOptions:(NSDictionary *)launchOptions;
 
 @end
 
