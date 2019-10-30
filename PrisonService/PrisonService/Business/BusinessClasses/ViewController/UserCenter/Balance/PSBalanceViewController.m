@@ -23,6 +23,8 @@
 #import "PSMeetJailsnnmeViewModel.h"
 #import "PSPayInfo.h"
 #import "PSPayCenter.h"
+
+
 @interface PSBalanceViewController ()
 
 @property (nonatomic,strong) PSBalanceTopView *balanceTopView;
@@ -247,7 +249,7 @@
     PSMeetJailsnnmeViewModel*meetJailsnnmeViewModel=[[PSMeetJailsnnmeViewModel alloc]init];
     [meetJailsnnmeViewModel requestMeetJailsterCompleted:^(PSResponse *response) {
         NSString*notice_title=NSLocalizedString(@"notice_title", @"提请注意");
-        NSString*notice_content=NSLocalizedString(@"notice_content", @"您购买的远程探视卡将用于与%@的视频会见");
+        NSString*notice_content=NSLocalizedString(@"notice_content", @"您购买的远程探视卡将用于与%@的视频会见");//您购买的远程探视卡将用于与%@的视频会见
         NSString*notice_agreed=NSLocalizedString(@"notice_agreed", @"确定");
         NSString*notice_disagreed=NSLocalizedString(@"notice_disagreed", @"取消");
         [PSAlertView showWithTitle:notice_title message:[NSString stringWithFormat:notice_content,meetJailsnnmeViewModel.jailsSting] messageAlignment:NSTextAlignmentCenter image:nil handler:^(PSAlertView *alertView, NSInteger buttonIndex) {
@@ -367,7 +369,6 @@
     @weakify(self);
     [buyCardBtn bk_whenTapped:^{
         @strongify(self);
-//        [self requestInfoPhoneCard];
         [self payTips];
     }];
     

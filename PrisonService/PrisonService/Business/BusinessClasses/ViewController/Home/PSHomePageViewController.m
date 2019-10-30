@@ -119,15 +119,15 @@
 }
 
 -(void)refreshData{
-     PSHomeViewModel *homeViewModel = (PSHomeViewModel *)self.viewModel;
-    NSInteger index = homeViewModel.selectedPrisonerIndex;
+    PSHomeViewModel *homeViewModel   = (PSHomeViewModel *)self.viewModel;
+    NSInteger index                  = homeViewModel.selectedPrisonerIndex;
     PSPrisonerDetail *prisonerDetail = nil;
-    
+
     if (index >= 0 && index < homeViewModel.passedPrisonerDetails.count) {
-        prisonerDetail = homeViewModel.passedPrisonerDetails[index];
+    prisonerDetail                   = homeViewModel.passedPrisonerDetails[index];
     }
-    self.defaultJailName=prisonerDetail.jailName;
-    self.defaultJailId=prisonerDetail.jailId;
+    self.defaultJailName             = prisonerDetail.jailName;
+    self.defaultJailId               = prisonerDetail.jailId;
     [self requestjailsDetailsWithJailId:prisonerDetail.jailId isShow:NO];
 }
 
@@ -153,9 +153,9 @@
 
      PSWorkViewModel *workViewModel = [PSWorkViewModel new];
      [workViewModel requestAdvsCompleted:^(PSResponse *response) {
-     _advView.imageURLStringsGroup = workViewModel.advUrls;
+     _advView.imageURLStringsGroup  = workViewModel.advUrls;
      } failed:^(NSError *error) {
-         
+
      }];
 }
 
@@ -192,6 +192,7 @@
             break;
     }
 }
+
 
 - (void)synchronizeDefaultJailConfigurations {
     self.jailRequest=[PSDefaultJailRequest new];
