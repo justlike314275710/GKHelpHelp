@@ -87,7 +87,6 @@ typedef NS_ENUM(NSInteger, PSMeettingType) {
             //self.upSeconds=1;
             self.Type=PSMeettingTypeFree;//免费会见
             self.seconds=1;
-            
         }
         else{
             self.seconds=[meetingViewModel.callDuration integerValue];
@@ -127,8 +126,6 @@ typedef NS_ENUM(NSInteger, PSMeettingType) {
         NSString *str_second = [NSString stringWithFormat:@"%02ld",seconds%60];
         format_time = [NSString stringWithFormat:@"%@%@%@%@",str_minute,M,str_second,S];
     }
-    
-    
     return format_time;
 }
 

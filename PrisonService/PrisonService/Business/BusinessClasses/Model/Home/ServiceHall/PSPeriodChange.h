@@ -14,8 +14,8 @@
 
 @interface PSPeriodChange : JSONModel
 
-@property (nonatomic, strong) NSString<Optional> *updatedAt;
-@property (nonatomic, strong) NSString<Optional> *changetype;
+@property (nonatomic, strong) NSString<Optional > *updatedAt;
+@property (nonatomic, strong) NSString<Optional > *changetype;
 @property (nonatomic, assign) NSInteger changeyear;
 @property (nonatomic, assign) NSInteger changemonth;
 @property (nonatomic, assign) NSInteger changeday;

@@ -11,11 +11,11 @@
 
 @interface PSContentManager : NSObject<PSLaunchTask>
 
-@property (nonatomic, strong, readonly) UIViewController *rootViewController;
-@property (nonatomic, strong, readonly) UIViewController *topViewController;
+@property (nonatomic, strong, readonly) UIViewController       *rootViewController;
+@property (nonatomic, strong, readonly) UIViewController       *topViewController;
 @property (nonatomic, strong, readonly) UINavigationController *currentNavigationController;
-@property (nonatomic , strong) NSString *phone;
-@property (nonatomic , strong) NSString *token;
+@property (nonatomic, strong          ) NSString               *phone;
+@property (nonatomic, strong         ) NSString *token;
 
 
 + (PSContentManager *)sharedInstance;

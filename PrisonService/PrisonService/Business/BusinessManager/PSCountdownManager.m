@@ -58,7 +58,7 @@
 - (void)launchTaskWithCompletion:(LaunchTaskCompletion)completion {
     if ([_timer isValid]) {
         [_timer invalidate];
-        _timer = nil;
+       _timer = nil;
     }
     _timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(handleTimer:) userInfo:nil repeats:YES];
     [[NSRunLoop mainRunLoop] addTimer:_timer forMode:NSRunLoopCommonModes];

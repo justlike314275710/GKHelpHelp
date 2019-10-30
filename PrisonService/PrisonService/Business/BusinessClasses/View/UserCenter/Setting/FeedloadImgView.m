@@ -49,12 +49,12 @@
                 
                 //删除图片
                 NSArray *ary = [NSArray arrayWithObject:self.dataUrlString];
-                NSDictionary *deleDic = @{@"urls":ary};
-                [PSDeleteRequest requestPUTWithURLStr:ImageDeleteUrl paramDic:deleDic finish:^(id  _Nonnull responseObject) {
-                    
-                } enError:^(NSError * _Nonnull error) {
-                    
-                }];
+//                NSDictionary *deleDic = @{@"urls":ary};
+//                [PSDeleteRequest requestPUTWithURLStr:ImageDeleteUrl paramDic:deleDic finish:^(id  _Nonnull responseObject) {
+//
+//                } enError:^(NSError * _Nonnull error) {
+//
+//                }];
                 
                 [self.dataString removeObjectAtIndex:index];
                 [self.dataUrlString removeObjectAtIndex:index];

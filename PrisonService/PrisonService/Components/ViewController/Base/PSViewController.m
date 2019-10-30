@@ -185,6 +185,7 @@
     [lButton addTarget:self action:@selector(actionOfLeftItem:) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *leftItem = [[UIBarButtonItem alloc] initWithCustomView:lButton];
     self.navigationItem.leftBarButtonItem = leftItem;
+    
 }
 
 - (BOOL)hiddenNavigationBar {

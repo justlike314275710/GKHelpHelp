@@ -11,9 +11,9 @@
 @implementation PSPeriodChange
 
 + (BOOL)propertyIsOptional:(NSString *)propertyName {
-    if ([propertyName isEqualToString:@"changeyear"]) return YES;
-    if ([propertyName isEqualToString:@"changemonth"]) return YES;
-    if ([propertyName isEqualToString:@"changeday"]) return YES;
+    if([propertyName isEqualToString:@"changeyear"]) return YES;
+    if([propertyName isEqualToString:@"changemonth"]) return YES;
+    if([propertyName isEqualToString:@"changeday"]) return YES;
     return NO;
 }
 

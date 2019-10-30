@@ -34,6 +34,15 @@
 }
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(coverWindowClick) name:@"statusBarTappedNotification" object:nil];
+}
+
+- (void)coverWindowClick {
+    PSPublishArtcleListViewModel *messageViewModel = (PSPublishArtcleListViewModel *)self.viewModel;
+    if (messageViewModel.messages.count>1) {
+        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
+        [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionTop animated:NO];
+    }
 }
 
 #pragma mark - PrivateMethods

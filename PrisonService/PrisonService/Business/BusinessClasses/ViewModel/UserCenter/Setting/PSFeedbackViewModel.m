@@ -169,11 +169,11 @@
     //删除图片
     NSArray *ary = [NSArray arrayWithArray:self.urls];
     NSDictionary *deleDic = @{@"urls":ary};
-    [PSDeleteRequest requestPUTWithURLStr:ImageDeleteUrl paramDic:deleDic finish:^(id  _Nonnull responseObject) {
-        finish(responseObject);
-    } enError:^(NSError * _Nonnull error) {
-        enError(error);
-    }];
+//    [PSDeleteRequest requestPUTWithURLStr:ImageDeleteUrl paramDic:deleDic finish:^(id  _Nonnull responseObject) {
+//        finish(responseObject);
+//    } enError:^(NSError * _Nonnull error) {
+//        enError(error);
+//    }];
 }
 
 

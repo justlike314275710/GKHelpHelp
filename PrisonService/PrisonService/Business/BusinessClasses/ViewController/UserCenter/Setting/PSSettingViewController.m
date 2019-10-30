@@ -59,7 +59,13 @@
 }
 
 - (void)writeFeedback {
+    
+    PSFeedbackViewModel *viewModel = [PSFeedbackViewModel new];
+    viewModel.writefeedType = PSWritefeedBack;
+    PSWriteFeedbackViewController *feedbackViewController = [[PSWriteFeedbackViewController alloc] initWithViewModel:viewModel];
+    [self.navigationController pushViewController:feedbackViewController animated:YES];
 
+    /*
     switch ([PSSessionManager sharedInstance].loginStatus) {
         case PSLoginPassed:{
             PSFeedbackListViewModel *viewModel = [PSFeedbackListViewModel new];
@@ -76,6 +82,7 @@
         }
         break;
     }
+     */
 }
 
 -(void)passWordSave{
@@ -99,6 +106,12 @@
 }
 - (void)insert_storage {
     
+    PSStorageViewController *storageViewController = [[PSStorageViewController alloc] initWithViewModel:[[PSSorageViewModel alloc] init]];
+    storageViewController.clearScuessBlock = ^{
+        [self refreshStorage];
+    };
+    [self.navigationController pushViewController:storageViewController animated:YES];
+    /*
     switch ([PSSessionManager sharedInstance].loginStatus) {
         case PSLoginPassed:{
             PSStorageViewController *storageViewController = [[PSStorageViewController alloc] initWithViewModel:[[PSSorageViewModel alloc] init]];
@@ -115,6 +128,7 @@
         }
             break;
     }
+     */
 }
 
 - (void)logout {
