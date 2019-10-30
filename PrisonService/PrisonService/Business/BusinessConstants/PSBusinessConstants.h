@@ -26,7 +26,7 @@
 #define ImageDeleteUrl @"http://120.78.190.101:1339/delete/resources"//删除图片接口
 #define ConsultationHostUrl @"http://qa.api.legal.prisonpublic.com"
 #define UploadServerUrl @"http://120.79.251.238:1339/image-server"
-//#define AppUIdValue @"6b7f28d18bca439e84e9f4a83f233077"
+
 
 #elif UAT            //测试
 #define ServerDomain @"http://120.79.251.238:8022"
@@ -38,7 +38,7 @@
 #define EmallUrl @"http://10.10.10.16:805"
 #define ImageDeleteUrl @"http://120.78.190.101:1339/delete/resources"//删除图片接口
 #define ConsultationHostUrl @"http://qa.api.legal.prisonpublic.com"
-//#define AppUIdValue @"6b7f28d18bca439e84e9f4a83f233077"
+
 
 
 #elif PRODUCE        //生产
@@ -50,7 +50,7 @@
 #define ImageDeleteUrl @"https://www.yuwugongkai.com/image-server/delete/resources"//删除图片接口
 #define ConsultationHostUrl @"http://qa.api.legal.prisonpublic.com"
 #define UploadServerUrl [NSString stringWithFormat:@"%@/image-server",ServerDomain]
-//#define AppUIdValue @"1688c4f69fc6404285aadbc996f5e429"
+
 
 #else               //生产（防止没有定义的时候没有域名)
 

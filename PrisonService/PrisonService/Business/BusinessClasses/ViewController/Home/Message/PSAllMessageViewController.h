@@ -18,6 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic,strong)PSPrisonerDetail *prisonerDetail;
 @property (nonatomic,strong)PSMessageCountModel *model;
 @property (nonatomic,copy)BackBlock backBlock;
+-(void)scrollviewItemIndex:(NSInteger)index;
 
 
 @end

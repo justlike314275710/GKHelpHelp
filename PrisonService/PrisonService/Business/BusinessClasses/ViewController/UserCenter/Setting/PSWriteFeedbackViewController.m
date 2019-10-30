@@ -252,7 +252,8 @@
     [thirdView addSubview:thirdTitleLab];
 
 
-    FeedloadImgView *loadImg = [[FeedloadImgView alloc] initWithFrame:CGRectMake(0,thirdTitleLab.bottom, thirdView.width,100) count:4];
+    PSFeedbackViewModel *feedbackViewModel = (PSFeedbackViewModel *)self.viewModel;
+    FeedloadImgView *loadImg = [[FeedloadImgView alloc] initWithFrame:CGRectMake(0,thirdTitleLab.bottom, thirdView.width,100) count:4 feedType:feedbackViewModel.writefeedType];
     [thirdView addSubview:loadImg];
     loadImg.feedloadResultBlock = ^(NSMutableArray *result) {
         self.imageUrls = result;

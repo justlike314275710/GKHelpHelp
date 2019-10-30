@@ -13,6 +13,7 @@
 #import "PSProtocolViewController.h"
 #import "PSAlertView.h"
 #import "PSWriteFeedbackViewController.h"
+#import "PSYJWriteFeedbackViewController.h"
 #import "PSSessionManager.h"
 #import "PSLoginViewModel.h"
 #import "PSSessionNoneViewController.h"
@@ -62,7 +63,7 @@
     
     PSFeedbackViewModel *viewModel = [PSFeedbackViewModel new];
     viewModel.writefeedType = PSWritefeedBack;
-    PSWriteFeedbackViewController *feedbackViewController = [[PSWriteFeedbackViewController alloc] initWithViewModel:viewModel];
+    PSYJWriteFeedbackViewController *feedbackViewController = [[PSYJWriteFeedbackViewController alloc] initWithViewModel:viewModel];
     [self.navigationController pushViewController:feedbackViewController animated:YES];
 
     /*

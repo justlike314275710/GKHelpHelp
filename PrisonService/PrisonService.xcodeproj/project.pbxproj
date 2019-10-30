@@ -423,6 +423,7 @@
 		557FF9C021C753A000F15F78 /* PSRemittanceRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 557FF9BC21C753A000F15F78 /* PSRemittanceRequest.m */; };
 		557FF9C121C753A000F15F78 /* PSRemitanceResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 557FF9BF21C753A000F15F78 /* PSRemitanceResponse.m */; };
 		558022632367CCAB003B57EA /* PSUploadImageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 558022622367CCAB003B57EA /* PSUploadImageManager.m */; };
+		558022662367D9FB003B57EA /* PSYJWriteFeedbackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 558022652367D9FB003B57EA /* PSYJWriteFeedbackViewController.m */; };
 		5580DE81229F6F7100A88EED /* PSFamilyServiceNoticeViewContrlller.m in Sources */ = {isa = PBXBuildFile; fileRef = 5580DE80229F6F7100A88EED /* PSFamilyServiceNoticeViewContrlller.m */; };
 		5580DE87229F749000A88EED /* PSFamilyServiceNoticeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5580DE86229F749000A88EED /* PSFamilyServiceNoticeCell.m */; };
 		5580DE8A229F8AC300A88EED /* PSAllHistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5580DE89229F8AC300A88EED /* PSAllHistoryViewController.m */; };
@@ -1633,6 +1634,8 @@
 		557FF9BF21C753A000F15F78 /* PSRemitanceResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSRemitanceResponse.m; sourceTree = "<group>"; };
 		558022612367CCAB003B57EA /* PSUploadImageManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PSUploadImageManager.h; sourceTree = "<group>"; };
 		558022622367CCAB003B57EA /* PSUploadImageManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PSUploadImageManager.m; sourceTree = "<group>"; };
+		558022642367D9FB003B57EA /* PSYJWriteFeedbackViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PSYJWriteFeedbackViewController.h; sourceTree = "<group>"; };
+		558022652367D9FB003B57EA /* PSYJWriteFeedbackViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PSYJWriteFeedbackViewController.m; sourceTree = "<group>"; };
 		5580DE7F229F6F7100A88EED /* PSFamilyServiceNoticeViewContrlller.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PSFamilyServiceNoticeViewContrlller.h; sourceTree = "<group>"; };
 		5580DE80229F6F7100A88EED /* PSFamilyServiceNoticeViewContrlller.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PSFamilyServiceNoticeViewContrlller.m; sourceTree = "<group>"; };
 		5580DE85229F749000A88EED /* PSFamilyServiceNoticeCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PSFamilyServiceNoticeCell.h; sourceTree = "<group>"; };
@@ -3633,6 +3636,8 @@
 				EA6BE71422A4F18F00363036 /* PSForgetPasswordViewController.m */,
 				EA6BE71622A5181700363036 /* PSForgetNextViewController.h */,
 				EA6BE71722A5181700363036 /* PSForgetNextViewController.m */,
+				558022642367D9FB003B57EA /* PSYJWriteFeedbackViewController.h */,
+				558022652367D9FB003B57EA /* PSYJWriteFeedbackViewController.m */,
 			);
 			path = Setting;
 			sourceTree = "<group>";
@@ -5903,6 +5908,7 @@
 				5517DC012332375D00E2DDCF /* PSPublishFamilyArticleRequest.m in Sources */,
 				EAA0CA1C2188320500240724 /* TZPhotoPreviewController.m in Sources */,
 				3EC7B6CA207C477000DFBA65 /* PSRegisterProgressView.m in Sources */,
+				558022662367D9FB003B57EA /* PSYJWriteFeedbackViewController.m in Sources */,
 				554C007721D4824100E6C6D2 /* PSMailBoxesDetailRequest.m in Sources */,
 				EAEE396F20C52973005F7530 /* PSTransactionRecordViewModel.m in Sources */,
 				3EC7B73C207E190500DFBA65 /* PSFunctionItem.m in Sources */,
@@ -6654,7 +6660,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.sinog2c.Yuwu;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "cc5fe474-434e-44b8-bb68-f029add6c6b9";
-				PROVISIONING_PROFILE_SPECIFIER = Yuwu_Distribution;
+				PROVISIONING_PROFILE_SPECIFIER = YuWuDistribution;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;

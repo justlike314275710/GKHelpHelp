@@ -226,8 +226,6 @@
         @strongify(self)
         PSUploadAvatarResponse *avatarResponse = (PSUploadAvatarResponse *)response;
         self.avatarUrl = avatarResponse.url;
-        
-        
         if (completedCallback) {
             completedCallback(response);
         }

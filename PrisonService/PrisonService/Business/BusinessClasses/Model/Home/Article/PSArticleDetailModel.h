@@ -41,6 +41,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSString<Optional> *publishTypeName;
 @property (nonatomic, strong) NSString<Optional> *ispraise;
 @property (nonatomic, strong) NSString<Optional> *iscollect;
+@property (nonatomic, strong) NSString<Optional> *isreport;
 
 @end
 

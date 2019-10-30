@@ -19,7 +19,12 @@
 
 
 #pragma mark - ——————— 公共服务接口     ————————
+//新增加意见反馈
+#define URL_feedbacks_add     @"/feedbacks"
 
 #pragma mark - ——————— 狱务通业务接口    ———————
+//文章举报
+#define URL_api_reportArticle     @"/api/article/reportArticle"
+
 
 #endif /* PSURLMacros_h */

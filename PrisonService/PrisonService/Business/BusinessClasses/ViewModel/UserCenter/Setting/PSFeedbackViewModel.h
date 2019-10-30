@@ -17,6 +17,13 @@
 @property (nonatomic, assign)WritefeedType writefeedType;
 @property (nonatomic, assign)NSArray *urls; //要删除图片数组
 
+//意见反馈公共服务
+@property (nonatomic, strong) NSArray *yjreasons;
+@property (nonatomic, strong) NSString *platform; //
+@property (nonatomic, strong) NSString *problem;  //
+@property (nonatomic, strong) NSString *detail; //
+@property (nonatomic, strong) NSArray *attachments;
+
 - (void)sendFeedbackCompleted:(RequestDataCompleted)completedCallback failed:(RequestDataFailed)failedCallback;
 
 - (void)sendFeedbackTypesCompleted:(RequestDataCompleted)completedCallback failed:(RequestDataFailed)failedCallback;

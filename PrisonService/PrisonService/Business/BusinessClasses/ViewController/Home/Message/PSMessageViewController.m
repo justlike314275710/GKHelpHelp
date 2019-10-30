@@ -140,7 +140,7 @@
 
 -(void)refreshData1{
     if (isFirst==NO) {
-        [self refreshData];
+        KPostNotification(AppDotChange, nil);
         isFirst = YES;
     }
 }

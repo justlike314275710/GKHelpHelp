@@ -25,8 +25,11 @@ typedef NS_ENUM(NSInteger, FeedLoadType) {
 @property(nonatomic,copy)BrowserBlock browserBlock;
 @property(nonatomic,assign) FeedLoadType Type;
 @property(nonatomic,strong) UIImage *upLoadimage;
+@property(nonatomic,assign)WritefeedType feedType;
 
-- (instancetype)initWithFrame:(CGRect)frame type:(FeedLoadType)type;
+- (instancetype)initWithFrame:(CGRect)frame
+                         type:(FeedLoadType)type
+                     feedType:(WritefeedType)feedType;
 
 @end
 

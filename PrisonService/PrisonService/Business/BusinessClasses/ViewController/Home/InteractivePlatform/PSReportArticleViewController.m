@@ -23,6 +23,7 @@
 
 
 
+
 @end
 
 @implementation PSReportArticleViewController
@@ -32,7 +33,6 @@
     [super viewDidLoad];
     self.title = @"举报";
     self.view.backgroundColor = UIColorFromRGB(249, 248, 254);
-    PSReportArticleViewModel *viewModel = (PSReportArticleViewModel *)self.viewModel;
     [self setupUI];
     [self loadData];
 }
@@ -127,8 +127,22 @@
 
 #pragma mark ---------- Target Mehtods
 -(void)reportAction:(UIButton *)sender {
-    PSReportScuessViewController *reportScuessVC = [[PSReportScuessViewController alloc] init];
-    PushVC(reportScuessVC);
+    PSReportArticleViewModel *viewModel = (PSReportArticleViewModel *)self.viewModel;
+    NSIndexPath *indexPath = self.seletedReasonAry[0];
+    viewModel.reportReason = [_reportReason objectAtIndex:indexPath.row];
+    [viewModel requestReportArticleCompleted:^(id data) {
+        NSInteger code = [[data valueForKey:@"code"] integerValue];
+        NSString *msg = [data valueForKey:@"msg"];
+        if (code==200) {
+            PSReportScuessViewController *reportScuessVC = [[PSReportScuessViewController alloc] init];
+            PushVC(reportScuessVC);
+            KPostNotification(KNotificationRefreshArticleDetail, nil);
+        } else {
+            [PSTipsView showTips:msg];
+        }
+    } failed:^(NSError *error) {
+            [self showNetError:error];
+    }];
 }
 #pragma mark ---------- UITableView Delegate &Datasource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -154,15 +168,12 @@
     if ([self.seletedReasonAry containsObject:indexPath]) {
         [self.seletedReasonAry removeObject:indexPath];
     } else {
-        if (self.seletedReasonAry.count>2) {
-            [PSTipsView showTips:@"最多选择三个举报原因!"];
-        } else {
-            [self.seletedReasonAry addObject:indexPath];
-        }
+        [self.seletedReasonAry removeAllObjects];
+        [self.seletedReasonAry addObject:indexPath];
     }
     self.reportBtn.selected = self.seletedReasonAry.count>0?YES:NO;
     self.reportBtn.enabled = self.reportBtn.selected;
-    [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+    [self.tableView reloadData];
     
     NSLog(@"%@",_seletedReasonAry);
 }

@@ -17,6 +17,7 @@
 #import "NSString+emoji.h"
 #import "PSDeleteRequest.h"
 #import "PSBusinessConstants.h"
+#import <AFNetworking/AFNetworking.h>
 
 @interface PSFeedbackViewModel ()
 
@@ -77,16 +78,29 @@
 
 - (void)sendAppFeedbackCompleted:(RequestDataCompleted)completedCallback failed:(RequestDataFailed)failedCallback {
     
-    self.feedbackRequest = [PSFeedbackRequest new];
-    self.feedbackRequest.content = self.content;
-    self.feedbackRequest.imageUrls = self.imageUrls.length>0?self.imageUrls:@"";
-    self.feedbackRequest.type = self.type;
-    self.feedbackRequest.familyId = [PSSessionManager sharedInstance].session.families.id;
-    [self.feedbackRequest send:^(PSRequest *request, PSResponse *response) {
-        if (completedCallback) {
-            completedCallback(response);
+    NSString *platform = @"prison.app";  //
+    NSDictionary *params = @{@"clientKey":platform,
+                             @"problem":self.problem,
+                             @"detail":self.detail,
+                             @"attachments":self.attachments};
+    
+    NSString *url = NSStringFormat(@"%@%@",EmallHostUrl,URL_feedbacks_add);
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    manager.responseSerializer = [AFJSONResponseSerializer serializer];
+    [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    NSString*token=[NSString stringWithFormat:@"Bearer %@",[LXFileManager readUserDataForKey:@"access_token"]];
+    [manager.requestSerializer setValue:token forHTTPHeaderField:@"Authorization"];
+    [manager POST:url parameters:params progress:^(NSProgress * _Nonnull uploadProgress) {
+        
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        if (responseObject) {
+            if (completedCallback) {
+                completedCallback(responseObject);
+            }
         }
-    } errorCallback:^(PSRequest *request, NSError *error) {
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         if (failedCallback) {
             failedCallback(error);
         }
@@ -174,6 +188,13 @@
 //    } enError:^(NSError * _Nonnull error) {
 //        enError(error);
 //    }];
+}
+
+-(NSArray *)yjreasons {
+    return @[@"功能异常：功能故障或不可使用",
+             @"产品建议：使用体验不佳，我有建议",
+             @"安全问题：隐私信息不安全等",
+             @"其他问题"];
 }
 
 

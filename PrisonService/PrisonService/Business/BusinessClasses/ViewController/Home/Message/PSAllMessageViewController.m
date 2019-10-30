@@ -18,6 +18,8 @@
 
 @interface PSAllMessageViewController ()<PSMessageTopTabViewDelegate>
 @property(nonatomic,strong)NSArray *viewControllers;
+@property(nonatomic,strong)PSMessageTopTabView *topTabbarView;
+
 
 @end
 
@@ -38,24 +40,25 @@
     viewModel.prisonerDetail = self.prisonerDetail;
     PSAdvisoryMesssageViewController *adMessageVC = [[PSAdvisoryMesssageViewController alloc] initWithViewModel:viewModel];
     adMessageVC.dotIndex = 0;
-    
     //探视消息
     PSMessageViewModel *viewModel1 = [[PSMessageViewModel alloc] init];
     viewModel1.type = @"2,3";
     viewModel1.prisonerDetail = self.prisonerDetail;
     PSMessageViewController *messageViewController = [[PSMessageViewController alloc] initWithViewModel:viewModel1];
     messageViewController.dotIndex = [self.model.visitUnreadCount integerValue];
-    PSMessageTopTabView *topTabbarView = [[PSMessageTopTabView alloc] initWithFrame:CGRectZero titles:titles normalImages:normalImages selectedImages:selectedImages currentIndex:0 delegate:self  viewController:self numbers:dotnumbles];
-
+    _topTabbarView = [[PSMessageTopTabView alloc] initWithFrame:CGRectZero titles:titles normalImages:normalImages selectedImages:selectedImages currentIndex:0 delegate:self  viewController:self numbers:dotnumbles];
     //互动平台消息
     PSPlatMessageViewModel *viewModel2 = [[PSPlatMessageViewModel alloc] init];
     viewModel2.prisonerDetail = self.prisonerDetail;
     PSInteractiveMessageViewController *intMessageVC = [[PSInteractiveMessageViewController alloc] initWithViewModel:viewModel2];
     intMessageVC.dotIndex = [self.model.pointsUnreadCount integerValue];
-    
-    topTabbarView.viewControllers = @[adMessageVC,messageViewController,intMessageVC];
+    _topTabbarView.viewControllers = @[adMessageVC,messageViewController,intMessageVC];
     self.viewControllers = @[adMessageVC,messageViewController,intMessageVC];
-    [self.view addSubview:topTabbarView];
+    [self.view addSubview:_topTabbarView];
+}
+#pragma mark -----------PrivateMethods
+-(void)scrollviewItemIndex:(NSInteger)index{
+    [_topTabbarView scrollviewItemIndex:index];
 }
 
 - (IBAction)actionOfLeftItem:(id)sender {
@@ -63,7 +66,6 @@
         self.backBlock();
     }
     [self.navigationController popViewControllerAnimated:YES];
-  
 }
 
 #pragma mark - Delegate

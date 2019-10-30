@@ -27,7 +27,7 @@
 @property(nonatomic,strong)UILabel *timeLab;
 @property(nonatomic,strong)UITextView *contentTextView;
 @property(nonatomic,strong)UIImageView *bottomView;
-@property(nonatomic,strong)UIButton *likeBtn; //点赞
+@property(nonatomic,strong)KpengDianZanBtn *likeBtn; //点赞
 @property(nonatomic,strong)UILabel *likeLab; //点赞
 @property(nonatomic,strong)UIButton *hotBtn; //热度
 @property(nonatomic,strong)UILabel *hotLab;  //热度
@@ -50,6 +50,7 @@
     [self headImageView];
     self.view.backgroundColor=[UIColor whiteColor];
     [self setupData];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setupData) name:KNotificationRefreshArticleDetail object:nil];
 }
 
 -(void)SDWebImageAuth{
@@ -243,9 +244,9 @@
         self.reportBtn.hidden = YES;
     } else {
         [_headImageView sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"作者头像"] options:SDWebImageRefreshCached];
-        self.reportBtn.hidden = NO;
+        self.reportBtn.hidden = [viewModel.detailModel.isreport isEqualToString:@"0"]?NO:YES;
     }
-    
+ 
     if ([viewModel.detailModel.iscollect isEqualToString:@"0"]) {
         [_collectBtn setImage:IMAGE_NAMED(@"未收藏") forState:UIControlStateNormal];
         [_collectLab setText:@"点击收藏"];

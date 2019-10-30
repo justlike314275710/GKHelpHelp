@@ -24,11 +24,15 @@
 
 @implementation FeedloadImgView
 
-- (instancetype)initWithFrame:(CGRect)frame count:(NSInteger)count {
+- (instancetype)initWithFrame:(CGRect)frame
+                        count:(NSInteger)count
+                         feedType:(WritefeedType)feedType;
+{
     self = [super initWithFrame:frame];
     if (self) {
         //整体大小
         [self p_setUI:count];
+        self.feedType = feedType;
      }
     return self;
 }
@@ -36,7 +40,7 @@
 - (void)p_setUI:(NSInteger)count {
     int spaceWidth = (self.width-spaceX*2 - itemWidth*count)/(count-1);
     for (int i = 0; i<count;i++) {
-        FeedLoadItemView *feedLoadItem = [[FeedLoadItemView alloc] initWithFrame:CGRectMake(spaceX+(spaceWidth+itemWidth)*i,0, itemWidth, itemWidth) type:FeedLoadSelect];
+        FeedLoadItemView *feedLoadItem = [[FeedLoadItemView alloc] initWithFrame:CGRectMake(spaceX+(spaceWidth+itemWidth)*i,0, itemWidth, itemWidth) type:FeedLoadSelect feedType:self.feedType];
         [self addSubview:feedLoadItem];
         feedLoadItem.tag = 10+i;
         if (i!= 0) {

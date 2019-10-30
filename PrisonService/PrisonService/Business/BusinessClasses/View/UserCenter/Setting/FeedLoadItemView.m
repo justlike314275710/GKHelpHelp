@@ -12,7 +12,7 @@
 #import "PSResponse.h"
 #import "PSRegisterViewModel.h"
 #import "PSLoadingView.h"
-
+#import "PSUploadImageManager.h"
 
 #define loadImg_width  67
 #define close_width  18
@@ -36,9 +36,12 @@
     return self;
 }
 
-- (instancetype)initWithFrame:(CGRect)frame type:(FeedLoadType)type {
+- (instancetype)initWithFrame:(CGRect)frame
+                         type:(FeedLoadType)type
+                     feedType:(WritefeedType)feedType{
     self = [super initWithFrame:frame];
     if (self) {
+        self.feedType = feedType;
         [self addSubview:self.loadImg];
         [self addSubview:self.loadiconImg];
         [self addSubview:self.closeImg];
@@ -164,9 +167,11 @@
         [PSAuthorizationTool checkAndRedirectCameraAuthorizationWithBlock:^(BOOL result) {
             PSImagePickerController *picker = [[PSImagePickerController alloc] initWithCropHeaderImageCallback:^(UIImage *cropImage) {
                 @strongify(self)
-     
-//                    sender.image = cropImage;
-                    [self handlePickerImage:cropImage];
+                if (self.feedType == PSPrisonfeedBack ) {
+                     [self handlePickerImage:cropImage];
+                } else {
+                    [self apphandlePickerImage:cropImage]; //app
+                }
    
             }];
             [picker setSourceType:UIImagePickerControllerSourceTypeCamera];
@@ -178,7 +183,11 @@
         [PSAuthorizationTool checkAndRedirectPhotoAuthorizationWithBlock:^(BOOL result) {
             PSImagePickerController *picker = [[PSImagePickerController alloc] initWithCropHeaderImageCallback:^(UIImage *cropImage) {
                 @strongify(self)
-                [self handlePickerImage:cropImage];
+                if (self.feedType == PSPrisonfeedBack ) {
+                    [self handlePickerImage:cropImage];
+                } else {
+                    [self apphandlePickerImage:cropImage]; //app
+                }
                 //上传图片
                 sender.image = cropImage;
             }];
@@ -193,12 +202,6 @@
     [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alert animated:YES completion:nil];
 }
 
-//-(void)handlePickerImage:(UIImage *)image {
-//
-//    if (self.selectBlock) {
-//        self.selectBlock(self.tag,image);
-//    }
-//}
 
 -(void)cancelPickerImage {
     
@@ -206,7 +209,7 @@
         self.cancelBlock(self.tag);
     }
 }
-//意见反馈上传图片
+//监狱信箱意见反馈上传图片
 - (void)handlePickerImage:(UIImage *)image {
     
     PSRegisterViewModel *registerViewModel = [[PSRegisterViewModel alloc] init];
@@ -230,6 +233,23 @@
         @strongify(self)
         [[PSLoadingView sharedInstance] dismiss];
 //        [self showNetError];
+    }];
+}
+
+//意见反馈
+- (void)apphandlePickerImage:(UIImage *)image{
+    @weakify(self)
+    [[PSUploadImageManager uploadImageManager] uploadPublicImages:image completed:^(BOOL successful, NSString * _Nonnull tips) {
+        @strongify(self)
+        if (successful) {
+            if (self.selectBlock) {
+                self.loadImg.image = image;
+                self.selectBlock(self.tag,image,tips);
+            }
+        } else {
+            self.loadImg.image = [UIImage imageNamed:@"bottomLoad"];
+            [PSTipsView showTips:NSLocalizedString(@"Feedback image upload failed", @"反馈图片上传失败")];
+        }
     }];
 }
 

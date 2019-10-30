@@ -12,8 +12,10 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface PSReportArticleViewModel : PSViewModel
-@property (nonatomic, strong) NSString *id;
+@property (nonatomic, copy  ) NSString             *id;
 @property (nonatomic, strong) PSArticleDetailModel *detailModel;
+@property (nonatomic, copy  ) NSString             *reportReason;
+- (void)requestReportArticleCompleted:(RequestDataTaskCompleted)completedCallback failed:(RequestDataFailed)failedCallback;
 
 @end
 

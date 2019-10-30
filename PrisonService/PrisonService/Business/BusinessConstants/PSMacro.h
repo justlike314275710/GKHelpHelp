@@ -144,6 +144,9 @@ typedef NS_ENUM(NSInteger,WritefeedType) {
 //刷新互动平台消息
 #define KNotificationRefreshhd_message         @"KNotificationRefreshhd_message"
 #define KNotificationRefreshhd_message_1       @"KNotificationRefreshhd_message_1"
+//刷新文章详情
+#define KNotificationRefreshArticleDetail       @"KNotificationRefreshArticleDetail"
+
 #define Kuncertified_isLogin @"uncertified_isLogin"   //没认证是否登录提示
 //视屏会见通知倒计时
 #define KNOtificationMeetingCountdown @"KNOtificationMeetingCountdown"
