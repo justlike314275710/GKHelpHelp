@@ -79,7 +79,6 @@
             return;
         }
     }
-    
     if ([_loginVerifyCode length] == 0) {
         if (self.delegate && [self.delegate respondsToSelector:@selector(passportLoginFailed:error:)]) {
             [self.delegate passportLoginFailed:self error:[NSError errorWithDomain:[NSString stringWithFormat:@"请输入短信验证码"] code:406 userInfo:nil]];
@@ -87,7 +86,6 @@
         }
     }
 }
-
 
 /**
  *  获取短信验证码

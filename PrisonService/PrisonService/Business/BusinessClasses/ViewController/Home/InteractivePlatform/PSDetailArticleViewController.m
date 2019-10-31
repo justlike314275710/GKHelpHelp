@@ -50,7 +50,13 @@
     [self headImageView];
     self.view.backgroundColor=[UIColor whiteColor];
     [self setupData];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setupData) name:KNotificationRefreshArticleDetail object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reportScuess) name:KNotificationRefreshArticleDetail object:nil];
+}
+//举报成功
+-(void)reportScuess{
+    PSArticleDetailViewModel *viewModel =  (PSArticleDetailViewModel *)self.viewModel;
+    viewModel.detailModel.isreport = @"1";
+    [self refreshUI];
 }
 
 -(void)SDWebImageAuth{
@@ -104,8 +110,8 @@
         make.left.mas_equalTo(_headImageView.mas_right).offset(15);
         make.top.mas_equalTo(_headImageView);
         make.height.mas_equalTo(20);
-        make.width.mas_equalTo(200);
     }];
+    [self.nameLab setContentHuggingPriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisHorizontal];
     
     [self.scrollview addSubview:self.timeImageView];
     [self.timeImageView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -204,8 +210,8 @@
      _timeLab.text = viewModel.detailModel.publishAt;
      _contentTextView.text = viewModel.detailModel.content;
     _likeLab.text = [NSString stringWithFormat:@"%@赞",viewModel.detailModel.praiseNum];
-    viewModel.detailModel.clientNum = [NSString stringWithFormat:@"%d",[viewModel.detailModel.clientNum intValue]+1];
-    _hotLab.text = [NSString stringWithFormat:@"%@热度",viewModel.detailModel.clientNum];
+    NSString*clientNumStr = [NSString stringWithFormat:@"%d",[viewModel.detailModel.clientNum intValue]+1];
+    _hotLab.text = [NSString stringWithFormat:@"%@热度",clientNumStr];
     BOOL isHideBottom = YES;
     if ([viewModel.detailModel.status isEqualToString:@"publish"]) { //已发布待审核
         _topTipLab.text = @"平台正在审核中";
@@ -342,7 +348,8 @@
     PSArticleDetailViewModel *viewModel =  (PSArticleDetailViewModel *)self.viewModel;
     [super actionOfLeftItem:sender];
     if (self.hotChangeBlock) {
-        self.hotChangeBlock(viewModel.detailModel.clientNum);
+        NSString *clientNumStr = [NSString stringWithFormat:@"%ld",[viewModel.detailModel.clientNum integerValue]+1];
+        self.hotChangeBlock(clientNumStr);
     }
 }
 //收藏
@@ -379,7 +386,8 @@
             NSString *msg = [response msg];
             [PSTipsView showTips:msg];
             if (response.code == 200){
-                [self setupData];
+                viewModel.detailModel.iscollect = @"1";
+                [self refreshUI];
                 //刷新收藏列表
                 KPostNotification(KNotificationRefreshCollectArticle, nil);
             }
@@ -396,7 +404,10 @@
             NSString *msg = [response msg];
             [PSTipsView showTips:msg];
             if (response.code == 200){
-                [self setupData];
+//                [self setupData];
+                PSArticleDetailViewModel *viewModel =  (PSArticleDetailViewModel *)self.viewModel;
+                viewModel.detailModel.ispraise = @"0";
+                [self refreshUI];
                 //刷新收藏列表
                 KPostNotification(KNotificationRefreshCollectArticle, nil);
             }
@@ -414,7 +425,9 @@
             NSString *msg = [response msg];
             [PSTipsView showTips:msg];
             if (response.code == 200){
-                [self setupData];
+                viewModel.detailModel.ispraise = @"1";
+                viewModel.detailModel.praiseNum = [NSString stringWithFormat:@"%ld",[viewModel.detailModel.praiseNum integerValue]+1];
+                [self refreshUI];
                 //刷新列表
                 if (self.praiseBlock) self.praiseBlock(YES, viewModel.id, YES);
             }
@@ -431,7 +444,9 @@
             NSString *msg = [response msg];
             [PSTipsView showTips:msg];
             if (response.code == 200){
-                [self setupData];
+                viewModel.detailModel.ispraise = @"0";
+                viewModel.detailModel.praiseNum = [NSString stringWithFormat:@"%ld",[viewModel.detailModel.praiseNum integerValue]-1];
+                [self refreshUI];
                 //刷新列表
                 if (self.praiseBlock) self.praiseBlock(NO, viewModel.id, YES);
             }
@@ -449,7 +464,8 @@
             NSString *msg = [response msg];
             [PSTipsView showTips:msg];
             if (response.code == 200){
-                [self setupData];
+                viewModel.detailModel.iscollect = @"0";
+                [self refreshUI];
             }
         });
     } failed:^(NSError *error) {

@@ -14,6 +14,7 @@
 #import "AppDelegate.h"
 #import "XXAlertView.h"
 #import "PSSessionManager.h"
+#import <AFNetworking/AFNetworking.h>
 
 #define TITLEFONT 17 //导航栏标题文字大小
 #define DEFAULT_ITEM_SIZE CGSizeMake(40,44)
@@ -98,30 +99,53 @@
 }
 
 - (void)showNetError:(NSError *)error {
+    
     if ([error.userInfo[@"NSLocalizedDescription"] isEqualToString:@"Request failed: unauthorized (401)"]) {
         [self showTokenError];
     } else {
-        AppDelegate *appdelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
-        if (appdelegate.IS_NetWork == NO) {
-            NSString*InternetError=NSLocalizedString(@"InternetError", @"无法连接到服务器，请检查网络");
-            [PSTipsView showTips:InternetError];
+        NSDictionary *body = [self errorData:error];
+        if (body) {
+            NSString*message=body[@"message"];
+            if (message) {
+                [PSTipsView showTips:message];
+            } else {
+                [self showNetErrorMsg];
+            }
         } else {
-            NSString*NetError=NSLocalizedString(@"NetError", @"服务器异常");
-            [PSTipsView showTips:NetError];
+               [self showNetErrorMsg];
         }
     }
 }
 
+-(NSDictionary*)errorData:(NSError*)error {
+    NSData *data = error.userInfo[AFNetworkingOperationFailingURLResponseDataErrorKey];
+    if (data) {
+        id body = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+        return body;
+    } else {
+        return nil;
+    }
+}
+
+//服务器异常OR没有网络
+-(void)showNetErrorMsg{
+    AppDelegate *appdelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+    if (appdelegate.IS_NetWork == NO) {
+        NSString*InternetError=NSLocalizedString(@"InternetError", @"无法连接到服务器，请检查网络");
+        [PSTipsView showTips:InternetError];
+    } else {
+        NSString*NetError=NSLocalizedString(@"NetError", @"服务器异常");
+        [PSTipsView showTips:NetError];
+    }
+}
+
+//token过期
 -(void)showTokenError {
     NSString*NetError=NSLocalizedString(@"Login status expired, please log in again", @"登录状态过期,请重新登录!");
-//    [PSTipsView showTips:NetError];
-    
     NSString*determine=NSLocalizedString(@"determine", @"确定");
     NSString*Tips=NSLocalizedString(@"Tips", @"提示");
-//    NSString*pushed_off_line=NSLocalizedString(@"pushed_off_line", @"您的账号已在其他设备登陆,已被挤下线");
     XXAlertView*alert=[[XXAlertView alloc]initWithTitle:Tips message:NetError sureBtn:determine cancleBtn:nil];
     alert.clickIndex = ^(NSInteger index) {
-        
         if (index==2) {
             [[PSSessionManager sharedInstance] doLogout];
         }

@@ -23,15 +23,15 @@
 }
 
 -(NSString *)allStorage {
-    return [NSString stringWithFormat:@"%.1fM",[self fileSizeWithIntergeWithM]+61.9];
+    return [NSString stringWithFormat:@"%.1fM",[self fileSizeWithIntergeWithM]];
 }
 
 -(NSString *)usedStorage {
     float totalDiskspace = [self getTotalSpaceDiskspace];
-    float userDiskspace = ([self fileSizeWithIntergeWithM]+61.9)/1024;
+    float userDiskspace = ([self fileSizeWithIntergeWithM])/1024;
     float AppDiskspace = userDiskspace/totalDiskspace*100;
     if (AppDiskspace<0.1) {
-        AppDiskspace = 0.1;
+        AppDiskspace = 0;
     }
     NSString *msg = NSLocalizedString(@"Occupies mobile phone memory %.1f%@ storage space", @"占据手机内存%.1f%@存储空间");
     return [NSString stringWithFormat:msg,AppDiskspace,@"%"];

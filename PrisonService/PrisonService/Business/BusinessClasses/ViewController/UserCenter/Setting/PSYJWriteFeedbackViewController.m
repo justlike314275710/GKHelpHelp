@@ -43,7 +43,6 @@
     [self setupUI];
     [self loadData];
 }
-
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     self.tabBarController.tabBar.hidden=YES;
@@ -121,11 +120,9 @@
         self.imageUrls = result;
     };
     [self.scrollview addSubview:secondeView];
-    
     UIButton *submitBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    submitBtn.frame =
-    IS_iPhone_5?CGRectMake(15,self.scrollview.bottom+13-44,self.view.width-30, 44)
-    :CGRectMake(15,self.scrollview.bottom+13,self.view.width-30, 44);
+    submitBtn.frame = CGRectMake(15,KScreenHeight-44-20-kTopHeight, self.view.width-30, 44);
+    
     submitBtn.layer.masksToBounds = YES;
     submitBtn.layer.cornerRadius= 4;
     NSString*submit= @"提交";
@@ -142,6 +139,7 @@
 }
 
 - (void)submitContent {
+    
     self.feedBackLogic.problem = _feedBackLogic.yjreasons[_selecldIndex];
     self.feedBackLogic.detail = self.contentTextView.text;
     self.feedBackLogic.content = self.contentTextView.text;

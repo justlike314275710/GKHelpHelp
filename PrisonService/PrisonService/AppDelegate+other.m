@@ -128,8 +128,6 @@
 }
 
 
-
-
 - (void)registerAPNs
 {
     if ([[UIApplication sharedApplication] respondsToSelector:@selector(registerForRemoteNotifications)])

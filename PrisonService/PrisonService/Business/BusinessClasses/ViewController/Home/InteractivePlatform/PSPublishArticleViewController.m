@@ -124,6 +124,7 @@
         make.left.mas_equalTo(15);
         make.height.with.mas_equalTo(14);
         make.top.mas_equalTo(50);
+        [self.closeBtn be_setEnlargeEdge:10];
     }];
     [_closeBtn be_setEnlargeEdgeWithTop:20 right:15 bottom:5 left:20];
     

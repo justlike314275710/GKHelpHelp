@@ -45,7 +45,7 @@
     NSString *storage_spaceStr = NSLocalizedString(@"storage", @"存储空间");
     storage_spaceItem.itemName = storage_spaceStr;
     storage_spaceItem.itemIconName = @"userCenterSettingStorage";
-    storage_spaceItem.itemValue = [NSString stringWithFormat:@"%.1fM",[self fileSizeWithIntergeWithM]+61.9];
+    storage_spaceItem.itemValue = [NSString stringWithFormat:@"%.1fM",[self fileSizeWithIntergeWithM]];
     [thirdSectionItems addObject:storage_spaceItem];
     [items addObject:thirdSectionItems];
     
@@ -63,7 +63,7 @@
 }
 
 -(NSString *)allstorage {
-    return [NSString stringWithFormat:@"%.1fM",[self fileSizeWithIntergeWithM]+61.9];
+    return [NSString stringWithFormat:@"%.1fM",[self fileSizeWithIntergeWithM]];
 }
 
 - (CGFloat)fileSizeWithIntergeWithM {

@@ -92,7 +92,6 @@
     [self.homeCollectionView registerClass:[PSPrisonerCell class] forCellWithReuseIdentifier:@"PSPrisonerCell"];
     [self.homeCollectionView registerClass:[PSHomeHallSectionView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"PSHomeHallSectionView"];
     [self.homeCollectionView registerClass:[PSHallFunctionCell class] forCellWithReuseIdentifier:@"PSHallFunctionCell"];
-    
     [self.view addSubview:self.homeCollectionView];
     [self.homeCollectionView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.mas_equalTo(UIEdgeInsetsZero);

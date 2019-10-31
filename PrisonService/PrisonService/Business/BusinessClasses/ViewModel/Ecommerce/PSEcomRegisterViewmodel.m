@@ -32,9 +32,9 @@
     return self;
 }
 
-
+//注册手机用户
 - (void)requestEcomRegisterCompleted:(RequestDataCompleted)completedCallback failed:(RequestDataFailed)failedCallback {
-    NSString*url=[NSString stringWithFormat:@"%@/users/of-mobile",EmallHostUrl];
+    NSString*url=[NSString stringWithFormat:@"%@%@",EmallHostUrl,URL_public_users_of_mobile];
     NSDictionary*parmeters=@{
                              @"phoneNumber":self.phoneNumber,
                              @"verificationCode":self.verificationCode,

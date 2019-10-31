@@ -141,7 +141,6 @@
         if ([responseObject[@"code"]integerValue] == 200) {
             if (responseObject[@"data"]) {
                 self.session =[[PSUserSession alloc]initWithDictionary:responseObject[@"data"] error:nil];
-                //[PSSessionManager sharedInstance].session=self.session;
             }
         }
         if ([responseObject[@"code"]integerValue] == 400) {

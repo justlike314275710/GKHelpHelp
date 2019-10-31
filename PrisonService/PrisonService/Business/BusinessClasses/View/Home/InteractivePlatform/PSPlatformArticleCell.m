@@ -301,6 +301,7 @@
     if (!_bgView) {
         _bgView = [UIImageView new];
         _bgView.image = IMAGE_NAMED(@"platcell_bottom");
+        _bgView.userInteractionEnabled = YES;
     }
     return _bgView;
 }
