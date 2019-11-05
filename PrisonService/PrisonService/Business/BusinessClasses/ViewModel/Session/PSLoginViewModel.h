@@ -20,8 +20,6 @@
 @property (nonatomic, assign) BOOL agreeProtocol;
 
 - (void)loginCompleted:(RequestDataCompleted)completedCallback failed:(RequestDataFailed)failedCallback;
-
-
 - (void)requestCodeCompleted:(RequestDataCompleted)completedCallback failed:(RequestDataFailed)failedCallback;
 - (void)checkPhoneDataWithCallback:(CheckDataCallback)callback;
 - (void)checkCodeCompleted:(RequestDataCompleted)completedCallback failed:(RequestDataFailed)failedCallback;

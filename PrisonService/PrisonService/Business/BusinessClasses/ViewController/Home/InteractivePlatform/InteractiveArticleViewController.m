@@ -139,7 +139,6 @@
     }];
 }
 
-
 #pragma mark - Delegate
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     PSPublishArtcleListViewModel *messageViewModel = (PSPublishArtcleListViewModel *)self.viewModel;
@@ -175,10 +174,10 @@
     //点赞回调刷新
     DetailArticleVC.praiseBlock = ^(BOOL isPraise, NSString *id, BOOL result) {
         if (isPraise) {
-            model.praiseNum = [NSString stringWithFormat:@"%d",[model.praiseNum integerValue]+1];
+            model.praiseNum = [NSString stringWithFormat:@"%ld",[model.praiseNum integerValue]+1];
             model.ispraise = @"1";
         } else {
-            model.praiseNum = [NSString stringWithFormat:@"%d",[model.praiseNum integerValue]-1];
+            model.praiseNum = [NSString stringWithFormat:@"%ld",[model.praiseNum integerValue]-1];
             model.ispraise = @"0";
         }
         //刷新
@@ -186,7 +185,6 @@
         //刷新另外的列表
         KPostNotification(KNotificationRefreshCollectArticle, nil);
         KPostNotification(KNotificationRefreshMyArticle, nil);
-        
     };
     //热度刷新
     DetailArticleVC.hotChangeBlock = ^(NSString *clientNum) {

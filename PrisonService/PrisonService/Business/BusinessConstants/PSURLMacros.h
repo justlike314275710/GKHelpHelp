@@ -19,6 +19,8 @@
 
 
 #pragma mark - ——————— 公共服务接口     ————————
+//注册手机用户
+#define URL_public_users_of_mobile @"/users/of-mobile"
 //新增加意见反馈
 #define URL_feedbacks_add     @"/feedbacks"
 

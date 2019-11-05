@@ -100,25 +100,20 @@
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         NSHTTPURLResponse * responses = (NSHTTPURLResponse *)task.response;
         if (responses.statusCode == 200) {
-            //[5]    (null)    @"username" : @"38da99eca72141efa5a445c675d076d2"    
             //云信账号密码
             NSString*account =responseObject[@"account"];
             NSString*token  =responseObject[@"token"];
             NSString*username = responseObject[@"username"];
-            
             [LXFileManager removeUserDataForkey:@"account"];
             [LXFileManager removeUserDataForkey:@"token"];
             [LXFileManager removeUserDataForkey:@"username"];
             [LXFileManager saveUserData:account forKey:@"account"];
             [LXFileManager saveUserData:token forKey:@"token"];
             [LXFileManager saveUserData:username forKey:@"username"];
-            
-            
             if (completedCallback) {
                 completedCallback(responseObject);
             }
         }
-        
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         if (failedCallback) {
             failedCallback(error);

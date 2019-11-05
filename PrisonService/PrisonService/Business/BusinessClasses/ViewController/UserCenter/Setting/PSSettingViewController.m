@@ -100,9 +100,10 @@
     
 }
 
+//重新计算缓存
 - (void)refreshStorage {
     PSSettingViewModel *settingViewModel = (PSSettingViewModel *)self.viewModel;
-    UILabel *valueLab = (UILabel *)[self.view viewWithTag:11];
+    UILabel *valueLab = (UILabel *)[self.view viewWithTag:12];
     if (valueLab) valueLab.text = [settingViewModel allstorage];
 }
 - (void)insert_storage {

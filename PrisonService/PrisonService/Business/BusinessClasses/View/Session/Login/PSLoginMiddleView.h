@@ -12,10 +12,12 @@
 @interface PSLoginMiddleView : UIView
 
 @property (nonatomic, strong) UILabel*codeLable;
-@property (nonatomic, strong, readonly) UIButton *loginButton;
+@property (nonatomic, strong) UIButton *loginButton;
 @property (nonatomic, strong, readonly) UIButton *codeButton;
 @property (nonatomic, strong, readonly) PSUnderlineTextField *phoneTextField;
 @property (nonatomic, strong, readonly) PSUnderlineTextField *cardTextField;
 @property (nonatomic, strong, readonly) PSUnderlineTextField *codeTextField;
+
+
 
 @end

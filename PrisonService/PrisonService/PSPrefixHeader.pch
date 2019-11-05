@@ -38,8 +38,8 @@
 #import "SDTextLimitTool.h"
 #import "KCH.h"
 #import "UILabel+KY.h"
-#import "KpengDianZanBtn.h"
 #import "UIView+JJChange.h"
 #import "PSBusinessConstants.h"
+#import "NSObject+version.h"
 #endif /* PSPrefixHeader_pch */
 #endif

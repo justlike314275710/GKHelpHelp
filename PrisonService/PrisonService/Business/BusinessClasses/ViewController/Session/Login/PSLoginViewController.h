@@ -12,8 +12,6 @@
 
 @interface PSLoginViewController : PSBusinessViewController<PSSessionHandler>
 
-
-
 @property (nonatomic, copy) SessionHandlerCallback callback;
 
 @end

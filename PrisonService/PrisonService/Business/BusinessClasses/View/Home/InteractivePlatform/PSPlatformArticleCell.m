@@ -301,6 +301,7 @@
     if (!_bgView) {
         _bgView = [UIImageView new];
         _bgView.image = IMAGE_NAMED(@"platcell_bottom");
+        _bgView.userInteractionEnabled = YES;
     }
     return _bgView;
 }
@@ -340,9 +341,9 @@
     return _hotIconImg;
 }
 
-- (KpengDianZanBtn *)likeBtn {
+- (UIButton *)likeBtn {
     if (!_likeBtn) {
-        _likeBtn = [KpengDianZanBtn new];
+        _likeBtn = [UIButton new];
         [_likeBtn setImage:IMAGE_NAMED(@"未赞") forState:UIControlStateNormal];
         [_likeBtn addTarget:self action:@selector(praiseAction:) forControlEvents:UIControlEventTouchUpInside];
     }

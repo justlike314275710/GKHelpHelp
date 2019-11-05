@@ -167,14 +167,12 @@
             //apns通知启动
             AppDelegate *appdelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
             if (appdelegate.openByNotice) {
-                [[NSNotificationCenter defaultCenter] postNotificationName:EBBannerViewDidClickNotification object:message];
-                appdelegate.openByNotice = NO;
+                appdelegate.openByNotice = NO; //不弹出前台通知
             } else {
                 if (message.code == PSMeetingLocal) {
                     [self.observerVector notifyObserver:@selector(receivedLocalMeetingMessage:) object:message];
                 }else{
                     [self.observerVector notifyObserver:@selector(receivedMeetingMessage:) object:message];
-                    
                 }
             }
         }

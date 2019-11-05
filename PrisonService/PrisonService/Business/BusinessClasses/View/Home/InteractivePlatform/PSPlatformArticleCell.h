@@ -23,7 +23,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic,strong)UILabel *contentLab;
 @property(nonatomic,strong)UIImageView *timeIconImg;
 @property(nonatomic,strong)UILabel *timeLab;
-@property(nonatomic,strong)KpengDianZanBtn *likeBtn;
+@property(nonatomic,strong)UIButton *likeBtn;
 @property(nonatomic,strong)UILabel *likeLab;
 @property(nonatomic,strong)UIImageView *hotIconImg;
 @property(nonatomic,strong)UILabel *hotLab;

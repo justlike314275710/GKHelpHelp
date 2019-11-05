@@ -208,6 +208,8 @@
         KPostNotification(KNotificationRefreshInteractiveArticle, nil);
         KPostNotification(KNotificationRefreshCollectArticle, nil);
         KPostNotification(KNotificationRefreshMyArticle, nil);
+        //刷新
+        [tableView reloadRowsAtIndexPaths:[NSArray arrayWithObjects:indexPath,nil] withRowAnimation:UITableViewRowAnimationNone];
     };
     [self.navigationController pushViewController:DetailArticleVC animated:YES];
 }

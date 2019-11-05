@@ -49,6 +49,10 @@
  *  显示token失效失败信息
  */
 -(void)showTokenError;
+/**
+ *  接口回调失败信息
+ */
+-(NSDictionary*)errorData:(NSError*)error;
 
 //返回
 - (IBAction)actionOfLeftItem:(id)sender;
@@ -88,6 +92,7 @@
  */
 - (BOOL)hiddenNavigationBar;
 - (void)changeOrientation:(UIInterfaceOrientation)orientation;
+
 
 
 @end

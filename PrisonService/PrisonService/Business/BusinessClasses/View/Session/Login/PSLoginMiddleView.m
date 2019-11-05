@@ -27,6 +27,8 @@
         _phoneTextField.borderStyle = UITextBorderStyleNone;
         _phoneTextField.textColor = AppBaseTextColor1;
         _phoneTextField.textAlignment = NSTextAlignmentCenter;
+        [_phoneTextField addTarget:self action:@selector(changedTextField:) forControlEvents:UIControlEventEditingChanged];
+
        NSString*please_enter_phone_number=NSLocalizedString(@"please_enter_phone_number", nil);
         _phoneTextField.placeholder =please_enter_phone_number;
         _phoneTextField.keyboardType = UIKeyboardTypeNumberPad;
@@ -63,6 +65,7 @@
         NSString*please_enter_verify_code=NSLocalizedString(@"please_enter_verify_code", nil);
         _codeTextField.placeholder = please_enter_verify_code;
         _codeTextField.keyboardType =UIKeyboardTypeASCIICapable;
+        [_codeTextField addTarget:self action:@selector(changedTextField:) forControlEvents:UIControlEventEditingChanged];
         [self addSubview:_codeTextField];
         [_codeTextField mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.mas_equalTo(sidePadding);
@@ -97,14 +100,15 @@
             make.width.mas_equalTo(70);
         }];
         self.codeLable.numberOfLines=0;
-        
         _loginButton = [UIButton buttonWithType:UIButtonTypeCustom];
         _loginButton.titleLabel.font = AppBaseTextFont1;
         [_loginButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         NSString*login=NSLocalizedString(@"login", nil);
         [_loginButton setTitle:login forState:UIControlStateNormal];
-//        [_loginButton setBackgroundImage:[[UIImage imageNamed:@"universalBtBg"] stretchImage] forState:UIControlStateNormal];
-        [_loginButton setBackgroundColor:AppBaseTextColor3];
+        [_loginButton setBackgroundImage:[[UIImage imageNamed:@"提交按钮底框-灰"] stretchImage] forState:UIControlStateNormal];
+        [_loginButton setBackgroundImage:[[UIImage imageNamed:@"提交按钮底框"] stretchImage] forState:UIControlStateSelected];
+        _loginButton.enabled=NO;
+        _loginButton.selected=NO;
         [self addSubview:_loginButton];
         [_loginButton mas_makeConstraints:^(MASConstraintMaker *make) {
             make.bottom.mas_equalTo(_codeTextField.mas_bottom).offset(70);
@@ -114,6 +118,18 @@
     }
     return self;
 }
+#pragma mark -只要值改变就调用此函数
+-(void)changedTextField:(id)textField
+{
+    if (_phoneTextField.text.length>0&&_codeTextField.text.length>0) {
+        _loginButton.enabled=YES;
+        _loginButton.selected = YES;
+    } else {
+        _loginButton.enabled = NO;
+        _loginButton.selected = NO;
+    }
+}
+
 
 
 @end
