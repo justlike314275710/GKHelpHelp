@@ -23,6 +23,7 @@
 #import "PSFamliesFaceViewController.h"
 #import <EBBannerView/EBBannerView.h>
 #import "UIViewController+Tool.h"
+#import "AppDelegate+other.h"
 
 #import "PSLocateManager.h"
 @interface PSMeetingManager ()<PSIMMessageObserver>
@@ -382,17 +383,18 @@
                 KPostNotification(KNotificationRefreshMyArticle, nil);
                 KPostNotification(KNotificationRefreshInteractiveArticle, nil);
                 KPostNotification(KNotificationRefreshCollectArticle, nil);
-//                NSString *token = [[PSSessionManager sharedInstance].session.token copy];
-//                [ZQLocalNotification NotificationType:CountdownNotification Identifier:token activityId:1900000 alertBody:message.msg alertTitle:@"狱务通" alertString:@"确定" withTimeDay:0 hour:0 minute:0 second:1];
-                EBBannerView *banner = [EBBannerView bannerWithBlock:^(EBBannerViewMaker *make) {
-                    make.style = 11;
-                    make.content = message.msg;
-                    make.object = message;
-                }];
-                [banner show];
+                //只在前台弹出
+                if ([AppDelegate runningInForeground]) {
+                    EBBannerView *banner = [EBBannerView bannerWithBlock:^(EBBannerViewMaker *make) {
+                        make.style = 11;
+                        make.content = message.msg;
+                        make.object = message;
+                    }];
+                    [banner show];
+                }
                 //发布文章权限改变
                 if (message.isEnabled&&message.isEnabled.length>0) {
-                    KPostNotification(KNotificationAuthorChange, nil);
+                    KPostNotification(KNotificationAuthorChange,message);
                 }
                 
             }

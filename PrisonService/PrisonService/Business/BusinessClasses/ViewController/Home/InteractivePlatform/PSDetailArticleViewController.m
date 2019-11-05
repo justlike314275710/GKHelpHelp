@@ -27,7 +27,7 @@
 @property(nonatomic,strong)UILabel *timeLab;
 @property(nonatomic,strong)UITextView *contentTextView;
 @property(nonatomic,strong)UIImageView *bottomView;
-@property(nonatomic,strong)KpengDianZanBtn *likeBtn; //点赞
+@property(nonatomic,strong)UIButton *likeBtn; //点赞
 @property(nonatomic,strong)UILabel *likeLab; //点赞
 @property(nonatomic,strong)UIButton *hotBtn; //热度
 @property(nonatomic,strong)UILabel *hotLab;  //热度
@@ -406,7 +406,7 @@
             if (response.code == 200){
 //                [self setupData];
                 PSArticleDetailViewModel *viewModel =  (PSArticleDetailViewModel *)self.viewModel;
-                viewModel.detailModel.ispraise = @"0";
+                 viewModel.detailModel.iscollect = @"0";
                 [self refreshUI];
                 //刷新收藏列表
                 KPostNotification(KNotificationRefreshCollectArticle, nil);
@@ -573,9 +573,9 @@
     }
     return _bottomView;
 }
-- (KpengDianZanBtn*)likeBtn {
+- (UIButton*)likeBtn {
     if (!_likeBtn) {
-        _likeBtn = [KpengDianZanBtn buttonWithType:UIButtonTypeCustom];
+        _likeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         [_likeBtn setImage:IMAGE_NAMED(@"未点赞") forState:UIControlStateNormal];
         [_likeBtn addTarget:self action:@selector(clickPraiseAction:) forControlEvents:UIControlEventTouchUpInside];
         [_likeBtn be_setEnlargeEdge:10];

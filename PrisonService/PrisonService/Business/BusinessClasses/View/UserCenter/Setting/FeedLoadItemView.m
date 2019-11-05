@@ -192,7 +192,7 @@
                 sender.image = cropImage;
             }];
             [picker setSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
-            picker.delegate = self;
+             picker.delegate = self;
             [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:picker animated:YES completion:nil];
         }];
     }];

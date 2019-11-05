@@ -17,6 +17,7 @@
 #import "PSMyTotalArtcleListViewModel.h"
 #import "PSPublishArticleViewModel.h"
 #import "PSArticleDetailViewModel.h"
+#import "PSMeetingMessage.h"
 
 
 @interface InteractivePlatformViewController ()<PSPlatfromMenuViewDelegate> {
@@ -50,9 +51,9 @@
     
     [self.view addSubview:self.publishBtn];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setupData) name:KNotificationAuthorChange object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setupData:) name:KNotificationAuthorChange object:nil];
     
-    [self setupData];
+    [self setupData:nil];
     
     _author = YES;
 
@@ -67,20 +68,33 @@
     [super viewWillDisappear:animated];
 }
 
--(void)setupData{
-    PSArticleDetailViewModel *detailViewModel = [[PSArticleDetailViewModel alloc] init];
-    [detailViewModel authorArticleCompleted:^(PSResponse *response) {
-        if ([detailViewModel.authorModel.isEnabled isEqualToString:@"1"]) {
-            [_publishBtn setEnabled:YES];
-            [_publishBtn setImage:IMAGE_NAMED(@"发布") forState:UIControlStateNormal];
+-(void)setupData:(NSNotification*)noti{
+    
+    if (noti) {
+        PSMeetingMessage *message = noti.object;
+        if ([message.isEnabled isEqualToString:@"1"]) {
             _author = YES;
+            [_publishBtn setEnabled:YES];
+            [_publishBtn setBackgroundImage:IMAGE_NAMED(@"发布") forState:UIControlStateNormal];
         } else {
-            [_publishBtn setImage:IMAGE_NAMED(@"不能发布") forState:UIControlStateNormal];
+            [_publishBtn setBackgroundImage:IMAGE_NAMED(@"不能发布") forState:UIControlStateNormal];
             _author = NO;
         }
-    } failed:^(NSError *error) {
-        
-    }];
+    } else {
+        PSArticleDetailViewModel *detailViewModel = [[PSArticleDetailViewModel alloc] init];
+        [detailViewModel authorArticleCompleted:^(PSResponse *response) {
+            if ([detailViewModel.authorModel.isEnabled isEqualToString:@"1"]) {
+                [_publishBtn setEnabled:YES];
+                [_publishBtn setBackgroundImage:IMAGE_NAMED(@"发布") forState:UIControlStateNormal];
+                _author = YES;
+            } else {
+                [_publishBtn setBackgroundImage:IMAGE_NAMED(@"不能发布") forState:UIControlStateNormal];
+                _author = NO;
+            }
+        } failed:^(NSError *error) {
+            
+        }];
+    }
 }
 
 #pragma mark - PrivateMethosd
@@ -157,8 +171,10 @@
 - (UIButton *)publishBtn {
     if (!_publishBtn) {
         _publishBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        _publishBtn.frame = CGRectMake(KScreenWidth-59,KScreenHeight-150,50,50);
-        [_publishBtn setImage:IMAGE_NAMED(@"") forState:UIControlStateNormal];
+        CGFloat scale = KScreenWidth/320;
+        CGFloat width = scale*55;
+        _publishBtn.frame = CGRectMake(KScreenWidth-(width+10),KScreenHeight-(100+width),width,width);
+        [_publishBtn setBackgroundImage:IMAGE_NAMED(@"") forState:UIControlStateNormal];
         [_publishBtn addTarget:self action:@selector(publishBtnAction:) forControlEvents:UIControlEventTouchUpInside];
     }
     return _publishBtn;

@@ -108,9 +108,8 @@
 }
 /** 加载数据 */
 - (void)loadData {
-    _reportReason = @[@"色情淫秽",@"垃圾营销",@"谣言",@"政治敏感",@"政治敏感",@"侵权（肖像、诽谤等）",@"售假举报",@"其他"];
+    _reportReason = @[@"色情污秽",@"垃圾营销",@"谣言",@"政治敏感",@"违法信息",@"侵权（肖像、诽谤等）",@"售假举报",@"其他"];
     [self.tableView reloadData];
-    
     PSReportArticleViewModel *viewModel = (PSReportArticleViewModel *)self.viewModel;
     NSString *penName                   = viewModel.detailModel.penName;
     NSString *title                     = viewModel.detailModel.title;

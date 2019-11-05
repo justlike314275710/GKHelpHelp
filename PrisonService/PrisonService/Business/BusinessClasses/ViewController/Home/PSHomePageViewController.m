@@ -120,10 +120,6 @@
     PSHomeViewModel *homeViewModel   = (PSHomeViewModel *)self.viewModel;
     NSInteger index                  = homeViewModel.selectedPrisonerIndex;
     PSPrisonerDetail *prisonerDetail = nil;
-<<<<<<< HEAD
-
-=======
->>>>>>> 3de5662e2125307a8dfe4730dcfbae56863de17f
     if (index >= 0 && index < homeViewModel.passedPrisonerDetails.count) {
     prisonerDetail                   = homeViewModel.passedPrisonerDetails[index];
     }
@@ -226,7 +222,7 @@
             }
         });
     } failed:^(NSError *error) {
-        
+        [self showNetError:error];
     }];
 }
 //MARK:系统消息

@@ -139,7 +139,6 @@
     }];
 }
 
-
 #pragma mark - Delegate
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     PSPublishArtcleListViewModel *messageViewModel = (PSPublishArtcleListViewModel *)self.viewModel;

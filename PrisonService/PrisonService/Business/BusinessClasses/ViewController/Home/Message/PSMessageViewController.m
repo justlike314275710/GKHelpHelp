@@ -118,8 +118,6 @@
     }];
 }
 
-
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
@@ -141,6 +139,7 @@
 -(void)refreshData1{
     if (isFirst==NO) {
         KPostNotification(AppDotChange, nil);
+        [self refreshData];
         isFirst = YES;
     }
 }

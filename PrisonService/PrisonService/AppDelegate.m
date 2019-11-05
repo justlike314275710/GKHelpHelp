@@ -45,9 +45,12 @@
     self.openByNotice = NO;
     if (launchOptions) {
          // 获取推送通知定义的userinfo
-         NSDictionary *userInfo = launchOptions[UIApplicationLaunchOptionsRemoteNotificationKey];
+        NSDictionary *userInfo = launchOptions[UIApplicationLaunchOptionsRemoteNotificationKey];
         if (userInfo) {
             self.openByNotice = YES;
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [self userNotificationCenterApns:userInfo];
+            });
         }
     }
     //检测更新
@@ -110,7 +113,6 @@
     [[NSNotificationCenter defaultCenter]postNotificationName:@"statusBarTappedNotification" object:nil];
     
 }
-
 
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
     return [self handleURL:url];

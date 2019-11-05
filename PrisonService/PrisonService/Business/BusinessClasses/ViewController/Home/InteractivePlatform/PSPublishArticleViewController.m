@@ -134,14 +134,11 @@
         make.left.right.mas_equalTo(0);
         make.bottom.mas_equalTo(self.view.mas_bottom);
     }];
-
-    
     [self.scrollview addSubview:self.container];
     [self.container mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.width.height.mas_equalTo(_scrollview);
         make.top.mas_equalTo(0);
     }];
-    
     [self.container addSubview:self.articletypeImg];
     [self.articletypeImg mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(30);
@@ -149,7 +146,6 @@
         make.width.mas_equalTo(16);
         make.height.mas_equalTo(15);
     }];
-    
     [self.container addSubview:self.articletypeLab];
     [self.articletypeLab mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(_articletypeImg.mas_right).offset(10);

@@ -335,7 +335,6 @@
             default:
                 break;
         }
-        
         if (photoAuthStatus == AVAuthorizationStatusNotDetermined) {
             //没有询问相册开启权限
             [PHPhotoLibrary requestAuthorization:^(PHAuthorizationStatus status) {

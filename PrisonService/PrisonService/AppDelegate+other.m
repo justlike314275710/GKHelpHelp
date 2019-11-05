@@ -13,6 +13,10 @@
 #import <AvoidCrash/AvoidCrash.h>
 #import <Bugly/Bugly.h>
 #import <UserNotifications/UserNotifications.h>
+#import "PSMeetingMessage.h"
+#import "PSAllMessageViewController.h"
+#import "UIViewController+Tool.h"
+
 
 #define BuglyAppID @"21f609a887"
 #define BuglyAppIDKey @"1456f3ed-eb99-458b-9ac8-227261185610"
@@ -98,15 +102,89 @@
         [[UIApplication sharedApplication] registerForRemoteNotificationTypes:myTypes];
     }
 }
+#pragma mark ---------- 远程APNS推送打开app(点击推送push)
+- (void)userNotificationCenterApns:(NSDictionary*)userInfo{
+    
+    PSMeetingMessage *message = [[PSMeetingMessage alloc] initWithDictionary:userInfo error:nil];
+    UIViewController *currentVC = [UIViewController jsd_getCurrentViewController];
+    NSLog(@"%@",message);
+    switch (message.code) {
+        case PSMeetingStatus:
+        case PSMeetingLocal:
+        case PSMeetingCancelAuthorization:
+        {
+            PSAllMessageViewController *allMessageVC = [[PSAllMessageViewController alloc] init];
+            [currentVC.navigationController pushViewController:allMessageVC animated:YES];
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [allMessageVC scrollviewItemIndex:1];
+            });
+        }
+            break;
+        case PSMessageArticleInteractive:
+        {
+            PSAllMessageViewController *allMessageVC = [[PSAllMessageViewController alloc] init];
+            [currentVC.navigationController pushViewController:allMessageVC animated:YES];
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [allMessageVC scrollviewItemIndex:2];
+            });
+        }
+            break;
+            
+        default:
+            break;
+    }
+    //延时刷新未读红点数
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        KPostNotification(AppDotChange, nil);
+    });
+}
 
 #pragma mark ---------- UNUserNotificationCenterDelegate
 //App处于前台收到本地推送或者远程推送时调用
 - (void)userNotificationCenter:(UNUserNotificationCenter *)center willPresentNotification:(UNNotification *)notification withCompletionHandler:(void (^)(UNNotificationPresentationOptions options))completionHandler __IOS_AVAILABLE(10.0) __TVOS_AVAILABLE(10.0) __WATCHOS_AVAILABLE(3.0){
     NSLog(@"userInfo : %@",notification.request.content.userInfo);
+    
+    
 }
 //App处于后台（未杀死）点击本地推送或者远程推送时调用
 - (void)userNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(void(^)())completionHandler __IOS_AVAILABLE(10.0) __WATCHOS_AVAILABLE(3.0) __TVOS_PROHIBITED{
-  
+    
+    NSLog(@"%@",response.notification.request.content.userInfo);
+    NSDictionary *userInfo = response.notification.request.content.userInfo;
+    if(userInfo){
+        PSMeetingMessage *message = [[PSMeetingMessage alloc] initWithDictionary:userInfo error:nil];
+        UIViewController *currentVC = [UIViewController jsd_getCurrentViewController];
+        NSLog(@"%@",message);
+        switch (message.code) {
+            case PSMeetingStatus:
+            case PSMeetingLocal:
+            case PSMeetingCancelAuthorization:
+            {
+                PSAllMessageViewController *allMessageVC = [[PSAllMessageViewController alloc] init];
+                [currentVC.navigationController pushViewController:allMessageVC animated:YES];
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    [allMessageVC scrollviewItemIndex:1];
+                });
+            }
+                break;
+            case PSMessageArticleInteractive:
+            {
+                PSAllMessageViewController *allMessageVC = [[PSAllMessageViewController alloc] init];
+                [currentVC.navigationController pushViewController:allMessageVC animated:YES];
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    [allMessageVC scrollviewItemIndex:2];
+                });
+            }
+                break;
+                
+            default:
+                break;
+        }
+        //延时刷新未读红点数
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            KPostNotification(AppDotChange, nil);
+        });
+  }
 }
 
 - (void)application:(UIApplication*)application didReceiveRemoteNotification:(NSDictionary*)userInfo {
@@ -213,6 +291,22 @@
     
     [Bugly reportExceptionWithCategory:3 name:info[@"errorName"] reason:errorReason callStack:callStack extraInfo:nil terminateApp:NO];
     //[BuglyManager reportErrorName:Bugly_ErrorName_AvoidCrash errorReason:errorReason callStack:callStack extraInfo:nil];
+}
+
++(BOOL) runningInBackground
+{
+    UIApplicationState state = [UIApplication sharedApplication].applicationState;
+    BOOL result = (state == UIApplicationStateBackground);
+    
+    return result;
+}
+
++(BOOL) runningInForeground
+{
+    UIApplicationState state = [UIApplication sharedApplication].applicationState;
+    BOOL result = (state == UIApplicationStateActive);
+    
+    return result;
 }
 
 

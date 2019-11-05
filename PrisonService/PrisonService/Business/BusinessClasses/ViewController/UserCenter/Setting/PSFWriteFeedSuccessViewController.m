@@ -7,7 +7,7 @@
 //
 
 #import "PSFWriteFeedSuccessViewController.h"
-#import "PSWriteFeedbackListViewController.h"
+#import "PSSettingViewController.h"
 #import "PSFeedbackViewModel.h"
 
 @interface PSFWriteFeedSuccessViewController ()
@@ -23,7 +23,6 @@
     if (viewModel.writefeedType == PSPrisonfeedBack) {
          title=NSLocalizedString(@"complain_advice", @"投诉建议");
     }
-
     self.title = title;
     self.view.backgroundColor = UIColorFromRGBA(248, 247, 254, 1);
     NSString*close=NSLocalizedString(@"close", @"关闭");
@@ -62,15 +61,11 @@
 }
 - (void)rightAction {
     [self.navigationController.viewControllers enumerateObjectsUsingBlock:^(__kindof UIViewController * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        if ([obj isKindOfClass:[PSWriteFeedbackListViewController class]]) {
+        if ([obj isKindOfClass:[PSSettingViewController class]]) {
             [self.navigationController popToViewController:obj animated:YES];
             *stop = YES;
-        } else {
-            [self.navigationController popViewControllerAnimated:YES];
         }
     }];
-    //刷新列表
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"wirtefeedListfresh" object:nil];
 }
 
 @end

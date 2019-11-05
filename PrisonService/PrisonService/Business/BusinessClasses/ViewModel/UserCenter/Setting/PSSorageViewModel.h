@@ -11,7 +11,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface PSSorageViewModel : PSViewModel
-@property(nonatomic,copy,readonly) NSString *allStorage;
+@property(nonatomic,copy) NSString *allStorage;
 @property(nonatomic,copy,readonly) NSString *usedStorage;
 
 @end

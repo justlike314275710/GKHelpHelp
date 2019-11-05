@@ -14,6 +14,8 @@
 @end
 
 @interface AppDelegate (other)
++(BOOL) runningInBackground;
++(BOOL) runningInForeground;
 /**
  检测网络
  **/
@@ -37,6 +39,10 @@
 
 - (void)registerAPNs;
 - (void)registerAPNS:(UIApplication *)application launchOptions:(NSDictionary *)launchOptions;
+/**
+ apns 点击推送打开app
+ **/
+- (void)userNotificationCenterApns:(NSDictionary*)userInfo;
 
 @end
 
