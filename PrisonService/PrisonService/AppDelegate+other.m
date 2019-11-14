@@ -21,6 +21,9 @@
 #define BuglyAppID @"21f609a887"
 #define BuglyAppIDKey @"1456f3ed-eb99-458b-9ac8-227261185610"
 
+#define DevlpmentBuglyAppID @"85e55ad08f"
+#define DevlpmentBuglyBuglyAppIDKey @"c9f86708-976f-4dea-94e4-c00d5464d381"
+
 
 @interface AppDelegate()<UNUserNotificationCenterDelegate>
 
@@ -225,7 +228,12 @@
 
 #pragma mark ---------- Bugly
 - (void)registerBugly {
-    [Bugly startWithAppId:BuglyAppID];
+#ifdef DEBUG
+      [Bugly startWithAppId:DevlpmentBuglyAppID];
+#else
+     [Bugly startWithAppId:BuglyAppID];
+#endif
+  
 }
 #pragma mark ---------- mob
 - (void)registerUMMob {
