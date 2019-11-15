@@ -14,9 +14,14 @@
 #import "PSTipsConstants.h"
 #import "UITableView+FDTemplateLayoutCell.h"
 
-@interface PSAdvisoryMesssageViewController ()<UITableViewDataSource,UITableViewDelegate,DZNEmptyDataSetSource,DZNEmptyDataSetDelegate>
+
+
+@interface PSAdvisoryMesssageViewController ()<UITableViewDataSource,UITableViewDelegate,DZNEmptyDataSetSource,DZNEmptyDataSetDelegate,UIGestureRecognizerDelegate>{
+
+}
 
 @property (nonatomic, strong) UITableView *messageTableView;
+
 
 @end
 
@@ -107,27 +112,31 @@
     @weakify(self)
     self.messageTableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
         @strongify(self)
-        [self refreshData];
+//        [self refreshData];
     }];
     [self.messageTableView registerClass:[PSMessageCell class] forCellReuseIdentifier:@"PSMessageCell"];
     [self.view addSubview:self.messageTableView];
     [self.messageTableView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.edges.mas_equalTo(UIEdgeInsetsZero);
+//        make.edges.mas_equalTo(UIEdgeInsetsZero);
+        make.top.mas_equalTo(10);
+        make.right.left.bottom.mas_equalTo(0);
+  
     }];
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    self.view.backgroundColor = UIColorFromRGB(249, 248, 254);
     [self renderContents];
     [self refreshData];
     self.messageTableView.mj_footer = nil;
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshData) name:KNotificationRefreshzx_message object:nil];
-    
 }
+
+
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:KNotificationRefreshzx_message object:nil];
+//    [[NSNotificationCenter defaultCenter] removeObserver:self name:KNotificationRefreshzx_message object:nil];
 }
 
 
@@ -171,11 +180,11 @@
 }
 
 - (void)emptyDataSet:(UIScrollView *)scrollView didTapView:(UIView *)view {
-    [self refreshData];
+//    [self refreshData];
 }
 
 - (void)emptyDataSet:(UIScrollView *)scrollView didTapButton:(UIButton *)button {
-    [self refreshData];
+//    [self refreshData];
 }
 
 - (void)didReceiveMemoryWarning {

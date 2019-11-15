@@ -13,10 +13,10 @@
 #import "UIScrollView+EmptyDataSet.h"
 #import "PSTipsConstants.h"
 #import "UITableView+FDTemplateLayoutCell.h"
+#import "PSPlatMessageViewModel.h"
 
 @interface PSInteractiveMessageViewController ()<UITableViewDataSource,UITableViewDelegate,DZNEmptyDataSetSource,DZNEmptyDataSetDelegate>
 {
-    BOOL isFirst;
 }
 
 @property (nonatomic, strong) UITableView *messageTableView;
@@ -40,7 +40,7 @@
 }
 
 - (void)loadMore {
-    PSMessageViewModel *messageViewModel = (PSMessageViewModel *)self.viewModel;
+    PSPlatMessageViewModel *messageViewModel = (PSPlatMessageViewModel *)self.viewModel;
     @weakify(self)
     [messageViewModel loadMoreMessagesCompleted:^(PSResponse *response) {
         @strongify(self)
@@ -52,7 +52,7 @@
 }
 
 - (void)refreshData {
-    PSMessageViewModel *messageViewModel = (PSMessageViewModel *)self.viewModel;
+    PSPlatMessageViewModel *messageViewModel = (PSMessageViewModel *)self.viewModel;
     [[PSLoadingView sharedInstance] show];
     @weakify(self)
     [messageViewModel refreshMessagesCompleted:^(PSResponse *response) {
@@ -67,7 +67,7 @@
 }
 
 - (void)configureCell:(PSMessageCell *)cell atIndexPath:(NSIndexPath *)indexPath {
-    PSMessageViewModel *messageViewModel = (PSMessageViewModel *)self.viewModel;
+    PSPlatMessageViewModel *messageViewModel = (PSPlatMessageViewModel *)self.viewModel;
     PSMessage *message = messageViewModel.messages[indexPath.row];
     cell.titleLabel.text = message.title;
     cell.dateLabel.text = [message.createdAt timestampToDateString];
@@ -76,14 +76,20 @@
     if (indexPath.row<self.dotIndex) {
         cell.iconImageView.redDotNumber = 0;
         [cell.iconImageView ShowBadgeView];
+        cell.titleLabel.textColor = UIColorFromRGB(51,51,51);
+        cell.dateLabel.textColor =  UIColorFromRGB(51,51,51);
+        cell.contentLabel.textColor = UIColorFromRGB(51,51,51);
     } else {
         [cell.iconImageView hideBadgeView];
+        cell.titleLabel.textColor = UIColorFromRGB(153, 153, 153);
+        cell.dateLabel.textColor = UIColorFromRGB(153, 153, 153);
+        cell.contentLabel.textColor = UIColorFromRGB(153, 153, 153);
     }
-    
 }
 
+
 - (void)reloadContents {
-    PSMessageViewModel *messageViewModel = (PSMessageViewModel *)self.viewModel;
+    PSPlatMessageViewModel *messageViewModel = (PSPlatMessageViewModel *)self.viewModel;
     if (messageViewModel.hasNextPage) {
         @weakify(self)
         self.messageTableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
@@ -99,6 +105,7 @@
 }
 
 - (void)renderContents {
+    self.view.backgroundColor = UIColorFromRGB(249, 248, 254);
     self.messageTableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
     self.messageTableView.dataSource = self;
     self.messageTableView.delegate = self;
@@ -113,7 +120,9 @@
     [self.messageTableView registerClass:[PSMessageCell class] forCellReuseIdentifier:@"PSMessageCell"];
     [self.view addSubview:self.messageTableView];
     [self.messageTableView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.edges.mas_equalTo(UIEdgeInsetsZero);
+//        make.edges.mas_equalTo(UIEdgeInsetsZero);
+        make.top.mas_equalTo(10);
+        make.right.left.bottom.mas_equalTo(0);
     }];
 }
 
@@ -121,32 +130,17 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     [self renderContents];
-//    [self refreshData];
-    isFirst = NO;
+    [self refreshData];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshData) name:KNotificationRefreshhd_message object:nil];
-    //第一次刷新
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshData1) name:KNotificationRefreshhd_message_1 object:nil];
     
 }
-
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:KNotificationRefreshhd_message object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:KNotificationRefreshhd_message_1 object:nil];
+//    [[NSNotificationCenter defaultCenter] removeObserver:self name:KNotificationRefreshhd_message object:nil];
 }
-
-
-
--(void)refreshData1{
-    if (isFirst==NO) {
-       [self refreshData];
-       isFirst = YES;
-    }
-}
-
 #pragma mark -
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    PSMessageViewModel *messageViewModel = (PSMessageViewModel *)self.viewModel;
+    PSPlatMessageViewModel *messageViewModel = (PSPlatMessageViewModel *)self.viewModel;
     return messageViewModel.messages.count;
 }
 
@@ -164,19 +158,19 @@
 
 #pragma mark - DZNEmptyDataSetSource and DZNEmptyDataSetDelegate
 - (UIImage *)imageForEmptyDataSet:(UIScrollView *)scrollView {
-    PSMessageViewModel *messageViewModel = (PSMessageViewModel *)self.viewModel;
+    PSPlatMessageViewModel *messageViewModel = (PSPlatMessageViewModel *)self.viewModel;
     UIImage *emptyImage = messageViewModel.dataStatus == PSDataEmpty ? [UIImage imageNamed:@"universalNoneIcon"] : [UIImage imageNamed:@"universalNetErrorIcon"];
     return messageViewModel.dataStatus == PSDataInitial ? nil : emptyImage;
 }
 
 - (NSAttributedString *)titleForEmptyDataSet:(UIScrollView *)scrollView {
-    PSMessageViewModel *messageViewModel = (PSMessageViewModel *)self.viewModel;
+    PSPlatMessageViewModel *messageViewModel = (PSPlatMessageViewModel *)self.viewModel;
     NSString *tips = messageViewModel.dataStatus == PSDataEmpty ? EMPTY_CONTENT : NET_ERROR;
     return messageViewModel.dataStatus == PSDataInitial ? nil : [[NSAttributedString alloc] initWithString:tips attributes:@{NSFontAttributeName:AppBaseTextFont1,NSForegroundColorAttributeName:AppBaseTextColor1}];
 }
 
 - (NSAttributedString *)buttonTitleForEmptyDataSet:(UIScrollView *)scrollView forState:(UIControlState)state {
-    PSMessageViewModel *messageViewModel = (PSMessageViewModel *)self.viewModel;
+    PSPlatMessageViewModel *messageViewModel = (PSPlatMessageViewModel *)self.viewModel;
     return messageViewModel.dataStatus == PSDataError ? [[NSAttributedString alloc] initWithString:CLICK_ADD attributes:@{NSFontAttributeName:AppBaseTextFont1,NSForegroundColorAttributeName:AppBaseTextColor1}] : nil;
 }
 

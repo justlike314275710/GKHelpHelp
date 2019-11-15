@@ -48,10 +48,12 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.row == 0) {
+        [SDTrackTool logEvent:PUBliC_PRISON_FLFW];
         [self showPrisonLimits:@"法律服务" limitBlock:^{
             
         }];
     } else {
+        [SDTrackTool logEvent:PUBliC_PRISON_FLFW];
         PSLawViewController *lawViewController = [[PSLawViewController alloc] init];
         [self.navigationController pushViewController:lawViewController animated:YES];
     }

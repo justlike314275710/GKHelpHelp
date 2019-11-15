@@ -297,8 +297,10 @@
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 1) {
         [self periodChange];
+        [SDTrackTool logEvent:SERVICE_PERIOD];
     }else if (indexPath.section == 2) {
         [self prisonConsumption];
+        [SDTrackTool logEvent:SERVICE_Consumption];
     }
 }
 
@@ -308,6 +310,7 @@
 }
 
 -(void)changePrison:(MeetPrisonserModel *)meetJails{
+    [SDTrackTool logEvent:SERVICE_PRISONER_CHANGE];
     NSArray *PrisonerDetails  = [PSSessionManager sharedInstance].passedPrisonerDetails;
     [PrisonerDetails enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         PSPrisonerDetail *prisonerDetail = obj;

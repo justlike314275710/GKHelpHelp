@@ -61,6 +61,8 @@
             [PSAlertView showWithTitle:@"退款成功" message:refundViewModel.msgData messageAlignment:NSTextAlignmentCenter image:nil handler:^(PSAlertView *alertView, NSInteger buttonIndex) {
                 if (buttonIndex==0) {
                     [self requestBalance];
+                    [self requestInfoPhoneCard];
+                    
                 }
             } buttonTitles:@"确定", nil];
         }
@@ -81,15 +83,14 @@
   
     PSAccountrefundViewController *AccountRefundVC = [[PSAccountrefundViewController alloc] initWithViewModel:[PSViewModel new]];
     AccountRefundVC.refundBlock = ^(NSString *balanceSting) {
-        
+        self.balanceSting = balanceSting;
+        _totalLab.text = [NSString stringWithFormat:@"%.2f元",[self.balanceSting floatValue]];
         _totalLab.textColor = [UIColor whiteColor];
         _totalLab.font = FontOfSize(47);
         NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc]initWithString:_totalLab.text];
         [attrStr addAttribute:NSFontAttributeName value:FontOfSize(12) range:NSMakeRange(_totalLab.text.length-1, 1)];
         _totalLab.attributedText = attrStr;
-        self.balanceSting = balanceSting;
         if ([NSObject judegeIsVietnamVersion]) _totalLab.text = [NSString stringWithFormat:@"$%.2f",[balanceSting floatValue]];
-        
     };
     
     [self.navigationController pushViewController:AccountRefundVC animated:YES];
@@ -202,7 +203,7 @@
 
 
 -(void)AccountDetails{
-    
+    [SDTrackTool logEvent:YCTS_PAGE_YCTSMX];
     PSRefundViewController *refundViewController = [[PSRefundViewController alloc] initWithViewModel:[PSTransactionRecordViewModel new]];
     [self.navigationController pushViewController:refundViewController  animated:YES];
 }
@@ -240,6 +241,7 @@
 }
 
 -(void)payTips{
+    
     _prisonerDetail = nil;
     NSInteger index = [PSSessionManager sharedInstance].selectedPrisonerIndex;
     NSArray *details = [PSSessionManager sharedInstance].passedPrisonerDetails;
@@ -384,9 +386,8 @@
         @strongify(self)
         [self requestInfoPhoneCard];
         [self payTips];
+        [SDTrackTool logEvent:YCTS_PAGE_YCTSMX];
     }];
-    
-    
     UIButton *refundbBtn = [UIButton new];
     refundbBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     refundbBtn.frame = CGRectMake(SCREEN_WIDTH-btnWidth-15,SCREEN_HEIGHT-64-64,btnWidth, 44);
@@ -398,6 +399,7 @@
     [self.view addSubview:refundbBtn];
     [refundbBtn bk_whenTapped:^{
         @strongify(self);
+        [SDTrackTool logEvent:YCTS_PAGE_DBTK];
         NSArray *langArr = [[NSUserDefaults standardUserDefaults] valueForKey:@"AppleLanguages"];
         NSString*language = langArr.firstObject;
         if ([language isEqualToString:@"vi-US"]||[language isEqualToString:@"vi-CN"]||[language isEqualToString:@"vi-VN"]) {
@@ -544,10 +546,9 @@
         
         _buyCardView = [[PSBuyCardView alloc] initWithFrame:CGRectZero buyModel:_buyModel index:1];
         @weakify(self);
-        _buyCardView.buyBlock = ^(NSInteger index) {
+        _buyCardView.buyBlock = ^(NSInteger index, BOOL isWrite) {
             @strongify(self);
             [self buyCard:index];
-            
         };
     }
     return _buyCardView;

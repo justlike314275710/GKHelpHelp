@@ -184,6 +184,7 @@
         [self.navigationController pushViewController:[[PSAddFamiliesViewController alloc] initWithViewModel:[[PSRegisterViewModel alloc]init]] animated:YES];
     }
     else if ([itemModel.funcName isEqualToString:family_server]){
+        [SDTrackTool logEvent:MIME_PAGE_JSFQ];
         PSFamilyServiceViewController *serviceViewController = [[PSFamilyServiceViewController alloc] initWithViewModel:[PSFamilyServiceViewModel new]];
         serviceViewController.didManaged = ^{
             [self updateContent];
@@ -191,6 +192,7 @@
         [self.navigationController pushViewController:serviceViewController animated:YES];
     }
     else if ([itemModel.funcName isEqualToString:family_remittance]){
+        [SDTrackTool logEvent:MIME_PAGE_JSHK];
         [self showPrisonLimits:@"家属汇款" limitBlock:^{
             PSFamilyRemittanceViewController *remittanceViewController = [[PSFamilyRemittanceViewController alloc] initWithViewModel:[PSFamilyRemittanceViewModel new]];
             [self.navigationController pushViewController:remittanceViewController animated:YES];

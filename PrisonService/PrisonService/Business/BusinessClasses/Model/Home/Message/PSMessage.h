@@ -12,6 +12,8 @@ typedef NS_ENUM(NSInteger, PSMessageType) {
     PSMessageRegister = 1,//注册消息
     PSMessageMeeting = 2,//会见消息
     PSMessageLocalMeeting = 3,//实地会见
+    PSMessageArticleMessage = 4,//文章审核
+
 };
 
 @protocol PSMessage<NSObject>

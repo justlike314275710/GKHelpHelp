@@ -23,31 +23,36 @@
     NSString *currentVersion = [infoDict objectForKey:@"CFBundleShortVersionString"];
     [MobClick setAppVersion:currentVersion];
     [MobClick startWithConfigure:UMConfigInstance];
-    
 #ifdef DEBUG
     [MobClick setLogEnabled:YES];
-    [MobClick setCrashReportEnabled:NO];
+    [MobClick setCrashReportEnabled:YES];
+    Class cls = NSClassFromString(@"UMANUtil");
+    SEL deviceIDSelector = @selector(openUDIDString);
+    NSString *deviceID = nil;
+    if (cls && [cls respondsToSelector: deviceIDSelector]) {
+        deviceID = [cls performSelector: deviceIDSelector];
+    }
+    NSData * jsonData =[NSJSONSerialization dataWithJSONObject:@{@"oid" : deviceID}
+                                                       options: NSJSONWritingPrettyPrinted
+                                                        error: nil];
+    NSLog(@"%@", [[NSString alloc] initWithData: jsonData encoding: NSUTF8StringEncoding]);
 #endif
+    
 }
-
 +(void)beginLogPageID:(NSString *)pageID {
     [MobClick beginLogPageView:pageID];
 }
-
 +(void)endLogPageID:(NSString *)pageID {
     [MobClick endLogPageView:pageID];
 }
-
 +(void)logEvent:(NSString*)eventId {
     [MobClick event:eventId];
 }
-
 +(void)logEvent:(NSString *)eventId attributes:(NSDictionary *)attributes {
     NSMutableDictionary *mdic = [attributes mutableCopy];
     [mdic setObject:[self getConfigOfJaiName] forKey:JAIL_NAME];
     [MobClick event:eventId attributes:mdic];
 }
-
 +(NSString *)getConfigOfJaiName {
     NSString *jailName = @"";
     PSPrisonerDetail *prisonerDetail = nil;

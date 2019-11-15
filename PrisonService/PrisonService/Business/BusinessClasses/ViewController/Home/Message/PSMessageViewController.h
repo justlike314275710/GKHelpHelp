@@ -13,6 +13,7 @@
 @property(nonatomic,assign)NSInteger dotIndex;
 
 -(void)reloadDataReddot;
+-(void)refreshData;
 
 
 @end

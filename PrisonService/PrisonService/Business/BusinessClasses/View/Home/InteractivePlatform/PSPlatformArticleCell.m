@@ -238,6 +238,7 @@
     //互动文章
     if (_model) {
         if ([_model.ispraise isEqualToString:@"0"]) {
+            [SDTrackTool logEvent:ARTICLE_LIST_LIKE];
             if (self.praiseBlock) {
                 self.praiseBlock(YES, _model.id, ^(BOOL action) {
                     if (action) {
@@ -262,6 +263,7 @@
     //是否能点赞(收藏列表)
     if (_collecModel) {
         if ([_collecModel.is_praise isEqualToString:@"0"]) {
+            [SDTrackTool logEvent:ARTICLE_LIST_LIKE];
             if (self.praiseBlock) {
                 self.praiseBlock(YES, _collecModel.id, ^(BOOL action) {
                     if (action) {

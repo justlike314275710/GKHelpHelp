@@ -13,12 +13,18 @@
 #import "PSInteractiveMessageViewController.h"
 #import "PSMessageViewModel.h"
 #import "PSPlatMessageViewModel.h"
+#import "PSPrisonIntroduceViewController.h"
 
 
 
-@interface PSAllMessageViewController ()<PSMessageTopTabViewDelegate>
-@property(nonatomic,strong)NSArray *viewControllers;
-@property(nonatomic,strong)PSMessageTopTabView *topTabbarView;
+@interface PSAllMessageViewController ()<PSMessageTopTabViewDelegate,UIPageViewControllerDelegate,UIPageViewControllerDataSource>{
+}
+@property(nonatomic, strong)NSArray *viewControllers;
+@property(nonatomic, strong)PSMessageTopTabView *topTabbarView;
+@property(nonatomic, strong)UISwipeGestureRecognizer *leftSwipeGestureRecognizer;
+@property(nonatomic, strong)UISwipeGestureRecognizer *rightSwipeGestureRecognizer;
+@property(nonatomic, strong)UIPageViewController *pageViewController;
+
 
 
 @end
@@ -42,54 +48,149 @@
     adMessageVC.dotIndex = 0;
     //探视消息
     PSMessageViewModel *viewModel1 = [[PSMessageViewModel alloc] init];
-    viewModel1.type = @"2,3";
+    viewModel1.type = @"1,2,3";
     viewModel1.prisonerDetail = self.prisonerDetail;
     PSMessageViewController *messageViewController = [[PSMessageViewController alloc] initWithViewModel:viewModel1];
     messageViewController.dotIndex = [self.model.visitUnreadCount integerValue];
-    _topTabbarView = [[PSMessageTopTabView alloc] initWithFrame:CGRectZero titles:titles normalImages:normalImages selectedImages:selectedImages currentIndex:0 delegate:self  viewController:self numbers:dotnumbles];
+    _topTabbarView = [[PSMessageTopTabView alloc] initWithFrame:CGRectZero titles:titles normalImages:normalImages selectedImages:selectedImages currentIndex:_current delegate:self  viewController:self numbers:dotnumbles];
+    _lastIndex = _current;
     //互动平台消息
     PSPlatMessageViewModel *viewModel2 = [[PSPlatMessageViewModel alloc] init];
     viewModel2.prisonerDetail = self.prisonerDetail;
     PSInteractiveMessageViewController *intMessageVC = [[PSInteractiveMessageViewController alloc] initWithViewModel:viewModel2];
     intMessageVC.dotIndex = [self.model.pointsUnreadCount integerValue];
-    _topTabbarView.viewControllers = @[adMessageVC,messageViewController,intMessageVC];
     self.viewControllers = @[adMessageVC,messageViewController,intMessageVC];
     [self.view addSubview:_topTabbarView];
+    [self pageViewController];
+    //滑动到第几个
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(scrollviewIndex:) name:KNOtificationALLMessageScrollviewIndex object:nil];
+    
+    
 }
 #pragma mark -----------PrivateMethods
+-(void)scrollviewIndex:(NSNotification *)noti {
+    NSInteger index = [noti.object integerValue];
+    [self scrollviewItemIndex:index];
+    [self pagescrollMenuViewItemOnClick:nil index:index lastindex:_current];
+}
 -(void)scrollviewItemIndex:(NSInteger)index{
     [_topTabbarView scrollviewItemIndex:index];
 }
-
 - (IBAction)actionOfLeftItem:(id)sender {
     if (self.backBlock) {
         self.backBlock();
     }
     [self.navigationController popViewControllerAnimated:YES];
+    NSLog(@"%@",self.navigationController.viewControllers);
 }
 
 #pragma mark - Delegate
 //MARK:PSMessageTopTabViewDelegate
 - (void)pagescrollMenuViewItemOnClick:(YLButton *)button index:(NSInteger)index lastindex:(NSInteger)lastindex{
-    if (index==1) {
-        KPostNotification(KNotificationRefreshts_message_1, nil);
-    } else if (index==2) {
-        KPostNotification(KNotificationRefreshhd_message_1, nil);
+    
+    UIViewController *vc = [self.viewControllers objectAtIndex:index];
+    if (index >lastindex) {
+        [self.pageViewController setViewControllers:@[vc] direction:UIPageViewControllerNavigationDirectionForward animated:YES completion:^(BOOL finished) {
+        }];
+    } else {
+        [self.pageViewController setViewControllers:@[vc] direction:UIPageViewControllerNavigationDirectionReverse animated:YES completion:^(BOOL finished) {
+        }];
     }
-    UIViewController *vc = [self.viewControllers objectAtIndex:lastindex];
-    if ([vc isKindOfClass:[PSAdvisoryMesssageViewController class]]) {
-        PSAdvisoryMesssageViewController *adMessageVC = (PSAdvisoryMesssageViewController *)vc;
-        [adMessageVC reloadDataReddot]; 
-    } else if ([vc isKindOfClass:[PSMessageViewController class]]) {
-        PSMessageViewController *mesasgeVC = (PSMessageViewController *)vc;
-        [mesasgeVC reloadDataReddot];
-    } else if ([vc isKindOfClass:[PSInteractiveMessageViewController class]]) {
-        PSInteractiveMessageViewController *intMesasgeVC = (PSInteractiveMessageViewController *)vc;
-        [intMesasgeVC reloadDataReddot];
+    [self reloadRed:lastindex];
+    _lastIndex = index;
+    _current = index;
+}
+
+- (UIPageViewController *)pageViewController
+{
+    if(!_pageViewController)
+    {
+        NSDictionary *options =[NSDictionary dictionaryWithObject:[NSNumber numberWithInteger:UIPageViewControllerSpineLocationMin]
+                                                           forKey: UIPageViewControllerOptionSpineLocationKey];
+        _pageViewController = [[UIPageViewController alloc] initWithTransitionStyle:UIPageViewControllerTransitionStyleScroll
+                                                              navigationOrientation:UIPageViewControllerNavigationOrientationHorizontal
+                                                                            options:options];
+        [[_pageViewController view] setFrame:CGRectMake(0,55, KScreenWidth,KScreenHeight-45)];
+
+        // 设置UIPageViewController的配置项
+        [_pageViewController setViewControllers:[NSArray arrayWithObjects:_viewControllers[_current], nil]
+                                      direction:UIPageViewControllerNavigationDirectionForward
+                                       animated:NO
+                                     completion:nil];
+        _pageViewController.delegate = self;
+        _pageViewController.dataSource = self;
+        [self addChildViewController:self.pageViewController];
+        [self.view addSubview:self.pageViewController.view];
+        
+    }
+    return _pageViewController;
+    
+}
+
+#pragma mark
+#pragma mark ----- UIPageViewControllerDataSource -----
+- (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerBeforeViewController:(UIViewController *)viewController
+{
+    NSUInteger index = [self indexForViewController:viewController];
+    if (index == 0) {
+        index = [self.viewControllers count] - 1;
+    } else {
+        index--;
+    }
+    NSLog(@"-------%@",[self viewControllerAtIndex:index]);
+    return [self viewControllerAtIndex:index];
+}
+
+- (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerAfterViewController:(UIViewController *)viewController
+{
+    NSUInteger index = [self indexForViewController:viewController];
+    index++;
+    if (index == [self.viewControllers count]) {
+        index = 0;
+    }
+    NSLog(@"-------%@",[self viewControllerAtIndex:index]);
+    return [self viewControllerAtIndex:index];
+}
+- (NSUInteger)indexForViewController:(UIViewController *)viewController
+{
+    return [self.viewControllers indexOfObject:viewController];
+}
+
+- (UIViewController *)viewControllerAtIndex:(NSUInteger)index
+{
+    if (index > [self.viewControllers count]) {
+        return nil;
+    }
+    UIViewController *vc = [self.viewControllers objectAtIndex:index];
+    return vc;
+}
+
+#pragma mark
+#pragma mark ----- UIPageViewControllerDelegate -----
+- (void)pageViewController:(UIPageViewController *)pageViewController willTransitionToViewControllers:(NSArray *)pendingViewControllers
+{
+    UIViewController *vc = pendingViewControllers[0];
+    _current = [self indexForViewController:vc];
+}
+- (void)pageViewController:(UIPageViewController *)pageViewController didFinishAnimating:(BOOL)finished previousViewControllers:(NSArray *)previousViewControllers transitionCompleted:(BOOL)completed
+{
+    if (completed) {
+        [self reloadRed:_lastIndex];
+        _lastIndex = _current;
+        [self scrollviewItemIndex:_current];
     }
 }
 
-
-
+-(void)reloadRed:(NSInteger)index{
+    UIViewController *vc = [self viewControllerAtIndex:index];
+    if ([vc isKindOfClass:[PSAdvisoryMesssageViewController class]]) {
+        [(PSAdvisoryMesssageViewController *)vc reloadDataReddot];
+    } else if ([vc isKindOfClass:[PSMessageViewController class]]) {
+        [(PSMessageViewController *)vc reloadDataReddot];
+    } else if ([vc isKindOfClass:[PSInteractiveMessageViewController class]]) {
+        [(PSInteractiveMessageViewController *)vc reloadDataReddot];
+    }
+    [_topTabbarView hidebadgeIndex:_lastIndex];
+}
 
 @end

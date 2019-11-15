@@ -54,22 +54,22 @@
                 break;
             case PSMessageMeeting:
             {
-                title =NSLocalizedString(@"Meet_message", @"会见消息")  ;
+                title = @"远程探视消息";            //NSLocalizedString(@"Meet_message", @"会见消息")  ;
                 NSString *statusString = nil;
                 if ([message.status isEqualToString:@"PASSED"]) {
                     if ([message.content isEqualToString:@"设备出现故障"] || [message.content isEqualToString:@"临时出现突发情况"]) {
                         statusString = NSLocalizedString(@"Meet_abnormal", @"出现异常");
                     }else{
-                        title =NSLocalizedString(@"Interview_review", @"会见审核消息") ;
+//                        title =NSLocalizedString(@"Interview_review", @"会见审核消息") ;
                         statusString =NSLocalizedString(@"application_passed", @"申请已经通过");
                     }
                 }else if ([message.status isEqualToString:@"FINISHED"]) {
                     statusString =NSLocalizedString(@"Application_completed", @"已经完成") ;
                 }else if ([message.status isEqualToString:@"PENDING"]) {
-                    title =NSLocalizedString(@"Interview_review", @"会见审核消息") ;
+//                    title =NSLocalizedString(@"Interview_review", @"会见审核消息") ;
                     statusString =NSLocalizedString(@"Application_review", @"申请正在审核");
                 }else if ([message.status isEqualToString:@"DENIED"]) {
-                    title = NSLocalizedString(@"Interview_review", @"会见审核消息") ;
+//                    title = NSLocalizedString(@"Interview_review", @"会见审核消息") ;
                     statusString =NSLocalizedString(@"application_approved", @"申请审核未通过") ;
                 }else if ([message.status isEqualToString:@"CANCELED"]) {
                     statusString =NSLocalizedString(@"been_cancelled", @"已被取消");
@@ -84,7 +84,7 @@
                 break;
             case PSMessageLocalMeeting:
             {
-                title =NSLocalizedString(@"Field_interview", @"实地会见消息");
+                title = @"实地探视消息";                  //NSLocalizedString(@"Field_interview", @"实地会见消息");
                 NSString *statusString = nil;
                 if ([message.status isEqualToString:@"PASSED"]) {
                     statusString =NSLocalizedString(@"application_passed", @"申请已经通过");
@@ -100,6 +100,18 @@
                 NSString *reason = message.content.length > 0 ? ([message.content isEqualToString:@"成功"] ? @"" : [NSString stringWithFormat:@",%@",message.content]) : @"";
                 NSString*you_localMeet=NSLocalizedString(@"you_localMeet", @"您的%@实地会见%@%@");
                 content = [NSString stringWithFormat:you_localMeet,message.applicationDate ? message.applicationDate : @"",statusString,reason];
+            }
+                break;
+            case PSMessageArticleMessage:
+            {
+                if (message.content.length>5) {
+                    title = message.content;
+                    title = [title substringWithRange:NSMakeRange(1,4)];
+                    message.title = message.content;
+                } else {
+                    title = @"消息";
+                }
+                content = message.content;
             }
                 break;
             default:

@@ -360,10 +360,9 @@
         
         _buyCardView = [[PSBuyCardView alloc] initWithFrame:CGRectZero buyModel:_buyModel index:1];
         @weakify(self);
-        _buyCardView.buyBlock = ^(NSInteger index) {
+        _buyCardView.buyBlock = ^(NSInteger index, BOOL isWrite) {
             @strongify(self);
             [self buyCard:index];
-            
         };
     }
     return _buyCardView;

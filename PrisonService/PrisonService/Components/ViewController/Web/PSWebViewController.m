@@ -28,9 +28,6 @@
 - (void)injectContentWithHandlerName:(NSString *)handlerName content:(NSString *)content {
     [self.bridge callHandler:handlerName data:content];
 }
-
-
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
@@ -39,7 +36,8 @@
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"about:blank"]]];
+    self.tabBarController.tabBar.hidden=YES;
+//    [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"about:blank"]]];
 }
 
 #pragma mark - PSWebViewProtocol

@@ -263,6 +263,7 @@
 }
 
 -(void)publishAction:(UIButton*)sender{
+    [SDTrackTool logEvent:ARTICLE_RELEASE];
     _hasWords = NO;
      PSPublishArticleViewModel *viewModel = (PSPublishArticleViewModel *)self.viewModel;
     viewModel.penName = _authorField.text;

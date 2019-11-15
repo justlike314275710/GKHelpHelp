@@ -224,7 +224,7 @@
     }
 }
 
-- (void)helpAction {
+- (void)helpAction:(UIButton *)sender {
     NSString*usehelp=NSLocalizedString(@"UseHelp", "使用说明");
     NSString*Directions_for_use=NSLocalizedString(@"Directions_for_use", @"使用说明");
     NSString*determine=NSLocalizedString(@"determine", @"确定");
@@ -285,8 +285,8 @@
         }
     }];
 }
-
-- (void)buyCard:(NSInteger)index {
+//isWrite 手写的金额还是选项卡
+- (void)buyCard:(NSInteger)index isWrite:(BOOL)isWrite {
     
     PSCartViewModel *cartViewModel = self.cartViewModel;
     cartViewModel.amount = index*_buyModel.Amount_of_money;
@@ -315,13 +315,18 @@
     @weakify(self)
     [payView setGoPay:^{
         @strongify(self)
-        [self goPay];
+        [self goPayindex:index isWrite:isWrite];
     }];
     [payView showAnimated:YES];
     _payView = payView;
 }
 
-- (void)goPay {
+- (void)goPayindex:(NSInteger)index isWrite:(BOOL)isWrite {
+    //埋点数据
+    NSString *payinsertWay = isWrite?@"手填":@"选项卡";
+    NSString *payCount = [NSString stringWithFormat:@"%ld",index];
+    NSString *payEnter = @"远程探视界面";
+    
     PSCartViewModel *cartViewModel = self.cartViewModel;
     NSInteger selectedIndex = cartViewModel.selectedPaymentIndex;
     if (selectedIndex >= 0 && selectedIndex < cartViewModel.payments.count) {
@@ -346,13 +351,15 @@
                     if (error) {
                         if (error.code != 106 && error.code != 206) {
                             [PSTipsView showTips:error.domain];
-                            [SDTrackTool logEvent:BUY_FAMILY_CARD attributes:@{STATUS:MobFAILURE,ERROR_STR:error.domain?error.domain:@"",PAY_TYPE:payInfo.payment}];
+                            
+                            [SDTrackTool logEvent:BUY_FAMILY_CARD attributes:@{STATUS:MobFAILURE,ERROR_STR:error.domain?error.domain:@"",PAY_TYPE:payInfo.payment,PAY_INSERT_TYPE:payinsertWay,PAY_COUNT:payCount,PAY_ENTER:payEnter}];
                         }
                     }else{
 //                        [self.navigationController popViewControllerAnimated:NO];
                         self.payView.status = PSPaySuccessful;
                         [[NSNotificationCenter defaultCenter]postNotificationName:JailChange object:nil];
-                        [SDTrackTool logEvent:BUY_FAMILY_CARD attributes:@{STATUS:MobSUCCESS,PAY_TYPE:payInfo.payment}];
+                        
+                        [SDTrackTool logEvent:BUY_FAMILY_CARD attributes:@{STATUS:MobSUCCESS,PAY_TYPE:payInfo.payment,PAY_INSERT_TYPE:payinsertWay,PAY_COUNT:payCount,PAY_ENTER:payEnter}];
                     }
                 }];
             }
@@ -650,11 +657,13 @@
         case 3:
         {
             cell = [tableView dequeueReusableCellWithIdentifier:@"PSAppointmentInstructionCell"];
-            @weakify(self)
-            [((PSAppointmentInstructionCell *)cell).helpButton bk_whenTapped:^{
-                @strongify(self)
-                [self helpAction];
-            }];
+//            @weakify[(self)
+            [((PSAppointmentInstructionCell *)cell).helpButton addTarget:self action:@selector(helpAction:) forControlEvents:UIControlEventTouchUpInside];
+            
+//            [((PSAppointmentInstructionCell *)cell).helpButton bk_whenTapped:^{
+//                @strongify(self)
+//                [self helpAction];
+//            }];
         }
             break;
         default:
@@ -882,10 +891,9 @@
         
         _buyCardView = [[PSBuyCardView alloc] initWithFrame:CGRectZero buyModel:_buyModel index:1];
         @weakify(self);
-        _buyCardView.buyBlock = ^(NSInteger index) {
+        _buyCardView.buyBlock = ^(NSInteger index, BOOL isWrite) {
             @strongify(self);
-            [self buyCard:index];
-            
+            [self buyCard:index isWrite:isWrite];
         };
     }
     return _buyCardView;

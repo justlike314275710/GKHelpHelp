@@ -29,7 +29,7 @@
 
 
 #elif UAT            //测试
-#define ServerDomain @"http://120.79.251.238:8022"
+#define ServerDomain @"http://47.107.245.151:8022"
 #define H5ServerDomain @"http://120.79.251.238:8021" 
 #define UploadServerUrl @"http://120.79.251.238:1339/image-server"
 
@@ -63,7 +63,6 @@
 #endif
 
 
-
 //电子商务Server
 #define CommerceServerDomain @"http://39.108.185.51:8088"
 //使用协议
@@ -76,7 +75,6 @@
 
 //外网授权认证平台测试地址
 //#define EmallHostUrl @"http://123.57.7.159:8081" //123.57.7.159
-
 
 //监狱详情地址 后面接jailId
 #define PrisonDetailUrl [NSString stringWithFormat:@"%@/h5/#/prison/detail/",H5ServerDomain]

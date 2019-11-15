@@ -55,7 +55,6 @@
     NSString*e_mall=NSLocalizedString(@"e_mall", nil);
     NSString*family_service= @"家属服务";
     NSString*complain_advice=NSLocalizedString(@"complain_advice", nil);
-    
     NSArray *arr = @[family_phone,local_meetting,e_mall,family_service,complain_advice];
     NSArray *imgArr = @[@"远程探视",@"实地会见",@"电子商务",@"家属服务icon",@"投诉建议"];
     CGFloat btnW = SCREEN_WIDTH / arr.count;
@@ -65,7 +64,6 @@
         [button setTitle:arr[i] forState:UIControlStateNormal];
         [button setImage:[UIImage R_imageNamed:imgArr[i]] forState:UIControlStateNormal];
         button.titleLabel.textAlignment =NSTextAlignmentCenter;
-        
         //NSTextAlignmentCenter;
         button.titleLabel.font = FontOfSize(12);
         button.titleLabel.numberOfLines=0;
@@ -74,10 +72,7 @@
         //注意就是这个方法,把我们的普通按钮转成我们需要的按钮
         [self initButton:button];
         [mainView addSubview:button];
-        
     }
-    
-
 }
 -(void)initButton:(UIButton*)btn{
     btn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;

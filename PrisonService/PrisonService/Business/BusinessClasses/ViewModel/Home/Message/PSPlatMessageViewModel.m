@@ -87,6 +87,7 @@
                 break;
             case PSMessageLocalMeeting:
             {
+                
                 title =NSLocalizedString(@"Field_interview", @"实地会见消息");
                 NSString *statusString = nil;
                 if ([message.status isEqualToString:@"PASSED"]) {
@@ -103,6 +104,18 @@
                 NSString *reason = message.content.length > 0 ? ([message.content isEqualToString:@"成功"] ? @"" : [NSString stringWithFormat:@",%@",message.content]) : @"";
                 NSString*you_localMeet=NSLocalizedString(@"you_localMeet", @"您的%@实地会见%@%@");
                 content = [NSString stringWithFormat:you_localMeet,message.applicationDate ? message.applicationDate : @"",statusString,reason];
+            }
+                break;
+            case PSMessageArticleMessage:
+            {
+                if (message.content.length>5) {
+                    title = message.content;
+                    title = [title substringWithRange:NSMakeRange(1,4)];
+                    message.title = message.content;
+                } else {
+                    title = @"消息";
+                }
+                content = [message.content substringFromIndex:6];
             }
                 break;
             default:

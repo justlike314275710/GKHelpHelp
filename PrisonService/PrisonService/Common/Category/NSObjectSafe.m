@@ -876,7 +876,6 @@ void swizzleInstanceMethod(Class cls, SEL origSelector, SEL newSelector)
     }
 }
 
-
 - (void) hookReplaceObjectAtIndex:(NSUInteger)index withObject:(id)anObject {
     @synchronized (self) {
         if (index < self.count && anObject) {

@@ -400,9 +400,11 @@ typedef NS_ENUM(NSInteger, PSLoginModeType) {
             } else{
                 if (self.loginModeType==PSLoginModePassword) {
                     [self EcommerceOfLogin];
+                    [SDTrackTool logEvent:PSW_Login];
                 }
                 if (self.loginModeType==PSLoginModeCode){
                     [self EcommerceOfRegister];
+                    [SDTrackTool logEvent:VER_Login];
                 }
             }
         }else{

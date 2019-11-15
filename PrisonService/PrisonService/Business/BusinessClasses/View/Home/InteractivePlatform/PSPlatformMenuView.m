@@ -109,7 +109,6 @@
     ViewRadius(item, menuHeight/2);
     return item;
 }
-
 - (UIView *)slider {
     UIView *view = [UIView new];
     view.frame = CGRectMake(0, 0,sliderWidth,menuHeight);

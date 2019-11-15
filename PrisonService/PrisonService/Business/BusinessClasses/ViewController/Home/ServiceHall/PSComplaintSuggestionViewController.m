@@ -54,6 +54,7 @@
     viewModel.writefeedType = PSPrisonfeedBack;
     PSWriteFeedbackViewController *feedbackViewController = [[PSWriteFeedbackViewController alloc] initWithViewModel:viewModel];
     [self.navigationController pushViewController:feedbackViewController animated:YES];
+    [SDTrackTool logEvent:TSJY_PAGE_TXYJFK];
 }
 
 - (void)renderContents {
@@ -103,6 +104,8 @@
 - (NSString *)pageController:(WMPageController *)pageController titleAtIndex:(NSInteger)index {
     NSString*public_information=NSLocalizedString(@"public_information", @"公示信息");
     NSString*complaint_feedback=NSLocalizedString(@"complain_advice", @"投诉建议");
+    NSString *eventid = index==0?TSJY_PAGE_GSXX:TSJY_PAGE_TSJY;
+    [SDTrackTool logEvent:eventid];
     return index == 0 ? public_information : complaint_feedback;
 }
 

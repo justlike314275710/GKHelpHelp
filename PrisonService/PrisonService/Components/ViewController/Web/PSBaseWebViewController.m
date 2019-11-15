@@ -106,11 +106,13 @@
     if ([self.webView canGoBack]) {
         [self.webView goBack];
     }else {
+        [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"about:blank"]]];
         [self.navigationController popViewControllerAnimated:YES];
     }
 }
 
 - (IBAction)closeAction:(id)sender {
+    [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"about:blank"]]];
     [self.navigationController popViewControllerAnimated:YES];
 }
 
@@ -202,11 +204,8 @@
         [[NSUserDefaults standardUserDefaults] registerDefaults:@{@"UserAgent":newUserAgent}];
     }
 
-        
-    
-
     _webView = [[PSBaseWebView alloc] initWithFrame:CGRectZero];
-    _webView.navigationDelegate = self;
+//    _webView.navigationDelegate = self;
     _webView.UIDelegate = self;
     _webView.scrollView.delegate = self;
     _webView.backgroundColor = [UIColor whiteColor];
@@ -257,7 +256,7 @@
 
 #pragma mark - WKNavigationDelegate
 - (void)webView:(WKWebView *)webView didStartProvisionalNavigation:(WKNavigation *)navigation {
-    
+
 }
 
 - (void)webView:(WKWebView *)webView didCommitNavigation:(WKNavigation *)navigation {
@@ -266,10 +265,12 @@
 
 - (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
     [self updateNavigationItems];
+
 }
 
 - (void)webView:(WKWebView *)webView didFailNavigation:(WKNavigation *)navigation withError:(NSError *)error {
     [self updateNavigationItems];
+
 }
 
 - (void)webView:(WKWebView *)webView decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {

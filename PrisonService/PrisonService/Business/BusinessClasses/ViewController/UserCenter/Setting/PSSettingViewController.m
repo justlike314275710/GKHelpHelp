@@ -58,9 +58,16 @@
         }
     } buttonTitles:cancel,immediately, nil];
 }
+//#define SZ_PAGE_CZMM          @"SZ_PAGE_CZMM"           // 重置密码
+//#define SZ_PAGE_YJFK          @"SZ_PAGE_YJFK"           // 意见反馈
+//#define SZ_PAGE_CZKJ          @"SZ_PAGE_CZKJ"         // 存储空间
+//#define SZ_PAGE_DQBB          @"SZ_PAGE_DQBB"         // 当前版本
+//#define SZ_PAGE_TCDL          @"SZ_PAGE_TCDL"         // 退出登录
+//#define SZ_PAGE_LXWM          @"SZ_PAGE_LXWM"           // 联系我们
+
 
 - (void)writeFeedback {
-    
+    [SDTrackTool logEvent:SZ_PAGE_YJFK];
     PSFeedbackViewModel *viewModel = [PSFeedbackViewModel new];
     viewModel.writefeedType = PSWritefeedBack;
     PSYJWriteFeedbackViewController *feedbackViewController = [[PSYJWriteFeedbackViewController alloc] initWithViewModel:viewModel];
@@ -87,6 +94,7 @@
 }
 
 -(void)passWordSave{
+    [SDTrackTool logEvent:SZ_PAGE_CZMM];
     PSPasswordViewModel*viewModel=[[PSPasswordViewModel alloc]init];
     [viewModel requestBoolPasswordCompleted:^(PSResponse *response) {
         [self.navigationController pushViewController:[[PSResetPasswordViewController alloc]initWithViewModel:viewModel] animated:YES];
@@ -108,6 +116,7 @@
 }
 - (void)insert_storage {
     
+    [SDTrackTool logEvent:SZ_PAGE_CZKJ];
     PSStorageViewController *storageViewController = [[PSStorageViewController alloc] initWithViewModel:[[PSSorageViewModel alloc] init]];
     storageViewController.clearScuessBlock = ^{
         [self refreshStorage];
@@ -134,6 +143,7 @@
 }
 
 - (void)logout {
+    [SDTrackTool logEvent:SZ_PAGE_TCDL];
     NSString*Confirm_logout=NSLocalizedString(@"Confirm_logout", @"确定注销账号?");
     NSString*determine=NSLocalizedString(@"determine", @"确定");
     NSString*cancel=NSLocalizedString(@"cancel", @"取消");
@@ -178,8 +188,10 @@
         if (tapString) {
             if ([usageProtocol containsString:tapString]) {
                 [self openProtocol];
+                [SDTrackTool logEvent:SZ_PAGE_SYXY];
             }else if([ContactUs containsString:tapString]){
                 [self contactUs];
+                [SDTrackTool logEvent:SZ_PAGE_LXWM];
             }
         }
     }];

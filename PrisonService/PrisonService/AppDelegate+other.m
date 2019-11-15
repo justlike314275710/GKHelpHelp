@@ -114,19 +114,16 @@
         case PSMeetingCancelAuthorization:
         {
             PSAllMessageViewController *allMessageVC = [[PSAllMessageViewController alloc] init];
+            allMessageVC.current = 1;
             [currentVC.navigationController pushViewController:allMessageVC animated:YES];
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                [allMessageVC scrollviewItemIndex:1];
-            });
+
         }
             break;
         case PSMessageArticleInteractive:
         {
             PSAllMessageViewController *allMessageVC = [[PSAllMessageViewController alloc] init];
+            allMessageVC.current = 2;
             [currentVC.navigationController pushViewController:allMessageVC animated:YES];
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                [allMessageVC scrollviewItemIndex:2];
-            });
         }
             break;
             
@@ -161,19 +158,15 @@
             case PSMeetingCancelAuthorization:
             {
                 PSAllMessageViewController *allMessageVC = [[PSAllMessageViewController alloc] init];
+                allMessageVC.current = 1;
                 [currentVC.navigationController pushViewController:allMessageVC animated:YES];
-                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                    [allMessageVC scrollviewItemIndex:1];
-                });
             }
                 break;
             case PSMessageArticleInteractive:
             {
                 PSAllMessageViewController *allMessageVC = [[PSAllMessageViewController alloc] init];
+                allMessageVC.current = 2;
                 [currentVC.navigationController pushViewController:allMessageVC animated:YES];
-                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                    [allMessageVC scrollviewItemIndex:2];
-                });
             }
                 break;
                 
@@ -204,7 +197,6 @@
         //app在后台点击远程推送
     }
 }
-
 
 - (void)registerAPNs
 {
@@ -251,8 +243,6 @@
     //比如，对于部分字符串，继承关系如下
     //__NSCFConstantString --> __NSCFString --> NSMutableString --> NSString
     //你可以将上面四个类随意一个添加到下面的数组中，建议直接填入 NSString
-    
-    
     //我所开发的项目中所防止unrecognized selector sent to instance的类有下面几个，主要是防止后台数据格式错乱导致的崩溃。个人觉得若要防止后台接口数据错乱，用下面的几个类即可。
     //=============================================
     //   1、unrecognized selector sent to instance
@@ -290,7 +280,7 @@
     NSLog(@"***********AvoidCrash捕捉到异常奔溃，奔溃信息如下***********\n %@ \n %@",errorReason,callStack);
     
     [Bugly reportExceptionWithCategory:3 name:info[@"errorName"] reason:errorReason callStack:callStack extraInfo:nil terminateApp:NO];
-    //[BuglyManager reportErrorName:Bugly_ErrorName_AvoidCrash errorReason:errorReason callStack:callStack extraInfo:nil];
+//    [BuglyManager reportErrorName:Bugly_ErrorName_AvoidCrash errorReason:errorReason callStack:callStack extraInfo:nil];
 }
 
 +(BOOL) runningInBackground
