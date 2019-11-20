@@ -8,9 +8,11 @@
 
 #import "PSBusinessViewController.h"
 #import "PSMessageViewModel.h"
+typedef void (^ReloadDot)();
 
 @interface PSMessageViewController : PSBusinessViewController
 @property(nonatomic,assign)NSInteger dotIndex;
+@property(nonatomic,copy)ReloadDot reloaDot;
 
 -(void)reloadDataReddot;
 -(void)refreshData;

@@ -11,11 +11,12 @@
 #import "PSMessageCountModel.h"
 typedef void (^BackBlock)();
 
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface PSAllMessageViewController : PSBusinessViewController
 
-@property (nonatomic,strong)PSPrisonerDetail *prisonerDetail;
+//@property (nonatomic,strong)PSPrisonerDetail *prisonerDetail;
 @property (nonatomic,strong)PSMessageCountModel *model;
 @property (nonatomic,copy)BackBlock backBlock;
 @property (nonatomic,assign)NSInteger current;

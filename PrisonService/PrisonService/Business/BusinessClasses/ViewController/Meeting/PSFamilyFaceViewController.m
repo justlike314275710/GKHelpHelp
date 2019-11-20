@@ -73,7 +73,7 @@
 
 
 - (void)registerFaceFailed {
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:RegisterFaceFailed preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:REisterFaceFailed preferredStyle:UIAlertControllerStyleAlert];
     [alertController addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
         if (self.completion) {
             self.completion(NO);

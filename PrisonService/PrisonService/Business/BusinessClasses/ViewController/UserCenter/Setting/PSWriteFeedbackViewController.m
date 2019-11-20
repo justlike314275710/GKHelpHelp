@@ -74,6 +74,9 @@
             self.feedbackSucess = YES; //反馈成功
             PSFWriteFeedSuccessViewController *storageViewController = [[PSFWriteFeedSuccessViewController alloc] initWithViewModel:self.viewModel];
             [self.navigationController pushViewController:storageViewController animated:YES];
+            KPostNotification(@"wirtefeedListfresh", nil);
+            //刷新列表
+            
         }else{
             NSString *msg = NSLocalizedString(@"submission Failed", @"提交失败");
             [PSTipsView showTips:response.msg ? response.msg :msg];

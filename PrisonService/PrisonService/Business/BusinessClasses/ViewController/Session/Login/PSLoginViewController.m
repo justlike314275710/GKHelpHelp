@@ -412,7 +412,6 @@ typedef NS_ENUM(NSInteger, PSLoginModeType) {
         }
     }];
 }
-
 #pragma mark ---------- PSCountdownObserver
 - (void)countdown {
     if (_seconds > 0) {
@@ -421,7 +420,6 @@ typedef NS_ENUM(NSInteger, PSLoginModeType) {
         if (self.seconds==0) _loginMiddleView.codeButton.enabled = YES;
     }
 }
-
 #pragma mark ---------- Setter & Getter
 //公众版本
 -(UIButton *)publicTypeButton{

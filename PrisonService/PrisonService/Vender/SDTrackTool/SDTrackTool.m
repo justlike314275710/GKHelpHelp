@@ -40,18 +40,29 @@
     
 }
 +(void)beginLogPageID:(NSString *)pageID {
-    [MobClick beginLogPageView:pageID];
+    
+    if (PRODUCE==1) {
+        [MobClick beginLogPageView:pageID];
+    }
 }
 +(void)endLogPageID:(NSString *)pageID {
-    [MobClick endLogPageView:pageID];
+   if (PRODUCE==1) {
+      [MobClick endLogPageView:pageID];
+   }
 }
+
 +(void)logEvent:(NSString*)eventId {
-    [MobClick event:eventId];
+    //生产环境才埋点
+    if (PRODUCE==1) {
+        [MobClick event:eventId];
+    }
 }
 +(void)logEvent:(NSString *)eventId attributes:(NSDictionary *)attributes {
-    NSMutableDictionary *mdic = [attributes mutableCopy];
-    [mdic setObject:[self getConfigOfJaiName] forKey:JAIL_NAME];
-    [MobClick event:eventId attributes:mdic];
+    if (PRODUCE==1) {
+        NSMutableDictionary *mdic = [attributes mutableCopy];
+        [mdic setObject:[self getConfigOfJaiName] forKey:JAIL_NAME];
+        [MobClick event:eventId attributes:mdic];
+    }
 }
 +(NSString *)getConfigOfJaiName {
     NSString *jailName = @"";

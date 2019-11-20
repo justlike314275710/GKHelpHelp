@@ -56,8 +56,7 @@
     if ([[[event allTouches] anyObject] phase] == UITouchPhaseEnded) {
         NSString *actionString = NSStringFromSelector(action);
         NSString *targetName = NSStringFromClass([target class]);
-        NSString *senderTag = [NSString stringWithFormat:@"%ld",self.tag];
-        if (!senderTag) senderTag = 0;
+        NSString *senderTag = [NSString stringWithFormat:@"%ld",(long)self.tag];
         NSDictionary *configDict = [self getConfigDict];
         eventID = configDict[targetName][@"ControlEventIDs"][actionString][senderTag];
         

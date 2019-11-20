@@ -16,7 +16,7 @@
 			<key>p_InsertPrisonIntroduce:</key>
 			<dict>
 				<key>0</key>
-				<string>click_jail_detail</string>
+				<string>click_family_call</string>
 			</dict>
 			<key>p_inserDynamic:</key>
 			<dict>
@@ -42,6 +42,32 @@
 			<dict>
 				<key>0</key>
 				<string>click_message</string>
+			</dict>
+		</dict>
+	</dict>
+	<key>PSHomeFunctionView</key>
+	<dict>
+		<key>PageEventIDs</key>
+		<dict>
+			<key>Enter</key>
+			<string>PSHomePageViewController_ENTER</string>
+			<key>Leave</key>
+			<string>PSHomePageViewController_LEAVE</string>
+		</dict>
+		<key>ControlEventIDs</key>
+		<dict>
+			<key>itemAction:</key>
+			<dict>
+				<key>10088</key>
+				<string>click_family_call</string>
+				<key>10089</key>
+				<string>click_real_meeting</string>
+				<key>10090</key>
+				<string>click_e_mall</string>
+				<key>10091</key>
+				<string>HOME_PAGE_JSFW</string>
+				<key>10092</key>
+				<string>HOME_PAGE_HDPT</string>
 			</dict>
 		</dict>
 	</dict>

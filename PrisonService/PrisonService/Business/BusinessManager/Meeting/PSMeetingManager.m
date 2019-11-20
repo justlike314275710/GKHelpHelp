@@ -25,6 +25,8 @@
 #import "UIViewController+Tool.h"
 #import "AppDelegate+other.h"
 #import "PSAllMessageViewController.h"
+#import "PSHomeViewModel.h"
+#import "PSAllMessageViewController.h"
 
 #import "PSLocateManager.h"
 @interface PSMeetingManager ()<PSIMMessageObserver>
@@ -191,17 +193,13 @@
 //    [self.meetingNavigationController pushViewController:meetingViewController animated:YES];
 //    [[PSContentManager sharedInstance] resetContent];
     [[PSContentManager sharedInstance].currentNavigationController pushViewController:meetingViewController animated:NO];
-
     //进入会议，发送进入会议消息
     PSMeetingMessage *enterMessage = [PSMeetingMessage new];
     enterMessage.code = PSMeetingEnter;
     [[PSIMMessageManager sharedInstance] sendMeetingMessage:enterMessage];
     [self.meetingNavigationController dismissViewControllerAnimated:NO completion:nil];
      self.meetingNavigationController = nil;
-
-    
 }
-
 
 /**
  发送免费会见定位
@@ -231,7 +229,6 @@
 
 /**
  发送收费会见定位
- 
  @param meetingID 会见ID(监狱端传送）
  */
 -(void)sendChargeLocation:(NSString*)meetingID{
@@ -272,10 +269,6 @@
 
 - (void)handleMeetingStatusMessage:(PSMeetingMessage *)message {
 
-//        NSString *token = [[PSSessionManager sharedInstance].session.token copy];
-//        [ZQLocalNotification NotificationType:CountdownNotification Identifier:token activityId:message.code alertBody:message.msg alertTitle:@"狱务通" alertString:@"确定" withTimeDay:0 hour:0 minute:0 second:1];
-//        [EBBannerView showWithContent:message.msg];
-    
     //只在前台弹出
     if ([AppDelegate runningInForeground]) {
         EBBannerView *banner = [EBBannerView bannerWithBlock:^(EBBannerViewMaker *make) {
@@ -289,24 +282,18 @@
 
 #pragma mark - Notification Method
 -(void)EBBannerViewDidClickAction:(NSNotification *)noti{
-    UIViewController *currentVC = [UIViewController jsd_getCurrentViewController];
     PSMeetingMessage *message = noti.object;
     switch (message.code) {
         case PSMeetingStatus:
         case PSMeetingLocal:
         case PSMeetingCancelAuthorization:
         {
-            PSAllMessageViewController *allMessageVC = [[PSAllMessageViewController alloc] init];
-            allMessageVC.current = 1;
-            [currentVC.navigationController pushViewController:allMessageVC animated:YES];
-        
+            [self getCountVisit:1];
         }
             break;
         case PSMessageArticleInteractive:
         {
-            PSAllMessageViewController *allMessageVC = [[PSAllMessageViewController alloc] init];
-            allMessageVC.current = 2;
-            [currentVC.navigationController pushViewController:allMessageVC animated:YES];
+            [self getCountVisit:2];
         }
             break;
             
@@ -318,6 +305,24 @@
         KPostNotification(AppDotChange, nil);
     });
 }
+//MARK:获取系统消息数
+- (void)getCountVisit:(NSInteger)index{
+    UIViewController *currentVC = [UIViewController jsd_getCurrentViewController];
+//    PSHomeViewModel *homeViewModel = [[PSHomeViewModel alloc] init];
+//    [homeViewModel getRequestCountVisitCompleted:^(PSResponse *response) {
+//        dispatch_async(dispatch_get_main_queue(), ^{
+            PSAllMessageViewController *allMessageVC = [[PSAllMessageViewController alloc] init];
+            allMessageVC.current = index;
+//            allMessageVC.model = homeViewModel.messageCountModel;
+            [currentVC.navigationController pushViewController:allMessageVC animated:YES];
+            NSString *obj = [NSString stringWithFormat:@"%ld",(long)index];
+            KPostNotification(KNOtificationALLMessageScrollviewIndex,obj);
+//        });
+//    } failed:^(NSError *error) {
+//
+//    }];
+}
+
 
 #pragma mark - PSIMMessageObserver
 - (void)receivedMeetingMessage:(PSMeetingMessage *)message {
@@ -402,8 +407,6 @@
                         [[PSSessionManager sharedInstance]doLogout];
                     }
                 } buttonTitles:@"确定", nil];
-//                NSString *token = [[PSSessionManager sharedInstance].session.token copy];
-//                [ZQLocalNotification NotificationType:CountdownNotification Identifier:token activityId:message.code alertBody:message.msg alertTitle:@"狱务通" alertString:@"确定" withTimeDay:0 hour:0 minute:0 second:1];
                 //只在前台弹出
                 if ([AppDelegate runningInForeground]) {
                     EBBannerView *banner = [EBBannerView bannerWithBlock:^(EBBannerViewMaker *make) {
@@ -414,8 +417,6 @@
                     [banner show];
                 }
             } else {
-//                NSString *token = [[PSSessionManager sharedInstance].session.token copy];
-//                [ZQLocalNotification NotificationType:CountdownNotification Identifier:token activityId:message.code alertBody:message.msg alertTitle:@"狱务通" alertString:@"确定" withTimeDay:0 hour:0 minute:0 second:1];
                 //只在前台弹出
                 if ([AppDelegate runningInForeground]) {
                     EBBannerView *banner = [EBBannerView bannerWithBlock:^(EBBannerViewMaker *make) {

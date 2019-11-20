@@ -14,16 +14,20 @@
 #import "PSMessageViewModel.h"
 #import "PSPlatMessageViewModel.h"
 #import "PSPrisonIntroduceViewController.h"
-
-
+#import "PSHomeViewModel.h"
 
 @interface PSAllMessageViewController ()<PSMessageTopTabViewDelegate,UIPageViewControllerDelegate,UIPageViewControllerDataSource>{
+    PSAdvisoryMesssageViewController *adMessageVC;
+    PSMessageViewController *messageViewController;
+    PSInteractiveMessageViewController *intMessageVC;
 }
 @property(nonatomic, strong)NSArray *viewControllers;
 @property(nonatomic, strong)PSMessageTopTabView *topTabbarView;
 @property(nonatomic, strong)UISwipeGestureRecognizer *leftSwipeGestureRecognizer;
 @property(nonatomic, strong)UISwipeGestureRecognizer *rightSwipeGestureRecognizer;
 @property(nonatomic, strong)UIPageViewController *pageViewController;
+
+
 
 
 
@@ -40,33 +44,52 @@
     NSString *visitUnreadCount = self.model.visitUnreadCount?self.model.visitUnreadCount:@"0";
     NSString *pointsUnreadCount = self.model.pointsUnreadCount?self.model.pointsUnreadCount:@"0";
     NSArray *dotnumbles = @[@"0",visitUnreadCount,pointsUnreadCount];
-    
     //咨询消息
     PSMessageViewModel *viewModel = [[PSMessageViewModel alloc] init];
-    viewModel.prisonerDetail = self.prisonerDetail;
-    PSAdvisoryMesssageViewController *adMessageVC = [[PSAdvisoryMesssageViewController alloc] initWithViewModel:viewModel];
+//    viewModel.prisonerDetail = self.prisonerDetail;
+    adMessageVC = [[PSAdvisoryMesssageViewController alloc] initWithViewModel:viewModel];
     adMessageVC.dotIndex = 0;
+    adMessageVC.reloaDot = ^{
+        
+    };
     //探视消息
     PSMessageViewModel *viewModel1 = [[PSMessageViewModel alloc] init];
     viewModel1.type = @"1,2,3";
-    viewModel1.prisonerDetail = self.prisonerDetail;
-    PSMessageViewController *messageViewController = [[PSMessageViewController alloc] initWithViewModel:viewModel1];
+//    viewModel1.prisonerDetail = self.prisonerDetail;
+    messageViewController = [[PSMessageViewController alloc] initWithViewModel:viewModel1];
+    @weakify(self);
+    messageViewController.reloaDot = ^{
+        @strongify(self);
+//        [self.topTabbarView hidebadgeIndex:self.current];
+        [self getCountVisit];
+    };
     messageViewController.dotIndex = [self.model.visitUnreadCount integerValue];
     _topTabbarView = [[PSMessageTopTabView alloc] initWithFrame:CGRectZero titles:titles normalImages:normalImages selectedImages:selectedImages currentIndex:_current delegate:self  viewController:self numbers:dotnumbles];
     _lastIndex = _current;
     //互动平台消息
     PSPlatMessageViewModel *viewModel2 = [[PSPlatMessageViewModel alloc] init];
-    viewModel2.prisonerDetail = self.prisonerDetail;
-    PSInteractiveMessageViewController *intMessageVC = [[PSInteractiveMessageViewController alloc] initWithViewModel:viewModel2];
+    intMessageVC = [[PSInteractiveMessageViewController alloc] initWithViewModel:viewModel2];
     intMessageVC.dotIndex = [self.model.pointsUnreadCount integerValue];
+    intMessageVC.reloaDot = ^{
+        @strongify(self);
+//        [self.topTabbarView hidebadgeIndex:self.current];
+        [self getCountVisit];
+    };
     self.viewControllers = @[adMessageVC,messageViewController,intMessageVC];
     [self.view addSubview:_topTabbarView];
     [self pageViewController];
+    
+    [self getCountVisit];
     //滑动到第几个
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(scrollviewIndex:) name:KNOtificationALLMessageScrollviewIndex object:nil];
-    
-    
+
 }
+
+-(void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:KNOtificationALLMessageScrollviewIndex object:nil];
+}
+
 #pragma mark -----------PrivateMethods
 -(void)scrollviewIndex:(NSNotification *)noti {
     NSInteger index = [noti.object integerValue];
@@ -83,11 +106,22 @@
     [self.navigationController popViewControllerAnimated:YES];
     NSLog(@"%@",self.navigationController.viewControllers);
 }
-
+- (void)getCountVisit{
+    PSHomeViewModel *homeViewModel = [[PSHomeViewModel alloc] init];
+    [homeViewModel getRequestCountVisitCompleted:^(PSResponse *response) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            NSString *visitUnreadCount = homeViewModel.messageCountModel.visitUnreadCount?homeViewModel.messageCountModel.visitUnreadCount:@"0";
+            NSString *pointsUnreadCount = homeViewModel.messageCountModel.pointsUnreadCount?homeViewModel.messageCountModel.pointsUnreadCount:@"0";
+            [self.topTabbarView showbadegeIndex:1 number:[visitUnreadCount integerValue]];
+            [self.topTabbarView showbadegeIndex:2 number:[pointsUnreadCount integerValue]];
+        });
+    } failed:^(NSError *error) {
+        
+    }];
+}
 #pragma mark - Delegate
 //MARK:PSMessageTopTabViewDelegate
 - (void)pagescrollMenuViewItemOnClick:(YLButton *)button index:(NSInteger)index lastindex:(NSInteger)lastindex{
-    
     UIViewController *vc = [self.viewControllers objectAtIndex:index];
     if (index >lastindex) {
         [self.pageViewController setViewControllers:@[vc] direction:UIPageViewControllerNavigationDirectionForward animated:YES completion:^(BOOL finished) {
@@ -96,7 +130,8 @@
         [self.pageViewController setViewControllers:@[vc] direction:UIPageViewControllerNavigationDirectionReverse animated:YES completion:^(BOOL finished) {
         }];
     }
-    [self reloadRed:lastindex];
+    [self reloadRed:index];
+    [self getCountVisit];
     _lastIndex = index;
     _current = index;
 }
@@ -124,7 +159,6 @@
         
     }
     return _pageViewController;
-    
 }
 
 #pragma mark
@@ -175,9 +209,10 @@
 - (void)pageViewController:(UIPageViewController *)pageViewController didFinishAnimating:(BOOL)finished previousViewControllers:(NSArray *)previousViewControllers transitionCompleted:(BOOL)completed
 {
     if (completed) {
-        [self reloadRed:_lastIndex];
+        [self reloadRed:_current];
         _lastIndex = _current;
         [self scrollviewItemIndex:_current];
+        [self getCountVisit];
     }
 }
 

@@ -36,8 +36,7 @@
 
 -(void)reloadDataReddot {
     self.dotIndex = 0;
-    [self.messageTableView reloadData];
-    
+    [self refreshData];
 }
 
 - (void)loadMore {
@@ -71,10 +70,10 @@
     PSMessageViewModel *messageViewModel = (PSMessageViewModel *)self.viewModel;
     PSMessage *message = messageViewModel.messages[indexPath.row];
     cell.titleLabel.text = message.title;
-    cell.dateLabel.text = [message.createdAt timestampToDateString];
+    cell.dateLabel.text = [message.createdAt timestampToDateDetailSecondString];
     cell.contentLabel.text = message.content;
     cell.iconImageView.image = IMAGE_NAMED(@"探视消息列表icon");
-    if (indexPath.row<self.dotIndex) {
+    if ([message.isNoticed isEqualToString:@"0"]) {
         cell.iconImageView.redDotNumber = 0;
         [cell.iconImageView ShowBadgeView];
         cell.titleLabel.textColor = UIColorFromRGB(51,51,51);
@@ -117,6 +116,10 @@
     self.messageTableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
         @strongify(self)
         [self refreshData];
+        self.dotIndex = 0;
+        if (self.reloaDot) {
+            self.reloaDot();
+        }
     }];
     [self.messageTableView registerClass:[PSMessageCell class] forCellReuseIdentifier:@"PSMessageCell"];
     [self.view addSubview:self.messageTableView];
@@ -133,14 +136,22 @@
     // Do any additional setup after loading the view.
     [self renderContents];
     [self refreshData];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshData) name:KNotificationRefreshts_message object:nil];
 }
-
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notiRefreshData:) name:KNotificationRefreshts_message object:nil];
+}
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-//    [[NSNotificationCenter defaultCenter] removeObserver:self name:KNotificationRefreshts_message object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:KNotificationRefreshts_message object:nil];
 }
 
+-(void)notiRefreshData:(NSNotification*)noti{
+    [self refreshData];
+    if (self.reloaDot) {
+        self.reloaDot();
+    }
+}
 #pragma mark -
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     PSMessageViewModel *messageViewModel = (PSMessageViewModel *)self.viewModel;

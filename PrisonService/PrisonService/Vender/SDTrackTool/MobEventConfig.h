@@ -40,6 +40,7 @@
 #define HOME_PAGE_SDHJ          @"HOME_PAGE_SDHJ"         // 实地会见
 #define HOME_PAGE_DZSW          @"HOME_PAGE_DZSW"         // 电子商务
 #define HOME_PAGE_JSFW          @"HOME_PAGE_JSFW"         // 家属服务
+#define HOME_PAGE_HDPT          @"HOME_PAGE_HDPT"         // 互动平台
 
 #define TSJY_PAGE_GSXX          @"TSJY_PAGE_GSXX"         // 公示信息
 #define TSJY_PAGE_TSJY          @"TSJY_PAGE_TSJY"         // 投诉建议
@@ -113,6 +114,7 @@
 #define CLICK_PRISONER_OPNENING @"click_prisoner_opnening"         //点击狱务公开, 0
 #define CLICK_WORK_DYNAMIC      @"click_work_dynamic"              //点击工作动态, 0
 #define CLICK_LAWS_REGULAR      @"click_laws_regular"              //点击法律法规, 0
+
 #define CLICK_FAMILY_CALL       @"click_family_call"               //点击亲情电话, 0
 #define CLICK_REAL_MEETING      @"click_real_meeting"              //点击实地会见, 0
 #define CLICK_E_MALL            @"click_e_mall"                    //点击电子商务, 0

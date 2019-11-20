@@ -31,8 +31,8 @@
     self = [super initWithFrame:frame];
     if (self) {
         //整体大小
-        [self p_setUI:count];
         self.feedType = feedType;
+        [self p_setUI:count];
      }
     return self;
 }
@@ -53,13 +53,6 @@
                 
                 //删除图片
                 NSArray *ary = [NSArray arrayWithObject:self.dataUrlString];
-//                NSDictionary *deleDic = @{@"urls":ary};
-//                [PSDeleteRequest requestPUTWithURLStr:ImageDeleteUrl paramDic:deleDic finish:^(id  _Nonnull responseObject) {
-//
-//                } enError:^(NSError * _Nonnull error) {
-//
-//                }];
-                
                 [self.dataString removeObjectAtIndex:index];
                 [self.dataUrlString removeObjectAtIndex:index];
                 [self p_freshUI:count];

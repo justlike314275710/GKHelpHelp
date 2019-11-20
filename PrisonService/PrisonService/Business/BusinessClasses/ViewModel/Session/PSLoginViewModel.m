@@ -129,6 +129,7 @@
 
 //狱务通登录
 - (void)loginCompleted:(RequestDataCompleted)completedCallback failed:(RequestDataFailed)failedCallback {
+
     manager=[AFHTTPSessionManager manager];
     NSString*token=[NSString stringWithFormat:@"Bearer %@",[LXFileManager readUserDataForKey:@"access_token"]];
     NSString *phone = self.phoneNumber.length>0?self.phoneNumber:@"";
@@ -150,7 +151,6 @@
                 //[PSSessionManager sharedInstance].session=self.session;
             }
         }
-        
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
         [defaults setObject:@"1" forKey:Kuncertified_isLogin];
         [defaults synchronize];

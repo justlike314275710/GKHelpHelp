@@ -27,6 +27,7 @@ typedef NS_ENUM(NSInteger, PSMessageType) {
 @property (nonatomic, strong) NSString<Optional> *applicationDate;
 @property (nonatomic, strong) NSString<Optional> *createdAt;
 @property (nonatomic, strong) NSString<Optional> *status;
+@property (nonatomic, strong) NSString<Optional> *isNoticed;
 @property (nonatomic, assign) PSMessageType type;
 
 @end

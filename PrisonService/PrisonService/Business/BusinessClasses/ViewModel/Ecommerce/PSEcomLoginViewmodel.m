@@ -172,8 +172,13 @@
             }
             if (responseStatusCode == 200) {
                 NSString*token=responseObject[@"access_token"];
+                NSString*refresh_token=responseObject[@"refresh_token"];
+                
                 [LXFileManager removeUserDataForkey:@"access_token"];
                 [LXFileManager saveUserData:token forKey:@"access_token"];
+                [LXFileManager removeUserDataForkey:@"refresh_token"];
+                [LXFileManager saveUserData:refresh_token forKey:@"refresh_token"];
+            
             }else {
                 [PSTipsView showTips:@"电子商务登陆失败"];
             }
