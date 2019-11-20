@@ -16,9 +16,7 @@
      NSInteger _currentIndex;
      UIView *_slideView;
      float _spacesX;
-     UIViewController *_vc;
-     NSArray *_vcs;
-    NSArray *_numbers;
+     NSArray *_numbers;
 }
 @property (nonatomic,strong) NSArray *titles;
 @property (nonatomic,strong) NSArray *normalImages;
@@ -53,12 +51,12 @@
     if (self) {
         self.backgroundColor = UIColorFromRGB(249,248,254);
         self.frame = CGRectMake(0, 0, KScreenWidth,45);
-        _vc = viewController;
         _titles = titles;
         _normalImages = normalImages;
         _selectedImages = selectedImages;
         _delegate = delegate;
         _numbers = numbers;
+        _currentIndex = currentIndex;
         [self setupUI];
     }
     return self;
@@ -70,18 +68,16 @@
     TabBarView.frame = CGRectMake(0, 10, KScreenWidth, mstopTabHeight);
     TabBarView.backgroundColor = [UIColor whiteColor];
     [self addSubview:TabBarView];
-    UIView *toplineView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, KScreenHeight, 1)];
+    UIView *toplineView = [[UIView alloc] initWithFrame:CGRectMake(0,0.5, KScreenHeight,0.5)];
     toplineView.backgroundColor = UIColorFromRGB(217, 217, 217);
     [TabBarView addSubview:toplineView];
-    UIView *bottomlineView = [[UIView alloc] initWithFrame:CGRectMake(0,mstopTabHeight,KScreenWidth, 1)];
+    UIView *bottomlineView = [[UIView alloc] initWithFrame:CGRectMake(0,mstopTabHeight+8,KScreenWidth,0.5)];
     bottomlineView.backgroundColor = UIColorFromRGB(217, 217, 217);
     [TabBarView addSubview:bottomlineView];
     
+    _spacesX = 0.15*msitemWidth;
     _slideView = [self slider];
     [TabBarView addSubview:_slideView];
-    _spacesX = 0.15*msitemWidth;
-    _slideView.x = _spacesX;
-    
     for (int i = 0; i<3; i++) {
         YLButton *item = [self setItem:[[_numbers objectAtIndex:i] integerValue]];
         item.frame = CGRectMake(i*msitemWidth,1,msitemWidth,mstopTabHeight-2);
@@ -95,31 +91,18 @@
         item.tag = 100+i;
     }
 }
+    
 
--(void)setViewControllers:(NSArray *)viewControllers {
-    
-    _vcs = viewControllers;
-    _vc.view.clipsToBounds = YES;//超过父视图部分不显示
-    UIViewController *vc1 = [viewControllers objectAtIndex:0];
-    UIViewController *vc2 = [viewControllers objectAtIndex:1];
-    UIViewController *vc3 = [viewControllers objectAtIndex:2];
-    [_vc addChildViewController:vc1];
-    [_vc addChildViewController:vc2];
-    [_vc addChildViewController:vc3];
-    [_vc.view addSubview:vc1.view];
-    [_vc.view addSubview:vc2.view];
-    [_vc.view addSubview:vc3.view];
-    vc1.view.frame = CGRectMake(0,50, KScreenWidth, KScreenHeight-50);
-    vc2.view.frame = CGRectMake(1*KScreenWidth,50,KScreenWidth,KScreenHeight-50);
-    vc3.view.frame = CGRectMake(2*KScreenWidth,50,KScreenWidth,KScreenHeight-50);
-}
 #pragma -------------privateMethods
-- (void)scrollviewItemIndex:(NSInteger)index{
-    if (index>2) return;
-    YLButton *btn = [YLButton new];
-    btn.tag = index+100;
-    [self itemAction:btn];
-    
+- (void)scrollviewItemIndex:(NSInteger)index {
+    NSInteger time = labs(index-_currentIndex);
+    [UIView animateWithDuration:0.2*time animations:^{
+        _slideView.frame = CGRectMake(index*msitemWidth+_spacesX,mstopTabHeight+8,msitemWidth*0.75,1);
+    } completion:^(BOOL finished) {
+        
+    }];
+    _currentIndex = index;
+    [self selectIndex:index];
 }
 - (void)itemAction:(YLButton *)sender {
     NSInteger index = sender.tag-100;
@@ -128,42 +111,28 @@
     [self changeItemState];
     sender.selected = YES;
     [UIView animateWithDuration:0.2*time animations:^{
-        _slideView.frame = CGRectMake(index*msitemWidth+_spacesX,mstopTabHeight,msitemWidth*0.75,1);
+        _slideView.frame = CGRectMake(index*msitemWidth+_spacesX,mstopTabHeight+8,msitemWidth*0.75,1);
     } completion:^(BOOL finished) {
         
     }];
     if (_delegate&&[_delegate respondsToSelector:@selector(pagescrollMenuViewItemOnClick:index: lastindex:)]) {
         [_delegate pagescrollMenuViewItemOnClick:sender index:index lastindex:_currentIndex];
     }
-    [self pagescrollMenuViewItemOnClick:sender index:index];
-    
     //取消当前页面红点
     YLButton *ylButton = [self viewWithTag:100+_currentIndex];
     [ylButton.imageView hideBadgeView];
-    
     _currentIndex = index;
-    
 }
 
--(void)pagescrollMenuViewItemOnClick:(UIButton *) sender index:(NSInteger)index{
-    
-    NSInteger sliderIndex = index-_currentIndex;
-    NSInteger slidertime = labs(sliderIndex);
-    if (sliderIndex>0) {
-        [UIView animateWithDuration:slidertime*0.2 animations:^{
-            [_vcs enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                UIViewController *vc = obj;
-                vc.view.x = vc.view.x - KScreenWidth*slidertime;
-            }];
-        } completion:nil];
-    } else {
-        [UIView animateWithDuration:slidertime*0.2 animations:^{
-            [_vcs enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                UIViewController *vc = obj;
-                vc.view.x = vc.view.x + KScreenWidth*slidertime;
-            }];
-        } completion:nil];
-    }
+-(void)hidebadgeIndex:(NSInteger)index{
+    YLButton *ylButton = [self viewWithTag:100+index];
+    [ylButton.imageView hideBadgeView];
+}
+
+-(void)selectIndex:(NSInteger)index{
+    YLButton *ylButton = [self viewWithTag:100+index];
+    [self changeItemState];
+    ylButton.selected = YES;
 }
 
 - (void)changeItemState {
@@ -193,10 +162,9 @@
     }
     return item;
 }
-
 - (UIView *)slider {
     UIView *view = [UIView new];
-    view.frame = CGRectMake(0,mstopTabHeight,mssliderWidth,1);
+    view.frame = CGRectMake(_currentIndex*msitemWidth+_spacesX,mstopTabHeight+8,msitemWidth*0.75,1);
     view.backgroundColor = UIColorFromRGB(38,76,144);
     return view;
 }

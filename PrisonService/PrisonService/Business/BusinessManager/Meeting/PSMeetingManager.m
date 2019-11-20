@@ -24,6 +24,7 @@
 #import <EBBannerView/EBBannerView.h>
 #import "UIViewController+Tool.h"
 #import "AppDelegate+other.h"
+#import "PSAllMessageViewController.h"
 
 #import "PSLocateManager.h"
 @interface PSMeetingManager ()<PSIMMessageObserver>
@@ -56,6 +57,8 @@
     self = [super init];
     if (self) {
         [[PSIMMessageManager sharedInstance] addObserver:self];
+         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(EBBannerViewDidClickAction:) name:EBBannerViewDidClickNotification object:nil];
+        
     }
     return self;
 }
@@ -250,11 +253,7 @@
     
         }];
     }
-    
-    
-
 }
-
 
 //会议结束后的清理工作
 - (void)clearMeeting {
@@ -273,15 +272,51 @@
 
 - (void)handleMeetingStatusMessage:(PSMeetingMessage *)message {
 
-        NSString *token = [[PSSessionManager sharedInstance].session.token copy];
-        [ZQLocalNotification NotificationType:CountdownNotification Identifier:token activityId:1900000 alertBody:message.msg alertTitle:@"狱务通" alertString:@"确定" withTimeDay:0 hour:0 minute:0 second:1];
+//        NSString *token = [[PSSessionManager sharedInstance].session.token copy];
+//        [ZQLocalNotification NotificationType:CountdownNotification Identifier:token activityId:message.code alertBody:message.msg alertTitle:@"狱务通" alertString:@"确定" withTimeDay:0 hour:0 minute:0 second:1];
 //        [EBBannerView showWithContent:message.msg];
+    
+    //只在前台弹出
+    if ([AppDelegate runningInForeground]) {
         EBBannerView *banner = [EBBannerView bannerWithBlock:^(EBBannerViewMaker *make) {
             make.style = 11;
             make.content = message.msg;
+            make.object = message;
         }];
         [banner show];
- 
+    }
+}
+
+#pragma mark - Notification Method
+-(void)EBBannerViewDidClickAction:(NSNotification *)noti{
+    UIViewController *currentVC = [UIViewController jsd_getCurrentViewController];
+    PSMeetingMessage *message = noti.object;
+    switch (message.code) {
+        case PSMeetingStatus:
+        case PSMeetingLocal:
+        case PSMeetingCancelAuthorization:
+        {
+            PSAllMessageViewController *allMessageVC = [[PSAllMessageViewController alloc] init];
+            allMessageVC.current = 1;
+            [currentVC.navigationController pushViewController:allMessageVC animated:YES];
+        
+        }
+            break;
+        case PSMessageArticleInteractive:
+        {
+            PSAllMessageViewController *allMessageVC = [[PSAllMessageViewController alloc] init];
+            allMessageVC.current = 2;
+            [currentVC.navigationController pushViewController:allMessageVC animated:YES];
+        }
+            break;
+            
+        default:
+            break;
+    }
+    //延时刷新未读红点数
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        KPostNotification(AppDotChange, nil);
+    });
 }
 
 #pragma mark - PSIMMessageObserver
@@ -367,11 +402,29 @@
                         [[PSSessionManager sharedInstance]doLogout];
                     }
                 } buttonTitles:@"确定", nil];
-                NSString *token = [[PSSessionManager sharedInstance].session.token copy];
-                [ZQLocalNotification NotificationType:CountdownNotification Identifier:token activityId:1900000 alertBody:message.msg alertTitle:@"狱务通" alertString:@"确定" withTimeDay:0 hour:0 minute:0 second:1];
+//                NSString *token = [[PSSessionManager sharedInstance].session.token copy];
+//                [ZQLocalNotification NotificationType:CountdownNotification Identifier:token activityId:message.code alertBody:message.msg alertTitle:@"狱务通" alertString:@"确定" withTimeDay:0 hour:0 minute:0 second:1];
+                //只在前台弹出
+                if ([AppDelegate runningInForeground]) {
+                    EBBannerView *banner = [EBBannerView bannerWithBlock:^(EBBannerViewMaker *make) {
+                        make.style = 11;
+                        make.content = message.msg;
+                        make.object = message;
+                    }];
+                    [banner show];
+                }
             } else {
-                NSString *token = [[PSSessionManager sharedInstance].session.token copy];
-                [ZQLocalNotification NotificationType:CountdownNotification Identifier:token activityId:1900000 alertBody:message.msg alertTitle:@"狱务通" alertString:@"确定" withTimeDay:0 hour:0 minute:0 second:1];
+//                NSString *token = [[PSSessionManager sharedInstance].session.token copy];
+//                [ZQLocalNotification NotificationType:CountdownNotification Identifier:token activityId:message.code alertBody:message.msg alertTitle:@"狱务通" alertString:@"确定" withTimeDay:0 hour:0 minute:0 second:1];
+                //只在前台弹出
+                if ([AppDelegate runningInForeground]) {
+                    EBBannerView *banner = [EBBannerView bannerWithBlock:^(EBBannerViewMaker *make) {
+                        make.style = 11;
+                        make.content = message.msg;
+                        make.object = message;
+                    }];
+                    [banner show];
+                }
             }
           
         }
@@ -396,7 +449,6 @@
                 if (message.isEnabled&&message.isEnabled.length>0) {
                     KPostNotification(KNotificationAuthorChange,message);
                 }
-                
             }
         }
             break;

@@ -180,6 +180,7 @@
         @strongify(self);
         if (status == PSLocalMeetingWithoutAppointment) {
             [self appointMeeting];
+            [SDTrackTool logEvent:APPLY_IMEITE_MEETING];
         } else if(status == PSLocalMeetingPending) {
             [self cancelMeeting];
         }
@@ -357,8 +358,6 @@
                     [self appointMeeting];
                 }];
                 cell = appointCell;
-
-                
             }
         }
             break;
@@ -372,18 +371,13 @@
 }
 
 #pragma mark - PSIMMessageObserver
-- (void)receivedLocalMeetingMessage:(PSMeetingMessage *)message {
-    
-//    NSString *token = [[PSSessionManager sharedInstance].session.token copy];
-//    [ZQLocalNotification NotificationType:CountdownNotification Identifier:token activityId:190000 alertBody:message.msg alertTitle:@"狱务通" alertString:@"确定" withTimeDay:0 hour:0 minute:0 second:1];
-    EBBannerView *banner = [EBBannerView bannerWithBlock:^(EBBannerViewMaker *make) {
-        make.style = 11;
-        make.content = message.msg;
-    }];
-    [banner show];
-    
+- (void)receivedLocalMeetingMessage:(PSMeetingMessage *)message {    
     [self requestLocalMeeting];
 }
+
+
+
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

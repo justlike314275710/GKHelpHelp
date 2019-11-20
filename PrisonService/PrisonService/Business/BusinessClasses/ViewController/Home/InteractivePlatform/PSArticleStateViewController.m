@@ -41,10 +41,13 @@
     NSString *title = @"";
     if ([viewModel.status isEqualToString:@"published"]) {
         title = @"我的文章-已发布";
+        [SDTrackTool logEvent:ARTICLE_CLICK_YFB_MINE];
     } else if ([viewModel.status isEqualToString:@"not-published"]) {
         title = @"我的文章-未发布";
+        [SDTrackTool logEvent:ARTICLE_CLICK_WFB_MINE];
     } else if([viewModel.status isEqualToString:@"not-pass"]) {
         title = @"我的文章-未通过";
+        [SDTrackTool logEvent:ARTICLE_CLICK_WTG_MINE];
     }
     self.title = title;
     

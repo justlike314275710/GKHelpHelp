@@ -18,6 +18,7 @@
 @property(nonatomic,strong) UITextField *amounField;
 @property(nonatomic,strong) UIToolbar *shadowView;
 @property(nonatomic,assign) NSInteger seletIndex;
+@property(nonatomic,assign) BOOL isWrite; //手写OR选择框(埋点需要)
 @property(nonatomic,strong) UILabel *totalLabel;
 @property(nonatomic,strong) PSBuyModel *buyModel;
 
@@ -33,7 +34,8 @@
     if (self) {
         self.frame = CGRectMake(0,SCREEN_HEIGHT, SCREEN_WIDTH,325);
         self.backgroundColor = [UIColor whiteColor];
-        _seletIndex = 0; 
+        _seletIndex = 0;
+        _isWrite = NO;
         [self p_setUI];
     }
     return self;
@@ -216,7 +218,7 @@
         @strongify(self)
         [self disMissView];
         if (self.buyBlock) {
-            self.buyBlock(_seletIndex);
+            self.buyBlock(_seletIndex,_isWrite);
         }
     }];
 }
@@ -289,9 +291,12 @@
     [attrStr addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:NSMakeRange(allmoney.length-1,1)];
     self.totalLabel.attributedText = attrStr;
     _seletIndex = [textField.text integerValue];
+    if (textField.text.length>0) {
+        _isWrite = YES;
+    } else {
+        _isWrite = NO;
+    }
     if ([NSObject judegeIsVietnamVersion]) self.totalLabel.text = [allmoney substringToIndex:allmoney.length-1];
-    
-
 }
 
 
@@ -340,6 +345,7 @@
 
 - (void)showView:(UIViewController *)vc;{
 //    [self.navigationController.view addSubview:newView];
+    _isWrite = NO;
     UIWindow *window = [UIApplication sharedApplication].keyWindow;
     self.shadowView.frame = window.bounds;
     [vc.navigationController.view addSubview:self.shadowView];

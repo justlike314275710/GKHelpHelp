@@ -24,7 +24,6 @@
     // Do any additional setup after loading the view.
     NSString*prison_opening=NSLocalizedString(@"prison_opening", @"狱务公开");
     self.title = prison_opening;
-    
     [self setupUI];
     [self setupData];
 }
@@ -106,7 +105,6 @@
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return 3;
 }
-
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     PSPrisonOpenCell *cell = [tableView dequeueReusableCellWithIdentifier:@"PSPrisonOpenCell"];
     NSDictionary *data = _datalist[indexPath.row];
@@ -116,35 +114,38 @@
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return 110;
 }
-
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     PSWorkViewModel *viewModel = [PSWorkViewModel new];
     PSPublicViewController *publicViewController = [[PSPublicViewController alloc] initWithViewModel:viewModel];
     publicViewController.jailId = self.jailId;
     publicViewController.jailName = self.jailName;
+    NSString *mdString = PUBliC_PRISON_JXJS;
     switch (indexPath.row) {
         case 0:
         {
             viewModel.newsType = PSNesJxJs;
+            mdString = PUBliC_PRISON_JXJS;
         }
             break;
         case 1:
         {
             viewModel.newsType = PSNesZyjwzx;
+            mdString = PUBliC_PRISON_JWZX;
         }
             break;
         case 2:
         {
             viewModel.newsType = PSNesShbj;
+            mdString = PUBliC_PRISON_SHBJ;
         }
             break;
       
         default:
             break;
     }
+    [SDTrackTool logEvent:mdString];
     [self.navigationController pushViewController:publicViewController animated:YES];
 }
-
 #pragma mark - Setting&&Getting
 - (UITableView *)tableView {
     if (!_tableView) {

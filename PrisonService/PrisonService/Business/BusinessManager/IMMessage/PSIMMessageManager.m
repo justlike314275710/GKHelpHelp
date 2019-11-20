@@ -19,6 +19,7 @@
 #import "AppDelegate.h"
 #import "UIViewController+Tool.h"
 #import "PSAllMessageViewController.h"
+#import "AppDelegate+other.h"
 @interface PSIMMessageManager ()<NIMLoginManagerDelegate,NIMSystemNotificationManagerDelegate,UIAlertViewDelegate>
 
 @property (nonatomic, strong) PSObserverVector *observerVector;
@@ -170,7 +171,17 @@
                 appdelegate.openByNotice = NO; //不弹出前台通知
             } else {
                 if (message.code == PSMeetingLocal) {
+                    
                     [self.observerVector notifyObserver:@selector(receivedLocalMeetingMessage:) object:message];
+                    //只在前台弹出
+                    if ([AppDelegate runningInForeground]) {
+                        EBBannerView *banner = [EBBannerView bannerWithBlock:^(EBBannerViewMaker *make) {
+                            make.style = 11;
+                            make.content = message.msg;
+                            make.object = message;
+                        }];
+                        [banner show];
+                    }
                 }else{
                     [self.observerVector notifyObserver:@selector(receivedMeetingMessage:) object:message];
                 }
@@ -189,19 +200,17 @@
         case PSMeetingCancelAuthorization:
         {
             PSAllMessageViewController *allMessageVC = [[PSAllMessageViewController alloc] init];
+            allMessageVC.current = 1;
+            KPostNotification(KNOtificationALLMessageScrollviewIndex, @"1");
             [currentVC.navigationController pushViewController:allMessageVC animated:YES];
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                [allMessageVC scrollviewItemIndex:1];
-            });
         }
             break;
         case PSMessageArticleInteractive:
         {
             PSAllMessageViewController *allMessageVC = [[PSAllMessageViewController alloc] init];
+            allMessageVC.current = 2;
+            KPostNotification(KNOtificationALLMessageScrollviewIndex, @"2");
             [currentVC.navigationController pushViewController:allMessageVC animated:YES];
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                [allMessageVC scrollviewItemIndex:2];
-            });
         }
             break;
             

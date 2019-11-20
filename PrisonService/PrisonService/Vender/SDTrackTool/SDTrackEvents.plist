@@ -28,10 +28,20 @@
 				<key>0</key>
 				<string>click_laws_regular</string>
 			</dict>
+			<key>e_commerce</key>
+			<dict>
+				<key>0</key>
+				<string>click_e_mall</string>
+			</dict>
 			<key>p_InsertPrisonPublic:</key>
 			<dict>
 				<key>0</key>
 				<string>click_prisoner_opnening</string>
+			</dict>
+			<key>messageAction:</key>
+			<dict>
+				<key>0</key>
+				<string>click_message</string>
 			</dict>
 		</dict>
 	</dict>
@@ -98,6 +108,11 @@
 				<key>0</key>
 				<string>click_apply_family_call</string>
 			</dict>
+			<key>helpAction:</key>
+			<dict>
+				<key>0</key>
+				<string>click_help</string>
+			</dict>
 		</dict>
 	</dict>
 	<key>PSAddFamiliesViewController</key>
@@ -133,6 +148,39 @@
 			<dict>
 				<key>0</key>
 				<string>click_refused_meeting</string>
+			</dict>
+			<key>acceptAction:</key>
+			<dict>
+				<key>0</key>
+				<string>click_accept_meeting</string>
+			</dict>
+		</dict>
+	</dict>
+	<key>PSFamilyServiceViewController</key>
+	<dict>
+		<key>PageEventIDs</key>
+		<dict>
+			<key>Enter</key>
+			<string>PSRingMeetingViewController_ENTER</string>
+			<key>Leave</key>
+			<string>PSRingMeetingViewController_LEAVE</string>
+		</dict>
+		<key>ControlEventIDs</key>
+		<dict>
+			<key>rightAction</key>
+			<dict>
+				<key>0</key>
+				<string>SERVICENOTICE</string>
+			</dict>
+			<key>periodChange</key>
+			<dict>
+				<key>0</key>
+				<string>SERVICE_PERIOD</string>
+			</dict>
+			<key>prisonConsumption</key>
+			<dict>
+				<key>0</key>
+				<string>SERVICE_Consumption</string>
 			</dict>
 			<key>acceptAction:</key>
 			<dict>

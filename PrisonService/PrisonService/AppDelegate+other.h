@@ -25,7 +25,6 @@
  bug 日志收集
  **/
 -(void)registerBugly;
-
 /**
  友盟数据统计
  **/

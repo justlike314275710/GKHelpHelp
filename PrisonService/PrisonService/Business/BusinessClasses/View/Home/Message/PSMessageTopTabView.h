@@ -29,7 +29,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface PSMessageTopTabView : UIView
 @property(nonatomic,strong)UIView*TopTabHeight;
-@property(nonatomic,strong)NSArray *viewControllers;
 @property(nonatomic,strong)NSArray *numbers;
 - (id)initWithFrame:(CGRect)frame
              titles:(NSArray *)titles
@@ -40,7 +39,9 @@ NS_ASSUME_NONNULL_BEGIN
      viewController:(UIViewController *)viewController
             numbers:(NSArray *)numbers;
 
-- (void)scrollviewItemIndex:(NSInteger)index; //滑动到指定位置
+-(void)scrollviewItemIndex:(NSInteger)index; //滑动到指定位置
+-(void)hidebadgeIndex:(NSInteger)index;
+
 
 
 

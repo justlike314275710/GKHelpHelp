@@ -83,11 +83,8 @@
                 completedCallback(responseObject);
             }
         }
-        
     }];
-    
     [dataTask resume];
-    
 }
 #pragma mark - 查询当前IM用户
 - (void)loginGetImifnoComplete:(RequestDataCompleted)completedCallback failed:(RequestDataFailed)failedCallback {

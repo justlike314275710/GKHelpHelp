@@ -5,7 +5,6 @@
 //  Created by calvin on 2018/4/2.
 //  Copyright © 2018年 calvin. All rights reserved.
 //
-
 #define UIColorFromHexadecimalRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 
 #define UIColorFromHexadecimalRGBA(rgbValue,alp) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:alp]
@@ -25,19 +24,12 @@
 #define AppBaseLineColor (UIColorFromHexadecimalRGB(0xe5e5e5))
 
 //法律咨询部分label字体
-#define CFontColor_LawTitle  (UIColorFromHexadecimalRGB(0xF34800)) //[UIColor colorWithHexString:@"F34800"] //Field pla 
-
-
-
-
+#define CFontColor_LawTitle  (UIColorFromHexadecimalRGB(0xF34800)) //[UIColor colorWithHexString:@"F34800"] //Field pla
 #define AppBaseTextFont1 (FontOfSize(15))
 
 #define AppBaseTextFont2 (FontOfSize(13))
 
 #define AppBaseTextFont3 (FontOfSize(14))
-
-
-
 
 #define AppBaseBackgroundColor1 [UIColor whiteColor]
 
@@ -134,25 +126,20 @@ typedef NS_ENUM(NSInteger,WritefeedType) {
 #define KNotificationRefreshMyArticle          @"KNotificationRefreshMyArticle"
 //刷新咨询消息
 #define KNotificationRefreshzx_message         @"KNotificationRefreshzx_message"
-#define KNotificationRefreshzx_message_1       @"KNotificationRefreshzx_message_1"
 //刷新探视消息
 #define KNotificationRefreshts_message         @"KNotificationRefreshts_message"
-#define KNotificationRefreshts_message_1       @"KNotificationRefreshts_message_1"
 //文章权限改变通知
 #define KNotificationAuthorChange      @"KNotificationAuthorChange"
-
 //刷新互动平台消息
 #define KNotificationRefreshhd_message         @"KNotificationRefreshhd_message"
-#define KNotificationRefreshhd_message_1       @"KNotificationRefreshhd_message_1"
+
 //刷新文章详情
 #define KNotificationRefreshArticleDetail       @"KNotificationRefreshArticleDetail"
-
 #define Kuncertified_isLogin @"uncertified_isLogin"   //没认证是否登录提示
 //视屏会见通知倒计时
 #define KNOtificationMeetingCountdown @"KNOtificationMeetingCountdown"
-
-
-
+//视屏会见通知倒计时
+#define KNOtificationALLMessageScrollviewIndex @"KNOtificationALLMessageScrollviewIndex"
 
 #ifdef DEBUG
 #define PSLog(...) NSLog(__VA_ARGS__);

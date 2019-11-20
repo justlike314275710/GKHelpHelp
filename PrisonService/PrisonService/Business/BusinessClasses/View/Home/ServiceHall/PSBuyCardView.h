@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 @class PSBuyModel;
-typedef void (^BuySelectBlock)(NSInteger index);
+typedef void (^BuySelectBlock)(NSInteger index,BOOL isWrite);
 
 @interface PSBuyCardView : UIView
 

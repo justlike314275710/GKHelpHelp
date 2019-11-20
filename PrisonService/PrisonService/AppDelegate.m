@@ -36,7 +36,6 @@
     [self registerThirdParty];
     //注册apns
     [self registerAPNS:application launchOptions:launchOptions];
-    
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     self.window.backgroundColor = [UIColor blackColor];
     [self.window makeKeyAndVisible];
@@ -78,7 +77,6 @@
 #endif
 //    获取推送设置
     //科大讯飞
-    
     [IFlySetting setLogFile:LVL_NONE];
     [IFlySetting showLogcat:NO];
     [IFlySpeechUtility createUtility:[NSString stringWithFormat:@"appid=%@",KEDAXUNFEI_APPID]];
@@ -93,7 +91,7 @@
     //友盟数据统计
     [self registerUMMob];
     //网易云信apns推送
-//    [self registerAPNs];
+//  [self registerAPNs];
  
     
 }
@@ -136,6 +134,8 @@
 - (void)applicationDidEnterBackground:(UIApplication *)application {
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+    [application setApplicationIconBadgeNumber:0]; //清除角标
+    [[UIApplication sharedApplication] cancelAllLocalNotifications];//清除APP所
 }
 
 

@@ -45,6 +45,7 @@
 }
 
 - (void)appointAction {
+    [SDTrackTool logEvent:APPLY_SURE_MEETING];
     if (self.appoint) {
         self.appoint(self.calendar.selectedDate);
     }

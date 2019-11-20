@@ -41,22 +41,16 @@
     self.view.backgroundColor = UIColorFromRGB(249,248,254);
     self.view.clipsToBounds = YES;//超过父视图部分不显示
     NSArray *titels = @[@"互动文章",@"我的收藏",@"我的文章"];
-    NSArray *normalImages = @[@"互动文章－未选中",@"我的收藏－未选中",@"我的文章－未选中"];
+    NSArray *normalImages =  @[@"互动文章－未选中",@"我的收藏－未选中",@"我的文章－未选中"];
     NSArray *selectedImages = @[@"互动文章－选中",@"我的收藏－选中",@"我的文章－选中"];
-    PSPlatformMenuView *menuView = [[PSPlatformMenuView alloc] initWithFrame:CGRectMake(25,21, KScreenWidth-50,60) titles:titels normalImages:normalImages selectedImages:selectedImages delegate:self currentIndex:0];
+    PSPlatformMenuView *menuView = [[PSPlatformMenuView alloc] initWithFrame:CGRectMake(25,21, KScreenWidth-50,60) titles:titels normalImages:normalImages selectedImages:selectedImages delegate:self currentIndex:1];
     menuView.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:menuView];
-    
     _arrayVCs = [self setArrayChildVCs];
-    
     [self.view addSubview:self.publishBtn];
-    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setupData:) name:KNotificationAuthorChange object:nil];
-    
     [self setupData:nil];
-    
     _author = YES;
-
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -127,12 +121,19 @@
 #pragma mark - Delegate
 //MARK:PSPlatfromMenuViewDelegate
 - (void)pagescrollMenuViewItemOnClick:(YLButton *)button index:(NSInteger)index {
+    NSString *EVENTID = ARTICLE_HDWZ;
+    if (index==0) {
+        EVENTID = ARTICLE_HDWZ;
+    }
     if (index==1) {
         [_CollectionVC firstRefreshData];
+        EVENTID = ARTICLE_CLICK_COLLECT;
     }
     if (index==2) {
         [_MineArticleVC firstRefreshData];
+        EVENTID = ARTICLE_CLICK_MINE;
     }
+    [SDTrackTool logEvent:EVENTID];
     NSInteger sliderIndex = index-_currentIndex;
     NSInteger slidertime = labs(sliderIndex);
     if (sliderIndex>0) {
@@ -163,6 +164,7 @@
         [PSTipsView showTips:@"暂无权限!"];
         return;
     }
+    [SDTrackTool logEvent:ARTICLE_EDIT];
     viewModel.type = PSPublishArticle;
     PSPublishArticleViewController *publishVC = [[PSPublishArticleViewController alloc] initWithViewModel:viewModel];
     [self.navigationController pushViewController:publishVC animated:YES];
@@ -179,9 +181,6 @@
     }
     return _publishBtn;
 }
-
-
-
 
 
 @end

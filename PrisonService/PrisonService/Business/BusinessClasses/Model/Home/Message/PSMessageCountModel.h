@@ -19,6 +19,8 @@
 @property (nonatomic, strong) NSString<Optional> *pointsUnreadCount;
 @property (nonatomic, strong) NSString<Optional> *visitCount;
 @property (nonatomic, strong) NSString<Optional> *visitUnreadCount;
+@property (nonatomic, strong) NSString<Optional> *lastNewsType;  //1 认证；会见 2; 实地会见 3; 互动文章消息 4  /0 没有
+
 
 @end
 

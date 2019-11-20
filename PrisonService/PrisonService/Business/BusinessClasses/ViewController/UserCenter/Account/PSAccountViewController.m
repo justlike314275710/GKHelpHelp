@@ -150,7 +150,7 @@
 
 #pragma mark - 点击头像
 - (void)clickAvatarView {
-    
+    [SDTrackTool logEvent:ZHXX_PAGE_XGTX];
     LLActionSheetView *alertView = [[LLActionSheetView alloc]initWithTitleArray:@[@"相册选择",@"拍照",@"更换头像"] andShowCancel:YES];
     [alertView setTitleColor:[UIColor grayColor] index:2];
     alertView.ClickIndex = ^(NSInteger index) {
@@ -261,15 +261,17 @@
 #pragma mark - UITableViewDelegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if (1==indexPath.row) {
+        [SDTrackTool logEvent:ZHXX_PAGE_LXDH];
         PSchangPhoneViewController*changPhoneViewController=[[PSchangPhoneViewController alloc]initWithViewModel:[[PSEcomRegisterViewmodel alloc]init]];
         [self.navigationController pushViewController:changPhoneViewController animated:YES];
     }
    else if (2==indexPath.row) {
+       [SDTrackTool logEvent:ZHXX_PAGE_JTZZ];
         PSAccountAddressViewController *addressViewController = [[PSAccountAddressViewController alloc] initWithViewModel:[PSAccountEditAddressViewModel new]];
         [self.navigationController pushViewController:addressViewController animated:YES];
     }
     else if (3==indexPath.row){
-        
+        [SDTrackTool logEvent:ZHXX_PAGE_YZBM];
         PSAccountEmailViewController *emailViewController = [[PSAccountEmailViewController alloc] initWithViewModel:[PSAccountEditEmailViewModel new]];
         [self.navigationController pushViewController:emailViewController animated:YES];
     }

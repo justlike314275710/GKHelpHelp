@@ -71,6 +71,7 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     self.tabBarController.tabBar.hidden = YES;
+    [SDTrackTool logEvent:ARTICLE_CLICK_DETAIL];
 }
 
 #pragma mark - PrivateMethods
@@ -272,13 +273,10 @@
         _likeBtn.selected = YES;
     }
     
-    if ([viewModel.detailModel.clientNum integerValue]>0) {
-        [_hotBtn setImage:IMAGE_NAMED(@"热度icon") forState:UIControlStateNormal];
-        [_hotLab setTextColor:UIColorFromRGB(255,134,0)];
-    } else {
-        [_hotBtn setImage:IMAGE_NAMED(@"热度") forState:UIControlStateNormal];
-        [_hotLab setTextColor:UIColorFromRGB(102,102,102)];
-    }
+  
+    [_hotBtn setImage:IMAGE_NAMED(@"热度icon") forState:UIControlStateNormal];
+    [_hotLab setTextColor:UIColorFromRGB(255,134,0)];
+ 
     CGFloat bottom = isHideBottom?0:-90;
     [self.scrollview mas_updateConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(_topTipLab.mas_bottom);
@@ -363,6 +361,7 @@
     //收藏
     if ([viewModel.detailModel.iscollect isEqualToString:@"0"]) {
         [self collectAction];
+        [SDTrackTool logEvent:ARTICLE_DETAIL_COLLECT];
     } else { //取消收藏
         [self cancelCollectAction];
     }
@@ -373,6 +372,7 @@
     //点赞
     if ([viewModel.detailModel.ispraise isEqualToString:@"0"]) {
         [self praiseAction];
+        [SDTrackTool logEvent:ARTICLE_DETAIL_LIKE];
     } else { //取消点赞
         [self cancelPraiseAction];
     }
@@ -474,6 +474,7 @@
 }
 //举报
 -(void)reportAction:(UIButton *)sender{
+    [SDTrackTool logEvent:ARTICLE_REPORT];
     PSArticleDetailViewModel *viewModel =  (PSArticleDetailViewModel *)self.viewModel;
     PSReportArticleViewModel*reportViewModel = [PSReportArticleViewModel new];
     reportViewModel.detailModel = viewModel.detailModel;

@@ -77,9 +77,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
- 
     self.view.backgroundColor=UIColorFromRGBA(253, 253, 253, 1);
-
     //没有网络下不能为空白
     [self.view addSubview:self.myScrollview];
     [self renderContents:NO];
@@ -95,13 +93,12 @@
     //没有认证且未调过狱务通登录接口直接退出
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSString *isLogin = [defaults valueForKey:Kuncertified_isLogin];
-    if (!isLogin&&[PSSessionManager sharedInstance].loginStatus==PSLoginDenied) {
+    if (!isLogin&&[PSSessionManager sharedInstance].loginStatus==PSLoginDenied){
         [defaults setObject:@"1" forKey:Kuncertified_isLogin];
         [defaults synchronize];
         [[PSSessionManager sharedInstance] doLogout];
     }
 }
-
 - (void)dealloc
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self name:AppDotChange object:nil];
@@ -109,13 +106,11 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self name:RefreshToken object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:KNotificationRefreshAdvertisement object:nil];
 }
-
 #pragma mark  - notification
 -(void)showDot{
     self.dotLable.hidden = NO;
     [self getCountVisit];
 }
-
 -(void)refreshData{
     PSHomeViewModel *homeViewModel   = (PSHomeViewModel *)self.viewModel;
     NSInteger index                  = homeViewModel.selectedPrisonerIndex;
@@ -127,7 +122,6 @@
     self.defaultJailId               = prisonerDetail.jailId;
     [self requestjailsDetailsWithJailId:prisonerDetail.jailId isShow:NO];
 }
-
 //MARK:重新获取TOKEN
 -(void)requestOfRefreshToken{
     NSLog(@"token 失效");
@@ -140,14 +134,14 @@
         } failed:^(NSError *error) {
             [self showNetError:error];
         }];
-    } else {
+    } else {        
         [self showTokenError];
     }
 }
 
 //MARK:加载广告页
 -(void)loadAdvertisingPage{
-
+    
      PSWorkViewModel *workViewModel = [PSWorkViewModel new];
      [workViewModel requestAdvsCompleted:^(PSResponse *response) {
      _advView.imageURLStringsGroup  = workViewModel.advUrls;
@@ -226,9 +220,16 @@
     }];
 }
 //MARK:系统消息
-- (void)messageAction{
+- (void)messageAction:(UIButton *)sender{
     PSHomeViewModel *homeViewModel = (PSHomeViewModel *)self.viewModel;
     PSAllMessageViewController *allMessageVC = [[PSAllMessageViewController alloc] init];
+    if ([homeViewModel.messageCountModel.lastNewsType isEqualToString:@"0"]) { //没有新消息
+        allMessageVC.current = 0;
+    } else if([homeViewModel.messageCountModel.lastNewsType isEqualToString:@"4"]) { //互动文章
+        allMessageVC.current= 2;
+    } else {
+        allMessageVC.current= 1;
+    }
     allMessageVC.prisonerDetail = homeViewModel.passedPrisonerDetails[homeViewModel.selectedPrisonerIndex];
     allMessageVC.model = homeViewModel.messageCountModel;
     @weakify(self);
@@ -268,10 +269,9 @@
             dispatch_async(dispatch_get_main_queue(), ^{
                 [self renderContents:isShow];
                 NSString*profileSting= vistorViewModel.profile;
-                NSMutableAttributedString * attrStr = [[NSMutableAttributedString alloc]initWithData:[profileSting dataUsingEncoding:NSUnicodeStringEncoding]options:@{
-                                                                                                                                NSDocumentTypeDocumentAttribute:
-                                                                                                                                                                           NSHTMLTextDocumentType
-                                                                                                                                                                       }documentAttributes:nil error:nil];
+                NSMutableAttributedString * attrStr = [[NSMutableAttributedString alloc]initWithData:[profileSting dataUsingEncoding:NSUnicodeStringEncoding]options:@{NSDocumentTypeDocumentAttribute:
+                                                                                            NSHTMLTextDocumentType
+                                                                                }documentAttributes:nil error:nil];
                 if ([[attrStr string]containsString:@"您的浏览器不支持Video标签。"]) {
                     self.prisonIntroduceContentLable.text = [[attrStr string] substringFromIndex:16];
                 } else {
@@ -287,9 +287,6 @@
                 [[PSLoadingView sharedInstance]dismiss];
             });
         }
-       
-
-       
     } failed:^(NSError *error) {
         //TOKEN 失效
         if ([error.userInfo[@"NSLocalizedDescription"] isEqualToString:@"Request failed: unauthorized (401)"]) {
@@ -354,9 +351,7 @@
     if ([dot isEqualToString:@"0"]) {
         self.dotLable.hidden = NO;
     }
-    
     [self.myScrollview addSubview:self.homeFunctionView];
-    
     //监狱简介背景
     [self.myScrollview addSubview:self.prisonIntroduceView];
     
@@ -474,16 +469,15 @@
     dynamicViewController.jailName=self.defaultJailName;
     [self.navigationController pushViewController:dynamicViewController animated:YES];
 }
-
 #pragma mark ——————— 远程探视
 - (void)appointmentPrisoner {
-    
+    [SDTrackTool logEvent:HOME_PAGE_YCTS];
     PSAppointmentViewController *appointmentViewController = [[PSAppointmentViewController alloc] initWithViewModel:[PSAppointmentViewModel new]];
     [self.navigationController pushViewController:appointmentViewController animated:YES];
 }
-
 #pragma mark ——————— 实地会见
 - (void)requestLocalMeeting {
+    [SDTrackTool logEvent:HOME_PAGE_SDHJ];
     PSHomeViewModel *homeViewModel = (PSHomeViewModel *)self.viewModel;
     @weakify(self)
     [homeViewModel requestLocalMeetingDetailCompleted:^(PSResponse *response) {
@@ -503,12 +497,14 @@
 }
 #pragma mark ——————— 电子商务
 -(void)e_commerce {
+    [SDTrackTool logEvent:CLICK_E_MALL];
     [self showPrisonLimits:@"电子商务" limitBlock:^{
         
     }];
 }
 #pragma mark ——————— 家属服务
 -(void)psFamilyService {
+    [SDTrackTool logEvent:HOME_PAGE_JSFW];
     PSFamilyServiceViewController *serviceViewController = [[PSFamilyServiceViewController alloc] initWithViewModel:[PSFamilyServiceViewModel new]];
     [self.navigationController pushViewController:serviceViewController animated:YES];
 }
@@ -597,11 +593,7 @@
         _messageButton=[[UIButton alloc]initWithFrame:CGRectMake(SCREEN_WIDTH-30,22,15,15)];
         [_messageButton be_setEnlargeEdgeWithTop:10 right:15 bottom:10 left:15];
         [_messageButton setImage:IMAGE_NAMED(@"消息") forState:UIControlStateNormal];
-        @weakify(self)
-        [_messageButton bk_whenTapped:^{
-            @strongify(self)
-            [self messageAction];
-        }];
+        [_messageButton addTarget:self action:@selector(messageAction:) forControlEvents:UIControlEventTouchUpInside];
     }
     return _messageButton;
 }

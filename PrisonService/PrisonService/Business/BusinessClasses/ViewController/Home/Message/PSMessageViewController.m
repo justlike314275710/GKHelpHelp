@@ -17,7 +17,7 @@
 
 @interface PSMessageViewController ()<UITableViewDataSource,UITableViewDelegate,DZNEmptyDataSetSource,DZNEmptyDataSetDelegate>
 {
-    BOOL isFirst;
+
 }
 
 @property (nonatomic, strong) UITableView *messageTableView;
@@ -77,13 +77,20 @@
     if (indexPath.row<self.dotIndex) {
         cell.iconImageView.redDotNumber = 0;
         [cell.iconImageView ShowBadgeView];
+        cell.titleLabel.textColor = UIColorFromRGB(51,51,51);
+        cell.dateLabel.textColor =  UIColorFromRGB(51,51,51);
+        cell.contentLabel.textColor = UIColorFromRGB(51,51,51);
     } else {
         [cell.iconImageView hideBadgeView];
+        cell.titleLabel.textColor = UIColorFromRGB(153, 153, 153);
+        cell.dateLabel.textColor = UIColorFromRGB(153, 153, 153);
+        cell.contentLabel.textColor = UIColorFromRGB(153, 153, 153);
     }
-    
 }
 
 - (void)reloadContents {
+    
+    self.view.backgroundColor = UIColorFromRGB(249, 248, 254);
     PSMessageViewModel *messageViewModel = (PSMessageViewModel *)self.viewModel;
     if (messageViewModel.hasNextPage) {
         @weakify(self)
@@ -114,7 +121,10 @@
     [self.messageTableView registerClass:[PSMessageCell class] forCellReuseIdentifier:@"PSMessageCell"];
     [self.view addSubview:self.messageTableView];
     [self.messageTableView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.edges.mas_equalTo(UIEdgeInsetsZero);
+//        make.edges.mas_equalTo(UIEdgeInsetsZero);
+        make.top.mas_equalTo(10);
+        make.right.left.bottom.mas_equalTo(0);
+        
     }];
 }
 
@@ -122,26 +132,13 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     [self renderContents];
-//    [self refreshData];
-    isFirst = NO;
+    [self refreshData];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshData) name:KNotificationRefreshts_message object:nil];
-    //第一次刷新
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshData1) name:KNotificationRefreshts_message_1 object:nil];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:KNotificationRefreshts_message object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:KNotificationRefreshts_message_1 object:nil];
-}
-
-
--(void)refreshData1{
-    if (isFirst==NO) {
-        KPostNotification(AppDotChange, nil);
-        [self refreshData];
-        isFirst = YES;
-    }
+//    [[NSNotificationCenter defaultCenter] removeObserver:self name:KNotificationRefreshts_message object:nil];
 }
 
 #pragma mark -

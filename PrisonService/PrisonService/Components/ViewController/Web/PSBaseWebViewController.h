@@ -25,5 +25,6 @@
 @property (nonatomic, strong) UIProgressView *progressView;
 - (instancetype)initWithURL:(NSURL *)url;
 - (void)reloadWithURL:(NSURL *)url;
+- (void)loadWebView;
 
 @end

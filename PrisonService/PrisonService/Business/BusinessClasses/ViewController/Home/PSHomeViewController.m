@@ -159,7 +159,6 @@
     return prisonerDetail ? prisonerDetail.name : @"";
     return @"";
 }
-
 - (void)updateContent {
     PSHomeViewModel *homeViewModel = (PSHomeViewModel *)self.viewModel;
     NSInteger selectedIndex = homeViewModel.selectedPrisonerIndex;
@@ -167,9 +166,7 @@
     self.title = prisonerDetail.jailName;
     [self.homeCollectionView reloadData];
     [self.homeCollectionView.mj_header endRefreshing];
-   
 }
-
 - (void)managePrisoner {
     PSPrisonerManageViewController *manageViewController = [[PSPrisonerManageViewController alloc] initWithViewModel:self.viewModel];
     [manageViewController setDidManaged:^{
@@ -177,7 +174,6 @@
     }];
     [self.navigationController pushViewController:manageViewController animated:YES];
 }
-
 #pragma mark - 中间预约数据处理
 - (NSInteger)meetingRows {
     PSHomeViewModel *homeViewModel = (PSHomeViewModel *)self.viewModel;

@@ -216,6 +216,7 @@
              NSString*coming_soon=
             NSLocalizedString(@"coming_soon", @"敬请期待");
             [PSTipsView showTips:coming_soon];
+            [SDTrackTool logEvent:FWZX_PAGE_XLZX];
         }];
         return cell;
     }
@@ -227,6 +228,7 @@
 }
 //MARK:更多
 - (void)p_insertMoreServiceVC {
+    [SDTrackTool logEvent:FWZX_PAGE_FLFW];
     [self showPrisonLimits:@"更多" limitBlock:^{
         PSMoreServiceViewController *PSMoreServiceVC = [[PSMoreServiceViewController alloc] initWithViewModel:[PSMoreServiceViewModel new]];
         [self.navigationController pushViewController:PSMoreServiceVC animated:YES];
