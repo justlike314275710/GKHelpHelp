@@ -8,11 +8,14 @@
 
 #import "PSBusinessViewController.h"
 #import "PSMessageViewModel.h"
+typedef void (^ReloadDot)();
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface PSInteractiveMessageViewController : PSBusinessViewController
 @property(nonatomic,assign)NSInteger dotIndex;
+@property(nonatomic,copy)ReloadDot reloaDot;
+
 -(void)reloadDataReddot;
 -(void)refreshData;
 

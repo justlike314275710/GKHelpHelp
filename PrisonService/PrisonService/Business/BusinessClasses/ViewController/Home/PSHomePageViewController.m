@@ -42,6 +42,7 @@
 #import "InteractivePlatformViewController.h"
 #import "PSLocateManager.h"
 #import "PSAllMessageViewController.h"
+#import "AppDelegate.h"
 
 @interface PSHomePageViewController ()
 @property (nonatomic, strong) PSDefaultJailRequest*jailRequest;
@@ -72,7 +73,6 @@
     [super viewWillAppear:animated];
     self.tabBarController.tabBar.hidden = NO;
     self.tabBarController.selectedIndex = 0;
-    _getTokenCount = 0;
 }
 
 - (void)viewDidLoad {
@@ -88,6 +88,8 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(requestOfRefreshToken) name:RefreshToken object:nil];
     //获取到定位信息刷新广告页
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadAdvertisingPage) name:KNotificationRefreshAdvertisement object:nil];
+    //调用未读数量接口
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getCountVisit) name:KNOtificationALLMessagejudgeToken object:nil];
     //获取未读消息数
     [self getCountVisit];
     //没有认证且未调过狱务通登录接口直接退出
@@ -125,8 +127,9 @@
 //MARK:重新获取TOKEN
 -(void)requestOfRefreshToken{
     NSLog(@"token 失效");
-    _getTokenCount ++;
-    if (_getTokenCount<2) {
+    AppDelegate *appDelegate =(AppDelegate *)[UIApplication sharedApplication].delegate;
+    appDelegate.getTokenCount ++;
+    if (appDelegate.getTokenCount<2) {
         PSEcomLoginViewmodel*ecomViewmodel=[[PSEcomLoginViewmodel alloc]init];
         [ecomViewmodel postRefreshEcomLogin:^(PSResponse *response) {
             //重新登陆
@@ -138,10 +141,8 @@
         [self showTokenError];
     }
 }
-
 //MARK:加载广告页
 -(void)loadAdvertisingPage{
-    
      PSWorkViewModel *workViewModel = [PSWorkViewModel new];
      [workViewModel requestAdvsCompleted:^(PSResponse *response) {
      _advView.imageURLStringsGroup  = workViewModel.advUrls;
@@ -183,8 +184,6 @@
             break;
     }
 }
-
-
 - (void)synchronizeDefaultJailConfigurations {
     self.jailRequest=[PSDefaultJailRequest new];
     [self.jailRequest send:^(PSRequest *request, PSResponse *response) {
@@ -199,7 +198,6 @@
             [self renderContents:YES];
         }
     }];
-    
 }
 //MARK:获取系统消息数
 - (void)getCountVisit{
@@ -216,7 +214,12 @@
             }
         });
     } failed:^(NSError *error) {
-        [self showNetError:error];
+        //TOKEN失效
+        if ([error.userInfo[@"NSLocalizedDescription"] isEqualToString:@"Request failed: unauthorized (401)"]) {
+            [[NSNotificationCenter defaultCenter]postNotificationName:RefreshToken object:nil];
+        } else {
+            [self showNetError:error];
+        }
     }];
 }
 //MARK:系统消息
@@ -230,7 +233,6 @@
     } else {
         allMessageVC.current= 1;
     }
-    allMessageVC.prisonerDetail = homeViewModel.passedPrisonerDetails[homeViewModel.selectedPrisonerIndex];
     allMessageVC.model = homeViewModel.messageCountModel;
     @weakify(self);
     allMessageVC.backBlock = ^{
@@ -238,8 +240,6 @@
         [self getCountVisit];
     };
     [self.navigationController pushViewController:allMessageVC animated:YES];
-
-    return;
 }
 
 - (void)selectJails{
@@ -280,6 +280,7 @@
                 self.prisonIntroduceContentLable.lineSpace = @"4";//行距
                 [[PSLoadingView sharedInstance]dismiss];
             });
+
         } else {
             dispatch_async(dispatch_get_main_queue(), ^{
                 [PSTipsView showTips:response.msg];
@@ -288,12 +289,7 @@
             });
         }
     } failed:^(NSError *error) {
-        //TOKEN 失效
-        if ([error.userInfo[@"NSLocalizedDescription"] isEqualToString:@"Request failed: unauthorized (401)"]) {
-            [[NSNotificationCenter defaultCenter]postNotificationName:RefreshToken object:nil];
-        } else {
-            [self showNetError:error];
-        }
+        [self showNetError:error isShowTokenError:NO];
     }];
 }
 
@@ -492,7 +488,7 @@
             [self.navigationController pushViewController:meetingViewController animated:YES];
         }
     } failed:^(NSError *error) {
-        [self showNetError:error];
+        [self showNetError:error isShowTokenError:NO];
     }];
 }
 #pragma mark ——————— 电子商务

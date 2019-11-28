@@ -16,5 +16,7 @@
 - (NSDate *)timestampToDate;
 - (NSString *)timestampToMonthDayString;
 -(NSString *)timestampToDateString:(NSString *)format;
+-(NSString*)timestampToDateDetailSecondString;
+
 
 @end

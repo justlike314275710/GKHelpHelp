@@ -97,13 +97,7 @@
         
     } failed:^(NSError *error) {
          [[PSLoadingView sharedInstance]dismiss];
-        NSData *data = error.userInfo[AFNetworkingOperationFailingURLResponseDataErrorKey];
-        if (data) {
-            id body = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
-            NSString*code=body[@"message"];
-            [PSTipsView showTips:code?code:@"评价提交失败"];
-            
-        }
+         [self showNetError:error];
     }];
 }
 

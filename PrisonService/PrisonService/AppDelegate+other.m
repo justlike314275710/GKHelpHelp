@@ -221,9 +221,9 @@
 #pragma mark ---------- Bugly
 - (void)registerBugly {
 #ifdef DEBUG
-      [Bugly startWithAppId:DevlpmentBuglyAppID];
+    [Bugly startWithAppId:DevlpmentBuglyAppID];
 #else
-     [Bugly startWithAppId:BuglyAppID];
+    [Bugly startWithAppId:BuglyAppID];
 #endif
   
 }

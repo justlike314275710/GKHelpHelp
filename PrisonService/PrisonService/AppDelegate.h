@@ -16,6 +16,8 @@
 
 @property (assign, nonatomic) BOOL openByNotice; //是否是通知栏启动的
 
+@property (assign, nonatomic) NSInteger getTokenCount;
+
 
 
 

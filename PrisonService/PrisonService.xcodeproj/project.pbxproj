@@ -381,6 +381,8 @@
 		554C007421D4783700E6C6D2 /* PSMailBoxesTypesRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 554C007321D4783700E6C6D2 /* PSMailBoxesTypesRequest.m */; };
 		554C007721D4824100E6C6D2 /* PSMailBoxesDetailRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 554C007621D4824100E6C6D2 /* PSMailBoxesDetailRequest.m */; };
 		554C007A21D4B0ED00E6C6D2 /* NSString+emoji.m in Sources */ = {isa = PBXBuildFile; fileRef = 554C007921D4B0ED00E6C6D2 /* NSString+emoji.m */; };
+		554C59C723839022006C0A7A /* AlertViewRecorder.m in Sources */ = {isa = PBXBuildFile; fileRef = 554C59C623839022006C0A7A /* AlertViewRecorder.m */; };
+		554C59CD23839076006C0A7A /* XXAlertView+XXMyAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 554C59CC23839076006C0A7A /* XXAlertView+XXMyAlertView.m */; };
 		55573F9521BE03870053391C /* UIControl+SDTrackTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 55573F8F21BE03870053391C /* UIControl+SDTrackTool.m */; };
 		55573F9621BE03870053391C /* SDTrackEvents.plist in Resources */ = {isa = PBXBuildFile; fileRef = 55573F9021BE03870053391C /* SDTrackEvents.plist */; };
 		55573F9721BE03870053391C /* UIViewController+ SDTrackTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 55573F9121BE03870053391C /* UIViewController+ SDTrackTool.m */; };
@@ -1549,6 +1551,10 @@
 		554C007621D4824100E6C6D2 /* PSMailBoxesDetailRequest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PSMailBoxesDetailRequest.m; sourceTree = "<group>"; };
 		554C007821D4B0ED00E6C6D2 /* NSString+emoji.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSString+emoji.h"; sourceTree = "<group>"; };
 		554C007921D4B0ED00E6C6D2 /* NSString+emoji.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSString+emoji.m"; sourceTree = "<group>"; };
+		554C59C523839022006C0A7A /* AlertViewRecorder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AlertViewRecorder.h; sourceTree = "<group>"; };
+		554C59C623839022006C0A7A /* AlertViewRecorder.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AlertViewRecorder.m; sourceTree = "<group>"; };
+		554C59CB23839076006C0A7A /* XXAlertView+XXMyAlertView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "XXAlertView+XXMyAlertView.h"; sourceTree = "<group>"; };
+		554C59CC23839076006C0A7A /* XXAlertView+XXMyAlertView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "XXAlertView+XXMyAlertView.m"; sourceTree = "<group>"; };
 		55573F8E21BE03870053391C /* UIViewController+SDTrackTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+SDTrackTool.h"; sourceTree = "<group>"; };
 		55573F8F21BE03870053391C /* UIControl+SDTrackTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIControl+SDTrackTool.m"; sourceTree = "<group>"; };
 		55573F9021BE03870053391C /* SDTrackEvents.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = SDTrackEvents.plist; sourceTree = "<group>"; };
@@ -2724,6 +2730,10 @@
 				3E5D14CE207230DB000FC779 /* PSTipsView.m */,
 				EA33784920FDC0790081B907 /* XXAlertView.h */,
 				EA33784A20FDC0790081B907 /* XXAlertView.m */,
+				554C59C523839022006C0A7A /* AlertViewRecorder.h */,
+				554C59C623839022006C0A7A /* AlertViewRecorder.m */,
+				554C59CB23839076006C0A7A /* XXAlertView+XXMyAlertView.h */,
+				554C59CC23839076006C0A7A /* XXAlertView+XXMyAlertView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -5765,6 +5775,7 @@
 				3E78B773208D8586007DF162 /* PSPhoneCardViewModel.m in Sources */,
 				3E5D150620731B04000FC779 /* PSPhonePassport.m in Sources */,
 				55E9A8C42186EDC6003A5918 /* PSRemittanceRecordCell.m in Sources */,
+				554C59CD23839076006C0A7A /* XXAlertView+XXMyAlertView.m in Sources */,
 				3E5D162E2079EA54000FC779 /* PSProvinceDisplayViewController.m in Sources */,
 				EAB45373214B9564007A7627 /* PSPrisonerFamilesViewController.m in Sources */,
 				3EEEC5FA209318AF003B35B3 /* PSCommentsViewController.m in Sources */,
@@ -6097,6 +6108,7 @@
 				3E171ABA2092CD1100B7D807 /* PSAdvertisement.m in Sources */,
 				3E0044E5207B38770036CBC5 /* PSLoginViewController.m in Sources */,
 				3EDA51BA20AD4D9800D8D019 /* PSLocalMeetingCalendarView.m in Sources */,
+				554C59C723839022006C0A7A /* AlertViewRecorder.m in Sources */,
 				3EEE77AF2084498600CAD179 /* PSComplaintSuggestionViewController.m in Sources */,
 				3E171A9320920C0F00B7D807 /* PSPeriodChangeViewModel.m in Sources */,
 				EAD8DE5B2179BC9B0035E22F /* PSDefaultJailRequest.m in Sources */,

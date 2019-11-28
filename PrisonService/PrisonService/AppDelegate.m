@@ -35,6 +35,7 @@
     // Override point for customization after application launch.
     [self registerThirdParty];
     //注册apns
+    self.getTokenCount = 0;
     [self registerAPNS:application launchOptions:launchOptions];
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     self.window.backgroundColor = [UIColor blackColor];
@@ -93,7 +94,6 @@
     //网易云信apns推送
 //  [self registerAPNs];
  
-    
 }
 - (BOOL)handleURL:(NSURL *)url {
     if ([url.host isEqualToString:@"safepay"]) {
@@ -144,12 +144,14 @@
     [application setApplicationIconBadgeNumber:0]; //清除角标
     [[UIApplication sharedApplication] cancelAllLocalNotifications];//清除APP所
 }
-
-
+//后台进入app
 - (void)applicationDidBecomeActive:(UIApplication *)application {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+    //在调一下接口看登录是否过期
+    self.getTokenCount = 0;
+    KPostNotification(KNOtificationALLMessagejudgeToken, nil);
 }
-
+ 
 
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.

@@ -13,4 +13,5 @@ typedef void(^alertClick)(NSInteger index);
 - (instancetype)initWithTitle:(NSString *)title message:(NSString *)message sureBtn:(NSString *)sureTitle cancleBtn:(NSString *)cancleTitle;
 
 - (void)show;
+- (void)buttonEvent:(UIButton *)sender;
 @end

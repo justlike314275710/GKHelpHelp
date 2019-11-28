@@ -61,6 +61,23 @@
     }
     return self;
 }
+-(void)setNumbers:(NSArray *)numbers {
+    _numbers = numbers;
+    for (int i = 0;i<3;i++) {
+        NSInteger number = [numbers[i] integerValue];
+        YLButton *item = [self viewWithTag:i+100];
+        item.imageView.redDotNumber = number;
+        item.imageView.redDotBorderWidth = 1.0;
+        item.imageView.redDotBorderColor = [UIColor redColor];
+        item.imageView.clipsToBounds = NO;
+        [item.imageView ShowBadgeView];
+        if (number==0) {
+            [item.imageView hideBadgeView];
+        } else {
+            [item.imageView ShowBadgeView];
+        }
+    }
+}
 
 -(void)setupUI{
     
@@ -91,8 +108,6 @@
         item.tag = 100+i;
     }
 }
-    
-
 #pragma -------------privateMethods
 - (void)scrollviewItemIndex:(NSInteger)index {
     NSInteger time = labs(index-_currentIndex);
@@ -129,10 +144,32 @@
     [ylButton.imageView hideBadgeView];
 }
 
+-(void)showbadegeIndex:(NSInteger)index number:(NSInteger)number {
+    YLButton *item = [self viewWithTag:index+100];
+    item.imageView.redDotNumber = number;
+    item.imageView.redDotBorderWidth = 1.0;
+    item.imageView.redDotBorderColor = [UIColor redColor];
+    item.imageView.clipsToBounds = NO;
+    [item.imageView ShowBadgeView];
+    if (number==0) {
+        [item.imageView hideBadgeView];
+    } else {
+        [item.imageView ShowBadgeView];
+    }
+}
+
 -(void)selectIndex:(NSInteger)index{
     YLButton *ylButton = [self viewWithTag:100+index];
-    [self changeItemState];
+    [self changeItemStateIndex];
     ylButton.selected = YES;
+}
+
+-(void)changeItemStateIndex{
+    for (int i = 0;i<3;i++) {
+        YLButton *item = [self viewWithTag:i+100];
+        item.selected = NO;
+//        [item.imageView hideBadgeView];
+    }
 }
 
 - (void)changeItemState {

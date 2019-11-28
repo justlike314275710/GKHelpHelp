@@ -23,7 +23,6 @@
 }
 - (void)requestVietnamPreLoginCompleted:(RequestDataCompleted)completedCallback failed:(RequestDataFailed)failedCallback{
     
-    
     NSString*url=[NSString stringWithFormat:@"%@/families/vietnamPreLogin",ServerUrl];
     //    NSString *utf = [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     NSDictionary*parmeters=@{
@@ -40,12 +39,10 @@
         if (completedCallback) {
             completedCallback(responseObject);
         }
-        
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         if (failedCallback) {
             failedCallback(error);
         }
-        
     }];
     
 }

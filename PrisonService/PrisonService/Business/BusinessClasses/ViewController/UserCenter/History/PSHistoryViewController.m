@@ -53,6 +53,7 @@
     } failed:^(NSError *error) {
         @strongify(self)
         [self reloadContents];
+        [self showNetError:error];
     }];
 }
 - (void)refreshData {

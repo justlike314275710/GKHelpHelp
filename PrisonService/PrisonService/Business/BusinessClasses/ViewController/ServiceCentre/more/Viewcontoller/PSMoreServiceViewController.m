@@ -69,6 +69,7 @@
         dispatch_async(dispatch_get_main_queue(), ^{
             [[PSLoadingView sharedInstance] dismiss];
             [self reloadContents];
+            [self showNetError:error];
         });
     }];
     
@@ -102,6 +103,7 @@
     } failed:^(NSError *error) {
         @strongify(self)
         [self reloadContents];
+        [self showNetError:error];
     }];
 }
 

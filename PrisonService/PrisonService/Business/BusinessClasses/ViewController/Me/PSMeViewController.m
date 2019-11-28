@@ -110,6 +110,7 @@
         [self.settingTableview reloadData];
     } failed:^(NSError *error) {
         [[PSLoadingView sharedInstance]dismiss];
+        [self showNetError:error];
     }];
 }
 //MARK:获取自己头像
@@ -121,7 +122,7 @@
             _avatarView.image = image;
         });
     } failed:^(NSError *error) {
-
+        [self showNetError:error];
     }];
 }
 

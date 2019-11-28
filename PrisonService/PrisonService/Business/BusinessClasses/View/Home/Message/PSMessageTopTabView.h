@@ -41,6 +41,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 -(void)scrollviewItemIndex:(NSInteger)index; //滑动到指定位置
 -(void)hidebadgeIndex:(NSInteger)index;
+-(void)showbadegeIndex:(NSInteger)index number:(NSInteger)number;
 
 
 

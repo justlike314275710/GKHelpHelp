@@ -70,7 +70,8 @@
             [PSTipsView showTips:response.msg];
         }
     } failed:^(NSError *error) {
-         [PSTipsView showTips:@"退款失败"];
+//         [PSTipsView showTips:@"退款失败"];
+        [self showNetError:error];
     }];
 }
 

@@ -36,7 +36,7 @@ typedef NS_ENUM(NSUInteger, PSLoginStatus) {
 #define EMPTY_CONTENT NSLocalizedString(@"NoContents", nil)
 //@"暂没有内容"
 
-#define RegisterFaceFailed @"您的用户头像图片检测不到人脸，请退出重新设置"
+#define REisterFaceFailed @"您的用户头像图片检测不到人脸，请退出重新设置"
 
 #define VerifyFaceFailed @"人脸识别失败，是否退出？"
 

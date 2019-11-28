@@ -40,6 +40,8 @@
  *  显示网络请求失败信息
  */
 - (void)showNetError:(NSError *)error;
+
+- (void)showNetError:(NSError *)error isShowTokenError:(BOOL)isShowTokenError;
 /**
  *  显示无网络失败信息
  */

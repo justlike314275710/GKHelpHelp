@@ -9,6 +9,7 @@
 #import "PSFWriteFeedSuccessViewController.h"
 #import "PSSettingViewController.h"
 #import "PSFeedbackViewModel.h"
+#import "PSComplaintSuggestionViewController.h"
 
 @interface PSFWriteFeedSuccessViewController ()
 
@@ -61,7 +62,7 @@
 }
 - (void)rightAction {
     [self.navigationController.viewControllers enumerateObjectsUsingBlock:^(__kindof UIViewController * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        if ([obj isKindOfClass:[PSSettingViewController class]]) {
+        if ([obj isKindOfClass:[PSSettingViewController class]]||[obj isKindOfClass:[PSComplaintSuggestionViewController class]]) {
             [self.navigationController popToViewController:obj animated:YES];
             *stop = YES;
         }

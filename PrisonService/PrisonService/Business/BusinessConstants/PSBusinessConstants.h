@@ -8,7 +8,7 @@
 
 
 #define DEVELOP  0   //开发
-#define UAT  1      //测试
+#define UAT  1     //测试
 #define PRODUCE 0   //生产
 
 

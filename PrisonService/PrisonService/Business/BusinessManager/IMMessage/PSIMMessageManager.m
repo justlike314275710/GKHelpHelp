@@ -20,6 +20,7 @@
 #import "UIViewController+Tool.h"
 #import "PSAllMessageViewController.h"
 #import "AppDelegate+other.h"
+#import "PSHomeViewModel.h"
 @interface PSIMMessageManager ()<NIMLoginManagerDelegate,NIMSystemNotificationManagerDelegate,UIAlertViewDelegate>
 
 @property (nonatomic, strong) PSObserverVector *observerVector;
@@ -131,7 +132,6 @@
     }
   
 }
-
 //云信自动登录失败
 - (void)onAutoLoginFailed:(NSError *)error {
     if (error.code == 302 || error.code == 417) {
@@ -143,25 +143,26 @@
         [PSTipsView showTips:msg];
     }
 }
-
 #pragma mark - NIMSystemNotificationManagerDelegate
 - (void)onReceiveSystemNotification:(NIMSystemNotification *)notification {
 
 }
-
 - (void)onSystemNotificationCountChanged:(NSInteger)unreadCount {
     
 }
-
 - (void)onReceiveCustomSystemNotification:(NIMCustomSystemNotification *)notification {
     NSString *content = notification.content;
     if ([content isKindOfClass:[NSString class]]) {
         NSError *error = nil;
         //刷新消息列表
         KPostNotification(AppDotChange, nil); //未读消息数
-        KPostNotification(KNotificationRefreshzx_message, nil);
-        KPostNotification(KNotificationRefreshts_message, nil);
-        KPostNotification(KNotificationRefreshhd_message, nil);
+        UIViewController *currentVC = [UIViewController jsd_getCurrentViewController];
+        //在消息列表才发送通知,及时刷新
+        if ([currentVC isKindOfClass:[UIPageViewController class]]) {
+            KPostNotification(KNotificationRefreshzx_message, nil);
+            KPostNotification(KNotificationRefreshts_message, nil);
+            KPostNotification(KNotificationRefreshhd_message, nil);
+        }
         self.session = [NIMSession session:notification.sender type:NIMSessionTypeP2P];
         PSMeetingMessage *message = [[PSMeetingMessage alloc] initWithString:content error:&error];
         if (!error) {
@@ -171,7 +172,6 @@
                 appdelegate.openByNotice = NO; //不弹出前台通知
             } else {
                 if (message.code == PSMeetingLocal) {
-                    
                     [self.observerVector notifyObserver:@selector(receivedLocalMeetingMessage:) object:message];
                     //只在前台弹出
                     if ([AppDelegate runningInForeground]) {
@@ -189,28 +189,20 @@
         }
     }
 }
-
 #pragma mark - Notification Method
 -(void)EBBannerViewDidClickAction:(NSNotification *)noti{
-    UIViewController *currentVC = [UIViewController jsd_getCurrentViewController];
     PSMeetingMessage *message = noti.object;
     switch (message.code) {
         case PSMeetingStatus:
         case PSMeetingLocal:
         case PSMeetingCancelAuthorization:
         {
-            PSAllMessageViewController *allMessageVC = [[PSAllMessageViewController alloc] init];
-            allMessageVC.current = 1;
-            KPostNotification(KNOtificationALLMessageScrollviewIndex, @"1");
-            [currentVC.navigationController pushViewController:allMessageVC animated:YES];
+            [self getCountVisit:1];
         }
             break;
         case PSMessageArticleInteractive:
         {
-            PSAllMessageViewController *allMessageVC = [[PSAllMessageViewController alloc] init];
-            allMessageVC.current = 2;
-            KPostNotification(KNOtificationALLMessageScrollviewIndex, @"2");
-            [currentVC.navigationController pushViewController:allMessageVC animated:YES];
+            [self getCountVisit:2];
         }
             break;
             
@@ -222,6 +214,23 @@
         KPostNotification(AppDotChange, nil);
     });
 }
+//MARK:获取系统消息数
+- (void)getCountVisit:(NSInteger)index{
+    UIViewController *currentVC = [UIViewController jsd_getCurrentViewController];
+//    PSHomeViewModel *homeViewModel = [[PSHomeViewModel alloc] init];
+//    [homeViewModel getRequestCountVisitCompleted:^(PSResponse *response) {
+//        dispatch_async(dispatch_get_main_queue(), ^{
+            PSAllMessageViewController *allMessageVC = [[PSAllMessageViewController alloc] init];
+            allMessageVC.current = index;
+//            allMessageVC.model = homeViewModel.messageCountModel;
+            [currentVC.navigationController pushViewController:allMessageVC animated:YES];
+            NSString *obj = [NSString stringWithFormat:@"%ld",(long)index];
+            KPostNotification(KNOtificationALLMessageScrollviewIndex,obj);
+//        });
+//    } failed:^(NSError *error) {
+//
+//    }];
+}
 
 #pragma mark - PSLaunchTask
 - (void)launchTaskWithCompletion:(LaunchTaskCompletion)completion {
@@ -230,7 +239,6 @@
         completion(YES);
     }
 }
-
 - (NSString *)taskName {
     return @"IM消息收发管理";
 }

@@ -36,7 +36,7 @@
         [self.contentView addSubview:_dateLabel];
         [_dateLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.right.mas_equalTo(-sidePadding);
-            make.width.mas_equalTo(80);
+            make.width.mas_equalTo(200);
             make.top.mas_equalTo(verPadding);
             make.height.mas_equalTo(labelHeight);
         }];

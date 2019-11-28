@@ -98,8 +98,31 @@
     self.navigationItem.rightBarButtonItems = @[flexSpacer,rightItem];
 }
 
+- (void)showNetError:(NSError *)error isShowTokenError:(BOOL)isShowTokenError {
+    AppDelegate *appDelegate =(AppDelegate *)[UIApplication sharedApplication].delegate;
+    appDelegate.getTokenCount = 0;
+    if ([error.userInfo[@"NSLocalizedDescription"] isEqualToString:@"Request failed: unauthorized (401)"]) {
+        if (isShowTokenError) {
+                [self showTokenError];
+        }
+    } else {
+        NSDictionary *body = [self errorData:error];
+        if (body) {
+            NSString*message=body[@"message"];
+            if (message) {
+                [PSTipsView showTips:message];
+            } else {
+                [self showNetErrorMsg];
+            }
+        } else {
+            [self showNetErrorMsg];
+        }
+    }
+}
+
 - (void)showNetError:(NSError *)error {
-    
+    AppDelegate *appDelegate =(AppDelegate *)[UIApplication sharedApplication].delegate;
+    appDelegate.getTokenCount = 0;
     if ([error.userInfo[@"NSLocalizedDescription"] isEqualToString:@"Request failed: unauthorized (401)"]) {
         [self showTokenError];
     } else {
@@ -152,7 +175,6 @@
     };
     [alert show];
 }
-
 
 - (void)showInternetError {
    // [PSTipsView showTips:@"无法连接到服务器，请检查网络"];
