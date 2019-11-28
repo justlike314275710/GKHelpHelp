@@ -128,7 +128,6 @@ typedef UIImage *(^ImageBlock)(UIImageView *showImageView);
         @weakify(self)
         PSPrisonerFamily*model=viewModel.FamilyMembers[_i];
         NSString*avatarUrl=model.familyAvatarUrl;
-        
         [[SDWebImageManager sharedManager] loadImageWithURL:[NSURL URLWithString:PICURL(avatarUrl)] options:0 progress:^(NSInteger receivedSize, NSInteger expectedSize, NSURL * _Nullable targetURL) {
         } completed:^(UIImage * _Nullable image, NSData * _Nullable data, NSError * _Nullable error, SDImageCacheType cacheType, BOOL finished, NSURL * _Nullable imageURL) {
             @strongify(self)
@@ -230,8 +229,6 @@ typedef UIImage *(^ImageBlock)(UIImageView *showImageView);
                    }
                     else{
                       @weakify(self)
-//                        NSString*face_fail=NSLocalizedString(@"face_fail", @"人脸识别失败");
-//                         _statusTipsLable.text=face_fail;
                         [WXZTipView showBottomWithText:@"人脸识别失败" duration:1.0f];
                         [SDTrackTool logEvent:FACE_RECOGNITION attributes:@{STATUS:MobFAILURE}];
                         @strongify(self)
@@ -436,15 +433,6 @@ typedef UIImage *(^ImageBlock)(UIImageView *showImageView);
     [super viewDidLoad];
     // Do any additional setup after loading the view.
    self.faceDetector = [IFlyFaceDetector sharedInstance];
-//    self.faceRequest = [IFlyFaceRequest sharedInstance];
-//    [self.faceRequest setDelegate:self];
-//
-//     [self requestFamilesMeeting];
-//     self.i=0;
-//    self.gid=nil;
-    
-    
-    
 }
 
 #pragma mark - IFlyFaceRequestDelegate
@@ -540,8 +528,6 @@ typedef UIImage *(^ImageBlock)(UIImageView *showImageView);
 
 
 - (void)renderContents {
-   
-    
     CGFloat sidePadding = 15;
     CGFloat verticalPadding = RELATIVE_HEIGHT_VALUE(25);
     PSMeetingViewModel *viewModel = (PSMeetingViewModel*)self.viewModel;
