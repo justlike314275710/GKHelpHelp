@@ -33,8 +33,17 @@
         self.contentView.backgroundColor = [UIColor clearColor];
         self.selectionStyle = UITableViewCellSelectionStyleNone;
         [self renderContents];
+        [self SDWebImageAuth];
     }
     return self;
+}
+
+-(void)SDWebImageAuth{
+    
+    NSString*token=[NSString stringWithFormat:@"Bearer %@",[LXFileManager readUserDataForKey:@"access_token"]];
+    [SDWebImageDownloader.sharedDownloader setValue:@"text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8" forHTTPHeaderField:@"Accept"];
+    [SDWebImageManager.sharedManager.imageDownloader setValue:token forHTTPHeaderField:@"Authorization"];
+    [SDWebImageManager sharedManager].imageCache.config.maxCacheAge=5*60.0;
 }
 
 - (void)renderContents {
@@ -89,8 +98,12 @@
     for (int i = 0; i<imageUrls.count; i++) {
         UIImageView *imageV = [[UIImageView alloc] initWithFrame:CGRectMake(15+(67+spaceWidth)*i,self.detailLab.bottom+5, 67, 67)];
         NSString *url = imageUrls[i];
-        [imageV sd_setImageWithURL:[NSURL URLWithString:PICURL(url)] placeholderImage:[UIImage R_imageNamed:@"DefalutImg"]];
-        
+        if ([url containsString:@"http"]) {
+            [imageV sd_setImageWithURL:[NSURL URLWithString:PICURL(url)] placeholderImage:[UIImage R_imageNamed:@"DefalutImg"]];
+        } else {
+            NSString *imageUrl = [NSString stringWithFormat:@"%@/files/%@",EmallHostUrl,url];
+            [imageV sd_setImageWithURL:[NSURL URLWithString:imageUrl] placeholderImage:[UIImage R_imageNamed:@"DefalutImg"] completed:nil];
+        }
         if (url)[imagesicon addObject:PICURL(url)];
         imageV.tag = i+100;
         imageV.userInteractionEnabled = YES;

@@ -155,6 +155,7 @@
     }];
     
     [_nextButton bk_whenTapped:^{
+        [SDTrackTool logEvent:ZHXX_PAGE_GHSJ];
         [self checkDataAcition];
     }];
     

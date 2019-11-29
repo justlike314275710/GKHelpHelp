@@ -71,6 +71,28 @@
 			</dict>
 		</dict>
 	</dict>
+	<key>PSHomeMoreFunctionView</key>
+	<dict>
+		<key>PageEventIDs</key>
+		<dict>
+			<key>Enter</key>
+			<string>PSHomePageViewController_ENTER</string>
+			<key>Leave</key>
+			<string>PSHomePageViewController_LEAVE</string>
+		</dict>
+		<key>ControlEventIDs</key>
+		<dict>
+			<key>itemAction:</key>
+			<dict>
+				<key>1000</key>
+				<string>click_prisoner_opnening</string>
+				<key>1001</key>
+				<string>click_laws_regular</string>
+				<key>1002</key>
+				<string>click_work_dynamic</string>
+			</dict>
+		</dict>
+	</dict>
 	<key>PSServiceCentreViewController</key>
 	<dict>
 		<key>PageEventIDs</key>

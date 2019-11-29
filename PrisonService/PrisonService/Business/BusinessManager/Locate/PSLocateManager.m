@@ -72,7 +72,6 @@
 - (void)stopUpdatingLocation {
     [_locationManager stopUpdatingLocation];
 }
-
 #pragma mark - CLLocationManagerDelegate
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations {
     if (locations.count > 0) {

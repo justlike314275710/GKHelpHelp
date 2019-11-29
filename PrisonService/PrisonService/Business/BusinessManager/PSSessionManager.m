@@ -89,6 +89,16 @@
     return cRegistration;
    
 }
+- (PSPrisonerDetail *)currenPrisonerDetail {
+    PSPrisonerDetail *cPrisonerDetail = nil;
+    NSInteger index = self.selectedPrisonerIndex;
+    NSArray *details = self.passedPrisonerDetails;
+    if (index >= 0 && index < details.count) {
+        cPrisonerDetail = details[index];
+    }
+    return cPrisonerDetail;
+}
+
 
 - (void)addObserver:(id<PSSessionObserver>)observer {
     [self.observerVector addObserver:observer];
@@ -180,7 +190,6 @@
                 status = PSLoginDenied;
             }
         }
-        
         
         for (PSRegistration *registration in _session.registrations) {
             if ([registration.status isEqualToString:@"PASSED"]) {

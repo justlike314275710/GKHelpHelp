@@ -53,7 +53,7 @@
             
         }];
     } else {
-        [SDTrackTool logEvent:PUBliC_PRISON_FLFW];
+        [SDTrackTool logEvent:PUBliC_PRISON_FLFG];
         PSLawViewController *lawViewController = [[PSLawViewController alloc] init];
         [self.navigationController pushViewController:lawViewController animated:YES];
     }

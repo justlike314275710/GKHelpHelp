@@ -58,7 +58,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self refreshData];
-
+    [self SDWebImageAuth];
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -122,8 +123,16 @@
             _avatarView.image = image;
         });
     } failed:^(NSError *error) {
-        [self showNetError:error];
+
     }];
+}
+
+-(void)SDWebImageAuth{
+    
+    NSString*token=[NSString stringWithFormat:@"Bearer %@",[LXFileManager readUserDataForKey:@"access_token"]];
+    [SDWebImageDownloader.sharedDownloader setValue:@"text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8" forHTTPHeaderField:@"Accept"];
+    [SDWebImageManager.sharedManager.imageDownloader setValue:token forHTTPHeaderField:@"Authorization"];
+    [SDWebImageManager sharedManager].imageCache.config.maxCacheAge=5*60.0;
 }
 
 - (void)headerViewTapAction:(id)tap {
@@ -134,9 +143,12 @@
             PSAccountViewModel *viewModel = [[PSAccountViewModel alloc] init];
             viewModel.avatarImage = _avatarView.image;
             [self.navigationController pushViewController:[[PSAccountViewController alloc] initWithViewModel:viewModel] animated:YES];
+            [SDTrackTool logEvent:ZHXX_PAGE_GHSJHM];
+            
         }
             break;
         case PSLoginDenied:{
+            [SDTrackTool logEvent:ZHXX_PAGE_GHSJHM_WRZ];
             [self clickAvatarView];
         }
         break;
@@ -168,13 +180,15 @@
         [self managePrisoner];
     }
     else if ([itemModel.funcName isEqualToString:telephone_balance]){
-      
+        [SDTrackTool logEvent:MIME_PAGE_DJYCTSKYE];
         [self.navigationController pushViewController:[[PSBalanceViewController alloc] init] animated:YES];
     }
     else if ([itemModel.funcName isEqualToString:userCenterHistory]){
+        [SDTrackTool logEvent:MIME_PAGE_HJLS];
         [self.navigationController pushViewController:[[PSAllHistoryViewController alloc]initWithViewModel:[[PSMeetingHistoryViewModel alloc]init]]animated:YES];
     }
     else if ([itemModel.funcName isEqualToString:recharge_record]){
+        [SDTrackTool logEvent:MIME_PAGE_CZJL];
         [self.navigationController pushViewController:[[PSPurchaseViewController alloc] initWithViewModel:[[PSPurchaseViewModel alloc] init]] animated:YES];
     }
     else if ([itemModel.funcName isEqualToString:userCenterAccreditation]){
@@ -204,6 +218,7 @@
         
     }
     else if ([itemModel.funcName isEqualToString:my_advice]){
+        [SDTrackTool logEvent:MIME_PAGE_WDZX];
         [self showPrisonLimits:@"我的咨询" limitBlock:^{
             [self.navigationController pushViewController:[[MyConsultationViewController alloc] initWithViewModel:[[PSConsultationViewModel alloc] init]] animated:YES];
         }];
@@ -281,7 +296,6 @@
             }
             break;
     }
-    //[self selectHallFunctionAtIndex:indexPath.row];
 }
 
 #pragma mark  - UI
@@ -309,13 +323,10 @@
     _avatarView.layer.masksToBounds = YES;
     _avatarView.layer.borderWidth = 1.0;
     _avatarView.layer.borderColor = [UIColor whiteColor].CGColor;
-//    _avatarView.photoWidth = radius * 2;
-//    _avatarView.photoHeight = radius * 2;
     _avatarView.image = [UIImage imageNamed:@"个人中心-头像"];
     [headContentImg addSubview:_avatarView];
-//    _avatarView.thumbnailUrls = @[PICURL([PSSessionManager sharedInstance].session.families.avatarUrl)];
-//    _avatarView.originalUrls = @[PICURL([PSSessionManager sharedInstance].session.families.avatarUrl)];
     _avatarView.userInteractionEnabled = NO;
+    
     
     if ([[LXFileManager readUserDataForKey:@"isVistor"]isEqualToString:@"YES"]) {
         UIButton*loginButton=[[UIButton alloc]initWithFrame:CGRectMake(130, 37, 165, 40)];
@@ -386,6 +397,7 @@
             authLab.text = session_PASSED;
             authLab.textColor = UIColorFromRGB(38,76,144);
             [AuthenticaBtn bk_whenTapped:^{
+                
                 [self.navigationController pushViewController:[[PSAccountViewController alloc] initWithViewModel:[[PSAccountViewModel alloc] init]] animated:YES];
             }];
             AuthenticaBtn.layer.borderColor = UIColorFromRGB(38, 76, 144).CGColor;
@@ -394,6 +406,7 @@
             authLab.text = session_NONE;
             authLab.textColor = UIColorFromRGB(102,102,102);
             [AuthenticaBtn bk_whenTapped:^{
+                [SDTrackTool logEvent:MIME_PAGE_JSRZ];
                 PSLoginViewModel*viewModel=[[PSLoginViewModel alloc]init];
                 [self.navigationController pushViewController:[[PSSessionNoneViewController alloc]initWithViewModel:viewModel] animated:YES];
             }];
@@ -409,6 +422,7 @@
     [settingImage setImage:IMAGE_NAMED(@"设置icon")];
     [settingBtnView addSubview:settingImage];
     [settingBtnView bk_whenTapped:^{
+        [SDTrackTool logEvent:MIME_ClICK_SZ];
         [self.navigationController pushViewController:[[PSSettingViewController alloc] initWithViewModel:[[PSSettingViewModel alloc] init]] animated:YES];
     }];
     

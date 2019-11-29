@@ -194,7 +194,6 @@
     
 }
 - (void)synchronizationPhone {
-    [SDTrackTool logEvent:ZHXX_PAGE_GHSJHM];
     NSString*url=[NSString stringWithFormat:@"%@/families/updatePhone",ServerUrl];
     NSDictionary*parmeters=@{
                              @"newPhone":_phoneTextField.text

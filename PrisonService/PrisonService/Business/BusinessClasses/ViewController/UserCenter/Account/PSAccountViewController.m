@@ -55,7 +55,7 @@
 //    self.acctountTopView.avatarView.originalUrls = @[PICURL([PSSessionManager sharedInstance].session.families.avatarUrl)];
     
     //_avatarView.placeholderImage = [UIImage imageNamed:@"userCenterDefaultAvatar"];
-    NSURL *imageURL  = [NSURL URLWithString:PICURL([PSSessionManager sharedInstance].session.families.avatarUrl)];
+//    NSURL *imageURL  = [NSURL URLWithString:PICURL([PSSessionManager sharedInstance].session.families.avatarUrl)];
 //    [self.acctountTopView.avatarView sd_setImageWithURL:imageURL placeholderImage:IMAGE_NAMED(@"userCenterDefaultAvatar")];
     self.acctountTopView.avatarView.image = accountViewModel.avatarImage;
     self.acctountTopView.nicknameLabel.text = [PSSessionManager sharedInstance].session.families.name;

@@ -451,8 +451,7 @@
     NSString*token=[NSString stringWithFormat:@"Bearer %@",[LXFileManager readUserDataForKey:@"access_token"]];
     [SDWebImageManager.sharedManager.imageDownloader setValue:token forHTTPHeaderField:@"Authorization"];
     [SDWebImageManager sharedManager].imageCache.config.maxCacheAge=5*60.0;
-    
-    
+
 }
 
 /*

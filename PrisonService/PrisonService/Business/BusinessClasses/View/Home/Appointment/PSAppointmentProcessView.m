@@ -7,6 +7,9 @@
 //
 
 #import "PSAppointmentProcessView.h"
+#import "PSUserSession.h"
+#import "PSSessionManager.h"
+#import "PSPrisonerDetail.h"
 
 @implementation PSAppointmentProcessView
 
@@ -166,9 +169,15 @@
     }];
 
     
+    PSPrisonerDetail *prisonerDetail = [PSSessionManager sharedInstance].currenPrisonerDetail;
+    //正式环境演示监狱
+    NSString *titleTest = @"第三步\n审核通过,远程探视当日保持手机网络畅通,等待监狱发起远程探视视频邀请";
+    if (PRODUCE == 1&&[prisonerDetail.jailName isEqualToString:@"演示监狱"]) {
+        titleTest = @"第三步\n审核通过,远程探视当日准时到当地司法部门探视终端,等待监狱发起远程探视视频邀请";
+    }
     UILabel *threeTitleLab = [UILabel new];
     threeTitleLab.textColor = AppBaseTextColor1;
-    threeTitleLab.text = @"第三步\n审核通过,远程探视当日保持手机网络畅通,等待监狱发起远程探视视频邀请";
+    threeTitleLab.text = titleTest;
     threeTitleLab.numberOfLines = 0;
     threeTitleLab.font = FontOfSize(12);
     threeTitleLab.textAlignment = NSTextAlignmentLeft;

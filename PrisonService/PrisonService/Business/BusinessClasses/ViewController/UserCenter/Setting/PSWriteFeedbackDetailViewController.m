@@ -126,9 +126,16 @@
         int y = i/2;
         UIImageView *imageV = [[UIImageView alloc] initWithFrame:CGRectMake(15+x*(width+10),self.detailLab.bottom+5+(width+10)*y, width, width)];
         NSString *url = imageUrls[i];
-        [imageV sd_setImageWithURL:[NSURL URLWithString:PICURL(url)] completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
-            if (imageV.image) [imagesicon addObject:imageV.image];
-        }];
+        if ([url containsString:@"http"]) {
+            [imageV sd_setImageWithURL:[NSURL URLWithString:PICURL(url)] placeholderImage:[UIImage R_imageNamed:@"DefalutImg"] completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
+                if (imageV.image) [imagesicon addObject:imageV.image];
+            }];
+        } else {
+            NSString *imageUrl = [NSString stringWithFormat:@"%@/files/%@",EmallHostUrl,url];
+            [imageV sd_setImageWithURL:[NSURL URLWithString:imageUrl] placeholderImage:[UIImage R_imageNamed:@"DefalutImg"] completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
+                 if (imageV.image) [imagesicon addObject:imageV.image];
+            }];
+        }
         imageV.tag = i+100;
         imageV.userInteractionEnabled = YES;
         [imageV bk_whenTapped:^{

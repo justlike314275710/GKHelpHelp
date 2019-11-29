@@ -182,6 +182,7 @@
             [self appointMeeting];
             [SDTrackTool logEvent:APPLY_IMEITE_MEETING];
         } else if(status == PSLocalMeetingPending) {
+            [SDTrackTool logEvent:APPLY_CANCEL_MEETING];
             [self cancelMeeting];
         }
     };

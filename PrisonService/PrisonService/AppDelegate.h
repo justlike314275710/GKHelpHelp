@@ -18,8 +18,7 @@
 
 @property (assign, nonatomic) NSInteger getTokenCount;
 
-
-
+@property (assign, nonatomic) NSInteger showTokenCount; //token弹窗次数--->防止多次弹窗
 
 @end
 

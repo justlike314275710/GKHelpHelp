@@ -167,11 +167,11 @@
         [PSAuthorizationTool checkAndRedirectCameraAuthorizationWithBlock:^(BOOL result) {
             PSImagePickerController *picker = [[PSImagePickerController alloc] initWithCropHeaderImageCallback:^(UIImage *cropImage) {
                 @strongify(self)
-                if (self.feedType == PSPrisonfeedBack ) {
-                     [self handlePickerImage:cropImage];
-                } else {
+//                if (self.feedType == PSPrisonfeedBack ) {
+//                     [self handlePickerImage:cropImage];
+//                } else {
                     [self apphandlePickerImage:cropImage]; //app
-                }
+//                }
    
             }];
             [picker setSourceType:UIImagePickerControllerSourceTypeCamera];
@@ -183,11 +183,11 @@
         [PSAuthorizationTool checkAndRedirectPhotoAuthorizationWithBlock:^(BOOL result) {
             PSImagePickerController *picker = [[PSImagePickerController alloc] initWithCropHeaderImageCallback:^(UIImage *cropImage) {
                 @strongify(self)
-                if (self.feedType == PSPrisonfeedBack ) {
-                    [self handlePickerImage:cropImage];
-                } else {
+//                if (self.feedType == PSPrisonfeedBack ) {
+//                    [self handlePickerImage:cropImage];
+//                } else {
                     [self apphandlePickerImage:cropImage]; //app
-                }
+//                }
                 //上传图片
                 sender.image = cropImage;
             }];

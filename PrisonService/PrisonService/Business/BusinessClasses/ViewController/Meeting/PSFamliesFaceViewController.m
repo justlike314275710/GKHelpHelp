@@ -644,7 +644,6 @@
             make.right.mas_equalTo(FamliesOneButton.mas_right);
         }];
         
-        
         PSPrisonerFamily*modelTwo=viewModel.FamilyMembers[0];
         UIImageView*FamliesTwoButton=[[UIImageView alloc]init];
         [FamliesTwoButton sd_setImageWithURL:[NSURL URLWithString:PICURL(modelTwo.familyAvatarUrl)] placeholderImage:images];
@@ -684,8 +683,6 @@
             make.left.mas_equalTo(faceBgView.mas_left);
         }];
         
-        
-        
         UILabel*FamliesOneLab=[UILabel new];
         [faceBgView addSubview:FamliesOneLab];
         NSString*me=NSLocalizedString(@"me", @"我");
@@ -707,7 +704,6 @@
             make.height.mas_equalTo(10);
             make.right.mas_equalTo(FamliesOneButton.mas_right).offset(5);
         }];
-        
         
         PSPrisonerFamily*modelTwo=viewModel.FamilyMembers[1];
         UIImageView*FamliesTwoButton=[[UIImageView alloc]init];

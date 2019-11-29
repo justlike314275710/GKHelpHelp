@@ -323,7 +323,7 @@
                     NSString*cancel_apply=NSLocalizedString(@"cancel_success", @"取消会见成功");
                     [PSTipsView showTips:cancel_apply];
                     //埋点...
-                    [SDTrackTool logEvent:CANCEL_FAMILY_CALL];
+                    [SDTrackTool logEvent:CANCEL_LOCAL_CALL];
                 }else{
                     [PSTipsView showTips:response.msg?response.msg:@"取消会见失败"];
                 }
