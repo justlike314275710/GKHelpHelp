@@ -53,7 +53,7 @@
 @property (nonatomic, strong) PSBuyModel *buyModel;
 @property (nonatomic, strong) PSPayView *payView;
 @property (strong, nonatomic) UIPanGestureRecognizer *scopeGesture;
-@property (nonatomic , strong) PSMeetingViewModel *meetingviewModel ;
+
 
 
 @end
@@ -79,7 +79,7 @@
     [self requestPhoneCard];
     self.selectArray=[NSArray array];
     self.meetingMembersArray=[[NSMutableArray alloc ]init];
-    self.meetingviewModel=[PSMeetingViewModel new];
+
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -157,11 +157,13 @@
 }
 
 - (void)checkFaceAuth {
- 
-    self.meetingviewModel.familymeetingID=[PSSessionManager sharedInstance].session.families.id;
-    self.meetingviewModel.faceType=PSFaceAppointment;
-    PSFaceAuthViewController *authViewController = [[PSFaceAuthViewController alloc] initWithViewModel:self.meetingviewModel];
+     PSMeetingViewModel*meetingviewModel=[PSMeetingViewModel new];
+    meetingviewModel.familymeetingID=[PSSessionManager sharedInstance].session.families.id;
+    meetingviewModel.faceType=PSFaceAppointment;
+    meetingviewModel.FamilyMembers=self.selectArray;
+    PSFaceAuthViewController *authViewController = [[PSFaceAuthViewController alloc] init];
     authViewController.apppintmentArray=self.selectArray;
+    authViewController = [authViewController initWithViewModel:meetingviewModel];
     [authViewController setCompletion:^(BOOL successful) {
         if (successful) {
             [self appointmentAction];
