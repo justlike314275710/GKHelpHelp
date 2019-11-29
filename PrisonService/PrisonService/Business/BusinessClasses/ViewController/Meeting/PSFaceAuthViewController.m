@@ -116,6 +116,9 @@ typedef UIImage *(^ImageBlock)(UIImageView *showImageView);
 }
 
 - (void)registerFaceGid {
+    
+    NSLog(@"%@",self.array);
+    
     PSMeetingViewModel *viewModel = (PSMeetingViewModel*)self.viewModel;
     if(viewModel.familymeetingID.length!=0){
         @weakify(self)

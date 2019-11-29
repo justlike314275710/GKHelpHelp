@@ -135,11 +135,9 @@
             [SDTrackTool logEvent:APPLY_FAMILY_CALL attributes:@{STATUS:MobSUCCESS}];
             
         }else{
-            
             NSString*determine=NSLocalizedString(@"determine", @"确定");
             NSString*cancel=NSLocalizedString(@"cancel", @"取消");
             [PSAlertView showWithTitle:nil message:response.msg messageAlignment:NSTextAlignmentCenter image:nil handler:^(PSAlertView *alertView, NSInteger buttonIndex) {
-                
             } buttonTitles:cancel,determine, nil];
             //[PSTipsView showTips:response.msg ? response.msg : @"预约失败"];
             //埋点...
@@ -150,7 +148,6 @@
         @strongify(self)
         [[PSLoadingView sharedInstance] dismiss];
         [self showNetError:error];
-        
     }];
 }
 
@@ -158,6 +155,8 @@
     PSMeetingViewModel *viewModel = [PSMeetingViewModel new];
     viewModel.familymeetingID=[PSSessionManager sharedInstance].session.families.id;
     PSFaceAuthViewController *authViewController = [[PSFaceAuthViewController alloc] initWithViewModel:viewModel];
+    viewModel.FamilyMembers = self.selectArray;
+    authViewController.array=self.selectArray;
     [authViewController setCompletion:^(BOOL successful) {
         if (successful) {
             [self appointmentAction];

@@ -18,7 +18,7 @@
 @property (nonatomic, strong) NSString *meetingPassword;
 @property (nonatomic ,strong) NSString *familymeetingID;
 @property (nonatomic ,strong) NSString *callDuration;
-@property (nonatomic, strong,readonly) NSArray *FamilyMembers;
+@property (nonatomic, strong) NSArray *FamilyMembers;
 
 //***更新家属视频会见经纬度参数***//
 @property (nonatomic, strong) NSString *lat;
