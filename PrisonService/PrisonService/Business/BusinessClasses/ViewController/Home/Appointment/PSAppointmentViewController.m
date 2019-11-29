@@ -32,7 +32,7 @@
 #import "PSPayInfo.h"
 #import "PSPayCenter.h"
 #import "PSAppointmentProcessView.h"
-
+#import "PSMeetingViewModel.h"
 
 
 @interface PSAppointmentViewController ()<FSCalendarDataSource,FSCalendarDelegate,UITableViewDataSource,UITableViewDelegate,PSIMMessageObserver,PSSessionObserver,UIGestureRecognizerDelegate>
@@ -155,7 +155,9 @@
 }
 
 - (void)checkFaceAuth {
-    PSFaceAuthViewController *authViewController = [[PSFaceAuthViewController alloc] initWithViewModel:nil];
+    PSMeetingViewModel *viewModel = [PSMeetingViewModel new];
+    viewModel.familymeetingID=[PSSessionManager sharedInstance].session.families.id;
+    PSFaceAuthViewController *authViewController = [[PSFaceAuthViewController alloc] initWithViewModel:viewModel];
     [authViewController setCompletion:^(BOOL successful) {
         if (successful) {
             [self appointmentAction];
