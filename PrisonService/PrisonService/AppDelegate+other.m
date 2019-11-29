@@ -225,26 +225,21 @@
 #else
     [Bugly startWithAppId:BuglyAppID];
 #endif
-  
 }
 #pragma mark ---------- mob
 - (void)registerUMMob {
     [SDTrackTool configure];
 }
-
 /*
  * 发布模式下才开启防奔溃功能 ~
  */
 -(void)configAvoidCrash
 {
-    
 //#if !(defined(DEBUG)||defined(_DEBUG))
     [AvoidCrash makeAllEffective];
-    
     //================================================
     //   1、unrecognized selector sent to instance（方式1）
     //================================================
-    
     //若出现unrecognized selector sent to instance并且控制台输出:
     //-[__NSCFConstantString initWithName:age:height:weight:]: unrecognized selector sent to instance
     //你可以将@"__NSCFConstantString"添加到如下数组中，当然，你也可以将它的父类添加到下面数组中
@@ -267,7 +262,6 @@
     //=============================================
     //   2、unrecognized selector sent to instance
     //=============================================
-    
     //若需要防止某个前缀的类的unrecognized selector sent to instance
     NSArray *noneSelClassPrefix = @[
                                     @"NSNull",
@@ -303,7 +297,6 @@
 {
     UIApplicationState state = [UIApplication sharedApplication].applicationState;
     BOOL result = (state == UIApplicationStateActive);
-    
     return result;
 }
 

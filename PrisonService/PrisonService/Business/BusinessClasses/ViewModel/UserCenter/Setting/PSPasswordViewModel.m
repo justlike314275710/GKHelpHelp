@@ -54,7 +54,6 @@
     }
 }
 
-
 - (void)checkDataWithCallback:(CheckDataCallback)callback {
    
     if(self.phone_oldpassword.length==0||self.phone_newPassword.length==0||self.determine_password.length==0){

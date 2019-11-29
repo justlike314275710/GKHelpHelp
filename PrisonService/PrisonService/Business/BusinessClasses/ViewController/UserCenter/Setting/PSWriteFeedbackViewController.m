@@ -261,9 +261,7 @@
     loadImg.feedloadResultBlock = ^(NSMutableArray *result) {
         self.imageUrls = result;
     };
-
     [self.scrollview addSubview:secondeView];
-    
     UIButton *submitBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     submitBtn.frame = CGRectMake(15,self.scrollview.bottom+13,self.view.width-30, 44);
     submitBtn.layer.masksToBounds = YES;
@@ -365,7 +363,7 @@
 #pragma mark Setting&&Getting
 - (UIScrollView *)scrollview {
     if (!_scrollview) {
-        _scrollview = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0,SCREEN_WIDTH, SCREEN_HEIGHT-138)];
+         _scrollview = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0,SCREEN_WIDTH, SCREEN_HEIGHT-kTopHeight-44-30)];
         _scrollview.contentSize = CGSizeMake(SCREEN_WIDTH, SCREEN_HEIGHT);
     }
     return _scrollview;

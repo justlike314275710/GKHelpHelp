@@ -184,7 +184,6 @@
     familesViewController.returnValueBlock = ^(NSArray *arrayValue) {
         self.selectArray=arrayValue;
     };
-    
     [familesViewController setCompletion:^(BOOL successful) {
         if (successful) {
             //[self appointmentAction];
@@ -249,6 +248,7 @@
     [self.cartViewModel requestPhoneCardCompleted:^(PSResponse *response) {
         @strongify(self)
         [[PSLoadingView sharedInstance] dismiss];
+        [SDTrackTool logEvent:YCTSSP_PAGE_GMTSK];
         [self payTips];
 //        [self renderContents];
     } failed:^(NSError *error) {

@@ -253,6 +253,22 @@
         cell.overDueLab.hidden = NO;
         cell.overDueTextLab.hidden = NO;
     }
+    else if ([status isEqualToString:@"CANCELED_BY_FAMILY"]){ //自己已取消
+        
+        if ([MeettingHistory.remarks isEqualToString:@"null"]) {
+            cell.otherTextLabel.text=Refuse_reason;
+            cell.otherLabel.text=@"";
+        }else{
+            cell.otherTextLabel.text=Refuse_reason;
+            cell.otherLabel.text=MeettingHistory.remarks;
+        }
+        [cell.statusButton setBackgroundColor:UIColorFromRGB(192, 3, 3)];
+        [cell.statusButton setTitle:meet_CACELED forState:UIControlStateNormal];
+        cell.dateTextLabel.text=apply_data;
+        cell.dateLabel.text=MeettingHistory.applicationDate;
+        cell.cancleButton.hidden=YES;
+    }
+
     return cell;
 }
 

@@ -202,17 +202,12 @@
     [self refreshData];
 }
 
-
-
-
 #pragma mark ————— 设置SDWebImage认证token —————
 -(void)SDWebImageAuth{
     [SDWebImageDownloader.sharedDownloader setValue:@"text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8" forHTTPHeaderField:@"Accept"];
      NSString*token=[NSString stringWithFormat:@"Bearer %@",[LXFileManager readUserDataForKey:@"access_token"]];
     [SDWebImageManager.sharedManager.imageDownloader setValue:token forHTTPHeaderField:@"Authorization"];
     [SDWebImageManager sharedManager].imageCache.config.maxCacheAge=5*60.0;
-
-    
 }
 
 - (void)didReceiveMemoryWarning {

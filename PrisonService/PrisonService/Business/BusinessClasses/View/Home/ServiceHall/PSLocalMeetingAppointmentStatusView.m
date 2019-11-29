@@ -155,7 +155,6 @@
             NSString*audit=NSLocalizedString(@"Please wait patiently for the audit results during the booking audit", @"预约审核中，请耐心等待审核结果");
             message.text = audit;
             [self addSubview:message];
-
             UIButton* appointButton = [UIButton buttonWithType:UIButtonTypeCustom];
             appointButton.frame = CGRectMake((SCREEN_WIDTH-90)/2,self.bottom-80,90, 34);
             if (IS_iPhone_5) {

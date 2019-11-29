@@ -268,12 +268,9 @@ typedef UIImage *(^ImageBlock)(UIImageView *showImageView);
     float cy = (top + bottom)/2;
     float w = right - left;
     float h = bottom - top;
-    
     float ncx = cy ;
     float ncy = cx ;
-    
     CGRect rectFace = CGRectMake(ncx-w/2 ,ncy-w/2 , w, h);
-    
     if(!isFrontCamera){
         rectFace = rSwap(rectFace);
         rectFace = rRotate90(rectFace, faceImg.height, faceImg.width);
@@ -387,7 +384,6 @@ typedef UIImage *(^ImageBlock)(UIImageView *showImageView);
         PSLog(@"prase exception:%@",exception.name);
     }@finally {
     }
-    
 }
 
 - (void)hideFace {
@@ -533,8 +529,7 @@ typedef UIImage *(^ImageBlock)(UIImageView *showImageView);
 
 
 - (void)renderContents {
-   
-    
+
     CGFloat sidePadding = 15;
     CGFloat verticalPadding = RELATIVE_HEIGHT_VALUE(25);
     PSMeetingViewModel *viewModel = (PSMeetingViewModel*)self.viewModel;
@@ -556,7 +551,6 @@ typedef UIImage *(^ImageBlock)(UIImageView *showImageView);
     //初始化 CaptureSessionManager
     self.captureManager = [[CaptureManager alloc] init];
     self.captureManager.delegate = self;
-   
     self.previewLayer = self.captureManager.previewLayer;
     self.captureManager.previewLayer.frame =CGRectMake(30, 45, SCREEN_WIDTH-60, SCREEN_WIDTH-60);
     //self.captureManager.previewLayer.position = self.view.center;
@@ -588,8 +582,6 @@ typedef UIImage *(^ImageBlock)(UIImageView *showImageView);
     [self.view addSubview:rightBoomImageView];
     rightBoomImageView.frame=CGRectMake(20+SCREEN_WIDTH-2*verticalPadding, 40+SCREEN_WIDTH-2*verticalPadding, 10, 10);
     
-
-    
     _statusTipsLable=[UILabel new];
     [self.view addSubview:_statusTipsLable];
     _statusTipsLable.textAlignment=NSTextAlignmentCenter;
@@ -603,8 +595,6 @@ typedef UIImage *(^ImageBlock)(UIImageView *showImageView);
         make.height.mas_equalTo(18);
         make.left.mas_equalTo(sidePadding);
     }];
-    
-    
     
     UIView*faceBgView=[UIView new];
     [self.view addSubview:faceBgView];
@@ -798,8 +788,45 @@ typedef UIImage *(^ImageBlock)(UIImageView *showImageView);
     else {
         UIImage*images=[UIImage imageNamed:@"meetingAuthIcon"];
         UIImageView*FamliesOneButton=[[UIImageView alloc]init];
-        [FamliesOneButton sd_setImageWithURL:[NSURL URLWithString:PICURL([PSSessionManager sharedInstance].session.families.avatarUrl)] placeholderImage:images];
+//        [FamliesOneButton sd_setImageWithURL:[NSURL URLWithString:PICURL([PSSessionManager sharedInstance].session.families.avatarUrl)] placeholderImage:images completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
+//            if (error) {
+////                NSLog(@"%@",error);
+//            }
+//        }];
+        
         [faceBgView addSubview:FamliesOneButton];
+        NSLog(@"%@-----------",PICURL([PSSessionManager sharedInstance].session.families.avatarUrl));
+ 
+        NSString *picURL = PICURL([PSSessionManager sharedInstance].session.families.avatarUrl);
+        CFBridgingRelease(CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault,
+                                                                  
+                                                         (CFStringRef)picURL,
+                                                                  
+                                                                  (CFStringRef)@"!$&'()*+,-./:;=?@_~%#[]",
+                                                                  
+                                                                  NULL,
+                                                                  
+                                                                  kCFStringEncodingUTF8));
+        
+        
+        
+        
+        [FamliesOneButton sd_setImageWithURL:[NSURL URLWithString:picURL] placeholderImage:images completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
+            if(error) {
+//                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+//                    NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:PICURL([PSSessionManager sharedInstance].session.families.avatarUrl)]];
+//                    if (data) {
+//                        dispatch_async(dispatch_get_main_queue(), ^{
+//                            UIImage *image = [UIImage imageWithData:data];
+//                            FamliesOneButton.image = image;
+//
+//                        });
+//                    }
+//
+//                });
+            }
+        }];
+        
         [FamliesOneButton mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.mas_equalTo(contentLable.mas_bottom).offset(5);
             make.width.mas_equalTo(80);
@@ -820,17 +847,8 @@ typedef UIImage *(^ImageBlock)(UIImageView *showImageView);
             make.left.mas_equalTo(faceBgView.mas_left);
         }];
     }
-    
 }
 
-/*
- #pragma mark - Navigation
- 
- // In a storyboard-based application, you will often want to do a little preparation before navigation
- - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
- // Get the new view controller using [segue destinationViewController].
- // Pass the selected object to the new view controller.
- }
- */
+
 
 @end

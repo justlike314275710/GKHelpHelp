@@ -127,14 +127,14 @@ typedef NS_ENUM(NSInteger, PSLoginModeType) {
         @strongify(self)
         [self codeClicks];//连续点击获取验证码
     }];
-    
     [self.loginMiddleView.codeTextField setBk_didEndEditingBlock:^(UITextField *textField) {
         loginViewModel.messageCode =textField.text;
     }];
     [self.loginMiddleView.loginButton bk_whenTapped:^{
         @strongify(self)
         [self checkDataIsEmpty];
-        
+        _loginMiddleView.loginButton.enabled=NO;
+        _loginMiddleView.loginButton.selected = NO;
     }];
     
     [self.view addSubview:self.protocolLabel];
@@ -257,9 +257,14 @@ typedef NS_ENUM(NSInteger, PSLoginModeType) {
         else {
             NSString*account_code_error=NSLocalizedString(@"account_code_error", nil);
             [PSTipsView showTips:account_code_error];
+            self.loginMiddleView.loginButton.enabled=YES;
+            self.loginMiddleView.loginButton.selected=YES;
+            
         }
     } failed:^(NSError *error) {
         [self showNetError:error];
+        self.loginMiddleView.loginButton.enabled=YES;
+        self.loginMiddleView.loginButton.selected=YES;
     }];
 }
 //MARK:查询(同步)当前IM信息
@@ -270,6 +275,9 @@ typedef NS_ENUM(NSInteger, PSLoginModeType) {
     } failed:^(NSError *error) {
         NSString*account_code_error=NSLocalizedString(@"account_code_error", nil);
         [PSTipsView showTips:account_code_error];
+        self.loginMiddleView.loginButton.enabled=YES;
+        self.loginMiddleView.loginButton.selected=YES;
+        
     }];
 }
 //MARK:狱务通登录
@@ -279,6 +287,8 @@ typedef NS_ENUM(NSInteger, PSLoginModeType) {
     @weakify(self)
     @weakify(loginViewModel)
     [loginViewModel loginCompleted:^(PSResponse *response) {
+        self.loginMiddleView.loginButton.enabled=YES;
+        self.loginMiddleView.loginButton.selected=YES;
         @strongify(self)
         @strongify(loginViewModel)
         [LXFileManager saveUserData:loginViewModel.phoneNumber forKey:@"phoneNumber"];
@@ -302,6 +312,8 @@ typedef NS_ENUM(NSInteger, PSLoginModeType) {
         @strongify(self)
         [[PSLoadingView sharedInstance] dismiss];
         [self showNetError:error];
+        self.loginMiddleView.loginButton.enabled=YES;
+        self.loginMiddleView.loginButton.selected=YES;
     }];
 }
 
@@ -368,6 +380,7 @@ typedef NS_ENUM(NSInteger, PSLoginModeType) {
 }
 //MARK:登录方式变化
 -(void)loginTypeChange{
+    self.loginMiddleView.codeTextField.text = @"";
     if (self.loginModeType==PSLoginModePassword) {
         self.loginModeType=PSLoginModeCode;
         self.mode=@"sms_verification_code";

@@ -30,6 +30,14 @@
     return self;
 }
 
+-(void)SDWebImageAuth{
+    
+    NSString*token=[NSString stringWithFormat:@"Bearer %@",[LXFileManager readUserDataForKey:@"access_token"]];
+    [SDWebImageDownloader.sharedDownloader setValue:@"text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8" forHTTPHeaderField:@"Accept"];
+    [SDWebImageManager.sharedManager.imageDownloader setValue:token forHTTPHeaderField:@"Authorization"];
+    [SDWebImageManager sharedManager].imageCache.config.maxCacheAge=5*60.0;
+}
+
 - (void)renderContents {
     
     [self addSubview:self.bgView];
@@ -224,15 +232,6 @@
         [_headImg sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"作者头像"] options:SDWebImageRefreshCached];
     }
 }
-
--(void)SDWebImageAuth{
-    
-    NSString*token=[NSString stringWithFormat:@"Bearer %@",[LXFileManager readUserDataForKey:@"access_token"]];
-    [SDWebImageDownloader.sharedDownloader setValue:@"text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8" forHTTPHeaderField:@"Accept"];
-    [SDWebImageManager.sharedManager.imageDownloader setValue:token forHTTPHeaderField:@"Authorization"];
-    [SDWebImageManager sharedManager].imageCache.config.maxCacheAge=5*60.0;
-}
-
 #pragma mark - TouchEvent
 -(void)praiseAction:(UIButton *)sender {
     //互动文章

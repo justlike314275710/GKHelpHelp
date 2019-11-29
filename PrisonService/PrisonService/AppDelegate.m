@@ -36,12 +36,12 @@
     [self registerThirdParty];
     //注册apns
     self.getTokenCount = 0;
+    self.showTokenCount = 0;
     [self registerAPNS:application launchOptions:launchOptions];
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     self.window.backgroundColor = [UIColor blackColor];
     [self.window makeKeyAndVisible];
     [[PSLaunchManager sharedInstance] launchApplication];
-    
     self.openByNotice = NO;
     if (launchOptions) {
          // 获取推送通知定义的userinfo
@@ -56,7 +56,16 @@
     //检测更新
     PSVersonUpdateViewModel *updateViewModel = [PSVersonUpdateViewModel new];
     [updateViewModel jundgeVersonUpdate];
-
+    if (UAT==1) {
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(KScreenWidth-70,0, 50, 20)];
+            label.textColor = [UIColor redColor];
+            label.text = @"测试";
+            label.font = FontOfSize(10);
+            UIWindow *wd = [UIApplication sharedApplication].keyWindow;
+            [wd addSubview:label];
+        });
+    }
     return YES;
 }
 
@@ -91,9 +100,6 @@
     [self configAvoidCrash];
     //友盟数据统计
     [self registerUMMob];
-    //网易云信apns推送
-//  [self registerAPNs];
- 
 }
 - (BOOL)handleURL:(NSURL *)url {
     if ([url.host isEqualToString:@"safepay"]) {
@@ -109,7 +115,6 @@
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
     if ([touches.anyObject locationInView:nil].y > 20) return;
     [[NSNotificationCenter defaultCenter]postNotificationName:@"statusBarTappedNotification" object:nil];
-    
 }
 
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
@@ -124,12 +129,10 @@
     return [self handleURL:url];
 }
 
-
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
     // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.
 }
-
 
 - (void)applicationDidEnterBackground:(UIApplication *)application {
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
@@ -137,7 +140,6 @@
     [application setApplicationIconBadgeNumber:0]; //清除角标
     [[UIApplication sharedApplication] cancelAllLocalNotifications];//清除APP所
 }
-
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
     //在这个方法里输入如下清除方法
@@ -149,14 +151,13 @@
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
     //在调一下接口看登录是否过期
     self.getTokenCount = 0;
+    self.showTokenCount = 0;
     KPostNotification(KNOtificationALLMessagejudgeToken, nil);
+    //判断是否开启定位权限
 }
- 
-
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
-
 - (UIInterfaceOrientationMask)application:(UIApplication *)application supportedInterfaceOrientationsForWindow:(UIWindow *)window {
     return UIInterfaceOrientationMaskPortrait | UIInterfaceOrientationMaskLandscapeRight;
 }

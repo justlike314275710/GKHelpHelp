@@ -51,33 +51,41 @@
 
 #define ZHXX_PAGE_XGTX          @"ZHXX_PAGE_XGTX"         // 修改头像
 #define ZHXX_PAGE_LXDH          @"ZHXX_PAGE_LXDH"         // 联系电话
-#define ZHXX_PAGE_GHSJHM        @"ZHXX_PAGE_GHSJHM"       // 更换手机号码
+#define ZHXX_PAGE_GHSJHM        @"ZHXX_PAGE_GHSJHM"        // 点击头像-->已认证
+#define ZHXX_PAGE_GHSJHM_WRZ        @"ZHXX_PAGE_GHSJHM_WRZ"       // 点击头像-->未认证
 #define ZHXX_PAGE_JTZZ          @"ZHXX_PAGE_JTZZ"         // 家庭住址
 #define ZHXX_PAGE_YZBM          @"ZHXX_PAGE_YZBM"         // 邮政编码
+#define ZHXX_PAGE_GHSJ          @"ZHXX_PAGE_GHSJ"         // 更换手机
 
 #define SZ_PAGE_CZMM          @"SZ_PAGE_CZMM"           // 重置密码
-#define SZ_PAGE_YJFK          @"SZ_PAGE_YJFK"           // 意见反馈
-#define SZ_PAGE_CZKJ          @"SZ_PAGE_CZKJ"          // 存储空间
-#define SZ_PAGE_DQBB          @"SZ_PAGE_DQBB"          // 当前版本
-#define SZ_PAGE_TCDL          @"SZ_PAGE_TCDL"           // 退出登录
+#define SZ_PAGE_YJFK            @"SZ_PAGE_YJFK"           // 意见反馈
+#define ZHXX_PAGE_CZKJ          @"ZHXX_PAGE_CZKJ"          // 存储空间
+#define ZHXX_PAGE_DQBB          @"ZHXX_PAGE_DQBB"          // 当前版本
+#define ZHXX_PAGE_TCDL          @"ZHXX_PAGE_TCDL"           // 退出登录
+
 #define SZ_PAGE_LXWM          @"SZ_PAGE_LXWM"           // 联系我们
 #define SZ_PAGE_SYXY          @"SZ_PAGE_SYXY"           // 使用协议
 
 #define MIME_PAGE_JSFQ        @"MIME_PAGE_JSFQ"          // 家属服务
+#define MIME_PAGE_CZJL        @"MIME_PAGE_CZJL"          // 充值记录
+#define MIME_PAGE_DJYCTSKYE   @"MIME_PAGE_DJYCTSKYE"          // 点击远程探视卡余额
+#define MIME_PAGE_HJLS   @"MIME_PAGE_HJLS"          // 会见历史
+#define MIME_PAGE_JSRZ   @"MIME_PAGE_JSRZ"          // 家属认证
 
-
+#define YCTSSP_PAGE_GMTSK       @"YCTSSP_PAGE_GMTSK"         // 远程探视购买探视卡
 #define YCTS_PAGE_YCTSMX      @"YCTS_PAGE_YCTSMX"        // 远程探视明细
-#define YCTS_PAGE_GMTSK       @"YCTS_PAGE_GMTSK"         // 购买探视卡
+#define YCTS_PAGE_GMTSK       @"YCTS_PAGE_GMTSK"         // 余额购买探视卡
 #define YCTS_PAGE_DBGMTSK     @"YCTS_PAGE_DBGMTSK"       // 底部购买探视卡
 #define YCTS_PAGE_DBTK        @"YCTS_PAGE_DBTK"          // 底部退款
 #define YCTS_PAGE_ZCGM        @"YCTS_PAGE_ZCGM"          // 再次购买
 #define MIME_PAGE_JSHK        @"MIME_PAGE_JSHK"          // 家属汇款
 #define MIME_PAGE_WDZX        @"MIME_PAGE_WDZX"          // 我的咨询
 #define HJLS_PAGE_QXYCHJ      @"HJLS_PAGE_QXYCHJ"        // 取消远程会见
-#define HJLS_PAGE_QXSDHJ      @"HJLS_PAGE_QXSDHJ"        // 取消远程实地会见
+#define HJLS_PAGE_QXSDHJ      @"HJLS_PAGE_QXSDHJ"        // 取消实地会见
 
 
 
+#define MIME_ClICK_SZ      @"MIME_ClICK_SZ"              // 点击设置
 
 
 
@@ -92,20 +100,24 @@
 #define BIND_PRISONER           @"bind_prisoner"            // , 绑定服刑人员, 0
 #define APPLY_FAMILY_CALL       @"apply_family_call"        // , 申请远程会见, 0
 #define CANCEL_FAMILY_CALL      @"cancel_family_call"       // , 取消远程会见, 0
+#define CANCEL_LOCAL_CALL      @"CANCEL_LOCAL_CALL"         // , 会见历史取消实地会见, 0
 #define BUY_FAMILY_CARD         @"buy_family_card"          // , 购买亲情电话卡, 1
 #define RECEIVE_REMOTE_CALL     @"receive_remote_call"      // , 接收到远程呼叫, 0
 #define FACE_RECOGNITION        @"face_recognition"         // , 人脸识别, 0
 
 #define APPLY_IMEITE_MEETING    @"APPLY_IMEITE_MEETING"     // , 立即预约, 0
+#define APPLY_CANCEL_MEETING    @"APPLY_CANCEL_MEETING"     // , 实地会见取消预约, 0
 #define APPLY_SURE_MEETING      @"APPLY_SURE_MEETING"     // , 确定预约, 0
 #define APPLY_REAL_MEETING      @"apply_real_meeting"       // , 申请实地会见, 0
 #define CANCEL_REAL_MEETING     @"cancel_real_meeting"      // , 取消实地会见, 0
 
-
-
 #define UPDATE_APP_VERSION      @"update_app_version"       // , 应用内版本更新, 0
 #define VIDEO_MEETING_COMPLETE  @"video_meeting_complete"   // , 视频通话完成, 1
 
+#define FWZX_CLICK_YCTS  @"FWZX_CLICK_YCTS"          //服务中心点击远程探视
+#define FWZX_CLICK_SDHJ  @"FWZX_CLICK_SDHJ"          //服务中心点击实地会见
+#define FWZX_CLICK_DZSW  @"FWZX_CLICK_DZSW"          //服务中心点击电子商务
+#define FWZX_CLICK_JSFW  @"FWZX_CLICK_JSFW"          //服务中心点击家属服务
 
 #define CLICK_HOME_PAGE         @"click_home_page"                 //点击主页, 0
 #define CLICK_CENTER_SERVICE    @"click_center_service"            //点击服务中心, 0
@@ -127,6 +139,10 @@
 #define CLICK_IGNORE_UPDATE_APP @"click_ignore_update_app"         //点击忽略此版本, 0
 #define CLICK_ADD_FAMILY        @"click_add_family"                //点击添加家属按钮, 0
 #define CLICK_GO_BIND_PRISONER  @"click_go_bind_prisoner"          //点击去添加绑定服刑人员, 0
+
+
+
+
 
 
 /*-----------------event_key----------------*/  //参数

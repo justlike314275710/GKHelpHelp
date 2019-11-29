@@ -29,10 +29,11 @@
 }
 
 - (NSString *)businessDomain {
-    return @"/api/free_meetings/";
+    return @"/api/free_meetings/"; 
 }
 
 - (Class)responseClass {
     return [PSFreeMeetingCoordinateResponse class];
 }
+
 @end

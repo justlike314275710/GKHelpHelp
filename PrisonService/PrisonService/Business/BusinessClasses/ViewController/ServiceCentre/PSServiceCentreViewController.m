@@ -102,6 +102,7 @@
                 [self requestLocalMeeting];
             }
             else if (tag==2){
+                [SDTrackTool logEvent:FWZX_CLICK_DZSW];
                 [self showPrisonLimits:@"电子商务" limitBlock:^{
                     NSLog(@"Push电子商务");
                 }];
@@ -110,6 +111,7 @@
                 [self psFamilyService];
             }
             else if (tag==4){
+                [SDTrackTool logEvent:CLICK_COMPLAIN_ADVICE];
                 PSWorkViewModel *viewModel = [PSWorkViewModel new];
                 viewModel.newsType = PSNewsPublicShow;
                 PSComplaintSuggestionViewController *compaintSuggestionViewController = [[PSComplaintSuggestionViewController alloc] initWithViewModel:viewModel];
@@ -132,17 +134,20 @@
 
 #pragma mark ——————— 家属服务
 -(void)psFamilyService {
+    [SDTrackTool logEvent:FWZX_CLICK_JSFW];
     PSFamilyServiceViewController *serviceViewController = [[PSFamilyServiceViewController alloc] initWithViewModel:[PSFamilyServiceViewModel new]];
     [self.navigationController pushViewController:serviceViewController animated:YES];
 }
 
 - (void)appointmentPrisoner {
  
+    [SDTrackTool logEvent:FWZX_CLICK_YCTS];
     PSAppointmentViewController *appointmentViewController = [[PSAppointmentViewController alloc] initWithViewModel:[PSAppointmentViewModel new]];
     [self.navigationController pushViewController:appointmentViewController animated:YES];
 }
 
 - (void)requestLocalMeeting {
+    [SDTrackTool logEvent:FWZX_CLICK_SDHJ];
     PSHomeViewModel *homeViewModel = (PSHomeViewModel *)self.viewModel;
     @weakify(self)
     [homeViewModel requestLocalMeetingDetailCompleted:^(PSResponse *response) {

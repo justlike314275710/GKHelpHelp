@@ -53,7 +53,6 @@
 @property (nonatomic, strong) UILabel *dotLable;
 @property (nonatomic, strong) PSUserSession *session;
 @property (nonatomic, strong) UIScrollView *myScrollview;
-@property (nonatomic, assign) NSInteger getTokenCount;
 @property (nonatomic, strong) PSHomeFunctionView *homeFunctionView;
 @property (nonatomic, strong) WWWaterWaveView *waterWaveView;
 @property (nonatomic, strong) UIImageView *prisonIntroduceView; //监狱简介
@@ -218,7 +217,7 @@
         if ([error.userInfo[@"NSLocalizedDescription"] isEqualToString:@"Request failed: unauthorized (401)"]) {
             [[NSNotificationCenter defaultCenter]postNotificationName:RefreshToken object:nil];
         } else {
-            [self showNetError:error];
+            [self showNetError:error isShowTokenError:NO];
         }
     }];
 }
@@ -440,6 +439,7 @@
 
 #pragma mark ———————监狱简介
 -(void)p_InsertPrisonIntroduce {
+    [SDTrackTool logEvent:CLICK_JAIL_DETAIL];
     PSPrisonIntroduceViewController *prisonViewController = [[PSPrisonIntroduceViewController alloc] initWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@?t=%@",PrisonDetailUrl,self.defaultJailId,[NSDate getNowTimeTimestamp]]]];
     [self.navigationController pushViewController:prisonViewController animated:YES];
 }

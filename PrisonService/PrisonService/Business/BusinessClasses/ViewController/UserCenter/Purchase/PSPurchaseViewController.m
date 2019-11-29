@@ -239,6 +239,7 @@
     @weakify(self)
     [cell.buyButton bk_whenTapped:^{
         @strongify(self)
+        [SDTrackTool logEvent:YCTS_PAGE_ZCGM];
         [self buyCardAction];
     }];
     return cell;

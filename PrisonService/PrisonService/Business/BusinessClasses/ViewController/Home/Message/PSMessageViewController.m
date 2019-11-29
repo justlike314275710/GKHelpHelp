@@ -135,10 +135,11 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     [self renderContents];
-    [self refreshData];
+//    [self refreshData];
 }
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    [self refreshData];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notiRefreshData:) name:KNotificationRefreshts_message object:nil];
 }
 - (void)viewWillDisappear:(BOOL)animated {

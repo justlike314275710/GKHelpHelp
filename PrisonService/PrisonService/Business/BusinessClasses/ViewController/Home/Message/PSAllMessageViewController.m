@@ -130,8 +130,8 @@
         [self.pageViewController setViewControllers:@[vc] direction:UIPageViewControllerNavigationDirectionReverse animated:YES completion:^(BOOL finished) {
         }];
     }
-    [self reloadRed:index];
     [self getCountVisit];
+    [self reloadRed:index];
     _lastIndex = index;
     _current = index;
 }
@@ -209,23 +209,23 @@
 - (void)pageViewController:(UIPageViewController *)pageViewController didFinishAnimating:(BOOL)finished previousViewControllers:(NSArray *)previousViewControllers transitionCompleted:(BOOL)completed
 {
     if (completed) {
+        [self getCountVisit];
         [self reloadRed:_current];
         _lastIndex = _current;
         [self scrollviewItemIndex:_current];
-        [self getCountVisit];
     }
 }
 
 -(void)reloadRed:(NSInteger)index{
-    UIViewController *vc = [self viewControllerAtIndex:index];
-    if ([vc isKindOfClass:[PSAdvisoryMesssageViewController class]]) {
-        [(PSAdvisoryMesssageViewController *)vc reloadDataReddot];
-    } else if ([vc isKindOfClass:[PSMessageViewController class]]) {
-        [(PSMessageViewController *)vc reloadDataReddot];
-    } else if ([vc isKindOfClass:[PSInteractiveMessageViewController class]]) {
-        [(PSInteractiveMessageViewController *)vc reloadDataReddot];
-    }
-    [_topTabbarView hidebadgeIndex:_lastIndex];
+//    UIViewController *vc = [self viewControllerAtIndex:index];
+//    if ([vc isKindOfClass:[PSAdvisoryMesssageViewController class]]) {
+//        [(PSAdvisoryMesssageViewController *)vc reloadDataReddot];
+//    } else if ([vc isKindOfClass:[PSMessageViewController class]]) {
+//        [(PSMessageViewController *)vc reloadDataReddot];
+//    } else if ([vc isKindOfClass:[PSInteractiveMessageViewController class]]) {
+//        [(PSInteractiveMessageViewController *)vc reloadDataReddot];
+//    }
+//    [_topTabbarView hidebadgeIndex:_lastIndex];
 }
 
 @end

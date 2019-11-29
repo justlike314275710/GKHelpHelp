@@ -270,9 +270,7 @@
             [self.prisonerFamilesTableView reloadData];
             NSLog(@"###%ld",(long)btnTag);
             NSLog(@"取消%@",_selectArray);
-
         }
-
     }];
  
    

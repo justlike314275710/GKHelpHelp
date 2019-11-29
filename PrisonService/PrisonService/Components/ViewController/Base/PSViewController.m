@@ -164,16 +164,22 @@
 
 //token过期
 -(void)showTokenError {
-    NSString*NetError=NSLocalizedString(@"Login status expired, please log in again", @"登录状态过期,请重新登录!");
-    NSString*determine=NSLocalizedString(@"determine", @"确定");
-    NSString*Tips=NSLocalizedString(@"Tips", @"提示");
-    XXAlertView*alert=[[XXAlertView alloc]initWithTitle:Tips message:NetError sureBtn:determine cancleBtn:nil];
-    alert.clickIndex = ^(NSInteger index) {
-        if (index==2) {
-            [[PSSessionManager sharedInstance] doLogout];
-        }
-    };
-    [alert show];
+    AppDelegate *appDelegate =(AppDelegate *)[UIApplication sharedApplication].delegate;
+    if (appDelegate.showTokenCount<1) {
+        appDelegate.showTokenCount++;
+        NSString*NetError=NSLocalizedString(@"Login status expired, please log in again", @"登录状态过期,请重新登录!");
+        NSString*determine=NSLocalizedString(@"determine", @"确定");
+        NSString*Tips=NSLocalizedString(@"Tips", @"提示");
+        XXAlertView*alert=[[XXAlertView alloc]initWithTitle:Tips message:NetError sureBtn:determine cancleBtn:nil];
+        alert.clickIndex = ^(NSInteger index) {
+            if (index==2) {
+                [[PSSessionManager sharedInstance] doLogout];
+                appDelegate.showTokenCount = 0;
+                
+            }
+        };
+        [alert show];
+    }
 }
 
 - (void)showInternetError {

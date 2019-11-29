@@ -690,24 +690,26 @@ static const char encodingTable[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopq
     if (password.length >= 8 && password.length <= 16){
         //数字条件
         NSRegularExpression *tNumRegularExpression = [NSRegularExpression regularExpressionWithPattern:@"[0-9]" options:NSRegularExpressionCaseInsensitive error:nil];
-        
+
         //符合数字条件的有几个
         NSUInteger tNumMatchCount = [tNumRegularExpression numberOfMatchesInString:password
                                                                            options:NSMatchingReportProgress
                                                                              range:NSMakeRange(0, password.length)];
-        
+
         //英文字条件
         NSRegularExpression *tLetterRegularExpression = [NSRegularExpression regularExpressionWithPattern:@"[A-Za-z]" options:NSRegularExpressionCaseInsensitive error:nil];
-        
+
         //符合英文字条件的有几个
         NSUInteger tLetterMatchCount = [tLetterRegularExpression numberOfMatchesInString:password
                                                                                  options:NSMatchingReportProgress
                                                                                    range:NSMakeRange(0, password.length)];
-        
+        //表示有特殊字符和数字或者特殊字符和英文的组合
+        if (tNumMatchCount+tLetterMatchCount<password.length&&(tNumMatchCount+tLetterMatchCount)!=0) {
+            result = YES;
+        }
         if(tNumMatchCount >= 1 && tLetterMatchCount >= 1){
             result = YES;
         }
-        
     }
     return result;
     

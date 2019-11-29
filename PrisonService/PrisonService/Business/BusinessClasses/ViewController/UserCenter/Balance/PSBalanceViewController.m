@@ -233,7 +233,7 @@
         [[PSLoadingView sharedInstance] dismiss];
         NSString *Family_card = NSLocalizedString(@"Family card", @"远程探视卡");
         NSString *piece = NSLocalizedString(@"piece", @"张");
-        _cardPriceLab.text = [NSString stringWithFormat:@"%@ %.2f/%@",Family_card,_cartViewModel.amount,piece];
+        _cardPriceLab.text = [NSString stringWithFormat:@"%@ ¥%.2f/%@",Family_card,_cartViewModel.amount,piece];
 //        [self payTips];
   
     } failed:^(NSError *error) {
@@ -297,8 +297,15 @@
     NSString *Account_details = NSLocalizedString(@"Account_details", @"远程探视卡明细");
     [self createRightBarButtonItemWithTarget:self action:@selector(AccountDetails) title:Account_details];
     //banner
+#warning 审核
     UIImageView *imageLogo = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 170)];
-    imageLogo.image = [UIImage R_imageNamed:@"balanceBanner"];
+    PSPrisonerDetail *prisonerDetail = [PSSessionManager sharedInstance].currenPrisonerDetail;
+    //正式环境演示监狱
+    if (PRODUCE == 1&&[prisonerDetail.jailName isEqualToString:@"演示监狱"]) {
+        imageLogo.image = IMAGE_NAMED(@"shbanner");
+    } else {
+        imageLogo.image = [UIImage R_imageNamed:@"balanceBanner"];
+    }
     [self.view addSubview:imageLogo];
     
     UIImageView *locationLogo = [[UIImageView alloc] initWithFrame:CGRectMake(20, 10, 13, 15)];
@@ -310,12 +317,6 @@
     locationLab.textAlignment = NSTextAlignmentLeft;
     locationLab.font = FontOfSize(12);
     
-    NSInteger index = [PSSessionManager sharedInstance].selectedPrisonerIndex;
-    PSPrisonerDetail *prisonerDetail = nil;
-    
-    if (index >= 0 && index < [PSSessionManager sharedInstance].passedPrisonerDetails.count) {
-        prisonerDetail = [PSSessionManager sharedInstance].passedPrisonerDetails[index];
-    }
     locationLab.text=prisonerDetail.jailName;
     [self.view addSubview:locationLab];
     
@@ -373,11 +374,12 @@
     [buyCardBtn bk_whenTapped:^{
         @strongify(self);
         [self payTips];
+        [SDTrackTool logEvent:YCTS_PAGE_GMTSK];
     }];
     
     int btnWidth = (SCREEN_WIDTH-(15*3))/2;
     UIButton *buyBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    buyBtn.frame = CGRectMake(15,SCREEN_HEIGHT-64-64,btnWidth,44);
+    buyBtn.frame = CGRectMake(15,SCREEN_HEIGHT-kTopHeight-64,btnWidth,44);
     [buyBtn setBackgroundImage:[UIImage R_imageNamed:@"购买按钮底框"] forState:UIControlStateNormal];
     [buyBtn setTitle:buy forState:UIControlStateNormal];
     [buyBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
@@ -387,11 +389,13 @@
         @strongify(self)
         [self requestInfoPhoneCard];
         [self payTips];
-        [SDTrackTool logEvent:YCTS_PAGE_YCTSMX];
+        [SDTrackTool logEvent:YCTS_PAGE_DBGMTSK];
     }];
     UIButton *refundbBtn = [UIButton new];
     refundbBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    refundbBtn.frame = CGRectMake(SCREEN_WIDTH-btnWidth-15,SCREEN_HEIGHT-64-64,btnWidth, 44);
+    
+    refundbBtn.frame = CGRectMake(SCREEN_WIDTH-btnWidth-15,SCREEN_HEIGHT-kTopHeight-64,btnWidth, 44);
+    
     [refundbBtn setBackgroundImage:[UIImage R_imageNamed:@"购买按钮底框"] forState:UIControlStateNormal];
     NSString *refun = NSLocalizedString(@"refund", @"退款");
     [refundbBtn setTitle:refun forState:UIControlStateNormal];
@@ -412,15 +416,14 @@
         }
     }];
     
-    UIScrollView *imageScrollview = [[UIScrollView alloc] initWithFrame:CGRectMake(15,cardHeadImg.bottom+12,SCREEN_WIDTH-30,SCREEN_HEIGHT-64-cardHeadImg.bottom-12-84)];
+    UIScrollView *imageScrollview = [[UIScrollView alloc] initWithFrame:CGRectMake(15,cardHeadImg.bottom+12,SCREEN_WIDTH-30,SCREEN_HEIGHT-kTopHeight-cardHeadImg.bottom-12-84)];
     imageScrollview.backgroundColor = UIColorFromRGB(235, 235, 235);
     
     int width =  imageScrollview.width/2;
     int height = imageScrollview.width/2*130/164;
     int newHeight = imageScrollview.width*150/330;
     
-    imageScrollview.contentSize = CGSizeMake(SCREEN_WIDTH-30,108+height*3+(newHeight+5)*3);
-    imageScrollview.showsHorizontalScrollIndicator = YES;
+
     [self.view addSubview:imageScrollview];
 
     UIImageView *yqImg = [[UIImageView alloc] initWithFrame:CGRectMake((imageScrollview.width-34)/2,20,34,17)];
@@ -443,8 +446,17 @@
     nowImg.image = [UIImage R_imageNamed:@"现在"];
     [imageScrollview addSubview:nowImg];
     
-    NSArray *nowImages = @[@"现在－画面一－看手机对话",@"现在－画面二－界面展示",@"现在－画面三－视频通话"];
-    for (int i = 0;i<3;i++) {
+    //正式环境演示监狱
+    NSArray *nowImages = [NSArray array];
+    if (PRODUCE == 1&&[prisonerDetail.jailName isEqualToString:@"演示监狱"]) {
+        nowImages = @[@"sh现在－画面一－看手机对话",@"sh现在－画面三－视频通话"];
+    } else {
+        nowImages = @[@"现在－画面一－看手机对话",@"现在－画面二－界面展示",@"现在－画面三－视频通话"];
+    }
+    imageScrollview.contentSize = CGSizeMake(SCREEN_WIDTH-30,108+height*3+(newHeight+5)*nowImages.count);
+    imageScrollview.showsHorizontalScrollIndicator = YES;
+    
+    for (int i = 0;i<nowImages.count;i++) {
         UIImageView *yqImagLogo = [[UIImageView alloc] initWithFrame:CGRectMake(0,i*(newHeight+5)+nowImg.bottom+10,imageScrollview.width,newHeight)];
         yqImagLogo.image = [UIImage R_imageNamed:nowImages[i]];
         [imageScrollview addSubview:yqImagLogo];
