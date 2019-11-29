@@ -20,12 +20,280 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "PrisonService/PrisonService/Business/BusinessClasses/ViewModel/Meeting/PSMeetingViewModel.m"
-            timestampString = "596363209.846637"
+            timestampString = "596706976.763587"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "95"
             endingLineNumber = "95"
             landmarkName = "-requestUpdateFreeMeetingCoordinateCompleted:failed:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "PrisonService/PrisonService/Business/BusinessClasses/ViewController/Meeting/PSFaceAuthViewController.m"
+            timestampString = "596706976.764275"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "141"
+            endingLineNumber = "141"
+            landmarkName = "-registerFaceGid"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[PSFaceAuthViewController registerFaceGid]"
+                  moduleName = "PrisonService"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/xiaojun/Desktop/2018_work/PrisonService/PrisonService/Business/BusinessClasses/ViewController/Meeting/PSFaceAuthViewController.m"
+                  timestampString = "596706978.3081959"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "141"
+                  endingLineNumber = "141"
+                  offsetFromSymbolStart = "881">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__43-[PSFaceAuthViewController registerFaceGid]_block_invoke.151"
+                  moduleName = "PrisonService"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/xiaojun/Desktop/2018_work/PrisonService/PrisonService/Business/BusinessClasses/ViewController/Meeting/PSFaceAuthViewController.m"
+                  timestampString = "596706978.31455"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "141"
+                  endingLineNumber = "141"
+                  offsetFromSymbolStart = "4">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__43-[PSFaceAuthViewController registerFaceGid]_block_invoke_2.154"
+                  moduleName = "PrisonService"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/xiaojun/Desktop/2018_work/PrisonService/PrisonService/Business/BusinessClasses/ViewController/Meeting/PSFaceAuthViewController.m"
+                  timestampString = "596706978.318032"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "143"
+                  endingLineNumber = "143"
+                  offsetFromSymbolStart = "29">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__destroy_helper_block_.156"
+                  moduleName = "PrisonService"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/xiaojun/Desktop/2018_work/PrisonService/PrisonService/Business/BusinessClasses/ViewController/Meeting/PSFaceAuthViewController.m"
+                  timestampString = "596706978.323313"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "141"
+                  endingLineNumber = "141"
+                  offsetFromSymbolStart = "4">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "PrisonService/PrisonService/Business/BusinessClasses/ViewController/Meeting/PSFaceAuthViewController.m"
+            timestampString = "596706976.765324"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "145"
+            endingLineNumber = "145"
+            landmarkName = "-registerFaceGid"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "PrisonService/PrisonService/Business/BusinessClasses/ViewController/Meeting/PSFaceAuthViewController.m"
+            timestampString = "596706976.766029"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "124"
+            endingLineNumber = "124"
+            landmarkName = "-registerFaceGid"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[PSFaceAuthViewController registerFaceGid]"
+                  moduleName = "PrisonService"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/xiaojun/Desktop/2018_work/PrisonService/PrisonService/Business/BusinessClasses/ViewController/Meeting/PSFaceAuthViewController.m"
+                  timestampString = "596706978.363391"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "124"
+                  endingLineNumber = "124"
+                  offsetFromSymbolStart = "226">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__43-[PSFaceAuthViewController registerFaceGid]_block_invoke"
+                  moduleName = "PrisonService"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/xiaojun/Desktop/2018_work/PrisonService/PrisonService/Business/BusinessClasses/ViewController/Meeting/PSFaceAuthViewController.m"
+                  timestampString = "596706978.367662"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "125"
+                  endingLineNumber = "125"
+                  offsetFromSymbolStart = "4">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "PrisonService/PrisonService/Business/BusinessClasses/ViewController/Meeting/PSFaceAuthViewController.m"
+            timestampString = "596706976.766492"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "123"
+            endingLineNumber = "123"
+            landmarkName = "-registerFaceGid"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "PrisonService/PrisonService/Business/BusinessClasses/ViewController/Meeting/PSFaceAuthViewController.m"
+            timestampString = "596706976.766969"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "141"
+            endingLineNumber = "141"
+            landmarkName = "-registerFaceGid"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[PSFaceAuthViewController registerFaceGid]"
+                  moduleName = "PrisonService"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/xiaojun/Desktop/2018_work/PrisonService/PrisonService/Business/BusinessClasses/ViewController/Meeting/PSFaceAuthViewController.m"
+                  timestampString = "596706978.400169"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "141"
+                  endingLineNumber = "141"
+                  offsetFromSymbolStart = "881">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__43-[PSFaceAuthViewController registerFaceGid]_block_invoke.151"
+                  moduleName = "PrisonService"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/xiaojun/Desktop/2018_work/PrisonService/PrisonService/Business/BusinessClasses/ViewController/Meeting/PSFaceAuthViewController.m"
+                  timestampString = "596706978.4038661"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "141"
+                  endingLineNumber = "141"
+                  offsetFromSymbolStart = "4">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__43-[PSFaceAuthViewController registerFaceGid]_block_invoke_2.154"
+                  moduleName = "PrisonService"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/xiaojun/Desktop/2018_work/PrisonService/PrisonService/Business/BusinessClasses/ViewController/Meeting/PSFaceAuthViewController.m"
+                  timestampString = "596706978.4109761"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "143"
+                  endingLineNumber = "143"
+                  offsetFromSymbolStart = "29">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__destroy_helper_block_.156"
+                  moduleName = "PrisonService"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/xiaojun/Desktop/2018_work/PrisonService/PrisonService/Business/BusinessClasses/ViewController/Meeting/PSFaceAuthViewController.m"
+                  timestampString = "596706978.414996"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "141"
+                  endingLineNumber = "141"
+                  offsetFromSymbolStart = "4">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "PrisonService/PrisonService/Business/BusinessClasses/ViewController/Home/Appointment/PSAppointmentViewController.m"
+            timestampString = "596706976.767714"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "164"
+            endingLineNumber = "164"
+            landmarkName = "-checkFaceAuth"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "PrisonService/PrisonService/Business/BusinessClasses/ViewController/Home/Appointment/PSAppointmentViewController.m"
+            timestampString = "596706976.768528"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "160"
+            endingLineNumber = "160"
+            landmarkName = "-checkFaceAuth"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

@@ -161,17 +161,7 @@
     if (_selectArray.count>2) {
         [PSTipsView showTips: add_max];
     }
-//    else if (_selectArray.count==1){
-//        __weak typeof(self) weakself = self;
-//        if (weakself.returnValueBlock) {
-//            weakself.returnValueBlock(_selectArray);
-//        }
-//        [self.navigationController popViewControllerAnimated:YES];
-//        
-//        if (self.completion) {
-//            self.completion(YES);
-//        }
-//    }
+
     else{
         PSPrisonerFamliesViewModel *prisonerFamliesViewModel = (PSPrisonerFamliesViewModel *)self.viewModel;
         PSPrisonerFamily*familesModel=prisonerFamliesViewModel.prisonerFamlies[0];
@@ -217,7 +207,6 @@
     noticeLable.text=add_family_tips;
     [self.prisonerFamilesTableView addSubview:noticeLable];
     noticeLable.frame=CGRectMake(15, height+15, SCREEN_WIDTH-30, 20);
-
 }
 
 

@@ -117,9 +117,10 @@ typedef UIImage *(^ImageBlock)(UIImageView *showImageView);
 
 - (void)registerFaceGid {
     PSMeetingViewModel *viewModel = (PSMeetingViewModel*)self.viewModel;
-    if(viewModel.familymeetingID.length!=0){
+    if(viewModel.faceType==0){
         @weakify(self)
-        PSPrisonerFamily*model=viewModel.FamilyMembers[_i];
+        NSLog(@"***%lu",(unsigned long)self.apppintmentArray.count);
+        PSPrisonerFamily*model=self.apppintmentArray[_i];
         NSString*avatarUrl=model.familyAvatarUrl;
         [[SDWebImageManager sharedManager] loadImageWithURL:[NSURL URLWithString:PICURL(avatarUrl)] options:0 progress:^(NSInteger receivedSize, NSInteger expectedSize, NSURL * _Nullable targetURL) {
         } completed:^(UIImage * _Nullable image, NSData * _Nullable data, NSError * _Nullable error, SDImageCacheType cacheType, BOOL finished, NSURL * _Nullable imageURL) {
@@ -499,12 +500,33 @@ typedef UIImage *(^ImageBlock)(UIImageView *showImageView);
 #pragma mark -- 网络请求
 -(void)requestFamilesMeeting{
     PSMeetingViewModel *viewModel = (PSMeetingViewModel*)self.viewModel;
+    switch (viewModel.faceType) {
+        case PSFaceMeeting:{
+            [self meetingFace];
+        }
+            break;
+        case PSFaceAppointment:{
+            [self appointmentFace];
+        }
+            break;
+            
+        default:
+            break;
+    }
+    
+    
+    
+    
+    
+    
+}
+-(void)meetingFace{
+    PSMeetingViewModel *viewModel = (PSMeetingViewModel*)self.viewModel;
     if (viewModel.familymeetingID.length==0) {
         [self renderContents];
         [self registerFaceGid];
     } else {
         [viewModel requestFamilyMembersCompleted:^(PSResponse *response) {
-            // [[PSLoadingView sharedInstance] dismiss];
             if (response.code==200) {
                 [self registerFaceGid];
                 [self renderContents];
@@ -517,6 +539,10 @@ typedef UIImage *(^ImageBlock)(UIImageView *showImageView);
             [self showNetError:error];
         }];
     }
+}
+-(void)appointmentFace{
+    [self registerFaceGid];
+    [self renderContents];
 }
 
 

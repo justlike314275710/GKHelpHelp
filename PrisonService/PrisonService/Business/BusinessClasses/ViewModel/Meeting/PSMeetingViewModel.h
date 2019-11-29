@@ -8,9 +8,13 @@
 
 #import "PSViewModel.h"
 #import "PSJailConfiguration.h"
+typedef NS_ENUM(NSInteger, PSFaceType) {
+    PSFaceAppointment=0,//预约人脸识别
+    PSFaceMeeting=1,//会见人脸识别
+};
 
 @interface PSMeetingViewModel : PSViewModel
-
+@property (nonatomic, assign) PSFaceType faceType;
 @property (nonatomic, strong) PSJailConfiguration *jailConfiguration;
 @property (nonatomic, strong) NSString *jailName;
 @property (nonatomic, strong) NSString *meetingID;
@@ -18,7 +22,7 @@
 @property (nonatomic, strong) NSString *meetingPassword;
 @property (nonatomic ,strong) NSString *familymeetingID;
 @property (nonatomic ,strong) NSString *callDuration;
-@property (nonatomic, strong,readonly) NSArray *FamilyMembers;
+@property (nonatomic, strong) NSArray *FamilyMembers;
 
 //***更新家属视频会见经纬度参数***//
 @property (nonatomic, strong) NSString *lat;
