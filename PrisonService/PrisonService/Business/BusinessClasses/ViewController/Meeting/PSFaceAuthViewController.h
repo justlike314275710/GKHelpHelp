@@ -13,7 +13,6 @@ typedef void(^FaceAuthCompletion)(BOOL successful);
 @interface PSFaceAuthViewController : PSBusinessViewController
 
 @property (nonatomic, copy) FaceAuthCompletion completion;
-@property (nonatomic, strong)NSString*iconUrl;
-@property (nonatomic, strong)NSArray*array;
-//@property (nonatomic, strong)PSFaceAuthViewController*FaceAuthViewController;
+@property (nonatomic, strong) NSString*iconUrl;
+@property (nonatomic, strong) NSArray*apppintmentArray;
 @end

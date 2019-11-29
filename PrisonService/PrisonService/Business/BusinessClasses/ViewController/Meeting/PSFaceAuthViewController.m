@@ -116,13 +116,11 @@ typedef UIImage *(^ImageBlock)(UIImageView *showImageView);
 }
 
 - (void)registerFaceGid {
-    
-    NSLog(@"%@",self.array);
-    
+    NSLog(@"%@",self.apppintmentArray);
     PSMeetingViewModel *viewModel = (PSMeetingViewModel*)self.viewModel;
-    if(viewModel.familymeetingID.length!=0){
+    if(viewModel.faceType==0){
         @weakify(self)
-        PSPrisonerFamily*model=viewModel.FamilyMembers[_i];
+        PSPrisonerFamily*model=self.apppintmentArray[_i];
         NSString*avatarUrl=model.familyAvatarUrl;
         [[SDWebImageManager sharedManager] loadImageWithURL:[NSURL URLWithString:PICURL(avatarUrl)] options:0 progress:^(NSInteger receivedSize, NSInteger expectedSize, NSURL * _Nullable targetURL) {
         } completed:^(UIImage * _Nullable image, NSData * _Nullable data, NSError * _Nullable error, SDImageCacheType cacheType, BOOL finished, NSURL * _Nullable imageURL) {
@@ -502,12 +500,33 @@ typedef UIImage *(^ImageBlock)(UIImageView *showImageView);
 #pragma mark -- 网络请求
 -(void)requestFamilesMeeting{
     PSMeetingViewModel *viewModel = (PSMeetingViewModel*)self.viewModel;
+    switch (viewModel.faceType) {
+        case PSFaceMeeting:{
+            [self meetingFace];
+        }
+            break;
+        case PSFaceAppointment:{
+            [self appointmentFace];
+        }
+            break;
+            
+        default:
+            break;
+    }
+    
+    
+    
+    
+    
+    
+}
+-(void)meetingFace{
+    PSMeetingViewModel *viewModel = (PSMeetingViewModel*)self.viewModel;
     if (viewModel.familymeetingID.length==0) {
         [self renderContents];
         [self registerFaceGid];
     } else {
         [viewModel requestFamilyMembersCompleted:^(PSResponse *response) {
-            // [[PSLoadingView sharedInstance] dismiss];
             if (response.code==200) {
                 [self registerFaceGid];
                 [self renderContents];
@@ -521,13 +540,15 @@ typedef UIImage *(^ImageBlock)(UIImageView *showImageView);
         }];
     }
 }
+-(void)appointmentFace{
+    [self registerFaceGid];
+    [self renderContents];
+}
 
 
 - (void)renderContents {
     CGFloat sidePadding = 15;
     CGFloat verticalPadding = RELATIVE_HEIGHT_VALUE(25);
-    PSMeetingViewModel *viewModel = (PSMeetingViewModel*)self.viewModel;
-    
     _FaceRecognitionLab=[[UILabel alloc]init];
     [self.view addSubview:_FaceRecognitionLab];
     NSString*face_ing=NSLocalizedString(@"face_ing", @"[我]人脸识别中");
@@ -630,7 +651,8 @@ typedef UIImage *(^ImageBlock)(UIImageView *showImageView);
         make.height.mas_equalTo(50);
         make.left.mas_equalTo(faceBgView.mas_left);
     }];
-    
+    PSMeetingViewModel *viewModel = (PSMeetingViewModel*)self.viewModel;
+    NSLog(@"%lu",(unsigned long)viewModel.FamilyMembers.count);
     if (viewModel.FamilyMembers.count==1) {
         UIImage*images=[UIImage imageNamed:@"meetingAuthIcon"];
         UIImageView*FamliesOneButton=[[UIImageView alloc]init];
