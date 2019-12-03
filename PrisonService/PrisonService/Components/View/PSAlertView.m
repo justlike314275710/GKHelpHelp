@@ -159,6 +159,92 @@
     }
     return self;
 }
++(instancetype)showWithTitle:(NSString *)title
+                     message:(NSString *)message
+            messageAlignment:(NSTextAlignment)alignment
+                       image:(UIImage *)image{
+    PSAlertView *alertView = [[PSAlertView alloc] initWithTitle:title message:message messageAlignment:alignment image:image ];
+    [alertView show];
+    return alertView;
+}
+
+- (instancetype)initWithTitle:(NSString *)title
+                      message:(NSString *)message
+             messageAlignment:(NSTextAlignment)alignment
+                        image:(UIImage *)image  {
+    self = [super initWithFrame:CGRectMake(0, 0, GAlertWidth, GAlertHeightDefault)];
+    if (self) {
+        self.layer.cornerRadius = 5.0;
+        self.backgroundColor = [UIColor whiteColor];
+        self.clipsToBounds = YES;
+        
+        CGFloat verSideSpace = 20.f;
+        CGFloat verContentSpace = 10.0f;
+        CGFloat horSideSpace = 15.0f;
+        CGFloat startY = verSideSpace;
+        UIFont *titleFont = AppBaseTextFont1;
+        UIFont *contentFont = AppBaseTextFont1;
+        CGFloat width = CGRectGetWidth(self.frame);
+        CGFloat contentWidth = width - 2 * horSideSpace;
+        // UIColor *titleColor = UIColorFromHexadecimalRGB(0x383838);
+        UIColor *titleColor = [UIColor blackColor];
+        UIColor *otherColor = UIColorFromHexadecimalRGB(0x383838);
+        
+        if (title.length > 0) {
+            CGSize titleSize = [title boundingRectWithSize:CGSizeMake(contentWidth, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:titleFont} context:nil].size;
+            _alertTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(horSideSpace, startY, contentWidth, ceil(titleSize.height))];
+            _alertTitleLabel.numberOfLines = 0;
+            [_alertTitleLabel setTextAlignment:NSTextAlignmentCenter];
+            [_alertTitleLabel setTextColor:titleColor];
+            _alertTitleLabel.font = titleFont;
+            [_alertTitleLabel setText:title];
+            [self addSubview:_alertTitleLabel];
+            startY += CGRectGetHeight(_alertTitleLabel.frame);
+            startY += verContentSpace;
+        }
+        
+        if (image) {
+            CGFloat imageWidth = MIN(contentWidth, image.size.width);
+            CGFloat imageHeight = image.size.height * imageWidth / image.size.width;
+            _imageView = [[UIImageView alloc] initWithFrame:CGRectMake(horSideSpace, startY, contentWidth, imageHeight)];
+            _imageView.contentMode = UIViewContentModeScaleAspectFit;
+            _imageView.image = image;
+            [self addSubview:_imageView];
+            startY += CGRectGetHeight(_imageView.frame);
+            startY += verContentSpace;
+        }
+        
+        if (message.length > 0) {
+            NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+            [paragraphStyle setLineSpacing:4];
+            [paragraphStyle setLineBreakMode:NSLineBreakByWordWrapping];
+            [paragraphStyle setAlignment:alignment];
+            NSDictionary *attributes = @{NSParagraphStyleAttributeName:paragraphStyle,NSFontAttributeName:contentFont,NSForegroundColorAttributeName:otherColor};
+            NSMutableAttributedString *contentString = [[NSMutableAttributedString alloc] initWithString:message attributes:attributes];
+            contentString.yy_alignment = alignment;
+            YYTextContainer *container = [YYTextContainer containerWithSize:CGSizeMake(contentWidth, MAXFLOAT) insets:UIEdgeInsetsZero];
+            YYTextLayout *textLayout = [YYTextLayout layoutWithContainer:container text:contentString];
+            _messagelabel = [[YYLabel alloc] initWithFrame:CGRectMake(horSideSpace, startY, contentWidth, textLayout.textBoundingSize.height)];
+            _messagelabel.textLayout = textLayout;
+            [_messagelabel setNumberOfLines:0];
+            _messagelabel.attributedText = contentString;
+            [self addSubview:_messagelabel];
+            startY += CGRectGetHeight(_messagelabel.frame);
+            startY += verContentSpace;
+        }
+        
+       // startY += CGRectGetHeight(buttonView.frame);
+        
+        CGRect frame = self.frame;
+        frame.size.height = startY;
+        self.frame = frame;
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [self didDismiss];
+        });
+    }
+    return self;
+}
+
 
 -(void)titleButtonPressed:(id)sender{
     NSInteger tag = ((UIButton*)sender).tag - 1000;

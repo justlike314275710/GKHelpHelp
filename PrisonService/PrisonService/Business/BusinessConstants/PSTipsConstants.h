@@ -37,7 +37,8 @@ typedef NS_ENUM(NSUInteger, PSLoginStatus) {
 //@"暂没有内容"
 #define REisterFaceFailed @"您的用户头像图片检测不到人脸，请退出重新设置"
 
-#define VerifyFaceFailed @"人脸识别失败，是否退出？"
+#define VerifyFaceFailed @"人脸识别失败"
+#define VerifyFaceFailedReson @"与录入的人脸无法匹配"
 
 #define LocalMeetingIntroduceOne @"1.服刑人员在服刑期间，除法定节假日外，按照规定均可会见亲属、监护人，家属可通过“预约”功能，选择预约日期后进行实地会见申请。"
 #define VLocalMeetingIntroduceOne @"1. Trong thời gian thụ án, ngoài các ngày lễ theo luật định, tù nhân có thể gặp người thân và người giám hộ theo quy định. Các thành viên trong gia đình có thể sử dụng chức năng đặt phòng trên đường sắt để chọn ngày nộp đơn sau ngày hẹn."

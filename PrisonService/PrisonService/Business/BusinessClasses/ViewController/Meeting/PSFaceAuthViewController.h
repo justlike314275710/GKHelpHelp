@@ -14,5 +14,5 @@ typedef void(^FaceAuthCompletion)(BOOL successful);
 
 @property (nonatomic, copy) FaceAuthCompletion completion;
 @property (nonatomic, strong) NSString*iconUrl;
-@property (nonatomic, strong) NSArray*apppintmentArray;
+
 @end

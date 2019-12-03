@@ -56,6 +56,7 @@
 
 
 
+
 @end
 
 @implementation PSAppointmentViewController
@@ -157,13 +158,19 @@
 }
 
 - (void)checkFaceAuth {
-     PSMeetingViewModel*meetingviewModel=[PSMeetingViewModel new];
+    PSMeetingViewModel*meetingviewModel=[PSMeetingViewModel new];
     meetingviewModel.familymeetingID=[PSSessionManager sharedInstance].session.families.id;
     meetingviewModel.faceType=PSFaceAppointment;
-    meetingviewModel.FamilyMembers=self.selectArray;
-    PSFaceAuthViewController *authViewController = [[PSFaceAuthViewController alloc] init];
-    authViewController.apppintmentArray=self.selectArray;
-    authViewController = [authViewController initWithViewModel:meetingviewModel];
+    NSMutableArray*items=[NSMutableArray new];
+    [items addObjectsFromArray:self.selectArray];
+    for (int i=0; i<items.count; i++) {
+        PSPrisonerFamily*familesModel=items[i];
+        if ([familesModel.familyName isEqualToString:[PSSessionManager sharedInstance].session.families.name]) {
+            [items exchangeObjectAtIndex:0 withObjectAtIndex:i];
+        }
+    }
+     meetingviewModel.FamilyMembers=items;
+    PSFaceAuthViewController *authViewController = [[PSFaceAuthViewController alloc] initWithViewModel:meetingviewModel];
     [authViewController setCompletion:^(BOOL successful) {
         if (successful) {
             [self appointmentAction];
