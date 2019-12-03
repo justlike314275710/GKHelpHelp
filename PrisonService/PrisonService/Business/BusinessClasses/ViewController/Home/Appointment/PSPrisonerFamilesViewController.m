@@ -20,7 +20,7 @@
 
 @interface PSPrisonerFamilesViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic, strong) UITableView *prisonerFamilesTableView;
-@property (nonatomic , strong) NSMutableArray *selectArray;
+@property (nonatomic, strong) NSMutableArray *selectArray;
 @property (nonatomic, assign) NSInteger btnTag;
 @end
 
