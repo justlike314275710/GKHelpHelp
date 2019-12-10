@@ -38,7 +38,6 @@
 @interface PSAppointmentViewController ()<FSCalendarDataSource,FSCalendarDelegate,UITableViewDataSource,UITableViewDelegate,PSIMMessageObserver,PSSessionObserver,UIGestureRecognizerDelegate>
 {
     void * _KVOContext;
-    UIButton *applyButton;
 }
 @property (nonatomic, strong) FSCalendar *calendar;
 @property (nonatomic, strong) PSDateView *dateView;
@@ -54,6 +53,7 @@
 @property (nonatomic, strong) PSBuyModel *buyModel;
 @property (nonatomic, strong) PSPayView *payView;
 @property (strong, nonatomic) UIPanGestureRecognizer *scopeGesture;
+
 
 
 
@@ -158,14 +158,19 @@
 }
 
 - (void)checkFaceAuth {
-     PSMeetingViewModel*meetingviewModel=[PSMeetingViewModel new];
+    PSMeetingViewModel*meetingviewModel=[PSMeetingViewModel new];
     meetingviewModel.familymeetingID=[PSSessionManager sharedInstance].session.families.id;
     meetingviewModel.faceType=PSFaceAppointment;
-    meetingviewModel.FamilyMembers=self.selectArray;
-    PSFaceAuthViewController *authViewController = [[PSFaceAuthViewController alloc] initWithViewModel:meetingviewModel];;
-    authViewController.apppintmentArray=self.selectArray;
-    authViewController = [authViewController initWithViewModel:meetingviewModel];
-    
+    NSMutableArray*items=[NSMutableArray new];
+    [items addObjectsFromArray:self.selectArray];
+    for (int i=0; i<items.count; i++) {
+        PSPrisonerFamily*familesModel=items[i];
+        if ([familesModel.familyName isEqualToString:[PSSessionManager sharedInstance].session.families.name]) {
+            [items exchangeObjectAtIndex:0 withObjectAtIndex:i];
+        }
+    }
+     meetingviewModel.FamilyMembers=items;
+    PSFaceAuthViewController *authViewController = [[PSFaceAuthViewController alloc] initWithViewModel:meetingviewModel];
     [authViewController setCompletion:^(BOOL successful) {
         if (successful) {
             [self appointmentAction];
@@ -471,7 +476,7 @@
     [self.calendar selectDate:todayNext];
     [self.dateView setNowDate:self.calendar.today selectedDate:self.calendar.selectedDate];
     
-    applyButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    UIButton *applyButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [applyButton addTarget:self action:@selector(requsetPhoneCardBalance) forControlEvents:UIControlEventTouchUpInside];
     applyButton.titleLabel.font = AppBaseTextFont1;
     UIImage *bgImage = [UIImage imageNamed:@"universalBtGradientBg"];
@@ -539,14 +544,12 @@
 
 -(void)requsetPhoneCardBalance{
     //查询余额
-    applyButton.enabled = NO;
      AccountsViewModel*accountsViewModel=[[AccountsViewModel alloc]init];
     [accountsViewModel requestAccountsCompleted:^(PSResponse *response) {
         self.Balance=[accountsViewModel.blance floatValue];
         //查询是该日期否能预约
         accountsViewModel.applicationDate = [self.calendar.selectedDate yearMonthDay];
         [accountsViewModel requestCheckDataCompleted:^(PSResponse *response) {
-            applyButton.enabled = YES;
             NSInteger code = response.code;
             if (code==200) {
                 [self addPrisonerFamliesAction];
@@ -558,7 +561,6 @@
             
         } failed:^(NSError *error) {
             [self showNetError:error];
-            applyButton.enabled = YES;
         }];
 
     } failed:^(NSError *error) {
@@ -567,7 +569,6 @@
         }else{
             [self showNetError:error];
         }
-        applyButton.enabled = YES;
     }];
 }
 

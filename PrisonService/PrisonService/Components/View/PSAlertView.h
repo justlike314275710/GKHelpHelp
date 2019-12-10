@@ -10,7 +10,18 @@
 
 #define GAlertViewTage 99999
 
+
+
+
+
 @interface PSAlertView : UIView
+
++(instancetype)showWithTitle:(NSString *)title
+                     message:(NSString *)message
+            messageAlignment:(NSTextAlignment)alignment
+                       image:(UIImage *)image;
+
+
 /**
  *  初始化方法
  *

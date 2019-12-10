@@ -56,8 +56,7 @@
     if (self) {
         self.i=1;
         self.gid=nil;
-        NSString*meet_face=NSLocalizedString(@"meet_face", @"会见人脸识别");
-        self.title=meet_face;
+        self.title=@"会见第二个人";
 //        self.faceDetector = [IFlyFaceDetector sharedInstance];
 //        self.faceRequest = [IFlyFaceRequest sharedInstance];
 //        [self.faceRequest setDelegate:self];

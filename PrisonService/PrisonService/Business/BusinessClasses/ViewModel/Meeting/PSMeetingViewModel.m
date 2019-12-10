@@ -30,7 +30,12 @@
 @implementation PSMeetingViewModel
 
 - (NSArray *)FamilyMembers{
-    return _items;
+    if (self.faceType==0) {
+        return _FamilyMembers;
+    } else {
+        return _items;
+    }
+   // return _items;
 }
 
 - (void)requestFamilyMembersCompleted:(RequestDataCompleted)completedCallback failed:(RequestDataFailed)failedCallback{

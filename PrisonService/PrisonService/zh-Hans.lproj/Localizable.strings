@@ -328,7 +328,7 @@
 "no_face"="未监测到人脸,请调整摄像头...";
 "face_ing"="[我]人脸识别中";
 "face_ing_familes"="[%@]人脸识别中";
-"face_ing_tips"="识别提示:正在识别中...";
+"face_ing_tips"="人脸检测中";
 "face_familes"="本次会见家属";
 "face_familes_tips"="*本次会见必须全部通过人脸识别；\n 请依次选择亲属进行人脸识别。";
 "meet_end"="监狱终端已挂断";

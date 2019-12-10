@@ -5,7 +5,7 @@
 //  Created by calvin on 2018/4/25.
 //  Copyright © 2018年 calvin. All rights reserved.
 //
-
+#import "PSAlertView.h"
 #import "PSFaceAuthViewController.h"
 #import "iflyMSC/IFlyFaceSDK.h"
 #import "PSThirdPartyConstants.h"
@@ -45,6 +45,7 @@ typedef UIImage *(^ImageBlock)(UIImageView *showImageView);
 @property (nonatomic , strong) UILabel*FaceRecognitionLab;
 @property (nonatomic , assign) int i;
 
+
 @end
 
 
@@ -54,11 +55,14 @@ typedef UIImage *(^ImageBlock)(UIImageView *showImageView);
     if (self) {
         self.i=0;
         //self.gid=nil;
+        self.times = 0;
         NSString*meet_face=NSLocalizedString(@"meet_face", @"会见人脸识别");
         self.title=meet_face;
         self.faceDetector = [IFlyFaceDetector sharedInstance];
         self.faceRequest = [IFlyFaceRequest sharedInstance];
         [self.faceRequest setDelegate:self];
+        
+
     }
     return self;
 }
@@ -74,19 +78,32 @@ typedef UIImage *(^ImageBlock)(UIImageView *showImageView);
 }
 
 - (void)verifyFaceFailed {
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:VerifyFaceFailed preferredStyle:UIAlertControllerStyleAlert];
-    [alertController addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:VerifyFaceFailed message:VerifyFaceFailedReson preferredStyle:UIAlertControllerStyleAlert];
+    [alertController addAction:[UIAlertAction actionWithTitle:@"退出" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
         self.times = 0;
-        if (self.isVerifying) {
-            self.isVerifying = NO;
-        }
-    }]];
-    [alertController addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         if (self.completion) {
             self.completion(NO);
         }
     }]];
-    [self presentViewController:alertController animated:YES completion:nil];
+    [alertController addAction:[UIAlertAction actionWithTitle:@"再试一次" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        self.times++;
+        if (self.isVerifying) {
+            self.isVerifying = NO;
+        }
+    }]];
+    
+    if (self.times>2) {
+        [PSAlertView showWithTitle:nil message:@"人脸识别失败/n请重新预约远程探视会见" messageAlignment:NSTextAlignmentCenter image:IMAGE_NAMED(@"识别失败")];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            if (self.completion) {
+                self.completion(NO);
+            }
+        });
+    } else {
+        [self presentViewController:alertController animated:YES completion:nil];
+    }
+    
 }
 
 - (void)beginFaceAuthData:(NSData *)data {
@@ -114,26 +131,29 @@ typedef UIImage *(^ImageBlock)(UIImageView *showImageView);
 }
 
 - (void)registerFaceGid {
-    NSLog(@"%@",self.apppintmentArray);
     PSMeetingViewModel *viewModel = (PSMeetingViewModel*)self.viewModel;
     if(viewModel.faceType==0){
         @weakify(self)
-        PSPrisonerFamily*model=self.apppintmentArray[_i];
+        PSPrisonerFamily*model=viewModel.FamilyMembers[_i];
         NSString*avatarUrl=model.familyAvatarUrl;
-        [[SDWebImageManager sharedManager] loadImageWithURL:[NSURL URLWithString:PICURL(avatarUrl)] options:0 progress:^(NSInteger receivedSize, NSInteger expectedSize, NSURL * _Nullable targetURL) {
-        } completed:^(UIImage * _Nullable image, NSData * _Nullable data, NSError * _Nullable error, SDImageCacheType cacheType, BOOL finished, NSURL * _Nullable imageURL) {
-            @strongify(self)
-            if (error) {
-                [self registerFaceFailed];
-            }else{
-                CGSize maxSize = CGSizeMake(200, 200);
-                if (image.size.width > maxSize.width || image.size.height > maxSize.height) {
-                    image = [image imageByScalingProportionallyToSize:maxSize];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [[SDWebImageManager sharedManager] loadImageWithURL:[NSURL URLWithString:PICURL(avatarUrl)] options:0 progress:^(NSInteger receivedSize, NSInteger expectedSize, NSURL * _Nullable targetURL) {
+            } completed:^(UIImage * _Nullable image, NSData * _Nullable data, NSError * _Nullable error, SDImageCacheType cacheType, BOOL finished, NSURL * _Nullable imageURL) {
+                @strongify(self)
+                if (error) {
+                    [self registerFaceFailed];
+                }else{
+                    CGSize maxSize = CGSizeMake(200, 200);
+                    if (image.size.width > maxSize.width || image.size.height > maxSize.height) {
+                        image = [image imageByScalingProportionallyToSize:maxSize];
+                    }
+                    NSData *compressData = [image compressedData];
+                    [self beginFaceAuthData:compressData];
                 }
-                NSData *compressData = [image compressedData];
-                [self beginFaceAuthData:compressData];
-            }
-        }];
+            }];
+        });
+        
+        
     }
     else {
         [[SDWebImageManager sharedManager] loadImageWithURL:[NSURL URLWithString:PICURL([PSSessionManager sharedInstance].session.families.avatarUrl)] options:0 progress:^(NSInteger receivedSize, NSInteger expectedSize, NSURL * _Nullable targetURL) {
@@ -183,19 +203,23 @@ typedef UIImage *(^ImageBlock)(UIImageView *showImageView);
                 if([rst isEqualToString:KCIFlyFaceResultSuccess]){
                     NSString *verf = [dic objectForKey:KCIFlyFaceResultVerf];
                     if([verf boolValue]){
-                         NSString*face_success=NSLocalizedString(@"face_success", @"人脸识别成功");
+        
                         [SDTrackTool logEvent:FACE_RECOGNITION attributes:@{STATUS:MobSUCCESS}];
                         
-                         _statusTipsLable.text=face_success;
+                         _statusTipsLable.text=@"人脸识别成功";
                         //验证成功
                         PSMeetingViewModel *viewModel = (PSMeetingViewModel*)self.viewModel;
                         @weakify(self)
                         if (viewModel.FamilyMembers.count==1) {
-                            @strongify(self)
                             if (self.completion) {
-                                self.completion(YES);
+                                [PSAlertView showWithTitle:nil message:@"人脸识别成功" messageAlignment:NSTextAlignmentCenter image:IMAGE_NAMED(@"识别成功")];
+                                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                                    self.completion(YES);
+                                });
+                                
                             }
                             return;
+                           
                         }
                         else if (viewModel.FamilyMembers.count==0){
                             @strongify(self)
@@ -205,35 +229,24 @@ typedef UIImage *(^ImageBlock)(UIImageView *showImageView);
                             return;
                         }
                         else {
-                            PSFamilyFaceViewController *authViewController = [[PSFamilyFaceViewController alloc] initWithViewModel:viewModel];
-                            [authViewController setCompletion:^(BOOL successful) {
-                                @strongify(self)
-                                if (successful) {
-                                    if (self.completion) {
-                                        self.completion(YES);
+                                [PSAlertView showWithTitle:nil message:@"人脸识别成功" messageAlignment:NSTextAlignmentCenter image:IMAGE_NAMED(@"识别成功") handler:^(PSAlertView *alertView, NSInteger buttonIndex) {
+                                    if (buttonIndex==0) {
+                                        PSFamilyFaceViewController *authViewController = [[PSFamilyFaceViewController alloc] initWithViewModel:viewModel];
+                                        [[PSMeetingManager sharedInstance].meetingNavigationController pushViewController:authViewController animated:NO];
                                     }
-                                    return;
-                                }
-                            }];
-                            [[PSMeetingManager sharedInstance].meetingNavigationController pushViewController:authViewController animated:NO];
+                                } buttonTitles:@"识别下一位", nil];
+                            return;
+
                         }
 
                    }
                     else{
-                      @weakify(self)
-                        [WXZTipView showBottomWithText:@"人脸识别失败" duration:1.0f];
+                       // [WXZTipView showBottomWithText:@"人脸识别失败" duration:1.0f];
                         [SDTrackTool logEvent:FACE_RECOGNITION attributes:@{STATUS:MobFAILURE}];
-                        @strongify(self)
-                        if (self.completion) {
-                            self.completion(NO);
-                        }
-                        return;
+                        [self verifyFaceFailed];
+                      
                     }
                 }
-            }
-
-            if (self.isVerifying) {
-                self.isVerifying = NO;
             }
         }
     }
@@ -343,6 +356,7 @@ typedef UIImage *(^ImageBlock)(UIImageView *showImageView);
             [self hideFace];
              NSString*no_face=NSLocalizedString(@"no_face", @"未检测到人脸");
             _statusTipsLable.text=no_face;
+            _FaceRecognitionLab.text=@"请漏出正脸";
             //[WXZTipView showBottomWithText:@"未监测到人脸,请调整摄像头" duration:2.0f];
             return;
         }
@@ -373,6 +387,7 @@ typedef UIImage *(^ImageBlock)(UIImageView *showImageView);
         if (!self.isVerifying && self.gid.length > 0) {
             self.isVerifying = YES;
             [self beginFaceVerifyWithData:[faceImg.image compressedData]];
+            _FaceRecognitionLab.text=@"人脸识别中";
             //faceImg.image = nil;
         }
 //        else{
@@ -425,7 +440,7 @@ typedef UIImage *(^ImageBlock)(UIImageView *showImageView);
     [super viewDidLoad];
     // Do any additional setup after loading the view.
    self.faceDetector = [IFlyFaceDetector sharedInstance];
-   [self requestFamilesMeeting];
+   [self JudgeFaceRecognitionType];
 }
 
 #pragma mark - IFlyFaceRequestDelegate
@@ -465,6 +480,8 @@ typedef UIImage *(^ImageBlock)(UIImageView *showImageView);
 }
 
 
+
+
 - (void)observerContext:(CaptureContextType)type Changed:(BOOL)boolValue {
     switch(type){
         case CaptureContextTypeRunningAndDeviceAuthorized:{
@@ -494,8 +511,8 @@ typedef UIImage *(^ImageBlock)(UIImageView *showImageView);
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-#pragma mark -- 网络请求
--(void)requestFamilesMeeting{
+#pragma mark -- 判断人脸识别类型
+-(void)JudgeFaceRecognitionType{
     PSMeetingViewModel *viewModel = (PSMeetingViewModel*)self.viewModel;
     switch (viewModel.faceType) {
         case PSFaceMeeting:{
@@ -548,13 +565,12 @@ typedef UIImage *(^ImageBlock)(UIImageView *showImageView);
     CGFloat verticalPadding = RELATIVE_HEIGHT_VALUE(25);
     _FaceRecognitionLab=[[UILabel alloc]init];
     [self.view addSubview:_FaceRecognitionLab];
-    NSString*face_ing=NSLocalizedString(@"face_ing", @"[我]人脸识别中");
-    _FaceRecognitionLab.text=face_ing;
+    _FaceRecognitionLab.text=@"人脸检测中";
     _FaceRecognitionLab.font=AppBaseTextFont1;
     _FaceRecognitionLab.textColor=AppBaseTextColor1;
     _FaceRecognitionLab.textAlignment=NSTextAlignmentCenter;
     [_FaceRecognitionLab mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(64);//15
+        make.top.mas_equalTo(15);//15
         make.width.mas_equalTo(SCREEN_WIDTH-2*sidePadding);
         make.height.mas_equalTo(20);
         make.left.mas_equalTo(sidePadding);
@@ -595,10 +611,12 @@ typedef UIImage *(^ImageBlock)(UIImageView *showImageView);
     [self.view addSubview:rightBoomImageView];
     rightBoomImageView.frame=CGRectMake(20+SCREEN_WIDTH-2*verticalPadding, 40+SCREEN_WIDTH-2*verticalPadding, 10, 10);
     
+
+    
     _statusTipsLable=[UILabel new];
     [self.view addSubview:_statusTipsLable];
     _statusTipsLable.textAlignment=NSTextAlignmentCenter;
-     NSString*face_ing_tips=NSLocalizedString(@"face_ing_tips", @"识别提示:正在识别中");
+     NSString*face_ing_tips=NSLocalizedString(@"face_ing_tips", "正在识别中");
     _statusTipsLable.text=face_ing_tips;
     _statusTipsLable.font=AppBaseTextFont3;
     _statusTipsLable.textColor=AppBaseTextColor3;
@@ -608,6 +626,8 @@ typedef UIImage *(^ImageBlock)(UIImageView *showImageView);
         make.height.mas_equalTo(18);
         make.left.mas_equalTo(sidePadding);
     }];
+    
+    
     
     UIView*faceBgView=[UIView new];
     [self.view addSubview:faceBgView];
@@ -677,8 +697,10 @@ typedef UIImage *(^ImageBlock)(UIImageView *showImageView);
         CGFloat iconSidePadding = (SCREEN_WIDTH-2*sidePadding-240)/2;
         UIImage*images=[UIImage imageNamed:@"meetingAuthIcon"];
         UIImageView*FamliesOneButton=[[UIImageView alloc]init];
-        //[FamliesOneButton setImage:images forState:UIControlStateNormal];
-        [FamliesOneButton sd_setImageWithURL:[NSURL URLWithString:PICURL(modelOne.familyAvatarUrl)] placeholderImage:images];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [FamliesOneButton sd_setImageWithURL:[NSURL URLWithString:PICURL(modelOne.familyAvatarUrl)] placeholderImage:images];
+        });
+        
         [faceBgView addSubview:FamliesOneButton];
         [FamliesOneButton mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.mas_equalTo(contentLable.mas_bottom).offset(5);
@@ -702,7 +724,10 @@ typedef UIImage *(^ImageBlock)(UIImageView *showImageView);
         
         PSPrisonerFamily*modelTwo=viewModel.FamilyMembers[1];
         UIImageView*FamliesTwoButton=[[UIImageView alloc]init];
-        [FamliesTwoButton sd_setImageWithURL:[NSURL URLWithString:PICURL(modelTwo.familyAvatarUrl)] placeholderImage:images];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [FamliesTwoButton sd_setImageWithURL:[NSURL URLWithString:PICURL(modelTwo.familyAvatarUrl)] placeholderImage:images];
+        });
+        
         [faceBgView addSubview:FamliesOneButton];
         [faceBgView addSubview:FamliesTwoButton];
         [FamliesTwoButton mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -827,7 +852,14 @@ typedef UIImage *(^ImageBlock)(UIImageView *showImageView);
     
 }
 
-
-
+/*
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
 @end
