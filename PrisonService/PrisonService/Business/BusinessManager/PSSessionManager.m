@@ -99,6 +99,17 @@
     return cPrisonerDetail;
 }
 
+-(BOOL)isCheck{
+    //审核版本第一次进入没有监狱--审核账号
+    BOOL result = NO;
+    if (self.currenPrisonerDetail) {
+        if ([self.currenPrisonerDetail.jailName isEqualToString:@"演示监狱"]&&PRODUCE==1) {
+            result = YES;
+        }
+    } 
+    return result;
+}
+
 
 - (void)addObserver:(id<PSSessionObserver>)observer {
     [self.observerVector addObserver:observer];

@@ -42,6 +42,10 @@
  apns 点击推送打开app
  **/
 - (void)userNotificationCenterApns:(NSDictionary*)userInfo;
+/**
+判断是否打开定位权限
+**/
+-(void)checkAuthorizationWithLocation;
 
 @end
 

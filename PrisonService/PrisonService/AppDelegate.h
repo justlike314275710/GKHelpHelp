@@ -20,5 +20,8 @@
 
 @property (assign, nonatomic) NSInteger showTokenCount; //token弹窗次数--->防止多次弹窗
 
+@property (assign, nonatomic) BOOL showLocaAlert; //定位地址弹框--->防止多次弹窗
+
+
 @end
 

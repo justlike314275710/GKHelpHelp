@@ -148,7 +148,6 @@
             make.centerY.mas_equalTo(self.view);
         }];
     }
-    
     _subTitleLabel = [UILabel new];
     _subTitleLabel.font = AppBaseTextFont2;
     _subTitleLabel.textAlignment = NSTextAlignmentCenter;

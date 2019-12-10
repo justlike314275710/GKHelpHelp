@@ -99,6 +99,8 @@
     }];
     [_codeButton bk_whenTapped:^{
          [self requestMessageCode];
+        _codeButton.enabled = NO;
+        
     }];
     
     UIButton*nextTipButton=[UIButton new];

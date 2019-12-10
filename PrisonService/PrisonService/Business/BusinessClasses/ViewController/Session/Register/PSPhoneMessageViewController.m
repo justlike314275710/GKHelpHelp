@@ -256,11 +256,13 @@
         }
        // [self openProtocol];
     }];
+
+    int bottom = kTabBarHeight==83?-30:20;
     [self.view addSubview:self.protocolLabel];
     [self.protocolLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(protocolSidePadding);
         make.right.mas_equalTo(-protocolSidePadding);
-        make.bottom.mas_equalTo(-20);
+        make.bottom.mas_equalTo(bottom);
         make.height.mas_equalTo(15);
     }];
     [self updateProtocolText];

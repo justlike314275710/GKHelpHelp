@@ -57,8 +57,9 @@
 #pragma mark  - life cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(requestBalance) name:JailChange object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getUserAvater) name:KNotificationUserAvaterChangeScuess object:nil];
     [self refreshData];
-    [self SDWebImageAuth];
     
 }
 
@@ -79,14 +80,11 @@
 
 #pragma mark  - action
 -(void)refreshData{
-    
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(requestBalance) name:JailChange object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getUserAvater) name:KNotificationUserAvaterChangeScuess object:nil];
+
     
     self.view.backgroundColor=UIColorFromRGBA(251, 251, 251, 1);
     self.navigationItem.leftBarButtonItem = nil;
     self.navigationItem.hidesBackButton = NO;
-    [self getUserAvater];
     switch ([PSSessionManager sharedInstance].loginStatus) {
         case PSLoginPassed:{
             [self updateContent];
@@ -116,15 +114,9 @@
 }
 //MARK:获取自己头像
 - (void)getUserAvater{
-    
-    PSAccountViewModel *viewModel = [[PSAccountViewModel alloc] init];
-    [viewModel getUserAvatarImageCompleted:^(UIImage *image) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            _avatarView.image = image;
-        });
-    } failed:^(NSError *error) {
-
-    }];
+    [self SDWebImageAuth];
+    NSString*urlSting=[NSString stringWithFormat:@"%@%@",EmallHostUrl,URL_get_userAvatar];
+    [_avatarView sd_setImageWithURL:[NSURL URLWithString:urlSting] placeholderImage:IMAGE_NAMED(@"个人中心-头像") options:SDWebImageRefreshCached];
 }
 
 -(void)SDWebImageAuth{
@@ -315,7 +307,7 @@
     headContentImg.userInteractionEnabled = YES;
     [headerView addSubview:headContentImg];
     
-    
+
     CGFloat radius = 30;
     _avatarView = [UIImageView new];
     _avatarView.frame=CGRectMake(17,27, 60, 60);
@@ -325,9 +317,8 @@
     _avatarView.layer.borderColor = [UIColor whiteColor].CGColor;
     _avatarView.image = [UIImage imageNamed:@"个人中心-头像"];
     [headContentImg addSubview:_avatarView];
+    [self getUserAvater];
     _avatarView.userInteractionEnabled = NO;
-    
-    
     if ([[LXFileManager readUserDataForKey:@"isVistor"]isEqualToString:@"YES"]) {
         UIButton*loginButton=[[UIButton alloc]initWithFrame:CGRectMake(130, 37, 165, 40)];
         [headContentImg addSubview:loginButton];
@@ -342,11 +333,8 @@
         [loginButton bk_whenTapped:^{
             [[PSSessionManager sharedInstance]doLogout];
         }];
-        
     } else {
-        
         [headerView addGestureRecognizer:tapGesturRecognizer];
-        
         UILabel*nameLable=[[UILabel alloc]initWithFrame:CGRectMake(90,30,180,20)];
         if ([PSSessionManager sharedInstance].session.families.name) {
             nameLable.text = [PSSessionManager sharedInstance].session.families.name;
@@ -391,6 +379,7 @@
         authLab.font = FontOfSize(10);
         authLab.numberOfLines = 0;
         [AuthenticaBtn addSubview:authLab];
+        
         //已认证
         if ([PSSessionManager sharedInstance].loginStatus == PSLoginPassed) {
             iconImage.image = [UIImage imageNamed:@"已认证icon"];
@@ -417,7 +406,6 @@
     //设置
     UIView *settingBtnView = [[UIView alloc] initWithFrame:CGRectMake(headContentImg.width-60,15, 50, 50)];
     [headContentImg addSubview:settingBtnView];
-    
     UIImageView *settingImage = [[UIImageView alloc] initWithFrame:CGRectMake(15,15,16,16)];
     [settingImage setImage:IMAGE_NAMED(@"设置icon")];
     [settingBtnView addSubview:settingImage];

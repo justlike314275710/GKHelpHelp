@@ -6,13 +6,8 @@
 //  Copyright © 2018年 calvin. All rights reserved.
 
 #define DEVELOP  0   //开发
-<<<<<<< HEAD
 #define UAT  0     //测试
 #define PRODUCE 1   //生产
-=======
-#define UAT  1    //测试
-#define PRODUCE 0   //生产
->>>>>>> 1e8e7be88aca637328b33163d0abd6bb8e120c6a
 
 #ifdef DEBUG
 #else
@@ -29,7 +24,6 @@
 #define ConsultationHostUrl @"http://qa.api.legal.prisonpublic.com"
 #define UploadServerUrl @"http://120.79.251.238:1339/image-server"
 
-
 #elif UAT            //测试
 #define ServerDomain @"http://47.107.245.151:8022"
 #define H5ServerDomain @"http://120.79.251.238:8021" 
@@ -39,7 +33,6 @@
 #define EmallUrl @"http://10.10.10.16:805"
 #define ImageDeleteUrl @"http://120.78.190.101:1339/delete/resources"//删除图片接口
 #define ConsultationHostUrl @"http://qa.api.legal.prisonpublic.com"
-
 
 #elif PRODUCE        //生产
 #define ServerDomain @"https://www.yuwugongkai.com"
@@ -84,11 +77,8 @@
 #define JailChange @"JailChange"
 #define AppScheme @"YuWuService"
 #define RefreshToken @"RefreshToken" //刷新token
-
 //根据username获取头像url
 #define AvaterImageWithUsername(username)  [NSString stringWithFormat:@"%@/users/by-username/avatar?username=%@",EmallHostUrl,username]
-
-
 
 //紫荆云视域名
 #define ZIJING_DOMAIN @"cs.zijingcloud.com"

@@ -130,12 +130,14 @@ typedef NS_ENUM(NSInteger, PSLoginModeType) {
     [self.loginMiddleView.codeTextField setBk_didEndEditingBlock:^(UITextField *textField) {
         loginViewModel.messageCode =textField.text;
     }];
-    [self.loginMiddleView.loginButton bk_whenTapped:^{
-        @strongify(self)
-        [self checkDataIsEmpty];
-        _loginMiddleView.loginButton.enabled=NO;
-        _loginMiddleView.loginButton.selected = NO;
-    }];
+    [self.loginMiddleView.loginButton addTarget:self action:@selector(checkDataIsEmpty) forControlEvents:UIControlEventTouchUpInside];
+    
+//    [self.loginMiddleView.loginButton bk_whenTapped:^{
+//        @strongify(self)
+//        [self checkDataIsEmpty];
+//        _loginMiddleView.loginButton.enabled=NO;
+//        _loginMiddleView.loginButton.selected = NO;
+//    }];
     
     [self.view addSubview:self.protocolLabel];
     [self.protocolLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -148,7 +150,7 @@ typedef NS_ENUM(NSInteger, PSLoginModeType) {
     [self.view addSubview:self.loginTypeButton];
     [self.loginTypeButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(self.loginMiddleView.mas_bottom).offset(10);
-        make.size.mas_equalTo(CGSizeMake(180, 40));
+        make.size.mas_equalTo(CGSizeMake(100, 40));
         make.right.mas_equalTo(self.loginMiddleView.mas_right);
     }];
     
@@ -159,12 +161,11 @@ typedef NS_ENUM(NSInteger, PSLoginModeType) {
         make.bottom.mas_equalTo(self.loginMiddleView.mas_top).offset(-RELATIVE_HEIGHT_VALUE(60));
         make.height.mas_equalTo(86);
     }];
-    
     //公众版本
     [self.view addSubview:self.publicTypeButton];
     [self.publicTypeButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(self.loginMiddleView.mas_bottom).offset(10);
-        make.size.mas_equalTo(CGSizeMake(180, 40));
+        make.size.mas_equalTo(CGSizeMake(70, 40));
         make.left.mas_equalTo(self.loginMiddleView.mas_left).offset(2);
     }];
 }
@@ -191,6 +192,8 @@ typedef NS_ENUM(NSInteger, PSLoginModeType) {
 }
 //MARK:获取验证码
 -(void)requestForVerificationCode{
+    [_loginMiddleView.codeButton setTitle:@"获取验证码" forState:UIControlStateNormal];
+    [_loginMiddleView.codeButton setTitleColor:AppBaseTextColor2  forState:UIControlStateNormal];
     [self.view endEditing:YES];
     PSEcomRegisterViewmodel*regiestViewModel=[[PSEcomRegisterViewmodel alloc]init];
     @weakify(regiestViewModel)
@@ -210,11 +213,15 @@ typedef NS_ENUM(NSInteger, PSLoginModeType) {
             } failed:^(NSError *error) {
                 @strongify(self)
                 _loginMiddleView.codeButton.enabled=YES;
+                [_loginMiddleView.codeButton setTitle:@"获取验证码" forState:UIControlStateNormal];
+                [_loginMiddleView.codeButton setTitleColor:AppBaseTextColor3  forState:UIControlStateNormal];
                 [self showNetError:error];
             }];
         } else {
             [PSTipsView showTips:tips];
             _loginMiddleView.codeButton.enabled = YES;
+            [_loginMiddleView.codeButton setTitle:@"获取验证码" forState:UIControlStateNormal];
+            [_loginMiddleView.codeButton setTitleColor:AppBaseTextColor3  forState:UIControlStateNormal];
         }
     }];
 }
@@ -238,6 +245,7 @@ typedef NS_ENUM(NSInteger, PSLoginModeType) {
     } failed:^(NSError *error) {
         @strongify(self)
         [self showNetError:error];
+        
     }];
 }
 //MARK:公共服务登录
@@ -253,13 +261,11 @@ typedef NS_ENUM(NSInteger, PSLoginModeType) {
         @strongify(self)
         if (ecomViewmodel.statusCode==200) {
             [self getUserIminfo];
-        }
-        else {
+        } else {
             NSString*account_code_error=NSLocalizedString(@"account_code_error", nil);
             [PSTipsView showTips:account_code_error];
             self.loginMiddleView.loginButton.enabled=YES;
             self.loginMiddleView.loginButton.selected=YES;
-            
         }
     } failed:^(NSError *error) {
         [self showNetError:error];
@@ -277,7 +283,6 @@ typedef NS_ENUM(NSInteger, PSLoginModeType) {
         [PSTipsView showTips:account_code_error];
         self.loginMiddleView.loginButton.enabled=YES;
         self.loginMiddleView.loginButton.selected=YES;
-        
     }];
 }
 //MARK:狱务通登录
@@ -287,8 +292,6 @@ typedef NS_ENUM(NSInteger, PSLoginModeType) {
     @weakify(self)
     @weakify(loginViewModel)
     [loginViewModel loginCompleted:^(PSResponse *response) {
-        self.loginMiddleView.loginButton.enabled=YES;
-        self.loginMiddleView.loginButton.selected=YES;
         @strongify(self)
         @strongify(loginViewModel)
         [LXFileManager saveUserData:loginViewModel.phoneNumber forKey:@"phoneNumber"];
@@ -308,6 +311,8 @@ typedef NS_ENUM(NSInteger, PSLoginModeType) {
         else{
             [PSTipsView showTips:loginViewModel.message? loginViewModel.message : @"登录失败"];
         }
+        self.loginMiddleView.loginButton.enabled=YES;
+        self.loginMiddleView.loginButton.selected=YES;
     } failed:^(NSError *error) {
         @strongify(self)
         [[PSLoadingView sharedInstance] dismiss];
@@ -337,7 +342,7 @@ typedef NS_ENUM(NSInteger, PSLoginModeType) {
         @strongify(self)
         id body = [self errorData:error];
         if (body) {
-            NSString*code=body[@"code"];
+            NSString*code=body[@"code"];            
             if ([code isEqualToString:@"user.PhoneNumberExisted"]) { //用户手机号码存在
                 [self EcommerceOfLogin];
             } else {
@@ -402,6 +407,9 @@ typedef NS_ENUM(NSInteger, PSLoginModeType) {
 }
 //MARK:验证数据
 - (void)checkDataIsEmpty {
+    
+    _loginMiddleView.loginButton.enabled=NO;
+    _loginMiddleView.loginButton.selected = NO;
     [self.view endEditing:YES];
     PSLoginViewModel *loginViewModel = (PSLoginViewModel *)self.viewModel;
     @weakify(self)
@@ -422,15 +430,22 @@ typedef NS_ENUM(NSInteger, PSLoginModeType) {
             }
         }else{
             [PSTipsView showTips:tips];
+            _loginMiddleView.loginButton.enabled=YES;
+            _loginMiddleView.loginButton.selected = YES;
+            
         }
     }];
 }
 #pragma mark ---------- PSCountdownObserver
 - (void)countdown {
     if (_seconds > 0) {
-        [_loginMiddleView.codeButton setTitle:[NSString stringWithFormat:@"重发(%ld)",(long)_seconds] forState:UIControlStateDisabled];
         _seconds --;
-        if (self.seconds==0) _loginMiddleView.codeButton.enabled = YES;
+        [_loginMiddleView.codeButton setTitle:[NSString stringWithFormat:@"重发(%ld)",(long)_seconds] forState:UIControlStateNormal];
+        if (self.seconds==0) {
+            _loginMiddleView.codeButton.enabled = YES;
+            [_loginMiddleView.codeButton setTitleColor:AppBaseTextColor3  forState:UIControlStateNormal];
+            [_loginMiddleView.codeButton setTitle:@"获取验证码" forState:UIControlStateNormal];
+        }
     }
 }
 #pragma mark ---------- Setter & Getter
@@ -467,7 +482,6 @@ typedef NS_ENUM(NSInteger, PSLoginModeType) {
     }
     return _protocolLabel;
 }
-
 -(UIButton *)loginTypeButton{
     if (!_loginTypeButton) {
         _loginTypeButton = [UIButton buttonWithType:UIButtonTypeCustom];

@@ -112,7 +112,6 @@ typedef NS_ENUM(NSInteger,WritefeedType) {
 #define KNotificationOrderStateChange @"KNotificationOrderStateChange"
 //新的订单
 #define KNotificationNewOrderState @"KNotificationNewOrderState"
-
 #define NotificationNoNetwork @"NotificationNoNetwork"
 //获取到地址重新刷新广告
 #define KNotificationRefreshAdvertisement @"KNotificationRefreshAdvertisement"

@@ -30,15 +30,17 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-//    UIView*backview=[[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 40)];
-//    [self.view addSubview:backview];
-//    backview.backgroundColor=[UIColor redColor];
-        UIButton *backButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        backButton.frame = CGRectMake(10, 10, 44, 44);
-        [backButton addTarget:self action:@selector(backAction) forControlEvents:UIControlEventTouchUpInside];
-        backButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-        UIImage *lImage = [UIImage imageNamed:@"universalBackIcon"];
-        [backButton setImage:lImage forState:UIControlStateNormal];
+//  UIView*backview=[[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 40)];
+//  [self.view addSubview:backview];
+//  backview.backgroundColor=[UIColor redColor];
+    UIButton *backButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    int height = kTabBarHeight==83?23:10;
+    backButton.frame = CGRectMake(10,height, 44, 44);
+    [backButton addTarget:self action:@selector(backAction) forControlEvents:UIControlEventTouchUpInside];
+    [backButton be_setEnlargeEdgeWithTop:10 right:5 bottom:5 left:5];
+    backButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+    UIImage *lImage = [UIImage imageNamed:@"universalBackIcon"];
+    [backButton setImage:lImage forState:UIControlStateNormal];
     [self.view addSubview:backButton];
 
     

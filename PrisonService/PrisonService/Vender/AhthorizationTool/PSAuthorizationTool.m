@@ -12,6 +12,8 @@
 #import "UIAlertView+BlocksKit.h"
 #import <Photos/Photos.h>
 #import "UIViewController+Tool.h"
+#import  <CoreLocation/CoreLocation.h>
+#import "AppDelegate.h"
 
 
 @implementation PSAuthorizationTool
@@ -103,27 +105,27 @@
         NSString *title;
         NSString *message;
         if (!videoResult) {
-            title = @"相机未授权";
-            message = @"开启相机才能正常进行远程探视功能！";
+            title = @"开启相机权限";
+            message = @"请开启相机权限,开启后即可正常使用远程探视";
         }
         if (!audioResult) {
-            title = @"麦克风未授权";
-            message = @"开启麦克风才能正常进行远程探视功能！";
+            title = @"开启麦克风权限";
+            message = @"请开启麦克风权限,开启后即可正常使用远程探视";
         }
         if (!videoResult && !audioResult) {
-            title = @"相机和麦克风未授权";
-            message = @"开启相机和麦克风才能正常进行远程探视功能！";
+            title = @"开启相机,麦克风权限";
+            message = @"请开启相机和麦克风权限,开启后即可正常使用远程探视";
         }
         if (!videoResult || !audioResult) {
-            NSString *content = [NSString stringWithFormat:@"在“设置-%@”中%@",[[NSBundle mainBundle] infoDictionary][@"CFBundleDisplayName"],message];
+            NSString *content = message;
             UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title message:content preferredStyle:UIAlertControllerStyleAlert];
             
-            [alertController addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-                UIViewController *VC = [UIViewController jsd_getCurrentViewController];
-                [VC dismissViewControllerAnimated:YES completion:nil];
-            }]];
+//            [alertController addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+//                UIViewController *VC = [UIViewController jsd_getCurrentViewController];
+//                [VC dismissViewControllerAnimated:YES completion:nil];
+//            }]];
             
-            [alertController addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            [alertController addAction:[UIAlertAction actionWithTitle:@"去设置" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                 NSURL *videoAuthURL = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
                 if ([[UIApplication sharedApplication] canOpenURL:videoAuthURL]) {
                     [[UIApplication sharedApplication] openURL:videoAuthURL];
@@ -228,29 +230,27 @@
         NSString *title;
         NSString *message;
         if (!videoResult) {
-            title = @"相机未授权";
-            message = @"开启相机才能正常进行远程探视功能！";
+            title = @"开启相机权限";
+            message = @"请开启相机权限,开启后即可正常使用远程探视";
         }
         if (!audioResult) {
-            title = @"麦克风未授权";
-            message = @"开启麦克风才能正常进行远程探视功能！";
+            title = @"开启麦克风权限";
+            message = @"请开启麦克风权限,开启后即可正常使用远程探视";
         }
         if (!videoResult && !audioResult) {
-            title = @"相机和麦克风未授权";
-            message = @"开启相机和麦克风才能正常进行远程探视功能！";
+            title = @"开启相机,麦克风权限";
+            message = @"请开启相机和麦克风权限,开启后即可正常使用远程探视";
         }
         if (!videoResult || !audioResult) {
-            NSString *content = [NSString stringWithFormat:@"在“设置-%@”中%@",[[NSBundle mainBundle] infoDictionary][@"CFBundleDisplayName"],message];
+            NSString *content = message;
             UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title message:content preferredStyle:UIAlertControllerStyleAlert];
             [alertController addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil]];
-            [alertController addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            [alertController addAction:[UIAlertAction actionWithTitle:@"去设置" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                 NSURL *videoAuthURL = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
                 if ([[UIApplication sharedApplication] canOpenURL:videoAuthURL]) {
                     [[UIApplication sharedApplication] openURL:videoAuthURL];
                 }
             }]];
-//            [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alertController animated:YES completion:nil];
-            //获取当前显示的控制器
             UIViewController *VC = [UIViewController jsd_getCurrentViewController];
             [VC presentViewController:alertController animated:YES completion:nil];
         }
@@ -261,7 +261,7 @@
         block(videoResult && audioResult);
     }
 }
-
+//相机
 + (void)checkAndRedirectCameraAuthorizationWithBlock:(CheckAuthorizationBlock)block {
     BOOL videoResult = NO;
     if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
@@ -295,12 +295,12 @@
         NSString *title;
         NSString *message;
         if (!videoResult) {
-            title = @"相机未授权";
-            message = @"开启相机才能正常拍照哦！";
-            NSString *content = [NSString stringWithFormat:@"在“设置-%@”中%@",[[NSBundle mainBundle] infoDictionary][@"CFBundleDisplayName"],message];
+            title = @"开启相机权限";
+            message = @"请开启相机权限,开启后即可正常使用远程探视";
+            NSString *content = message;
             UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title message:content preferredStyle:UIAlertControllerStyleAlert];
             [alertController addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil]];
-            [alertController addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            [alertController addAction:[UIAlertAction actionWithTitle:@"去设置" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                 NSURL *videoAuthURL = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
                 if ([[UIApplication sharedApplication] canOpenURL:videoAuthURL]) {
                     [[UIApplication sharedApplication] openURL:videoAuthURL];
@@ -348,12 +348,12 @@
         NSString *title;
         NSString *message;
         if (!photoResult) {
-            title = @"相册未授权";
-            message = @"开启相册访问才能正常使用照片哦！";
-            NSString *content = [NSString stringWithFormat:@"在“设置-%@”中%@",[[NSBundle mainBundle] infoDictionary][@"CFBundleDisplayName"],message];
+            title = @"开启相册权限";
+            message = @"请开启相册权限,开启后即可正常使用相册功能";
+            NSString *content = message;
             UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title message:content preferredStyle:UIAlertControllerStyleAlert];
             [alertController addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil]];
-            [alertController addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            [alertController addAction:[UIAlertAction actionWithTitle:@"去设置" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                 NSURL *videoAuthURL = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
                 if ([[UIApplication sharedApplication] canOpenURL:videoAuthURL]) {
                     [[UIApplication sharedApplication] openURL:videoAuthURL];
@@ -401,12 +401,12 @@
     NSString *title;
     NSString *message;
     if (!videoResult) {
-        title = @"麦克风未授权";
-        message = @"开启麦克风才能正常使用该功能哦！";
-        NSString *content = [NSString stringWithFormat:@"在“设置-%@”中%@",[[NSBundle mainBundle] infoDictionary][@"CFBundleDisplayName"],message];
+        title = @"开启麦克风权限";
+        message = @"请开启麦克风权限,开启后即可正常使用远程探视";
+        NSString *content = message;
         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title message:content preferredStyle:UIAlertControllerStyleAlert];
         [alertController addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil]];
-        [alertController addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [alertController addAction:[UIAlertAction actionWithTitle:@"去设置" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             NSURL *videoAuthURL = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
             if ([[UIApplication sharedApplication] canOpenURL:videoAuthURL]) {
                 [[UIApplication sharedApplication] openURL:videoAuthURL];
@@ -422,6 +422,43 @@
 + (BOOL)isAudioAvailable {
     AVAuthorizationStatus audioAuthStatus = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeAudio];
     return audioAuthStatus == AVAuthorizationStatusAuthorized;
+}
+
+#pragma mark ---------- 定位权限判断
++(BOOL)checkAuthorizationWithType:(PSAuthorizationType)type {
+    BOOL result = NO;
+    if (type == PSLocation) { //定位权限
+        if (![CLLocationManager locationServicesEnabled]) {
+            return NO;
+        }
+        CLAuthorizationStatus CLstatus = [CLLocationManager authorizationStatus];
+        if (CLstatus == kCLAuthorizationStatusDenied || CLstatus == kCLAuthorizationStatusRestricted) {
+            return NO;
+        }
+        return YES;
+    }
+    return result;
+}
+
++(void)showAuthTitle:(NSString *)title message:(NSString *)message btnTitle:(NSString *)btnTitle{
+
+    AppDelegate *appDelegate =(AppDelegate *)[UIApplication sharedApplication].delegate;
+    NSString *content = message;
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title message:content preferredStyle:UIAlertControllerStyleAlert];
+    [alertController addAction:[UIAlertAction actionWithTitle:btnTitle style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        NSURL *SetAuthURL = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
+        if ([[UIApplication sharedApplication] canOpenURL:SetAuthURL]) {
+            [[UIApplication sharedApplication] openURL:SetAuthURL];
+        }
+        [alertController dismissViewControllerAnimated:YES completion:nil];
+        appDelegate.showLocaAlert = NO;
+    }]];
+    //获取当前显示的控制器
+    UIViewController *VC = [UIViewController jsd_getCurrentViewController];
+    if (appDelegate.showLocaAlert==NO) {
+        appDelegate.showLocaAlert = YES;
+        [VC presentViewController:alertController animated:YES completion:nil];
+    }
 }
 
 @end

@@ -126,6 +126,8 @@
     if ([error.userInfo[@"NSLocalizedDescription"] isEqualToString:@"Request failed: unauthorized (401)"]) {
         [self showTokenError];
     } else {
+        
+        
         NSDictionary *body = [self errorData:error];
         if (body) {
             NSString*message=body[@"message"];
@@ -154,10 +156,10 @@
 -(void)showNetErrorMsg{
     AppDelegate *appdelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
     if (appdelegate.IS_NetWork == NO) {
-        NSString*InternetError=NSLocalizedString(@"InternetError", @"无法连接到服务器，请检查网络");
+        NSString*InternetError=NSLocalizedString(@"InternetError", @"无法连接到服务器,请检查网络");
         [PSTipsView showTips:InternetError];
     } else {
-        NSString*NetError=NSLocalizedString(@"NetError", @"服务器异常");
+        NSString*NetError=@"无法连接到服务器";
         [PSTipsView showTips:NetError];
     }
 }
@@ -175,7 +177,6 @@
             if (index==2) {
                 [[PSSessionManager sharedInstance] doLogout];
                 appDelegate.showTokenCount = 0;
-                
             }
         };
         [alert show];

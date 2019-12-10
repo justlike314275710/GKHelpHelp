@@ -443,9 +443,12 @@ static void * SessionRunningAndDeviceAuthorizedContext = &SessionRunningAndDevic
     else{
         dispatch_async(dispatch_get_main_queue(), ^{
             
-            NSString* info= NSLocalizedString(@"No camera permissions", @"没有相机权限");
-            [self showAlert:info];
-            [self setDeviceAuthorized:NO];
+//            NSString* info= NSLocalizedString(@"No camera permissions", @"没有相机权限");
+//            [self showAlert:info];
+//            [self setDeviceAuthorized:NO];
+            
+            [PSAuthorizationTool showAuthTitle:@"开启相机权限" message:@"请开启相机权限,开启后即可正常使用远程探视" btnTitle:@"去设置"];
+            
         });
     }
 }

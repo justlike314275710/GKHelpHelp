@@ -263,6 +263,7 @@
 }
 
 -(void)publishAction:(UIButton*)sender{
+    _publishBtn.enabled = NO;
     [SDTrackTool logEvent:ARTICLE_RELEASE];
     _hasWords = NO;
      PSPublishArticleViewModel *viewModel = (PSPublishArticleViewModel *)self.viewModel;
@@ -272,6 +273,7 @@
     viewModel.articleType = @"1";
     [viewModel checkDataWithCallback:^(BOOL successful, NSString *tips) {
         if (successful) {
+            _publishBtn.enabled = YES;
             [viewModel publishArticleCompleted:^(PSResponse *response) {
                 if (response.code == 200) { //文章发表成功
                     PSPublishScuessViewController *scuessVC = [[PSPublishScuessViewController alloc] init];
@@ -298,10 +300,11 @@
                     });
                 }
             } failed:^(NSError *error) {
-                
+                _publishBtn.enabled = YES;
             }];
         } else {
             [PSTipsView showTips:tips];
+            _publishBtn.enabled = YES;
         }
     }];
 }

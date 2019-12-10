@@ -16,6 +16,7 @@
 #import "PSMeetingMessage.h"
 #import "PSAllMessageViewController.h"
 #import "UIViewController+Tool.h"
+#import "PSLocateManager.h"
 
 
 #define BuglyAppID @"21f609a887"
@@ -298,6 +299,23 @@
     UIApplicationState state = [UIApplication sharedApplication].applicationState;
     BOOL result = (state == UIApplicationStateActive);
     return result;
+}
+//定位权限
+-(void)checkAuthorizationWithLocation {
+    NSLog(@"%lu",(unsigned long)[PSSessionManager sharedInstance].loginStatus);
+    if (![PSSessionManager sharedInstance].isCheck&&[PSSessionManager sharedInstance].loginStatus>0) {
+        BOOL isAuth =  [PSAuthorizationTool checkAuthorizationWithType:PSLocation];
+        if (isAuth==NO) {
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [PSAuthorizationTool  showAuthTitle:@"允许狱务通在您使用该应用时访问您的位置吗?" message:@"狱务通需要您的同意,才能在使用期间访问位置,用于城市定位" btnTitle:@"允许"];
+            });
+        } else {
+            //开始更新位置
+            if ([PSSessionManager sharedInstance].loginStatus!=0) { //没登录之前不不定位
+               [[PSLocateManager sharedInstance] startUpdatingLocation];
+            }
+        }
+    }
 }
 
 

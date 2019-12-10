@@ -5,6 +5,10 @@
 
 #import "UIGestureRecognizer+BlocksKit.h"
 #import "UIView+BlocksKit.h"
+@interface UIView()
+/**bool 类型 YES 不允许点击   NO 允许点击   设置是否执行点UI方法*/
+@property (nonatomic, assign) BOOL isIgnoreEvent;
+@end
 
 @implementation UIView (BlocksKit)
 
@@ -51,5 +55,6 @@
 		block(subview);
 	}];
 }
+
 
 @end

@@ -59,8 +59,6 @@ typedef UIImage *(^ImageBlock)(UIImageView *showImageView);
         self.faceDetector = [IFlyFaceDetector sharedInstance];
         self.faceRequest = [IFlyFaceRequest sharedInstance];
         [self.faceRequest setDelegate:self];
-        
-        [self requestFamilesMeeting];
     }
     return self;
 }
@@ -427,6 +425,7 @@ typedef UIImage *(^ImageBlock)(UIImageView *showImageView);
     [super viewDidLoad];
     // Do any additional setup after loading the view.
    self.faceDetector = [IFlyFaceDetector sharedInstance];
+   [self requestFamilesMeeting];
 }
 
 #pragma mark - IFlyFaceRequestDelegate
@@ -464,8 +463,6 @@ typedef UIImage *(^ImageBlock)(UIImageView *showImageView);
         [self praseTrackResult:strResult OrignImage:faceImg];
     });
 }
-
-
 
 
 - (void)observerContext:(CaptureContextType)type Changed:(BOOL)boolValue {
@@ -598,8 +595,6 @@ typedef UIImage *(^ImageBlock)(UIImageView *showImageView);
     [self.view addSubview:rightBoomImageView];
     rightBoomImageView.frame=CGRectMake(20+SCREEN_WIDTH-2*verticalPadding, 40+SCREEN_WIDTH-2*verticalPadding, 10, 10);
     
-
-    
     _statusTipsLable=[UILabel new];
     [self.view addSubview:_statusTipsLable];
     _statusTipsLable.textAlignment=NSTextAlignmentCenter;
@@ -613,8 +608,6 @@ typedef UIImage *(^ImageBlock)(UIImageView *showImageView);
         make.height.mas_equalTo(18);
         make.left.mas_equalTo(sidePadding);
     }];
-    
-    
     
     UIView*faceBgView=[UIView new];
     [self.view addSubview:faceBgView];
@@ -834,14 +827,7 @@ typedef UIImage *(^ImageBlock)(UIImageView *showImageView);
     
 }
 
-/*
- #pragma mark - Navigation
- 
- // In a storyboard-based application, you will often want to do a little preparation before navigation
- - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
- // Get the new view controller using [segue destinationViewController].
- // Pass the selected object to the new view controller.
- }
- */
+
+
 
 @end

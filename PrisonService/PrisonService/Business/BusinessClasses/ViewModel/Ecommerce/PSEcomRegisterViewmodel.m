@@ -24,10 +24,8 @@
         manager.requestSerializer = [AFJSONRequestSerializer serializer];
         manager.responseSerializer = [AFJSONResponseSerializer serializer];
         manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
-        manager.requestSerializer.timeoutInterval = 10.f;
+        manager.requestSerializer.timeoutInterval = 5.0f;
         [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-
-
     }
     return self;
 }

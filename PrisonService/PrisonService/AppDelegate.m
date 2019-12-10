@@ -24,6 +24,7 @@
 #import "ZQLocalNotification.h"
 #import "UIViewController+Tool.h"
 #import "PSAllMessageViewController.h"
+#import "PSLocateManager.h"
 
 @interface AppDelegate ()
 
@@ -148,12 +149,12 @@
 }
 //后台进入app
 - (void)applicationDidBecomeActive:(UIApplication *)application {
-    // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
     //在调一下接口看登录是否过期
     self.getTokenCount = 0;
     self.showTokenCount = 0;
     KPostNotification(KNOtificationALLMessagejudgeToken, nil);
     //判断是否开启定位权限
+    [self checkAuthorizationWithLocation];
 }
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
@@ -161,6 +162,5 @@
 - (UIInterfaceOrientationMask)application:(UIApplication *)application supportedInterfaceOrientationsForWindow:(UIWindow *)window {
     return UIInterfaceOrientationMaskPortrait | UIInterfaceOrientationMaskLandscapeRight;
 }
-
 
 @end

@@ -42,8 +42,16 @@
 }
 
 - (void)reverseGeocodeLocation:(CLLocation *)location {
+    
     _lat=[[NSNumber numberWithDouble:location.coordinate.latitude] stringValue] ;
     _lng=[[NSNumber numberWithDouble:location.coordinate.longitude] stringValue] ;
+    double lat =  [_lat doubleValue];
+    double lng =  [_lng doubleValue];
+    _lat = [NSString stringWithFormat:@"%.6lf",lat];
+    _lng = [NSString stringWithFormat:@"%.6lf",lng];
+    
+    
+
     CLGeocoder *geocoder = [[CLGeocoder alloc] init];
     [geocoder reverseGeocodeLocation:location completionHandler:^(NSArray<CLPlacemark *> *_Nullable placemarks, NSError * _Nullable error) {
         for (CLPlacemark *place in placemarks) {
@@ -79,11 +87,9 @@
         [self stopUpdatingLocation];
     }
 }
-
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error {
     
 }
-
 #pragma mark - PSLaunchTask
 - (void)launchTaskWithCompletion:(LaunchTaskCompletion)completion {
     [self startUpdatingLocation];
