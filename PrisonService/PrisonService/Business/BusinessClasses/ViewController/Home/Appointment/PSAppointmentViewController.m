@@ -142,7 +142,6 @@
             NSString*determine=NSLocalizedString(@"determine", @"确定");
             NSString*cancel=NSLocalizedString(@"cancel", @"取消");
             [PSAlertView showWithTitle:nil message:response.msg messageAlignment:NSTextAlignmentCenter image:nil handler:^(PSAlertView *alertView, NSInteger buttonIndex) {
-                
             } buttonTitles:cancel,determine, nil];
             //[PSTipsView showTips:response.msg ? response.msg : @"预约失败"];
             //埋点...

@@ -53,26 +53,30 @@
     
     PSFeedbackViewModel *feedbackViewModel = (PSFeedbackViewModel *)self.viewModel;
     @weakify(self)
+    [[PSLoadingView sharedInstance] show];
     [feedbackViewModel sendFeedbackTypesCompleted:^(PSResponse *response) {
         @strongify(self)
-        submitBtn.enabled = YES;
         if (response.code == 200) {
             [self.tableview reloadData];
         }else{
             NSString *msg = NSLocalizedString(@"Get feedback suggestion feedback category failed", @"获取反馈建议反馈类别失败");
            [PSTipsView showTips:response.msg ? response.msg : msg];
         }
+        [[PSLoadingView sharedInstance] dismiss];
     } failed:^(NSError *error) {
         @strongify(self)
         [self showNetError:error];
-        submitBtn.enabled = YES;
+        [[PSLoadingView sharedInstance] dismiss];
     }];
     
 }
 - (void)sendFeedback {
     PSFeedbackViewModel *feedbackViewModel = (PSFeedbackViewModel *)self.viewModel;
     @weakify(self)
+    [[PSLoadingView sharedInstance] show];
     [feedbackViewModel sendFeedbackCompleted:^(PSResponse *response) {
+        [[PSLoadingView sharedInstance] dismiss];
+        submitBtn.enabled = YES;
         @strongify(self)
         if (response.code == 200) {
             self.feedbackSucess = YES; //反馈成功
@@ -87,6 +91,8 @@
         }
     } failed:^(NSError *error) {
         @strongify(self)
+        submitBtn.enabled = YES;
+        [[PSLoadingView sharedInstance] dismiss];
         [self showNetError:error];
     }];
 }

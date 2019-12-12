@@ -177,7 +177,7 @@
             [picker setSourceType:UIImagePickerControllerSourceTypeCamera];
             picker.delegate = self;
             [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:picker animated:YES completion:nil];
-        }];
+        } setBlock:nil isShow:YES];
     }];
     UIAlertAction *albumAction = [UIAlertAction actionWithTitle:Choose_from_album style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         [PSAuthorizationTool checkAndRedirectPhotoAuthorizationWithBlock:^(BOOL result) {
@@ -194,7 +194,7 @@
             [picker setSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
              picker.delegate = self;
             [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:picker animated:YES completion:nil];
-        }];
+        } setBlock:nil isShow:YES];
     }];
     [alert addAction:cancelAction];
     [alert addAction:takePhotoAction];

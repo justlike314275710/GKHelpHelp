@@ -42,7 +42,7 @@
             [picker setSourceType:UIImagePickerControllerSourceTypeCamera];
              picker.delegate =self;
             [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:picker animated:YES completion:nil];
-        }];
+        } setBlock:nil isShow:YES];
     }];
 
     [alert addAction:cancelAction];
@@ -111,7 +111,7 @@
             topViewController.navigationItem.leftBarButtonItem = [self cameraBackItem];
             [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:viewController animated:YES completion:nil];
         }
-    }];
+    }setBlock:nil isShow:YES];
 }
 
 - (IBAction)backCardCameraAction:(id)sender {
@@ -136,7 +136,7 @@
             topViewController.navigationItem.leftBarButtonItem = [self cameraBackItem];
             [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:viewController animated:YES completion:nil];
         }
-    }];
+    } setBlock:nil isShow:YES];
 }
 
 

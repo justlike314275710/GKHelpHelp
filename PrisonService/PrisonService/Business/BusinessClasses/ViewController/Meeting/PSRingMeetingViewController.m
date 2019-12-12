@@ -92,6 +92,10 @@
     }];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+}
+
 #pragma mark - TouchEvent
 //埋点不做任何操作
 - (void)refuseAction:(UIButton *)sender {
@@ -110,13 +114,21 @@
     [self renderContents];
     [self startRinging];
     //检测权限
-    [PSAuthorizationTool viode_checkAndRedirectAVAuthorizationWithBlock:^(BOOL result) {
-        if (!result) {
-            //直接拒绝
+    //第一次不弹窗直接退出界面
+    [PSAuthorizationTool checkAndRedirectAVAuthorizationWithBlock:^(BOOL result) {
+        
+    } setBlock:^{
+       //点击设置
+        [self stopRinging];
+        [self dismissViewControllerAnimated:YES completion:nil];
+        if (self.userOperation) {
             self.userOperation(PSMeetingRefuse);
         }
-    }];
+    } isShow:NO];
+
 }
+
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

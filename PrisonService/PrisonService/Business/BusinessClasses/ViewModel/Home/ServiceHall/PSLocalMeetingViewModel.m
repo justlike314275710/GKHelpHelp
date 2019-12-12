@@ -47,7 +47,7 @@
     }
     _routeString = addressString;
 }
-
+//查询实地会见
 - (void)requestLocalMeetingDetailCompleted:(RequestDataCompleted)completedCallback failed:(RequestDataFailed)failedCallback {
     self.meetingDetailRequest = [PSLocalMeetingDetailRequest new];
     self.meetingDetailRequest.familyId = [PSSessionManager sharedInstance].session.families.id;

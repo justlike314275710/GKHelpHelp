@@ -301,8 +301,6 @@
     [self refreshData];
 }
 
-
-
 - (void)cancelApplyMeeting:(UIButton*)sender {
     PSMeetingHistoryViewModel *meetingHistoryViewModel =(PSMeetingHistoryViewModel *)self.viewModel;
     PSMeettingHistory *MeettingHistory= meetingHistoryViewModel.meeetHistorys[sender.tag];

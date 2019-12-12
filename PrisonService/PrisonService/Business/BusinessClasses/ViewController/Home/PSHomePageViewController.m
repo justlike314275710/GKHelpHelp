@@ -96,6 +96,18 @@
     AppDelegate *appdelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
     [appdelegate checkAuthorizationWithLocation];
     
+    //测试环境
+    if (UAT==1) {
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(KScreenWidth-70,0, 50, 20)];
+            label.textColor = [UIColor redColor];
+            label.text = @"测试";
+            label.font = FontOfSize(10);
+            UIWindow *wd = [UIApplication sharedApplication].keyWindow;
+            [wd addSubview:label];
+        });
+    }
+    
 }
 - (void)dealloc
 {

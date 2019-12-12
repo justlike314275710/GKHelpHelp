@@ -175,7 +175,7 @@
         [picker setSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
         picker.delegate = self;
         [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:picker animated:YES completion:nil];
-    }];
+    } setBlock:nil isShow:YES];
 }
 
 -(void)openCamera {
@@ -189,7 +189,7 @@
         [picker setSourceType:UIImagePickerControllerSourceTypeCamera];
         picker.delegate = self;
         [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:picker animated:YES completion:nil];
-    }];
+    } setBlock:nil isShow:YES];
 }
 
 - (void)handlePickerImage:(UIImage *)image {

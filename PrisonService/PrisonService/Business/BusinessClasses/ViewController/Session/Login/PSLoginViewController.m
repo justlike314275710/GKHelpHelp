@@ -122,22 +122,13 @@ typedef NS_ENUM(NSInteger, PSLoginModeType) {
         
     }];
     
-    @weakify(self)
-    [self.loginMiddleView.codeButton bk_whenTapped:^{
-        @strongify(self)
-        [self codeClicks];//连续点击获取验证码
-    }];
+    
+    [self.loginMiddleView.codeButton addTarget:self action:@selector(codeClicks) forControlEvents:UIControlEventTouchUpInside];
+    
     [self.loginMiddleView.codeTextField setBk_didEndEditingBlock:^(UITextField *textField) {
         loginViewModel.messageCode =textField.text;
     }];
     [self.loginMiddleView.loginButton addTarget:self action:@selector(checkDataIsEmpty) forControlEvents:UIControlEventTouchUpInside];
-    
-//    [self.loginMiddleView.loginButton bk_whenTapped:^{
-//        @strongify(self)
-//        [self checkDataIsEmpty];
-//        _loginMiddleView.loginButton.enabled=NO;
-//        _loginMiddleView.loginButton.selected = NO;
-//    }];
     
     [self.view addSubview:self.protocolLabel];
     [self.protocolLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -192,6 +183,8 @@ typedef NS_ENUM(NSInteger, PSLoginModeType) {
 }
 //MARK:获取验证码
 -(void)requestForVerificationCode{
+    
+    [[PSLoadingView sharedInstance] show];
     [_loginMiddleView.codeButton setTitle:@"获取验证码" forState:UIControlStateNormal];
     [_loginMiddleView.codeButton setTitleColor:AppBaseTextColor2  forState:UIControlStateNormal];
     [self.view endEditing:YES];
@@ -210,18 +203,21 @@ typedef NS_ENUM(NSInteger, PSLoginModeType) {
                     [PSTipsView showTips:@"获取验证码失败"];
                     _loginMiddleView.codeButton.enabled=YES;
                 }
+                [[PSLoadingView sharedInstance] dismiss];
             } failed:^(NSError *error) {
                 @strongify(self)
                 _loginMiddleView.codeButton.enabled=YES;
                 [_loginMiddleView.codeButton setTitle:@"获取验证码" forState:UIControlStateNormal];
                 [_loginMiddleView.codeButton setTitleColor:AppBaseTextColor3  forState:UIControlStateNormal];
                 [self showNetError:error];
+                [[PSLoadingView sharedInstance] dismiss];
             }];
         } else {
             [PSTipsView showTips:tips];
             _loginMiddleView.codeButton.enabled = YES;
             [_loginMiddleView.codeButton setTitle:@"获取验证码" forState:UIControlStateNormal];
             [_loginMiddleView.codeButton setTitleColor:AppBaseTextColor3  forState:UIControlStateNormal];
+            [[PSLoadingView sharedInstance] dismiss];
         }
     }];
 }
@@ -250,6 +246,7 @@ typedef NS_ENUM(NSInteger, PSLoginModeType) {
 }
 //MARK:公共服务登录
 -(void)EcommerceOfLogin{
+    [[PSLoadingView sharedInstance] show];
     PSEcomLoginViewmodel*ecomViewmodel=[[PSEcomLoginViewmodel alloc]init];
     ecomViewmodel.username=self.loginMiddleView.phoneTextField.text;
     ecomViewmodel.password=self.loginMiddleView.codeTextField.text;
@@ -266,11 +263,13 @@ typedef NS_ENUM(NSInteger, PSLoginModeType) {
             [PSTipsView showTips:account_code_error];
             self.loginMiddleView.loginButton.enabled=YES;
             self.loginMiddleView.loginButton.selected=YES;
+             [[PSLoadingView sharedInstance] dismiss];
         }
     } failed:^(NSError *error) {
         [self showNetError:error];
         self.loginMiddleView.loginButton.enabled=YES;
         self.loginMiddleView.loginButton.selected=YES;
+         [[PSLoadingView sharedInstance] dismiss];
     }];
 }
 //MARK:查询(同步)当前IM信息
@@ -283,6 +282,7 @@ typedef NS_ENUM(NSInteger, PSLoginModeType) {
         [PSTipsView showTips:account_code_error];
         self.loginMiddleView.loginButton.enabled=YES;
         self.loginMiddleView.loginButton.selected=YES;
+        [[PSLoadingView sharedInstance] dismiss];
     }];
 }
 //MARK:狱务通登录
@@ -313,6 +313,7 @@ typedef NS_ENUM(NSInteger, PSLoginModeType) {
         }
         self.loginMiddleView.loginButton.enabled=YES;
         self.loginMiddleView.loginButton.selected=YES;
+        [[PSLoadingView sharedInstance] dismiss];
     } failed:^(NSError *error) {
         @strongify(self)
         [[PSLoadingView sharedInstance] dismiss];
@@ -325,6 +326,7 @@ typedef NS_ENUM(NSInteger, PSLoginModeType) {
 //MARK:注册
 -(void)EcommerceOfRegister{
     
+    [[PSLoadingView sharedInstance] show];
     PSEcomRegisterViewmodel*ecomRegisterViewmodel=[[PSEcomRegisterViewmodel alloc]init];
     @weakify(self)
     ecomRegisterViewmodel.phoneNumber=self.loginMiddleView.phoneTextField.text;
@@ -337,6 +339,10 @@ typedef NS_ENUM(NSInteger, PSLoginModeType) {
         else {
             NSString*account_code_error=NSLocalizedString(@"account_code_error", nil);
             [PSTipsView showTips:account_code_error];
+            _loginMiddleView.loginButton.enabled=YES;
+            _loginMiddleView.loginButton.selected = YES;
+            [[PSLoadingView sharedInstance] dismiss];
+            
         }
     } failed:^(NSError *error) {
         @strongify(self)
@@ -347,9 +353,16 @@ typedef NS_ENUM(NSInteger, PSLoginModeType) {
                 [self EcommerceOfLogin];
             } else {
                 [self showNetError:error];
+                _loginMiddleView.loginButton.enabled=YES;
+                _loginMiddleView.loginButton.selected = YES;
+                [[PSLoadingView sharedInstance] dismiss];
             }
         } else {
             [self showNetError:error];
+            _loginMiddleView.loginButton.enabled=YES;
+            _loginMiddleView.loginButton.selected = YES;
+            [[PSLoadingView sharedInstance] dismiss];
+      
         }
     }];
 }
@@ -419,11 +432,11 @@ typedef NS_ENUM(NSInteger, PSLoginModeType) {
             if ([NSObject judegeIsVietnamVersion]) { //越南版
                 [self EcommerceOfVietnamRegister];
             } else{
-                if (self.loginModeType==PSLoginModePassword) {
+                if (self.loginModeType==PSLoginModePassword) { //密码登录
                     [self EcommerceOfLogin];
                     [SDTrackTool logEvent:PSW_Login];
                 }
-                if (self.loginModeType==PSLoginModeCode){
+                if (self.loginModeType==PSLoginModeCode){      //验证码登录
                     [self EcommerceOfRegister];
                     [SDTrackTool logEvent:VER_Login];
                 }
