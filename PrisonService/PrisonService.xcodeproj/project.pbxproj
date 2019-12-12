@@ -538,6 +538,9 @@
 		EA0F3EB1229E22D8003AA280 /* PSFreeMeetingCoordinateResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = EA0F3EB0229E22D8003AA280 /* PSFreeMeetingCoordinateResponse.m */; };
 		EA1AD2C620E38BA300646B9E /* PSEcomRegisterViewmodel.m in Sources */ = {isa = PBXBuildFile; fileRef = EA1AD2C520E38BA300646B9E /* PSEcomRegisterViewmodel.m */; };
 		EA1AD2C920E47D3000646B9E /* PSEcomLoginViewmodel.m in Sources */ = {isa = PBXBuildFile; fileRef = EA1AD2C820E47D3000646B9E /* PSEcomLoginViewmodel.m */; };
+		EA26E07F239745F500220F06 /* ZXCQueueItem.m in Sources */ = {isa = PBXBuildFile; fileRef = EA26E079239745F400220F06 /* ZXCQueueItem.m */; };
+		EA26E080239745F500220F06 /* NSObject+ZXCTimer.m in Sources */ = {isa = PBXBuildFile; fileRef = EA26E07B239745F400220F06 /* NSObject+ZXCTimer.m */; };
+		EA26E081239745F500220F06 /* ZXCTimer.m in Sources */ = {isa = PBXBuildFile; fileRef = EA26E07C239745F400220F06 /* ZXCTimer.m */; };
 		EA2D77AB20D9255A0068F150 /* PSVistorLawViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA2D77AA20D9255A0068F150 /* PSVistorLawViewController.m */; };
 		EA33783720F723360081B907 /* PSHistoryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EA33783620F723360081B907 /* PSHistoryCell.m */; };
 		EA33783B20FC45700081B907 /* PSMeetHistoryRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = EA33783A20FC45700081B907 /* PSMeetHistoryRequest.m */; };
@@ -1864,6 +1867,12 @@
 		EA1AD2C520E38BA300646B9E /* PSEcomRegisterViewmodel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PSEcomRegisterViewmodel.m; sourceTree = "<group>"; };
 		EA1AD2C720E47D3000646B9E /* PSEcomLoginViewmodel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PSEcomLoginViewmodel.h; sourceTree = "<group>"; };
 		EA1AD2C820E47D3000646B9E /* PSEcomLoginViewmodel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PSEcomLoginViewmodel.m; sourceTree = "<group>"; };
+		EA26E079239745F400220F06 /* ZXCQueueItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZXCQueueItem.m; sourceTree = "<group>"; };
+		EA26E07A239745F400220F06 /* ZXCTimer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZXCTimer.h; sourceTree = "<group>"; };
+		EA26E07B239745F400220F06 /* NSObject+ZXCTimer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+ZXCTimer.m"; sourceTree = "<group>"; };
+		EA26E07C239745F400220F06 /* ZXCTimer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZXCTimer.m; sourceTree = "<group>"; };
+		EA26E07D239745F400220F06 /* ZXCQueueItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZXCQueueItem.h; sourceTree = "<group>"; };
+		EA26E07E239745F400220F06 /* NSObject+ZXCTimer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+ZXCTimer.h"; sourceTree = "<group>"; };
 		EA2D77A920D9255A0068F150 /* PSVistorLawViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PSVistorLawViewController.h; sourceTree = "<group>"; };
 		EA2D77AA20D9255A0068F150 /* PSVistorLawViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PSVistorLawViewController.m; sourceTree = "<group>"; };
 		EA33783120F702240081B907 /* PSHistoryViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PSHistoryViewController.h; sourceTree = "<group>"; };
@@ -3127,6 +3136,7 @@
 		3E5D16032074D4A4000FC779 /* Vender */ = {
 			isa = PBXGroup;
 			children = (
+				EA26E078239745F400220F06 /* ZXCTimer */,
 				55FF6BD1234092BC0001FA6C /* Kache */,
 				3E5D159820736C15000FC779 /* BaseClass */,
 				5588F9F52334650E00CB3F89 /* SDTextLimitTool */,
@@ -4685,6 +4695,19 @@
 			path = Ecommerce;
 			sourceTree = "<group>";
 		};
+		EA26E078239745F400220F06 /* ZXCTimer */ = {
+			isa = PBXGroup;
+			children = (
+				EA26E079239745F400220F06 /* ZXCQueueItem.m */,
+				EA26E07A239745F400220F06 /* ZXCTimer.h */,
+				EA26E07B239745F400220F06 /* NSObject+ZXCTimer.m */,
+				EA26E07C239745F400220F06 /* ZXCTimer.m */,
+				EA26E07D239745F400220F06 /* ZXCQueueItem.h */,
+				EA26E07E239745F400220F06 /* NSObject+ZXCTimer.h */,
+			);
+			path = ZXCTimer;
+			sourceTree = "<group>";
+		};
 		EA33783020F701F40081B907 /* History */ = {
 			isa = PBXGroup;
 			children = (
@@ -6076,9 +6099,11 @@
 				EACBC1AC2142165F004C0EAB /* PSSessionNoneViewController.m in Sources */,
 				5580DE81229F6F7100A88EED /* PSFamilyServiceNoticeViewContrlller.m in Sources */,
 				3EDA519E20AC353700D8D019 /* PSLocalMeetingCountdownCell.m in Sources */,
+				EA26E07F239745F500220F06 /* ZXCQueueItem.m in Sources */,
 				EAA0CA202188320500240724 /* TZPhotoPickerController.m in Sources */,
 				3EDF0D8F20873F5C002D98BD /* PSFamilyBaseRequest.m in Sources */,
 				EAD18F7420D272D90053F82B /* PSfaceChangeViewController.m in Sources */,
+				EA26E080239745F500220F06 /* NSObject+ZXCTimer.m in Sources */,
 				EA492482218303C100D94F1A /* PSMoreRoleDetailViewController.m in Sources */,
 				EA3CF83A21895821006A7F3B /* PSConsultationResponse.m in Sources */,
 				3ED6A0B520A9250100D2223A /* PSCartViewController.m in Sources */,
@@ -6247,6 +6272,7 @@
 				3EDF0DA620882871002D98BD /* PSUploadAvatarResponse.m in Sources */,
 				EAA0CA172188320500240724 /* TZAssetCell.m in Sources */,
 				3E5D15E620747DD0000FC779 /* PSProvince.m in Sources */,
+				EA26E081239745F500220F06 /* ZXCTimer.m in Sources */,
 				3E91DDF7208EBB2B00AADE3C /* PSWechatInfo.m in Sources */,
 				EA42860D211A93BC00418685 /* VIRegisterViewModel.m in Sources */,
 				3E5D15D220747168000FC779 /* PSBusinessRequest.m in Sources */,
