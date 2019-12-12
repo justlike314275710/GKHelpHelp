@@ -97,7 +97,7 @@
     
     if (self.times>2) {
         [PSAlertView showWithTitle:nil message:@"人脸识别失败,请重新预约远程探视会见" messageAlignment:NSTextAlignmentCenter image:IMAGE_NAMED(@"识别失败")];
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             @strongify(self)
             if (self.completion) {
                 self.completion(NO);
@@ -135,7 +135,6 @@
 }
 
 - (void)registerFaceGid {
-    
     @weakify(self)
     PSMeetingViewModel *viewModel = (PSMeetingViewModel*)self.viewModel;
     PSPrisonerFamily*model=viewModel.FamilyMembers[_i];
@@ -207,7 +206,7 @@
                     [SDTrackTool logEvent:FACE_RECOGNITION attributes:@{STATUS:MobSUCCESS}];
                         @strongify(self)
                         [PSAlertView showWithTitle:nil message:@"人脸识别成功" messageAlignment:NSTextAlignmentCenter image:IMAGE_NAMED(@"识别成功")];
-                        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                             if (self.completion) {
                                 self.completion(YES);
                             }

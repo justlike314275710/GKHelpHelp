@@ -109,7 +109,6 @@ typedef UIImage *(^ImageBlock)(UIImageView *showImageView);
 
 
 - (void)NOFaceFailed {
-    
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:VerifyFaceFailed message:@"请把手机正对面部" preferredStyle:UIAlertControllerStyleAlert];
     [alertController addAction:[UIAlertAction actionWithTitle:@"退出" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
         self.times = 0;
@@ -149,6 +148,7 @@ typedef UIImage *(^ImageBlock)(UIImageView *showImageView);
     [self.faceRequest setParameter:@"del" forKey:@"property"];
     [self.faceRequest sendRequest:data];
 }
+
 - (void)beginFaceVerifyWithData:(NSData *)data {
     self.resultStrings = [[NSString alloc] init];
     PSMeetingViewModel *viewModel = (PSMeetingViewModel*)self.viewModel;
@@ -268,13 +268,10 @@ typedef UIImage *(^ImageBlock)(UIImageView *showImageView);
                 if([rst isEqualToString:KCIFlyFaceResultSuccess]){
                     NSString *verf = [dic objectForKey:KCIFlyFaceResultVerf];
                     if([verf boolValue]){
-        
                         [SDTrackTool logEvent:FACE_RECOGNITION attributes:@{STATUS:MobSUCCESS}];
-            
-                        
                         //验证成功
                         PSMeetingViewModel *viewModel = (PSMeetingViewModel*)self.viewModel;
-                        @weakify(self)
+                       // @weakify(self)
                         if (viewModel.FamilyMembers.count==1) {
                             if (self.completion) {
                                 [PSAlertView showWithTitle:nil message:@"人脸识别成功" messageAlignment:NSTextAlignmentCenter image:IMAGE_NAMED(@"识别成功")];
@@ -333,6 +330,7 @@ typedef UIImage *(^ImageBlock)(UIImageView *showImageView);
     }
 }
 
+
 -(void)popToAppointViewController{
     for (UIViewController *controller in self.navigationController.viewControllers) {
         if ([controller isKindOfClass:[PSAppointmentViewController class]]) {
@@ -348,6 +346,7 @@ typedef UIImage *(^ImageBlock)(UIImageView *showImageView);
     [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
     [self.captureManager observeValueForKeyPath:keyPath ofObject:object change:change context:context];
 }
+
 
 - (NSString *)praseDetect:(NSDictionary* )positionDic OrignImage:(IFlyFaceImage*)faceImg{
     if(!positionDic){
@@ -599,6 +598,9 @@ typedef UIImage *(^ImageBlock)(UIImageView *showImageView);
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+
+
 #pragma mark -- 判断人脸识别类型
 -(void)JudgeFaceRecognitionType{
     PSMeetingViewModel *viewModel = (PSMeetingViewModel*)self.viewModel;
@@ -813,10 +815,6 @@ typedef UIImage *(^ImageBlock)(UIImageView *showImageView);
         
         PSPrisonerFamily*modelTwo=viewModel.FamilyMembers[1];
         UIImageView*FamliesTwoButton=[[UIImageView alloc]init];
-//        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-//             [FamliesOneButton sd_setImageWithURL:[NSURL URLWithString:PICURL(modelOne.familyAvatarUrl)] placeholderImage:images];
-//            [FamliesTwoButton sd_setImageWithURL:[NSURL URLWithString:PICURL(modelTwo.familyAvatarUrl)] placeholderImage:images];
-//        });
         [self setimage:FamliesOneButton imageUrl:PICURL(modelOne.familyAvatarUrl) placeholderImage:images];
         [self setimage:FamliesTwoButton imageUrl:PICURL(modelTwo.familyAvatarUrl) placeholderImage:images];
         
@@ -903,11 +901,7 @@ typedef UIImage *(^ImageBlock)(UIImageView *showImageView);
             make.left.mas_equalTo(FamliesTwoButton.mas_right).offset(iconSidePadding);
         }];
         
-//        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(4.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-//            [FamliesOneButton sd_setImageWithURL:[NSURL URLWithString:PICURL(modelOne.familyAvatarUrl)] placeholderImage:images];
-//            [FamliesTwoButton sd_setImageWithURL:[NSURL URLWithString:PICURL(modelTwo.familyAvatarUrl)] placeholderImage:images];
-//            [FamliesThreeButton sd_setImageWithURL:[NSURL URLWithString:PICURL(modelThress.familyAvatarUrl)] placeholderImage:images];
-//        });
+
         
         [self setimage:FamliesOneButton imageUrl:PICURL(modelOne.familyAvatarUrl) placeholderImage:images];
         [self setimage:FamliesTwoButton imageUrl:PICURL(modelTwo.familyAvatarUrl) placeholderImage:images];
