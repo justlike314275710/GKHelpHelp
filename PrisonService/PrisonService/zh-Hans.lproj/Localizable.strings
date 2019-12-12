@@ -81,7 +81,7 @@
 
 
 ///亲情电话
-"apply_success"="会见申请成功";
+"apply_success"="远程探视预约成功";
 "family_phone"="远程探视";
 "today"="今天";
 "today_after"="%ld天后";
@@ -276,7 +276,7 @@
 "reservation"="立即预约";
 "Confirm_appointment"="确定预约";
 "sure_meetting"="您确定选择%@进行预约会见吗?";
-"apply_success"="申请会见成功";
+"apply_success"="远程探视预约成功";
 "cancel_success"="取消会见成功";
 "cancel_meeting"="取消预约";
 "application_examined"="会见申请迟迟未审核";
@@ -330,7 +330,7 @@
 "face_ing_familes"="[%@]人脸识别中";
 "face_ing_tips"="人脸检测中";
 "face_familes"="本次会见家属";
-"face_familes_tips"="*本次会见必须全部通过人脸识别；\n 请依次选择亲属进行人脸识别。";
+"face_familes_tips"="*本次会见必须全部通过人脸识别；\n 请家属依次进行人脸识别。。";
 "meet_end"="监狱终端已挂断";
 
 "details"="详情";
