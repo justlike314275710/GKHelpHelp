@@ -910,8 +910,6 @@ typedef UIImage *(^ImageBlock)(UIImageView *showImageView);
             make.left.mas_equalTo(FamliesTwoButton.mas_right).offset(iconSidePadding);
         }];
         
-
-        
         [self setimage:FamliesOneButton imageUrl:PICURL(modelOne.familyAvatarUrl) placeholderImage:images];
         [self setimage:FamliesTwoButton imageUrl:PICURL(modelTwo.familyAvatarUrl) placeholderImage:images];
         [self setimage:FamliesThreeButton imageUrl:PICURL(modelThress.familyAvatarUrl) placeholderImage:images];
