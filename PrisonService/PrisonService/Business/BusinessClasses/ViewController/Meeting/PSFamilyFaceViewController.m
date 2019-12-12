@@ -48,7 +48,7 @@
 @property (nonatomic , strong) UILabel*statusTipsLable;
 @property (nonatomic , strong) UILabel*FaceRecognitionLab;
 @property (nonatomic , assign) int i;
-
+@property (nonatomic , strong)  UILabel*FamliesTwoLab ;
 
 @end
 
@@ -58,7 +58,7 @@
     if (self) {
         self.i=1;
         self.gid=nil;
-        self.title=@"会见第二个人";
+        self.title=@"会见人脸识别";
 //        self.faceDetector = [IFlyFaceDetector sharedInstance];
 //        self.faceRequest = [IFlyFaceRequest sharedInstance];
 //        [self.faceRequest setDelegate:self];
@@ -87,6 +87,7 @@
 - (void)verifyFaceFailed {
     @weakify(self)
         _FaceRecognitionLab.text=@"人脸识别失败";
+        _FamliesTwoLab.text=@"人脸识别失败";
         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:VerifyFaceFailed message:VerifyFaceFailedReson preferredStyle:UIAlertControllerStyleAlert];
         [alertController addAction:[UIAlertAction actionWithTitle:@"退出" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
            @strongify(self)
@@ -209,6 +210,7 @@
             NSString *rst = [dic objectForKey:KCIFlyFaceResultRST];
             NSString *ret = [dic objectForKey:KCIFlyFaceResultRet];
             _FaceRecognitionLab.text=@"人脸识别中";
+             _FamliesTwoLab.text=@"人脸识别中";
             if([ret integerValue] == 0){
                 if([rst isEqualToString:KCIFlyFaceResultSuccess]){
                     NSString *verf = [dic objectForKey:KCIFlyFaceResultVerf];
@@ -218,6 +220,8 @@
                     @weakify(self)
                         if (_i==viewModel.FamilyMembers.count-1) {
                              @strongify(self)
+                             _FamliesTwoLab.text=@"人脸识别成功";
+                            _FaceRecognitionLab.text=@"人脸识别成功";
                             [PSAlertView showWithTitle:nil message:@"人脸识别成功" messageAlignment:NSTextAlignmentCenter image:IMAGE_NAMED(@"识别成功")];
                             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                                 if (self.completion) {
@@ -228,6 +232,8 @@
                             return;
                         }
                         else {
+                            _FamliesTwoLab.text=@"人脸识别成功";
+                             _FaceRecognitionLab.text=@"人脸识别成功";
                             [PSAlertView showWithTitle:nil message:@"人脸识别成功" messageAlignment:NSTextAlignmentCenter image:IMAGE_NAMED(@"识别成功") handler:^(PSAlertView *alertView, NSInteger buttonIndex) {
                                 PSFamilesFaceViewController *authViewController = [[PSFamilesFaceViewController alloc] initWithViewModel:viewModel];
                                 @weakify(self)
@@ -373,6 +379,7 @@
         if (ret||!faceArray ||[faceArray count] < 1) {
             [self hideFace];
             _FaceRecognitionLab.text=@"未检测到人脸,请露出正脸";
+            _FamliesTwoLab.text=@"请露出正脸";
             //[WXZTipView showBottomWithText:@"未监测到人脸,请调整摄像头" duration:2.0f];
             return;
         }
@@ -404,6 +411,7 @@
             [self beginFaceVerifyWithData:[faceImg.image compressedData]];
             faceImg.image = nil;
             _FaceRecognitionLab.text=@"人脸识别中";
+            _FamliesTwoLab.text=@"人脸识别中";
         }
 //        else{
 //            NSString*no_face=NSLocalizedString(@"face_fail", @"人脸识别失败");
@@ -747,7 +755,7 @@
         [faceBgView addSubview:FamliesOneLab];
         FamliesOneLab.text=modelOne.familyName;
         FamliesOneLab.textAlignment=NSTextAlignmentCenter;
-        FamliesOneLab.font=AppBaseTextFont1;
+        FamliesOneLab.font=FontOfSize(12);
         FamliesOneLab.textColor=AppBaseTextColor1;
         [FamliesOneLab mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.mas_equalTo(FamliesOneButton.mas_bottom).offset(5);
@@ -769,13 +777,13 @@
             make.height.mas_equalTo(80);
             make.left.mas_equalTo(FamliesOneButton.mas_right).offset(iconSidePadding);
         }];
-        UILabel*FamliesTwoLab=[UILabel new];
-        [faceBgView addSubview:FamliesTwoLab];
-        FamliesTwoLab.text=modelTwo.familyName;
-        FamliesTwoLab.font=AppBaseTextFont1;
-        FamliesTwoLab.textColor=AppBaseTextColor1;
-        FamliesTwoLab.textAlignment=NSTextAlignmentCenter;
-        [FamliesTwoLab mas_makeConstraints:^(MASConstraintMaker *make) {
+        _FamliesTwoLab=[UILabel new];
+        [faceBgView addSubview:_FamliesTwoLab];
+        _FamliesTwoLab.text=@"人脸检测中";
+        _FamliesTwoLab.font=FontOfSize(12);
+        _FamliesTwoLab.textColor=AppBaseTextColor1;
+        _FamliesTwoLab.textAlignment=NSTextAlignmentCenter;
+        [_FamliesTwoLab mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.mas_equalTo(FamliesTwoButton.mas_bottom).offset(5);
             make.width.mas_equalTo(80);
             make.height.mas_equalTo(20);
@@ -795,12 +803,13 @@
             make.left.mas_equalTo(faceBgView.mas_left);
         }];
         
+         PSPrisonerFamily*modelOne=viewModel.FamilyMembers[0];
         UILabel*FamliesOneLab=[UILabel new];
         [faceBgView addSubview:FamliesOneLab];
-        NSString*me=NSLocalizedString(@"me", @"我");
+        NSString*me=modelOne.familyName;
         FamliesOneLab.text=me;
         FamliesOneLab.textAlignment=NSTextAlignmentCenter;
-        FamliesOneLab.font=AppBaseTextFont1;
+        FamliesOneLab.font=FontOfSize(12);
         FamliesOneLab.textColor=AppBaseTextColor1;
         [FamliesOneLab mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.mas_equalTo(FamliesOneButton.mas_bottom).offset(5);
@@ -821,13 +830,13 @@
             make.height.mas_equalTo(80);
             make.left.mas_equalTo(FamliesOneButton.mas_right).offset(iconSidePadding);
         }];
-        UILabel*FamliesTwoLab=[UILabel new];
-        [faceBgView addSubview:FamliesTwoLab];
-        FamliesTwoLab.text=modelTwo.familyName;
-        FamliesTwoLab.font=AppBaseTextFont1;
-        FamliesTwoLab.textColor=AppBaseTextColor1;
-        FamliesTwoLab.textAlignment=NSTextAlignmentCenter;
-        [FamliesTwoLab mas_makeConstraints:^(MASConstraintMaker *make) {
+        _FamliesTwoLab=[UILabel new];
+        [faceBgView addSubview:_FamliesTwoLab];
+        _FamliesTwoLab.text=@"人脸检测中";
+        _FamliesTwoLab.font=FontOfSize(12);
+        _FamliesTwoLab.textColor=AppBaseTextColor1;
+        _FamliesTwoLab.textAlignment=NSTextAlignmentCenter;
+        [_FamliesTwoLab mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.mas_equalTo(FamliesTwoButton.mas_bottom).offset(5);
             make.width.mas_equalTo(80);
             make.height.mas_equalTo(20);
@@ -848,7 +857,7 @@
         UILabel*FamliesThreeLab=[UILabel new];
         [faceBgView addSubview:FamliesThreeLab];
         FamliesThreeLab.text=modelThress.familyName;
-        FamliesThreeLab.font=AppBaseTextFont1;
+        FamliesThreeLab.font=FontOfSize(12);
         FamliesThreeLab.textColor=AppBaseTextColor1;
         FamliesThreeLab.textAlignment=NSTextAlignmentCenter;
         [FamliesThreeLab mas_makeConstraints:^(MASConstraintMaker *make) {
