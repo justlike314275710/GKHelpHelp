@@ -60,7 +60,7 @@
             [picker setSourceType:UIImagePickerControllerSourceTypeCamera];
             picker.delegate = self;
             [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:picker animated:YES completion:nil];
-        }];
+        } setBlock:nil isShow:YES];
     }];
     //    UIAlertAction *albumAction = [UIAlertAction actionWithTitle:@"从相册选择" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
     //        [PSAuthorizationTool checkAndRedirectPhotoAuthorizationWithBlock:^(BOOL result) {

@@ -516,6 +516,9 @@ typedef UIImage *(^ImageBlock)(UIImageView *showImageView);
     [self.captureManager removeObserver];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+}
 
 
 -(void)dealloc{

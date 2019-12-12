@@ -12,33 +12,31 @@ typedef NS_ENUM(NSInteger, PSAuthorizationType) {
 };
 
 typedef void (^CheckAuthorizationBlock)(BOOL result);
+typedef void (^SetBlock)();
 
 @interface PSAuthorizationTool : NSObject
-
 
 /**
  *  检测相机和麦的使用权限
  *  @param block 结果回调
  */
-+ (void)checkAndRedirectAVAuthorizationWithBlock:(CheckAuthorizationBlock)block;
-
-//视屏通话检查权限
-+ (void)viode_checkAndRedirectAVAuthorizationWithBlock:(CheckAuthorizationBlock)block;
++ (void)checkAndRedirectAVAuthorizationWithBlock:(CheckAuthorizationBlock)block setBlock:(SetBlock)setblock isShow:(BOOL)isShow;
 /**
  *  检测相机的使用权限
  *  @param block 结果回调
  */
-+ (void)checkAndRedirectCameraAuthorizationWithBlock:(CheckAuthorizationBlock)block;
++ (void)checkAndRedirectCameraAuthorizationWithBlock:(CheckAuthorizationBlock)block setBlock:(SetBlock)setblock isShow:(BOOL)isShow;
 /**
  *  检测相册的使用权限
  *  @param block 结果回调
  */
-+ (void)checkAndRedirectPhotoAuthorizationWithBlock:(CheckAuthorizationBlock)block;
++ (void)checkAndRedirectPhotoAuthorizationWithBlock:(CheckAuthorizationBlock)block setBlock:(SetBlock)setblock isShow:(BOOL)isShow;
 /**
  *  检测麦的使用权限
  *  @param block 结果回调
  */
-+ (void)checkAndRedirectAudioAuthorizationWithBlock:(CheckAuthorizationBlock)block;
++ (void)checkAndRedirectAudioAuthorizationWithBlock:(CheckAuthorizationBlock)block setBlock:(SetBlock)setblock isShow:(BOOL)isShow;
+
 + (BOOL)isAudioAvailable;
 
 //获取权限

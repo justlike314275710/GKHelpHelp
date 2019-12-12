@@ -274,6 +274,7 @@
     [viewModel checkDataWithCallback:^(BOOL successful, NSString *tips) {
         if (successful) {
             _publishBtn.enabled = YES;
+            [[PSLoadingView sharedInstance] show];
             [viewModel publishArticleCompleted:^(PSResponse *response) {
                 if (response.code == 200) { //文章发表成功
                     PSPublishScuessViewController *scuessVC = [[PSPublishScuessViewController alloc] init];
@@ -299,8 +300,10 @@
                         [self reEditContent];
                     });
                 }
+                [[PSLoadingView sharedInstance] dismiss];
             } failed:^(NSError *error) {
                 _publishBtn.enabled = YES;
+                [[PSLoadingView sharedInstance] dismiss];
             }];
         } else {
             [PSTipsView showTips:tips];

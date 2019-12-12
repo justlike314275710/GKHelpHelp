@@ -161,21 +161,19 @@
 }
 
 - (void)sendFeedback {
-    @weakify(self)
+    @weakify(self);
+    [[PSLoadingView sharedInstance] show];
     [self.feedBackLogic sendFeedbackCompleted:^(id data) {
         @strongify(self);
         self.feedbackSucess = YES; //反馈成功
         _submitBtn.enabled = YES;
         PSFWriteFeedSuccessViewController *storageViewController = [[PSFWriteFeedSuccessViewController alloc] initWithViewModel:self.viewModel];
         [self.navigationController pushViewController:storageViewController animated:YES];
+        [[PSLoadingView sharedInstance] dismiss];
     } failed:^(NSError *error) {
-        NSData *data = error.userInfo[AFNetworkingOperationFailingURLResponseDataErrorKey];
-        if (data) {
-            id body = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
-            NSString*code=body[@"message"];
-            [PSTipsView showTips:code?code:@"提交失败"];
-        }
         _submitBtn.enabled = YES;
+        [self showNetError:error];
+        [[PSLoadingView sharedInstance] dismiss];
     }];
 }
 
