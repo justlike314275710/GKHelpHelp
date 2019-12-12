@@ -6,7 +6,7 @@
 //  Copyright © 2018年 calvin. All rights reserved.
 //
 
-
+#import "PSAlertView.h"
 #import "iflyMSC/IFlyFaceSDK.h"
 #import "PSThirdPartyConstants.h"
 #import "PSBusinessConstants.h"
@@ -77,19 +77,36 @@
 }
 
 - (void)verifyFaceFailed {
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:VerifyFaceFailed preferredStyle:UIAlertControllerStyleAlert];
-    [alertController addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+    @weakify(self)
+    _FaceRecognitionLab.text=@"人脸识别失败";
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:VerifyFaceFailed message:VerifyFaceFailedReson preferredStyle:UIAlertControllerStyleAlert];
+    [alertController addAction:[UIAlertAction actionWithTitle:@"退出" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+        @strongify(self)
         self.times = 0;
+        if (self.completion) {
+            self.completion(NO);
+        }
+        // [self.navigationController popViewControllerAnimated:NO];
+    }]];
+    [alertController addAction:[UIAlertAction actionWithTitle:@"再试一次" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        self.times++;
         if (self.isVerifying) {
             self.isVerifying = NO;
         }
     }]];
-    [alertController addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        if (self.completion) {
-            self.completion(NO);
-        }
-    }]];
-    [self presentViewController:alertController animated:YES completion:nil];
+    
+    if (self.times>2) {
+        [PSAlertView showWithTitle:nil message:@"人脸识别失败,请重新预约远程探视会见" messageAlignment:NSTextAlignmentCenter image:IMAGE_NAMED(@"识别失败")];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            @strongify(self)
+            if (self.completion) {
+                self.completion(NO);
+            }
+        });
+    } else {
+        [self presentViewController:alertController animated:YES completion:nil];
+    }
+    
 }
 
 - (void)beginFaceAuthData:(NSData *)data {
@@ -127,7 +144,23 @@
     } completed:^(UIImage * _Nullable image, NSData * _Nullable data, NSError * _Nullable error, SDImageCacheType cacheType, BOOL finished, NSURL * _Nullable imageURL) {
         @strongify(self)
         if (error) {
-            [self registerFaceFailed];
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:PICURL(avatarUrl)]];
+                __block UIImage *loadimage = [UIImage imageWithData:data];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    if (loadimage) {
+                        CGSize maxSize = CGSizeMake(200, 200);
+                        if (image.size.width > maxSize.width || image.size.height > maxSize.height) {
+                            loadimage = [loadimage imageByScalingProportionallyToSize:maxSize];
+                        }
+                        NSData *compressData = [loadimage compressedData];
+                        [self beginFaceAuthData:compressData];
+                    } else {
+                        NSLog(@"%@",@"图片下载失败");
+                        [self registerFaceFailed];
+                    }
+                });
+            });
         }else{
             CGSize maxSize = CGSizeMake(200, 200);
             if (image.size.width > maxSize.width || image.size.height > maxSize.height) {
@@ -165,25 +198,27 @@
         if([strSessionType isEqualToString:KCIFlyFaceResultVerify]) {
             NSString *rst = [dic objectForKey:KCIFlyFaceResultRST];
             NSString *ret = [dic objectForKey:KCIFlyFaceResultRet];
+            _FaceRecognitionLab.text=@"人脸识别中";
+              @weakify(self)
             if([ret integerValue] == 0){
                 if([rst isEqualToString:KCIFlyFaceResultSuccess]){
                     NSString *verf = [dic objectForKey:KCIFlyFaceResultVerf];
                     if([verf boolValue]){
-                    NSString*face_success=NSLocalizedString(@"face_success", @"人脸识别成功");
                     [SDTrackTool logEvent:FACE_RECOGNITION attributes:@{STATUS:MobSUCCESS}];
-                    _statusTipsLable.text=face_success;
-                        @weakify(self)
-                        if (self.completion) {
-                            @strongify(self)
-                            self.completion(YES);
-                        }
+                        @strongify(self)
+                        [PSAlertView showWithTitle:nil message:@"人脸识别成功" messageAlignment:NSTextAlignmentCenter image:IMAGE_NAMED(@"识别成功")];
+                        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                            if (self.completion) {
+                                self.completion(YES);
+                            }
+                        });
                         return;
 
                     }
                     else{
-                        NSString*face_fail=NSLocalizedString(@"face_fail", @"人脸识别失败");
                         [SDTrackTool logEvent:FACE_RECOGNITION attributes:@{STATUS:MobFAILURE}];
-                         _statusTipsLable.text=face_fail;
+                        [self verifyFaceFailed];
+                        return;
                     }
                 }
             }
@@ -293,9 +328,7 @@
         //没有检测到人脸或发生错误
         if (ret||!faceArray ||[faceArray count] < 1) {
             [self hideFace];
-            NSString*no_face=NSLocalizedString(@"no_face", @"人未检测到人脸");
-            _statusTipsLable.text=no_face;
-            //[WXZTipView showBottomWithText:@"未监测到人脸,请调整摄像头" duration:2.0f];
+             _FaceRecognitionLab.text=@"未检测到人脸,请露出正脸";
             return;
         }
         //检测到人脸
@@ -324,6 +357,7 @@
             self.isVerifying = YES;
             [self beginFaceVerifyWithData:[faceImg.image compressedData]];
             faceImg.image = nil;
+            _FaceRecognitionLab.text=@"人脸识别中";
         }
 //        else{
 //            NSString*no_face=NSLocalizedString(@"face_fail", @"人脸识别失败");
@@ -368,6 +402,7 @@
 -(void)dealloc{
     self.captureManager=nil;
     self.viewCanvas=nil;
+    self.faceRequest.delegate=nil;
 }
 
 - (void)viewDidLoad {
@@ -376,11 +411,54 @@
     self.faceDetector = [IFlyFaceDetector sharedInstance];
     self.faceRequest = [IFlyFaceRequest sharedInstance];
     [self.faceRequest setDelegate:self];
-    [self requestFamilesMeeting];
-//    self.gid=nil;
+    [self JudgeFaceRecognitionType];
+
+}
+
+#pragma mark -- 判断人脸识别类型
+-(void)JudgeFaceRecognitionType{
+    PSMeetingViewModel *viewModel = (PSMeetingViewModel*)self.viewModel;
+    switch (viewModel.faceType) {
+        case PSFaceMeeting:{
+            [self meetingFace];
+        }
+            break;
+        case PSFaceAppointment:{
+            [self appointmentFace];
+        }
+            break;
+            
+        default:
+            break;
+    }
 }
 
 
+-(void)meetingFace{
+    PSMeetingViewModel *viewModel = (PSMeetingViewModel*)self.viewModel;
+    if (viewModel.familymeetingID.length==0) {
+        [self renderContents];
+        [self registerFaceGid];
+    } else {
+        [viewModel requestFamilyMembersCompleted:^(PSResponse *response) {
+            if (response.code==200) {
+                [self registerFaceGid];
+                [self renderContents];
+            }
+            else{
+                [PSTipsView showTips:response.msg?response.msg:@"获取会见列表失败"];
+            }
+        } failed:^(NSError *error) {
+            // [[PSLoadingView sharedInstance] dismiss];
+            [self showNetError:error];
+        }];
+    }
+}
+
+-(void)appointmentFace{
+    [self registerFaceGid];
+    [self renderContents];
+}
 
     
     
@@ -474,16 +552,13 @@
     CGFloat sidePadding = 15;
     CGFloat verticalPadding = RELATIVE_HEIGHT_VALUE(25);
     PSMeetingViewModel *viewModel = (PSMeetingViewModel*)self.viewModel;
-    NSArray*modelArray=[[viewModel.FamilyMembers reverseObjectEnumerator]allObjects];
-    NSLog(@"registerFaceGid %d",_i);
-    PSPrisonerFamily*model=modelArray[_i];
     
     _FaceRecognitionLab=[[UILabel alloc]init];
     [self.view addSubview:_FaceRecognitionLab];
-    NSString*face_ing_familes=NSLocalizedString(@"face_ing_familes", @"[%@]人脸识别中");
-    _FaceRecognitionLab.text=[NSString stringWithFormat:face_ing_familes,model.familyName];
+ 
+    _FaceRecognitionLab.text=@"人脸检测中...";
     _FaceRecognitionLab.font=AppBaseTextFont1;
-    _FaceRecognitionLab.textColor=AppBaseTextColor1;
+    _FaceRecognitionLab.textColor=AppBaseTextColor3;
     _FaceRecognitionLab.textAlignment=NSTextAlignmentCenter;
     [_FaceRecognitionLab mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(15);
@@ -534,10 +609,11 @@
     _statusTipsLable=[UILabel new];
     [self.view addSubview:_statusTipsLable];
     _statusTipsLable.textAlignment=NSTextAlignmentCenter;
-    NSString*face_ing_tips=NSLocalizedString(@"face_ing_tips", @"识别提示:正在识别中");
-    _statusTipsLable.text=face_ing_tips;
+  
+    PSPrisonerFamily*model=viewModel.FamilyMembers[2];
+    _statusTipsLable.text=NSStringFormat(@"[%@]",model.familyName);
     _statusTipsLable.font=AppBaseTextFont3;
-    _statusTipsLable.textColor=AppBaseTextColor3;
+    _statusTipsLable.textColor=AppBaseTextColor1;
     [_statusTipsLable mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(rightBoomImageView.mas_bottom).offset(5);
         make.width.mas_equalTo(SCREEN_WIDTH-2*sidePadding);
@@ -615,7 +691,8 @@
         UIImage*images=[UIImage imageNamed:@"meetingAuthIcon"];
         UIImageView*FamliesOneButton=[[UIImageView alloc]init];
         //[FamliesOneButton setImage:images forState:UIControlStateNormal];
-        [FamliesOneButton sd_setImageWithURL:[NSURL URLWithString:PICURL(modelOne.familyAvatarUrl)] placeholderImage:images];
+//        [FamliesOneButton sd_setImageWithURL:[NSURL URLWithString:PICURL(modelOne.familyAvatarUrl)] placeholderImage:images];
+        [self setimage:FamliesOneButton imageUrl:PICURL(modelOne.familyAvatarUrl) placeholderImage:images];
         [faceBgView addSubview:FamliesOneButton];
         [FamliesOneButton mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.mas_equalTo(contentLable.mas_bottom).offset(5);
@@ -669,12 +746,12 @@
         }];
     }
     else if (viewModel.FamilyMembers.count==3){
-        PSPrisonerFamily*modelOne=viewModel.FamilyMembers[0];
+        //PSPrisonerFamily*modelOne=viewModel.FamilyMembers[0];
         CGFloat iconSidePadding = (SCREEN_WIDTH-2*sidePadding-240)/2;
         UIImage*images=[UIImage imageNamed:@"meetingAuthIcon"];
         UIImageView*FamliesOneButton=[[UIImageView alloc]init];
         //[FamliesOneButton setImage:images forState:UIControlStateNormal];
-        [FamliesOneButton sd_setImageWithURL:[NSURL URLWithString:PICURL(modelOne.familyAvatarUrl)] placeholderImage:images];
+        [FamliesOneButton setImage:IMAGE_NAMED(@"识别通过")];
         [faceBgView addSubview:FamliesOneButton];
         [FamliesOneButton mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.mas_equalTo(contentLable.mas_bottom).offset(5);
@@ -696,18 +773,11 @@
             make.height.mas_equalTo(20);
             make.left.mas_equalTo(faceBgView.mas_left);
         }];
-        UIImageView*passImageView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"scanningSuccess"]];
-        [FamliesOneButton  addSubview:passImageView];
-        [passImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.mas_equalTo(FamliesOneButton.mas_top).offset(-5);
-            make.width.mas_equalTo(10);
-            make.height.mas_equalTo(10);
-            make.right.mas_equalTo(FamliesOneButton.mas_right).offset(5);
-        }];
+        
         
         PSPrisonerFamily*modelTwo=viewModel.FamilyMembers[1];
         UIImageView*FamliesTwoButton=[[UIImageView alloc]init];
-        [FamliesTwoButton sd_setImageWithURL:[NSURL URLWithString:PICURL(modelTwo.familyAvatarUrl)] placeholderImage:images];
+        [FamliesTwoButton setImage:IMAGE_NAMED(@"识别通过")];
         [faceBgView addSubview:FamliesOneButton];
         [faceBgView addSubview:FamliesTwoButton];
         [FamliesTwoButton mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -729,19 +799,12 @@
             make.left.mas_equalTo(FamliesOneButton.mas_right).offset(iconSidePadding);
         }];
         
-        UIImageView*passTwoImageView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"scanningSuccess"]];
-        [FamliesTwoButton addSubview:passTwoImageView];
-        [passTwoImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.mas_equalTo(FamliesTwoButton.mas_top).offset(-5);
-            make.width.mas_equalTo(10);
-            make.height.mas_equalTo(10);
-            make.right.mas_equalTo(FamliesTwoButton.mas_right).offset(5);
-        }];
         
         
         PSPrisonerFamily*modelThress=viewModel.FamilyMembers[2];
         UIImageView*FamliesThreeButton=[[UIImageView alloc]init];
-        [FamliesThreeButton sd_setImageWithURL:[NSURL URLWithString:PICURL(modelThress.familyAvatarUrl)] placeholderImage:images];
+//        [FamliesThreeButton sd_setImageWithURL:[NSURL URLWithString:PICURL(modelThress.familyAvatarUrl)] placeholderImage:images];
+        [self setimage:FamliesThreeButton imageUrl:PICURL(modelThress.familyAvatarUrl) placeholderImage:images];
         [faceBgView addSubview:FamliesThreeButton];
         [FamliesThreeButton mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.mas_equalTo(contentLable.mas_bottom).offset(5);
@@ -766,6 +829,29 @@
         
     }
     
+}
+
+
+
+//加载图片
+-(void)setimage:(UIImageView *)imageView imageUrl:(NSString *)imageUrl placeholderImage:(UIImage *)placeholderImage {
+    
+    [imageView sd_setImageWithURL:[NSURL URLWithString:imageUrl] placeholderImage:placeholderImage completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
+        if (error) {
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:imageUrl]];
+                UIImage *LoadImage = [UIImage imageWithData:data];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    if (LoadImage) {
+                        imageView.image = LoadImage;
+                        //注册....
+                    } else {
+                        NSLog(@"%@",@"图片下载失败");
+                    }
+                });
+            });
+        }
+    }];
 }
 
 

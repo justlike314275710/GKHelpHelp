@@ -153,6 +153,7 @@
     viewModel.meetingPassword = self.meetingPassword;
     viewModel.presenterPassword = self.presenterPassword;
     viewModel.familymeetingID=self.familesMeetingID;
+    viewModel.faceType=PSFaceMeeting;
     PSFaceAuthViewController *authViewController = [[PSFaceAuthViewController alloc] initWithViewModel:viewModel];
     @weakify(self)
     [authViewController setCompletion:^(BOOL successful) {

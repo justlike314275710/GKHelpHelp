@@ -69,6 +69,10 @@ static inline NSString * backgroundImageURLKeyForState(UIControlState state) {
           placeholderImage:(nullable UIImage *)placeholder
                    options:(SDWebImageOptions)options
                  completed:(nullable SDExternalCompletionBlock)completedBlock {
+    
+    
+    
+    
     if (!url) {
         [self.imageURLStorage removeObjectForKey:imageURLKeyForState(state)];
     } else {
