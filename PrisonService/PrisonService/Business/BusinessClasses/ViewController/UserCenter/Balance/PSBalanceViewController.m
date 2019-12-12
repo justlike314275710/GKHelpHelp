@@ -306,8 +306,8 @@
     } else {
         imageLogo.image = [UIImage R_imageNamed:@"balanceBanner"];
     }
-    [self.view addSubview:imageLogo];
     
+    [self.view addSubview:imageLogo];
     UIImageView *locationLogo = [[UIImageView alloc] initWithFrame:CGRectMake(20, 10, 13, 15)];
     locationLogo.image = [UIImage R_imageNamed:@"定位"];
     [self.view addSubview:locationLogo];

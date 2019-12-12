@@ -7,6 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
+typedef NS_ENUM(NSInteger, PSAuthorizationType) {
+    PSLocation = 0, //定位
+};
 
 typedef void (^CheckAuthorizationBlock)(BOOL result);
 
@@ -37,5 +40,10 @@ typedef void (^CheckAuthorizationBlock)(BOOL result);
  */
 + (void)checkAndRedirectAudioAuthorizationWithBlock:(CheckAuthorizationBlock)block;
 + (BOOL)isAudioAvailable;
+
+//获取权限
++(BOOL)checkAuthorizationWithType:(PSAuthorizationType)type;
++(void)showAuthTitle:(NSString *)title message:(NSString *)message btnTitle:(NSString *)btnTitle;
+
 
 @end

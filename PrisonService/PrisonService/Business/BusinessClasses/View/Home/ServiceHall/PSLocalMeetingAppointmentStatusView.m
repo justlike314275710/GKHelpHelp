@@ -110,13 +110,14 @@
             NSString*reservation=NSLocalizedString(@"reservation", @"立即预约");
             [appointButton setTitle:reservation forState:UIControlStateNormal];
             [self addSubview:appointButton];
-            @weakify(self);
-            [appointButton bk_whenTapped:^{
-                @strongify(self);
-                if (self.actionBlock) {
-                    self.actionBlock(PSLocalMeetingWithoutAppointment);
-                }
-            }];
+            [appointButton addTarget:self action:@selector(rightInterView:) forControlEvents:UIControlEventTouchUpInside];
+//            @weakify(self);
+//            [appointButton bk_whenTapped:^{
+//                @strongify(self);
+//                if (self.actionBlock) {
+//                    self.actionBlock(PSLocalMeetingWithoutAppointment);
+//                }
+//            }];
         }
             break;
             case PSLocalMeetingPending:
@@ -424,6 +425,12 @@
             break;
         default:
             break;
+    }
+}
+
+-(void)rightInterView:(UIButton *)sender {
+    if (self.actionBlock) {
+        self.actionBlock(PSLocalMeetingWithoutAppointment);
     }
 }
 

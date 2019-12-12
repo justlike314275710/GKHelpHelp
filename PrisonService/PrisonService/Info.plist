@@ -73,7 +73,7 @@
 	<key>NSCalendarsUsageDescription</key>
 	<string>狱务通想要访问您的日历添加会见</string>
 	<key>NSCameraUsageDescription</key>
-	<string>狱务通需要您的同意,您的相机才能用于视频通话</string>
+	<string>狱务通需要您的同意,您的相机才能用于远程探视</string>
 	<key>NSHumanReadableCopyright</key>
 	<string></string>
 	<key>NSLocationUsageDescription</key>

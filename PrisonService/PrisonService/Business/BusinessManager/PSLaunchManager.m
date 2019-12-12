@@ -111,11 +111,10 @@
     [self addTask:[PSGuideManager sharedInstance]];
    // [self addTask:[PSVisitorManager sharedInstance]];
     [self addTask:[PSSessionManager sharedInstance]];
-    [self addTask:[PSLocateManager sharedInstance]];
     [self addTask:[PSContentManager sharedInstance]];
+    [self addTask:[PSLocateManager sharedInstance]];
     [self addTask:[PSMeetingManager sharedInstance]];
     [self addTask:[PSIMMessageManager sharedInstance]];
-    
     [self launch];
 }
 

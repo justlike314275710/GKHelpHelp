@@ -16,7 +16,9 @@
 #import "PSRegisterViewModel.h"
 #import "NSString+emoji.h"
 
-@interface PSWriteFeedbackViewController () <UITextViewDelegate,UITableViewDelegate,UITableViewDataSource>
+@interface PSWriteFeedbackViewController () <UITextViewDelegate,UITableViewDelegate,UITableViewDataSource>{
+    UIButton*submitBtn;
+}
 
 @property (nonatomic, strong) UIScrollView *scrollview;
 @property (nonatomic, strong) UITableView *tableview;
@@ -53,6 +55,7 @@
     @weakify(self)
     [feedbackViewModel sendFeedbackTypesCompleted:^(PSResponse *response) {
         @strongify(self)
+        submitBtn.enabled = YES;
         if (response.code == 200) {
             [self.tableview reloadData];
         }else{
@@ -62,6 +65,7 @@
     } failed:^(NSError *error) {
         @strongify(self)
         [self showNetError:error];
+        submitBtn.enabled = YES;
     }];
     
 }
@@ -113,6 +117,7 @@
             [self sendFeedback];
         }else{
             [PSTipsView showTips:tips];
+            submitBtn.enabled = YES;
         }
     }];
 }
@@ -262,7 +267,7 @@
         self.imageUrls = result;
     };
     [self.scrollview addSubview:secondeView];
-    UIButton *submitBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    submitBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     submitBtn.frame = CGRectMake(15,self.scrollview.bottom+13,self.view.width-30, 44);
     submitBtn.layer.masksToBounds = YES;
     submitBtn.layer.cornerRadius= 4;
@@ -271,6 +276,7 @@
     submitBtn.backgroundColor = UIColorFromRGB(83, 119, 185);
     [self.view addSubview:submitBtn];
     [submitBtn bk_whenTapped:^{
+        submitBtn.enabled = NO;
         [self submitContent];
     }];
 }

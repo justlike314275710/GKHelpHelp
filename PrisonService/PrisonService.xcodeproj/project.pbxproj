@@ -469,6 +469,7 @@
 		55BF613D22A65FBC00A8AE92 /* PSLocalMeetingHistoryResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 55BF613C22A65FBC00A8AE92 /* PSLocalMeetingHistoryResponse.m */; };
 		55BF614322A6613400A8AE92 /* PSLocalHistoryViewContller.m in Sources */ = {isa = PBXBuildFile; fileRef = 55BF614222A6613400A8AE92 /* PSLocalHistoryViewContller.m */; };
 		55BF614622A664A000A8AE92 /* PSLocalMeetingHistoryViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 55BF614522A664A000A8AE92 /* PSLocalMeetingHistoryViewModel.m */; };
+		55C147122399FB5B00F96B4C /* UIButton+touch.m in Sources */ = {isa = PBXBuildFile; fileRef = 55C147102399FB5B00F96B4C /* UIButton+touch.m */; };
 		55C4E54E22A7985E00EF63F6 /* PSLocalHistoryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 55C4E54D22A7985E00EF63F6 /* PSLocalHistoryCell.m */; };
 		55C9EDC42188528300A11D60 /* PSFamilyRemittanceViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 55C9EDC32188528300A11D60 /* PSFamilyRemittanceViewModel.m */; };
 		55CBA86A22754C1B003506C3 /* PSUniversaLawViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 55CBA86922754C1B003506C3 /* PSUniversaLawViewController.m */; };
@@ -1730,6 +1731,8 @@
 		55BF614222A6613400A8AE92 /* PSLocalHistoryViewContller.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PSLocalHistoryViewContller.m; sourceTree = "<group>"; };
 		55BF614422A664A000A8AE92 /* PSLocalMeetingHistoryViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PSLocalMeetingHistoryViewModel.h; sourceTree = "<group>"; };
 		55BF614522A664A000A8AE92 /* PSLocalMeetingHistoryViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PSLocalMeetingHistoryViewModel.m; sourceTree = "<group>"; };
+		55C147102399FB5B00F96B4C /* UIButton+touch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+touch.m"; sourceTree = "<group>"; };
+		55C147112399FB5B00F96B4C /* UIButton+touch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+touch.h"; sourceTree = "<group>"; };
 		55C4E54C22A7985E00EF63F6 /* PSLocalHistoryCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PSLocalHistoryCell.h; sourceTree = "<group>"; };
 		55C4E54D22A7985E00EF63F6 /* PSLocalHistoryCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PSLocalHistoryCell.m; sourceTree = "<group>"; };
 		55C9EDC22188528300A11D60 /* PSFamilyRemittanceViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PSFamilyRemittanceViewModel.h; sourceTree = "<group>"; };
@@ -2716,6 +2719,8 @@
 				5573E08921E83ECC00AFE04D /* NSObjectSafe.m */,
 				55EDE92C22BA25DB00569D29 /* UIButton+BEEnLargeEdge.h */,
 				55EDE92D22BA25DB00569D29 /* UIButton+BEEnLargeEdge.m */,
+				55C147112399FB5B00F96B4C /* UIButton+touch.h */,
+				55C147102399FB5B00F96B4C /* UIButton+touch.m */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -6407,6 +6412,7 @@
 				55995211229257E200BA9FFA /* UIButton+LZCategory.m in Sources */,
 				3EC7B6D2207C647B00DFBA65 /* PSPersonalViewController.m in Sources */,
 				3EDF0DCB20889AA4002D98BD /* PSUserSession.m in Sources */,
+				55C147122399FB5B00F96B4C /* UIButton+touch.m in Sources */,
 				EA4285F82119861400418685 /* VIRegisterViewController.m in Sources */,
 				EA492483218303C100D94F1A /* PSMoreServiceViewController.m in Sources */,
 				3EC7B6E1207C6EC100DFBA65 /* PSRoundRectTextField.m in Sources */,

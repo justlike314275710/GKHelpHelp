@@ -78,7 +78,7 @@
         _codeButton = [UIButton buttonWithType:UIButtonTypeCustom];
         _codeButton.titleLabel.font = AppBaseTextFont2;
         [_codeButton setTitleColor:AppBaseTextColor3 forState:UIControlStateNormal];
-        [_codeButton setTitleColor:AppBaseTextColor2 forState:UIControlStateDisabled];
+//        [_codeButton setTitleColor:AppBaseTextColor2 forState:UIControlStateDisabled];
         [_codeButton setTitle:@"获取验证码" forState:UIControlStateNormal];
         [self addSubview:_codeButton];
         [_codeButton mas_makeConstraints:^(MASConstraintMaker *make) {

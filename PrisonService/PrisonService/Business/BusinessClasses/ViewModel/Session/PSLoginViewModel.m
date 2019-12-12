@@ -18,6 +18,7 @@
 #import "PSBusinessConstants.h"
 #import "PSSessionManager.h"
 #import "AppDelegate.h"
+#import "NSString+Utils.h"
 @interface PSLoginViewModel ()
 
 @property (nonatomic, strong) PSSendCodeRequest *sendCodeRequest;
@@ -55,7 +56,14 @@
         }
         return;
     }
-
+    
+    if (![NSString isMobileNumber:self.phoneNumber]) {
+        if (callback) {
+            NSString*please_enter_phone_number= @"请输入正确的手机号码";
+            callback(NO,please_enter_phone_number);
+        }
+        return;
+    }
     if (self.messageCode.length == 0) {
         if (callback) {
             NSString*please_enter_verify_code=NSLocalizedString(@"please_enter_verify_code", @"请输入短信验证码");
@@ -109,8 +117,6 @@
     }];
 }
 
-
-
 - (void)checkCodeCompleted:(RequestDataCompleted)completedCallback failed:(RequestDataFailed)failedCallback {
     self.checkCodeRequest = [PSCheckCodeRequest new];
     self.checkCodeRequest.phone = self.phoneNumber;
@@ -128,8 +134,8 @@
 }
 
 //狱务通登录
-- (void)loginCompleted:(RequestDataCompleted)completedCallback failed:(RequestDataFailed)failedCallback {
-
+- (void)loginCompleted:(RequestDataCompleted)completedCallback failed:(RequestDataFailed)failedCallback
+{
     manager=[AFHTTPSessionManager manager];
     NSString*token=[NSString stringWithFormat:@"Bearer %@",[LXFileManager readUserDataForKey:@"access_token"]];
     NSString *phone = self.phoneNumber.length>0?self.phoneNumber:@"";

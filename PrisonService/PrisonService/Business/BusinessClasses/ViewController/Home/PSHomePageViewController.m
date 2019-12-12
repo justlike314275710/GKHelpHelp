@@ -40,9 +40,9 @@
 #import "PSHomeFunctionView.h"
 #import "PSHomeMoreFunctionView.h"
 #import "InteractivePlatformViewController.h"
-#import "PSLocateManager.h"
 #import "PSAllMessageViewController.h"
 #import "AppDelegate.h"
+#import "AppDelegate+other.h"
 
 @interface PSHomePageViewController ()
 @property (nonatomic, strong) PSDefaultJailRequest*jailRequest;
@@ -75,6 +75,7 @@
 }
 
 - (void)viewDidLoad {
+    
     [super viewDidLoad];
     self.view.backgroundColor=UIColorFromRGBA(253, 253, 253, 1);
     //没有网络下不能为空白
@@ -91,14 +92,10 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getCountVisit) name:KNOtificationALLMessagejudgeToken object:nil];
     //获取未读消息数
     [self getCountVisit];
-    //没有认证且未调过狱务通登录接口直接退出
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    NSString *isLogin = [defaults valueForKey:Kuncertified_isLogin];
-    if (!isLogin&&[PSSessionManager sharedInstance].loginStatus==PSLoginDenied){
-        [defaults setObject:@"1" forKey:Kuncertified_isLogin];
-        [defaults synchronize];
-        [[PSSessionManager sharedInstance] doLogout];
-    }
+    //定位
+    AppDelegate *appdelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+    [appdelegate checkAuthorizationWithLocation];
+    
 }
 - (void)dealloc
 {
@@ -125,7 +122,7 @@
 }
 //MARK:重新获取TOKEN
 -(void)requestOfRefreshToken{
-    NSLog(@"token 失效");
+    
     AppDelegate *appDelegate =(AppDelegate *)[UIApplication sharedApplication].delegate;
     appDelegate.getTokenCount ++;
     if (appDelegate.getTokenCount<2) {
@@ -176,10 +173,8 @@
             }];
         }
             break;
-
         default:
            [self synchronizeDefaultJailConfigurations];
-           
             break;
     }
 }

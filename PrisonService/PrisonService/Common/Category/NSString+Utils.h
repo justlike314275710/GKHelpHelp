@@ -91,6 +91,10 @@ typedef NS_ENUM(NSInteger, STUserLevelType) {
 
 + (NSString *)stringWithNumber:(NSUInteger)number;
 
+//手机正则判断
++(BOOL)isMobileNumber:(NSString *)mobileNum;
+
+
 
 
 

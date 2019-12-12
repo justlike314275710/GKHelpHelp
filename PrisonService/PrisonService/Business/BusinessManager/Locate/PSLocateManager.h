@@ -13,9 +13,11 @@
 
 @property (nonatomic, strong, readonly) NSString *province;
 @property (nonatomic, strong, readonly) NSString *city;
-@property (nonatomic, strong, readonly) NSString *lat;
-@property (nonatomic, strong, readonly) NSString *lng;
+@property (nonatomic, strong) NSString *lat;
+@property (nonatomic, strong) NSString *lng;
 
 + (PSLocateManager *)sharedInstance;
+
+- (void)startUpdatingLocation;
 
 @end

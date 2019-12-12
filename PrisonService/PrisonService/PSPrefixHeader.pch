@@ -41,6 +41,9 @@
 #import "UIView+JJChange.h"
 #import "PSBusinessConstants.h"
 #import "NSObject+version.h"
-
+#import "PSSessionManager.h"
+#import "PSAuthorizationTool.h"
+#import "PSLocateManager.h"
+#import "UIButton+touch.h"
 #endif /* PSPrefixHeader_pch */
 #endif

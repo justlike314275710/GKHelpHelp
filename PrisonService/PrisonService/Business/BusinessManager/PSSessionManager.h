@@ -36,6 +36,7 @@ typedef void(^SynchronizePrisonerDetailsCompletion)();
 @property (nonatomic, strong, readonly) PSRegistration *currentRegistration;
 @property (nonatomic, strong, readonly) PSPrisonerDetail *currenPrisonerDetail;
 @property (nonatomic, assign) NSInteger selectedPrisonerIndex;
+@property (nonatomic, assign, readonly) BOOL isCheck; //是否审核版本
 
 
 @property (nonatomic, strong, readonly) UIViewController *rootViewController;

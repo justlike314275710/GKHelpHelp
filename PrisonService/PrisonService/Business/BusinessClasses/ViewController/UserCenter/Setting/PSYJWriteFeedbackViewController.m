@@ -22,10 +22,12 @@
 @property(nonatomic, strong)UITableView    *tableview;
 @property(nonatomic, strong)UITextView     *contentTextView;
 @property(nonatomic, strong)UILabel        *countLab;//字数
+@property(nonatomic, strong)UIButton *submitBtn;
 @property(nonatomic, assign)NSInteger      selecldIndex;
 @property(nonatomic, strong)NSMutableArray *imageUrls;
 @property(nonatomic, assign)BOOL           feedbackSucess;
 @property(nonatomic, strong)PSFeedbackViewModel *feedBackLogic;
+
 
 @end
 
@@ -120,16 +122,18 @@
         self.imageUrls = result;
     };
     [self.scrollview addSubview:secondeView];
-    UIButton *submitBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    submitBtn.frame = CGRectMake(15,KScreenHeight-44-20-kTopHeight, self.view.width-30, 44);
+    _submitBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    _submitBtn.frame = CGRectMake(15,KScreenHeight-44-20-kTopHeight, self.view.width-30, 44);
     
-    submitBtn.layer.masksToBounds = YES;
-    submitBtn.layer.cornerRadius= 4;
+    _submitBtn.layer.masksToBounds = YES;
+    _submitBtn.layer.cornerRadius= 4;
     NSString*submit= @"提交";
-    [submitBtn setTitle:submit forState:UIControlStateNormal];
-    submitBtn.backgroundColor = UIColorFromRGB(83, 119, 185);
-    [self.view addSubview:submitBtn];
-    [submitBtn bk_whenTapped:^{
+    [_submitBtn setTitle:submit forState:UIControlStateNormal];
+    _submitBtn.backgroundColor = UIColorFromRGB(83, 119, 185);
+    
+    [self.view addSubview:_submitBtn];
+    [_submitBtn bk_whenTapped:^{
+        _submitBtn.enabled = NO;
         [self submitContent];
     }];
 }
@@ -151,6 +155,7 @@
             [self sendFeedback];
         }else{
             [PSTipsView showTips:tips];
+            _submitBtn.enabled = YES;
         }
     }];
 }
@@ -160,6 +165,7 @@
     [self.feedBackLogic sendFeedbackCompleted:^(id data) {
         @strongify(self);
         self.feedbackSucess = YES; //反馈成功
+        _submitBtn.enabled = YES;
         PSFWriteFeedSuccessViewController *storageViewController = [[PSFWriteFeedSuccessViewController alloc] initWithViewModel:self.viewModel];
         [self.navigationController pushViewController:storageViewController animated:YES];
     } failed:^(NSError *error) {
@@ -169,6 +175,7 @@
             NSString*code=body[@"message"];
             [PSTipsView showTips:code?code:@"提交失败"];
         }
+        _submitBtn.enabled = YES;
     }];
 }
 
