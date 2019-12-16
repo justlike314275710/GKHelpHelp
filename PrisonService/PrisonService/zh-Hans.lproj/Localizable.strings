@@ -330,7 +330,7 @@
 "face_ing_familes"="[%@]人脸识别中";
 "face_ing_tips"="人脸检测中";
 "face_familes"="本次会见家属";
-"face_familes_tips"="*本次会见必须全部通过人脸识别；\n 请家属依次进行人脸识别。。";
+"face_familes_tips"="*本次会见必须全部通过人脸识别；\n 请家属依次进行人脸识别。";
 "meet_end"="监狱终端已挂断";
 
 "details"="详情";
