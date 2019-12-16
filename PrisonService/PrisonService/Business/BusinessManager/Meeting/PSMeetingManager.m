@@ -343,8 +343,9 @@
             if (callDuration&&[callDuration integerValue]>0) {
                 KPostNotification(KNOtificationMeetingCountdown, message);
             } else {
-                [self sendChargeLocation:message.meetingId]; //收费会见定位
+                
             }
+            [self sendChargeLocation:message.meetingId]; //收费会见定位
             
         }
             break;
