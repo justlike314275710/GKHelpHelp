@@ -206,7 +206,7 @@
         if (image) {
             CGFloat imageWidth = MIN(contentWidth, image.size.width);
             CGFloat imageHeight = image.size.height * imageWidth / image.size.width;
-            _imageView = [[UIImageView alloc] initWithFrame:CGRectMake(horSideSpace, startY, contentWidth, imageHeight)];
+            _imageView = [[UIImageView alloc] initWithFrame:CGRectMake(horSideSpace, startY-5, contentWidth, imageHeight)];
             _imageView.contentMode = UIViewContentModeScaleAspectFit;
             _imageView.image = image;
             [self addSubview:_imageView];

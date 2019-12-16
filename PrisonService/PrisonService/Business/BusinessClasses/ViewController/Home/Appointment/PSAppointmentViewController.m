@@ -104,22 +104,18 @@
     
     PSAppointmentViewModel *appointmentViewModel = (PSAppointmentViewModel *)self.viewModel;
     [[PSLoadingView sharedInstance] show];
-
-    
     for (int i=0; i<self.selectArray.count; i++) {
         PSPrisonerFamily*familesModel=self.selectArray[i];
         if ([familesModel.familyName isEqualToString:[PSSessionManager sharedInstance].session.families.name]) {
             self.familyModel=self.selectArray[i];
         }
     }
-    NSLog(@"%@",self.familyModel);
     [self.meetingMembersArray removeAllObjects];
     for (int i=0; i<self.selectArray.count; i++) {
         PSPrisonerFamily*familyModel=self.selectArray[i];
         NSDictionary*arrayDic=@{@"familyId":familyModel.familyId};
         [self.meetingMembersArray addObject:arrayDic];
     }
-    NSLog(@"远程视频会见数组||%@",self.meetingMembersArray);
     appointmentViewModel.familyId=_familyModel.familyId;
     appointmentViewModel.applicationDate=[self.calendar.selectedDate yearMonthDay];
     appointmentViewModel.prisonerId=_familyModel.prisonerId;
@@ -546,7 +542,7 @@
      AccountsViewModel*accountsViewModel=[[AccountsViewModel alloc]init];
     [accountsViewModel requestAccountsCompleted:^(PSResponse *response) {
         self.Balance=[accountsViewModel.blance floatValue];
-        //查询是该日期否能预约
+        //查询该日期否能预约
         accountsViewModel.applicationDate = [self.calendar.selectedDate yearMonthDay];
         [accountsViewModel requestCheckDataCompleted:^(PSResponse *response) {
             NSInteger code = response.code;
@@ -555,7 +551,7 @@
             } else {
                 NSString *msg = response.msg?response.msg:@"当天不支持会见!";
                 [PSAlertView showWithTitle:nil message:msg messageAlignment:NSTextAlignmentCenter image:nil handler:^(PSAlertView *alertView, NSInteger buttonIndex) {
-                } buttonTitles:@"确定", nil];
+                } buttonTitles:@"确定",@"取消", nil];
             }
             
         } failed:^(NSError *error) {
