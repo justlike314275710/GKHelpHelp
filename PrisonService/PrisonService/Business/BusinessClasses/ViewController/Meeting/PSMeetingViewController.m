@@ -111,13 +111,11 @@ typedef NS_ENUM(NSInteger, PSMeettingType) {
     NSString*H=NSLocalizedString(@"H", @"时");
     NSString*M=NSLocalizedString(@"M", @"分");
     NSString*S=NSLocalizedString(@"S", @"秒");
-    
     NSInteger seconds = totalTime ;
     NSString *format_time=nil;
     NSString *str_hour = [NSString stringWithFormat:@"%02ld",seconds/3600];
     NSLog(@"%@",str_hour);
     if (totalTime>3600) {
-        
         NSString *str_minute = [NSString stringWithFormat:@"%02ld",(seconds%3600)/60];
         NSString *str_second = [NSString stringWithFormat:@"%02ld",seconds%60];
         format_time = [NSString stringWithFormat:@"%@%@%@%@%@%@",str_hour,H,str_minute,M,str_second,S];

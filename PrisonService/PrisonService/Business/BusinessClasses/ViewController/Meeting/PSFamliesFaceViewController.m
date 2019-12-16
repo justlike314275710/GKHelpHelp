@@ -751,12 +751,11 @@
         }];
     }
     else if (viewModel.FamilyMembers.count==3){
-        PSPrisonerFamily*modelOne=viewModel.FamilyMembers[0];
         CGFloat iconSidePadding = (SCREEN_WIDTH-2*sidePadding-240)/2;
         UIImage*images=[UIImage imageNamed:@"meetingAuthIcon"];
         UIImageView*FamliesOneButton=[[UIImageView alloc]init];
-        //[FamliesOneButton setImage:images forState:UIControlStateNormal];
-        [FamliesOneButton setImage:IMAGE_NAMED(@"识别通过")];
+        PSPrisonerFamily*modelone=viewModel.FamilyMembers[0];
+        [self setimage:FamliesOneButton imageUrl:PICURL(modelone.familyAvatarUrl) placeholderImage:images];
         [faceBgView addSubview:FamliesOneButton];
         [FamliesOneButton mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.mas_equalTo(contentLable.mas_bottom).offset(5);
@@ -765,25 +764,22 @@
             make.left.mas_equalTo(faceBgView.mas_left);
         }];
         
-        UILabel*FamliesOneLab=[UILabel new];
-        [faceBgView addSubview:FamliesOneLab];
-       
-        FamliesOneLab.text=modelOne.familyName;
-        FamliesOneLab.textAlignment=NSTextAlignmentCenter;
-        FamliesOneLab.font=FontOfSize(12);
-        FamliesOneLab.textColor=AppBaseTextColor1;
-        [FamliesOneLab mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.mas_equalTo(FamliesOneButton.mas_bottom).offset(5);
+        UIImage*passImage=[UIImage imageNamed:@"识别通过"];
+        [self imageByApplyingAlpha:0.9 image:passImage];
+        UIImageView*passView=[[UIImageView alloc]init];
+        [passView setImage:passImage];
+        [FamliesOneButton addSubview:passView];
+        [passView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.mas_equalTo(contentLable.mas_bottom).offset(5);
             make.width.mas_equalTo(80);
-            make.height.mas_equalTo(20);
+            make.height.mas_equalTo(80);
             make.left.mas_equalTo(faceBgView.mas_left);
         }];
         
         
         PSPrisonerFamily*modelTwo=viewModel.FamilyMembers[1];
         UIImageView*FamliesTwoButton=[[UIImageView alloc]init];
-        [FamliesTwoButton setImage:IMAGE_NAMED(@"识别通过")];
-        [faceBgView addSubview:FamliesOneButton];
+        [self setimage:FamliesTwoButton imageUrl:PICURL(modelTwo.familyAvatarUrl) placeholderImage:images];
         [faceBgView addSubview:FamliesTwoButton];
         [FamliesTwoButton mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.mas_equalTo(contentLable.mas_bottom).offset(5);
@@ -791,6 +787,22 @@
             make.height.mas_equalTo(80);
             make.left.mas_equalTo(FamliesOneButton.mas_right).offset(iconSidePadding);
         }];
+        
+        UIImage*twoImage=[UIImage imageNamed:@"识别通过"];
+        [self imageByApplyingAlpha:0.9 image:twoImage];
+        UIImageView*passTwoView=[[UIImageView alloc]init];
+        [passTwoView setImage:twoImage];
+        [FamliesTwoButton addSubview:passTwoView];
+        [passTwoView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.mas_equalTo(contentLable.mas_bottom).offset(5);
+            make.width.mas_equalTo(80);
+            make.height.mas_equalTo(80);
+            make.left.mas_equalTo(FamliesOneButton.mas_right).offset(iconSidePadding);
+        }];
+        
+        
+        
+        
         UILabel*FamliesTwoLab=[UILabel new];
         [faceBgView addSubview:FamliesTwoLab];
         FamliesTwoLab.text=modelTwo.familyName;
@@ -857,6 +869,30 @@
             });
         }
     }];
+}
+
+
+
+/**
+ *  设置图片透明度
+ * @param alpha 透明度
+ * @param image 图片
+ */
+-(UIImage *)imageByApplyingAlpha:(CGFloat )alpha  image:(UIImage*)image
+{
+    UIGraphicsBeginImageContextWithOptions(image.size, NO, 0.0f);
+    CGContextRef ctx = UIGraphicsGetCurrentContext();
+    CGRect area = CGRectMake(0, 0, image.size.width, image.size.height);
+    CGContextScaleCTM(ctx, 1, -1);
+    CGContextTranslateCTM(ctx, 0, -area.size.height);
+    CGContextSetBlendMode(ctx, kCGBlendModeMultiply);
+    CGContextSetAlpha(ctx, alpha);
+    CGContextDrawImage(ctx, area, image.CGImage);
+    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    return newImage;
+    
 }
 
 

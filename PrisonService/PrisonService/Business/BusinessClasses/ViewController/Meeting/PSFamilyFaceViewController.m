@@ -741,9 +741,8 @@
         CGFloat iconSidePadding = (SCREEN_WIDTH-2*sidePadding-240)/2;
         UIImage*images=[UIImage imageNamed:@"meetingAuthIcon"];
         UIImageView*FamliesOneButton=[[UIImageView alloc]init];
-        //[FamliesOneButton setImage:images forState:UIControlStateNormal];
-        //[FamliesOneButton sd_setImageWithURL:[NSURL URLWithString:PICURL(modelOne.familyAvatarUrl)] placeholderImage:images];
-        [FamliesOneButton setImage:IMAGE_NAMED(@"识别通过")];
+
+        [self setimage:FamliesOneButton imageUrl:PICURL(modelOne.familyAvatarUrl) placeholderImage:images];
         [faceBgView addSubview:FamliesOneButton];
         [FamliesOneButton mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.mas_equalTo(contentLable.mas_bottom).offset(5);
@@ -751,6 +750,21 @@
             make.height.mas_equalTo(80);
             make.left.mas_equalTo(faceBgView.mas_left);
         }];
+        
+        UIImage*passImage=[UIImage imageNamed:@"识别通过"];
+        [self imageByApplyingAlpha:0.9 image:passImage];
+        UIImageView*passView=[[UIImageView alloc]init];
+        [passView setImage:passImage];
+        [FamliesOneButton addSubview:passView];
+        [passView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.mas_equalTo(contentLable.mas_bottom).offset(5);
+            make.width.mas_equalTo(80);
+            make.height.mas_equalTo(80);
+            make.left.mas_equalTo(faceBgView.mas_left);
+        }];
+        
+        
+        
         UILabel*FamliesOneLab=[UILabel new];
         [faceBgView addSubview:FamliesOneLab];
         FamliesOneLab.text=modelOne.familyName;
@@ -767,7 +781,6 @@
         
         PSPrisonerFamily*modelTwo=viewModel.FamilyMembers[1];
         UIImageView*FamliesTwoButton=[[UIImageView alloc]init];
-//        [FamliesTwoButton sd_setImageWithURL:[NSURL URLWithString:PICURL(modelTwo.familyAvatarUrl)] placeholderImage:images];
         [self setimage:FamliesTwoButton imageUrl:PICURL(modelTwo.familyAvatarUrl) placeholderImage:images];
         [faceBgView addSubview:FamliesOneButton];
         [faceBgView addSubview:FamliesTwoButton];
@@ -794,7 +807,9 @@
         CGFloat iconSidePadding = (SCREEN_WIDTH-2*sidePadding-240)/2;
         UIImage*images=[UIImage imageNamed:@"meetingAuthIcon"];
         UIImageView*FamliesOneButton=[[UIImageView alloc]init];
-         [FamliesOneButton setImage:IMAGE_NAMED(@"识别通过")];
+        PSPrisonerFamily*modelone=viewModel.FamilyMembers[0];
+        [self setimage:FamliesOneButton imageUrl:PICURL(modelone.familyAvatarUrl) placeholderImage:images];
+
         [faceBgView addSubview:FamliesOneButton];
         [FamliesOneButton mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.mas_equalTo(contentLable.mas_bottom).offset(5);
@@ -802,6 +817,23 @@
             make.height.mas_equalTo(80);
             make.left.mas_equalTo(faceBgView.mas_left);
         }];
+
+        
+        UIImage*passImage=[UIImage imageNamed:@"识别通过"];
+        [self imageByApplyingAlpha:0.9 image:passImage];
+        UIImageView*passView=[[UIImageView alloc]init];
+        [passView setImage:passImage];
+        [FamliesOneButton addSubview:passView];
+        [passView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.mas_equalTo(contentLable.mas_bottom).offset(5);
+            make.width.mas_equalTo(80);
+            make.height.mas_equalTo(80);
+            make.left.mas_equalTo(faceBgView.mas_left);
+        }];
+
+    
+        
+        
         
          PSPrisonerFamily*modelOne=viewModel.FamilyMembers[0];
         UILabel*FamliesOneLab=[UILabel new];
@@ -895,6 +927,29 @@
     }];
 }
 
+
+
+/**
+ *  设置图片透明度
+ * @param alpha 透明度
+ * @param image 图片
+ */
+-(UIImage *)imageByApplyingAlpha:(CGFloat )alpha  image:(UIImage*)image
+{
+    UIGraphicsBeginImageContextWithOptions(image.size, NO, 0.0f);
+    CGContextRef ctx = UIGraphicsGetCurrentContext();
+    CGRect area = CGRectMake(0, 0, image.size.width, image.size.height);
+    CGContextScaleCTM(ctx, 1, -1);
+    CGContextTranslateCTM(ctx, 0, -area.size.height);
+    CGContextSetBlendMode(ctx, kCGBlendModeMultiply);
+    CGContextSetAlpha(ctx, alpha);
+    CGContextDrawImage(ctx, area, image.CGImage);
+    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+
+    return newImage;
+    
+}
 
 /*
  #pragma mark - Navigation
