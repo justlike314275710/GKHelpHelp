@@ -78,7 +78,7 @@ typedef UIImage *(^ImageBlock)(UIImageView *showImageView);
     [self presentViewController:alertController animated:YES completion:nil];
 }
 
-- (void)verifyFaceFailed {
+- (void)appointmentVerifyFaceFailed {
     _FaceRecognitionLab.text=@"人脸识别失败";
     _FamliesOneLab.text=@"人脸识别失败";
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:VerifyFaceFailed message:VerifyFaceFailedReson preferredStyle:UIAlertControllerStyleAlert];
@@ -109,31 +109,20 @@ typedef UIImage *(^ImageBlock)(UIImageView *showImageView);
 }
 
 
-- (void)NOFaceFailed {
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:VerifyFaceFailed message:@"请把手机正对面部" preferredStyle:UIAlertControllerStyleAlert];
-    [alertController addAction:[UIAlertAction actionWithTitle:@"退出" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-        self.times = 0;
-        if (self.completion) {
-            self.completion(NO);
-        }
-    }]];
+- (void)meetingMentVerifyFaceFailed {
+    _FaceRecognitionLab.text=@"人脸识别失败";
+    _FamliesOneLab.text=@"人脸识别失败";
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:VerifyFaceFailed message:VerifyFaceFailedReson preferredStyle:UIAlertControllerStyleAlert];
     [alertController addAction:[UIAlertAction actionWithTitle:@"再试一次" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        self.times++;
+        self.times = 0;
+     
         if (self.isVerifying) {
             self.isVerifying = NO;
         }
     }]];
     
-    if (self.times>2) {
-        [PSAlertView showWithTitle:nil message:@"人脸识别失败,请重新预约远程探视会见" messageAlignment:NSTextAlignmentCenter image:IMAGE_NAMED(@"识别失败")];
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            if (self.completion) {
-                self.completion(NO);
-            }
-        });
-    } else {
-        [self presentViewController:alertController animated:YES completion:nil];
-    }
+    [self presentViewController:alertController animated:YES completion:nil];
+
     
 }
 
@@ -327,7 +316,7 @@ typedef UIImage *(^ImageBlock)(UIImageView *showImageView);
                        // [WXZTipView showBottomWithText:@"人脸识别失败" duration:1.0f];
                        
                         [SDTrackTool logEvent:FACE_RECOGNITION attributes:@{STATUS:MobFAILURE}];
-                        [self verifyFaceFailed];
+                        [self verifyFaceFailedType];
                       
                     }
                 }
@@ -446,7 +435,6 @@ typedef UIImage *(^ImageBlock)(UIImageView *showImageView);
         if(faceRet){
             ret = [faceRet intValue];
         }
-        
         //没有检测到人脸或发生错误
         if (ret||!faceArray ||[faceArray count] < 1) {
             [self hideFace];
@@ -455,7 +443,6 @@ typedef UIImage *(^ImageBlock)(UIImageView *showImageView);
         return;
         }
         
-  
         //检测到人脸
         NSMutableArray *arrPersons = [NSMutableArray array];
         for(id faceInArr in faceArray){
@@ -610,7 +597,22 @@ typedef UIImage *(^ImageBlock)(UIImageView *showImageView);
     // Dispose of any resources that can be recreated.
 }
 
-
+-(void)verifyFaceFailedType{
+    PSMeetingViewModel *viewModel = (PSMeetingViewModel*)self.viewModel;
+    switch (viewModel.faceType) {
+        case PSFaceMeeting:{
+            [self meetingMentVerifyFaceFailed];
+        }
+            break;
+        case PSFaceAppointment:{
+            [self appointmentVerifyFaceFailed];
+        }
+            break;
+            
+        default:
+            break;
+    }
+}
 
 #pragma mark -- 判断人脸识别类型
 -(void)JudgeFaceRecognitionType{
@@ -628,11 +630,6 @@ typedef UIImage *(^ImageBlock)(UIImageView *showImageView);
         default:
             break;
     }
-    
-    
-    
-    
-    
     
 }
 -(void)meetingFace{
@@ -959,7 +956,7 @@ typedef UIImage *(^ImageBlock)(UIImageView *showImageView);
 //加载图片
 -(void)setimage:(UIImageView *)imageView imageUrl:(NSString *)imageUrl placeholderImage:(UIImage *)placeholderImage {
     
-    [imageView sd_setImageWithURL:[NSURL URLWithString:imageUrl] placeholderImage:placeholderImage completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
+    [imageView sd_setImageWithURL:[NSURL URLWithString:imageUrl] placeholderImage:placeholderImage  completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
         if (error) {
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
                 NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:imageUrl]];

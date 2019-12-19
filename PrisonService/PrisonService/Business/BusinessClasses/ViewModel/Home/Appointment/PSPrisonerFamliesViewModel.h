@@ -15,4 +15,6 @@
 @property (nonatomic, assign) BOOL isSelectFamily;
 @property (nonatomic, assign) NSString<Optional> *face_recognition;
 - (void)requestOfPrisonerFamliesCompleted:(RequestDataCompleted)completedCallback failed:(RequestDataFailed)failedCallback;
+
+
 @end

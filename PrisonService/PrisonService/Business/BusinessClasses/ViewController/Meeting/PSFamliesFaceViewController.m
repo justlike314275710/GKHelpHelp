@@ -76,18 +76,15 @@
     [self presentViewController:alertController animated:YES completion:nil];
 }
 
-- (void)verifyFaceFailed {
-    @weakify(self)
+- (void)appointmentVerifyFaceFailed {
     _FaceRecognitionLab.text=@"人脸识别失败";
     _FamliesThreeLab.text=@"人脸识别失败";
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:VerifyFaceFailed message:VerifyFaceFailedReson preferredStyle:UIAlertControllerStyleAlert];
     [alertController addAction:[UIAlertAction actionWithTitle:@"退出" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-        @strongify(self)
         self.times = 0;
         if (self.completion) {
             self.completion(NO);
         }
-        // [self.navigationController popViewControllerAnimated:NO];
     }]];
     [alertController addAction:[UIAlertAction actionWithTitle:@"再试一次" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         self.times++;
@@ -99,7 +96,6 @@
     if (self.times>1) {
         [PSAlertView showWithTitle:nil message:@"人脸识别失败,请重新预约远程探视会见" messageAlignment:NSTextAlignmentCenter image:IMAGE_NAMED(@"识别失败")];
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            @strongify(self)
             if (self.completion) {
                 self.completion(NO);
             }
@@ -107,6 +103,23 @@
     } else {
         [self presentViewController:alertController animated:YES completion:nil];
     }
+    
+}
+
+
+- (void)meetingMentVerifyFaceFailed {
+    _FaceRecognitionLab.text=@"人脸识别失败";
+    _FamliesThreeLab.text=@"人脸识别失败";
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:VerifyFaceFailed message:VerifyFaceFailedReson preferredStyle:UIAlertControllerStyleAlert];
+    [alertController addAction:[UIAlertAction actionWithTitle:@"再试一次" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        self.times = 0;
+        if (self.isVerifying) {
+            self.isVerifying = NO;
+        }
+    }]];
+    
+    [self presentViewController:alertController animated:YES completion:nil];
+    
     
 }
 
@@ -220,7 +233,7 @@
                     }
                     else{
                         [SDTrackTool logEvent:FACE_RECOGNITION attributes:@{STATUS:MobFAILURE}];
-                        [self verifyFaceFailed];
+                        [self verifyFaceFailedType];
                         return;
                     }
                 }
@@ -418,6 +431,24 @@
     [self.faceRequest setDelegate:self];
     [self JudgeFaceRecognitionType];
 
+}
+
+
+-(void)verifyFaceFailedType{
+    PSMeetingViewModel *viewModel = (PSMeetingViewModel*)self.viewModel;
+    switch (viewModel.faceType) {
+        case PSFaceMeeting:{
+            [self meetingMentVerifyFaceFailed];
+        }
+            break;
+        case PSFaceAppointment:{
+            [self appointmentVerifyFaceFailed];
+        }
+            break;
+            
+        default:
+            break;
+    }
 }
 
 #pragma mark -- 判断人脸识别类型

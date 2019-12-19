@@ -43,8 +43,8 @@
 @property (nonatomic, strong) PSDateView *dateView;
 @property (strong, nonatomic) NSDateFormatter *dateFormatter;
 @property (nonatomic, strong) UITableView *appointmentTableView;
-@property (nonatomic,assign) CGFloat Balance;
-@property (nonatomic , strong) NSArray *selectArray;
+@property (nonatomic, assign)  CGFloat Balance;
+@property (nonatomic ,strong) NSArray *selectArray;
 @property (nonatomic , strong) NSMutableArray *meetingMembersArray;
 @property (nonatomic , strong) PSPrisonerFamily*familyModel;
 @property (nonatomic , strong) PSBuyCardView *buyCardView;
@@ -177,12 +177,15 @@
 
 - (void)handleAppointmentApply {
     PSAppointmentViewModel *appointmentViewModel = (PSAppointmentViewModel *)self.viewModel;
-    if ([appointmentViewModel.jailConfiguration.face_recognition isEqualToString:@"0"]) {
-        [self appointmentAction];
-    }else{
-        [self checkFaceAuth];
-    }
-     //[self appointmentAction];
+    [appointmentViewModel requestJailConfigurationsCompleted:^(PSResponse *response) {
+        if ([appointmentViewModel.jailConfiguration.face_recognition isEqualToString:@"0"]) {
+            [self appointmentAction];
+        }else{
+            [self checkFaceAuth];
+        }
+    } failed:^(NSError *error) {
+        [self showNetError:error];
+    }];
 }
 
 -(void)addPrisonerFamliesAction{
@@ -225,9 +228,11 @@
         NSString*notice_disagreed=NSLocalizedString(@"notice_disagreed", @"不同意");
         NSString*apply_content=NSLocalizedString(@"apply_content", @"您预约%@与%@进行远程视频会见,按约定,本次会见支付人民币%.2f元,系统将从远程探视卡余额中自动扣除");
         //[self.calendar.selectedDate yearMonthDayChinese]
-        [PSAlertView showWithTitle:notice_title message:[NSString stringWithFormat:apply_content,[self.calendar.selectedDate yearMonthDay],appointmentViewModel.prisonerDetail.name,price] messageAlignment:NSTextAlignmentCenter image:nil handler:^(PSAlertView *alertView, NSInteger buttonIndex) {
+     PSAlertView *alerView =  [PSAlertView showWithTitle:notice_title message:[NSString stringWithFormat:apply_content,[self.calendar.selectedDate yearMonthDay],appointmentViewModel.prisonerDetail.name,price] messageAlignment:NSTextAlignmentCenter image:nil handler:^(PSAlertView *alertView, NSInteger buttonIndex) {
             if (buttonIndex == 1) {
-                [self handleAppointmentApply];
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5* NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                     [self handleAppointmentApply];
+                });
             }
         } buttonTitles:notice_disagreed,notice_agreed, nil];
     }
@@ -384,6 +389,7 @@
         _buyModel.Amount_of_money = self.cartViewModel.amount;
         _buyModel.Inmates = prison_names;
         _buyModel.Prison_name = _prisonerDetail.jailName;
+        self.buyCardView.buyModel = _buyModel;
         [self.buyCardView showView:self];
         
     }else{
@@ -535,9 +541,56 @@
     }];
 }
 
-
-
+-(void)requsetPhoneCardBalance {
+    
+    PSAppointmentViewModel *appointmentViewModel = (PSAppointmentViewModel *)self.viewModel;
+    [[PSLoadingView sharedInstance] show];
+    @weakify(self)
+    [appointmentViewModel requestPhoneCardCompleted:^(PSResponse *response) {
+        @strongify(self)
+        [[PSLoadingView sharedInstance] dismiss];
+        CGFloat price = appointmentViewModel.phoneCard.price;
+        
+        if (price-self.Balance>0.0000001) {
+            NSString*determine=NSLocalizedString(@"determine", @"确定");
+            NSString*cancel=NSLocalizedString(@"cancel", @"取消");
+            NSString*msg = NSLocalizedString(@"To apply for this meeting, you need %.2f yuan. If your balance is insufficient, please recharge.", @"申请本次会见需要%.2f元，您的余额不足请充值");
+            [PSAlertView showWithTitle:nil message:[NSString stringWithFormat:msg,price] messageAlignment:NSTextAlignmentCenter image:nil handler:^(PSAlertView *alertView, NSInteger buttonIndex) {
+                if (buttonIndex == 1) {
+                    [self buyCardAction];
+                }
+            } buttonTitles:cancel,determine, nil];
+        } else {
+            //查询该日期否能预约
+            AccountsViewModel*accountsViewModel=[[AccountsViewModel alloc]init];
+            accountsViewModel.applicationDate = [self.calendar.selectedDate yearMonthDay];
+            [accountsViewModel requestCheckDataCompleted:^(PSResponse *response) {
+                NSInteger code = response.code;
+                if (code==200) {
+                    [self addPrisonerFamliesAction];
+                } else {
+                    NSString *msg = response.msg?response.msg:@"当天不支持会见!";
+                    [PSAlertView showWithTitle:nil message:msg messageAlignment:NSTextAlignmentCenter image:nil handler:^(PSAlertView *alertView, NSInteger buttonIndex) {
+                    } buttonTitles:@"确定",@"取消", nil];
+                }
+                
+            } failed:^(NSError *error) {
+                [self showNetError:error];
+            }];
+            
+        }
+        
+    } failed:^(NSError *error) {
+        
+        @strongify(self)
+        [[PSLoadingView sharedInstance] dismiss];
+    }];
+    
+}
+/*
 -(void)requsetPhoneCardBalance{
+    
+    
     //查询余额
      AccountsViewModel*accountsViewModel=[[AccountsViewModel alloc]init];
     [accountsViewModel requestAccountsCompleted:^(PSResponse *response) {
@@ -566,6 +619,7 @@
         }
     }];
 }
+ */
 
 - (BOOL)judgeNowDate:(NSDate *)nowDate selectedDate:(NSDate *)seletedDate {
     NSCalendar *calendar = [NSCalendar currentCalendar];
@@ -644,6 +698,7 @@
             AccountsViewModel*accountsModel=[[AccountsViewModel alloc]init];
             [accountsModel requestAccountsCompleted:^(PSResponse *response) {
                 detailCell.balanceLabel.text = [NSString stringWithFormat:@"¥%.2f",[accountsModel.blance floatValue]];
+                self.Balance = [accountsModel.blance floatValue];
             } failed:^(NSError *error) {
                 [PSTipsView showTips:@"获取余额失败"];
             }];
@@ -924,8 +979,6 @@
 }
 
 #pragma mark - <UIGestureRecognizerDelegate>
-
-// Whether scope gesture should begin
 - (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer
 {
     BOOL shouldBegin = self.appointmentTableView.contentOffset.y <= -self.appointmentTableView.contentInset.top;

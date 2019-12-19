@@ -40,6 +40,6 @@
                       handler:(void (^)(PSAlertView *alertView, NSInteger buttonIndex))block
                  buttonTitles:(NSString *)buttonTitles ,...NS_REQUIRES_NIL_TERMINATION;
 
-- (void)didDismiss;
+-(void)didDismiss;
 -(void)show;
 @end

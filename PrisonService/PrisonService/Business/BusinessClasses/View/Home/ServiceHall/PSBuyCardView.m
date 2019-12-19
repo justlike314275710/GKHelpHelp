@@ -20,7 +20,7 @@
 @property(nonatomic,assign) NSInteger seletIndex;
 @property(nonatomic,assign) BOOL isWrite; //手写OR选择框(埋点需要)
 @property(nonatomic,strong) UILabel *totalLabel;
-@property(nonatomic,strong) PSBuyModel *buyModel;
+
 
 
 
@@ -54,6 +54,27 @@
     return self;
 }
 
+- (void)setBuyModel:(PSBuyModel *)buyModel {
+    _buyModel = buyModel;
+    NSString *allmoney = @"";
+    if (_seletIndex == 1) {
+        allmoney = [NSString stringWithFormat:@"%.2lf元",_buyModel.Amount_of_money*1];
+        _seletIndex = 1;
+    } else if (_seletIndex ==3) {
+        allmoney = [NSString stringWithFormat:@"%.2lf元",_buyModel.Amount_of_money*3];
+        _seletIndex = 3;
+    } else if (_seletIndex ==6) {
+        _seletIndex = 6;
+        allmoney = [NSString stringWithFormat:@"%.2lf元",_buyModel.Amount_of_money*6];
+    }
+    NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc]initWithString:allmoney];
+    [attrStr addAttribute:NSForegroundColorAttributeName value:UIColorFromRGB(51, 51, 51) range:NSMakeRange(allmoney.length-1,1)];
+    self.totalLabel.attributedText = attrStr;
+    
+    if ([NSObject judegeIsVietnamVersion]) self.totalLabel.text = [allmoney substringToIndex:allmoney.length-1];
+    
+}
+
 - (void)p_setUI {
     
     UIButton *closeButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -69,6 +90,7 @@
         @strongify(self)
         [self disMissView];
     }];
+    
     UILabel *titleLab = [UILabel new];
     NSString * titleLabText=NSLocalizedString(@"Family card purchase", @"远程探视卡购买");
     titleLab.text = titleLabText;
@@ -299,7 +321,6 @@
     if ([NSObject judegeIsVietnamVersion]) self.totalLabel.text = [allmoney substringToIndex:allmoney.length-1];
 }
 
-
 #pragma -mark Setting&Getting
 
 - (UILabel *)totalLabel {
@@ -328,6 +349,8 @@
 }
 
 
+
+
 - (UIToolbar *)shadowView {
     if (!_shadowView) {
         _shadowView= [[UIToolbar alloc]initWithFrame:CGRectZero];
@@ -344,7 +367,7 @@
 }
 
 - (void)showView:(UIViewController *)vc;{
-//    [self.navigationController.view addSubview:newView];
+    
     _isWrite = NO;
     UIWindow *window = [UIApplication sharedApplication].keyWindow;
     self.shadowView.frame = window.bounds;

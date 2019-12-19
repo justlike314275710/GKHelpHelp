@@ -143,6 +143,8 @@
         [self checkFaceAuth];
     }
 }
+//虹软人脸识别
+
 
 //人脸识别验证
 - (void)checkFaceAuth {

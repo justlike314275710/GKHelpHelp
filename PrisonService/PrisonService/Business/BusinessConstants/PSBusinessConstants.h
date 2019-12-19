@@ -6,8 +6,8 @@
 //  Copyright © 2018年 calvin. All rights reserved.
 
 #define DEVELOP  0   //开发
-#define UAT  0     //测试
-#define PRODUCE 1   //生产
+#define UAT  1     //测试
+#define PRODUCE 0  //生产
 
 #ifdef DEBUG
 #else
@@ -52,7 +52,6 @@
 #define EmallHostUrl @"https://api.auth.prisonpublic.com"
 
 #endif
-
 
 //电子商务Server
 #define CommerceServerDomain @"http://39.108.185.51:8088"

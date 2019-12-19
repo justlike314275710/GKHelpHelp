@@ -17,6 +17,7 @@
 #import "PSAppointmentViewModel.h"
 #import <AFNetworking/AFNetworking.h>
 #import "VIAddFamilesViewController.h"
+#import "PSAppointmentBaseViewModel.h"
 
 @interface PSPrisonerFamilesViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic, strong) UITableView *prisonerFamilesTableView;
@@ -137,7 +138,7 @@
 }
 
 -(void)noticeTips{
-
+    
    PSPrisonerFamliesViewModel *prisonerFamliesViewModel = (PSPrisonerFamliesViewModel *)self.viewModel;
     if ([prisonerFamliesViewModel.face_recognition isEqualToString:@"0"]) {
         //[self appointmentAction];

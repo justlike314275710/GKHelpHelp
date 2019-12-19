@@ -26,8 +26,8 @@ typedef NS_ENUM(NSInteger, PSMeettingType) {
 @property (nonatomic, strong) ZJVideoManager *videoManager;
 @property (nonatomic, assign) NSInteger seconds;
 @property (nonatomic, assign) NSInteger upSeconds;
-@property (nonatomic , strong) UILabel*timeDownLable;
-@property (nonatomic,assign) PSMeettingType Type;
+@property (nonatomic, strong) UILabel*timeDownLable;
+@property (nonatomic, assign) PSMeettingType Type;
 @end
 
 @implementation PSMeetingViewController
@@ -127,8 +127,6 @@ typedef NS_ENUM(NSInteger, PSMeettingType) {
     return format_time;
 }
 
-
-
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -141,7 +139,6 @@ typedef NS_ENUM(NSInteger, PSMeettingType) {
         self.seconds = [message.callDuration integerValue];
         self.Type = PSMeettingTypePay;
     }
-
 }
 
 - (void)countdown {
@@ -173,10 +170,6 @@ typedef NS_ENUM(NSInteger, PSMeettingType) {
         default:
             break;
     }
-    
-    
-    
-    
 }
 
 

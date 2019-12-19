@@ -14,6 +14,8 @@ typedef void (^BuySelectBlock)(NSInteger index,BOOL isWrite);
 
 @property (nonatomic,copy) BuySelectBlock buyBlock;
 
+@property(nonatomic,strong) PSBuyModel *buyModel;
+
 - (instancetype)initWithFrame:(CGRect)frame buyModel:(PSBuyModel *)buyModel index:(NSInteger)index;
 
 - (void)showView:(UIViewController *)vc;

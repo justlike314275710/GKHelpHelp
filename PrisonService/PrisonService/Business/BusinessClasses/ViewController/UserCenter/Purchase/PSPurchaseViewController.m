@@ -101,6 +101,7 @@
         _buyModel.Amount_of_money = self.cartViewModel.amount;
         _buyModel.Inmates = prison_names;
         _buyModel.Prison_name = _prisonerDetail.jailName;
+         self.buyCardView.buyModel = _buyModel;
         [self.buyCardView showView:self];
         
     }else{
