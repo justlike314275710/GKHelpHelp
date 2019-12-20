@@ -153,6 +153,7 @@
 }
 
 - (void)checkFaceAuth {
+    
     PSMeetingViewModel*meetingviewModel=[PSMeetingViewModel new];
     meetingviewModel.familymeetingID=[PSSessionManager sharedInstance].session.families.id;
     meetingviewModel.faceType=PSFaceAppointment;
