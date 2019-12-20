@@ -152,7 +152,8 @@
     if (index >= 0 && index < homeViewModel.functions.count) {
         PSHallFunction *function = homeViewModel.functions[index];
         if ([function.itemName isEqualToString:@"语音盒子"]) {
-            [PSTipsView showTips:@"该监狱暂未开通此功能"];
+            //[PSTipsView showTips:@"该监狱暂未开通此功能"];
+            [self vistorAction];
         }else if ([function.itemName isEqualToString:local_meetting]) {
             [self vistorAction];
         }else if ([function.itemName isEqualToString:e_mall]) {
