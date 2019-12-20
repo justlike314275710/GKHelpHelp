@@ -216,8 +216,13 @@
         }];
     }
     else{
+        if ([[LXFileManager readUserDataForKey:@"isVistor"]isEqualToString:@"YES"]) {
+            
+            [[PSSessionManager sharedInstance]doLogout];
+            
+        } else {
         NSString*coming_soon=NSLocalizedString(@"coming_soon", @"该监狱暂未开通此功能");
-        [PSTipsView showTips:coming_soon];
+            [PSTipsView showTips:coming_soon];}
     }
     
 }
@@ -333,6 +338,9 @@
         [loginButton bk_whenTapped:^{
             [[PSSessionManager sharedInstance]doLogout];
         }];
+        [headerView bk_whenTapped:^{
+             [[PSSessionManager sharedInstance]doLogout];
+        }];
     } else {
         [headerView addGestureRecognizer:tapGesturRecognizer];
         UILabel*nameLable=[[UILabel alloc]initWithFrame:CGRectMake(90,30,180,20)];
@@ -411,7 +419,10 @@
     [settingBtnView addSubview:settingImage];
     [settingBtnView bk_whenTapped:^{
         [SDTrackTool logEvent:MIME_ClICK_SZ];
-        [self.navigationController pushViewController:[[PSSettingViewController alloc] initWithViewModel:[[PSSettingViewModel alloc] init]] animated:YES];
+        if ([[LXFileManager readUserDataForKey:@"isVistor"]isEqualToString:@"YES"]) {
+            [[PSSessionManager sharedInstance]doLogout];
+        } else {
+            [self.navigationController pushViewController:[[PSSettingViewController alloc] initWithViewModel:[[PSSettingViewModel alloc] init]] animated:YES];}
     }];
     
     
@@ -520,19 +531,21 @@
 
 #pragma mark - 点击头像
 - (void)clickAvatarView {
-    
-    LLActionSheetView *alertView = [[LLActionSheetView alloc]initWithTitleArray:@[@"相册选择",@"拍照",@"更换头像"] andShowCancel:YES];
-    [alertView setTitleColor:[UIColor grayColor] index:2];
-    alertView.ClickIndex = ^(NSInteger index) {
-        if (index == 1){
-            [self openAlbum];
-            NSLog(@"相册选择");
-        }else if (index == 2){
-            [self openCamera];
-            NSLog(@"拍照");
-        }
-    };
-    [alertView show];
+ 
+        LLActionSheetView *alertView = [[LLActionSheetView alloc]initWithTitleArray:@[@"相册选择",@"拍照",@"更换头像"] andShowCancel:YES];
+        [alertView setTitleColor:[UIColor grayColor] index:2];
+        alertView.ClickIndex = ^(NSInteger index) {
+            if (index == 1){
+                [self openAlbum];
+                NSLog(@"相册选择");
+            }else if (index == 2){
+                [self openCamera];
+                NSLog(@"拍照");
+            }
+        };
+            [alertView show];
+        
+   
 }
 
 -(void)openAlbum {

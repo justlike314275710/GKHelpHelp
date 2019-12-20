@@ -153,9 +153,9 @@
     [homeViewModel requestLocalMeetingDetailCompleted:^(PSResponse *response) {
         @strongify(self)
         if (response.code==-100) {
-            NSString*coming_soon=
-            NSLocalizedString(@"coming_soon", @"该监狱暂未开通此功能");
-            [PSTipsView showTips:coming_soon];
+        NSString*coming_soon=
+        NSLocalizedString(@"coming_soon", @"该监狱暂未开通此功能");
+        [PSTipsView showTips:coming_soon];
         }
         else{
             PSLocalMeetingViewController *meetingViewController = [[PSLocalMeetingViewController alloc] initWithViewModel:[PSLocalMeetingViewModel new]];
@@ -218,10 +218,16 @@
     else{
         PSPsychologicalCounselingTableViewCell*cell= [tableView dequeueReusableCellWithIdentifier:@"PSPsychologicalCounselingTableViewCell"];
         [cell.goButton bk_whenTapped:^{
+            if ([[LXFileManager readUserDataForKey:@"isVistor"]isEqualToString:@"YES"]) {
+                
+                [[PSSessionManager sharedInstance]doLogout];
+                
+            } else {
              NSString*coming_soon=
             NSLocalizedString(@"coming_soon", @"敬请期待");
             [PSTipsView showTips:coming_soon];
             [SDTrackTool logEvent:FWZX_PAGE_XLZX];
+            }
         }];
         return cell;
     }

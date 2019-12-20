@@ -410,11 +410,12 @@
                 break;
         }
     } else {
-        if (index==4) {
-            [self interactive_platform];
-        } else {
-            [self doNotLoginPassed];
-        }
+//        if (index==4) {
+//            [self interactive_platform];
+//        } else {
+//            [self doNotLoginPassed];
+//        }
+        [self doNotLoginPassed];
     }
 }
 
@@ -585,7 +586,8 @@
         @weakify(self)
         [_addressButton bk_whenTapped:^{
             @strongify(self)
-            [self selectJails];
+          //  [self selectJails];
+            [self doNotLoginPassed];
         }];
     }
     return _addressButton;
@@ -608,7 +610,8 @@
         _prisonIntroduceView.userInteractionEnabled = YES;
         _prisonIntroduceView.image = IMAGE_NAMED(@"监狱简介底");
         [_prisonIntroduceView bk_whenTapped:^{
-            [self p_InsertPrisonIntroduce];
+            //[self p_InsertPrisonIntroduce];公众版本监狱简介模块
+            [self doNotLoginPassed];
         }];
     }
     return _prisonIntroduceView;
