@@ -25,7 +25,7 @@
 
         manager.responseSerializer = [AFJSONResponseSerializer serializer];
         [manager.requestSerializer setValue:@"application/x-www-form-urlencode" forHTTPHeaderField:@"Content-Type"];
-         [manager.requestSerializer setAuthorizationHeaderFieldWithUsername:@"prison.trade.m" password:@"1688c4f69fc6404285aadbc996f5e429"];
+        [manager.requestSerializer setAuthorizationHeaderFieldWithUsername:@"prison.trade.m" password:@"1688c4f69fc6404285aadbc996f5e429"];
     }
     return self;
 }
@@ -118,7 +118,6 @@
         }
     }];
 }
-
 
 -(NSString*)dictionaryToJson:(NSDictionary *)dic{
     NSError *parseError = nil;

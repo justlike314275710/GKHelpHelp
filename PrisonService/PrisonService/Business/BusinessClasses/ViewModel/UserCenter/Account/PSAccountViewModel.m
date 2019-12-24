@@ -167,7 +167,6 @@
     [manager.requestSerializer setValue:token forHTTPHeaderField:@"Authorization"];
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"image/png",@"image/jpeg",nil];
-    
     NSString*urlSting=[NSString stringWithFormat:@"%@%@",EmallHostUrl,URL_get_userAvatar];
     
     [manager GET:urlSting parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
@@ -213,7 +212,6 @@
     [manager.requestSerializer setValue:token forHTTPHeaderField:@"Authorization"];
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"image/png",@"image/jpeg",nil];
-    
     NSString*urlSting=[NSString stringWithFormat:@"%@%@%@",EmallHostUrl,URL_get_Avatar,username];
     urlSting = [urlSting stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
     [manager GET:urlSting parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
@@ -235,7 +233,6 @@
             failedCallback(error);
         }
     }];
-    
 }
 
 

@@ -26,6 +26,7 @@
 #import "PSDefaultJailResponse.h"
 #import "PSDefaultJailRequest.h"
 #import "NSObject+version.h"
+#import "ASFRManager.h"
 
 //typedef void(^SessionCompletion)(BOOL completed);
 
@@ -337,6 +338,16 @@
 
 
 - (void)doLogout {
+    ASFRManager *manger = [[ASFRManager alloc] init];
+    NSArray *ary = [manger allPersons];
+    for (ASFRPerson *person in ary) {
+        int personid = (int)person.Id;
+        [manger deletePerson:personid];
+    }
+    NSArray *ary2 = [manger allPersons];
+    NSLog(@"%@",ary);
+    
+    
     [PSCache removeCacheForKey:AppUserSessionCacheKey];
     self.session = nil;
     [[PSIMMessageManager sharedInstance] logoutIM];

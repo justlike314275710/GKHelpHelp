@@ -12,6 +12,7 @@
 #import <AipOcrSdk/AipOcrSdk.h>
 #import "PSThirdPartyConstants.h"
 #import "PSAuthorizationTool.h"
+#import "HRFaceManager.h"
 
 @interface PSIDCardViewController ()
 
@@ -51,6 +52,30 @@
 }
 
 -(void)containFace:(UIImage*)faceImage{
+    NSString *faceError = NSLocalizedString(@"faceError", @"您上传的头像未能通过人脸识别,请重新上传");
+    [[HRFaceManager sharedInstance] registHRSDK:^(PSHRFaceBackResultType result) {
+        if (result==PSFaceBackSDKRegistFail) {
+            [PSTipsView showTips:@"人脸识别SDK注册失败"];
+        } else if(result==PSFaceBackSDKInitFail) {
+            [PSTipsView showTips:@"人脸识别SDK初始化失败"];
+        } else if (result==PSFaceBackSDKInitSuccess) {
+            //检测图片是否能用
+            [[HRFaceManager sharedInstance] hrsdkCheckFace:faceImage sdkblock:^(PSHRFaceBackResultType result) {
+                if (result==PSFaceBackSDKcheckImageNoFace) { //没有识别到人脸
+                    [PSTipsView showTips:faceError dismissAfterDelay:0.5];
+                } else if(result==PSFaceBackSDKcheckImageFail) { //提取人脸信息失败
+                    [PSTipsView showTips:faceError dismissAfterDelay:0.5];
+                }
+            } checkBlock:^(LPASF_FaceFeature  _Nonnull faceFacture) {
+                if (faceFacture) { //通过虹软检测
+                    [self handlePickerImage:faceImage];
+                } else { //没有通过虹软检测
+                    [PSTipsView showTips:faceError dismissAfterDelay:0.5];
+                }
+            }];
+        }
+    }];
+    /*
     CIContext * context = [CIContext contextWithOptions:nil];
     NSDictionary * param = [NSDictionary dictionaryWithObject:CIDetectorAccuracyHigh forKey:CIDetectorAccuracy];
     CIDetector * faceDetector = [CIDetector detectorOfType:CIDetectorTypeFace context:context options:param];
@@ -66,6 +91,7 @@
         });
         
     }
+     */
 }
 
 - (void)handlePickerImage:(UIImage *)image {

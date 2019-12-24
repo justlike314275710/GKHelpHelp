@@ -61,7 +61,7 @@
 #define SZ_PAGE_YJFK            @"SZ_PAGE_YJFK"           // 意见反馈
 #define ZHXX_PAGE_CZKJ          @"ZHXX_PAGE_CZKJ"          // 存储空间
 #define ZHXX_PAGE_DQBB          @"ZHXX_PAGE_DQBB"          // 当前版本
-#define ZHXX_PAGE_TCDL          @"ZHXX_PAGE_TCDL"           // 退出登录
+#define ZHXX_PAGE_TCDL          @"ZHXX_PAGE_TCDL"          // 退出登录
 
 #define SZ_PAGE_LXWM          @"SZ_PAGE_LXWM"           // 联系我们
 #define SZ_PAGE_SYXY          @"SZ_PAGE_SYXY"           // 使用协议

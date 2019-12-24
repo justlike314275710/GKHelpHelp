@@ -6,8 +6,8 @@
 //  Copyright © 2018年 calvin. All rights reserved.
 
 #define DEVELOP  0   //开发
-#define UAT  0     //测试
-#define PRODUCE 1  //生产
+#define UAT  1     //测试
+#define PRODUCE 0  //生产
 
 #ifdef DEBUG
 #else

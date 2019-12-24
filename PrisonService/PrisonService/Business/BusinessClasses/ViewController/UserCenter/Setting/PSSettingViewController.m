@@ -24,6 +24,7 @@
 #import "PSPasswordViewController.h"
 #import "PSPasswordViewModel.h"
 #import "PSResetPasswordViewController.h"
+#import "ASFRManager.h"
 @interface PSSettingViewController ()<UITableViewDataSource,UITableViewDelegate>
 
 @property (nonatomic, strong) UITableView *settingTableView;
@@ -142,7 +143,9 @@
     NSString*cancel=NSLocalizedString(@"cancel", @"取消");
     [PSAlertView showWithTitle:nil message:Confirm_logout messageAlignment:NSTextAlignmentCenter image:nil handler:^(PSAlertView *alertView, NSInteger buttonIndex) {
         if (buttonIndex == 1) {
+            
             [[PSSessionManager sharedInstance] doLogout];
+            
         }
     } buttonTitles:cancel,determine, nil];
 }

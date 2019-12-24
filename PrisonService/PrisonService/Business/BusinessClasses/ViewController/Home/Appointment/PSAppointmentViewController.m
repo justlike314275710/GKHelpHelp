@@ -33,7 +33,7 @@
 #import "PSPayCenter.h"
 #import "PSAppointmentProcessView.h"
 #import "PSMeetingViewModel.h"
-
+#import "PSHRFaceAuthViewController.h"
 
 @interface PSAppointmentViewController ()<FSCalendarDataSource,FSCalendarDelegate,UITableViewDataSource,UITableViewDelegate,PSIMMessageObserver,PSSessionObserver,UIGestureRecognizerDelegate>
 {
@@ -154,6 +154,29 @@
 
 - (void)checkFaceAuth {
     
+    //虹软
+    PSMeetingViewModel*meetingviewModel=[PSMeetingViewModel new];
+    meetingviewModel.familymeetingID=[PSSessionManager sharedInstance].session.families.id;
+    meetingviewModel.faceType=PSFaceAppointment;
+    NSMutableArray *ary = [NSMutableArray array];
+    [ary addObjectsFromArray:self.selectArray];
+    for (int i=0; i<ary.count; i++) {
+        PSPrisonerFamily*familesModel=ary[i];
+        if ([familesModel.familyName isEqualToString:[PSSessionManager sharedInstance].session.families.name]) {
+            [ary exchangeObjectAtIndex:0 withObjectAtIndex:i];
+        }
+    }
+    meetingviewModel.FamilyMembers=ary;
+    PSHRFaceAuthViewController *PSFaceAuthVC = [[PSHRFaceAuthViewController alloc] initWithViewModel:meetingviewModel];;
+    PSFaceAuthVC.meetViewModel = meetingviewModel;
+    PSFaceAuthVC.completion = ^(BOOL successful) {
+        if (successful) {
+            [self appointmentAction];
+        }
+    };
+    [self.navigationController pushViewController:PSFaceAuthVC animated:YES];
+    
+    /*
     PSMeetingViewModel*meetingviewModel=[PSMeetingViewModel new];
     meetingviewModel.familymeetingID=[PSSessionManager sharedInstance].session.families.id;
     meetingviewModel.faceType=PSFaceAppointment;
@@ -174,18 +197,22 @@
         [self.navigationController popViewControllerAnimated:NO];
     }];
     [self.navigationController pushViewController:authViewController animated:NO];
+     */
 }
 
 - (void)handleAppointmentApply {
     PSAppointmentViewModel *appointmentViewModel = (PSAppointmentViewModel *)self.viewModel;
+    [[PSLoadingView sharedInstance] show];
     [appointmentViewModel requestJailConfigurationsCompleted:^(PSResponse *response) {
         if ([appointmentViewModel.jailConfiguration.face_recognition isEqualToString:@"0"]) {
             [self appointmentAction];
         }else{
             [self checkFaceAuth];
         }
+        [[PSLoadingView sharedInstance] dismiss];
     } failed:^(NSError *error) {
         [self showNetError:error];
+        [[PSLoadingView sharedInstance] dismiss];
     }];
 }
 
@@ -200,7 +227,7 @@
     };
     [familesViewController setCompletion:^(BOOL successful) {
         if (successful) {
-            //[self appointmentAction];
+
             [self applyAction];
         }
     }];
@@ -231,9 +258,9 @@
         //[self.calendar.selectedDate yearMonthDayChinese]
      PSAlertView *alerView =  [PSAlertView showWithTitle:notice_title message:[NSString stringWithFormat:apply_content,[self.calendar.selectedDate yearMonthDay],appointmentViewModel.prisonerDetail.name,price] messageAlignment:NSTextAlignmentCenter image:nil handler:^(PSAlertView *alertView, NSInteger buttonIndex) {
             if (buttonIndex == 1) {
-                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5* NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5* NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                      [self handleAppointmentApply];
-                });
+//                });
             }
         } buttonTitles:notice_disagreed,notice_agreed, nil];
     }

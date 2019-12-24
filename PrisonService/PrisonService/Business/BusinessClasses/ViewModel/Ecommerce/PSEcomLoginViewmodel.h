@@ -15,7 +15,7 @@
 @property (nonatomic , strong) NSString *loginMode;
 @property (nonatomic, assign) NSInteger statusCode;
 @property (nonatomic , strong) NSString *token;
-@property (nonatomic , strong) NSString *refresh_token;
+@property (nonatomic , strong) NSString *refresh_token; 
 -(void)postEcomLogin:(RequestDataCompleted)completedCallback failed:(RequestDataFailed)failedCallback;
 
 -(void)postRefreshEcomLogin:(RequestDataCompleted)completedCallback failed:(RequestDataFailed)failedCallback;

@@ -27,6 +27,7 @@
 #import "PSAllMessageViewController.h"
 #import "PSHomeViewModel.h"
 #import "PSAllMessageViewController.h"
+#import "PSHRFaceAuthViewController.h"
 
 #import "PSLocateManager.h"
 @interface PSMeetingManager ()<PSIMMessageObserver>
@@ -140,10 +141,42 @@
         [self startMeeting];
     }else{
         //需要人脸识别
-        [self checkFaceAuth];
+//        [self checkFaceAuth];
+        //虹软人脸识别
+        [self hr_checkFaceAuth];
     }
 }
 //虹软人脸识别
+- (void)hr_checkFaceAuth{
+    
+    PSMeetingViewModel *viewModel = [PSMeetingViewModel new];
+    viewModel.jailConfiguration = self.jailConfiguration;
+    viewModel.jailName = self.jailName;
+    viewModel.meetingID = self.meetingID;
+    viewModel.faceType = PSFaceMeeting;
+    viewModel.meetingPassword = self.meetingPassword;
+    viewModel.presenterPassword = self.presenterPassword;
+    viewModel.familymeetingID=self.familesMeetingID;
+    
+    PSHRFaceAuthViewController *authViewController = [[PSHRFaceAuthViewController alloc] initWithViewModel:viewModel];
+    authViewController.meetViewModel = viewModel;
+    @weakify(self)
+    [authViewController setCompletion:^(BOOL successful) {
+        @strongify(self)
+        if (successful) {
+            //开始视频通话
+            [self startMeeting];
+        }else{
+            [self.meetingNavigationController dismissViewControllerAnimated:NO completion:nil];
+            self.meetingNavigationController = nil;
+            PSMeetingMessage *exitMessage = [PSMeetingMessage new];
+            exitMessage.code = PSMeetingEnd;
+            [[PSIMMessageManager sharedInstance] sendMeetingMessage:exitMessage];
+        }
+    }];
+    [self.meetingNavigationController pushViewController:authViewController animated:YES];
+    
+}
 
 
 //人脸识别验证

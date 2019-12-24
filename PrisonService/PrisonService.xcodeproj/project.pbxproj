@@ -453,6 +453,29 @@
 		55959FB722F415B0004C2446 /* PSPlatformArticleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 55959FB622F415B0004C2446 /* PSPlatformArticleCell.m */; };
 		55995211229257E200BA9FFA /* UIButton+LZCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 5599520F229257E100BA9FFA /* UIButton+LZCategory.m */; };
 		55995215229274EE00BA9FFA /* UIViewController+Author.m in Sources */ = {isa = PBXBuildFile; fileRef = 55995214229274EE00BA9FFA /* UIViewController+Author.m */; };
+		559AD5FD23AC935D0041C4C3 /* libstdc++.6.0.9.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 559AD5FC23AC935D0041C4C3 /* libstdc++.6.0.9.tbd */; };
+		559AD5FF23AC93660041C4C3 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 559AD5FE23AC93660041C4C3 /* CoreMedia.framework */; };
+		559AD60123AC93A60041C4C3 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 559AD60023AC93A50041C4C3 /* GLKit.framework */; };
+		559AD60323AC93B60041C4C3 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 559AD60223AC93B60041C4C3 /* AssetsLibrary.framework */; };
+		559AD60523AC93CC0041C4C3 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 559AD60423AC93CC0041C4C3 /* CoreData.framework */; };
+		559AD60723AC93D50041C4C3 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 559AD60623AC93D50041C4C3 /* AVFoundation.framework */; };
+		559AD62A23AC940C0041C4C3 /* ASFRManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 559AD60B23AC940B0041C4C3 /* ASFRManager.m */; };
+		559AD62B23AC940C0041C4C3 /* AFRCDVersion+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 559AD60C23AC940B0041C4C3 /* AFRCDVersion+CoreDataProperties.m */; };
+		559AD62C23AC940C0041C4C3 /* AFRCDPerson+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 559AD60E23AC940B0041C4C3 /* AFRCDPerson+CoreDataClass.m */; };
+		559AD62D23AC940C0041C4C3 /* FSDKFR.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 559AD61223AC940B0041C4C3 /* FSDKFR.xcdatamodeld */; };
+		559AD62E23AC940C0041C4C3 /* AFRCDVersion+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 559AD61423AC940B0041C4C3 /* AFRCDVersion+CoreDataClass.m */; };
+		559AD62F23AC940C0041C4C3 /* AFRCDPerson+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 559AD61623AC940B0041C4C3 /* AFRCDPerson+CoreDataProperties.m */; };
+		559AD63023AC940C0041C4C3 /* ASFRPerson.m in Sources */ = {isa = PBXBuildFile; fileRef = 559AD61823AC940B0041C4C3 /* ASFRPerson.m */; };
+		559AD63123AC940C0041C4C3 /* ASFRCDManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 559AD61923AC940B0041C4C3 /* ASFRCDManager.m */; };
+		559AD63223AC940C0041C4C3 /* ASFCameraController.m in Sources */ = {isa = PBXBuildFile; fileRef = 559AD61C23AC940B0041C4C3 /* ASFCameraController.m */; };
+		559AD63323AC940C0041C4C3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 559AD61D23AC940B0041C4C3 /* Main.storyboard */; };
+		559AD63423AC940C0041C4C3 /* ArcSoftFaceEngine.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 559AD61F23AC940B0041C4C3 /* ArcSoftFaceEngine.framework */; };
+		559AD63523AC940C0041C4C3 /* ASFVideoProcessor.mm in Sources */ = {isa = PBXBuildFile; fileRef = 559AD62123AC940B0041C4C3 /* ASFVideoProcessor.mm */; };
+		559AD63623AC940C0041C4C3 /* Utility.m in Sources */ = {isa = PBXBuildFile; fileRef = 559AD62523AC940B0041C4C3 /* Utility.m */; };
+		559AD63723AC940C0041C4C3 /* GLKitView.m in Sources */ = {isa = PBXBuildFile; fileRef = 559AD62723AC940B0041C4C3 /* GLKitView.m */; };
+		559AD63823AC940C0041C4C3 /* ColorFormatUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 559AD62823AC940B0041C4C3 /* ColorFormatUtil.m */; };
+		559AD63B23AC94930041C4C3 /* PSHRFaceAuthViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 559AD63A23AC94930041C4C3 /* PSHRFaceAuthViewController.m */; };
+		559AD63F23AC94BB0041C4C3 /* HRFaceManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 559AD63E23AC94BB0041C4C3 /* HRFaceManager.m */; };
 		55A653132248B33200A6EA52 /* 20181218115255.wav in Resources */ = {isa = PBXBuildFile; fileRef = 55A653122248B33200A6EA52 /* 20181218115255.wav */; };
 		55A653152248B64900A6EA52 /* cnwav.aac.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 55A653142248B64900A6EA52 /* cnwav.aac.mp3 */; };
 		55B078AD233C8E09009BDDBC /* AvoidCrash.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55B078AC233C8E09009BDDBC /* AvoidCrash.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
@@ -1702,6 +1725,43 @@
 		55995213229274EE00BA9FFA /* UIViewController+Author.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIViewController+Author.h"; sourceTree = "<group>"; };
 		55995214229274EE00BA9FFA /* UIViewController+Author.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+Author.m"; sourceTree = "<group>"; };
 		559952162292788100BA9FFA /* Authorization.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Authorization.h; sourceTree = "<group>"; };
+		559AD5FC23AC935D0041C4C3 /* libstdc++.6.0.9.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.6.0.9.tbd"; path = "usr/lib/libstdc++.6.0.9.tbd"; sourceTree = SDKROOT; };
+		559AD5FE23AC93660041C4C3 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
+		559AD60023AC93A50041C4C3 /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
+		559AD60223AC93B60041C4C3 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
+		559AD60423AC93CC0041C4C3 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		559AD60623AC93D50041C4C3 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		559AD60A23AC940B0041C4C3 /* AFRCDVersion+CoreDataClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AFRCDVersion+CoreDataClass.h"; sourceTree = "<group>"; };
+		559AD60B23AC940B0041C4C3 /* ASFRManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASFRManager.m; sourceTree = "<group>"; };
+		559AD60C23AC940B0041C4C3 /* AFRCDVersion+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "AFRCDVersion+CoreDataProperties.m"; sourceTree = "<group>"; };
+		559AD60D23AC940B0041C4C3 /* AFRCDPerson+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AFRCDPerson+CoreDataProperties.h"; sourceTree = "<group>"; };
+		559AD60E23AC940B0041C4C3 /* AFRCDPerson+CoreDataClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "AFRCDPerson+CoreDataClass.m"; sourceTree = "<group>"; };
+		559AD60F23AC940B0041C4C3 /* ASFRCDManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASFRCDManager.h; sourceTree = "<group>"; };
+		559AD61023AC940B0041C4C3 /* ASFRPerson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASFRPerson.h; sourceTree = "<group>"; };
+		559AD61123AC940B0041C4C3 /* ASFRManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASFRManager.h; sourceTree = "<group>"; };
+		559AD61323AC940B0041C4C3 /* FSDKFR.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = FSDKFR.xcdatamodel; sourceTree = "<group>"; };
+		559AD61423AC940B0041C4C3 /* AFRCDVersion+CoreDataClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "AFRCDVersion+CoreDataClass.m"; sourceTree = "<group>"; };
+		559AD61523AC940B0041C4C3 /* AFRCDPerson+CoreDataClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AFRCDPerson+CoreDataClass.h"; sourceTree = "<group>"; };
+		559AD61623AC940B0041C4C3 /* AFRCDPerson+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "AFRCDPerson+CoreDataProperties.m"; sourceTree = "<group>"; };
+		559AD61723AC940B0041C4C3 /* AFRCDVersion+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AFRCDVersion+CoreDataProperties.h"; sourceTree = "<group>"; };
+		559AD61823AC940B0041C4C3 /* ASFRPerson.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASFRPerson.m; sourceTree = "<group>"; };
+		559AD61923AC940B0041C4C3 /* ASFRCDManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASFRCDManager.m; sourceTree = "<group>"; };
+		559AD61B23AC940B0041C4C3 /* ASFCameraController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASFCameraController.h; sourceTree = "<group>"; };
+		559AD61C23AC940B0041C4C3 /* ASFCameraController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASFCameraController.m; sourceTree = "<group>"; };
+		559AD61D23AC940B0041C4C3 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		559AD61F23AC940B0041C4C3 /* ArcSoftFaceEngine.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ArcSoftFaceEngine.framework; sourceTree = "<group>"; };
+		559AD62123AC940B0041C4C3 /* ASFVideoProcessor.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ASFVideoProcessor.mm; sourceTree = "<group>"; };
+		559AD62223AC940B0041C4C3 /* ASFVideoProcessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASFVideoProcessor.h; sourceTree = "<group>"; };
+		559AD62423AC940B0041C4C3 /* GLKitView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLKitView.h; sourceTree = "<group>"; };
+		559AD62523AC940B0041C4C3 /* Utility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Utility.m; sourceTree = "<group>"; };
+		559AD62623AC940B0041C4C3 /* ColorFormatUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ColorFormatUtil.h; sourceTree = "<group>"; };
+		559AD62723AC940B0041C4C3 /* GLKitView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GLKitView.m; sourceTree = "<group>"; };
+		559AD62823AC940B0041C4C3 /* ColorFormatUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ColorFormatUtil.m; sourceTree = "<group>"; };
+		559AD62923AC940B0041C4C3 /* Utility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Utility.h; sourceTree = "<group>"; };
+		559AD63923AC94930041C4C3 /* PSHRFaceAuthViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSHRFaceAuthViewController.h; sourceTree = "<group>"; };
+		559AD63A23AC94930041C4C3 /* PSHRFaceAuthViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSHRFaceAuthViewController.m; sourceTree = "<group>"; };
+		559AD63D23AC94BB0041C4C3 /* HRFaceManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HRFaceManager.h; sourceTree = "<group>"; };
+		559AD63E23AC94BB0041C4C3 /* HRFaceManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HRFaceManager.m; sourceTree = "<group>"; };
 		55A653122248B33200A6EA52 /* 20181218115255.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = 20181218115255.wav; sourceTree = "<group>"; };
 		55A653142248B64900A6EA52 /* cnwav.aac.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = cnwav.aac.mp3; sourceTree = "<group>"; };
 		55B078AC233C8E09009BDDBC /* AvoidCrash.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = AvoidCrash.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -2307,6 +2367,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				559AD63423AC940C0041C4C3 /* ArcSoftFaceEngine.framework in Frameworks */,
+				559AD60723AC93D50041C4C3 /* AVFoundation.framework in Frameworks */,
+				559AD60523AC93CC0041C4C3 /* CoreData.framework in Frameworks */,
+				559AD60323AC93B60041C4C3 /* AssetsLibrary.framework in Frameworks */,
+				559AD60123AC93A60041C4C3 /* GLKit.framework in Frameworks */,
+				559AD5FF23AC93660041C4C3 /* CoreMedia.framework in Frameworks */,
+				559AD5FD23AC935D0041C4C3 /* libstdc++.6.0.9.tbd in Frameworks */,
 				55E5183B2340EFD900028A32 /* Pods_PrisonService.framework in Frameworks */,
 				55B078AD233C8E09009BDDBC /* AvoidCrash.framework in Frameworks */,
 				55F4BAE62282BBD70034A533 /* CoreLocation.framework in Frameworks */,
@@ -2938,6 +3005,7 @@
 		3E5D15A020736C3D000FC779 /* BusinessManager */ = {
 			isa = PBXGroup;
 			children = (
+				559AD63C23AC94AD0041C4C3 /* HRFace */,
 				3E4C24AF20A2998F009AC107 /* Locate */,
 				3EC77D5A209C3AB5007E7A8C /* MusicPlayer */,
 				3EEEC67F20947649003B35B3 /* Guide */,
@@ -3141,6 +3209,7 @@
 		3E5D16032074D4A4000FC779 /* Vender */ = {
 			isa = PBXGroup;
 			children = (
+				559AD60823AC940B0041C4C3 /* HRFaceSDK */,
 				EA26E078239745F400220F06 /* ZXCTimer */,
 				55FF6BD1234092BC0001FA6C /* Kache */,
 				3E5D159820736C15000FC779 /* BaseClass */,
@@ -3458,6 +3527,8 @@
 				EAFB4A6F21523D2800CDFE11 /* PSFamilyFaceViewController.m */,
 				EAFB4A712152978300CDFE11 /* PSFamliesFaceViewController.h */,
 				EAFB4A722152978300CDFE11 /* PSFamliesFaceViewController.m */,
+				559AD63923AC94930041C4C3 /* PSHRFaceAuthViewController.h */,
+				559AD63A23AC94930041C4C3 /* PSHRFaceAuthViewController.m */,
 			);
 			path = Meeting;
 			sourceTree = "<group>";
@@ -4569,6 +4640,89 @@
 			path = ZWTopSelectVcView;
 			sourceTree = "<group>";
 		};
+		559AD60823AC940B0041C4C3 /* HRFaceSDK */ = {
+			isa = PBXGroup;
+			children = (
+				559AD60923AC940B0041C4C3 /* database */,
+				559AD61A23AC940B0041C4C3 /* camera */,
+				559AD61D23AC940B0041C4C3 /* Main.storyboard */,
+				559AD61E23AC940B0041C4C3 /* libs */,
+				559AD62023AC940B0041C4C3 /* engine */,
+				559AD62323AC940B0041C4C3 /* Utility */,
+			);
+			path = HRFaceSDK;
+			sourceTree = "<group>";
+		};
+		559AD60923AC940B0041C4C3 /* database */ = {
+			isa = PBXGroup;
+			children = (
+				559AD60A23AC940B0041C4C3 /* AFRCDVersion+CoreDataClass.h */,
+				559AD60B23AC940B0041C4C3 /* ASFRManager.m */,
+				559AD60C23AC940B0041C4C3 /* AFRCDVersion+CoreDataProperties.m */,
+				559AD60D23AC940B0041C4C3 /* AFRCDPerson+CoreDataProperties.h */,
+				559AD60E23AC940B0041C4C3 /* AFRCDPerson+CoreDataClass.m */,
+				559AD60F23AC940B0041C4C3 /* ASFRCDManager.h */,
+				559AD61023AC940B0041C4C3 /* ASFRPerson.h */,
+				559AD61123AC940B0041C4C3 /* ASFRManager.h */,
+				559AD61223AC940B0041C4C3 /* FSDKFR.xcdatamodeld */,
+				559AD61423AC940B0041C4C3 /* AFRCDVersion+CoreDataClass.m */,
+				559AD61523AC940B0041C4C3 /* AFRCDPerson+CoreDataClass.h */,
+				559AD61623AC940B0041C4C3 /* AFRCDPerson+CoreDataProperties.m */,
+				559AD61723AC940B0041C4C3 /* AFRCDVersion+CoreDataProperties.h */,
+				559AD61823AC940B0041C4C3 /* ASFRPerson.m */,
+				559AD61923AC940B0041C4C3 /* ASFRCDManager.m */,
+			);
+			path = database;
+			sourceTree = "<group>";
+		};
+		559AD61A23AC940B0041C4C3 /* camera */ = {
+			isa = PBXGroup;
+			children = (
+				559AD61B23AC940B0041C4C3 /* ASFCameraController.h */,
+				559AD61C23AC940B0041C4C3 /* ASFCameraController.m */,
+			);
+			path = camera;
+			sourceTree = "<group>";
+		};
+		559AD61E23AC940B0041C4C3 /* libs */ = {
+			isa = PBXGroup;
+			children = (
+				559AD61F23AC940B0041C4C3 /* ArcSoftFaceEngine.framework */,
+			);
+			path = libs;
+			sourceTree = "<group>";
+		};
+		559AD62023AC940B0041C4C3 /* engine */ = {
+			isa = PBXGroup;
+			children = (
+				559AD62123AC940B0041C4C3 /* ASFVideoProcessor.mm */,
+				559AD62223AC940B0041C4C3 /* ASFVideoProcessor.h */,
+			);
+			path = engine;
+			sourceTree = "<group>";
+		};
+		559AD62323AC940B0041C4C3 /* Utility */ = {
+			isa = PBXGroup;
+			children = (
+				559AD62423AC940B0041C4C3 /* GLKitView.h */,
+				559AD62523AC940B0041C4C3 /* Utility.m */,
+				559AD62623AC940B0041C4C3 /* ColorFormatUtil.h */,
+				559AD62723AC940B0041C4C3 /* GLKitView.m */,
+				559AD62823AC940B0041C4C3 /* ColorFormatUtil.m */,
+				559AD62923AC940B0041C4C3 /* Utility.h */,
+			);
+			path = Utility;
+			sourceTree = "<group>";
+		};
+		559AD63C23AC94AD0041C4C3 /* HRFace */ = {
+			isa = PBXGroup;
+			children = (
+				559AD63D23AC94BB0041C4C3 /* HRFaceManager.h */,
+				559AD63E23AC94BB0041C4C3 /* HRFaceManager.m */,
+			);
+			path = HRFace;
+			sourceTree = "<group>";
+		};
 		55CC6560233B77ED00D4A581 /* UIButton+Layout */ = {
 			isa = PBXGroup;
 			children = (
@@ -5410,6 +5564,12 @@
 		F5E0A8A650A532AF5CC60F14 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				559AD60623AC93D50041C4C3 /* AVFoundation.framework */,
+				559AD60423AC93CC0041C4C3 /* CoreData.framework */,
+				559AD60223AC93B60041C4C3 /* AssetsLibrary.framework */,
+				559AD60023AC93A50041C4C3 /* GLKit.framework */,
+				559AD5FE23AC93660041C4C3 /* CoreMedia.framework */,
+				559AD5FC23AC935D0041C4C3 /* libstdc++.6.0.9.tbd */,
 				55B078AC233C8E09009BDDBC /* AvoidCrash.framework */,
 				55F4BAE52282BBD70034A533 /* CoreLocation.framework */,
 				EA87F58E2109B11500D7A1E4 /* JavaScriptCore.framework */,
@@ -5573,6 +5733,7 @@
 				EA0D8D6A211299360042A1BA /* Localizable.strings in Resources */,
 				55A653132248B33200A6EA52 /* 20181218115255.wav in Resources */,
 				EAD18F5820D02A780053F82B /* README.md in Resources */,
+				559AD63323AC940C0041C4C3 /* Main.storyboard in Resources */,
 				EAA0CA872188321000240724 /* PlayButtonOverlayLarge.png in Resources */,
 				55D900C2228E586900E54FE1 /* Jurisdiction.plist in Resources */,
 				EAA0CA812188321000240724 /* ImageSelectedSmallOff.png in Resources */,
@@ -5801,6 +5962,7 @@
 				556C1A2823224F050070639D /* PSInteractiveMessageViewController.m in Sources */,
 				EAEE396920C52784005F7530 /* PSTransactionRecordRequest.m in Sources */,
 				3E78B773208D8586007DF162 /* PSPhoneCardViewModel.m in Sources */,
+				559AD62D23AC940C0041C4C3 /* FSDKFR.xcdatamodeld in Sources */,
 				3E5D150620731B04000FC779 /* PSPhonePassport.m in Sources */,
 				55E9A8C42186EDC6003A5918 /* PSRemittanceRecordCell.m in Sources */,
 				554C59CD23839076006C0A7A /* XXAlertView+XXMyAlertView.m in Sources */,
@@ -5815,11 +5977,13 @@
 				55959FB122F40734004C2446 /* MineArticleViewController.m in Sources */,
 				3EEEC66F20945E31003B35B3 /* PSPrisonerManageViewController.m in Sources */,
 				3E5D159C20736C15000FC779 /* PSBusinessViewController.m in Sources */,
+				559AD63823AC940C0041C4C3 /* ColorFormatUtil.m in Sources */,
 				3E5D16022074D3CA000FC779 /* UIView+anchorPoint.m in Sources */,
 				EAB45367214B854E007A7627 /* PSPrisonerFamiliesRequest.m in Sources */,
 				EA87F5722105CE3900D7A1E4 /* PSAccountEditEmailViewModel.m in Sources */,
 				3EDF0DBB20886E6B002D98BD /* PSCheckCodeResponse.m in Sources */,
 				3ED2BC6820AD718400359EF4 /* PSAddLocalMeetingResponse.m in Sources */,
+				559AD63223AC940C0041C4C3 /* ASFCameraController.m in Sources */,
 				3E5D15AD20737517000FC779 /* PSHomeViewController.m in Sources */,
 				EAA0C9C52186BC3000240724 /* PSConsultationTableViewCell.m in Sources */,
 				3EC7B729207DEF4F00DFBA65 /* PSAccountTopView.m in Sources */,
@@ -5844,6 +6008,7 @@
 				EACBC1B52148E5F8004C0EAB /* PSUploadRelationRequest.m in Sources */,
 				55B1957C21D1BFC2000E0B28 /* PSPhotoBrowser.m in Sources */,
 				55F680922330B56500E7445B /* PSArticleStateViewModel.m in Sources */,
+				559AD63B23AC94930041C4C3 /* PSHRFaceAuthViewController.m in Sources */,
 				EAA0C9EC218831F800240724 /* LLImagePickerView.m in Sources */,
 				5517DBFE2332324B00E2DDCF /* PSArticleFindPenNameResponse.m in Sources */,
 				EA492485218303C100D94F1A /* MoreRoloCell.m in Sources */,
@@ -5854,6 +6019,7 @@
 				3EEE777A20807C9800CAD179 /* PSFamilyServiceView.m in Sources */,
 				55381CEE224084CB00CC3C66 /* PSWorkViewModel.m in Sources */,
 				EAD18F7020D255020053F82B /* PSchangePhoneNextViewController.m in Sources */,
+				559AD62E23AC940C0041C4C3 /* AFRCDVersion+CoreDataClass.m in Sources */,
 				55573F9B21BE64FB0053391C /* UIImage+Rename.m in Sources */,
 				EA67825B22927BA400638C17 /* PSPasswordViewModel.m in Sources */,
 				557C570B22F9195300ED3230 /* PSArticleStateViewController.m in Sources */,
@@ -5953,6 +6119,7 @@
 				3EC7B73C207E190500DFBA65 /* PSFunctionItem.m in Sources */,
 				5523859C23278A160002B568 /* PSPlatMessageViewModel.m in Sources */,
 				EA0B02F620CE63860091B9A0 /* MessageGuideVC.m in Sources */,
+				559AD62A23AC940C0041C4C3 /* ASFRManager.m in Sources */,
 				3E5D163C207B0AC3000FC779 /* PSVisitorBusinessViewController.m in Sources */,
 				3E171A1F209092A300B7D807 /* IFlyFaceResultKeys.m in Sources */,
 				EAD18F5320D02A780053F82B /* NSObject+MJClass.m in Sources */,
@@ -5986,6 +6153,7 @@
 				3EDA519B20ABC95700D8D019 /* PSClockView.m in Sources */,
 				3E5D15D5207471EB000FC779 /* PSVisitorBaseRequest.m in Sources */,
 				3EA8F870209027BA00BA23B2 /* PSMeetingManager.m in Sources */,
+				559AD63123AC940C0041C4C3 /* ASFRCDManager.m in Sources */,
 				3EEE77BE208473A100CAD179 /* PSDashiLine.m in Sources */,
 				EADDC8BE20BEFBEA0068D3AB /* Accounts.m in Sources */,
 				3E171AD320930C8800B7D807 /* PSWriteSuggestionViewModel.m in Sources */,
@@ -6027,6 +6195,7 @@
 				55573F9521BE03870053391C /* UIControl+SDTrackTool.m in Sources */,
 				3E5D15B02073752F000FC779 /* PSUserCenterViewController.m in Sources */,
 				3EC7B747207EF04000DFBA65 /* PSSwitch.m in Sources */,
+				559AD62B23AC940C0041C4C3 /* AFRCDVersion+CoreDataProperties.m in Sources */,
 				3E5D14C420721E72000FC779 /* UIImage+Crop.m in Sources */,
 				55573F9821BE03870053391C /* SDTrackTool.m in Sources */,
 				555B5CB721952B8B00B64DF3 /* AppDelegate+other.m in Sources */,
@@ -6042,6 +6211,7 @@
 				3E0044E8207B389B0036CBC5 /* PSRegisterViewController.m in Sources */,
 				3EC77D5D209C3B02007E7A8C /* PSGameMusicPlayer.m in Sources */,
 				EAA0C9F1218831F800240724 /* UIView+LLExtension.m in Sources */,
+				559AD63523AC940C0041C4C3 /* ASFVideoProcessor.mm in Sources */,
 				3E5D158F20732398000FC779 /* NSObject+MultiParam.m in Sources */,
 				EAA0C9EA218831F800240724 /* LLImagePickerManager.m in Sources */,
 				EA33786B21003C1D0081B907 /* UIView+LYExtension.m in Sources */,
@@ -6064,6 +6234,7 @@
 				EA87F5782108099B00D7A1E4 /* PSPinmoneyViewController.m in Sources */,
 				3E91DE81208F691800AADE3C /* PSFamilyLogsRequest.m in Sources */,
 				EAD18F4F20D02A780053F82B /* MJProperty.m in Sources */,
+				559AD62F23AC940C0041C4C3 /* AFRCDPerson+CoreDataProperties.m in Sources */,
 				3E171A242090937B00B7D807 /* CanvasView.m in Sources */,
 				EACBC1932133F56F004C0EAB /* PSValidTouristRequest.m in Sources */,
 				3EEE776920803ED900CAD179 /* PSSettingBottomView.m in Sources */,
@@ -6138,6 +6309,7 @@
 				3E171ABA2092CD1100B7D807 /* PSAdvertisement.m in Sources */,
 				3E0044E5207B38770036CBC5 /* PSLoginViewController.m in Sources */,
 				3EDA51BA20AD4D9800D8D019 /* PSLocalMeetingCalendarView.m in Sources */,
+				559AD63F23AC94BB0041C4C3 /* HRFaceManager.m in Sources */,
 				554C59C723839022006C0A7A /* AlertViewRecorder.m in Sources */,
 				3EEE77AF2084498600CAD179 /* PSComplaintSuggestionViewController.m in Sources */,
 				3E171A9320920C0F00B7D807 /* PSPeriodChangeViewModel.m in Sources */,
@@ -6193,6 +6365,7 @@
 				EADDC8B120BE8F580068D3AB /* PSPrisonerAcccountsResponse.m in Sources */,
 				3EC7B70A207DBA0B00DFBA65 /* PSUserCenterTopView.m in Sources */,
 				55FF6BE3234092BC0001FA6C /* KPool.m in Sources */,
+				559AD62C23AC940C0041C4C3 /* AFRCDPerson+CoreDataClass.m in Sources */,
 				EAA0CA222188320500240724 /* TZImagePickerController.m in Sources */,
 				EA67825822927B2700638C17 /* PSPasswordViewController.m in Sources */,
 				EAFB4A7021523D2800CDFE11 /* PSFamilyFaceViewController.m in Sources */,
@@ -6357,6 +6530,7 @@
 				EAA0CA232188320500240724 /* TZGifPhotoPreviewController.m in Sources */,
 				55995215229274EE00BA9FFA /* UIViewController+Author.m in Sources */,
 				55381CE7224083E800CC3C66 /* WWWaveProgressView.m in Sources */,
+				559AD63723AC940C0041C4C3 /* GLKitView.m in Sources */,
 				3EEEC6672094171A003B35B3 /* PSWhiteListResponse.m in Sources */,
 				3E5D15BE20746B8F000FC779 /* PSVisitorViewController.m in Sources */,
 				3EDA519520AAE69A00D8D019 /* PSLocalMeetingViewModel.m in Sources */,
@@ -6394,6 +6568,7 @@
 				3E5D150220731B04000FC779 /* PSCache.m in Sources */,
 				EAD67A3D218C20B0009E54C2 /* PSLawyerDetailsViewController.m in Sources */,
 				3EEE775D207F58EA00CAD179 /* PSHomeHallSectionView.m in Sources */,
+				559AD63023AC940C0041C4C3 /* ASFRPerson.m in Sources */,
 				EA42860A2119894D00418685 /* VIPhoneMessageViewController.m in Sources */,
 				EAB45370214B8727007A7627 /* PSPrisonerFamily.m in Sources */,
 				EA6BE71522A4F18F00363036 /* PSForgetPasswordViewController.m in Sources */,
@@ -6444,6 +6619,7 @@
 				55943DE721CA2E89002F82B8 /* FeedLoadItemView.m in Sources */,
 				556C1A1B2321FA630070639D /* UIBarButtonItem+YeeBadge.m in Sources */,
 				55381CF522408B3E00CC3C66 /* PSServiceCentreTableViewCell.m in Sources */,
+				559AD63623AC940C0041C4C3 /* Utility.m in Sources */,
 				EAA0C9EE218831F800240724 /* LLActionSheetView.m in Sources */,
 				556C1A2523224ECF0070639D /* PSAdvisoryMesssageViewController.m in Sources */,
 				EA0B02F920CFA9400091B9A0 /* PSPreLoginViewModel.m in Sources */,
@@ -6644,6 +6820,7 @@
 					"$(PROJECT_DIR)/PrisonService/Vender/Alipay",
 					"$(PROJECT_DIR)/PrisonService/Vender/IflyMSC",
 					"$(PROJECT_DIR)/PrisonService/Vender/ZJSDK",
+					"$(PROJECT_DIR)/PrisonService/Vender/HRFaceSDK/libs",
 				);
 				GCC_GENERATE_TEST_COVERAGE_FILES = YES;
 				GCC_INSTRUMENT_PROGRAM_FLOW_ARCS = YES;
@@ -6686,6 +6863,7 @@
 					"$(PROJECT_DIR)/PrisonService/Vender/Alipay",
 					"$(PROJECT_DIR)/PrisonService/Vender/IflyMSC",
 					"$(PROJECT_DIR)/PrisonService/Vender/ZJSDK",
+					"$(PROJECT_DIR)/PrisonService/Vender/HRFaceSDK/libs",
 				);
 				GCC_GENERATE_TEST_COVERAGE_FILES = NO;
 				GCC_PREFIX_HEADER = PrisonService/PSPrefixHeader.pch;
@@ -6801,6 +6979,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		559AD61223AC940B0041C4C3 /* FSDKFR.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				559AD61323AC940B0041C4C3 /* FSDKFR.xcdatamodel */,
+			);
+			currentVersion = 559AD61323AC940B0041C4C3 /* FSDKFR.xcdatamodel */;
+			path = FSDKFR.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 3E5D14612071C93D000FC779 /* Project object */;
 }

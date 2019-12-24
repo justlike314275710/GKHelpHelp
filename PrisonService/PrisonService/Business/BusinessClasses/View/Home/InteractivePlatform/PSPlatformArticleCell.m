@@ -191,10 +191,6 @@
             _timeLab.text = model.auditAt;
         }
     }
-    
-    
-
-
 }
 
 -(void)setCollecModel:(PSCollectArticleListModel *)collecModel{
