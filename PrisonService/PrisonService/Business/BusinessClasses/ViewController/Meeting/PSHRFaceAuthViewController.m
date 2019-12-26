@@ -296,8 +296,8 @@ typedef NS_ENUM(NSInteger, PSFaceDetectionType) {
             _authStateLabl.text = @"人脸识别成功";
         }
     }];
-    
 }
+
 //会见获取需要识别的家属
 -(void)meetingFace{
     [[PSLoadingView sharedInstance] show];
@@ -378,9 +378,7 @@ typedef NS_ENUM(NSInteger, PSFaceDetectionType) {
     ASF_CAMERA_DATA* cameraData = [Utility getCameraDataFromSampleBuffer:sampleBuffer];
     NSArray *arrayFaceInfo = [self.videoProcessor process:cameraData];
     dispatch_sync(dispatch_get_main_queue(), ^{
-
         [self.glView renderWithCVPixelBuffer:cameraFrame orientation:0 mirror:NO];
-        
         if(self.arrayAllFaceRectView.count >= arrayFaceInfo.count)
         {
             for (NSUInteger face=arrayFaceInfo.count; face<self.arrayAllFaceRectView.count; face++) {
@@ -434,6 +432,7 @@ typedef NS_ENUM(NSInteger, PSFaceDetectionType) {
         }
     }];
 }
+
 #pragma mark ---------- 获取需要注册的人脸
 -(void)getAuthFace{
     //注册人脸本地有不需要就不需要注册
@@ -478,6 +477,7 @@ typedef NS_ENUM(NSInteger, PSFaceDetectionType) {
         }
     });
 }
+
 #pragma mark ---------- 检测人脸提取信息
 -(void)HR_checkFace:(UIImage*)faceimage name:(NSString *)name familyName:(NSString *)familyName block:(HRSDKblock)block  {
     
