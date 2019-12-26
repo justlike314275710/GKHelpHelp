@@ -42,6 +42,7 @@
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     self.window.backgroundColor = [UIColor blackColor];
     [self.window makeKeyAndVisible];
+    //启动服务
     [[PSLaunchManager sharedInstance] launchApplication];
     self.openByNotice = NO;
     if (launchOptions) {
@@ -54,9 +55,14 @@
             });
         }
     }
+    [self setTestUI];
     //检测更新
-    PSVersonUpdateViewModel *updateViewModel = [PSVersonUpdateViewModel new];
-    [updateViewModel jundgeVersonUpdate];
+    [self versionUpDate];
+    return YES;
+}
+
+#pragma mark ---------- 测试环境下UI
+- (void)setTestUI {
     if (UAT==1) {
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(KScreenWidth-70,0, 50, 20)];
@@ -67,14 +73,14 @@
             [wd addSubview:label];
         });
     }
-    return YES;
+}
+#pragma mark ---------- 版本更新判断
+- (void)versionUpDate {
+    PSVersonUpdateViewModel *updateViewModel = [PSVersonUpdateViewModel new];
+    [updateViewModel jundgeVersonUpdate];
 }
 
-- (void)application:(UIApplication *)app didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
-{
-    [[NIMSDK sharedSDK] updateApnsToken:deviceToken];
-}
-
+#pragma mark ---------- 第三方服务
 - (void)registerThirdParty {
     //键盘
     [IQKeyboardManager sharedManager].enableAutoToolbar = YES;
@@ -115,6 +121,11 @@
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
     if ([touches.anyObject locationInView:nil].y > 20) return;
     [[NSNotificationCenter defaultCenter]postNotificationName:@"statusBarTappedNotification" object:nil];
+}
+
+- (void)application:(UIApplication *)app didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
+{
+    [[NIMSDK sharedSDK] updateApnsToken:deviceToken];
 }
 
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {

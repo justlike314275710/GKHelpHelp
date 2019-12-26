@@ -45,7 +45,7 @@
 /**
 判断是否打开定位权限
 **/
--(void)checkAuthorizationWithLocation;
+- (void)checkAuthorizationWithLocation;
 
 @end
 

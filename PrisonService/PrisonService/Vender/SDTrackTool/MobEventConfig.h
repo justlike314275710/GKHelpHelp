@@ -92,9 +92,6 @@
 
 
 
-
-
-
 #define YUWUTONG_AUTH           @"yuwutong_auth"            // , 提交认证, 0
 #define ADD_FAMILY              @"add_family"               // , 添加家属提交, 0
 #define BIND_PRISONER           @"bind_prisoner"            // , 绑定服刑人员, 0
@@ -107,7 +104,7 @@
 
 #define APPLY_IMEITE_MEETING    @"APPLY_IMEITE_MEETING"     // , 立即预约, 0
 #define APPLY_CANCEL_MEETING    @"APPLY_CANCEL_MEETING"     // , 实地会见取消预约, 0
-#define APPLY_SURE_MEETING      @"APPLY_SURE_MEETING"     // , 确定预约, 0
+#define APPLY_SURE_MEETING      @"APPLY_SURE_MEETING"       // , 确定预约, 0
 #define APPLY_REAL_MEETING      @"apply_real_meeting"       // , 申请实地会见, 0
 #define CANCEL_REAL_MEETING     @"cancel_real_meeting"      // , 取消实地会见, 0
 

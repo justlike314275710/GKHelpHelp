@@ -50,8 +50,6 @@
     _lat = [NSString stringWithFormat:@"%.6lf",lat];
     _lng = [NSString stringWithFormat:@"%.6lf",lng];
     
-    
-
     CLGeocoder *geocoder = [[CLGeocoder alloc] init];
     [geocoder reverseGeocodeLocation:location completionHandler:^(NSArray<CLPlacemark *> *_Nullable placemarks, NSError * _Nullable error) {
         for (CLPlacemark *place in placemarks) {

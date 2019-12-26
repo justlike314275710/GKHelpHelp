@@ -20,6 +20,7 @@
 #import "PSAlertView.h"
 #import "HRFaceManager.h"
 #import "PSAuthorizationTool.h"
+#import "PSCache.h"
 
 //#define IMAGE_WIDTH     720
 //#define IMAGE_HEIGHT    840
@@ -75,7 +76,6 @@ typedef NS_ENUM(NSInteger, PSFaceDetectionType) {
     [super viewDidLoad];
     //检测相机权限
     [PSAuthorizationTool checkAndRedirectCameraAuthorizationWithBlock:nil setBlock:nil isShow:NO];
-    
     _detectionType = PSFaceDetectionTypeNone;
     _authIndex = 0;
     _isFinish = NO;
@@ -86,7 +86,15 @@ typedef NS_ENUM(NSInteger, PSFaceDetectionType) {
         [self setupUI];
         [self registHR_race];
     } else {
-        [self meetingFace];
+        if (self.meetViewModel.familymeetingID.length>0) {
+            //会见
+            [self meetingFace];
+        } else {
+            //免费会见没有ID
+            [self meetingFreeFace];
+            [self setupUI];
+            [self registHR_race];
+        }
     }
 }
 - (void)viewWillAppear:(BOOL)animated {
@@ -250,7 +258,6 @@ typedef NS_ENUM(NSInteger, PSFaceDetectionType) {
     }
 }
 
-
 #pragma mark ---------- 识别时候UI更新
 -(void)upDataUI{
     PSPrisonerFamily *prisonerFamily = [self.meetViewModel.FamilyMembers objectAtIndex:_authIndex];
@@ -300,6 +307,16 @@ typedef NS_ENUM(NSInteger, PSFaceDetectionType) {
     }];
     
 }
+//免费会见
+- (void)meetingFreeFace {
+    PSUserSession*session = [PSCache queryCache:AppUserSessionCacheKey];
+    PSFamily *family = session.families;
+    PSPrisonerFamily *prisonerFamily = [[PSPrisonerFamily alloc] init];
+    prisonerFamily.familyAvatarUrl = family.avatarUrl;
+    prisonerFamily.familyName = family.name;
+    self.meetViewModel.FamilyMembers = @[prisonerFamily];
+}
+
 //会见获取需要识别的家属
 -(void)meetingFace{
     [[PSLoadingView sharedInstance] show];
@@ -506,6 +523,9 @@ typedef NS_ENUM(NSInteger, PSFaceDetectionType) {
     }];
 }
 
+- (BOOL)fd_interactivePopDisabled {
+    return YES;
+}
 
 #pragma mark ---------- 注册人脸
 //注册人脸
@@ -669,12 +689,6 @@ typedef NS_ENUM(NSInteger, PSFaceDetectionType) {
     }
     return _sacnView;
 }
-
-- (BOOL)fd_interactivePopDisabled {
-    return YES;
-}
-
-
 
 
 @end

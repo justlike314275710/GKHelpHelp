@@ -134,7 +134,7 @@
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
     request.HTTPMethod = @"put";
     request.allHTTPHeaderFields = @{
-                                    @"Content-Type":[NSString stringWithFormat:@"multipart/form-data; boundary=%@",boundary]
+                                     @"Content-Type":[NSString stringWithFormat:@"multipart/form-data; boundary=%@",boundary]
                                     };
     NSData *compressData = [image compressWithLengthLimit:500.0f * 1024.0f];
     request.HTTPBody = [self makeBody:@"file" fileName:@"fileName" data:compressData];

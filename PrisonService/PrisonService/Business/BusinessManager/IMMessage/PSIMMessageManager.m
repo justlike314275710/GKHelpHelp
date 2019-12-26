@@ -123,16 +123,14 @@
     [alert show];
     
 }
-
 - (void)onLogin:(NIMLoginStep)step {
     if (step == NIMLoginStepSyncOK) {
-    
     }
     if (step == NIMLoginStepLoginOK) {
     }
   
 }
-//云信自动登录失败
+#pragma mark ---------- 云信自动登录失败
 - (void)onAutoLoginFailed:(NSError *)error {
     if (error.code == 302 || error.code == 417) {
         //用户名或密码错误(error code 302)
@@ -143,7 +141,7 @@
         [PSTipsView showTips:msg];
     }
 }
-#pragma mark - NIMSystemNotificationManagerDelegate
+#pragma mark ---------- NIMSystemNotificationManagerDelegate
 - (void)onReceiveSystemNotification:(NIMSystemNotification *)notification {
 
 }
@@ -189,7 +187,7 @@
         }
     }
 }
-#pragma mark - Notification Method
+#pragma mark ---------- Notification Method
 -(void)EBBannerViewDidClickAction:(NSNotification *)noti{
     PSMeetingMessage *message = noti.object;
     switch (message.code) {
@@ -214,7 +212,8 @@
         KPostNotification(AppDotChange, nil);
     });
 }
-//MARK:获取系统消息数
+
+#pragma mark ---------- 获取系统消息数
 - (void)getCountVisit:(NSInteger)index{
     UIViewController *currentVC = [UIViewController jsd_getCurrentViewController];
 //    PSHomeViewModel *homeViewModel = [[PSHomeViewModel alloc] init];
@@ -242,5 +241,6 @@
 - (NSString *)taskName {
     return @"IM消息收发管理";
 }
+
 
 @end

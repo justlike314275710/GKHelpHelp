@@ -42,7 +42,7 @@
 }
 - (void)checkDataWithCallback:(CheckDataCallback)callback {
     AppDelegate *appdelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
-    if (appdelegate.IS_NetWork == NO) {
+    if (!appdelegate.isHaveNet) {
         if (callback) {
             NSString*No_network_connection=NSLocalizedString(@"No network connection", @"无网络连接");
             callback(NO,No_network_connection);

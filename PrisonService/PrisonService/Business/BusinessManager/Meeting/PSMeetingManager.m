@@ -208,8 +208,6 @@
 
 }
 
-
-
 /**
  视频通话
  */
@@ -222,8 +220,6 @@
     viewModel.presenterPassword = self.presenterPassword;
     viewModel.familymeetingID=self.familesMeetingID;
     viewModel.callDuration=self.callDuration;
-    
-    
     
    PSMeetingViewController *meetingViewController = [[PSMeetingViewController alloc] initWithViewModel:viewModel];
 //    [self.meetingNavigationController pushViewController:meetingViewController animated:YES];

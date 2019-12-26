@@ -11,9 +11,7 @@
 #import "Utility.h"
 #import "ASFRManager.h"
 #import "GLKitView.h"
-
-#define HRAPPID   @"2rmJSJjww8kpvNwmHjbkZfPo1UxxgPRe6EyeZWMZxwnT"
-#define HRSDKKEY  @"FSCYeDdXi2yH97asM7z267TzxpwYiB97PqowKrYJ8gSe"
+#import "PSThirdPartyConstants.h"
 
 @interface HRFaceManager ()
 @property (nonatomic, strong)ArcSoftFaceEngine *engine; //人脸识别引擎
@@ -37,21 +35,17 @@
 #pragma mark ---------- 激活虹软人脸识别SDK
 -(void)registHRSDK:(HRSDKblock)block{
     
-    if (TARGET_IPHONE_SIMULATOR) {
-       
-    }else{
-        _engine = [[ArcSoftFaceEngine alloc] init];
-        MRESULT mr = [_engine activeWithAppId:HRAPPID SDKKey:HRSDKKEY];
-        if (mr == ASF_MOK) {
-            NSLog(@"SDK激活成功");
-            [self initHRSDK:block];
-        } else if(mr == MERR_ASF_ALREADY_ACTIVATED){
-            NSLog(@"SDK已激活");
-            [self initHRSDK:block];
-        } else {
-            NSLog(@"SDK激活失败");
-            if (block) block(PSFaceBackSDKRegistFail);
-        }
+    _engine = [[ArcSoftFaceEngine alloc] init];
+    MRESULT mr = [_engine activeWithAppId:HRAPPID SDKKey:HRSDKKEY];
+    if (mr == ASF_MOK) {
+        NSLog(@"SDK激活成功");
+        [self initHRSDK:block];
+    } else if(mr == MERR_ASF_ALREADY_ACTIVATED){
+        NSLog(@"SDK已激活");
+        [self initHRSDK:block];
+    } else {
+        NSLog(@"SDK激活失败");
+        if (block) block(PSFaceBackSDKRegistFail);
     }
 }
 
@@ -71,7 +65,9 @@
     }
 }
 #pragma mark ---------- 从图片检测人脸提取信息
--(void)hrsdkCheckFace:(UIImage*)faceimage sdkblock:(HRSDKblock)sdkblock checkBlock:(HRSDKCheckBlock)checkBlock{
+-(void) hrsdkCheckFace:(UIImage *)faceimage
+              sdkblock:(HRSDKblock)sdkblock
+            checkBlock:(HRSDKCheckBlock)checkBlock{
     //对图片宽高进行对齐处理
     UIImage *_selectImage = faceimage;
     int imageWidth = _selectImage.size.width;
@@ -204,18 +200,10 @@
                 copyFeature1->featureSize = feature1.featureSize;
                 copyFeature1->feature = (MByte*)malloc(feature1.featureSize);
                 memcpy(copyFeature1->feature, feature1.feature, copyFeature1->featureSize);
-//                _faceFacture = copyFeature1;
                 //注册人脸
-//                BOOL result1 = [self registerPersonImage:image personName:name];
-                    if (checkBlock) {
-                        checkBlock(copyFeature1);
-                    }
-                    
-//                if (result1) {
-//                    NSLog(@"注册成功");
-//                } else {
-//                    NSLog(@"注册失败");
-//                }
+                if (checkBlock) {
+                    checkBlock(copyFeature1);
+                }
             }
         }
     }
