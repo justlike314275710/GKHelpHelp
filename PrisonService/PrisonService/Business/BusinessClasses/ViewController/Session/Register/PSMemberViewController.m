@@ -21,7 +21,7 @@
 @end
 
 @implementation PSMemberViewController
-
+#pragma mark - Event
 - (void)selectAction {
     [self.view endEditing:YES];
     PSPrisonContentViewController *prisonSelectViewController = [[PSPrisonContentViewController alloc] initWithViewModel:self.viewModel];
@@ -38,6 +38,7 @@
     self.prisonView.prisonLabel.text = registerViewModel.selectedJail.title;
 }
 
+#pragma mark - UI
 - (void)renderContents {
     CGFloat sidePadding = 40;
     CGFloat vHeight = 44;
@@ -101,7 +102,7 @@
     }];
 }
 
-
+#pragma mark - lifeCycle
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.

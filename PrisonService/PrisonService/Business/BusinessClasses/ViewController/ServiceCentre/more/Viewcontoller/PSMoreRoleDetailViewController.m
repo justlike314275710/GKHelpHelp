@@ -43,19 +43,14 @@
     [super viewDidLoad];
     self.view.backgroundColor=UIColorFromRGBA(248, 247, 254, 1);
     [self p_setUI];
-    //[self setIsShowLiftBack:YES];
-    
 }
 
-#pragma mark - PrivateMethod
+#pragma mark - UI
 - (void)p_setUI {
-    
     [self.view addSubview:self.myScrollview];
     [self.myScrollview mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.top.right.left.mas_equalTo(self.view);
     }];
-    
-    //actionItem
     PSMoreServiceViewModel *PSMoreViewModel = (PSMoreServiceViewModel *)self.viewModel;
     CGFloat h=(SCREEN_HEIGHT-64)/4;
     for (int i = 0; i<8; i++) {
@@ -83,7 +78,6 @@
         make.centerX.mas_equalTo(self.myScrollview);
         
     }];
-    
     for (int i = 0;i < 3; i++ ) {
         UIView *w_line =  [UIView new];
         CGFloat h=(SCREEN_HEIGHT-64)/4;
@@ -96,13 +90,11 @@
             make.height.mas_equalTo(1);
         }];
     }
-    
-    
 }
 
 
+#pragma mark -- Event
 - (void)p_pushReleaseViewController {
-    
     PSConsultationViewModel*viewModel=[[PSConsultationViewModel alloc]init];
     PSConsultationViewController*consultationViewController=[[PSConsultationViewController alloc]initWithViewModel:viewModel];
     [self.navigationController pushViewController:consultationViewController animated:YES];
@@ -117,12 +109,8 @@
         viewModel.category=@"财产纠纷";
         consultationViewController.title=@"发布抢单";
         [self.navigationController pushViewController:consultationViewController animated:YES];
-        
-        
-        
     }
     else if (actionIndex==1){
-        
         PSConsultationViewModel*viewModel=[[PSConsultationViewModel alloc]init];
         PSConsultationViewController*consultationViewController
         =[[PSConsultationViewController alloc]initWithViewModel:viewModel];

@@ -63,25 +63,50 @@
     
 }
 
+
+
+
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     self.tabBarController.tabBar.hidden = NO;
 
 }
 
+
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
 }
+
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
 }
 
+
 #pragma mark  - notification
+-(void)requestBalance{
+    [[PSLoadingView sharedInstance]show];
+    AccountsViewModel*accountsModel=[[AccountsViewModel alloc]init];
+    [accountsModel requestAccountsCompleted:^(PSResponse *response) {
+        self.balanceSting=[NSString stringWithFormat:@"¥%.2f",[accountsModel.blance floatValue]];
+        [[PSLoadingView sharedInstance]dismiss];
+        [self setupModelArray];
+        [self.settingTableview reloadData];
+    } failed:^(NSError *error) {
+        [[PSLoadingView sharedInstance]dismiss];
+        [self showNetError:error];
+    }];
+}
 
-#pragma mark  - action
+
+- (void)getUserAvater{
+    [self SDWebImageAuth];
+    NSString*urlSting=[NSString stringWithFormat:@"%@%@",EmallHostUrl,URL_get_userAvatar];
+    [_avatarView sd_setImageWithURL:[NSURL URLWithString:urlSting] placeholderImage:IMAGE_NAMED(@"个人中心-头像") options:SDWebImageRefreshCached];
+}
+
+
 -(void)refreshData{
-
-    
     self.view.backgroundColor=UIColorFromRGBA(251, 251, 251, 1);
     self.navigationItem.leftBarButtonItem = nil;
     self.navigationItem.hidesBackButton = NO;
@@ -99,37 +124,8 @@
     }
 }
 
--(void)requestBalance{
-    [[PSLoadingView sharedInstance]show];
-    AccountsViewModel*accountsModel=[[AccountsViewModel alloc]init];
-    [accountsModel requestAccountsCompleted:^(PSResponse *response) {
-        self.balanceSting=[NSString stringWithFormat:@"¥%.2f",[accountsModel.blance floatValue]];
-        [[PSLoadingView sharedInstance]dismiss];
-        [self setupModelArray];
-        [self.settingTableview reloadData];
-    } failed:^(NSError *error) {
-        [[PSLoadingView sharedInstance]dismiss];
-        [self showNetError:error];
-    }];
-}
-//MARK:获取自己头像
-- (void)getUserAvater{
-    [self SDWebImageAuth];
-    NSString*urlSting=[NSString stringWithFormat:@"%@%@",EmallHostUrl,URL_get_userAvatar];
-    [_avatarView sd_setImageWithURL:[NSURL URLWithString:urlSting] placeholderImage:IMAGE_NAMED(@"个人中心-头像") options:SDWebImageRefreshCached];
-}
-
--(void)SDWebImageAuth{
-    
-    NSString*token=[NSString stringWithFormat:@"Bearer %@",[LXFileManager readUserDataForKey:@"access_token"]];
-    [SDWebImageDownloader.sharedDownloader setValue:@"text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8" forHTTPHeaderField:@"Accept"];
-    [SDWebImageManager.sharedManager.imageDownloader setValue:token forHTTPHeaderField:@"Authorization"];
-    [SDWebImageManager sharedManager].imageCache.config.maxCacheAge=5*60.0;
-}
-
+#pragma mark  - action
 - (void)headerViewTapAction:(id)tap {
-
-    
     switch ([PSSessionManager sharedInstance].loginStatus) {
         case PSLoginPassed:{
             PSAccountViewModel *viewModel = [[PSAccountViewModel alloc] init];
@@ -152,7 +148,6 @@
 
 
 - (void)selectHallFunctionAtIndex:(NSInteger)index {
-    
     PSSettingItemModel*itemModel=self.modelArray[index];
     NSString*VI_member=NSLocalizedString(@"VI_member", @"服刑人员");
     NSString*telephone_balance=
@@ -228,7 +223,6 @@
 }
 
 - (void)managePrisoner {
-    
     PSPrisonerManageViewController *manageViewController = [[PSPrisonerManageViewController alloc] initWithViewModel:self.viewModel];
     manageViewController.prisonerDetail = self.prisonerDetail;
     
@@ -247,6 +241,8 @@
     [self setupModelArray];
     [self.settingTableview reloadData];
 }
+
+
 #pragma mark  - UITableViewDelegate
 - (BOOL)hiddenNavigationBar{
     return YES;
@@ -277,7 +273,6 @@
         }
             break;
         default:
-            
             if ([[LXFileManager readUserDataForKey:@"isVistor"]isEqualToString:@"YES"]) {
                 [[PSSessionManager sharedInstance]doLogout];
             } else {
@@ -297,7 +292,6 @@
 
 #pragma mark  - UI
 - (void)renderContents {
-    
     UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, StatusHeight, SCREEN_WIDTH, 190)];
      [self.view addSubview:headerView];
     //headerView.backgroundColor =UIColorFromRGBA(234, 234, 234, 1);
@@ -306,7 +300,6 @@
     [headerView addSubview:headerBgImageView];
     
     UITapGestureRecognizer *tapGesturRecognizer=[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(headerViewTapAction:)];
-    
     UIImageView *headContentImg = [[UIImageView alloc] initWithFrame:CGRectMake(13,75,SCREEN_WIDTH-13*2, 117)];
     headContentImg.image = IMAGE_NAMED(@"个人信息底");
     headContentImg.userInteractionEnabled = YES;
@@ -379,15 +372,12 @@
         
         float authLabWidth = [NSObject judegeIsVietnamVersion]?50:35;
         UILabel *authLab = [[UILabel alloc] initWithFrame:CGRectMake(iconImage.right+4,0,authLabWidth, 25)];
-        
         NSString*session_PASSED=NSLocalizedString(@"session_PASSED", @"已认证");
         NSString*session_NONE=NSLocalizedString(@"session_NONE", @"未认证");
-        
         authLab.text = session_PASSED;
         authLab.font = FontOfSize(10);
         authLab.numberOfLines = 0;
         [AuthenticaBtn addSubview:authLab];
-        
         //已认证
         if ([PSSessionManager sharedInstance].loginStatus == PSLoginPassed) {
             iconImage.image = [UIImage imageNamed:@"已认证icon"];
@@ -410,7 +400,6 @@
             AuthenticaBtn.layer.borderColor = UIColorFromRGB(153,153,153).CGColor;
         }
     }
-
     //设置
     UIView *settingBtnView = [[UIView alloc] initWithFrame:CGRectMake(headContentImg.width-60,15, 50, 50)];
     [headContentImg addSubview:settingBtnView];
@@ -424,15 +413,12 @@
         } else {
             [self.navigationController pushViewController:[[PSSettingViewController alloc] initWithViewModel:[[PSSettingViewModel alloc] init]] animated:YES];}
     }];
-    
-    
     //消息
     UIButton *messageBtn = [[UIButton alloc] initWithFrame:CGRectMake(headContentImg.width-16-18, 30,16,16)];
     [messageBtn setImage:IMAGE_NAMED(@"消息icon") forState:UIControlStateNormal];
-//    [headContentImg addSubview:messageBtn];
+
     [messageBtn bk_whenTapped:^{
 //        [self.navigationController pushViewController:[[PSSettingViewController alloc] initWithViewModel:[[PSSettingViewModel alloc] init]] animated:YES];
-        
     }];
     
     self.settingTableview = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
@@ -455,8 +441,6 @@
     
 }
 #pragma mark  - setter & getter
-
-
 - (void)setupModelArray
 {
     PSSettingItemModel *nameItem = [[PSSettingItemModel alloc]init];
@@ -465,7 +449,6 @@
     nameItem.img = [UIImage imageNamed:@"服刑人员"];
     nameItem.detailText = self.PrisonerDetailName;
     nameItem.accessoryType = PSSettingAccessoryTypeDisclosureIndicator;
-    
     
     PSSettingItemModel *balanceItem = [[PSSettingItemModel alloc]init];
     NSString*telephone_balance=NSLocalizedString(@"telephone_balance", @"亲情电话余额");
@@ -486,7 +469,6 @@
     RechargeItem.funcName =recharge_record;
     RechargeItem.img = [UIImage imageNamed:@"充值记录"];
     RechargeItem.accessoryType = PSSettingAccessoryTypeDisclosureIndicator;
-    
     
     PSSettingItemModel *ConsultationItem = [[PSSettingItemModel alloc]init];
     NSString*my_advice=NSLocalizedString(@"my_advice", @"我的咨询");
@@ -529,9 +511,8 @@
 
 }
 
-#pragma mark - 点击头像
+#pragma mark - AvaterUpload
 - (void)clickAvatarView {
- 
         LLActionSheetView *alertView = [[LLActionSheetView alloc]initWithTitleArray:@[@"相册选择",@"拍照",@"更换头像"] andShowCancel:YES];
         [alertView setTitleColor:[UIColor grayColor] index:2];
         alertView.ClickIndex = ^(NSInteger index) {
@@ -544,36 +525,8 @@
             }
         };
             [alertView show];
-        
-   
 }
 
--(void)openAlbum {
-    @weakify(self);
-    [PSAuthorizationTool checkAndRedirectPhotoAuthorizationWithBlock:^(BOOL result) {
-        PSImagePickerController *picker = [[PSImagePickerController alloc] initWithCropHeaderImageCallback:^(UIImage *cropImage) {
-            @strongify(self)
-            [self handlePickerImage:cropImage];
-        }];
-        [picker setSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
-        picker.delegate = self;
-        [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:picker animated:YES completion:nil];
-    } setBlock:nil isShow:YES];
-}
-
--(void)openCamera {
-    @weakify(self);
-    [PSAuthorizationTool checkAndRedirectCameraAuthorizationWithBlock:^(BOOL result) {
-        PSImagePickerController *picker = [[PSImagePickerController alloc] initWithCropHeaderImageCallback:^(UIImage *cropImage) {
-            @strongify(self)
-            [self handlePickerImage:cropImage];
-            
-        }];
-        [picker setSourceType:UIImagePickerControllerSourceTypeCamera];
-        picker.delegate = self;
-        [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:picker animated:YES completion:nil];
-    } setBlock:nil isShow:YES];
-}
 
 - (void)handlePickerImage:(UIImage *)image {
     PSAccountViewModel *accountViewModel = [PSAccountViewModel new];
@@ -590,8 +543,41 @@
 }
 
 
+-(void)openAlbum {
+    @weakify(self);
+    [PSAuthorizationTool checkAndRedirectPhotoAuthorizationWithBlock:^(BOOL result) {
+        PSImagePickerController *picker = [[PSImagePickerController alloc] initWithCropHeaderImageCallback:^(UIImage *cropImage) {
+            @strongify(self)
+            [self handlePickerImage:cropImage];
+        }];
+        [picker setSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
+        picker.delegate = self;
+        [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:picker animated:YES completion:nil];
+    } setBlock:nil isShow:YES];
+}
 
 
+-(void)openCamera {
+    @weakify(self);
+    [PSAuthorizationTool checkAndRedirectCameraAuthorizationWithBlock:^(BOOL result) {
+        PSImagePickerController *picker = [[PSImagePickerController alloc] initWithCropHeaderImageCallback:^(UIImage *cropImage) {
+            @strongify(self)
+            [self handlePickerImage:cropImage];
+            
+        }];
+        [picker setSourceType:UIImagePickerControllerSourceTypeCamera];
+        picker.delegate = self;
+        [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:picker animated:YES completion:nil];
+    } setBlock:nil isShow:YES];
+}
+
+
+-(void)SDWebImageAuth{
+    NSString*token=[NSString stringWithFormat:@"Bearer %@",[LXFileManager readUserDataForKey:@"access_token"]];
+    [SDWebImageDownloader.sharedDownloader setValue:@"text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8" forHTTPHeaderField:@"Accept"];
+    [SDWebImageManager.sharedManager.imageDownloader setValue:token forHTTPHeaderField:@"Authorization"];
+    [SDWebImageManager sharedManager].imageCache.config.maxCacheAge=5*60.0;
+}
 
 
 @end

@@ -23,8 +23,8 @@
 @end
 
 @implementation PSIDCardViewController
+#pragma mark - Event
 - (IBAction)cameraAction:(id)sender {
-    
     NSString*determine=NSLocalizedString(@"determine", @"确定");
     NSString*cancel=NSLocalizedString(@"cancel", @"取消");
     NSString*be_careful=NSLocalizedString(@"be_careful", @"注意");
@@ -245,6 +245,7 @@
     return leftItem;
 }
 
+#pragma mark - UI
 - (void)renderContents {
     CGFloat verticalPadding = RELATIVE_HEIGHT_VALUE(10);
     CGSize buttonSize = CGSizeMake(RELATIVE_HEIGHT_VALUE(193), RELATIVE_HEIGHT_VALUE(134));
@@ -328,6 +329,7 @@
     }];
 }
 
+#pragma mark - lifeCycle
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.

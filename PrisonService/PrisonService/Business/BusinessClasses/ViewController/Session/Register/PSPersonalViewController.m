@@ -20,9 +20,8 @@
 @end
 
 @implementation PSPersonalViewController
-
+#pragma mark - Event
 - (IBAction)cameraAction:(id)sender {
-    
     NSString *cancel = NSLocalizedString(@"cancel", @"取消");
     NSString *Choose_from_album = NSLocalizedString(@"Choose from album", @"从相册选择");
     NSString *Take_a_photo = NSLocalizedString(@"Take a photo", @"拍照");
@@ -78,6 +77,7 @@
     }];
 }
 
+#pragma mark - UI
 - (void)renderContents {
     CGFloat cameraHeight = 57;
     CGFloat horPadding = 40;
@@ -111,13 +111,14 @@
     }];
 }
 
+#pragma mark - lifeCycle
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     [self renderContents];
 }
 
-#pragma mark -
+#pragma mark -delegate
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
     [picker dismissViewControllerAnimated:YES completion:nil];
 }

@@ -94,7 +94,6 @@ typedef NS_ENUM(NSInteger, PSLoginModeType) {
 #pragma mark ---------- Private Method
 /** 视图初始化 */
 - (void)setupUI {
-    
     NSArray *langArr = [[NSUserDefaults standardUserDefaults] valueForKey:@"AppleLanguages"];
     self.language = langArr.firstObject;
     PSLoginBackgroundView *backgroundView = [PSLoginBackgroundView new];
@@ -121,7 +120,6 @@ typedef NS_ENUM(NSInteger, PSLoginModeType) {
         registViewModel.phoneNumber=textField.text;
         
     }];
-    
     
     [self.loginMiddleView.codeButton addTarget:self action:@selector(codeClicks) forControlEvents:UIControlEventTouchUpInside];
     
@@ -224,7 +222,6 @@ typedef NS_ENUM(NSInteger, PSLoginModeType) {
 
 //MARK:越南版注册
 -(void)EcommerceOfVietnamRegister{
-    
     PSEcomRegisterViewmodel*ecomRegisterViewmodel=[[PSEcomRegisterViewmodel alloc]init];
     @weakify(self)
     ecomRegisterViewmodel.phoneNumber=self.loginMiddleView.phoneTextField.text;
@@ -325,7 +322,6 @@ typedef NS_ENUM(NSInteger, PSLoginModeType) {
 
 //MARK:注册
 -(void)EcommerceOfRegister{
-    
     [[PSLoadingView sharedInstance] show];
     PSEcomRegisterViewmodel*ecomRegisterViewmodel=[[PSEcomRegisterViewmodel alloc]init];
     @weakify(self)

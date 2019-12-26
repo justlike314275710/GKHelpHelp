@@ -54,6 +54,7 @@ typedef NS_ENUM(NSInteger, PSMeettingType) {
     return YES;
 }
 
+
 - (void)showInternetError {
     // [PSTipsView showTips:@"无法连接到服务器，请检查网络"];
     NSString*Tips=NSLocalizedString(@"Tips", @"提示");
@@ -140,6 +141,7 @@ typedef NS_ENUM(NSInteger, PSMeettingType) {
         self.Type = PSMeettingTypePay;
     }
 }
+
 
 - (void)countdown {
    NSString*Call=NSLocalizedString(@"Call", @"已通话");

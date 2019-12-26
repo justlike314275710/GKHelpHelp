@@ -15,7 +15,7 @@
 @end
 
 @implementation PSRelationViewController
-
+#pragma mark - lifeCycle
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self renderContents];
@@ -48,8 +48,6 @@
         make.size.mas_equalTo(CGSizeMake(40, 32));
     }];
 
-    
-    
     UILabel *frontLabel = [UILabel new];
     frontLabel.font = AppBaseTextFont2;
     frontLabel.textColor = labelColor;
@@ -79,8 +77,8 @@
     
 }
 
+#pragma mark - Event
 - (IBAction)relationCameraAction:(id)sender {
-    
     
     NSString *cancel = NSLocalizedString(@"cancel", @"取消");
     NSString *Choose_from_album = NSLocalizedString(@"Choose from album", @"从相册选择");

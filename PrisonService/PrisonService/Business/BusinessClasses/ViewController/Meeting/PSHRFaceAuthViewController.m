@@ -106,7 +106,6 @@ typedef NS_ENUM(NSInteger, PSFaceDetectionType) {
 #pragma mark ---------- Private Method
 /** 视图初始化 */
 - (void)setupUI {
-    
     PSMeetingViewModel *viewModel = self.meetViewModel;
     [self.view addSubview:self.topView];
     [self.topView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -208,7 +207,6 @@ typedef NS_ENUM(NSInteger, PSFaceDetectionType) {
     }];
     
     for (int i = 0; i<viewModel.FamilyMembers.count; i++) {
-        
         PSPrisonerFamily *prisonerFamily = viewModel.FamilyMembers[i];
         CGFloat x = 15+(((KScreenWidth-270)/2)+80)*i;
         UIImageView *headimageView = [[UIImageView alloc] init];
@@ -317,6 +315,7 @@ typedef NS_ENUM(NSInteger, PSFaceDetectionType) {
         [[PSLoadingView sharedInstance] dismiss];
     }];
 }
+
 - (void)verifyFaceScuess {
     [PSAlertView showWithTitle:nil message:@"人脸识别成功" messageAlignment:NSTextAlignmentCenter image:IMAGE_NAMED(@"识别成功") handler:^(PSAlertView *alertView, NSInteger buttonIndex) {
         if (buttonIndex==0) {
@@ -371,6 +370,7 @@ typedef NS_ENUM(NSInteger, PSFaceDetectionType) {
         [self presentViewController:alertController animated:YES completion:nil];
     }
 }
+
 #pragma mark ---------- 摄像头人脸识别
 - (void)captureOutput:(AVCaptureOutput *)captureOutput didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer fromConnection:(AVCaptureConnection *)connection
 {

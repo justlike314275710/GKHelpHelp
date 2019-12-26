@@ -150,7 +150,6 @@
     monthLab.text = createdMonth;
     [headView addSubview:monthLab];
     
-    
     NSString *Recharge = NSLocalizedString(@"Recharge", @"充值");
     NSString *refund = NSLocalizedString(@"refund", @"退款");
     NSString *consumption = NSLocalizedString(@"consumption", @"消费");
@@ -217,10 +216,10 @@
     } else {
         cell.contentLabel.textColor =  UIColorFromRGB(51, 51, 51);
     }
-    
-    
+
     return cell;
 }
+
 
 #pragma mark - DZNEmptyDataSetSource and DZNEmptyDataSetDelegate
 - (UIImage *)imageForEmptyDataSet:(UIScrollView *)scrollView {

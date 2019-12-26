@@ -36,8 +36,7 @@
 @implementation PSAuthenticationHomeViewController
 
 
-
-
+#pragma mark - lifeCycle
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self renderContents];
@@ -77,8 +76,9 @@
 - (UIImage *)leftItemImage {
     return [UIImage imageNamed:@"homeDrawerIcon"];
 }
+
+#pragma mark - UI
 - (void)renderContents {
-    
     self.title =@"首页";
     //[LXFileManager readUserDataForKey:@"vistorTitle"];
     UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
@@ -98,6 +98,8 @@
     }];
 }
 
+
+#pragma mark - UI
 - (void)selectHallFunctionAtIndex:(NSInteger)index {
     NSString*prison_introduction=NSLocalizedString(@"prison_introduction", nil);
     NSString*prison_opening=NSLocalizedString(@"prison_opening", nil);
@@ -180,7 +182,7 @@
     // Dispose of any resources that can be recreated.
 }
 
-#pragma mark -
+#pragma mark -delegate
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
     return 3;
 }

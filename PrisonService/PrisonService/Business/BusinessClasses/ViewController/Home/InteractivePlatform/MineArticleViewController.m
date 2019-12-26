@@ -26,7 +26,7 @@
 @end
 
 @implementation MineArticleViewController
-
+#pragma mark - lifeCycle
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"我的文章";

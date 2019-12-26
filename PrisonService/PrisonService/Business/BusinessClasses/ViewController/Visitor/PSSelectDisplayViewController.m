@@ -37,7 +37,7 @@
     return cell;
 }
 
-#pragma mark -
+#pragma mark -delegate
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return 0;
 }

@@ -26,6 +26,8 @@
 @end
 
 @implementation PSfaceChangeViewController
+
+#pragma mark - lifeCycle
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:YES];
     //注册检测网络通知
@@ -52,8 +54,8 @@
     } buttonTitles:@"取消",@"确认", nil];
 }
 
+#pragma mark - UI
 -(void)renderContents{
-    
     self.view.backgroundColor= [UIColor colorWithRed:249/255.0 green:248/255.0 blue:254/255.0 alpha:1];
     CGFloat sidePadding = 20;
     _phoneTextField = [[PSUnderlineTextField alloc] initWithFrame:CGRectZero];
@@ -70,10 +72,6 @@
         make.top.mas_equalTo(20);
         make.height.mas_equalTo(44);
     }];
-//    [_phoneTextField setBk_didEndEditingBlock:^(UITextField *textField) {
-//        loginViewModel.phoneNumber = textField.text;
-//        self.phoneNew=textField.text;
-//    }];
     
     UILabel*phoneLable=[UILabel new];
     phoneLable.text=@"旧手机号";
@@ -85,7 +83,6 @@
         make.bottom.mas_equalTo(_phoneTextField.mas_bottom);
         make.width.mas_equalTo(70);
     }];
-    
     
     _codeTextField = [[PSUnderlineTextField alloc] initWithFrame:CGRectZero];
     _codeTextField.font = AppBaseTextFont2;
@@ -143,6 +140,7 @@
     faceNextViewController.uuid=self.codeTextField.text;
     faceNextViewController.faceNextViewController=self;
 }
+
 - (void)checkFaceAuth {
     PSFaceAuthViewController *authViewController = [[PSFaceAuthViewController alloc] initWithViewModel:nil];
     [self.navigationController pushViewController:authViewController animated:NO];
@@ -164,6 +162,9 @@
     }];
 
 }
+
+
+#pragma mark - Request
 -(void)getavatarUrl{
     NSString*url=[NSString stringWithFormat:@"%@/api/families/getFamilyByPhone",ServerUrl];
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
@@ -181,9 +182,9 @@
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         [self showNetError:error];
     }];
-    
-
 }
+
+
 -(void)checkDataAcition{
     if([Expression validateIDCard:_codeTextField.text]&&[Expression validatePhoneId:self.phoneTextField.text]) {
         [self getavatarUrl];
@@ -211,14 +212,6 @@
         [PSTipsView showTips:text];
     }
 }
-/*
-#pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

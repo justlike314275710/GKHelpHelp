@@ -53,7 +53,6 @@
 
 #pragma mark  - PrivateMethods
 - (void)renderContents{
-    
     _serviceCentreTableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
     self.serviceCentreTableView.dataSource = self;
     self.serviceCentreTableView.delegate = self;
@@ -140,7 +139,6 @@
 }
 
 - (void)appointmentPrisoner {
- 
     [SDTrackTool logEvent:FWZX_CLICK_YCTS];
     PSAppointmentViewController *appointmentViewController = [[PSAppointmentViewController alloc] initWithViewModel:[PSAppointmentViewModel new]];
     [self.navigationController pushViewController:appointmentViewController animated:YES];
@@ -168,7 +166,6 @@
 
 #pragma mark  - UITableViewDelegate OR otherDelegate
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-   
     return 2;
 }
 
@@ -200,7 +197,6 @@
             }];
         }];
         [cell.MarriageButton bk_whenTapped:^{
-            
             [self showPrisonLimits:@"婚姻家庭" limitBlock:^{
                 PSConsultationViewModel*viewModel=[[PSConsultationViewModel alloc]init];
                 PSConsultationViewController*consultationViewController
@@ -211,7 +207,6 @@
                 
             }];
         }];
-        
         return cell;
     }
 
@@ -219,9 +214,7 @@
         PSPsychologicalCounselingTableViewCell*cell= [tableView dequeueReusableCellWithIdentifier:@"PSPsychologicalCounselingTableViewCell"];
         [cell.goButton bk_whenTapped:^{
             if ([[LXFileManager readUserDataForKey:@"isVistor"]isEqualToString:@"YES"]) {
-                
                 [[PSSessionManager sharedInstance]doLogout];
-                
             } else {
              NSString*coming_soon=
             NSLocalizedString(@"coming_soon", @"敬请期待");
@@ -270,7 +263,6 @@
     if (!_headView) {
         _headView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, 284)];
         [_headView addSubview:self.advView];
-        
         [_headView addSubview:self.arcImageView];
         self.arcImageView.frame = CGRectMake(0,220, KScreenWidth,26);
         self.arcImageView.top = self.advView.bottom-20;

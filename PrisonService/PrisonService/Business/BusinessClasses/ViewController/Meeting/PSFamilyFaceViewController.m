@@ -199,6 +199,7 @@
  
 }
 
+
 - (void)handleFaceResult {
     NSError *error = nil;
     NSData *resultData=[self.resultStrings dataUsingEncoding:NSUTF8StringEncoding];

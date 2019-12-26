@@ -42,15 +42,15 @@
     return self;
 }
 
+#pragma mark - Event
 - (void)buyCardAction {
 //    PSCartViewController *cartViewController = [[PSCartViewController alloc] initWithViewModel:[PSCartViewModel new]];
 //    [self.navigationController pushViewController:cartViewController animated:YES];
     
      [self requestInfoPhoneCard];
 }
-
+//监狱会见价格
 - (void)requestInfoPhoneCard {
-    
     self.cartViewModel = [PSCartViewModel new];
     [[PSLoadingView sharedInstance] show];
     @weakify(self)
@@ -158,6 +158,7 @@
     [self.cartTableView reloadData];
 }
 
+#pragma mark - UI
 - (void)renderContents {
     self.cartTableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
     self.cartTableView.dataSource = self;
@@ -178,7 +179,7 @@
         make.edges.mas_equalTo(UIEdgeInsetsZero);
     }];
 }
-
+#pragma mark - lifeCycle
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
@@ -202,14 +203,6 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-//    "Order number"="订单编号";
-//    "buy again"="再次购买";
-//    "total"="合计";
-//    "payment method"="支付方式";
-//    "Total %ld items"="共%ld件商品";
-    
-    
     NSString *order_number = NSLocalizedString(@"Order number", @"订单编号");
     NSString *payMethod = NSLocalizedString(@"payment method", @"支付方式");
     NSString *total = NSLocalizedString(@"total", @"合计");
@@ -283,7 +276,6 @@
 }
 
 - (void)buyCard:(NSInteger)index {
-    
     PSCartViewModel *cartViewModel = self.cartViewModel;
     cartViewModel.amount = index*_buyModel.Amount_of_money;
     cartViewModel.totalQuantity = index;

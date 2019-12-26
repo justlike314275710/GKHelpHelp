@@ -33,6 +33,7 @@
     return self;
 }
 
+#pragma mark - lifeCycle
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self renderContents];
@@ -44,6 +45,7 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+#pragma mark - Event
 - (void)loadMore {
     PSLocalMeetingHistoryViewModel *meetingHistoryModel =(PSLocalMeetingHistoryViewModel *)self.viewModel;
     @weakify(self)
@@ -87,6 +89,7 @@
     [self.historyTableView.mj_footer endRefreshing];
     [self.historyTableView reloadData];
 }
+#pragma mark - UI
 - (void)renderContents {
     self.view.backgroundColor=[UIColor whiteColor];
     self.historyTableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];

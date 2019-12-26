@@ -39,14 +39,12 @@
 //获取单个监狱绑定的罪犯
 - (void)requestMeetJailsterCompleted:(RequestDataCompleted)completedCallback failed:(RequestDataFailed)failedCallback{
     NSString*url=[NSString stringWithFormat:@"%@/prisoners/getPrisoners",ServerUrl];
-    
     PSPrisonerDetail *prisonerDetail = nil;
     NSInteger index = [PSSessionManager sharedInstance].selectedPrisonerIndex;
     NSArray *details = [PSSessionManager sharedInstance].passedPrisonerDetails;
     if (index >= 0 && index < details.count) {
         prisonerDetail = details[index];
     }
-    
     NSString*jailId=prisonerDetail.jailId?prisonerDetail.jailId:@"";
     self.session = [PSCache queryCache:AppUserSessionCacheKey];
     NSString*familiesId=self.session.families.id;
@@ -54,7 +52,6 @@
                              @"familyId":familiesId,
                              @"jailId":jailId
                              };
-    
     NSString*token=[NSString stringWithFormat:@"Bearer %@",[LXFileManager readUserDataForKey:@"access_token"]];
     [manager.requestSerializer setValue:token forHTTPHeaderField:@"Authorization"];
     [manager GET:url parameters:parmeters progress:^(NSProgress * _Nonnull downloadProgress) {

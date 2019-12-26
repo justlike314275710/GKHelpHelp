@@ -25,6 +25,8 @@
 @end
 
 @implementation PSchangePhoneNextViewController
+
+#pragma mark - lifeCycle
 - (instancetype)initWithViewModel:(PSViewModel *)viewModel {
     self = [super initWithViewModel:viewModel];
     if (self) {
@@ -39,6 +41,7 @@
     // Do any additional setup after loading the view.
 }
 
+#pragma mark - UI
 -(void)renderContents{
     self.view.backgroundColor= [UIColor colorWithRed:249/255.0 green:248/255.0 blue:254/255.0 alpha:1];
     CGFloat sidePadding = 20;
@@ -56,10 +59,6 @@
         make.top.mas_equalTo(20);
         make.height.mas_equalTo(44);
     }];
-//    [_phoneTextField setBk_didEndEditingBlock:^(UITextField *textField) {
-//
-//        regiestViewModel.phoneNumber = textField.text;
-//    }];
     
     UILabel*phoneLable=[UILabel new];
     phoneLable.text=@"新手机号";
@@ -86,9 +85,6 @@
         make.top.mas_equalTo(_phoneTextField.mas_bottom);
         make.height.mas_equalTo(44);
     }];
-//    [_codeTextField setBk_didEndEditingBlock:^(UITextField *textField) {
-//        //loginViewModel.messageCode = textField.text;
-//    }];
     
     UILabel*codeLable=[UILabel new];
     codeLable.text=@"验证码";
@@ -100,7 +96,6 @@
         make.bottom.mas_equalTo(_codeTextField.mas_bottom);
         make.width.mas_equalTo(70);
     }];
-    
     
     _codeButton = [UIButton buttonWithType:UIButtonTypeCustom];
     _codeButton.titleLabel.font = AppBaseTextFont2;
@@ -118,7 +113,6 @@
         [self requestMessageCode];
     }];
     
-    
     _sureChangeButton = [UIButton buttonWithType:UIButtonTypeCustom];
     _sureChangeButton.titleLabel.font = AppBaseTextFont1;
     [_sureChangeButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
@@ -130,14 +124,12 @@
         make.centerX.mas_equalTo(self.view);
         make.size.mas_equalTo(CGSizeMake(SCREEN_WIDTH-50, 44));
     }];
-    
     [_sureChangeButton bk_whenTapped:^{
         [self checkPhoneData];
     }];
 }
 
 -(void)checkPhoneData{
-    
     if ([Expression validatePhoneId:self.phoneTextField.text]&&[Expression validateVetifyCode:self.codeTextField.text]) {
         [self sureChangePhoneAcition];
         return;
@@ -159,6 +151,8 @@
     }
 }
 
+
+#pragma mark - Request
 -(void)sureChangePhoneAcition{
     [[PSLoadingView sharedInstance]show];
     NSString*url=[NSString stringWithFormat:@"%@/users/me/phone-number",EmallHostUrl];

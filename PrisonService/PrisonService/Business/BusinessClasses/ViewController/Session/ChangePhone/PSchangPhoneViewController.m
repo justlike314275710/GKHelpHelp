@@ -29,6 +29,8 @@
 @end
 
 @implementation PSchangPhoneViewController
+
+#pragma mark - lifeCycle
 - (instancetype)initWithViewModel:(PSViewModel *)viewModel {
     self = [super initWithViewModel:viewModel];
     if (self) {
@@ -47,7 +49,7 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self name:NotificationNoNetwork object:nil];
 }
 
-#pragma mark - Notification
+
 -(void)nonetWork {
     [self showInternetError];
 }
@@ -58,27 +60,10 @@
     // Do any additional setup after loading the view.
 }
 
+#pragma mark - UI
 -(void)renderContents{
-   
     self.view.backgroundColor= [UIColor colorWithRed:249/255.0 green:248/255.0 blue:254/255.0 alpha:1];
     CGFloat sidePadding = 20;
-//    _phoneTextField = [[PSUnderlineTextField alloc] initWithFrame:CGRectZero];
-//    _phoneTextField.font = AppBaseTextFont2;
-//    _phoneTextField.borderStyle = UITextBorderStyleNone;
-//    _phoneTextField.textColor = AppBaseTextColor1;
-//    _phoneTextField.textAlignment = NSTextAlignmentCenter;
-//    _phoneTextField.placeholder = @"请输入旧手机号";
-//    _phoneTextField.keyboardType = UIKeyboardTypeNumberPad;
-//    [self.view addSubview:_phoneTextField];
-//    [_phoneTextField mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.left.mas_equalTo(sidePadding);
-//        make.right.mas_equalTo(-sidePadding);
-//        make.top.mas_equalTo(20);
-//        make.height.mas_equalTo(44);
-//    }];
-//    [_phoneTextField setBk_didEndEditingBlock:^(UITextField *textField) {
-//         regiestViewModel.phoneNumber = textField.text;
-//    }];
     
     UILabel*phoneLable=[UILabel new];
     NSString*phoneNumber=[PSSessionManager sharedInstance].session.families.phone;
@@ -93,8 +78,6 @@
         make.right.mas_equalTo(-sidePadding);
         make.height.mas_equalTo(44);
     }];
-    
-
     
     _codeTextField = [[PSUnderlineTextField alloc] initWithFrame:CGRectZero];
     _codeTextField.font = AppBaseTextFont2;
@@ -125,7 +108,6 @@
         make.width.mas_equalTo(70);
     }];
     
-
     _codeButton = [UIButton buttonWithType:UIButtonTypeCustom];
     _codeButton.titleLabel.font = AppBaseTextFont2;
     [_codeButton setTitleColor:AppBaseTextColor3 forState:UIControlStateNormal];
@@ -158,13 +140,10 @@
         [SDTrackTool logEvent:ZHXX_PAGE_GHSJ];
         [self checkDataAcition];
     }];
-    
-    
 }
 
 
 -(void)checkDataAcition{
-     
     if([Expression validateVetifyCode:_codeTextField.text]) {
         [self EcommerceOfLogin];
         return;
@@ -188,8 +167,7 @@
      }
 }
 
-
-
+#pragma mark - Request
 -(void)requestMessageCode{
     [self.view endEditing:YES];
     PSEcomRegisterViewmodel*regiestViewModel=[[PSEcomRegisterViewmodel alloc]init];

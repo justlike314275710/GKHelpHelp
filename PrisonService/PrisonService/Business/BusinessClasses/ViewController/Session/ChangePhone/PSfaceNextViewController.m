@@ -24,6 +24,8 @@
 @end
 
 @implementation PSfaceNextViewController
+
+#pragma mark - lifeCycle
 - (instancetype)initWithViewModel:(PSViewModel *)viewModel {
     self = [super initWithViewModel:viewModel];
     if (self) {
@@ -38,6 +40,7 @@
     // Do any additional setup after loading the view.
 }
 
+#pragma mark - UI
 -(void)renderContents{
     PSLoginViewModel *loginViewModel = (PSLoginViewModel *)self.viewModel;
     self.view.backgroundColor= [UIColor colorWithRed:249/255.0 green:248/255.0 blue:254/255.0 alpha:1];
@@ -133,11 +136,10 @@
     }];
 }
 
-
+#pragma mark - Request
 - (void)requestMessageCode {
     [self.view endEditing:YES];
     PSLoginViewModel *loginViewModel = (PSLoginViewModel *)self.viewModel;
-
     @weakify(loginViewModel)
     [loginViewModel checkPhoneDataWithCallback:^(BOOL successful, NSString *tips) {
         @strongify(loginViewModel)
