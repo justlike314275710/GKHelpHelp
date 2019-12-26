@@ -28,22 +28,12 @@
 
 
 @implementation PSMeetingViewModel
-
-- (NSArray *)FamilyMembers{
-    if (self.faceType==0) {
-        return _FamilyMembers;
-    } else {
-        return _items;
-    }
-   // return _items;
-}
-
 - (void)requestFamilyMembersCompleted:(RequestDataCompleted)completedCallback failed:(RequestDataFailed)failedCallback{
     self.meetingMembersRequest=[PSMeetingMembersRequest new];
     self.meetingMembersRequest.meetingId=self.familymeetingID;
     [self.meetingMembersRequest send:^(PSRequest *request, PSResponse *response) {
         if (response.code==200) {
-            PSMeetingMembersResponse*meetingMembersResponse=(PSMeetingMembersResponse*)response;
+    PSMeetingMembersResponse*meetingMembersResponse=(PSMeetingMembersResponse*)response;
             self.items = [NSMutableArray new];
             [self.items addObjectsFromArray:meetingMembersResponse.meetingMembers];
             for (int i=0; i<self.items.count; i++) {
@@ -52,6 +42,7 @@
                     [self.items exchangeObjectAtIndex:0 withObjectAtIndex:i];
                 }
             }
+            self.FamilyMembers = self.items;
         }
         if (completedCallback) {
             completedCallback(response);

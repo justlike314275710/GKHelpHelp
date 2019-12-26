@@ -20,6 +20,7 @@
 #import "PSAlertView.h"
 #import "HRFaceManager.h"
 #import "PSAuthorizationTool.h"
+#import "PSCache.h"
 
 //#define IMAGE_WIDTH     720
 //#define IMAGE_HEIGHT    840
@@ -75,7 +76,6 @@ typedef NS_ENUM(NSInteger, PSFaceDetectionType) {
     [super viewDidLoad];
     //检测相机权限
     [PSAuthorizationTool checkAndRedirectCameraAuthorizationWithBlock:nil setBlock:nil isShow:NO];
-    
     _detectionType = PSFaceDetectionTypeNone;
     _authIndex = 0;
     _isFinish = NO;
@@ -86,7 +86,15 @@ typedef NS_ENUM(NSInteger, PSFaceDetectionType) {
         [self setupUI];
         [self registHR_race];
     } else {
-        [self meetingFace];
+        if (self.meetViewModel.familymeetingID.length>0) {
+            //会见
+            [self meetingFace];
+        } else {
+            //免费会见没有ID
+            [self meetingFreeFace];
+            [self setupUI];
+            [self registHR_race];
+        }
     }
 }
 - (void)viewWillAppear:(BOOL)animated {
@@ -106,6 +114,7 @@ typedef NS_ENUM(NSInteger, PSFaceDetectionType) {
 #pragma mark ---------- Private Method
 /** 视图初始化 */
 - (void)setupUI {
+    
     PSMeetingViewModel *viewModel = self.meetViewModel;
     [self.view addSubview:self.topView];
     [self.topView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -207,6 +216,7 @@ typedef NS_ENUM(NSInteger, PSFaceDetectionType) {
     }];
     
     for (int i = 0; i<viewModel.FamilyMembers.count; i++) {
+        
         PSPrisonerFamily *prisonerFamily = viewModel.FamilyMembers[i];
         CGFloat x = 15+(((KScreenWidth-270)/2)+80)*i;
         UIImageView *headimageView = [[UIImageView alloc] init];
@@ -247,7 +257,6 @@ typedef NS_ENUM(NSInteger, PSFaceDetectionType) {
         [nameLabl setText:prisonerFamily.familyName];
     }
 }
-
 
 #pragma mark ---------- 识别时候UI更新
 -(void)upDataUI{
@@ -296,6 +305,16 @@ typedef NS_ENUM(NSInteger, PSFaceDetectionType) {
             _authStateLabl.text = @"人脸识别成功";
         }
     }];
+    
+}
+//免费会见
+- (void)meetingFreeFace {
+    PSUserSession*session = [PSCache queryCache:AppUserSessionCacheKey];
+    PSFamily *family = session.families;
+    PSPrisonerFamily *prisonerFamily = [[PSPrisonerFamily alloc] init];
+    prisonerFamily.familyAvatarUrl = family.avatarUrl;
+    prisonerFamily.familyName = family.name;
+    self.meetViewModel.FamilyMembers = @[prisonerFamily];
 }
 
 //会见获取需要识别的家属
@@ -315,7 +334,6 @@ typedef NS_ENUM(NSInteger, PSFaceDetectionType) {
         [[PSLoadingView sharedInstance] dismiss];
     }];
 }
-
 - (void)verifyFaceScuess {
     [PSAlertView showWithTitle:nil message:@"人脸识别成功" messageAlignment:NSTextAlignmentCenter image:IMAGE_NAMED(@"识别成功") handler:^(PSAlertView *alertView, NSInteger buttonIndex) {
         if (buttonIndex==0) {
@@ -370,7 +388,6 @@ typedef NS_ENUM(NSInteger, PSFaceDetectionType) {
         [self presentViewController:alertController animated:YES completion:nil];
     }
 }
-
 #pragma mark ---------- 摄像头人脸识别
 - (void)captureOutput:(AVCaptureOutput *)captureOutput didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer fromConnection:(AVCaptureConnection *)connection
 {
@@ -378,7 +395,9 @@ typedef NS_ENUM(NSInteger, PSFaceDetectionType) {
     ASF_CAMERA_DATA* cameraData = [Utility getCameraDataFromSampleBuffer:sampleBuffer];
     NSArray *arrayFaceInfo = [self.videoProcessor process:cameraData];
     dispatch_sync(dispatch_get_main_queue(), ^{
+
         [self.glView renderWithCVPixelBuffer:cameraFrame orientation:0 mirror:NO];
+        
         if(self.arrayAllFaceRectView.count >= arrayFaceInfo.count)
         {
             for (NSUInteger face=arrayFaceInfo.count; face<self.arrayAllFaceRectView.count; face++) {
@@ -432,7 +451,6 @@ typedef NS_ENUM(NSInteger, PSFaceDetectionType) {
         }
     }];
 }
-
 #pragma mark ---------- 获取需要注册的人脸
 -(void)getAuthFace{
     //注册人脸本地有不需要就不需要注册
@@ -477,7 +495,6 @@ typedef NS_ENUM(NSInteger, PSFaceDetectionType) {
         }
     });
 }
-
 #pragma mark ---------- 检测人脸提取信息
 -(void)HR_checkFace:(UIImage*)faceimage name:(NSString *)name familyName:(NSString *)familyName block:(HRSDKblock)block  {
     
@@ -506,6 +523,9 @@ typedef NS_ENUM(NSInteger, PSFaceDetectionType) {
     }];
 }
 
+- (BOOL)fd_interactivePopDisabled {
+    return YES;
+}
 
 #pragma mark ---------- 注册人脸
 //注册人脸
@@ -669,12 +689,6 @@ typedef NS_ENUM(NSInteger, PSFaceDetectionType) {
     }
     return _sacnView;
 }
-
-- (BOOL)fd_interactivePopDisabled {
-    return YES;
-}
-
-
 
 
 @end

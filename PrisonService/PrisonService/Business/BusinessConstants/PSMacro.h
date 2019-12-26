@@ -92,6 +92,8 @@
 //拼接字符串
 #define NSStringFormat(format,...) [NSString stringWithFormat:format,##__VA_ARGS__]
 
+#define Kuncertified_isLogin                   @"uncertified_isLogin"                   //没认证是否登录提示
+
 //枚举---
 typedef NS_ENUM(NSInteger,WritefeedType) {
     PSWritefeedBack,   //app投诉反馈
@@ -109,18 +111,18 @@ typedef NS_ENUM(NSInteger,WritefeedType) {
 
 //***********************************************通知*****************************************
 //订单状态改变
-#define KNotificationOrderStateChange @"KNotificationOrderStateChange"
+#define KNotificationOrderStateChange          @"KNotificationOrderStateChange"
 //新的订单
-#define KNotificationNewOrderState @"KNotificationNewOrderState"
-#define NotificationNoNetwork @"NotificationNoNetwork"
+#define KNotificationNewOrderState             @"KNotificationNewOrderState"
+#define NotificationNoNetwork                  @"NotificationNoNetwork"
 //获取到地址重新刷新广告
-#define KNotificationRefreshAdvertisement @"KNotificationRefreshAdvertisement"
+#define KNotificationRefreshAdvertisement      @"KNotificationRefreshAdvertisement"
 //用户修改头像成功通知
-#define KNotificationUserAvaterChangeScuess @"KNotificationUserAvaterChangeScuess"
+#define KNotificationUserAvaterChangeScuess    @"KNotificationUserAvaterChangeScuess"
 //刷新我的互动文章
-#define KNotificationRefreshInteractiveArticle  @"KNotificationRefreshInteractiveArticle"
+#define KNotificationRefreshInteractiveArticle @"KNotificationRefreshInteractiveArticle"
 //刷新我的收藏
-#define KNotificationRefreshCollectArticle    @"KNotificationRefreshMyCollectArticle"
+#define KNotificationRefreshCollectArticle     @"KNotificationRefreshMyCollectArticle"
 //刷新我的文章
 #define KNotificationRefreshMyArticle          @"KNotificationRefreshMyArticle"
 //刷新咨询消息
@@ -128,18 +130,20 @@ typedef NS_ENUM(NSInteger,WritefeedType) {
 //刷新探视消息
 #define KNotificationRefreshts_message         @"KNotificationRefreshts_message"
 //文章权限改变通知
-#define KNotificationAuthorChange      @"KNotificationAuthorChange"
+#define KNotificationAuthorChange              @"KNotificationAuthorChange"
 //刷新互动平台消息
 #define KNotificationRefreshhd_message         @"KNotificationRefreshhd_message"
 //刷新文章详情
-#define KNotificationRefreshArticleDetail       @"KNotificationRefreshArticleDetail"
-#define Kuncertified_isLogin @"uncertified_isLogin"   //没认证是否登录提示
+#define KNotificationRefreshArticleDetail      @"KNotificationRefreshArticleDetail"
 //视屏会见通知倒计时
-#define KNOtificationMeetingCountdown @"KNOtificationMeetingCountdown"
+#define KNOtificationMeetingCountdown          @"KNOtificationMeetingCountdown"
 //消息进入
 #define KNOtificationALLMessageScrollviewIndex @"KNOtificationALLMessageScrollviewIndex"
+#define AppDotChange @"AppDotChange"
+#define JailChange @"JailChange"
+#define RefreshToken @"RefreshToken" //刷新token
 //后台进入前台调消息数量接口判断是否token过期
-#define KNOtificationALLMessagejudgeToken   @"KNOtificationALLMessagejudgeToken"
+#define KNOtificationALLMessagejudgeToken      @"KNOtificationALLMessagejudgeToken"
 
 #ifdef DEBUG
 #define PSLog(...) NSLog(__VA_ARGS__);

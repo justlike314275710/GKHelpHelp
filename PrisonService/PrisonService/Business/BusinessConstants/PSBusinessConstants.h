@@ -6,8 +6,8 @@
 //  Copyright © 2018年 calvin. All rights reserved.
 
 #define DEVELOP  0   //开发
-#define UAT  1     //测试
-#define PRODUCE 0  //生产
+#define UAT  0     //测试
+#define PRODUCE 1  //生产
 
 #ifdef DEBUG
 #else
@@ -69,21 +69,15 @@
 //法律法规列表
 #define LawUrl [NSString stringWithFormat:@"%@/h5/#/law/list?t=%@",H5ServerDomain,[NSDate getNowTimeTimestamp]]
 //新闻详情 后面接新闻id
+
 #define NewsUrl [NSString stringWithFormat:@"%@/h5/#/news/detail",H5ServerDomain]
 #define AppToken @"523b87c4419da5f9186dbe8aa90f37a3876b95e448fe2a"
 #define AppUserSessionCacheKey @"AppUserSessionCacheKey"
-#define AppDotChange @"AppDotChange"
-#define JailChange @"JailChange"
-#define AppScheme @"YuWuService"
-#define RefreshToken @"RefreshToken" //刷新token
+
 //根据username获取头像url
 #define AvaterImageWithUsername(username)  [NSString stringWithFormat:@"%@/users/by-username/avatar?username=%@",EmallHostUrl,username]
 
-//紫荆云视域名
-#define ZIJING_DOMAIN @"cs.zijingcloud.com"
-
 #define PICURL(url) [[NSString stringWithFormat:@"%@?token=%@",url,AppToken] stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]]
 
-#define AppUIdKey @"prison.app"
-#define AppUIdValue @"1688c4f69fc6404285aadbc996f5e429"
+
 

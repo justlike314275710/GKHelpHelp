@@ -18,14 +18,6 @@
 #import "UIViewController+Tool.h"
 #import "PSLocateManager.h"
 
-
-#define BuglyAppID @"21f609a887"
-#define BuglyAppIDKey @"1456f3ed-eb99-458b-9ac8-227261185610"
-
-#define DevlpmentBuglyAppID @"85e55ad08f"
-#define DevlpmentBuglyBuglyAppIDKey @"c9f86708-976f-4dea-94e4-c00d5464d381"
-
-
 @interface AppDelegate()<UNUserNotificationCenterDelegate>
 
 @end
@@ -42,7 +34,7 @@
             {
                 NSLog(@"未知网络");
                 [KGStatusBar dismiss];
-                self.IS_NetWork = YES;
+                self.isHaveNet = YES;
             }
                 break;
             case AFNetworkReachabilityStatusNotReachable:
@@ -52,21 +44,21 @@
                 [[NSNotificationCenter defaultCenter] postNotificationName:NotificationNoNetwork object:nil];
                 NSString *msg = NSLocalizedString(@"Network not available, check network settings", @"当前网络不可用,请检查你的网络设置");
                 [KGStatusBar showWithStatus:msg];
-                self.IS_NetWork = NO;
+                self.isHaveNet = NO;
             }
                 break;
             case AFNetworkReachabilityStatusReachableViaWWAN:
             {
                 [KGStatusBar dismiss];
                 NSLog(@"网络数据连接");
-                self.IS_NetWork = YES;
+                self.isHaveNet = YES;
             }
                 break;
             case AFNetworkReachabilityStatusReachableViaWiFi:
             {
                 NSLog(@"wifi连接");
                 [KGStatusBar dismiss];
-                self.IS_NetWork = YES;
+                self.isHaveNet = YES;
             }
                 break;
             default:
@@ -252,11 +244,11 @@
     //   1、unrecognized selector sent to instance
     //=============================================
     NSArray *noneSelClassStrings = @[
-                                     @"NSNull",
-                                     @"NSNumber",
-                                     @"NSString",
-                                     @"NSDictionary",
-                                     @"NSArray"
+                                       @"NSNull",
+                                       @"NSNumber",
+                                       @"NSString",
+                                       @"NSDictionary",
+                                       @"NSArray"
                                      ];
     [AvoidCrash setupNoneSelClassStringsArr:noneSelClassStrings];
     
@@ -286,7 +278,7 @@
 //    [BuglyManager reportErrorName:Bugly_ErrorName_AvoidCrash errorReason:errorReason callStack:callStack extraInfo:nil];
 }
 
-+(BOOL) runningInBackground
++ (BOOL)runningInBackground
 {
     UIApplicationState state = [UIApplication sharedApplication].applicationState;
     BOOL result = (state == UIApplicationStateBackground);
@@ -294,13 +286,13 @@
     return result;
 }
 
-+(BOOL) runningInForeground
++ (BOOL)runningInForeground
 {
     UIApplicationState state = [UIApplication sharedApplication].applicationState;
     BOOL result = (state == UIApplicationStateActive);
     return result;
 }
-//定位权限
+#pragma mark ---------- 判断定位权限定位权限
 -(void)checkAuthorizationWithLocation {
     NSLog(@"%lu",(unsigned long)[PSSessionManager sharedInstance].loginStatus);
     if (![PSSessionManager sharedInstance].isCheck&&[PSSessionManager sharedInstance].loginStatus>0) {
@@ -317,7 +309,5 @@
         }
     }
 }
-
-
 
 @end

@@ -59,7 +59,6 @@
 }
 
 
-
 - (UINavigationController *)currentNavigationController {
     if ([_rootViewController isKindOfClass:[UINavigationController class]]) {
         return (UINavigationController *)_rootViewController;

@@ -45,5 +45,6 @@
 #import "PSAuthorizationTool.h"
 #import "PSLocateManager.h"
 #import "UIButton+touch.h"
+#import "PSThirdPartyConstants.h"
 #endif /* PSPrefixHeader_pch */
 #endif

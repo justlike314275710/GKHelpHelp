@@ -24,10 +24,13 @@ typedef void (^HRSDKCheckBlock)(LPASF_FaceFeature faceFacture);
 
 + (HRFaceManager *)sharedInstance;
 //注册虹软SDK
--(void)registHRSDK:(HRSDKblock)block;
+- (void)registHRSDK:(HRSDKblock)block;
 
 #pragma mark ---------- 从图片检测人脸&&提取信息
--(void)hrsdkCheckFace:(UIImage*)faceimage sdkblock:(HRSDKblock)sdkblock checkBlock:(HRSDKCheckBlock)checkBlock;
+- (void)hrsdkCheckFace:(UIImage*)faceimage
+             sdkblock:(HRSDKblock)sdkblock
+           checkBlock:(HRSDKCheckBlock)checkBlock;
+
 
 @end
 

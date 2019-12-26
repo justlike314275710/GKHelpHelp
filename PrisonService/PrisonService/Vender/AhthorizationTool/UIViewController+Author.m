@@ -31,12 +31,13 @@
             if ([[LXFileManager readUserDataForKey:@"isVistor"]isEqualToString:@"YES"]) {
                 
                 [[PSSessionManager sharedInstance]doLogout];
-                
             } else {
             NSString*coming_soon=NSLocalizedString(@"coming_soon", @"该监狱暂未开通此功能");
                 [PSTipsView showTips:coming_soon];}
         } else {
-            if (block) block(YES);
+            if (block){
+                block(YES);
+            }
         }
     }
 }

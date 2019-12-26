@@ -24,25 +24,22 @@
 - (instancetype)initWithViewModel:(PSViewModel *)viewModel {
     self = [super init];
     if (self) {
-    
     }
     return self;
 }
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.title = @"余额退款";
     [self requestBalance];
-    [self p_setUI];
+    [self setupUI];
 }
 
-- (void)p_setUI {
+- (void)setupUI {
     
     UIImageView *bgImg = [[UIImageView alloc] initWithFrame:CGRectMake(25, 30, SCREEN_WIDTH-50, 154)];
     bgImg.image = [UIImage imageNamed:@"矩形 45"];
     [self.view addSubview:bgImg];
-    
     UILabel *keyBalanceLab = [[UILabel alloc] initWithFrame:CGRectMake((bgImg.width-100)/2, 20, 100, 20)];
     keyBalanceLab.text = @"当前余额";
     keyBalanceLab.textAlignment = NSTextAlignmentCenter;
@@ -110,7 +107,7 @@
     
     _refund = [UIButton buttonWithType:UIButtonTypeCustom];
     _refund.backgroundColor = UIColorFromRGB(100,140,214);
-    _refund.frame = CGRectMake(15,SCREEN_HEIGHT-64-64, SCREEN_WIDTH-30, 44);
+    _refund.frame = CGRectMake(15,SCREEN_HEIGHT-64-kTopHeight, SCREEN_WIDTH-30, 44);
     _refund.layer.cornerRadius = 2.0f;
     [_refund setTitle:@"申请退款" forState:UIControlStateNormal];
     [_refund bk_whenTapped:^{
@@ -176,7 +173,5 @@
         [PSTipsView showTips:@"获取余额失败"];
     }];
 }
-
-
 
 @end

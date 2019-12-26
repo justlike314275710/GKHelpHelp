@@ -3129,7 +3129,7 @@
 				3E78B774208D8F60007DF162 /* Pay */,
 				3E78B763208D8403007DF162 /* Order */,
 				3E78B7422089CB49007DF162 /* Meetings */,
-				EADDC8A820BE8DE70068D3AB /* Accounts(余额) */,
+				EADDC8A820BE8DE70068D3AB /* Accounts */,
 				3E78B7372089BD73007DF162 /* Prisoner */,
 				3EDF0D9D20882810002D98BD /* Upload */,
 				3EDF0D8C20873F30002D98BD /* Family */,
@@ -5510,7 +5510,7 @@
 			path = ChangePhone;
 			sourceTree = "<group>";
 		};
-		EADDC8A820BE8DE70068D3AB /* Accounts(余额) */ = {
+		EADDC8A820BE8DE70068D3AB /* Accounts */ = {
 			isa = PBXGroup;
 			children = (
 				EADDC8AC20BE8EC90068D3AB /* PSPrisonerAccountsRequest.h */,
@@ -5530,7 +5530,7 @@
 				555E768C228BBC5B00462658 /* PSRrisonerPreCheckResponse.h */,
 				555E768D228BBC5B00462658 /* PSRrisonerPreCheckResponse.m */,
 			);
-			path = "Accounts(余额)";
+			path = Accounts;
 			sourceTree = "<group>";
 		};
 		EADDC8B220BE93500068D3AB /* Accounts(余额) */ = {
@@ -5785,8 +5785,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "
-";
+			shellScript = "APP_PATH=\"${TARGET_BUILD_DIR}/${WRAPPER_NAME}\"\n\n# This script loops through the frameworks embedded in the application and\n# removes unused architectures.\nfind \"$APP_PATH\" -name '*.framework' -type d | while read -r FRAMEWORK\ndo\nFRAMEWORK_EXECUTABLE_NAME=$(defaults read \"$FRAMEWORK/Info.plist\" CFBundleExecutable)\nFRAMEWORK_EXECUTABLE_PATH=\"$FRAMEWORK/$FRAMEWORK_EXECUTABLE_NAME\"\necho \"Executable is $FRAMEWORK_EXECUTABLE_PATH\"\n\nEXTRACTED_ARCHS=()\n\nfor ARCH in $ARCHS\ndo\necho \"Extracting $ARCH from $FRAMEWORK_EXECUTABLE_NAME\"\nlipo -extract \"$ARCH\" \"$FRAMEWORK_EXECUTABLE_PATH\" -o \"$FRAMEWORK_EXECUTABLE_PATH-$ARCH\"\nEXTRACTED_ARCHS+=(\"$FRAMEWORK_EXECUTABLE_PATH-$ARCH\")\ndone\n\necho \"Merging extracted architectures: ${ARCHS}\"\nlipo -o \"$FRAMEWORK_EXECUTABLE_PATH-merged\" -create \"${EXTRACTED_ARCHS[@]}\"\nrm \"${EXTRACTED_ARCHS[@]}\"\n\necho \"Replacing original executable with thinned version\"\nrm \"$FRAMEWORK_EXECUTABLE_PATH\"\nmv \"$FRAMEWORK_EXECUTABLE_PATH-merged\" \"$FRAMEWORK_EXECUTABLE_PATH\"\n\ndone\n";
 		};
 		6FF58B3953CA1802E59432C3 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -6917,6 +6916,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 35NTC834XG;
 				INFOPLIST_FILE = PrisonServiceUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.sinog2c.Yuwu.PrisonServiceUITests;
@@ -6930,6 +6930,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 35NTC834XG;
 				INFOPLIST_FILE = PrisonServiceUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.sinog2c.Yuwu.PrisonServiceUITests;

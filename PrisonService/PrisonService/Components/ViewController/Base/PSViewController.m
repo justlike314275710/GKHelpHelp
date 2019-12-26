@@ -154,7 +154,7 @@
 //服务器异常OR没有网络
 -(void)showNetErrorMsg{
     AppDelegate *appdelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
-    if (appdelegate.IS_NetWork == NO) {
+    if (!appdelegate.isHaveNet) {
         NSString*InternetError=NSLocalizedString(@"InternetError", @"无法连接到服务器,请检查网络");
         [PSTipsView showTips:InternetError];
     } else {

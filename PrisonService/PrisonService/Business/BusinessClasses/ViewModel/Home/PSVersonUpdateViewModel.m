@@ -146,16 +146,6 @@
     }
 }
 
-- (void)exitApplication{
-//    -Wundeclared-selector"      //运行一个不存在的方法,退出界面更加圆滑
-    [self performSelector:@selector(notExistCall)];
-    abort();
-#pragma clang diagnostic pop
-    
-}
-    
-    
-
 - (void)p_versonUpdate:(BOOL)update {
     
     NSLog(@"%@",updateApi);
@@ -199,7 +189,6 @@
     }];
     
 }
-
 
 #pragma mark - UpdateModel
 

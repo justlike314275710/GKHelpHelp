@@ -5,7 +5,6 @@
 //  Created by calvin on 2017/5/30.
 //  Copyright © 2017年 DingSNS. All rights reserved.
 //
-
 #import "PSGameMusicPlayer.h"
 #import <AVFoundation/AVFoundation.h>
 
@@ -146,7 +145,6 @@ void GameSoundCompleteCallback(SystemSoundID soundID,void * clientData){
 - (void)playBackgroundMusicWithFilename:(NSString *)filename fileExtension:(NSString *)fileExtension {
     [self playBackgroundMusicWithFilename:filename fileExtension:fileExtension numberOfLoops:0];
 }
-
 
 - (void)stopBackgroundMusic {
     if ([_player isPlaying]) {

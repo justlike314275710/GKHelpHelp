@@ -111,7 +111,6 @@
     return result;
 }
 
-
 - (void)addObserver:(id<PSSessionObserver>)observer {
     [self.observerVector addObserver:observer];
 }
@@ -170,7 +169,6 @@
     }];
 }
 
-
 - (void)synchronizeUserBalance {
     @weakify(self)
     [self autoLogin:^(BOOL completed) {
@@ -179,12 +177,9 @@
     }];
 }
 
-
-
 - (void)initializeSession {
     self.session = [PSCache queryCache:AppUserSessionCacheKey];
 }
-
 
 - (void)setSession:(PSUserSession *)session {
     _session = session;
@@ -300,11 +295,7 @@
             [UIApplication sharedApplication].keyWindow.rootViewController = sessionViewController;
         }
     //}
-    
-
-    
 }
-
 
 - (void)autoLogin:(SessionCompletion)completion {
     
@@ -335,19 +326,18 @@
         }
     }];
 }
-
-
-- (void)doLogout {
+//清除人脸识别本地数据
+- (void)clearFaceData {
     ASFRManager *manger = [[ASFRManager alloc] init];
     NSArray *ary = [manger allPersons];
     for (ASFRPerson *person in ary) {
         int personid = (int)person.Id;
         [manger deletePerson:personid];
     }
-    NSArray *ary2 = [manger allPersons];
-    NSLog(@"%@",ary);
+}
+- (void)doLogout {
     
-    
+    [self clearFaceData];
     [PSCache removeCacheForKey:AppUserSessionCacheKey];
     self.session = nil;
     [[PSIMMessageManager sharedInstance] logoutIM];
