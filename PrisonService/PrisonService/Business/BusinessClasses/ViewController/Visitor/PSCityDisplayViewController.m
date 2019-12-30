@@ -19,7 +19,7 @@
     // Do any additional setup after loading the view.
 }
 
-#pragma mark -
+#pragma mark -delegate
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     PSVisitorViewModel *visitorViewModel = (PSVisitorViewModel *)self.viewModel;
     return visitorViewModel.currentCitys.count;

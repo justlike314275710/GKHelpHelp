@@ -41,48 +41,9 @@
     
 }
 
+#pragma mark - Event
 - (IBAction)closeAction:(id)sender {
     [self dismissViewControllerAnimated:YES completion:nil];
-}
-
-- (void)renderContents {
-    UILabel *titleLabel = [UILabel new];
-    titleLabel.textAlignment = NSTextAlignmentCenter;
-    titleLabel.font = AppBaseTextFont1;
-    titleLabel.textColor = AppBaseTextColor1;
-    NSString*please_choose=NSLocalizedString(@"please_choose", @"请选择");
-    titleLabel.text = please_choose;
-    [titleLabel sizeToFit];
-    [self.view addSubview:titleLabel];
-    [titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(10);
-        make.centerX.mas_equalTo(self.view);
-        make.size.mas_equalTo(titleLabel.frame.size);
-    }];
-    
-    UIButton *closeButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [closeButton addTarget:self action:@selector(closeAction:) forControlEvents:UIControlEventTouchUpInside];
-    NSString*close=NSLocalizedString(@"close", @"关闭");
-    [closeButton setTitle:close forState:UIControlStateNormal];
-    closeButton.titleLabel.font = AppBaseTextFont1;
-    [closeButton setTitleColor:AppBaseTextColor1 forState:UIControlStateNormal];
-    [self.view addSubview:closeButton];
-    [closeButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.top.mas_equalTo(0);
-        make.size.mas_equalTo(CGSizeMake(80, 40));
-    }];
-    
-    self.prisonSelectViewController = [[PSPrisonSelectViewController alloc] init];
-    self.prisonSelectViewController.dataSource = self;
-    self.prisonSelectViewController.delegate = self;
-    [self.view addSubview:self.prisonSelectViewController.view];
-    [self.prisonSelectViewController.view mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(closeButton.mas_bottom).offset(10);
-        make.left.bottom.right.mas_equalTo(0);
-    }];
-    if (self.numberOfPages >= 1) {
-        self.prisonSelectViewController.selectIndex = (int)self.numberOfPages - 1;
-    }
 }
 
 - (void)requestData {
@@ -149,6 +110,49 @@
     }
 }
 
+
+#pragma mark - UI
+- (void)renderContents {
+    UILabel *titleLabel = [UILabel new];
+    titleLabel.textAlignment = NSTextAlignmentCenter;
+    titleLabel.font = AppBaseTextFont1;
+    titleLabel.textColor = AppBaseTextColor1;
+    NSString*please_choose=NSLocalizedString(@"please_choose", @"请选择");
+    titleLabel.text = please_choose;
+    [titleLabel sizeToFit];
+    [self.view addSubview:titleLabel];
+    [titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(10);
+        make.centerX.mas_equalTo(self.view);
+        make.size.mas_equalTo(titleLabel.frame.size);
+    }];
+    
+    UIButton *closeButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [closeButton addTarget:self action:@selector(closeAction:) forControlEvents:UIControlEventTouchUpInside];
+    NSString*close=NSLocalizedString(@"close", @"关闭");
+    [closeButton setTitle:close forState:UIControlStateNormal];
+    closeButton.titleLabel.font = AppBaseTextFont1;
+    [closeButton setTitleColor:AppBaseTextColor1 forState:UIControlStateNormal];
+    [self.view addSubview:closeButton];
+    [closeButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.top.mas_equalTo(0);
+        make.size.mas_equalTo(CGSizeMake(80, 40));
+    }];
+    
+    self.prisonSelectViewController = [[PSPrisonSelectViewController alloc] init];
+    self.prisonSelectViewController.dataSource = self;
+    self.prisonSelectViewController.delegate = self;
+    [self.view addSubview:self.prisonSelectViewController.view];
+    [self.prisonSelectViewController.view mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(closeButton.mas_bottom).offset(10);
+        make.left.bottom.right.mas_equalTo(0);
+    }];
+    if (self.numberOfPages >= 1) {
+        self.prisonSelectViewController.selectIndex = (int)self.numberOfPages - 1;
+    }
+}
+
+#pragma mark - lifeCycle
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.

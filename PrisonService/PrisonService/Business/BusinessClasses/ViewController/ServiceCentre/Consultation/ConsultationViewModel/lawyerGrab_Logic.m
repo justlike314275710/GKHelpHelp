@@ -48,6 +48,7 @@
     self.page ++;
     [self requestMyAdviceCompleted:completedCallback failed:failedCallback];
 }
+
 //可抢定单
 -(void)requestMyAdviceCompleted:(RequestDataCompleted)completedCallback failed:(RequestDataFailed)failedCallback{
     manager=[AFHTTPSessionManager manager];

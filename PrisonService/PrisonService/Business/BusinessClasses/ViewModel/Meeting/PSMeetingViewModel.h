@@ -36,4 +36,7 @@ typedef NS_ENUM(NSInteger, PSFaceType) {
 - (void)requestUpdateMeetingCoordinateCompleted:(RequestDataCompleted)completedCallback failed:(RequestDataFailed)failedCallback;
 
 - (void)requestUpdateFreeMeetingCoordinateCompleted:(RequestDataCompleted)completedCallback failed:(RequestDataFailed)failedCallback;
+
+
+
 @end

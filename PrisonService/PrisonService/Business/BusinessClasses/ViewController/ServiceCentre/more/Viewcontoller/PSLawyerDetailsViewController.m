@@ -27,6 +27,7 @@
     }
     return self;
 }
+
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     self.tabBarController.tabBar.hidden=YES;
@@ -89,35 +90,6 @@
 }
 
 
-/*
-#pragma mark - DZNEmptyDataSetSource and DZNEmptyDataSetDelegate
-- (UIImage *)imageForEmptyDataSet:(UIScrollView *)scrollView {
-    PSPinmoneyViewModel *PinmoneyViewModel  =(PSPinmoneyViewModel *)self.viewModel;
-    UIImage *emptyImage = PinmoneyViewModel.dataStatus == PSDataEmpty ? [UIImage imageNamed:@"universalNoneIcon"] : [UIImage imageNamed:@"universalNetErrorIcon"];
-    return PinmoneyViewModel.dataStatus == PSDataInitial ? nil : emptyImage;
-}
-
-- (NSAttributedString *)titleForEmptyDataSet:(UIScrollView *)scrollView {
-    PSPinmoneyViewModel *PinmoneyViewModel  =(PSPinmoneyViewModel *)self.viewModel;
-    NSString *tips = PinmoneyViewModel.dataStatus == PSDataEmpty ? EMPTY_CONTENT : NET_ERROR;
-    return PinmoneyViewModel.dataStatus == PSDataInitial ? nil : [[NSAttributedString alloc] initWithString:tips attributes:@{NSFontAttributeName:AppBaseTextFont1,NSForegroundColorAttributeName:AppBaseTextColor1}];
-    
-}
-
-- (NSAttributedString *)buttonTitleForEmptyDataSet:(UIScrollView *)scrollView forState:(UIControlState)state {
-    PSPinmoneyViewModel *PinmoneyViewModel  =(PSPinmoneyViewModel *)self.viewModel;
-    return PinmoneyViewModel.dataStatus == PSDataError ? [[NSAttributedString alloc] initWithString:@"点击加载" attributes:@{NSFontAttributeName:AppBaseTextFont1,NSForegroundColorAttributeName:AppBaseTextColor1}] : nil;
-}
-
-- (void)emptyDataSet:(UIScrollView *)scrollView didTapView:(UIView *)view {
-    [self refreshData];
-}
-
-- (void)emptyDataSet:(UIScrollView *)scrollView didTapButton:(UIButton *)button {
-    [self refreshData];
-}
-
-*/
 #pragma mark  - UI
 - (void)renderContents {
     self.view.backgroundColor=UIColorFromRGBA(248, 247, 254, 1);
@@ -130,7 +102,6 @@
         make.height.mas_equalTo(140);
     }];
     
-
     self.LawyersTableview = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
     self.LawyersTableview.showsVerticalScrollIndicator=NO;
     self.LawyersTableview.dataSource = self;
@@ -159,8 +130,6 @@
         make.bottom.mas_equalTo(-30);
         make.height.mas_equalTo(44);
     }];
-    
-    
 }
 
 

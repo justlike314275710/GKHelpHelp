@@ -37,7 +37,7 @@
 @end
 
 @implementation PSVistorHomeViewController
-
+#pragma mark - lifeCycle
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     //注册检测网络通知
@@ -49,11 +49,6 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self name:NotificationNoNetwork object:nil];
 }
 
-#pragma mark - Notification
--(void)nonetWork {
-    [self showInternetError];
-}
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self renderContents];
@@ -61,6 +56,12 @@
     
     // Do any additional setup after loading the view.
 }
+
+#pragma mark - Notification
+-(void)nonetWork {
+    [self showInternetError];
+}
+
 
 -(void)renderRightBarButtonItem{
     UIButton *rButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -94,15 +95,12 @@
     return [UIImage imageNamed:@"homeDrawerIcon"];
 }
 
-
-
 - (void)navigationOnClickListener {
-
     [self.navigationController pushViewController:[[PSVisitorViewController alloc]initWithViewModel:[[PSRegisterViewModel alloc] init]] animated:YES];
 }
 
 
-
+#pragma mark - UI
 - (void)renderContents {
     //self.title =[LXFileManager readUserDataForKey:@"vistorTitle"];
     NSString *titleSting=[NSString stringWithFormat:@"%@ ▼",[LXFileManager readUserDataForKey:@"vistorTitle"]];
@@ -111,10 +109,6 @@
     _titleButton.titleLabel.font=FontOfSize(18);
     [_titleButton setTitleColor:AppBaseTextColor1 forState:UIControlStateNormal];
     [_titleButton sizeToFit];
-    
-
-    
-
     
     //添加事件
     [_titleButton addTarget:self action:@selector(navigationOnClickListener) forControlEvents:UIControlEventTouchUpInside];
@@ -139,6 +133,7 @@
     }];
 }
 
+#pragma mark - Event
 - (void)selectHallFunctionAtIndex:(NSInteger)index {
     NSString*prison_introduction=NSLocalizedString(@"prison_introduction", nil);
     NSString*prison_opening=NSLocalizedString(@"prison_opening", nil);
@@ -211,7 +206,7 @@
     // Dispose of any resources that can be recreated.
 }
 
-#pragma mark -
+#pragma mark -delegate
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
     return 3;
 }

@@ -10,8 +10,6 @@
 
 
 @interface serciceIiem : UIView
-
-
 - (id)initWithFrame:(CGRect)frame
           logoImage:(NSString *)logoImage
               title:(NSString *)title

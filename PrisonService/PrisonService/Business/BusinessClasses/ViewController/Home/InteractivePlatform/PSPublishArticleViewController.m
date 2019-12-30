@@ -82,7 +82,6 @@
 }
 
 -(void)refreshUI{
-    
     PSPublishArticleViewModel *viewModel = (PSPublishArticleViewModel *)self.viewModel;
     self.authorField.text = viewModel.model.pseudonym;
     if (self.authorField.text.length>0) {

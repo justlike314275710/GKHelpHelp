@@ -50,13 +50,7 @@
 - (void)renderContents {
     PSAccountViewModel *accountViewModel =(PSAccountViewModel *)self.viewModel;
     self.acctountTopView = [PSAccountTopView new];
-    //[self.acctountTopView.avatarImageView sd_setImageWithURL:[NSURL URLWithString:PICURL([PSSessionManager sharedInstance].session.families.avatarUrl)] placeholderImage:[UIImage imageNamed:@"userCenterDefaultAvatar"]];
-//    self.acctountTopView.avatarView.thumbnailUrls = @[PICURL([PSSessionManager sharedInstance].session.families.avatarUrl)];
-//    self.acctountTopView.avatarView.originalUrls = @[PICURL([PSSessionManager sharedInstance].session.families.avatarUrl)];
-    
-    //_avatarView.placeholderImage = [UIImage imageNamed:@"userCenterDefaultAvatar"];
-//    NSURL *imageURL  = [NSURL URLWithString:PICURL([PSSessionManager sharedInstance].session.families.avatarUrl)];
-//    [self.acctountTopView.avatarView sd_setImageWithURL:imageURL placeholderImage:IMAGE_NAMED(@"userCenterDefaultAvatar")];
+   
     self.acctountTopView.avatarView.image = accountViewModel.avatarImage;
     self.acctountTopView.nicknameLabel.text = [PSSessionManager sharedInstance].session.families.name;
     CGFloat topHeight = SCREEN_WIDTH * self.acctountTopView.topRate + SCREEN_WIDTH * self.acctountTopView.infoRate - 40;
@@ -137,6 +131,8 @@
 - (BOOL)hiddenNavigationBar {
     return YES;
 }
+
+#pragma mark - lifeCycle
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     self.tabBarController.tabBar.hidden = YES;
@@ -148,7 +144,8 @@
     [self renderContents];
 }
 
-#pragma mark - 点击头像
+#pragma mark - Event
+ // 点击头像
 - (void)clickAvatarView {
     [SDTrackTool logEvent:ZHXX_PAGE_XGTX];
     LLActionSheetView *alertView = [[LLActionSheetView alloc]initWithTitleArray:@[@"相册选择",@"拍照",@"更换头像"] andShowCancel:YES];

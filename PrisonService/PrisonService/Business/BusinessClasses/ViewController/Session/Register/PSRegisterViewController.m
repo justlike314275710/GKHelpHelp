@@ -52,15 +52,13 @@
     return self;
 }
 
-
-
+#pragma mark - Event
 - (IBAction)nextStep:(id)sender {
     PSRegisterViewModel *registerViewModel = (PSRegisterViewModel *)self.viewModel;
     switch (self.progressView.progress) {
         case PSRegisterProgressMember:
         {
             @weakify(self)
-           
             [registerViewModel checkMemberDataWithCallback:^(BOOL successful, NSString *tips) {
                 @strongify(self)
                 if (successful) {
@@ -82,8 +80,7 @@
                 if (successful) {
                     self.progressView.progress += 1;
                     self.registerPageController.selectIndex = self.progressView.progress;
-                    
-                    
+                
                 }else{
                     [PSTipsView showTips:tips];
                 }
@@ -92,10 +89,7 @@
             break;
         case PSRegisterProgressrelation:
         {
-
             [self actionOfRegister];
-
-
         }
             break;
             
@@ -119,7 +113,6 @@
 }
 
 -(void)guideAction{
-   
     switch (self.progressView.progress) {
         case PSRegisterProgressMember:{
             [self presentViewController:[[MemberGuideVC alloc]init] animated:YES completion:nil];
@@ -130,11 +123,12 @@
         case PSRegisterProgressIDCard:{
             [self presentViewController:[[IDCardGuideVC alloc]init] animated:YES completion:nil];
         }break;
-
         default:
             break;
     }
 }
+
+
 - (IBAction)preStep:(id)sender {
     self.progressView.progress -= 1;
     self.registerPageController.selectIndex = self.progressView.progress;
@@ -207,7 +201,6 @@
 }
 
 
-
 - (void)reloadStepButtons {
     CGSize bSize = CGSizeMake(90, 35);
     if (self.progressView.progress == PSRegisterProgressMember) {
@@ -256,11 +249,12 @@
     self.registerPageController.selectIndex = self.progressView.progress;
     [self reloadStepButtons];
 }
+
+#pragma mark - UI
 -(void)renderRightBarButtonItem{
     UIButton *rButton = [UIButton buttonWithType:UIButtonTypeCustom];
     rButton.exclusiveTouch = YES;
     CGSize defaultSize = CGSizeMake(15, 15);
-  
     UIImage*nImage=[UIImage imageNamed:@"guidanceIcon"];
     if (nImage.size.width > defaultSize.width) {
         defaultSize.width = nImage.size.width;
@@ -281,8 +275,8 @@
     [customView  addGestureRecognizer:tapGesturRecognizer];
     UIBarButtonItem *barItem = [[UIBarButtonItem alloc] initWithCustomView:customView];
     self.navigationItem.rightBarButtonItem=barItem;
-
 }
+
 - (void)renderContents {
     self.progressView = [PSRegisterProgressView new];
     [self.view addSubview:self.progressView];
@@ -322,24 +316,21 @@
     [self.registerButton setTitle:@"认证" forState:UIControlStateNormal];
     [self.view addSubview:self.registerButton];
     [self reloadStepButtons];
-    
 }
 
 - (void)initialize {
     
 }
 
+#pragma mark - lifeCycle
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
     [self renderContents];
     [self renderRightBarButtonItem];
-
 }
 
 
 
-#pragma mark 0
 #pragma mark - WMPageControllerDataSource
 - (NSInteger)numbersOfChildControllersInPageController:(WMPageController *)pageController {
     return 3;
@@ -356,7 +347,6 @@
 - (__kindof UIViewController *)pageController:(WMPageController *)pageController viewControllerAtIndex:(NSInteger)index {
     UIViewController *viewController = nil;
     switch (index) {
-
         case 0:
         {
             if (!self.memberViewController) {

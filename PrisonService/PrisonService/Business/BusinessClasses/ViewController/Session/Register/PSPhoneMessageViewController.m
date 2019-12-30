@@ -40,10 +40,8 @@
     [[PSCountdownManager sharedInstance] removeObserver:self];
 }
 
-
+#pragma mark - Event
 - (IBAction)cameraAction:(id)sender {
-    
-    
     NSString*determine=NSLocalizedString(@"determine", @"确定");
     NSString*cancel=NSLocalizedString(@"cancel", @"取消");
     NSString*be_careful=NSLocalizedString(@"be_careful", @"注意");
@@ -84,7 +82,6 @@
 
 
 -(void)containFace:(UIImage*)faceImage{
-    
     NSString *faceError = NSLocalizedString(@"faceError", @"您上传的头像未能通过人脸识别,请重新上传");
     [[HRFaceManager sharedInstance] registHRSDK:^(PSHRFaceBackResultType result) {
         if (result==PSFaceBackSDKRegistFail) {
@@ -203,6 +200,7 @@
     [self updateProtocolText];
 }
 
+#pragma mark - UI
 - (void)renderContents {
     CGFloat sidePadding = 40;
     CGFloat vHeight = 44;
@@ -282,7 +280,6 @@
                 [self updateProtocolStatus];
             }
         }
-       // [self openProtocol];
     }];
 
     int bottom = kTabBarHeight==83?-30:20;
@@ -296,6 +293,7 @@
     [self updateProtocolText];
 }
 
+#pragma mark - LifeCycle
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.

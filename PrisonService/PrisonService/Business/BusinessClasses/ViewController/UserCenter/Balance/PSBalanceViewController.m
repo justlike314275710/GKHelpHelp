@@ -75,8 +75,8 @@
     }];
 }
 
+//退款
 - (void)refundAction {
-    
     if ([self.balanceSting floatValue] == 0) {
         [PSTipsView showTips:@"当前没有可退款金额!"];
         return;
@@ -139,8 +139,37 @@
     }];
 }
 
-- (void)renderContents {
+
+
+
+-(void)AccountDetails{
+    [SDTrackTool logEvent:YCTS_PAGE_YCTSMX];
+    PSRefundViewController *refundViewController = [[PSRefundViewController alloc] initWithViewModel:[PSTransactionRecordViewModel new]];
+    [self.navigationController pushViewController:refundViewController  animated:YES];
+}
+
+#pragma mark - lifeCycle
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    // Do any additional setup after loading the view.
+    self.view.backgroundColor = [UIColor whiteColor];
+    NSString *title = NSLocalizedString(@"Family card service", @"远程探视卡服务");
+    self.title = title;
+    self.balanceSting = @"0";
+    [self requestBalance];
+    [self requestInfoPhoneCard];
+    [self p_setUI];
  
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    self.tabBarController.tabBar.hidden = YES;
+}
+
+
+#pragma mark - UI
+- (void)renderContents {
     self.balanceTopView = [PSBalanceTopView new];
     @weakify(self)
     [self.balanceTopView.refundButton bk_whenTapped:^{
@@ -155,7 +184,7 @@
     else{
         self.balanceTopView.refundButton.hidden=NO;
     }
-
+    
     CGFloat topHeight = SCREEN_WIDTH * self.balanceTopView.topRate + SCREEN_WIDTH * self.balanceTopView.infoRate - 40;
     [self.view addSubview:self.balanceTopView];
     [self.balanceTopView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -191,7 +220,7 @@
     titleLabel.font = AppBaseTextFont1;
     titleLabel.textAlignment = NSTextAlignmentCenter;
     titleLabel.textColor = [UIColor whiteColor];
-     NSString*userCenterBalance=NSLocalizedString(@"userCenterBalance", @"我的余额");
+    NSString*userCenterBalance=NSLocalizedString(@"userCenterBalance", @"我的余额");
     titleLabel.text = userCenterBalance;
     [self.view addSubview:titleLabel];
     [titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -202,29 +231,9 @@
     }];
 }
 
-
--(void)AccountDetails{
-    [SDTrackTool logEvent:YCTS_PAGE_YCTSMX];
-    PSRefundViewController *refundViewController = [[PSRefundViewController alloc] initWithViewModel:[PSTransactionRecordViewModel new]];
-    [self.navigationController pushViewController:refundViewController  animated:YES];
-}
-
-
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    // Do any additional setup after loading the view.
-    self.view.backgroundColor = [UIColor whiteColor];
-    NSString *title = NSLocalizedString(@"Family card service", @"远程探视卡服务");
-    self.title = title;
-    self.balanceSting = @"0";
-    [self requestBalance];
-    [self requestInfoPhoneCard];
-    [self p_setUI];
- 
-}
-
+#pragma mark - Event
+//监狱会见价格
 - (void)requestInfoPhoneCard {
-    
     self.cartViewModel = [PSCartViewModel new];
     [[PSLoadingView sharedInstance] show];
     @weakify(self)
@@ -242,7 +251,6 @@
 }
 
 -(void)payTips{
-    
     _prisonerDetail = nil;
     NSInteger index = [PSSessionManager sharedInstance].selectedPrisonerIndex;
     NSArray *details = [PSSessionManager sharedInstance].passedPrisonerDetails;
@@ -294,7 +302,6 @@
 
 
 - (void)p_setUI {
-    
     NSString *Account_details = NSLocalizedString(@"Account_details", @"远程探视卡明细");
     [self createRightBarButtonItemWithTarget:self action:@selector(AccountDetails) title:Account_details];
     //banner
@@ -464,10 +471,6 @@
     }
 }
 
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    self.tabBarController.tabBar.hidden = YES;
-}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -520,7 +523,6 @@
 }
 
 - (void)buyCard:(NSInteger)index {
-    
     PSCartViewModel *cartViewModel = self.cartViewModel;
     cartViewModel.amount = index*_buyModel.Amount_of_money;
     cartViewModel.totalQuantity = index;

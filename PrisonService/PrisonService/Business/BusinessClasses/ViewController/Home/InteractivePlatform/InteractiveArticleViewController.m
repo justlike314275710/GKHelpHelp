@@ -23,7 +23,7 @@
 @end
 
 @implementation InteractiveArticleViewController
-
+#pragma mark - lifeCycle
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"互动文章";
@@ -37,6 +37,7 @@
      [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(coverWindowClick) name:@"statusBarTappedNotification" object:nil];
 }
 
+//点击顶部状态栏刷新
 - (void)coverWindowClick {
     PSPublishArtcleListViewModel *messageViewModel = (PSPublishArtcleListViewModel *)self.viewModel;
     if (messageViewModel.messages.count>1) {

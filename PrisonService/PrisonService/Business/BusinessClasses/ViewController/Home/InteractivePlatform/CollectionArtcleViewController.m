@@ -23,7 +23,7 @@
 @end
 
 @implementation CollectionArtcleViewController
-
+#pragma mark - lifeCycle
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"收藏文章";
@@ -43,7 +43,6 @@
 
 #pragma mark - PrivateMethods
 - (void)coverWindowClick {
-    
     PSCollecArtcleListViewModel *messageViewModel = (PSCollecArtcleListViewModel *)self.viewModel;
     if (messageViewModel.messages.count>1) {
         NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];

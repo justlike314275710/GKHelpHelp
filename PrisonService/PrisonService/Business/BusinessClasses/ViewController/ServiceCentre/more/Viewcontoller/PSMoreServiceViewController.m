@@ -23,37 +23,25 @@
     self = [super initWithViewModel:viewModel];
     if (self) {
         NSString *title = NSLocalizedString(@"legal_service", @"财产纠纷");
-        //        title = @"财产纠纷";
         self.title = title;
     }
     return self;
 }
+
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     self.tabBarController.tabBar.hidden=YES;
     
 }
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor=UIColorFromRGBA(248, 247, 254, 1);
     [self p_setUI];
     [self refreshData];
 }
-#pragma mark - PrivateMethods
-- (void)p_setUI {
-    
-    [self.view addSubview:self.myTableview];
-    [self.myTableview mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.edges.equalTo(self.view).with.insets(UIEdgeInsetsMake(0,0,0,0));
-    }];
-    [self.myTableview registerClass:MoreRoloCell.class forCellReuseIdentifier:@"MoreRoloCell"];
-    @weakify(self);
-    self.myTableview.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
-        @strongify(self);
-        [self refreshData];
-    }];
-}
 
+#pragma mark - PrivateMethods
 - (void)refreshData {
     PSLawerViewModel *viewModel =(PSLawerViewModel *)self.viewModel;
     [[PSLoadingView sharedInstance] show];
@@ -72,14 +60,24 @@
             [self showNetError:error];
         });
     }];
-    
-    
 }
 
+#pragma mark - UI
+- (void)p_setUI {
+    [self.view addSubview:self.myTableview];
+    [self.myTableview mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(self.view).with.insets(UIEdgeInsetsMake(0,0,0,0));
+    }];
+    [self.myTableview registerClass:MoreRoloCell.class forCellReuseIdentifier:@"MoreRoloCell"];
+    @weakify(self);
+    self.myTableview.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        @strongify(self);
+        [self refreshData];
+    }];
+}
 
 - (void)reloadContents {
     PSLawerViewModel *viewModel =(PSLawerViewModel *)self.viewModel;
-    
     if (viewModel.hasNextPage) {
         @weakify(self)
         self.myTableview .mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
@@ -94,6 +92,7 @@
     [self.myTableview  reloadData];
 }
 
+#pragma mark -- Event
 - (void)loadMore {
     PSLawerViewModel*viewModel =(PSLawerViewModel *)self.viewModel;
     @weakify(self)
