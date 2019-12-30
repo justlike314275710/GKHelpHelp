@@ -25,20 +25,20 @@
         CGFloat verPadding = VerSidePadding;
         CGFloat labelHeight = DefaultLabelHeight;
         _contentLabel = [UILabel new];
-        _contentLabel.font = AppBaseTextFont3;
+        _contentLabel.font = FontOfSize(18);
         _contentLabel.textColor =  UIColorFromRGB(51, 51, 51);
         _contentLabel.textAlignment = NSTextAlignmentRight;
         [self.contentView addSubview: _contentLabel];
         [_contentLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.right.mas_equalTo(-sidePadding);
             make.width.mas_equalTo(100);
-            make.top.mas_equalTo(verPadding);
+            make.top.mas_equalTo(10);
             make.height.mas_equalTo(15);
         }];
     
         _titleLabel = [UILabel new];
         _titleLabel.font = AppBaseTextFont3;
-        _titleLabel.textColor = [UIColor darkGrayColor];
+        _titleLabel.textColor = UIColorFromRGB(51, 51, 51);
         _titleLabel.textAlignment = NSTextAlignmentLeft;
         _titleLabel.numberOfLines=0;
         [self.contentView addSubview:_titleLabel];
@@ -47,12 +47,8 @@
             make.left.mas_equalTo(sidePadding);
             make.right.mas_equalTo(_contentLabel.mas_left).offset(0);
             make.top.mas_equalTo(2);
-//            if ([NSObject judegeIsVietnamVersion]) {
-                make.height.mas_equalTo(35);
-                make.top.mas_equalTo(0);
-//            } else {
-//                make.height.mas_equalTo(10);
-//            }
+            make.height.mas_equalTo(35);
+            make.top.mas_equalTo(0);
         }];
       
         _dateLabel = [UILabel new];
@@ -64,7 +60,7 @@
             make.left.mas_equalTo(17);
             make.right.mas_equalTo(-sidePadding);
             make.height.mas_equalTo(15);
-            make.top.mas_equalTo(_titleLabel.mas_bottom).offset(0);
+            make.top.mas_equalTo(_titleLabel.mas_bottom).offset(-2);
         }];
         
         _payWayLab = [UILabel new];
@@ -76,7 +72,7 @@
             make.left.mas_equalTo(17);
             make.right.mas_equalTo(-sidePadding);
             make.height.mas_equalTo(15);
-            make.top.mas_equalTo(_dateLabel.mas_bottom).offset(0);
+            make.top.mas_equalTo(_dateLabel.mas_bottom).offset(2);
         }];
         
         _orderNoLab = [UILabel new];
@@ -88,7 +84,7 @@
             make.left.mas_equalTo(17);
             make.right.mas_equalTo(-sidePadding);
             make.height.mas_equalTo(15);
-            make.top.mas_equalTo(_payWayLab.mas_bottom).offset(0);
+            make.top.mas_equalTo(_payWayLab.mas_bottom).offset(2);
         }];
     }
     return self;

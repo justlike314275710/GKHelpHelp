@@ -69,11 +69,9 @@
 //法律法规列表
 #define LawUrl [NSString stringWithFormat:@"%@/h5/#/law/list?t=%@",H5ServerDomain,[NSDate getNowTimeTimestamp]]
 //新闻详情 后面接新闻id
-
 #define NewsUrl [NSString stringWithFormat:@"%@/h5/#/news/detail",H5ServerDomain]
 #define AppToken @"523b87c4419da5f9186dbe8aa90f37a3876b95e448fe2a"
 #define AppUserSessionCacheKey @"AppUserSessionCacheKey"
-
 //根据username获取头像url
 #define AvaterImageWithUsername(username)  [NSString stringWithFormat:@"%@/users/by-username/avatar?username=%@",EmallHostUrl,username]
 

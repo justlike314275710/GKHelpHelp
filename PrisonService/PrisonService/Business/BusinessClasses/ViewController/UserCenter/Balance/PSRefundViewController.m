@@ -114,7 +114,7 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return 40;
+    return 47;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
@@ -135,20 +135,27 @@
     NSString *rechargeTotal = model.rechargeTotal; //充值
     NSString *consumeTotal = model.consumeTotal; //消费
     
+    if ([model.createdMonth containsString:@"-"]) {
+        NSArray *monthData = [model.createdMonth componentsSeparatedByString:@"-"];
+        NSString *year = monthData[0];
+        NSString *month = monthData[1];
+        createdMonth = [NSString stringWithFormat:@"%@年%@月",year,month];
+    }
     NSDate *date = [NSDate date];
     NSString *nowMonth= [date dateStringWithFormat:@"yyyy-MM"];
     if ([nowMonth isEqualToString:model.createdMonth]) {
         NSString *this_month = NSLocalizedString(@"This month", @"本月");
         createdMonth = this_month;
     }
-    UIView *headView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.width, 60)];
+    UIView *headView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.width,47)];
     headView.backgroundColor = UIColorFromRGB(249, 248, 254);
-    UILabel *monthLab = [[UILabel alloc] initWithFrame:CGRectMake(15,0, 200, 20)];
+    UILabel *monthLab = [[UILabel alloc] initWithFrame:CGRectMake(15,10, 200, 15)];
     monthLab.textAlignment = NSTextAlignmentLeft;
     monthLab.font = FontOfSize(12);
     monthLab.textColor = UIColorFromRGB(51,51,51);
     monthLab.text = createdMonth;
     [headView addSubview:monthLab];
+    
     
     NSString *Recharge = NSLocalizedString(@"Recharge", @"充值");
     NSString *refund = NSLocalizedString(@"refund", @"退款");
@@ -158,7 +165,7 @@
     if ([NSObject judegeIsVietnamVersion]) {
         text = [NSString stringWithFormat:@"%@%.2f %@%.2f %@%.2f",Recharge,[rechargeTotal floatValue],refund,[refundTotal floatValue],consumption,[consumeTotal floatValue]];
     }
-    UILabel *czLab = [[UILabel alloc] initWithFrame:CGRectMake(15, monthLab.bottom,headView.width-15,20)];
+    UILabel *czLab = [[UILabel alloc] initWithFrame:CGRectMake(15, monthLab.bottom,headView.width-15,15)];
     czLab.text = text;
     czLab.textAlignment = NSTextAlignmentLeft;
     czLab.font = FontOfSize(10);
@@ -176,7 +183,15 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 80;
+    PSTransactionRecordViewModel *recordViewModel =(PSTransactionRecordViewModel *)self.viewModel;
+    NSArray *month = recordViewModel.transMonths;
+    NSArray *monthItem = month[indexPath.section];
+    PSTransactionRecord *recordModel = monthItem[indexPath.row];
+    if (recordModel.paymentType.length&&recordModel.paymentType.length>0) {
+        return 92;
+    } else {
+        return 62;
+    }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -201,8 +216,8 @@
         }
     } else {
         cell.payWayLab.text = @"";
-        cell.dateLabel.text = @"";
-        cell.payWayLab.text=[recordModel.createdAt timestampToDateDetailString];
+        cell.dateLabel.text = [recordModel.createdAt timestampToDateDetailSecondString];
+        cell.payWayLab.text= @"";
     }
     if (recordModel.orderNo&&recordModel.orderNo.length>0) {
         NSString *orderStr = NSLocalizedString(@"Order number", @"订单编号");
@@ -216,10 +231,9 @@
     } else {
         cell.contentLabel.textColor =  UIColorFromRGB(51, 51, 51);
     }
-
+    
     return cell;
 }
-
 
 #pragma mark - DZNEmptyDataSetSource and DZNEmptyDataSetDelegate
 - (UIImage *)imageForEmptyDataSet:(UIScrollView *)scrollView {

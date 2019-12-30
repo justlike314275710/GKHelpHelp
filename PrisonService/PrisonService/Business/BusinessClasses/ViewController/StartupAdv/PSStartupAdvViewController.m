@@ -24,7 +24,7 @@
     }
     return self;
 }
-
+    
 - (void)dealloc {
     [[PSCountdownManager sharedInstance] removeObserver:self];
 }
@@ -82,12 +82,10 @@
         [self advDisplayCompleted];
     }
 }
-
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
 /*
 #pragma mark - Navigation
 

@@ -25,13 +25,16 @@
 }
 
 - (void)guideAction:(LaunchTaskCompletion)completion {
-    BOOL didGuide = [[[NSUserDefaults standardUserDefaults] objectForKey:DID_GUIDE_KEY] boolValue];
+    //每次更新出现一次 加上版本号
+    NSString *localVersion = [[[NSBundle mainBundle]infoDictionary]objectForKey:@"CFBundleShortVersionString"];
+    NSString *key = [NSString stringWithFormat:@"%@_%@",localVersion,DID_GUIDE_KEY];
+    BOOL didGuide = [[[NSUserDefaults standardUserDefaults] objectForKey:key] boolValue];
     if (didGuide) {
         if (completion) {
             completion(YES);
         }
     }else{
-        [[NSUserDefaults standardUserDefaults] setObject:@(YES) forKey:DID_GUIDE_KEY];
+        [[NSUserDefaults standardUserDefaults] setObject:@(YES) forKey:key];
         [[NSUserDefaults standardUserDefaults] synchronize];
         PSGuideViewController *guideViewController = [PSGuideViewController new];
         NSString*guideOne=NSLocalizedString(@"guideOne", @"guideOne");

@@ -565,8 +565,6 @@ typedef UIImage *(^ImageBlock)(UIImageView *showImageView);
 }
 
 
-
-
 - (void)observerContext:(CaptureContextType)type Changed:(BOOL)boolValue {
     switch(type){
         case CaptureContextTypeRunningAndDeviceAuthorized:{
