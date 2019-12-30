@@ -335,7 +335,8 @@
         [manger deletePerson:personid];
     }
 }
-- (void)doLogout {
+- (void)
+doLogout {
     
     [self clearFaceData];
     [PSCache removeCacheForKey:AppUserSessionCacheKey];
@@ -344,26 +345,27 @@
     [[PSLaunchManager sharedInstance] launchFromLogout];
     [self clearAllUserDefaultsData];
 }
-
-
+    
 - (void)clearAllUserDefaultsData{
     //版本号
     NSString *localVersion = [[[NSBundle mainBundle]infoDictionary]objectForKey:@"CFBundleShortVersionString"];
     NSUserDefaults*userDefaults = [NSUserDefaults  standardUserDefaults];
+    //引导页标志KEY
+    NSString *guideKey = [NSString stringWithFormat:@"%@_%@",localVersion,@"DID_GUIDE_KEY"];
+    
     NSDictionary*dic = [userDefaults  dictionaryRepresentation];
     for(id key in dic) {
         //版本更新的不去掉 // //1.2.13版本强制退出标志不去掉 //电话号码不去掉
         if (![key isEqualToString:localVersion]&&
             ![key isEqualToString:forceLogoutKey]&&
+            ![key isEqualToString:guideKey]&&
             ![key isEqualToString:@"phoneNumber"]) {
             [userDefaults  removeObjectForKey:key];
         }
     }
-
     [userDefaults  synchronize];
-    
 }
-
+    
 #pragma mark -
 - (void)launchTaskWithCompletion:(LaunchTaskCompletion)completion {
     [self doLogin:^(BOOL completed) {

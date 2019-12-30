@@ -74,7 +74,6 @@
     
 }
 
-
 - (void)addLocalMeetingDetailCompleted:(RequestDataCompleted)completedCallback failed:(RequestDataFailed)failedCallback {
     self.addMeetingRequest = [PSAddLocalMeetingRequest new];
     self.addMeetingRequest.familyId = [PSSessionManager sharedInstance].session.families.id;

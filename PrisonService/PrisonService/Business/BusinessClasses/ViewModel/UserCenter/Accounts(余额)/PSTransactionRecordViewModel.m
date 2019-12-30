@@ -75,50 +75,51 @@
     for (PSTransactionRecord *records in transactionRecords) {
         NSString *title = nil;
         NSString *balance = nil;
+        CGFloat  money = [records.money floatValue];
         switch (records.type) {
             case PSRefundRecharge:
             {
                 //title = @"电话卡充值";
                 title =records.reason;
-                balance=[NSString stringWithFormat:@"+¥%@",records.money];
+                balance=[NSString stringWithFormat:@"+%.2f",money];
             }
                 break;
             case PSRefundMeeting:
             {
                 title=NSLocalizedString(@"PSRefundMeeting", @"申请视频会见扣款");
                 //title = @"申请视频会见扣款";
-                balance=[NSString stringWithFormat:@"-¥%@",records.money];
+                balance=[NSString stringWithFormat:@"-%.2f",money];
             }
                 break;
             case PSRefundRefund:
             {
                 title = NSLocalizedString(@"PSRefundRefund", @"申请视频会见退款中");
-                balance=[NSString stringWithFormat:@"-¥%@",records.money];
+                balance=[NSString stringWithFormat:@"-%.2f",money];
             }
                 break;
                 
             case PSRefundSuccess:{
                 title = NSLocalizedString(@"PSRefundSuccess", @"退款成功");
-                balance=[NSString stringWithFormat:@"-¥%@",records.money];
+                balance=[NSString stringWithFormat:@"-%.2f",money];
             }
                 break;
                 
             case PSRefundFail:{
                 title = NSLocalizedString(@"PSRefundFail", @"退款失败");
                 //title = @"退款失败";
-                balance=[NSString stringWithFormat:@"¥%@",records.money];
+                balance=[NSString stringWithFormat:@"%.2f",money];
             }
                 break;
             case PSRefundCardRecharge:{
                  title = NSLocalizedString(@"Family card recharge", @"远程探视充值");
 
-                balance=[NSString stringWithFormat:@"+¥%@",records.money];
+                balance=[NSString stringWithFormat:@"+%.2f",money];
             }
                 break;
             default:
             {
                 title=records.reason;
-                balance=[NSString stringWithFormat:@"+¥%@",records.money];
+                balance=[NSString stringWithFormat:@"+%.2f",money];
             }
                 break;
         }
